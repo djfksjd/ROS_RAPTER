@@ -1,0 +1,18 @@
+# Build and install artifacts
+build/
+install/
+log/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Environment and sensitive files
+.env
+*.key
+*.pem
+
+# IDE / Editor configurations
+.vscode/
+.idea/
+.DS_Store
