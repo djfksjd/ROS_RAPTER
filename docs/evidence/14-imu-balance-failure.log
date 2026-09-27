@@ -1,0 +1,3 @@
+[WARN] [1790476856.457279503] [rcl]: ROS_LOCALHOST_ONLY is deprecated but still honored if it is enabled. Use ROS_AUTOMATIC_DISCOVERY_RANGE and ROS_STATIC_PEERS instead.
+[WARN] [1790476856.457292336] [rcl]: 'localhost_only' is enabled, 'automatic_discovery_range' and 'static_peers' will be ignored.
+{"passed": false, "error": "Body tilt exceeded 0.25 rad"}

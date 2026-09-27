@@ -1,0 +1,538 @@
+{
+  "passed": false,
+  "samples": [
+    {
+      "sim_seconds": 0.0,
+      "roll": -0.01476030052958435,
+      "pitch": -1.7685666355840287e-07,
+      "roll_rate": -0.028708244855128448,
+      "roll_target": 0.35200000000000004,
+      "margin": -0.025069843551891617,
+      "desired_margin": -0.001304056361541384,
+      "contacts": {
+        "left": {
+          "recent": true,
+          "force_z": 169.48580833911717
+        },
+        "right": {
+          "recent": false,
+          "force_z": 0.0
+        }
+      }
+    },
+    {
+      "sim_seconds": 0.020999999999958163,
+      "roll": -0.015228201337684384,
+      "pitch": -1.1170963504739937e-07,
+      "roll_rate": -0.01858425505529901,
+      "roll_target": 0.36400000000000005,
+      "margin": -0.02477935752896182,
+      "desired_margin": -0.0010143736917895018,
+      "contacts": {
+        "left": {
+          "recent": true,
+          "force_z": 169.49303403164913
+        },
+        "right": {
+          "recent": false,
+          "force_z": 0.0
+        }
+      }
+    },
+    {
+      "sim_seconds": 0.04200000000003001,
+      "roll": -0.014294455295190786,
+      "pitch": -6.053229353047955e-08,
+      "roll_rate": 0.07097026469567017,
+      "roll_target": 0.37600000000000006,
+      "margin": -0.02457135273738488,
+      "desired_margin": 0.0017002742820143813,
+      "contacts": {
+        "left": {
+          "recent": true,
+          "force_z": 169.47401346648107
+        },
+        "right": {
+          "recent": false,
+          "force_z": 0.0
+        }
+      }
+    },
+    {
+      "sim_seconds": 0.06299999999998818,
+      "roll": -0.01136709681341628,
+      "pitch": 1.440010706857115e-06,
+      "roll_rate": 0.16777423349487627,
+      "roll_target": 0.38800000000000007,
+      "margin": -0.02440946384493861,
+      "desired_margin": 0.004692214100443799,
+      "contacts": {
+        "left": {
+          "recent": true,
+          "force_z": 169.48422418831638
+        },
+        "right": {
+          "recent": false,
+          "force_z": 0.0
+        }
+      }
+    },
+    {
+      "sim_seconds": 0.08399999999994634,
+      "roll": -0.008278206919716332,
+      "pitch": 1.585571364725255e-06,
+      "roll_rate": 0.20172681567008027,
+      "roll_target": 0.399542236328125,
+      "margin": -0.023483932493132312,
+      "desired_margin": 0.005803458262510918,
+      "contacts": {
+        "left": {
+          "recent": true,
+          "force_z": 169.4896665773796
+        },
+        "right": {
+          "recent": false,
+          "force_z": 0.0
+        }
+      }
+    },
+    {
+      "sim_seconds": 0.10599999999999454,
+      "roll": -0.0043374915508434505,
+      "pitch": 5.504059876772464e-06,
+      "roll_rate": 0.25147310555008856,
+      "roll_target": 0.406463623046875,
+      "margin": -0.023354130314323297,
+      "desired_margin": 0.007414068419977353,
+      "contacts": {
+        "left": {
+          "recent": true,
+          "force_z": 0.0
+        },
+        "right": {
+          "recent": false,
+          "force_z": 0.0
+        }
+      }
+    },
+    {
+      "sim_seconds": 0.1269999999999527,
+      "roll": 0.00038172588897724904,
+      "pitch": 2.6122535173115396e-05,
+      "roll_rate": 0.14044121176983632,
+      "roll_target": 0.405865478515625,
+      "margin": -0.02327577402686648,
+      "desired_margin": 0.0042246881297644066,
+      "contacts": {
+        "left": {
+          "recent": true,
+          "force_z": 0.0
+        },
+        "right": {
+          "recent": true,
+          "force_z": 186.88129205456966
+        }
+      }
+    },
+    {
+      "sim_seconds": 0.14800000000002456,
+      "roll": 0.002588078042550292,
+      "pitch": 0.00010767647127741545,
+      "roll_rate": 0.12402048801193927,
+      "roll_target": 0.40748901367187496,
+      "margin": -0.021828456548290832,
+      "desired_margin": 0.003798256981634687,
+      "contacts": {
+        "left": {
+          "recent": true,
+          "force_z": 0.0
+        },
+        "right": {
+          "recent": true,
+          "force_z": 152.45770707635197
+        }
+      }
+    },
+    {
+      "sim_seconds": 0.16899999999998272,
+      "roll": 0.002355737864226674,
+      "pitch": 0.00012600008674774546,
+      "roll_rate": -0.01898816068366596,
+      "roll_target": 0.399884033203125,
+      "margin": -0.019165663685750144,
+      "desired_margin": -0.0004989726845831785,
+      "contacts": {
+        "left": {
+          "recent": true,
+          "force_z": 0.0
+        },
+        "right": {
+          "recent": true,
+          "force_z": 134.67836308526208
+        }
+      }
+    },
+    {
+      "sim_seconds": 0.18999999999994088,
+      "roll": -0.0003208863264723308,
+      "pitch": 0.00012106918999991012,
+      "roll_rate": -0.11245020002905402,
+      "roll_target": 0.392193603515625,
+      "margin": -0.01526482912724321,
+      "desired_margin": -0.0033831325906657907,
+      "contacts": {
+        "left": {
+          "recent": true,
+          "force_z": 168.22763430569805
+        },
+        "right": {
+          "recent": true,
+          "force_z": 0.0
+        }
+      }
+    },
+    {
+      "sim_seconds": 0.21100000000001273,
+      "roll": -0.004727935395237113,
+      "pitch": 9.749074940632633e-05,
+      "roll_rate": -0.19738052423933522,
+      "roll_target": 0.38305053710937503,
+      "margin": -0.011131584432596174,
+      "desired_margin": -0.00606325378903717,
+      "contacts": {
+        "left": {
+          "recent": true,
+          "force_z": 168.3220772424625
+        },
+        "right": {
+          "recent": true,
+          "force_z": 0.0
+        }
+      }
+    },
+    {
+      "sim_seconds": 0.2319999999999709,
+      "roll": -0.009999205131029486,
+      "pitch": 7.977001849929383e-05,
+      "roll_rate": -0.24191718566226567,
+      "roll_target": 0.3749328613281251,
+      "margin": -0.007028911683603804,
+      "desired_margin": -0.007557491723798855,
+      "contacts": {
+        "left": {
+          "recent": true,
+          "force_z": 168.39745693299517
+        },
+        "right": {
+          "recent": true,
+          "force_z": 0.0
+        }
+      }
+    },
+    {
+      "sim_seconds": 0.25299999999992906,
+      "roll": -0.01623590732753676,
+      "pitch": 6.527645939779288e-05,
+      "roll_rate": -0.30361007329807904,
+      "roll_target": 0.3649353027343751,
+      "margin": -0.0025716486897837745,
+      "desired_margin": -0.009595379418768474,
+      "contacts": {
+        "left": {
+          "recent": true,
+          "force_z": 168.42853493012382
+        },
+        "right": {
+          "recent": true,
+          "force_z": 0.0
+        }
+      }
+    },
+    {
+      "sim_seconds": 0.27300000000002456,
+      "roll": -0.02265936441600239,
+      "pitch": 5.3421712237559955e-05,
+      "roll_rate": -0.3530206664817667,
+      "roll_target": 0.35527954101562503,
+      "margin": 0.001252077444402068,
+      "desired_margin": -0.011270400926933074,
+      "contacts": {
+        "left": {
+          "recent": true,
+          "force_z": 168.42515106954747
+        },
+        "right": {
+          "recent": true,
+          "force_z": 0.0
+        }
+      }
+    },
+    {
+      "sim_seconds": 0.2939999999999827,
+      "roll": -0.03850961420540262,
+      "pitch": 3.5793664327763794e-05,
+      "roll_rate": -0.4192519017297281,
+      "roll_target": 0.343279541015625,
+      "margin": 0.009815975485230992,
+      "desired_margin": -0.013732845478053922,
+      "contacts": {
+        "left": {
+          "recent": true,
+          "force_z": 168.39012647975093
+        },
+        "right": {
+          "recent": true,
+          "force_z": 0.0
+        }
+      }
+    },
+    {
+      "sim_seconds": 0.3149999999999409,
+      "roll": -0.04775213005150301,
+      "pitch": 2.93063813813195e-05,
+      "roll_rate": -0.45763102694494173,
+      "roll_target": 0.331279541015625,
+      "margin": 0.014091769553312546,
+      "desired_margin": -0.015161494709893341,
+      "contacts": {
+        "left": {
+          "recent": true,
+          "force_z": 341.60454882218505
+        },
+        "right": {
+          "recent": true,
+          "force_z": 0.0
+        }
+      }
+    },
+    {
+      "sim_seconds": 0.33600000000001273,
+      "roll": -0.05796919337617533,
+      "pitch": 2.400007556762024e-05,
+      "roll_rate": -0.494172576347457,
+      "roll_target": 0.319279541015625,
+      "margin": 0.01842049161750413,
+      "desired_margin": -0.016564253091708968,
+      "contacts": {
+        "left": {
+          "recent": true,
+          "force_z": 244.4368128327863
+        },
+        "right": {
+          "recent": true,
+          "force_z": 0.0
+        }
+      }
+    },
+    {
+      "sim_seconds": 0.3569999999999709,
+      "roll": -0.06910682210723157,
+      "pitch": 2.0762742425608145e-05,
+      "roll_rate": -0.5292728768364264,
+      "roll_target": 0.307279541015625,
+      "margin": 0.02283575842451763,
+      "desired_margin": -0.017951390968309743,
+      "contacts": {
+        "left": {
+          "recent": true,
+          "force_z": 244.62209894655084
+        },
+        "right": {
+          "recent": true,
+          "force_z": 0.0
+        }
+      }
+    },
+    {
+      "sim_seconds": 0.3790000000000191,
+      "roll": -0.08112725348202643,
+      "pitch": -3.9936253452577365e-05,
+      "roll_rate": -0.5630553967994371,
+      "roll_target": 0.295279541015625,
+      "margin": 0.027366313384759956,
+      "desired_margin": -0.0193254795084439,
+      "contacts": {
+        "left": {
+          "recent": true,
+          "force_z": 244.97065983809142
+        },
+        "right": {
+          "recent": true,
+          "force_z": 0.0
+        }
+      }
+    },
+    {
+      "sim_seconds": 0.40999999999996817,
+      "roll": -0.09400172344108629,
+      "pitch": 2.42312056601058e-05,
+      "roll_rate": -0.5965233274733434,
+      "roll_target": 0.28327954101562497,
+      "margin": 0.03204154199194409,
+      "desired_margin": -0.020715751527432887,
+      "contacts": {
+        "left": {
+          "recent": true,
+          "force_z": 196.5149543896785
+        },
+        "right": {
+          "recent": false,
+          "force_z": 0.0
+        }
+      }
+    },
+    {
+      "sim_seconds": 0.43099999999992633,
+      "roll": -0.1095004341001907,
+      "pitch": 1.9852039733827132e-05,
+      "roll_rate": -0.8423336618910486,
+      "roll_target": 0.27127954101562496,
+      "margin": 0.03549118384794128,
+      "desired_margin": -0.028555022879737182,
+      "contacts": {
+        "left": {
+          "recent": true,
+          "force_z": 173.34407250865254
+        },
+        "right": {
+          "recent": false,
+          "force_z": 0.0
+        }
+      }
+    },
+    {
+      "sim_seconds": 0.45100000000002183,
+      "roll": -0.12365006848312506,
+      "pitch": 5.1612872555452465e-05,
+      "roll_rate": -0.7972180478438572,
+      "roll_target": 0.25927954101562495,
+      "margin": 0.0405747415093171,
+      "desired_margin": -0.027626043489809467,
+      "contacts": {
+        "left": {
+          "recent": true,
+          "force_z": 166.1131720278425
+        },
+        "right": {
+          "recent": false,
+          "force_z": 0.0
+        }
+      }
+    },
+    {
+      "sim_seconds": 0.47199999999998,
+      "roll": -0.1381557908577602,
+      "pitch": -7.268876425671506e-05,
+      "roll_rate": -0.8013519633523214,
+      "roll_target": 0.24727954101562494,
+      "margin": 0.04571369465763468,
+      "desired_margin": -0.028185232626302445,
+      "contacts": {
+        "left": {
+          "recent": true,
+          "force_z": 166.6386094604565
+        },
+        "right": {
+          "recent": false,
+          "force_z": 0.0
+        }
+      }
+    },
+    {
+      "sim_seconds": 0.49299999999993815,
+      "roll": -0.15363693442470394,
+      "pitch": 1.9187053119919055e-06,
+      "roll_rate": -0.8744457040146013,
+      "roll_target": 0.23527954101562493,
+      "margin": 0.04780404578359938,
+      "desired_margin": -0.030842479153179156,
+      "contacts": {
+        "left": {
+          "recent": true,
+          "force_z": 0.0
+        },
+        "right": {
+          "recent": false,
+          "force_z": 0.0
+        }
+      }
+    },
+    {
+      "sim_seconds": 0.51400000000001,
+      "roll": -0.17125113946545553,
+      "pitch": 6.162108332455491e-05,
+      "roll_rate": -0.764163156264706,
+      "roll_target": 0.22327954101562492,
+      "margin": 0.05479557353711724,
+      "desired_margin": -0.028062428871904844,
+      "contacts": {
+        "left": {
+          "recent": true,
+          "force_z": 165.681261561783
+        },
+        "right": {
+          "recent": false,
+          "force_z": 0.0
+        }
+      }
+    },
+    {
+      "sim_seconds": 0.5349999999999682,
+      "roll": -0.20444970090739592,
+      "pitch": -9.93601158692639e-06,
+      "roll_rate": -0.7972986498978636,
+      "roll_target": 0.2112795410156249,
+      "margin": 0.07119603493267795,
+      "desired_margin": -0.03005245052415778,
+      "contacts": {
+        "left": {
+          "recent": true,
+          "force_z": 533.4586775956126
+        },
+        "right": {
+          "recent": false,
+          "force_z": 0.0
+        }
+      }
+    },
+    {
+      "sim_seconds": 0.5559999999999263,
+      "roll": -0.22295540655984486,
+      "pitch": -6.701725842268868e-06,
+      "roll_rate": -0.7955181275959452,
+      "roll_target": 0.1992795410156249,
+      "margin": 0.07802158015635799,
+      "desired_margin": -0.0305542060246737,
+      "contacts": {
+        "left": {
+          "recent": true,
+          "force_z": 245.45639830317066
+        },
+        "right": {
+          "recent": false,
+          "force_z": 0.0
+        }
+      }
+    },
+    {
+      "sim_seconds": 0.5760000000000218,
+      "roll": -0.24209389131852377,
+      "pitch": 3.0162334357045343e-05,
+      "roll_rate": -0.8793864928521429,
+      "roll_target": 0.18727954101562488,
+      "margin": 0.08526676410481766,
+      "desired_margin": -0.033644411525119995,
+      "contacts": {
+        "left": {
+          "recent": true,
+          "force_z": 245.42364360827494
+        },
+        "right": {
+          "recent": false,
+          "force_z": 0.0
+        }
+      }
+    }
+  ],
+  "error": "Body tilt exceeded 0.25 rad"
+}
