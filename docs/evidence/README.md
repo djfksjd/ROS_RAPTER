@@ -42,3 +42,7 @@ Files 30–33 retain the failed faster balance response, Qwen/NanoJev/STOP
 revalidation with passive joint feedback, final hardware interface query and build.
 
 File 34 verifies that refused development probes emit no trajectory commands.
+
+- `35-reference-appearance-build.txt`: 외형 개선 후 colcon/URDF 검사.
+- `36-reference-appearance-control.txt`: 재실행 후 active controller와 10개 claimed interface.
+- `37-reference-appearance-gazebo.png`: 개선 메시가 표시된 실제 Gazebo 화면.

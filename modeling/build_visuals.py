@@ -61,6 +61,28 @@ def rod(name, a, b, radius, material, vertices=24):
     return finish(obj,name,material)
 
 
+
+def profile(name, outline, width, material, center_y=0):
+    """Extrude a side silhouette (x,z) across the link's lateral axis."""
+    count = len(outline)
+    vertices = [(x, center_y+y, z) for y in [-width/2, width/2] for x,z in outline]
+    faces = [tuple(reversed(range(count))), tuple(range(count, 2*count))]
+    faces += [(i, (i+1)%count, (i+1)%count+count, i+count) for i in range(count)]
+    mesh = bpy.data.meshes.new(name)
+    mesh.from_pydata(vertices, [], faces); mesh.update()
+    obj = bpy.data.objects.new(name, mesh); bpy.context.collection.objects.link(obj)
+    bpy.context.view_layer.objects.active = obj; obj.select_set(True)
+    mod = obj.modifiers.new('Panel edge radius', 'BEVEL'); mod.width=.006; mod.segments=3
+    bpy.ops.object.modifier_apply(modifier=mod.name)
+    obj.select_set(False)
+    return finish(obj, name, material)
+
+
+def conduit(name, points, radius, material):
+    for index, (a,b) in enumerate(zip(points, points[1:])):
+        rod(name+' %02d'%index, a, b, radius, material, 12)
+
+
 def servo(center, radius=.065, width=.11, axis='y'):
     c=Vector(center); direction=Vector((0,1,0) if axis=='y' else (1,0,0))
     rod('Servo housing',c-direction*width/2,c+direction*width/2,radius,'graphite')
@@ -78,7 +100,7 @@ def servo(center, radius=.065, width=.11, axis='y'):
 active='base_link'
 box('Load-bearing central chassis',(0,0,0),(.56,.25,.20),'graphite',.04)
 for side in [-1,1]:
-    box('Removable side armor',(.025,side*.138,.005),(.43,.025,.16),'ivory',.025)
+    profile('Faceted removable flank panel', [(-.23,.045),(-.15,.105),(.12,.09),(.23,.025),(.17,-.06),(-.10,-.09),(-.23,-.025)], .025, 'ivory', side*.138)
     for x in [-.15,.19]:
         for z in [-.045,.055]:
             rod('Armor screw',(x,side*.145,z),(x,side*.16,z),.007,'titanium',6)
@@ -86,14 +108,21 @@ for side in [-1,1]:
         box('Cooling fin',(-.22+i*.017,side*.12,.115),(.008,.04,.035),'titanium',.002)
     rod('Power conduit',(-.22,side*.16,-.03),(.20,side*.16,-.07),.008,'copper')
 box('Forward sensor housing',(.31,0,.03),(.17,.22,.13),'graphite',.035)
-box('Sensor brow',(.32,0,.115),(.23,.24,.025),'ivory',.012)
+profile('Tapered sensor brow',[(.21,.105),(.30,.125),(.43,.085),(.43,.065),(.27,.08)],.235,'graphite')
+profile('Sensor lower jaw',[(.23,-.035),(.40,-.025),(.39,-.06),(.25,-.075)],.19,'titanium')
 for side in [-1,1]:
     rod('RGB-D lens',(.39,side*.055,.045),(.41,side*.055,.045),.029,'rubber',32)
     rod('Optical glass',(.411,side*.055,.045),(.414,side*.055,.045),.022,'lens',32)
 box('Electronics pack',(-.12,0,.145),(.19,.17,.08),'titanium',.018)
 rod('Sensor mast',(0,0,.10),(0,0,.19),.032,'graphite')
 rod('Optional lidar visual',(0,0,.19),(0,0,.245),.045,'graphite')
-box('Mast cap',(0,0,.248),(.10,.09,.014),'ivory',.006)
+rod('Mast cap',(0,0,.241),(0,0,.254),.045,'titanium',32)
+for side in [-1,1]:
+    for x in [-.16,-.07,.02]:
+        rod('Underslung equipment pod',(x,side*.09,-.09),(x,side*.09,-.16),.038,'graphite')
+        rod('Pod retaining band',(x,side*.09,-.125),(x,side*.09,-.14),.040,'titanium')
+    conduit('Protected body harness',[(-.23,side*.15,.03),(-.26,side*.17,-.065),(-.17,side*.18,-.13),(.08,side*.16,-.12),(.19,side*.15,-.055)],.009,'rubber')
+    rod('Dorsal equipment rail',(-.24,side*.095,.145),(.18,side*.095,.145),.009,'graphite')
 
 for side in ['left','right']:
     active=side+'_hip_roll_link'
@@ -104,14 +133,18 @@ for side in ['left','right']:
     for y in [-.042,.042]:
         box('Thigh structural rail',(0,y,-.16),(.072,.022,.29),'titanium',.012)
         rod('Thigh tension rod',(.034,y,-.055),(.034,y,-.27),.008,'graphite')
-    box('Thigh armor',(.042,0,-.16),(.025,.075,.19),'ivory',.01)
+    profile('Tapered thigh side fairing',[(-.04,-.035),(.045,-.065),(.052,-.19),(.02,-.27),(-.033,-.25),(-.055,-.11)],.013,'ivory',-.057 if side=='right' else .057)
+    for y in [-.055,.055]:
+        rod('Exposed thigh actuator barrel',(-.035,y,-.065),(-.035,y,-.19),.016,'graphite')
+        rod('Exposed thigh actuator rod',(-.035,y,-.19),(-.035,y,-.28),.009,'titanium')
     rod('Hip motor cable',(-.036,.055,-.06),(-.035,.055,-.25),.006,'copper')
     active=side+'_shin_link'
     servo((0,0,0),.047,.105)
     for y in [-.032,.032]:
         rod('Lower leg strut',(0,y,-.035),(0,y,-.265),.016,'titanium')
     box('Shin brace',(0,0,-.16),(.042,.065,.10),'graphite')
-    box('Shin armor',(.026,0,-.13),(.018,.064,.13),'ivory')
+    profile('Tapered shin guard',[(.013,-.045),(.042,-.07),(.032,-.20),(.012,-.235)],.066,'ivory')
+    conduit('Shin cable',[(-.026,-.04,-.025),(-.04,-.043,-.08),(-.035,-.043,-.23),(-.01,-.04,-.27)],.005,'graphite')
     active=side+'_foot_link'
     servo((0,0,0),.035,.10)
     box('Heel pad',(-.023,0,-.036),(.075,.105,.036),'rubber')
@@ -129,7 +162,9 @@ servo((0,0,0),.039,.095)
 for i in range(8):
     x=-.033-i*.059
     radius=.045*(1-i*.07)
-    box('Vertebra %02d'%i,(x,0,0),(.045,radius*1.7,radius*1.7),'ivory',.01)
+    rod('Vertebra core %02d'%i,(x-.022,0,0),(x+.022,0,0),radius*.75,'graphite',12)
+    for sign in [-1,1]:
+        profile('Vertebra lateral plate %02d'%i,[(x-.021,-radius*.45),(x+.015,-radius*.65),(x+.023,radius*.35),(x-.009,radius*.62)],.009,'ivory',sign*radius*.65)
     rod('Central compliant-spine visual',(x-.035,0,0),(x+.03,0,0),radius*.42,'graphite')
     for sign in [-1,1]:
         rod('Tail lateral protective rail',(x-.024,sign*radius*.72,0),
@@ -194,12 +229,15 @@ transforms={'base_root':Matrix.Identity(4)}
 for joint in urdf.findall('joint'):
     parent=joint.find('parent').get('link');child=joint.find('child').get('link')
     origin=joint.find('origin');xyz=[float(v) for v in origin.get('xyz','0 0 0').split()]
-    angle=-.43 if 'hip_pitch' in joint.get('name') else .86 if 'knee_pitch' in joint.get('name') else -.43 if 'ankle_pitch' in joint.get('name') else 0
+    angle=-.65 if 'hip_pitch' in joint.get('name') else 1.30 if 'knee_pitch' in joint.get('name') else -.65 if 'ankle_pitch' in joint.get('name') else 0
     transforms[child]=transforms[parent] @ Matrix.Translation(xyz) @ Euler((0,angle,0)).to_matrix().to_4x4()
 for link,objects in GROUPS.items():
     for obj in objects:obj.matrix_world=transforms[link] @ obj.matrix_world
 
-bpy.ops.mesh.primitive_plane_add(size=200,location=(0,0,.04))
+ground_z = min((obj.matrix_world @ v.co).z
+               for link,objects in GROUPS.items() if link.endswith('_foot_link')
+               for obj in objects for v in obj.data.vertices)
+bpy.ops.mesh.primitive_plane_add(size=200,location=(0,0,ground_z))
 plane=bpy.context.object;plane.name='Presentation ground';plane.data.materials.append(MATS['graphite'])
 world=bpy.context.scene.world;world.use_nodes=True
 world.node_tree.nodes['Background'].inputs[0].default_value=(.17,.19,.23,1)
@@ -208,9 +246,12 @@ for loc,power,size in [((2,-3,4),1300,4),((-3,1,3),1800,3),((1,3,2),900,2)]:
     bpy.ops.object.light_add(type='AREA',location=loc)
     light=bpy.context.object;light.data.energy=power;light.data.shape='DISK';light.data.size=size
     light.rotation_euler=(Vector((0,0,.55))-light.location).to_track_quat('-Z','Y').to_euler()
-bpy.ops.object.camera_add(location=(1.9,-2.7,1.5))
+bpy.ops.object.camera_add(location=(1.9,2.7,1.35))
 cam=bpy.context.object;cam.rotation_euler=(Vector((-.15,0,.58))-cam.location).to_track_quat('-Z','Y').to_euler()
 cam.data.type='ORTHO';cam.data.ortho_scale=1.8
+# Moderate exposure keeps dark chassis and ivory panels visually distinct.
+scene_view = bpy.context.scene.view_settings
+scene_view.exposure = -1.0
 scene=bpy.context.scene;scene.camera=cam;scene.render.engine='CYCLES';scene.cycles.samples=40
 scene.render.resolution_x=1600;scene.render.resolution_y=1100;scene.render.resolution_percentage=100
 scene.render.filepath=str(ROOT/'docs/evidence/raptor-concept-render.png')

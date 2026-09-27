@@ -2,11 +2,12 @@
 
 ## 2026-09-27 Mac 로컬 검증 업데이트
 
-현재 개발 브랜치: `feature/passive-toes`. 아래 기존 진행표는 이전 PC의 기록이며,
+현재 개발 브랜치: `feature/reference-appearance`. 아래 기존 진행표는 이전 PC의 기록이며,
 최신 실제 검증은 다음 문서를 기준으로 확인합니다.
 
 - [ROS 2·Gazebo 설치 완료 보고서와 실제 화면](docs/INSTALLATION_REPORT.ko.md)
 - [시뮬레이션 주제 보고서·외형·Qwen/NanoJev 비교](docs/PROJECT_REPORT.ko.md)
+- [참고 이미지 외형 개선과 남은 작업](docs/REFERENCE_APPEARANCE.ko.md)
 - [수동 발가락·단차·경사 접촉 검증](docs/PASSIVE_TOES.ko.md)
 - [MuJoCo·MJX 강화학습 후속 순서](docs/MUJOCO_MJX_ROADMAP.ko.md)
 - [로컬 실행·AI 명령·백업 복원](docs/local-development.md)
