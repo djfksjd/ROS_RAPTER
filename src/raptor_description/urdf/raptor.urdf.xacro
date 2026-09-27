@@ -9,6 +9,8 @@
   <xacro:arg name="detailed_visuals" default="false"/>
   <xacro:arg name="sensors" default="false"/>
   <xacro:arg name="passive_toes" default="false"/>
+  <xacro:arg name="toe_stiffness_scale" default="1.0"/>
+  <xacro:property name="toe_stiffness_scale" value="$(arg toe_stiffness_scale)"/>
   <xacro:arg name="crouched_start" default="false"/>
   <xacro:arg name="crouch_hip_pitch" default="-0.15"/>
   <xacro:property name="crouch_hip" value="$(arg crouch_hip_pitch)"/>

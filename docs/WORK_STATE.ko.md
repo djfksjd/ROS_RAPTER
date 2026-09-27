@@ -46,8 +46,12 @@
 46: IMU .25378rad에서 ROS action 취소 승인, terminal CANCELED 확인. 10개 테스트 통과.
 47/48: crouch hip -.05 전환 중 pitch 전도, 취소 승인.
 49: hip -.10도 shift 후 settle 중 기울기 초과, 다음 action 발행 안 함.
-다음: 시간 연속 IMU/수동 발가락/접촉 계측으로 전환 순간을 분석한다.
-기본 자세/제어 파라미터는 채택 변경하지 않았다. 숫자 탐색 반복 금지.
+50: 시간 연속 79표본으로 접촉이 한 줄 발가락에 집중/관절 변형/pitch 증가 확인.
+51: toe_stiffness_scale 3배 외 모든 URDF 동일, SDF 강성/10active+12passive 확인.
+52: 강성 3배는 pitch가 줄었으나 왼발목 추종 오차 .06213rad로 실패.
+현재 브랜치 experiment/toe-stiffness. 기본 강성 1과 기본 자세는 유지.
+다음: 실제 plugin 구현/발목 속도 및 하중을 확인하고 추종 오차 원인을 구분한다.
+상세 TOE_STIFFNESS_EXPERIMENT.ko.md. 무근거 gain 증가나 숫자 탐색 반복 금지.
 시각 모델 전체 완성·안정 보행·강화학습은 아직 완료되지 않았다.
 
 ## 알려진 실패

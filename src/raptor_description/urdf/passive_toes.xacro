@@ -42,7 +42,7 @@
       <dynamics damping="0.08" friction="0.005"/>
     </joint>
     <gazebo reference="${joint_name}">
-      <springReference>0</springReference><springStiffness>${stiffness}</springStiffness>
+      <springReference>0</springReference><springStiffness>${stiffness * toe_stiffness_scale}</springStiffness>
     </gazebo>
     <gazebo reference="${link_name}">
       <mu1>0.8</mu1><mu2>0.8</mu2>

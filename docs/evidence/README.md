@@ -58,3 +58,7 @@ File 34 verifies that refused development probes emit no trajectory commands.
 - `46-gait-imu-cancel.*`: 실제 IMU 한계 초과와 action 취소 승인/STATUS_CANCELED.
 - `47-gait-forward-crouch.*`, `48-forward-crouch-analysis.json`: hip -.05 비교 실패.
 - `49-gait-middle-crouch.*`: hip -.10 비교, shift 이후 감시 중 실패.
+
+- `50-gait-transition-*`: 시간 연속 IMU/관절/접촉 재현.
+- `51-toe-stiffness-contract.txt`: 강성 외 모델 불변/SDF 변환 확인.
+- `52-stiff-toe-*`: 스프링 강성 3배 비교, 발목 추종 오차 실패.

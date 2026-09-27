@@ -1,0 +1,2 @@
+PASS: 10 active + 12 passive; converted SDF toe springs 36/24 Nm/rad
+PASS: all URDF elements other than spring stiffness identical
