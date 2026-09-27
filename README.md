@@ -1,234 +1,210 @@
-# ROS_RAPTER
+<div align="center">
 
-## 2026-09-27 Mac 로컬 검증 업데이트
+# RAPTOR
 
-현재 개발 브랜치: `feature/reference-appearance`. 아래 기존 진행표는 이전 PC의 기록이며,
-최신 실제 검증은 다음 문서를 기준으로 확인합니다.
+### 자연어 명령을 이해하는 10축 지상 탐사 로봇
 
-- [ROS 2·Gazebo 설치 완료 보고서와 실제 화면](docs/INSTALLATION_REPORT.ko.md)
-- [시뮬레이션 주제 보고서·외형·Qwen/NanoJev 비교](docs/PROJECT_REPORT.ko.md)
-- [참고 이미지 외형 개선과 남은 작업](docs/REFERENCE_APPEARANCE.ko.md)
-- [수동 발가락·단차·경사 접촉 검증](docs/PASSIVE_TOES.ko.md)
-- [MuJoCo·MJX 강화학습 후속 순서](docs/MUJOCO_MJX_ROADMAP.ko.md)
-- [로컬 실행·AI 명령·백업 복원](docs/local-development.md)
+**Human command → Qwen / NanoJev → ROS 2 → Raptor**
 
-10축 제어, 제한된 static standing, 센서, 두 모델의 ROS 명령 연결을 확인했습니다.
-안정적인 보행·탐색 mission·유연 꼬리 동역학은 미완료입니다.
+![ROS 2 Jazzy](https://img.shields.io/badge/ROS_2-Jazzy-22314E?style=flat-square) ![Gazebo Harmonic](https://img.shields.io/badge/Gazebo-Harmonic-E87935?style=flat-square) ![10 Active DOF](https://img.shields.io/badge/Active_DOF-10-397D68?style=flat-square) ![Simulation research](https://img.shields.io/badge/Stage-Simulation_Research-64748B?style=flat-square)
 
+<img src="docs/assets/raptor-target-concept.png" width="100%" alt="목표 콘셉트: 흰색 장갑과 노출된 기계 구조, 굽힌 두 다리, 발가락과 긴 분절 꼬리를 가진 탐사 랩터" />
 
-## Project Overview
-운영자의 자연어 명령을 입력받아 ROS 2 기반 랩터형 2족 로봇의 행동 명령으로 변환하고 시뮬레이션 환경에서 제어하는 10축 지상 탐사 로봇 시뮬레이션 프로젝트입니다. 로봇은 독자적으로 임의 판단을 내리지 않으며, 항상 운영자의 통제 하에 사전 정의된 안전 범위 내에서 동작합니다.
+**목표 외형 · AI 생성 콘셉트**<br>
+실제 제작품이나 Gazebo 실행 화면이 아닙니다. 이미지의 관절·부품 표현은 확정 설계가 아닙니다.
 
-## Research Goal
-- 운영자의 자연어 명령을 로봇의 정형화된 동작 명령으로 변환하는 파이프라인 검증
-- 10-DOF(자유도) 랩터형 2족 로봇 모델을 ROS 2 Jazzy 및 Gazebo Harmonic 시뮬레이터 상에 구현
-- 향후 대규모 언어 모델(Qwen/Ollama)과 경량 모델(NanoJev) 간의 명령 이해도 및 응답 속도 비교 평가
-- 탐사 시나리오에서의 명령 전달 정확도와 시뮬레이션 제어 안정성 검증
+[현재 구현](#현재-구현) · [시스템 구조](#시스템-구조) · [로컬 실행](#로컬-실행) · [개발 순서](#개발-순서) · [문서와 증거](#문서와-증거)
 
-## Robot Configuration
-로봇은 양다리 각 4축과 균형 제어를 위한 꼬리 2축으로 구성된 총 10개의 Active DOF를 가집니다.
+</div>
 
-| Component | DOF | Motion | Joint Name | Joint Limit |
-|---|---|---|---|---|
-| Left Hip Roll | 1 | 다리 좌우 벌림 (Roll, X축) | `left_hip_roll_joint` | -0.50 ~ 0.50 rad |
-| Left Hip Pitch | 1 | 허벅지 앞뒤 회전 (Pitch, Y축) | `left_hip_pitch_joint` | -1.20 ~ 0.80 rad |
-| Left Knee Pitch | 1 | 무릎 굽힘 (Pitch, Y축) | `left_knee_pitch_joint` | 0.00 ~ 2.20 rad |
-| Left Ankle Pitch | 1 | 발목 앞뒤 굽힘 (Pitch, Y축) | `left_ankle_pitch_joint` | -0.70 ~ 0.70 rad |
-| Right Hip Roll | 1 | 다리 좌우 벌림 (Roll, X축) | `right_hip_roll_joint` | -0.50 ~ 0.50 rad |
-| Right Hip Pitch | 1 | 허벅지 앞뒤 회전 (Pitch, Y축) | `right_hip_pitch_joint` | -1.20 ~ 0.80 rad |
-| Right Knee Pitch | 1 | 무릎 굽힘 (Pitch, Y축) | `right_knee_pitch_joint` | 0.00 ~ 2.20 rad |
-| Right Ankle Pitch | 1 | 발목 앞뒤 굽힘 (Pitch, Y축) | `right_ankle_pitch_joint` | -0.70 ~ 0.70 rad |
-| Tail Yaw | 1 | 꼬리 좌우 회전 (Yaw, Z축) | `tail_yaw_joint` | -0.80 ~ 0.80 rad |
-| Tail Pitch | 1 | 꼬리 상하 회전 (Pitch, Y축) | `tail_pitch_joint` | -0.60 ~ 0.60 rad |
+---
 
-## Previous PC Status (historical)
+## 프로젝트
 
-| Item | Status | Notes |
+사람이 접근하기 어렵거나 위험한 지역에 먼저 진입해 정보를 전달하는 **랩터형 지상 탐사 로봇**을 목표로 하는 대학교 졸업 프로젝트입니다. 운영자의 자연어를 정해진 행동으로 해석하고, ROS 2 제어와 시뮬레이션을 통해 실행 과정을 검증합니다.
+
+핵심은 **빠르고 정확한 명령 이해와 사람의 통제**입니다. AI가 작전을 자율 결정하거나 모터 명령을 직접 만들지 않습니다. `STOP`은 모델 추론을 거치지 않고 우선 처리합니다.
+
+> **최근 체크포인트 · 2026-09-27**<br>
+> ROS 환경·10축 제어·제한된 정적 지지·Qwen/NanoJev의 STAND/STOP 연결을 확인했습니다.<br>
+> **안정 보행, 급경사 대응, 탐색 mission, MuJoCo/MJX 강화학습은 아직 미완료**입니다.<br>
+> 개발 실험은 사용자 요청으로 일시정지 중입니다. [재개 메모](docs/PAUSE_CHECKPOINT.ko.md) · [작업 상태](docs/WORK_STATE.ko.md)
+
+## 현재 구현
+
+<table>
+<tr>
+<th width="50%">실제 3D 모델 · Blender</th>
+<th width="50%">실제 시뮬레이션 · Gazebo</th>
+</tr>
+<tr>
+<td><img src="docs/evidence/raptor-concept-render.png" alt="저장소 Blender 모델의 실제 렌더" /></td>
+<td><img src="docs/evidence/37-reference-appearance-gazebo.png" alt="새 메시와 로봇이 표시된 실제 Gazebo 화면" /></td>
+</tr>
+<tr>
+<td>코드로 생성한 부품별 메시. 굽힌 전시 자세의 물리 안정성은 미검증입니다.</td>
+<td>Jazzy/Harmonic에서 실제 실행한 화면. 목표 콘셉트와 외형 차이가 남아 있습니다.</td>
+</tr>
+</table>
+
+| 영역 | 확인된 결과 | 남은 검증 |
 |---|---|---|
-| ROS 2 Jazzy | Complete | Ubuntu 24.04 LTS 환경에서 ROS 2 Jazzy 기반 워크스페이스 구성 완료 |
-| Gazebo Harmonic | Complete | Gazebo Sim 8.15.0 설치 및 `raptor_world.sdf` 물리 환경 구동 확인 |
-| 10-DOF URDF | Complete | 10축 revolute joint, inertia, collision geometry를 포함한 Xacro/URDF 작성 완료 |
-| RViz visualization | Complete | `display.launch.py`를 통해 robot_state_publisher, joint_state_publisher_gui, RViz2 연동 확인 |
-| Gazebo spawn | Complete | `ros_gz_sim create` 명령을 통해 Gazebo 월드 내 로봇 모델 스폰 및 중력/충돌 확인 |
-| ros2_control | Blocked | `gz_ros2_control` 플러그인 로드 후 controller_manager가 robot_description 토픽 대기로 멈춤 |
-| Standing pose | Not Started | 제어기 초기 위치 유지 및 기립 제어 파라미터 미구현 |
-| Walking gait | Not Started | 보행 패턴 생성 및 동역학 보행 알고리즘 미구현 |
-| Camera / IMU | Not Started | 시뮬레이션 센서 xacro 링크 및 플러그인 미구현 |
-| NanoJev | Not Started | 모델 연동 코드 및 액션 매핑 레이어 미구현 (향후 과제) |
+| 개발 환경 | Mac M5 → 로컬 Docker ARM64 → Ubuntu 24.04 / Jazzy / Harmonic | 다른 하드웨어 환경 재현 |
+| 관절 제어 | 10개 position 인터페이스, 두 controller 활성화, 작은 관절 이동 | 동적 균형·보행 제어 |
+| 발·지면 접촉 | 선택형 수동 발가락 12관절, 평지·8mm 단차·정렬된 5° 경사 정적 시험 | 경사 진입·연속 보행·불규칙 지형 |
+| 센서 | IMU, RGB-D, 관절 상태, 발 접촉 계측 | 인식·지도·탐사 mission |
+| 명령 이해 | 실제 Qwen/Ollama 및 NanoJev decision head, STAND/STOP ROS 연결 | 정확도 개선·이동/탐색 실행 |
+| 실패 감시 | IMU 기울기 초과 시 action 취소 승인 확인 | 균형 회복·실물 비상 정지 |
 
-## Previous PC Issue (not reproduced locally)
-- **ros2_control 하드웨어 인터페이스 초기화 블로킹**:
-  - `raptor.urdf.xacro`에 `gz_ros2_control::GazeboSimROS2ControlPlugin`을 적용하고 Gazebo에서 로봇을 스폰할 때, `/controller_manager` 및 `/gz_ros_control` 노드는 정상 생성됩니다.
-  - 그러나 실행 로그상에서 다음과 같은 경고가 지속 발생합니다:
-    ```text
-    [WARN] [controller_manager]: Waiting for data on 'robot_description' topic to finish initialization
-    [WARN] [gz_ros_control]: Waiting RM to load and initialize hardware...
-    ```
-  - Gazebo 내부의 `controller_manager`가 `/robot_description` 토픽 수신을 대기하면서 Resource Manager(RM)가 10개 관절 하드웨어 인터페이스를 로드/초기화하지 못하고 정체됩니다.
-  - 이로 인해 `ros2 control list_hardware_interfaces` 서비스 호출 시 인터페이스가 조회되지 않거나 응답하지 않는 현상이 발생하고 있습니다.
+정적 시험은 제한된 조건의 결과입니다. 발이 지면에 닿거나 궤적 추종이 끝난 것만으로 보행 성공을 판정하지 않습니다. 최근 지지 전환은 발목 추종 오차로 실패했고, [원본 기록](docs/evidence/README.md)을 보존했습니다.
 
-## Package Structure
+## 시스템 구조
+
+```mermaid
+flowchart LR
+    A[운영자 자연어] --> B{명령 이해}
+    B --> C[Qwen3-0.6B / Ollama]
+    B --> D[NanoJev / Decision Head]
+    C --> E[허용 행동 · Safety Gate]
+    D --> E
+    S[운영자 STOP] --> E
+    E --> F[ROS 2 Mission]
+    F --> G[ros2_control]
+    G --> H[10축 Raptor / Gazebo]
+    H --> I[IMU · 관절 · 접촉 피드백]
+```
+
+- **Qwen:** 문장을 구조화된 행동 ID로 변환합니다.
+- **NanoJev:** 후보 행동의 확률을 계산하는 decision model입니다. 고정 backbone과 Raptor 명령용 head를 사용합니다.
+- **Safety Gate:** 허용 목록·요청 유효성·STOP latch를 확인합니다. 미검증 이동/탐색 명령은 거부합니다.
+- **현재 동작:** `STAND`, `PAUSE`, `RESUME`, `STOP`. `RESUME`은 이전 궤적을 자동 재개하지 않습니다. `STOP`은 시뮬레이션 위치 유지이며 실물 전원 차단이 아닙니다.
+
+`“동쪽 능선부터 찾아봐” → SEARCH_EAST`는 명령 이해의 목표 예시입니다. 실제 동쪽 수색 mission은 아직 활성화하지 않았습니다.
+
+## 10 Active DOF
+
+| 구성 | 능동 관절 | 축 수 |
+|---|---|---:|
+| 왼쪽 다리 | Hip Roll · Hip Pitch · Knee Pitch · Ankle Pitch | 4 |
+| 오른쪽 다리 | Hip Roll · Hip Pitch · Knee Pitch · Ankle Pitch | 4 |
+| 꼬리 기부 | Tail Yaw · Tail Pitch | 2 |
+| **합계** | **능동 구동축** | **10** |
+
+**발가락:** 선택형 모델은 각 발 3개 발가락 × 2개 수동 관절, 총 12개입니다. 추가 모터는 없습니다.<br>
+**꼬리:** 기부 2축이 능동 구동되며, 현재 뒤쪽 마디는 고정 시각 메시입니다. 수동 유연 동역학은 향후 과제입니다. 꼬리는 균형을 보조하며 완전한 균형 제어를 보장하지 않습니다.
+
+<details>
+<summary>실제 능동 joint 이름 보기</summary>
+
 ```text
-raptor_ws/
-├── .gitignore
-├── README.md
-└── src/
-    ├── raptor_description/
-    │   ├── CMakeLists.txt
-    │   ├── CMakeLists.txt.backup
-    │   ├── package.xml
-    │   ├── launch/
-    │   │   └── display.launch.py
-    │   ├── urdf/
-    │   │   ├── raptor.urdf
-    │   │   ├── raptor.urdf.xacro
-    │   │   ├── raptor.urdf.xacro.backup_4dof
-    │   │   └── raptor.urdf.xacro.backup_8dof
-    │   └── worlds/
-    │       └── raptor_world.sdf
-    └── raptor_control/
-        ├── CMakeLists.txt
-        ├── package.xml
-        └── config/
-            └── controllers.yaml
+left_hip_roll_joint       right_hip_roll_joint
+left_hip_pitch_joint      right_hip_pitch_joint
+left_knee_pitch_joint     right_knee_pitch_joint
+left_ankle_pitch_joint    right_ankle_pitch_joint
+tail_yaw_joint            tail_pitch_joint
 ```
 
-## Build
-현재 워크스페이스에서 검증된 빌드 절차입니다:
+치수·축·제한·질량의 기준은 [실제 Xacro](src/raptor_description/urdf/raptor.urdf.xacro)입니다. 참고 이미지와 생성 이미지는 제작 가능한 CAD 설계의 근거가 아닙니다.
+
+</details>
+
+## Qwen × NanoJev
+
+38개 명령 평가셋에서 측정한 **로컬 호출부터 출력 파싱까지의 지연**입니다.
+
+| 모델 / 실행 방식 | 명령 정답률 | Median | P95 | 형식 오류율 |
+|---|---:|---:|---:|---:|
+| Qwen3-0.6B Q4_K_M / Ollama | 27/38 · 71.1% | 81.0ms | 202.2ms | 0% |
+| NanoJev + Raptor head / MPS FP32 | 24/38 · 63.2% | 312.7ms | 361.2ms | 0% |
+
+작은 평가셋이며 첫 요청 비용이 포함됩니다. 정밀도·런타임이 달라 모델 구조의 우열이나 일반 성능으로 해석할 수 없습니다. 로봇 실행 지연과 원격 네트워크 지연을 포함한 값도 아닙니다. [평가 조건과 원본 결과](docs/PROJECT_REPORT.ko.md#qwen과-nanojev-비교)
+
+## 로컬 실행
+
+**검증 환경:** Apple M5 · RAM 24GB · Docker Linux ARM64 · Ubuntu 24.04 · ROS 2 Jazzy · Gazebo Harmonic. macOS native ROS 포팅을 사용하지 않습니다.
+
+Docker Desktop을 실행한 뒤 저장소 루트에서:
 
 ```bash
-# 1. ROS 2 환경 로드
-source /opt/ros/jazzy/setup.bash
+git clone https://github.com/djfksjd/ROS_RAPTER.git
+cd ROS_RAPTER
 
-# 2. 워크스페이스 이동 및 빌드
-cd ~/raptor_ws
-colcon build --symlink-install
-
-# 3. 워크스페이스 환경 반영
-source install/setup.bash
+# 빌드 후 Gazebo · 제어기 · 센서 · operator gate 실행
+bash scripts/start_local.sh
 ```
 
-## Run
-현재 실제 코드 및 환경에서 검증된 실행 명령어입니다:
+브라우저에서 [로컬 Gazebo 데스크톱](http://127.0.0.1:6080/vnc.html?autoconnect=true&resize=scale)을 엽니다. 이 링크는 로컬 시뮬레이션 실행 중에만 동작합니다.
 
-### 1. RViz2 및 관절 조작 GUI 실행 (로봇 모델 검증)
 ```bash
-source /opt/ros/jazzy/setup.bash
-source ~/raptor_ws/install/setup.bash
-ros2 launch raptor_description display.launch.py
+# 선택형 수동 발가락: 기존 세션을 종료한 다음 실행
+bash scripts/stop_local.sh
+RAPTOR_PASSIVE_TOES=true bash scripts/start_local.sh
+
+# 작업 종료
+bash scripts/stop_local.sh
 ```
 
-### 2. Gazebo 시뮬레이션 환경 실행
+AI 환경과 모델을 [설치 지침](docs/local-development.md#ai-setup-and-commands)에 따라 준비하고 Ollama를 실행했다면:
+
 ```bash
-source /opt/ros/jazzy/setup.bash
-source ~/raptor_ws/install/setup.bash
-gz sim $(ros2 pkg prefix raptor_description)/share/raptor_description/worlds/raptor_world.sdf
+# 기본 동작은 명령 해석 미리보기 — 로봇에 발행하지 않음
+.venv-ai/bin/python ai/command.py '산 동쪽을 수색해'
+
+# 실제 NanoJev decision head로 해석
+.venv-ai/bin/python ai/command.py '제자리에서 기립해' \
+  --backend nanojev --adapter ai/artifacts/raptor-head.safetensors
 ```
 
-### 3. Gazebo 내 로봇 모델 스폰
-```bash
-source /opt/ros/jazzy/setup.bash
-source ~/raptor_ws/install/setup.bash
-ros2 run ros_gz_sim create -file $(ros2 pkg prefix raptor_description)/share/raptor_description/urdf/raptor.urdf -name raptor -z 0.5
-```
+ROS 실행·응답 확인·STOP 사용법은 [로컬 개발 가이드](docs/local-development.md)에 있습니다. 개발용 `--experiment` 세션은 operator gate가 꺼져 있으므로 AI 명령을 보내는 세션과 구분합니다.
 
-## Development Roadmap
-우선순위에 따른 단계별 개발 계획입니다:
+## 개발 순서
 
-- **Phase 1: ros2_control 연동 정상화**
-  - Gazebo-ros2_control 간 `robot_description` 전달 경로 해결
-  - 10개 joint hardware interface 인식 확인 (`ros2 control list_hardware_interfaces`)
-  - `raptor_joint_controller` (JointTrajectoryController) 활성화
-- **Phase 2: Standing Pose 및 기본 자세 제어**
-  - 기립 기준 관절각(Target Joint Position) 도출
-  - 조인트 위치 제어(Position Control) 및 PID 게인 튜닝
-  - 지면 접촉 시 정적 균형 유지 테스트
-- **Phase 3: 기본 보행(Walking Gait) 생성**
-  - 꼬리(Tail)를 활용한 무게중심(CoM) 보정 궤적 생성
-  - 1보 전진 궤적 및 교차 발구름 패턴 테스트
-  - 연속 보행 시뮬레이션 안정화
-- **Phase 4: 센서 시스템 연동**
-  - IMU 센서 추가 (몸통 기울기 및 가속도 계측)
-  - RGB-D 카메라 추가 (전방 시야 확보)
-  - 양 발 접촉 센서(Contact Sensor) 모델링
-- **Phase 5: 자연어 명령 이해 파이프라인 연동**
-  - Ollama 기반 Qwen 베이스라인 프롬프트 엔지니어링
-  - 경량 NanoJev 액션 선택 모델 프로토타입 연동
-  - 정형화된 Action ID와 ROS 2 토픽/서비스 간 브릿지 구현
-- **Phase 6: 비교 평가 및 최종 데모**
-  - Qwen vs NanoJev 간 명령 추론 정확도 및 추론 지연 시간(latency) 측정
-  - 시뮬레이션 내 지상 탐사 미션 통합 시연
+- [x] 로컬 Ubuntu/ROS/Gazebo 환경 복구와 fresh build
+- [x] 10축 제어·기본 센서·제한된 정적 지지 검증
+- [x] Qwen/NanoJev 기본 연결과 소규모 명령 평가
+- [ ] 목표 외형·부품 모델링 고도화
+- [ ] 안정적인 한 발 지지 → 반복 보행
+- [ ] 단차·경사·불규칙 지형 성능 평가
+- [ ] 수동 분절 꼬리의 실제 유연 동역학
+- [ ] MuJoCo/MJX 모델 대응·강화학습·Gazebo 재검증
+- [ ] 탐색/복귀 mission 연결과 독립 명령 평가
+- [ ] 제작용 부품·구동기·하중·간섭 검증
 
-## AI Command Understanding
-프로젝트에서 AI는 저수준 모터 전류/토크를 직접 제어하지 않으며, 운영자의 상위 자연어 명령을 정형화된 Action ID로 변환하는 상위 인터프리터 역할을 담당합니다.
+## 문서와 증거
 
-### 제어 아키텍처 흐름
+| 문서 | 내용 |
+|---|---|
+| [설치 완료 보고서](docs/INSTALLATION_REPORT.ko.md) | ROS/Gazebo 설치와 실제 증거 화면 |
+| [프로젝트 보고서](docs/PROJECT_REPORT.ko.md) | 시스템 구현·AI 평가·한계 |
+| [외형 모델링](docs/REFERENCE_APPEARANCE.ko.md) | 참고 이미지와 현재 모델의 차이 |
+| [수동 발가락](docs/PASSIVE_TOES.ko.md) | 접촉·단차·경사 실험 |
+| [보행 접촉 분석](docs/GAIT_CONTACT_ANALYSIS.ko.md) | 접촉 영역·무게중심·IMU 중단 |
+| [발가락 강성 비교](docs/TOE_STIFFNESS_EXPERIMENT.ko.md) | 한 변수 실험과 실패 결과 |
+| [MuJoCo/MJX 로드맵](docs/MUJOCO_MJX_ROADMAP.ko.md) | 후속 학습 계획 — 아직 미실행 |
+| [검증 자료 전체](docs/evidence/README.md) | 원본 로그·측정값·스크린샷 |
+| [일시정지 체크포인트](docs/PAUSE_CHECKPOINT.ko.md) | 마지막 실험과 재개 지점 |
+
+<details>
+<summary>저장소 구성과 백업</summary>
+
 ```text
-Operator (운영자)
-       │
-       ▼ [자연어 명령 입력] (예: "산 동쪽을 수색해")
-Qwen / NanoJev (명령 파서)
-       │
-       ▼ [구조화된 액션 출력] (예: SEARCH_EAST)
-Safety Gate (안전 필터) ──▶ 비정상/비허용 명령 차단
-       │
-       ▼ [허가된 액션 전달]
-ROS 2 Mission / Motion Controller
-       │
-       ▼ [관절 각도 궤적 생성]
-10-DOF Raptor Robot (Gazebo Sim)
+ai/                         Qwen · NanoJev · 명령 평가 · task head
+docker/ + compose.yaml      로컬 Ubuntu / ROS 실행 환경
+modeling/                   Blender 원본과 메시 생성 코드
+scripts/                    환경 실행 · 종료 · 모델 준비 · 백업
+src/raptor_description/     URDF/Xacro · 메시 · RViz · world
+src/raptor_control/         launch · controllers · mission gate · 실험
+tests/                      명령 정책 · IMU 감시 회귀 검사
+docs/                       보고서 · 증거 · 재개 메모
 ```
 
-## Planned Command Set
-현재 시스템에서 지원 예정인 정형화 명령 후보군입니다:
+GitHub에는 소스·모델링 원본·메시·작은 task head·검증 자료를 저장합니다. 비공개 Hugging Face에는 Git bundle과 Qwen/NanoJev 모델 자산을 백업합니다. `.env`, 토큰, 가상환경과 `build/install/log`는 Git에 포함하지 않습니다. [복원 가이드](docs/local-development.md#backups-and-restoration)
 
-| Command Name | Description | Status |
-|---|---|---|
-| `SEARCH_EAST` | 동쪽 영역 탐사 및 이동 | Planned |
-| `SEARCH_WEST` | 서쪽 영역 탐사 및 이동 | Planned |
-| `SEARCH_NORTH` | 북쪽 영역 탐사 및 이동 | Planned |
-| `SEARCH_SOUTH` | 남쪽 영역 탐사 및 이동 | Planned |
-| `MOVE_EAST` | 동쪽 방향 단순 이동 | Planned |
-| `MOVE_WEST` | 서쪽 방향 단순 이동 | Planned |
-| `RETURN_BASE` | 출발 지점(베이스)으로 복귀 | Planned |
-| `PAUSE` | 현재 동작 일시 정지 및 자세 유지 | Planned |
-| `RESUME` | 중단된 동작 재개 | Planned |
-| `STOP` | 모든 구동 즉시 정지 (최우선 순위 긴급 정지) | Planned |
+이전 PC의 controller 초기화 대기 현상은 로컬에서 재현되지 않았습니다. 과거 기록은 Git 이력에 보존하며 현재 상태는 실제 코드와 최근 검증 로그를 기준으로 합니다.
 
-## Sensors
-현재 실제 코드 기준 센서 구현 상태입니다:
+</details>
 
-| Sensor | Purpose | Implementation Status | Notes |
-|---|---|---|---|
-| Joint Encoders | 10축 위치 및 속도 피드백 | In Progress | ros2_control state_interface 선언 완료, RM 연동 대기 중 |
-| IMU | 로봇 자세(Roll/Pitch/Yaw) 추정 | Not Implemented | 향후 base_link에 장착 예정 |
-| RGB-D Camera | 전방 지형 탐색 및 장애물 감지 | Not Implemented | 향후 헤드/전방부에 추가 예정 |
-| Foot Contact Sensor | 지면 접촉 감지 및 보행 상태 전이 | Not Implemented | 양 발 링크 충돌 감지 플러그인 예정 |
-| LiDAR | 주변 3차원 포인트클라우드 계측 | Optional / Planned | 필요 시 추가 검토 |
-| Thermal Camera | 탐사 대상 열원 감지 | Optional / Planned | 필요 시 추가 검토 |
+---
 
-## Safety
-- **운영자 통제권 보장**: 모든 미션 동작은 운영자의 명령에 의해 시작되며, 독자적인 임의 기동은 불가합니다.
-- **최우선 긴급 정지 (`STOP`)**: 운영자의 `STOP` 명령은 모든 진행 중인 동작 및 궤적 생성보다 최우선 순위로 처리됩니다.
-- **화이트리스트 기반 액션 수용**: AI가 출력하는 Action ID는 사전에 엄격히 정의된 명령 세트에 포함될 때만 통과됩니다.
-- **Safety Gate 적용 예정**: 비정상적인 관절 각도 명령, 급격한 가속도 요구, 허용 범위를 벗어난 명령은 안전 검증 계층에서 차단됩니다.
-
-## Limitations
-- **시뮬레이션 전용**: 실제 하드웨어 로봇이 아닌 Gazebo Harmonic 시뮬레이터 환경에서만 동작이 검증되고 있습니다.
-- **보행 제어 미완성**: 10축 동역학 보행 제어기 및 실시간 균형 유지 알고리즘이 아직 구현되지 않았습니다.
-- **환경 한계**: 평탄한 평면 지형(`raptor_world.sdf`) 외의 비정형 험지나 실제 야외 환경에서의 물리 검증은 이루어지지 않았습니다.
-- **기하 구조 한계**: 현재 URDF 외형은 기본 primitive box 형상으로 이루어진 초기 프로토타입 상태입니다.
-
-## References
-- ROS 2 Jazzy: https://docs.ros.org/en/jazzy/
-- Gazebo Harmonic: https://gazebosim.org/docs/harmonic/
-- ros2_control: https://control.ros.org/jazzy/
-- gz_ros2_control: https://github.com/ros-controls/gz_ros2_control
-- NanoJev: Planned / future integration
-- Ollama / Qwen: Planned / future integration
-
-## Repository Restore Verification
-- **Fresh Clone Tested**: Verified complete build from clean environment
-- **Environment**: ROS 2 Jazzy (Ubuntu 24.04 LTS)
-- **colcon build**: Passed (`colcon build --symlink-install` without errors)
-- **Xacro Parsing**: Passed (`xacro raptor.urdf.xacro` parses cleanly into valid URDF)
+**사람의 명령을 이해하고, 검증된 행동으로 실행하는 탐사 로봇.**<br>
+[외부 코드·모델 출처](docs/THIRD_PARTY.md) · [목표 이미지 생성 기록](docs/assets/README.md)
