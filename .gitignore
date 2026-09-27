@@ -9,6 +9,9 @@ __pycache__/
 
 # Environment and sensitive files
 .env
+.venv*/
+models/
+vendor/
 *.key
 *.pem
 
@@ -16,3 +19,7 @@ __pycache__/
 .vscode/
 .idea/
 .DS_Store
+
+# Local browser automation state
+.playwright-cli/
+*.blend1

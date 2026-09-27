@@ -1,0 +1,30 @@
+# Actual evidence — 2026-09-27
+
+Screenshots are captured from the running local noVNC desktop. Logs and JSON files
+are actual program outputs; they are not reconstructed terminal examples.
+Trailing whitespace in the simulation log was normalized; message content is unchanged.
+
+| File | What it establishes |
+|---|---|
+| `03-installation-controllers.png`, `installation.txt` | Ubuntu/Jazzy/Gazebo versions, successful build, active controllers |
+| `09-gazebo-detailed-robot.png` | Actual Gazebo GUI with detailed Raptor model |
+| `12-rviz.png` | Actual RViz RobotModel and Global Status OK; dark material issue remains |
+| `raptor-concept-render.png` | Blender appearance render only, not simulation evidence |
+| `01-motion-initial-failure.*` | Free-body individual-joint trial fell; retained failure |
+| `02-fixture-joint-test.json` | 10 small joint commands with body fixed for bench testing |
+| `04-static-standing.json`, `09-detailed-static-standing.json` | Limited-duration free-body neutral stance with active control |
+| `06-predefined-step.json`, `07-alternating-step.json` | Predefined trajectories tracked, without proof of walking |
+| `06-gazebo-step-experiment.png` | Actual primitive-model gait experiment GUI |
+| `08-*` | IMU/RGB-D/contact message evidence |
+| `10-step-contact-test.json` | Both feet remained in contact during intended lift |
+| `11-larger-shift-step.json` | Right foot unloaded, then robot tilted beyond limit: failed gait |
+| `05-*` | Qwen → ROS gate STAND, unsupported mission rejection, STOP latch |
+| `13-*` | Actual NanoJev decision model → ROS STAND target reached |
+| `*evaluation.json` | Development-set model experiments, not independent final evaluation |
+| `*-holdout.json` | Fixed 38-command comparison; no robotics execution success implied |
+| `safety-tests.txt` | Pure command contract and gate-policy unit tests |
+| `model-contract.txt` | Same physics and 10 actuated joints with detailed visuals |
+| `model-backup-assets.json` | HF model asset size/hash verification receipt |
+
+A successful joint target or static pose does not establish stable walking,
+field autonomy, mechanical manufacturability or flexible-tail dynamics.

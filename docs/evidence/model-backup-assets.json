@@ -1,0 +1,84 @@
+{
+  "repository": "dannykim123/ROS_RAPTER-backup",
+  "hf_commit": "f8c4022908ba851aafa60aee44b117b4f622d819",
+  "files": [
+    {
+      "path": "models/NanoJev/backbone_config/config.json",
+      "bytes": 1417,
+      "sha256": "30c011854471509747858ac07ffb8a4dab2bc6c04035b184729b69500c557c54",
+      "verified": "size"
+    },
+    {
+      "path": "models/NanoJev/best.safetensors",
+      "bytes": 2385039280,
+      "sha256": "f68c47d66998231b86b7e91b4ed5e82ae23acf104c8b7cd6d165c3ac7b7ffe1b",
+      "verified": "sha256+size"
+    },
+    {
+      "path": "models/NanoJev/config.json",
+      "bytes": 8013,
+      "sha256": "901038b5f1785c748c3fb4d35131e910951f2178f9a8bf024ff57aca556a30e9",
+      "verified": "size"
+    },
+    {
+      "path": "models/NanoJev/tokenizer/chat_template.jinja",
+      "bytes": 4168,
+      "sha256": "a55ee1b1660128b7098723e0abcd92caa0788061051c62d51cbe87d9cf1974d8",
+      "verified": "size"
+    },
+    {
+      "path": "models/NanoJev/tokenizer/tokenizer.json",
+      "bytes": 11422650,
+      "sha256": "be75606093db2094d7cd20f3c2f385c212750648bd6ea4fb2bf507a6a4c55506",
+      "verified": "sha256+size"
+    },
+    {
+      "path": "models/NanoJev/tokenizer/tokenizer_config.json",
+      "bytes": 692,
+      "sha256": "1cc816812993bff176eb4f7495433b736f06fba9b6e7b05cac7b4a1780650c95",
+      "verified": "size"
+    },
+    {
+      "path": "models/ollama/manifests/registry.ollama.ai/library/qwen3/0.6b",
+      "bytes": 858,
+      "sha256": "7df6b6e09427a769808717c0a93cadc4ae99ed4eb8bf5ca557c90846becea435",
+      "verified": "size"
+    },
+    {
+      "path": "models/ollama/blobs/sha256-b0830f4ff6a0220cfd995455206353b0ed23c0aee865218b154b7a75087b4e55",
+      "bytes": 490,
+      "sha256": "b0830f4ff6a0220cfd995455206353b0ed23c0aee865218b154b7a75087b4e55",
+      "verified": "size"
+    },
+    {
+      "path": "models/ollama/blobs/sha256-7f4030143c1c477224c5434f8272c662a8b042079a0a584f0a27a1684fe2e1fa",
+      "bytes": 522640096,
+      "sha256": "7f4030143c1c477224c5434f8272c662a8b042079a0a584f0a27a1684fe2e1fa",
+      "verified": "sha256+size"
+    },
+    {
+      "path": "models/ollama/blobs/sha256-ae370d884f108d16e7cc8fd5259ebc5773a0afa6e078b11f4ed7e39a27e0dfc4",
+      "bytes": 1723,
+      "sha256": "ae370d884f108d16e7cc8fd5259ebc5773a0afa6e078b11f4ed7e39a27e0dfc4",
+      "verified": "size"
+    },
+    {
+      "path": "models/ollama/blobs/sha256-d18a5cc71b84bc4af394a31116bd3932b42241de70c77d2b76d69a314ec8aa12",
+      "bytes": 11338,
+      "sha256": "d18a5cc71b84bc4af394a31116bd3932b42241de70c77d2b76d69a314ec8aa12",
+      "verified": "size"
+    },
+    {
+      "path": "models/ollama/blobs/sha256-cff3f395ef3756ab63e58b0ad1b32bb6f802905cae1472e6a12034e4246fbbdb",
+      "bytes": 120,
+      "sha256": "cff3f395ef3756ab63e58b0ad1b32bb6f802905cae1472e6a12034e4246fbbdb",
+      "verified": "size"
+    },
+    {
+      "path": "sources/NanoJev-76fdfc9.tar.gz",
+      "bytes": 48964999,
+      "sha256": "6c2ed789e70c15e2a676ae068aac242a4565f27410ffa68d60e25da7422ee644",
+      "verified": "sha256+size"
+    }
+  ]
+}

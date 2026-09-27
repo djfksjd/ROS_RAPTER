@@ -1,0 +1,10 @@
+[WARN] [1790473251.086694459] [rcl]: ROS_LOCALHOST_ONLY is deprecated but still honored if it is enabled. Use ROS_AUTOMATIC_DISCOVERY_RANGE and ROS_STATIC_PEERS instead.
+[WARN] [1790473251.086704709] [rcl]: 'localhost_only' is enabled, 'automatic_discovery_range' and 'static_peers' will be ignored.
+Traceback (most recent call last):
+  File "/raptor_ws/src/raptor_control/scripts/motion_probe.py", line 105, in <module>
+    main()
+  File "/raptor_ws/src/raptor_control/scripts/motion_probe.py", line 92, in main
+    node.move(neutral)
+  File "/raptor_ws/src/raptor_control/scripts/motion_probe.py", line 66, in move
+    raise RuntimeError(f'Tracking error {error:.5f} rad')
+RuntimeError: Tracking error 0.07596 rad

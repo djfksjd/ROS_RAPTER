@@ -13,6 +13,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ros-jazzy-ament-lint-auto \
     ros-jazzy-ament-lint-common \
     liburdfdom-tools \
+    xvfb fluxbox x11vnc novnc websockify xterm \
+    libgl1-mesa-dri mesa-utils \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /raptor_ws

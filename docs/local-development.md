@@ -1,94 +1,156 @@
 # Local Mac development
 
-Use Docker Desktop's Linux ARM64 environment on the M5 Mac. The host does not
-need native ROS. Start Docker Desktop before running these commands at repo root.
+Verified on 2026-09-27: M5 / 24GB, Docker Linux ARM64, Ubuntu 24.04.5,
+ROS 2 Jazzy, Gazebo Harmonic 8.15.0. See the
+[installation report](INSTALLATION_REPORT.ko.md) and [project report](PROJECT_REPORT.ko.md)
+for actual screenshots, measurements and remaining limitations.
 
-```sh
-docker compose build
-docker compose run --rm ros bash -c 'colcon build --symlink-install'
-docker compose run --rm ros bash -c 'source install/setup.bash && xacro src/raptor_description/urdf/raptor.urdf.xacro > /tmp/raptor.urdf && check_urdf /tmp/raptor.urdf'
-docker compose run --rm ros bash
-```
+## Start and stop
 
-Inside the shell, source `install/setup.bash` after building. Run all ROS and
-Gazebo processes in the same container: ROS is restricted to localhost, domain 42.
-The source directory is read-only; edit it on the Mac. Build/install/log live in
-named Docker volumes, not Git. `.env` is neither mounted nor in the image build
-context. The container has a 4 CPU / 4 GiB memory limit. Exit the shell to remove
-the temporary container; named volumes remain. Do not remove volumes if you want
-to preserve builds and logs.
-
-The checked-in `raptor.urdf` contains an old PC's absolute controller YAML path.
-Regenerate from Xacro in the current environment and spawn that generated file.
-Do not infer a controller initialization fix from this path finding alone.
-
-GUI forwarding is not configured here. Installed RViz/Gazebo GUI packages do not
-mean a Mac-visible GUI has been verified. `hold_joints=true` also means an upright
-model by itself is not evidence of controlled standing.
-
-## Headless reproduction (inside the container shell)
+Start Docker Desktop, then run at the repository root:
 
 ```bash
-source install/setup.bash
-xacro src/raptor_description/urdf/raptor.urdf.xacro > /tmp/raptor.urdf
-check_urdf /tmp/raptor.urdf
-gz sim -s -r src/raptor_description/worlds/raptor_world.sdf > /tmp/gazebo.log 2>&1 &
-gz_pid=$!
-ros2 run robot_state_publisher robot_state_publisher /tmp/raptor.urdf > /tmp/rsp.log 2>&1 &
-rsp_pid=$!
-ros2 run ros_gz_bridge parameter_bridge '/clock@rosgraph_msgs/msg/Clock[gz.msgs.Clock' > /tmp/clock.log 2>&1 &
-clock_pid=$!
-trap 'kill "$gz_pid" "$rsp_pid" "$clock_pid" 2>/dev/null; wait' EXIT
-ros2 run ros_gz_sim create -world raptor_world -file /tmp/raptor.urdf -name raptor -z 0.5
-ros2 node list
-ros2 service list
-# Proceed only after list_hardware_interfaces appears in the service list.
-ros2 control list_hardware_interfaces -c /controller_manager
-ros2 run controller_manager spawner joint_state_broadcaster -c /controller_manager
-ros2 run controller_manager spawner raptor_joint_controller -c /controller_manager
-ros2 control list_controllers -c /controller_manager
-ros2 topic echo /joint_states --once
+bash scripts/start_local.sh
 ```
 
-## Verified on 2026-09-27
+Open `http://127.0.0.1:6080/vnc.html?autoconnect=true&resize=scale`.
+The script builds both ROS packages and starts Gazebo, controllers, sensors,
+mission gate and a software-rendered desktop. A running container alone does not
+prove controller readiness; verify:
 
-- M5 / 24 GB host, Docker Linux aarch64; Ubuntu 24.04, Jazzy, Gazebo 8.15.0.
-- Fresh `colcon build --symlink-install`: both packages passed.
-- Generated URDF passed `check_urdf`: base_root, body, two legs and tail.
-- 10 revolute joints match the 10 ros2_control joints and controller joint list.
-- Headless entity creation succeeded; controller_manager and gz_ros_control ran.
-- Hardware query returned 10 available position commands and 20 state interfaces.
-- Both joint_state_broadcaster and raptor_joint_controller became active.
-- Received joint_states with 10 finite positions/velocities. Effort is NaN because
-  no effort state interface is declared; no effort measurement is claimed.
-- Received ROS /clock after adding the bridge; no new missing-clock warnings
-  appeared during the subsequent observation.
-- Previous robot_description initialization stall did not reproduce. Its original
-  root cause remains unconfirmed; the old PC and package versions were not tested.
-- No commanded motion, ground-contact validation, GUI, standing or walking has
-  been verified. Robot geometry and controller YAML were not changed.
-
-## Backups
-
-Review and commit changes, then push the current branch to GitHub without force:
-
-```sh
-git push -u origin HEAD
+```bash
+docker exec raptor-dev /ros_entrypoint.sh ros2 control list_controllers
+docker exec raptor-dev /ros_entrypoint.sh ros2 control list_hardware_interfaces
+docker exec raptor-dev /ros_entrypoint.sh ros2 topic echo /joint_states --once
 ```
 
+Both controllers must be `active`. To open RViz in the same desktop:
+
+```bash
+docker exec -d raptor-dev bash -c 'source /opt/ros/jazzy/setup.bash; source install/setup.bash; rviz2 -d src/raptor_description/rviz/raptor.rviz > /raptor_ws/log/session/rviz.log 2>&1'
+```
+
+Stop this project's container:
+
+```bash
+bash scripts/stop_local.sh
+```
+
+A fresh session resets the STOP latch; restart only as an intentional operator
+action. Other Docker containers and persistent volumes are not removed.
+The container is limited to 4 CPU / 4GiB. ROS processes share domain 42 and
+localhost inside this container. The GUI port binds only to Mac localhost.
+Source is mounted read-only; edit it on the Mac. Build/install/log live in named
+Docker volumes. `.env` is neither mounted nor included in the Docker build context.
+
+The launch file regenerates Xacro: the old checked-in `raptor.urdf` contains an
+obsolete absolute path and is not the runtime input. The previous PC's initialization
+stall did not reproduce; its original cause remains unconfirmed.
+
+## AI setup and commands
+
+The existing local `.venv-ai`, NanoJev inputs and Ollama model are already installed.
+For a new machine, use Python 3.11+ and install the pinned environment:
+
+```bash
+python3 -m venv .venv-ai
+.venv-ai/bin/python -m pip install -r ai/requirements.txt
+.venv-ai/bin/python scripts/setup_ai.py
+brew install ollama
+```
+
+Start Ollama in a separate terminal (not required for NanoJev):
+
+```bash
+OLLAMA_HOST=127.0.0.1:11434 ollama serve
+```
+
+For a new installation, `ollama pull qwen3:0.6b` downloads the current tag. The
+exact tested manifest and pinned NanoJev revisions are recorded in `ai/models.json`;
+use the private model backup for exact Qwen restoration if the tag changes.
+NanoJev currently uses Apple MPS FP32, so this CLI setup targets Apple Silicon.
+
+Preview only by default:
+
+```bash
+.venv-ai/bin/python ai/command.py '산 동쪽을 수색해'
+.venv-ai/bin/python ai/command.py '제자리에서 기립해' --backend nanojev --adapter ai/artifacts/raptor-head.safetensors
+```
+
+Explicitly publish to the running simulation:
+
+```bash
+.venv-ai/bin/python ai/command.py '제자리에서 서 있어' --execute
+.venv-ai/bin/python ai/command.py '제자리에서 기립해' --backend nanojev --adapter ai/artifacts/raptor-head.safetensors --execute
+.venv-ai/bin/python ai/command.py --stop
+docker exec raptor-dev tail -n 20 /raptor_ws/log/session/mission.log
+```
+
+The CLI's successful publication is not an execution acknowledgement: check the
+matching request ID and `joint_target_reached` in the gate log. This status measures
+joint tracking, not whole-body balance. Only STAND/PAUSE/RESUME/STOP are enabled;
+navigation and search are rejected until walking is validated. STOP bypasses AI
+and latches a simulated position hold. It is not a hardware power-off mechanism.
+Do not run motion/gait development probes concurrently with this operator session.
+
+Run the small fixed evaluation and policy tests:
+
+```bash
+.venv-ai/bin/python -m unittest discover -s tests -v
+.venv-ai/bin/python ai/evaluate.py --backend qwen --holdout --output /tmp/qwen-evaluation.json
+.venv-ai/bin/python ai/evaluate.py --backend nanojev --adapter ai/artifacts/raptor-head.safetensors --holdout --output /tmp/nanojev-evaluation.json
+```
+
+The published 38-command set has now been examined; use a new independent set for
+future model selection. The small trained head and its 108-example training record
+are in `ai/artifacts`. Original multi-GB weights stay outside Git.
+
+## Modeling and evidence
+
+`modeling/raptor-assembly.blend` contains named component objects.
+`modeling/build_visuals.py` regenerates link-local COLLADA and a presentation render:
+
+```bash
+/Applications/Blender.app/Contents/MacOS/Blender --background --python modeling/build_visuals.py
+```
+
+The bent-leg render is an appearance prototype, not a validated standing pose.
+Detailed visuals are optional in Xacro; collision/inertia and the 10 active joints
+remain unchanged. The eight distal tail segments are fixed visuals, not compliant
+physics. RViz currently renders these materials dark; Gazebo colors were verified.
+See [evidence index](evidence/README.md) for measured results and failure records.
+
+## Backups and restoration
+
+GitHub holds reviewed source, small task weights, meshes, reports and evidence.
 HF is backup storage only: private dataset `dannykim123/ROS_RAPTER-backup`.
-No Space, GPU, or paid compute is needed. Install `huggingface_hub` in a Python
-virtual environment, then run `python scripts/backup_hf.py` from that environment.
-It reads the local `.env` token without printing it and uploads committed Git
-history as `raptor.bundle`. It refuses dirty trees and excluded paths in history.
-Review commits for secrets before uploading; path checks are not a general secret
-scanner. No scheduled backup is configured: run backups after verified commits.
+No Space or paid compute is created. The token stays in ignored `.env` (mode 600).
 
-To restore, download `raptor.bundle` using your authenticated HF account and run:
+After reviewing and committing changes:
 
-```sh
-git clone raptor.bundle raptor-restored
+```bash
+git push -u origin HEAD
+.venv-ai/bin/python scripts/backup_hf.py
 ```
 
-The bundle includes branches and Git history, not `.env`, Docker images, build
-outputs, or untracked files. Rebuild the environment from the Dockerfile.
+The script rejects a dirty tree and sensitive/generated paths in Git history,
+then uploads `raptor.bundle`. These path checks do not replace secret review.
+For updated model inputs only, `scripts/backup_assets_hf.py` uploads an allowlist of
+pinned NanoJev files, Ollama manifest/blobs and the upstream source archive; it
+records remote sizes and available SHA-256 hashes in
+[evidence/model-backup-assets.json](evidence/model-backup-assets.json).
+
+To restore, authenticate to the private HF dataset and download `raptor.bundle`, then:
+
+```bash
+git clone raptor.bundle raptor-restored
+git -C raptor-restored checkout feature/segmented-tail
+```
+
+The bundle includes Git branches/history, not `.env`, Docker images, virtualenvs
+or build outputs. Rebuild Docker and Python environments using the files above.
+Restore HF `models/NanoJev/` into the checkout's `models/NanoJev/`; obtain the pinned
+upstream code with `scripts/setup_ai.py` or extract the backed-up source archive to
+`vendor/NanoJev/`. Restore HF `models/ollama/` under `~/.ollama/models/` while Ollama
+is stopped, preserving existing unrelated models. Verify restored file hashes
+against `model-backup-assets.json`. No automatic or scheduled backup is configured.

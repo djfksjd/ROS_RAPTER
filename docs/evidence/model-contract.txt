@@ -1,0 +1,2 @@
+PASS: 10 active joints, no world fixture, collision/inertia identical across visual variants
+SENSORS [('body_imu', 'imu'), ('front_rgbd', 'rgbd_camera'), ('left_foot_contact', 'contact'), ('right_foot_contact', 'contact')]

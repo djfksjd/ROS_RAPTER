@@ -1,0 +1,4 @@
+[WARN] [1790475322.997091251] [rcl]: ROS_LOCALHOST_ONLY is deprecated but still honored if it is enabled. Use ROS_AUTOMATIC_DISCOVERY_RANGE and ROS_STATIC_PEERS instead.
+[WARN] [1790475322.997113251] [rcl]: 'localhost_only' is enabled, 'automatic_discovery_range' and 'static_peers' will be ignored.
+[INFO] [1790475710.171629292] [raptor_mission_gate]: {"id": "6b91f3a1-6745-4704-a5a3-fc37899159fb", "action": "STAND", "result": "accepted", "stop_latched": false}
+[INFO] [1790475712.832401085] [raptor_mission_gate]: {"id": "6b91f3a1-6745-4704-a5a3-fc37899159fb", "action": "STAND", "result": "joint_target_reached", "stop_latched": false}

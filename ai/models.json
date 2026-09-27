@@ -1,0 +1,19 @@
+{
+  "qwen": {
+    "runtime": "Ollama 0.34.4",
+    "model": "qwen3:0.6b",
+    "quantization": "Q4_K_M",
+    "source": "https://ollama.com/library/qwen3:0.6b",
+    "manifest_sha256": "7df6b6e09427a769808717c0a93cadc4ae99ed4eb8bf5ca557c90846becea435"
+  },
+  "nanojev": {
+    "repository": "https://github.com/TianyuCodings/NanoJev.git",
+    "code_revision": "76fdfc9ecdca45a9bcef17991a07d3041a87685a",
+    "model_repository": "C-Tianyu/NanoJev",
+    "model_revision": "047b927b30882a1138fc504821b82ac145a4b81a",
+    "release": "unified-games-v1",
+    "runtime": "MPS FP32, upstream architecture and tokenizer, local device adapter",
+    "task_adapter": "ai/artifacts/raptor-head.safetensors",
+    "task_adapter_training": "108 labeled command examples; frozen backbone; 180 epochs; seed 7"
+  }
+}

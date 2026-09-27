@@ -1,0 +1,834 @@
+[
+  {
+    "phase": "crouch",
+    "target": {
+      "left_hip_roll_joint": 0.0,
+      "left_hip_pitch_joint": -0.15,
+      "left_knee_pitch_joint": 0.4,
+      "left_ankle_pitch_joint": -0.25,
+      "right_hip_roll_joint": 0.0,
+      "right_hip_pitch_joint": -0.15,
+      "right_knee_pitch_joint": 0.4,
+      "right_ankle_pitch_joint": -0.25,
+      "tail_yaw_joint": 0.0,
+      "tail_pitch_joint": 0.0
+    },
+    "tracking_error": 7.63884285270855e-08,
+    "pose": {
+      "name": "raptor",
+      "id": 10,
+      "position": {
+        "x": 0.02629514278064887,
+        "y": -0.0012423470865941392,
+        "z": -0.012919575325273498
+      },
+      "orientation": {
+        "x": -8.152036470945113e-08,
+        "y": -7.820369595306448e-09,
+        "z": -0.0005024525972269014,
+        "w": 0.9999998737706824
+      }
+    },
+    "rotation_rad": 0.0010049052500997993
+  },
+  {
+    "phase": "shift_left",
+    "target": {
+      "left_hip_roll_joint": -0.15,
+      "left_hip_pitch_joint": -0.15,
+      "left_knee_pitch_joint": 0.4,
+      "left_ankle_pitch_joint": -0.25,
+      "right_hip_roll_joint": 0.15,
+      "right_hip_pitch_joint": -0.15,
+      "right_knee_pitch_joint": 0.4,
+      "right_ankle_pitch_joint": -0.25,
+      "tail_yaw_joint": 0.0,
+      "tail_pitch_joint": 0.0
+    },
+    "tracking_error": 1.985652589575615e-08,
+    "pose": {
+      "name": "raptor",
+      "id": 10,
+      "position": {
+        "x": 0.026414147736017152,
+        "y": 0.1170510469756365,
+        "z": -0.01279152546233019
+      },
+      "orientation": {
+        "x": -1.721255613049788e-07,
+        "y": 5.786997640836083e-08,
+        "z": -0.000501737086478467,
+        "w": 0.9999998741299236
+      }
+    },
+    "rotation_rad": 0.0010034742806961194
+  },
+  {
+    "phase": "lift_right",
+    "target": {
+      "left_hip_roll_joint": -0.15,
+      "left_hip_pitch_joint": -0.15,
+      "left_knee_pitch_joint": 0.4,
+      "left_ankle_pitch_joint": -0.25,
+      "right_hip_roll_joint": 0.15,
+      "right_hip_pitch_joint": -0.25,
+      "right_knee_pitch_joint": 0.65,
+      "right_ankle_pitch_joint": -0.4,
+      "tail_yaw_joint": 0.0,
+      "tail_pitch_joint": 0.0
+    },
+    "tracking_error": 6.570096433566874e-08,
+    "pose": {
+      "name": "raptor",
+      "id": 10,
+      "position": {
+        "x": 0.030191878034833187,
+        "y": 0.11882183567357027,
+        "z": -0.019741928499705436
+      },
+      "orientation": {
+        "x": 0.028648958177468244,
+        "y": 0.0004348104349473505,
+        "z": 0.015169187434550334,
+        "w": 0.9994743337814167
+      }
+    },
+    "rotation_rad": 0.06485135490966279
+  },
+  {
+    "phase": "swing_right",
+    "target": {
+      "left_hip_roll_joint": -0.15,
+      "left_hip_pitch_joint": -0.15,
+      "left_knee_pitch_joint": 0.4,
+      "left_ankle_pitch_joint": -0.25,
+      "right_hip_roll_joint": 0.15,
+      "right_hip_pitch_joint": -0.35,
+      "right_knee_pitch_joint": 0.65,
+      "right_ankle_pitch_joint": -0.3,
+      "tail_yaw_joint": 0.0,
+      "tail_pitch_joint": 0.0
+    },
+    "tracking_error": 3.899391859407686e-08,
+    "pose": {
+      "name": "raptor",
+      "id": 10,
+      "position": {
+        "x": 0.008512572016545561,
+        "y": 0.11388667455800387,
+        "z": -0.019462725177140577
+      },
+      "orientation": {
+        "x": 0.027453843764273754,
+        "y": -0.0015468318218310713,
+        "z": -0.05623044966293298,
+        "w": 0.9980390925733251
+      }
+    },
+    "rotation_rad": 0.12526926587645648
+  },
+  {
+    "phase": "land_right",
+    "target": {
+      "left_hip_roll_joint": -0.15,
+      "left_hip_pitch_joint": -0.15,
+      "left_knee_pitch_joint": 0.4,
+      "left_ankle_pitch_joint": -0.25,
+      "right_hip_roll_joint": 0.15,
+      "right_hip_pitch_joint": -0.22,
+      "right_knee_pitch_joint": 0.4,
+      "right_ankle_pitch_joint": -0.18,
+      "tail_yaw_joint": 0.0,
+      "tail_pitch_joint": 0.0
+    },
+    "tracking_error": 9.33524700319488e-08,
+    "pose": {
+      "name": "raptor",
+      "id": 10,
+      "position": {
+        "x": 0.010275019248858857,
+        "y": 0.11404166319308623,
+        "z": -0.012671472521437
+      },
+      "orientation": {
+        "x": -0.0004927598612791059,
+        "y": 2.4132418458997293e-05,
+        "z": -0.04913870605861488,
+        "w": 0.9987918422635572
+      }
+    },
+    "rotation_rad": 0.09832196454653298
+  },
+  {
+    "phase": "center",
+    "target": {
+      "left_hip_roll_joint": 0.0,
+      "left_hip_pitch_joint": -0.15,
+      "left_knee_pitch_joint": 0.4,
+      "left_ankle_pitch_joint": -0.25,
+      "right_hip_roll_joint": 0.0,
+      "right_hip_pitch_joint": -0.22,
+      "right_knee_pitch_joint": 0.4,
+      "right_ankle_pitch_joint": -0.18,
+      "tail_yaw_joint": 0.0,
+      "tail_pitch_joint": 0.0
+    },
+    "tracking_error": 5.574699306419367e-08,
+    "pose": {
+      "name": "raptor",
+      "id": 10,
+      "position": {
+        "x": -0.0013398283368709577,
+        "y": -0.0037128051420635003,
+        "z": -0.012680065383641114
+      },
+      "orientation": {
+        "x": -0.0005002545284332441,
+        "y": 2.456766159335362e-05,
+        "z": -0.049144535115470116,
+        "w": 0.9987915517314516
+      }
+    },
+    "rotation_rad": 0.09833378822013648
+  },
+  {
+    "phase": "step0_shift",
+    "target": {
+      "left_hip_roll_joint": 0.15,
+      "left_hip_pitch_joint": -0.15,
+      "left_knee_pitch_joint": 0.4,
+      "left_ankle_pitch_joint": -0.25,
+      "right_hip_roll_joint": -0.15,
+      "right_hip_pitch_joint": -0.22,
+      "right_knee_pitch_joint": 0.4,
+      "right_ankle_pitch_joint": -0.18,
+      "tail_yaw_joint": 0.0,
+      "tail_pitch_joint": 0.0
+    },
+    "tracking_error": 1.6264311952784993e-07,
+    "pose": {
+      "name": "raptor",
+      "id": 10,
+      "position": {
+        "x": -0.012956085425894265,
+        "y": -0.12145382816548302,
+        "z": -0.012556276534723155
+      },
+      "orientation": {
+        "x": -0.0004929414140858094,
+        "y": 2.4208502989253637e-05,
+        "z": -0.049151405852630316,
+        "w": 0.9987912172848841
+      }
+    },
+    "rotation_rad": 0.09834739730515116
+  },
+  {
+    "phase": "step0_lift",
+    "target": {
+      "left_hip_roll_joint": 0.15,
+      "left_hip_pitch_joint": -0.25,
+      "left_knee_pitch_joint": 0.65,
+      "left_ankle_pitch_joint": -0.4,
+      "right_hip_roll_joint": -0.15,
+      "right_hip_pitch_joint": -0.15,
+      "right_knee_pitch_joint": 0.4,
+      "right_ankle_pitch_joint": -0.25,
+      "tail_yaw_joint": 0.0,
+      "tail_pitch_joint": 0.0
+    },
+    "tracking_error": 9.620263952125896e-08,
+    "pose": {
+      "name": "raptor",
+      "id": 10,
+      "position": {
+        "x": 0.01924836741587742,
+        "y": -0.11846168979749416,
+        "z": -0.019741765981043
+      },
+      "orientation": {
+        "x": -0.02865115623401335,
+        "y": 0.00017280993314745154,
+        "z": -0.006029956784813641,
+        "w": 0.9995712685968692
+      }
+    },
+    "rotation_rad": 0.05856702428749051
+  },
+  {
+    "phase": "step0_swing",
+    "target": {
+      "left_hip_roll_joint": 0.15,
+      "left_hip_pitch_joint": -0.35,
+      "left_knee_pitch_joint": 0.65,
+      "left_ankle_pitch_joint": -0.3,
+      "right_hip_roll_joint": -0.15,
+      "right_hip_pitch_joint": -0.15,
+      "right_knee_pitch_joint": 0.4,
+      "right_ankle_pitch_joint": -0.25,
+      "tail_yaw_joint": 0.0,
+      "tail_pitch_joint": 0.0
+    },
+    "tracking_error": 2.717311492483887e-08,
+    "pose": {
+      "name": "raptor",
+      "id": 10,
+      "position": {
+        "x": -0.0015414384996568229,
+        "y": -0.10904456724255797,
+        "z": -0.01946273516999144
+      },
+      "orientation": {
+        "x": -0.027422558531085554,
+        "y": -0.002027308182609865,
+        "z": 0.07369457040331245,
+        "w": 0.9969017020740877
+      }
+    },
+    "rotation_rad": 0.15747759605568096
+  },
+  {
+    "phase": "step0_land",
+    "target": {
+      "left_hip_roll_joint": 0.15,
+      "left_hip_pitch_joint": -0.22,
+      "left_knee_pitch_joint": 0.4,
+      "left_ankle_pitch_joint": -0.18,
+      "right_hip_roll_joint": -0.15,
+      "right_hip_pitch_joint": -0.15,
+      "right_knee_pitch_joint": 0.4,
+      "right_ankle_pitch_joint": -0.25,
+      "tail_yaw_joint": 0.0,
+      "tail_pitch_joint": 0.0
+    },
+    "tracking_error": 1.3961342226753715e-07,
+    "pose": {
+      "name": "raptor",
+      "id": 10,
+      "position": {
+        "x": 0.00024459149530377196,
+        "y": -0.10915260533839166,
+        "z": -0.012671235159478387
+      },
+      "orientation": {
+        "x": 0.0004927400540189552,
+        "y": 3.279025534546996e-05,
+        "z": 0.0665576948683313,
+        "w": 0.9977824559421018
+      }
+    },
+    "rotation_rad": 0.13321754018172788
+  },
+  {
+    "phase": "step0_center",
+    "target": {
+      "left_hip_roll_joint": 0.0,
+      "left_hip_pitch_joint": -0.22,
+      "left_knee_pitch_joint": 0.4,
+      "left_ankle_pitch_joint": -0.18,
+      "right_hip_roll_joint": 0.0,
+      "right_hip_pitch_joint": -0.15,
+      "right_knee_pitch_joint": 0.4,
+      "right_ankle_pitch_joint": -0.25,
+      "tail_yaw_joint": 0.0,
+      "tail_pitch_joint": 0.0
+    },
+    "tracking_error": 2.8744955039884805e-08,
+    "pose": {
+      "name": "raptor",
+      "id": 10,
+      "position": {
+        "x": -0.015471611422427457,
+        "y": 0.008127608351276268,
+        "z": -0.012679786798252475
+      },
+      "orientation": {
+        "x": 0.0004984703815525843,
+        "y": 3.318721865984628e-05,
+        "z": 0.06656502437565029,
+        "w": 0.9977819641363319
+      }
+    },
+    "rotation_rad": 0.1332323172860242
+  },
+  {
+    "phase": "step1_shift",
+    "target": {
+      "left_hip_roll_joint": -0.15,
+      "left_hip_pitch_joint": -0.22,
+      "left_knee_pitch_joint": 0.4,
+      "left_ankle_pitch_joint": -0.18,
+      "right_hip_roll_joint": 0.15,
+      "right_hip_pitch_joint": -0.15,
+      "right_knee_pitch_joint": 0.4,
+      "right_ankle_pitch_joint": -0.25,
+      "tail_yaw_joint": 0.0,
+      "tail_pitch_joint": 0.0
+    },
+    "tracking_error": 1.6693859908323283e-07,
+    "pose": {
+      "name": "raptor",
+      "id": 10,
+      "position": {
+        "x": -0.0311910121892069,
+        "y": 0.12539505303487053,
+        "z": -0.012556133653756461
+      },
+      "orientation": {
+        "x": 0.0004926505996449597,
+        "y": 3.2835708943732936e-05,
+        "z": 0.06657456214837869,
+        "w": 0.9977813306992442
+      }
+    },
+    "rotation_rad": 0.13325134752263545
+  },
+  {
+    "phase": "step1_lift",
+    "target": {
+      "left_hip_roll_joint": -0.15,
+      "left_hip_pitch_joint": -0.15,
+      "left_knee_pitch_joint": 0.4,
+      "left_ankle_pitch_joint": -0.25,
+      "right_hip_roll_joint": 0.15,
+      "right_hip_pitch_joint": -0.25,
+      "right_knee_pitch_joint": 0.65,
+      "right_ankle_pitch_joint": -0.4,
+      "tail_yaw_joint": 0.0,
+      "tail_pitch_joint": 0.0
+    },
+    "tracking_error": 4.0095278319718375e-07,
+    "pose": {
+      "name": "raptor",
+      "id": 10,
+      "position": {
+        "x": 0.0011292066814672576,
+        "y": 0.12353882719943401,
+        "z": -0.019741955013213082
+      },
+      "orientation": {
+        "x": 0.02864461906653074,
+        "y": 0.0006812819181043806,
+        "z": 0.0237740969580478,
+        "w": 0.9993066666280731
+      }
+    },
+    "rotation_rad": 0.07448025269939208
+  },
+  {
+    "phase": "step1_swing",
+    "target": {
+      "left_hip_roll_joint": -0.15,
+      "left_hip_pitch_joint": -0.15,
+      "left_knee_pitch_joint": 0.4,
+      "left_ankle_pitch_joint": -0.25,
+      "right_hip_roll_joint": 0.15,
+      "right_hip_pitch_joint": -0.35,
+      "right_knee_pitch_joint": 0.65,
+      "right_ankle_pitch_joint": -0.3,
+      "tail_yaw_joint": 0.0,
+      "tail_pitch_joint": 0.0
+    },
+    "tracking_error": 7.611199598356322e-08,
+    "pose": {
+      "name": "raptor",
+      "id": 10,
+      "position": {
+        "x": -0.01908053939666826,
+        "y": 0.11321982482449344,
+        "z": -0.01946271702187287
+      },
+      "orientation": {
+        "x": 0.027451132635818533,
+        "y": -0.0015936428633877835,
+        "z": -0.057933218078011314,
+        "w": 0.9979417006331384
+      }
+    },
+    "rotation_rad": 0.12834347210707833
+  },
+  {
+    "phase": "step1_land",
+    "target": {
+      "left_hip_roll_joint": -0.15,
+      "left_hip_pitch_joint": -0.15,
+      "left_knee_pitch_joint": 0.4,
+      "left_ankle_pitch_joint": -0.25,
+      "right_hip_roll_joint": 0.15,
+      "right_hip_pitch_joint": -0.22,
+      "right_knee_pitch_joint": 0.4,
+      "right_ankle_pitch_joint": -0.18,
+      "tail_yaw_joint": 0.0,
+      "tail_pitch_joint": 0.0
+    },
+    "tracking_error": 8.033968048604123e-07,
+    "pose": {
+      "name": "raptor",
+      "id": 10,
+      "position": {
+        "x": -0.017328126147485627,
+        "y": 0.1134375479128099,
+        "z": -0.012671311417389333
+      },
+      "orientation": {
+        "x": -0.0004926051290005338,
+        "y": 2.522172506759815e-05,
+        "z": -0.05116407073991088,
+        "w": 0.9986901394173134
+      }
+    },
+    "rotation_rad": 0.10237760061274755
+  },
+  {
+    "phase": "step1_center",
+    "target": {
+      "left_hip_roll_joint": 0.0,
+      "left_hip_pitch_joint": -0.15,
+      "left_knee_pitch_joint": 0.4,
+      "left_ankle_pitch_joint": -0.25,
+      "right_hip_roll_joint": 0.0,
+      "right_hip_pitch_joint": -0.22,
+      "right_knee_pitch_joint": 0.4,
+      "right_ankle_pitch_joint": -0.18,
+      "tail_yaw_joint": 0.0,
+      "tail_pitch_joint": 0.0
+    },
+    "tracking_error": 3.51688791797505e-07,
+    "pose": {
+      "name": "raptor",
+      "id": 10,
+      "position": {
+        "x": -0.029420313466063823,
+        "y": -0.004268256580207751,
+        "z": -0.012679807257076443
+      },
+      "orientation": {
+        "x": -0.0004987356364343806,
+        "y": 2.5485030780135535e-05,
+        "z": -0.051169284957958326,
+        "w": 0.9986898692237592
+      }
+    },
+    "rotation_rad": 0.10238816142516051
+  },
+  {
+    "phase": "step2_shift",
+    "target": {
+      "left_hip_roll_joint": 0.15,
+      "left_hip_pitch_joint": -0.15,
+      "left_knee_pitch_joint": 0.4,
+      "left_ankle_pitch_joint": -0.25,
+      "right_hip_roll_joint": -0.15,
+      "right_hip_pitch_joint": -0.22,
+      "right_knee_pitch_joint": 0.4,
+      "right_ankle_pitch_joint": -0.18,
+      "tail_yaw_joint": 0.0,
+      "tail_pitch_joint": 0.0
+    },
+    "tracking_error": 2.2571732929965727e-07,
+    "pose": {
+      "name": "raptor",
+      "id": 10,
+      "position": {
+        "x": -0.04151387652771133,
+        "y": -0.12196661933409038,
+        "z": -0.012556139764299744
+      },
+      "orientation": {
+        "x": -0.00049357941533034,
+        "y": 2.5240256020301566e-05,
+        "z": -0.051173911381856625,
+        "w": 0.9986896347395281
+      }
+    },
+    "rotation_rad": 0.10239732561737228
+  },
+  {
+    "phase": "step2_lift",
+    "target": {
+      "left_hip_roll_joint": 0.15,
+      "left_hip_pitch_joint": -0.25,
+      "left_knee_pitch_joint": 0.65,
+      "left_ankle_pitch_joint": -0.4,
+      "right_hip_roll_joint": -0.15,
+      "right_hip_pitch_joint": -0.15,
+      "right_knee_pitch_joint": 0.4,
+      "right_ankle_pitch_joint": -0.25,
+      "tail_yaw_joint": 0.0,
+      "tail_pitch_joint": 0.0
+    },
+    "tracking_error": 5.990517987219945e-07,
+    "pose": {
+      "name": "raptor",
+      "id": 10,
+      "position": {
+        "x": -0.009280997220769832,
+        "y": -0.1190981314215235,
+        "z": -0.019741940381575174
+      },
+      "orientation": {
+        "x": -0.02865153400995713,
+        "y": 0.0002307581223677974,
+        "z": -0.008053794110485697,
+        "w": 0.9995569882452882
+      }
+    },
+    "rotation_rad": 0.059534492085116054
+  },
+  {
+    "phase": "step2_swing",
+    "target": {
+      "left_hip_roll_joint": 0.15,
+      "left_hip_pitch_joint": -0.35,
+      "left_knee_pitch_joint": 0.65,
+      "left_ankle_pitch_joint": -0.3,
+      "right_hip_roll_joint": -0.15,
+      "right_hip_pitch_joint": -0.15,
+      "right_knee_pitch_joint": 0.4,
+      "right_ankle_pitch_joint": -0.25,
+      "tail_yaw_joint": 0.0,
+      "tail_pitch_joint": 0.0
+    },
+    "tracking_error": 7.66712260347191e-08,
+    "pose": {
+      "name": "raptor",
+      "id": 10,
+      "position": {
+        "x": -0.031522878256806414,
+        "y": -0.11400194490212609,
+        "z": -0.019462770645682508
+      },
+      "orientation": {
+        "x": -0.027447070414735663,
+        "y": -0.0016628739730798665,
+        "z": 0.0604440404900489,
+        "w": 0.9977927696395859
+      }
+    },
+    "rotation_rad": 0.13290727042034273
+  },
+  {
+    "phase": "step2_land",
+    "target": {
+      "left_hip_roll_joint": 0.15,
+      "left_hip_pitch_joint": -0.22,
+      "left_knee_pitch_joint": 0.4,
+      "left_ankle_pitch_joint": -0.18,
+      "right_hip_roll_joint": -0.15,
+      "right_hip_pitch_joint": -0.15,
+      "right_knee_pitch_joint": 0.4,
+      "right_ankle_pitch_joint": -0.25,
+      "tail_yaw_joint": 0.0,
+      "tail_pitch_joint": 0.0
+    },
+    "tracking_error": 8.216743581090924e-07,
+    "pose": {
+      "name": "raptor",
+      "id": 10,
+      "position": {
+        "x": -0.029768263478066638,
+        "y": -0.11416082726147225,
+        "z": -0.012671332874376008
+      },
+      "orientation": {
+        "x": 0.000492489783828172,
+        "y": 2.6397108479888424e-05,
+        "z": 0.05356314177343626,
+        "w": 0.9985643427443042
+      }
+    },
+    "rotation_rad": 0.10718212186352197
+  },
+  {
+    "phase": "step2_center",
+    "target": {
+      "left_hip_roll_joint": 0.0,
+      "left_hip_pitch_joint": -0.22,
+      "left_knee_pitch_joint": 0.4,
+      "left_ankle_pitch_joint": -0.18,
+      "right_hip_roll_joint": 0.0,
+      "right_hip_pitch_joint": -0.15,
+      "right_knee_pitch_joint": 0.4,
+      "right_ankle_pitch_joint": -0.25,
+      "tail_yaw_joint": 0.0,
+      "tail_pitch_joint": 0.0
+    },
+    "tracking_error": 1.7226496109621183e-07,
+    "pose": {
+      "name": "raptor",
+      "id": 10,
+      "position": {
+        "x": -0.04242597369830224,
+        "y": 0.0034869269700122216,
+        "z": -0.012679700158089242
+      },
+      "orientation": {
+        "x": 0.0004989250378549527,
+        "y": 2.66932158239239e-05,
+        "z": 0.05356855626348115,
+        "w": 0.998564049093059
+      }
+    },
+    "rotation_rad": 0.1071930855144573
+  },
+  {
+    "phase": "step3_shift",
+    "target": {
+      "left_hip_roll_joint": -0.15,
+      "left_hip_pitch_joint": -0.22,
+      "left_knee_pitch_joint": 0.4,
+      "left_ankle_pitch_joint": -0.18,
+      "right_hip_roll_joint": 0.15,
+      "right_hip_pitch_joint": -0.15,
+      "right_knee_pitch_joint": 0.4,
+      "right_ankle_pitch_joint": -0.25,
+      "tail_yaw_joint": 0.0,
+      "tail_pitch_joint": 0.0
+    },
+    "tracking_error": 5.6870534032027464e-08,
+    "pose": {
+      "name": "raptor",
+      "id": 10,
+      "position": {
+        "x": -0.055085282406219155,
+        "y": 0.12112389223009148,
+        "z": -0.01255591387990364
+      },
+      "orientation": {
+        "x": 0.0004936482713926599,
+        "y": 2.6438657437425782e-05,
+        "z": 0.05357388009036334,
+        "w": 0.9985637661083266
+      }
+    },
+    "rotation_rad": 0.10720364986465605
+  },
+  {
+    "phase": "step3_lift",
+    "target": {
+      "left_hip_roll_joint": -0.15,
+      "left_hip_pitch_joint": -0.15,
+      "left_knee_pitch_joint": 0.4,
+      "left_ankle_pitch_joint": -0.25,
+      "right_hip_roll_joint": 0.15,
+      "right_hip_pitch_joint": -0.25,
+      "right_knee_pitch_joint": 0.65,
+      "right_ankle_pitch_joint": -0.4,
+      "tail_yaw_joint": 0.0,
+      "tail_pitch_joint": 0.0
+    },
+    "tracking_error": 7.799578291001197e-07,
+    "pose": {
+      "name": "raptor",
+      "id": 10,
+      "position": {
+        "x": -0.02293723301039557,
+        "y": 0.11940517573307688,
+        "z": -0.019741751715102385
+      },
+      "orientation": {
+        "x": 0.028650283361662338,
+        "y": 0.000308945654843027,
+        "z": 0.010773182060322047,
+        "w": 0.9995313923855388
+      }
+    },
+    "rotation_rad": 0.06123033352087888
+  },
+  {
+    "phase": "step3_swing",
+    "target": {
+      "left_hip_roll_joint": -0.15,
+      "left_hip_pitch_joint": -0.15,
+      "left_knee_pitch_joint": 0.4,
+      "left_ankle_pitch_joint": -0.25,
+      "right_hip_roll_joint": 0.15,
+      "right_hip_pitch_joint": -0.35,
+      "right_knee_pitch_joint": 0.65,
+      "right_ankle_pitch_joint": -0.3,
+      "tail_yaw_joint": 0.0,
+      "tail_pitch_joint": 0.0
+    },
+    "tracking_error": 1.134552780057696e-07,
+    "pose": {
+      "name": "raptor",
+      "id": 10,
+      "position": {
+        "x": -0.04345026445189505,
+        "y": 0.10963534756621818,
+        "z": -0.019462709422575254
+      },
+      "orientation": {
+        "x": 0.027428349824402124,
+        "y": -0.0019466986586980798,
+        "z": -0.07076681583640498,
+        "w": 0.9971138118422684
+      }
+    },
+    "rotation_rad": 0.15198888312712955
+  },
+  {
+    "phase": "step3_land",
+    "target": {
+      "left_hip_roll_joint": -0.15,
+      "left_hip_pitch_joint": -0.15,
+      "left_knee_pitch_joint": 0.4,
+      "left_ankle_pitch_joint": -0.25,
+      "right_hip_roll_joint": 0.15,
+      "right_hip_pitch_joint": -0.22,
+      "right_knee_pitch_joint": 0.4,
+      "right_ankle_pitch_joint": -0.18,
+      "tail_yaw_joint": 0.0,
+      "tail_pitch_joint": 0.0
+    },
+    "tracking_error": 1.6115858381127168e-06,
+    "pose": {
+      "name": "raptor",
+      "id": 10,
+      "position": {
+        "x": -0.041677170251041146,
+        "y": 0.10975820322122264,
+        "z": -0.012671339470507683
+      },
+      "orientation": {
+        "x": -0.0004927913422734057,
+        "y": 3.145672703077641e-05,
+        "z": -0.06391582162992618,
+        "w": 0.9979551712940511
+      }
+    },
+    "rotation_rad": 0.12792266331214547
+  },
+  {
+    "phase": "step3_center",
+    "target": {
+      "left_hip_roll_joint": 0.0,
+      "left_hip_pitch_joint": -0.15,
+      "left_knee_pitch_joint": 0.4,
+      "left_ankle_pitch_joint": -0.25,
+      "right_hip_roll_joint": 0.0,
+      "right_hip_pitch_joint": -0.22,
+      "right_knee_pitch_joint": 0.4,
+      "right_ankle_pitch_joint": -0.18,
+      "tail_yaw_joint": 0.0,
+      "tail_pitch_joint": 0.0
+    },
+    "tracking_error": 3.33337178806624e-07,
+    "pose": {
+      "name": "raptor",
+      "id": 10,
+      "position": {
+        "x": -0.0567721128844002,
+        "y": -0.007599455164065772,
+        "z": -0.012679957589520705
+      },
+      "orientation": {
+        "x": -0.0004985048503762514,
+        "y": 3.1863218898092445e-05,
+        "z": -0.0639227743037378,
+        "w": 0.9979547231227291
+      }
+    },
+    "rotation_rad": 0.12793668592526478
+  }
+]

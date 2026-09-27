@@ -1,0 +1,17 @@
+RAPTOR - LOCAL INSTALLATION EVIDENCE
+Sun Sep 27 01:50:56 UTC 2026
+PRETTY_NAME="Ubuntu 24.04.5 LTS"
+NAME="Ubuntu"
+VERSION_ID="24.04"
+VERSION="24.04.5 LTS (Noble Numbat)"
+aarch64
+ROS_DISTRO=jazzy
+8.15.0
+Starting >>> raptor_description
+Finished <<< raptor_description [0.12s]
+Starting >>> raptor_control
+Finished <<< raptor_control [0.09s]
+
+Summary: 2 packages finished [0.44s]
+raptor_joint_controller joint_trajectory_controller/JointTrajectoryController  active
+joint_state_broadcaster joint_state_broadcaster/JointStateBroadcaster          active

@@ -1,0 +1,63 @@
+/raptor/camera/camera_info
+/raptor/camera/depth_image
+/raptor/camera/image
+/raptor/imu
+/raptor/left_foot/contact
+/raptor/right_foot/contact
+/raptor_joint_controller/controller_state
+/raptor_joint_controller/joint_trajectory
+/raptor_joint_controller/speed_scaling_input
+/raptor_joint_controller/transition_event
+header:
+  stamp:
+    sec: 14
+    nanosec: 740000000
+  frame_id: raptor/base_root/body_imu
+orientation:
+  x: -2.0039691187746737e-15
+  y: -3.436583917704023e-08
+  z: -1.7591580693852096e-17
+  w: 0.9999999999999994
+orientation_covariance:
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+angular_velocity:
+  x: -5.673084206154437e-12
+  y: 3.727779646763564e-12
+  z: 3.774671620390555e-16
+angular_velocity_covariance:
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+linear_acceleration:
+  x: 6.743029047079595e-07
+  y: 4.824483989693465e-09
+  z: 9.810000001135458
+linear_acceleration_covariance:
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+---
+320
+---
+32FC1
+---

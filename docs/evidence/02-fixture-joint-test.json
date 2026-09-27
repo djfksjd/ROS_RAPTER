@@ -1,0 +1,318 @@
+{
+  "joint_tests": [
+    {
+      "joint": "left_hip_roll_joint",
+      "target": 0.03,
+      "actual": 0.029999988744382828,
+      "max_error": 7.918903415864894e-06,
+      "pose": {
+        "name": "raptor",
+        "id": 10,
+        "position": {
+          "z": 0.030000000000000027
+        },
+        "orientation": {
+          "w": 1
+        }
+      }
+    },
+    {
+      "joint": "left_hip_pitch_joint",
+      "target": 0.03,
+      "actual": 0.030000512514988188,
+      "max_error": 9.012861999378484e-06,
+      "pose": {
+        "name": "raptor",
+        "id": 10,
+        "position": {
+          "z": 0.030000000000000027
+        },
+        "orientation": {
+          "w": 1
+        }
+      }
+    },
+    {
+      "joint": "left_knee_pitch_joint",
+      "target": 0.03,
+      "actual": 0.03000008587105158,
+      "max_error": 6.351655056148709e-06,
+      "pose": {
+        "name": "raptor",
+        "id": 10,
+        "position": {
+          "z": 0.030000000000000027
+        },
+        "orientation": {
+          "w": 1
+        }
+      }
+    },
+    {
+      "joint": "left_ankle_pitch_joint",
+      "target": 0.03,
+      "actual": 0.02999999902844143,
+      "max_error": 8.757432034051723e-06,
+      "pose": {
+        "name": "raptor",
+        "id": 10,
+        "position": {
+          "z": 0.030000000000000027
+        },
+        "orientation": {
+          "w": 1
+        }
+      }
+    },
+    {
+      "joint": "right_hip_roll_joint",
+      "target": 0.03,
+      "actual": 0.029999999841851897,
+      "max_error": 6.35184584752141e-06,
+      "pose": {
+        "name": "raptor",
+        "id": 10,
+        "position": {
+          "z": 0.030000000000000027
+        },
+        "orientation": {
+          "w": 1
+        }
+      }
+    },
+    {
+      "joint": "right_hip_pitch_joint",
+      "target": 0.03,
+      "actual": 0.030000516079338888,
+      "max_error": 7.918665219513862e-06,
+      "pose": {
+        "name": "raptor",
+        "id": 10,
+        "position": {
+          "z": 0.030000000000000027
+        },
+        "orientation": {
+          "w": 1
+        }
+      }
+    },
+    {
+      "joint": "right_knee_pitch_joint",
+      "target": 0.03,
+      "actual": 0.03000006764971726,
+      "max_error": 9.012866492354098e-06,
+      "pose": {
+        "name": "raptor",
+        "id": 10,
+        "position": {
+          "z": 0.030000000000000027
+        },
+        "orientation": {
+          "w": 1
+        }
+      }
+    },
+    {
+      "joint": "right_ankle_pitch_joint",
+      "target": 0.03,
+      "actual": 0.02999997709445522,
+      "max_error": 9.012864146142043e-06,
+      "pose": {
+        "name": "raptor",
+        "id": 10,
+        "position": {
+          "z": 0.030000000000000027
+        },
+        "orientation": {
+          "w": 1
+        }
+      }
+    },
+    {
+      "joint": "tail_yaw_joint",
+      "target": 0.03,
+      "actual": 0.02999999867131049,
+      "max_error": 7.682296279277749e-06,
+      "pose": {
+        "name": "raptor",
+        "id": 10,
+        "position": {
+          "z": 0.030000000000000027
+        },
+        "orientation": {
+          "w": 1
+        }
+      }
+    },
+    {
+      "joint": "tail_pitch_joint",
+      "target": 0.03,
+      "actual": 0.02999990340261766,
+      "max_error": 8.765054765369812e-06,
+      "pose": {
+        "name": "raptor",
+        "id": 10,
+        "position": {
+          "z": 0.030000000000000027
+        },
+        "orientation": {
+          "w": 1
+        }
+      }
+    }
+  ],
+  "standing_samples": [
+    {
+      "name": "raptor",
+      "id": 10,
+      "position": {
+        "z": 0.030000000000000027
+      },
+      "orientation": {
+        "w": 1
+      }
+    },
+    {
+      "name": "raptor",
+      "id": 10,
+      "position": {
+        "z": 0.030000000000000027
+      },
+      "orientation": {
+        "w": 1
+      }
+    },
+    {
+      "name": "raptor",
+      "id": 10,
+      "position": {
+        "z": 0.030000000000000027
+      },
+      "orientation": {
+        "w": 1
+      }
+    },
+    {
+      "name": "raptor",
+      "id": 10,
+      "position": {
+        "z": 0.030000000000000027
+      },
+      "orientation": {
+        "w": 1
+      }
+    },
+    {
+      "name": "raptor",
+      "id": 10,
+      "position": {
+        "z": 0.030000000000000027
+      },
+      "orientation": {
+        "w": 1
+      }
+    },
+    {
+      "name": "raptor",
+      "id": 10,
+      "position": {
+        "z": 0.030000000000000027
+      },
+      "orientation": {
+        "w": 1
+      }
+    },
+    {
+      "name": "raptor",
+      "id": 10,
+      "position": {
+        "z": 0.030000000000000027
+      },
+      "orientation": {
+        "w": 1
+      }
+    },
+    {
+      "name": "raptor",
+      "id": 10,
+      "position": {
+        "z": 0.030000000000000027
+      },
+      "orientation": {
+        "w": 1
+      }
+    },
+    {
+      "name": "raptor",
+      "id": 10,
+      "position": {
+        "z": 0.030000000000000027
+      },
+      "orientation": {
+        "w": 1
+      }
+    },
+    {
+      "name": "raptor",
+      "id": 10,
+      "position": {
+        "z": 0.030000000000000027
+      },
+      "orientation": {
+        "w": 1
+      }
+    },
+    {
+      "name": "raptor",
+      "id": 10,
+      "position": {
+        "z": 0.030000000000000027
+      },
+      "orientation": {
+        "w": 1
+      }
+    },
+    {
+      "name": "raptor",
+      "id": 10,
+      "position": {
+        "z": 0.030000000000000027
+      },
+      "orientation": {
+        "w": 1
+      }
+    },
+    {
+      "name": "raptor",
+      "id": 10,
+      "position": {
+        "z": 0.030000000000000027
+      },
+      "orientation": {
+        "w": 1
+      }
+    },
+    {
+      "name": "raptor",
+      "id": 10,
+      "position": {
+        "z": 0.030000000000000027
+      },
+      "orientation": {
+        "w": 1
+      }
+    },
+    {
+      "name": "raptor",
+      "id": 10,
+      "position": {
+        "z": 0.030000000000000027
+      },
+      "orientation": {
+        "w": 1
+      }
+    }
+  ],
+  "passed_joint_tracking": true,
+  "standing_only": false
+}
