@@ -3,7 +3,7 @@ import subprocess
 import tempfile
 from pathlib import Path
 
-from huggingface_hub import HfApi
+from huggingface_hub import HfApi, hf_hub_download
 
 
 def main():
@@ -30,6 +30,16 @@ def main():
         raise SystemExit("HF_TOKEN is not configured.")
     api = HfApi(token=token)
     repo = "dannykim123/ROS_RAPTER-backup"
+    # Bundle payloads include binary Git objects; preserve existing Hub rules.
+    info = api.dataset_info(repo)
+    attributes = Path(hf_hub_download(repo, ".gitattributes", repo_type="dataset",
+                                     revision=info.sha, token=token)).read_text()
+    rule = "raptor.bundle filter=lfs diff=lfs merge=lfs -text"
+    if rule not in attributes.splitlines():
+        api.upload_file(path_or_fileobj=(attributes.rstrip()+"\n"+rule+"\n").encode(),
+                        path_in_repo=".gitattributes", repo_id=repo, repo_type="dataset",
+                        parent_commit=info.sha,
+                        commit_message="Store Git backup bundle through large-file storage")
     sha = git("rev-parse", "HEAD").decode().strip()
     with tempfile.TemporaryDirectory(prefix="raptor-backup-") as tmp:
         bundle = Path(tmp) / "raptor.bundle"
