@@ -6,10 +6,7 @@
 
 **Human command → Qwen / NanoJev → ROS 2 → Raptor**
 
-![ROS 2 Jazzy](https://img.shields.io/badge/ROS_2-Jazzy-22314E?style=flat-square)
-![Gazebo Harmonic](https://img.shields.io/badge/Gazebo-Harmonic-E87935?style=flat-square)
-![10 Active DOF](https://img.shields.io/badge/Active_DOF-10-397D68?style=flat-square)
-![Simulation research](https://img.shields.io/badge/Stage-Simulation_Research-64748B?style=flat-square)
+![ROS 2 Jazzy](https://img.shields.io/badge/ROS_2-Jazzy-22314E?style=flat-square) ![Gazebo Harmonic](https://img.shields.io/badge/Gazebo-Harmonic-E87935?style=flat-square) ![10 Active DOF](https://img.shields.io/badge/Active_DOF-10-397D68?style=flat-square) ![Simulation research](https://img.shields.io/badge/Stage-Simulation_Research-64748B?style=flat-square)
 
 <img src="docs/assets/raptor-target-concept.png" width="100%" alt="목표 콘셉트: 흰색 장갑과 노출된 기계 구조, 굽힌 두 다리, 발가락과 긴 분절 꼬리를 가진 탐사 랩터" />
 
