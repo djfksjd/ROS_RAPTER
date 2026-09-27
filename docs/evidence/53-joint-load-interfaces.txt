@@ -1,0 +1,44 @@
+[WARN] [1790480628.966631179] [rcl]: ROS_LOCALHOST_ONLY is deprecated but still honored if it is enabled. Use ROS_AUTOMATIC_DISCOVERY_RANGE and ROS_STATIC_PEERS instead.
+[WARN] [1790480628.966641971] [rcl]: 'localhost_only' is enabled, 'automatic_discovery_range' and 'static_peers' will be ignored.
+command interfaces
+	left_ankle_pitch_joint/position [available] [claimed]
+	left_hip_pitch_joint/position [available] [claimed]
+	left_hip_roll_joint/position [available] [claimed]
+	left_knee_pitch_joint/position [available] [claimed]
+	right_ankle_pitch_joint/position [available] [claimed]
+	right_hip_pitch_joint/position [available] [claimed]
+	right_hip_roll_joint/position [available] [claimed]
+	right_knee_pitch_joint/position [available] [claimed]
+	tail_pitch_joint/position [available] [claimed]
+	tail_yaw_joint/position [available] [claimed]
+state interfaces
+	left_ankle_pitch_joint/effort
+	left_ankle_pitch_joint/position
+	left_ankle_pitch_joint/velocity
+	left_hip_pitch_joint/effort
+	left_hip_pitch_joint/position
+	left_hip_pitch_joint/velocity
+	left_hip_roll_joint/effort
+	left_hip_roll_joint/position
+	left_hip_roll_joint/velocity
+	left_knee_pitch_joint/effort
+	left_knee_pitch_joint/position
+	left_knee_pitch_joint/velocity
+	right_ankle_pitch_joint/effort
+	right_ankle_pitch_joint/position
+	right_ankle_pitch_joint/velocity
+	right_hip_pitch_joint/effort
+	right_hip_pitch_joint/position
+	right_hip_pitch_joint/velocity
+	right_hip_roll_joint/effort
+	right_hip_roll_joint/position
+	right_hip_roll_joint/velocity
+	right_knee_pitch_joint/effort
+	right_knee_pitch_joint/position
+	right_knee_pitch_joint/velocity
+	tail_pitch_joint/effort
+	tail_pitch_joint/position
+	tail_pitch_joint/velocity
+	tail_yaw_joint/effort
+	tail_yaw_joint/position
+	tail_yaw_joint/velocity

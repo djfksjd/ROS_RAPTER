@@ -62,3 +62,6 @@ File 34 verifies that refused development probes emit no trajectory commands.
 - `50-gait-transition-*`: 시간 연속 IMU/관절/접촉 재현.
 - `51-toe-stiffness-contract.txt`: 강성 외 모델 불변/SDF 변환 확인.
 - `52-stiff-toe-*`: 스프링 강성 3배 비교, 발목 추종 오차 실패.
+
+- `53-joint-load-interfaces.txt`: 10 active 제어/effort 상태 확인.
+- `54-joint-load-*`: 실제 속도/전달 effort 계측, 발목 속도 포화와 추종 실패.

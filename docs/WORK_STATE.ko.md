@@ -35,24 +35,15 @@
 5. AI: 허용 mission 연결, STOP 우선, 독립 명령 평가와 end-to-end 지연.
 6. 부품 제작 설계: 치수/하중/구동기 선택의 미정 사항을 명시. 이미지로 단정 금지.
 
-## 지금 진행
+## 현재 상태: 사용자 요청으로 다음 체크포인트에서 일시정지
 
-브랜치 fix/gait-imu-cancel (4b94162에서 분기).
-발 메시 통합은 완료. 한 발 지지 실험 계측 개선 및 세 비교 실행 완료.
-41: roll .28는 오른발 실제 접촉이 남음.
-42/43: roll .39는 오른발 이탈했으나 COM이 접촉 hull 밖, 전도.
-44/45: roll .36도 hull margin -5.29mm, 이후 전도.
-상세: GAIT_CONTACT_ANALYSIS.ko.md. 새 analyzer는 실제 passive joint 표본까지 사용.
-46: IMU .25378rad에서 ROS action 취소 승인, terminal CANCELED 확인. 10개 테스트 통과.
-47/48: crouch hip -.05 전환 중 pitch 전도, 취소 승인.
-49: hip -.10도 shift 후 settle 중 기울기 초과, 다음 action 발행 안 함.
-50: 시간 연속 79표본으로 접촉이 한 줄 발가락에 집중/관절 변형/pitch 증가 확인.
-51: toe_stiffness_scale 3배 외 모든 URDF 동일, SDF 강성/10active+12passive 확인.
-52: 강성 3배는 pitch가 줄었으나 왼발목 추종 오차 .06213rad로 실패.
-현재 브랜치 experiment/toe-stiffness. 기본 강성 1과 기본 자세는 유지.
-다음: 실제 plugin 구현/발목 속도 및 하중을 확인하고 추종 오차 원인을 구분한다.
-상세 TOE_STIFFNESS_EXPERIMENT.ko.md. 무근거 gain 증가나 숫자 탐색 반복 금지.
-시각 모델 전체 완성·안정 보행·강화학습은 아직 완료되지 않았다.
+브랜치 test/joint-load-observation. 상세 PAUSE_CHECKPOINT.ko.md.
+53: 10개 제어 축 유지 + 읽기 전용 effort state 추가.
+54: 강성3 실험 80표본, 발목 ±2.5rad/s 포화 반복/추종 오차 .14852rad 실패.
+기본 강성/gain/속도/effort 제한 변경 없음.
+다음 재개: physics 시간 간격과 실제 구현을 확인하여 접촉/수치 진동과 속도 포화를 구분.
+무근거 숫자 탐색 반복 금지. 안정 보행/강화학습 등 전체 목표 미완료.
+사용자 재개 요청 전에는 실험·학습·개발을 진행하지 않는다.
 
 ## 알려진 실패
 

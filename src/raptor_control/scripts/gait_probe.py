@@ -42,7 +42,8 @@ def main():
                 'orientation':[q.x,q.y,q.z,q.w],
                 'angular_velocity':[msg.angular_velocity.x,msg.angular_velocity.y,msg.angular_velocity.z],
                 'tilt_rad':guard.tilt,
-                'joints':{name:{'position':v['position'],'sim_time':v['sim_time']} for name,v in all_joints.items()},
+                'joints':{name:{'position':v['position'],'velocity':v.get('velocity'),
+                    'transmitted_effort':v.get('transmitted_effort'),'sim_time':v['sim_time']} for name,v in all_joints.items()},
                 'contacts':{name:{'sim_time':v['sim_time'],'count':v['contact_count'],
                     'points':v['points'],'raw_body1_force_z':v['force_z']}
                     for name,v in contacts.items()}})
@@ -51,8 +52,12 @@ def main():
     all_joints={}
     def observe_joints(msg):
         if len(msg.name)==len(msg.position):
-            all_joints.update({name:{'position':value,'received':time.monotonic(),'sim_time':stamp(msg)}
-                for name,value in zip(msg.name,msg.position) if math.isfinite(value)})
+            for index,(name,value) in enumerate(zip(msg.name,msg.position)):
+                if not math.isfinite(value):continue
+                all_joints[name]={'position':value,'received':time.monotonic(),'sim_time':stamp(msg)}
+                for field,values in [('velocity',msg.velocity),('transmitted_effort',msg.effort)]:
+                    all_joints[name][field]=(values[index] if len(values)==len(msg.name)
+                        and math.isfinite(values[index]) else None)
     node.create_subscription(JointState,'/joint_states',observe_joints,10)
     def observe(msg,key):
         contacts[key]={'received':time.monotonic(),'sim_time':stamp(msg),'force_z':sum(
