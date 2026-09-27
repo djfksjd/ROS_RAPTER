@@ -1,14 +1,16 @@
 #!/usr/bin/env python3
 """Bounded left-support IMU experiment; never enabled as an operator mission."""
 import json
+import argparse
 import math
-import subprocess
 import time
 from pathlib import Path
 import numpy as np
 import rclpy
 from rclpy.parameter import Parameter
 from sensor_msgs.msg import Imu
+from std_msgs.msg import String
+from rclpy.qos import QoSProfile, DurabilityPolicy
 from ros_gz_interfaces.msg import Contacts
 from trajectory_msgs.msg import JointTrajectory, JointTrajectoryPoint
 from motion_probe import Probe, JOINTS, pose
@@ -16,12 +18,19 @@ from support_model import SupportModel
 
 
 def main():
-    urdf = subprocess.check_output(['xacro', 'src/raptor_description/urdf/raptor.urdf.xacro'], text=True)
-    model = SupportModel(urdf)
+    parser=argparse.ArgumentParser()
+    parser.add_argument('--fast-response',action='store_true',help='Failed bandwidth comparison, not a validated fix')
+    args=parser.parse_args()
+    max_delta=.030 if args.fast_response else .012
+    horizon_ns=20000000 if args.fast_response else 80000000
     rclpy.init()
     node = Probe()
     node.set_parameters([Parameter('use_sim_time', value=True)])
-    imu = {}; contacts = {}; rows = []; report = {'passed': False, 'samples': rows}
+    description = {}
+    node.create_subscription(String, '/robot_description',
+        lambda msg: description.update(xml=msg.data),
+        QoSProfile(depth=1, durability=DurabilityPolicy.TRANSIENT_LOCAL))
+    imu = {}; contacts = {}; rows = []; report = {'passed': False, 'fast_response':args.fast_response, 'samples': rows}
     def observe_imu(msg):
         imu.update(message=msg, received=time.monotonic())
     def observe_contact(msg, side):
@@ -32,16 +41,25 @@ def main():
         node.create_subscription(Contacts, f'/raptor/{side}_foot/contact',
                                  lambda msg, s=side: observe_contact(msg, s), 10)
     pub = node.create_publisher(JointTrajectory, '/raptor_joint_controller/joint_trajectory', 10)
+    control_started=False
     try:
         if not node.client.wait_for_server(timeout_sec=10):
             raise RuntimeError('Controller unavailable')
         node.settle(1)
+        deadline=time.monotonic()+10
+        while not description:
+            if time.monotonic()>deadline:raise RuntimeError('No live robot_description')
+            rclpy.spin_once(node,timeout_sec=.05)
+        model=SupportModel(description['xml'])
+        if any('_toe_' in j[0] or j[0]=='test_fixture_joint' for j in model.joints):
+            raise RuntimeError('This balance approximation requires the free rigid-foot baseline')
         if 'raptor_mission_gate' in node.get_node_names():
             raise RuntimeError('Stop operator mission gate before a development probe')
         target = dict.fromkeys(JOINTS, 0.)
         for side in ['left', 'right']:
             target.update({f'{side}_hip_pitch_joint': -.15, f'{side}_knee_pitch_joint': .4,
                            f'{side}_ankle_pitch_joint': -.25})
+        control_started=True
         node.move(target)
         target.update(left_hip_roll_joint=-.34, right_hip_roll_joint=.34)
         node.move(target)
@@ -84,13 +102,15 @@ def main():
                 if model.margin(trial,R)>desired_margin:hi=mid
                 else:lo=mid
             requested=(lo+hi)/2
-            roll_target=max(roll_target-.012,min(roll_target+.012,requested))
+            roll_target=max(roll_target-max_delta,min(roll_target+max_delta,requested))
             target.update(left_hip_roll_joint=-roll_target,right_hip_roll_joint=roll_target)
             point=JointTrajectoryPoint(positions=[target[j] for j in JOINTS])
-            point.time_from_start.nanosec=80000000
+            point.time_from_start.nanosec=horizon_ns
             pub.publish(JointTrajectory(joint_names=JOINTS,points=[point]))
             rows.append({'sim_seconds':elapsed,'roll':roll,'pitch':pitch,
                 'roll_rate':msg.angular_velocity.x,'roll_target':roll_target,
+                'requested_roll_target':requested,
+                'actual_left_hip_roll':node.state['left_hip_roll_joint'],
                 'margin':model.margin(node.state,R), 'desired_margin':desired_margin,
                 'contacts':{s:{'recent':time.monotonic()-v['received']<.5,
                                'force_z':v['force_z']} for s,v in contacts.items()}})
@@ -105,7 +125,7 @@ def main():
         report['error']=str(exc)
     finally:
         # End the experiment with a position hold, even on failed criteria.
-        if all(j in node.state and math.isfinite(node.state[j]) for j in JOINTS):
+        if control_started and all(j in node.state and math.isfinite(node.state[j]) for j in JOINTS):
             point=JointTrajectoryPoint(positions=[node.state[j] for j in JOINTS])
             point.time_from_start.nanosec=100000000
             pub.publish(JointTrajectory(joint_names=JOINTS,points=[point]))

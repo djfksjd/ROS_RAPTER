@@ -37,3 +37,8 @@ evidence. File 24 used the original startup-relative IMU reference; file 27
 repeats the aligned slope test with explicit world ENU IMU orientation.
 Screenshots 20 and 25 are actual Gazebo views of the small step and 5° ramp.
 None establishes rough-terrain walking or steep-slope climbing.
+
+Files 30–33 retain the failed faster balance response, Qwen/NanoJev/STOP
+revalidation with passive joint feedback, final hardware interface query and build.
+
+File 34 verifies that refused development probes emit no trajectory commands.

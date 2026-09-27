@@ -66,6 +66,7 @@ def main():
             finally:row['pose']=pose()
             row['contacts']={side:{'recent':any(time.monotonic()-v['received']<.5
                 for key,v in contacts.items() if key.startswith(side+'_')),
+                'raw_body1_force_z':{key:v['force_z'] for key,v in contacts.items() if key.startswith(side+'_')},
                 'recent_sources':[key for key,v in contacts.items()
                     if key.startswith(side+'_') and time.monotonic()-v['received']<.5]}
                 for side in ['left','right']}

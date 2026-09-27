@@ -90,6 +90,8 @@ def main():
         if not node.client.wait_for_server(timeout_sec=15):
             raise RuntimeError('Trajectory server unavailable')
         node.settle(1)
+        if 'raptor_mission_gate' in node.get_node_names():
+            raise RuntimeError('Stop operator mission gate before a development probe')
         neutral = dict.fromkeys(JOINTS, 0.)
         node.move(neutral)
         for joint in ([] if args.standing_only else JOINTS):

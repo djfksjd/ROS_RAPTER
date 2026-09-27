@@ -31,13 +31,14 @@
 | 5° 경사, 기존 자세로 낙하 | [실패](evidence/21-passive-toes-slope5-contact.json) |
 | 5° 경사, hip -0.05 자세로 낙하 | [앞으로 기울어 실패](evidence/23-passive-toes-slope5-forward-contact.json) |
 | 5° 경사, 위 자세를 경사와 정렬해 지면 가까이 배치 | [5초 정적 관찰 통과](evidence/24-passive-toes-slope5-aligned-contact.json). 경사 진입·낙하 회복 시험이 아님 |
-| 더 높은 발 들기 | [몸체 회전 0.25rad 기준 초과로 실패](evidence/28-passive-toes-higher-lift-test.json). 양발 접촉도 지속 |
-| 평지 6단계 발 들기 궤적 | [궤적은 완료했으나 양발 접촉 지속](evidence/26-passive-toes-gait-test.json). 보행 성공 아님 |
+| 더 높은 발 들기 | [몸체 회전 0.25rad 기준 초과로 실패](evidence/28-passive-toes-higher-lift-test.json). 양발 contact 메시지도 관찰됨 |
+| 평지 6단계 발 들기 궤적 | [궤적은 완료했으나 양발 contact 메시지가 관찰됨](evidence/26-passive-toes-gait-test.json). 보행 성공 아님 |
 
 ![실제 Gazebo에서 8mm 단차에 접촉하는 관절 발가락](evidence/20-passive-toes-step-gazebo.png)
 
 단차와 닿은 발가락에 별도 모터 명령을 보내지 않았다. 해당 발가락의 독립적인
 각도 변화와 `toe_contact_step`과의 실제 collision pair를 로그에서 확인했다.
+Contact 메시지의 최근 수신 여부만으로 하중 지지나 발바닥 이탈 높이를 확정하지 않는다.
 19번 이후 `raw_body1_force_z`는 Gazebo contact message의 body-1 wrench 원시값이다.
 접촉 순서·기준에 따라 부호가 달라져 이를 곧바로 발의 순수 수직 지지력으로 합산하지 않는다.
 이전 파일의 `force_z`도 같은 원시값이며 ground reaction force 정규화를 완료한 값이 아니다.
@@ -58,6 +59,17 @@ IMU pitch 약 0°, 실제 model pose pitch 약 -5°였던 차이를 확인했다
 -5.00006°가 model pose와 일치하고 5초 정적 관찰도 통과했다.
 
 ![실제 Gazebo 5° 정렬 지지 시험](evidence/25-passive-toes-slope5-gazebo.png)
+
+## AI와 제어기 재검증
+
+수동/능동 joint state가 함께 발행되는 최종 평지 세션에서
+[Qwen·NanoJev 각각의 STAND 요청](evidence/31-passive-toes-ai-commands.txt)을 실행했다.
+[gate 로그](evidence/31-passive-toes-mission-gate.log)에서 두 요청 모두
+`joint_target_reached`, 이어 STOP latch와 위치 유지 도달을 확인했다.
+[하드웨어 조회](evidence/32-passive-toes-control-interfaces.txt)에서
+10개 position command interface의 available/claimed 및 두 active controller도 확인했다.
+[최종 빌드](evidence/33-passive-toes-final-build.txt) 두 패키지 및
+[회귀 테스트](evidence/29-passive-toes-tests.txt) 7개가 통과했다.
 
 ## 실행
 
