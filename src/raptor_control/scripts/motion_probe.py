@@ -23,6 +23,8 @@ JOINTS += ['tail_yaw_joint', 'tail_pitch_joint']
 class Probe(Node):
     def __init__(self):
         super().__init__('raptor_motion_probe')
+        self.guard = None
+        self.cancellation_events = []
         self.state = {}
         self.received = 0.
         self.create_subscription(JointState, '/joint_states', self.observe, 10)
@@ -35,16 +37,22 @@ class Probe(Node):
             self.state = values
             self.received = time.monotonic()
 
+    def check_guard(self):
+        if self.guard is not None:
+            self.guard.check()
+
     def settle(self, seconds):
         end = time.monotonic() + seconds
         while time.monotonic() < end:
             rclpy.spin_once(self, timeout_sec=.05)
+            self.check_guard()
         if set(JOINTS) - self.state.keys() or time.monotonic() - self.received > 1:
             raise RuntimeError('Missing or stale joint states')
         if not all(math.isfinite(self.state[j]) for j in JOINTS):
             raise RuntimeError('Nonfinite joint state')
 
     def move(self, positions, seconds=2):
+        self.check_guard()
         goal = FollowJointTrajectory.Goal()
         goal.trajectory.joint_names = JOINTS
         point = JointTrajectoryPoint()
@@ -57,11 +65,26 @@ class Probe(Node):
             raise RuntimeError('Trajectory not accepted')
         handle = future.result()
         result = handle.get_result_async()
-        rclpy.spin_until_future_complete(self, result, timeout_sec=20)
-        if not result.done():
+        deadline = time.monotonic()+20
+        try:
+            while not result.done():
+                rclpy.spin_once(self, timeout_sec=.02)
+                self.check_guard()
+                if time.monotonic() >= deadline:
+                    raise RuntimeError('Trajectory timed out')
+        except RuntimeError as exc:
+            event = {'reason':str(exc), 'tilt_rad':getattr(self.guard,'tilt',None),
+                     'requested':True, 'accepted':False, 'terminal_status':None}
+            self.cancellation_events.append(event)
             cancel = handle.cancel_goal_async()
             rclpy.spin_until_future_complete(self, cancel, timeout_sec=3)
-            raise RuntimeError('Trajectory timed out and cancellation requested')
+            if cancel.done() and cancel.result() is not None:
+                event['accepted'] = bool(cancel.result().goals_canceling)
+            rclpy.spin_until_future_complete(self, result, timeout_sec=3)
+            if result.done() and result.result() is not None:
+                event['terminal_status'] = result.result().status
+            raise RuntimeError(str(exc)+'; cancellation '+
+                               ('acknowledged' if event['accepted'] else 'not acknowledged')) from exc
         if result.result().result.error_code != 0:
             raise RuntimeError(result.result().result.error_string)
         self.settle(.5)

@@ -1,0 +1,1150 @@
+[
+  {
+    "phase": "crouch",
+    "target": {
+      "left_hip_roll_joint": 0.0,
+      "left_hip_pitch_joint": -0.15,
+      "left_knee_pitch_joint": 0.4,
+      "left_ankle_pitch_joint": -0.25,
+      "right_hip_roll_joint": 0.0,
+      "right_hip_pitch_joint": -0.15,
+      "right_knee_pitch_joint": 0.4,
+      "right_ankle_pitch_joint": -0.25,
+      "tail_yaw_joint": 0.0,
+      "tail_pitch_joint": 0.0
+    },
+    "tracking_error": 9.227960642199662e-05,
+    "pose": {
+      "name": "raptor",
+      "id": 10,
+      "position": {
+        "x": 0.026405238451767166,
+        "y": -5.202108650887798e-16,
+        "z": -0.01291779875038946
+      },
+      "orientation": {
+        "x": -3.800887693353972e-15,
+        "y": 2.478122409897325e-06,
+        "z": -1.6459132852765355e-14,
+        "w": 0.9999999999969295
+      }
+    },
+    "joint_positions": {
+      "left_hip_roll_joint": -1.1993903130116034e-14,
+      "left_hip_pitch_joint": -0.14996539222023053,
+      "left_knee_pitch_joint": 0.399907720393578,
+      "left_ankle_pitch_joint": -0.24994232031032806,
+      "right_hip_roll_joint": -1.1994018777548864e-14,
+      "right_hip_pitch_joint": -0.14996539222023056,
+      "right_knee_pitch_joint": 0.399907720393578,
+      "right_ankle_pitch_joint": -0.24994232031032815,
+      "tail_yaw_joint": 6.909227125697039e-20,
+      "tail_pitch_joint": -1.8492613884195693e-12
+    },
+    "all_joint_positions": {
+      "left_ankle_pitch_joint": {
+        "position": -0.2499903057153174,
+        "age_wall_s": 0.05439704099990195
+      },
+      "left_hip_pitch_joint": {
+        "position": -0.14999418346854407,
+        "age_wall_s": 0.054398000000219326
+      },
+      "left_hip_roll_joint": {
+        "position": -1.1153361948835369e-14,
+        "age_wall_s": 0.05439812500026164
+      },
+      "left_knee_pitch_joint": {
+        "position": 0.3999844905817841,
+        "age_wall_s": 0.054398249999394466
+      },
+      "right_ankle_pitch_joint": {
+        "position": -0.24999030571531744,
+        "age_wall_s": 0.054398249999394466
+      },
+      "right_hip_pitch_joint": {
+        "position": -0.14999418346854407,
+        "age_wall_s": 0.054398082999796316
+      },
+      "right_hip_roll_joint": {
+        "position": -1.115413168335597e-14,
+        "age_wall_s": 0.05439841599945794
+      },
+      "right_knee_pitch_joint": {
+        "position": 0.399984490581784,
+        "age_wall_s": 0.054398291999859794
+      },
+      "tail_pitch_joint": {
+        "position": -1.843820321030749e-12,
+        "age_wall_s": 0.05439837499943678
+      },
+      "tail_yaw_joint": {
+        "position": -6.520930765622235e-20,
+        "age_wall_s": 0.054398291999859794
+      },
+      "left_toe_1_proximal_joint": {
+        "position": 4.231091335457293e-06,
+        "age_wall_s": 0.07964699999956792
+      },
+      "left_toe_1_distal_joint": {
+        "position": -1.9380724615660383e-05,
+        "age_wall_s": 0.07964729100058321
+      },
+      "left_toe_2_proximal_joint": {
+        "position": -3.883049668049161e-05,
+        "age_wall_s": 0.07964733300013904
+      },
+      "left_toe_2_distal_joint": {
+        "position": 6.638761260447964e-05,
+        "age_wall_s": 0.07964720800009673
+      },
+      "left_toe_3_proximal_joint": {
+        "position": 4.228526857474107e-06,
+        "age_wall_s": 0.0796471659996314
+      },
+      "left_toe_3_distal_joint": {
+        "position": -1.9375757107595875e-05,
+        "age_wall_s": 0.07964708399958909
+      },
+      "right_toe_1_proximal_joint": {
+        "position": 4.228526715482791e-06,
+        "age_wall_s": 0.07964691699999094
+      },
+      "right_toe_1_distal_joint": {
+        "position": -1.9375756853773735e-05,
+        "age_wall_s": 0.07964691599954676
+      },
+      "right_toe_2_proximal_joint": {
+        "position": -3.883049685436686e-05,
+        "age_wall_s": 0.07964704200003325
+      },
+      "right_toe_2_distal_joint": {
+        "position": 6.638761292428155e-05,
+        "age_wall_s": 0.07964708300005441
+      },
+      "right_toe_3_proximal_joint": {
+        "position": 4.231091478643108e-06,
+        "age_wall_s": 0.07964729199920839
+      },
+      "right_toe_3_distal_joint": {
+        "position": -1.9380724870174017e-05,
+        "age_wall_s": 0.07964716699916607
+      }
+    },
+    "contacts": {
+      "left": {
+        "recent_messages": true,
+        "active_sources": [
+          "left_heel",
+          "left_toe_1_proximal",
+          "left_toe_1_distal",
+          "left_toe_2_proximal",
+          "left_toe_2_distal",
+          "left_toe_3_proximal",
+          "left_toe_3_distal"
+        ],
+        "samples": {
+          "left_heel": {
+            "received": 7534.298576894,
+            "force_z": 28.812702706378843,
+            "contact_count": 1,
+            "points": [
+              [
+                -0.059993524293293264,
+                0.1299999999999934,
+                -5.570109351538122e-08
+              ],
+              [
+                -0.059993524293290454,
+                0.22999999999999343,
+                -5.570109351538122e-08
+              ],
+              [
+                0.030006475706156076,
+                0.22999999999999088,
+                -3.713407750183251e-07
+              ],
+              [
+                0.03000647570615325,
+                0.12999999999999085,
+                -3.713407750183251e-07
+              ]
+            ],
+            "collision_pairs": [
+              [
+                "raptor::left_foot_link::left_foot_link_collision",
+                "ground_plane::link::collision"
+              ]
+            ],
+            "age_wall_s": 0.0001495000005888869
+          },
+          "left_toe_1_proximal": {
+            "received": 7534.298692019,
+            "force_z": 18.337209789869306,
+            "contact_count": 1,
+            "points": [
+              [
+                0.006562670450200587,
+                0.20709348002273956,
+                -2.8912086236232426e-07
+              ],
+              [
+                0.003450153060708557,
+                0.23290650455494022,
+                -2.782051069516456e-07
+              ],
+              [
+                0.07294675756862297,
+                0.2412863590651025,
+                -7.871715297369519e-07
+              ],
+              [
+                0.07605927495811499,
+                0.21547333453290185,
+                -7.980872851476306e-07
+              ]
+            ],
+            "collision_pairs": [
+              [
+                "raptor::left_toe_1_proximal_link::left_toe_1_proximal_link_collision",
+                "ground_plane::link::collision"
+              ]
+            ],
+            "age_wall_s": 3.495800046948716e-05
+          },
+          "left_toe_1_distal": {
+            "received": 7534.264564685,
+            "force_z": 1.6739960199665038,
+            "contact_count": 1,
+            "points": [
+              [
+                0.07605955751590061,
+                0.21547336857818242,
+                -8.059103038249305e-07
+              ],
+              [
+                0.0729470401264091,
+                0.24128639311038305,
+                -7.948540314828278e-07
+              ],
+              [
+                0.14740768781219304,
+                0.2502648086562982,
+                -8.886195246304851e-08
+              ],
+              [
+                0.15052020520168458,
+                0.22445178412409758,
+                -9.991822480515111e-08
+              ]
+            ],
+            "collision_pairs": [
+              [
+                "raptor::left_toe_1_distal_link::left_toe_1_distal_link_collision",
+                "ground_plane::link::collision"
+              ]
+            ],
+            "age_wall_s": 0.03416262500013545
+          },
+          "left_toe_2_proximal": {
+            "received": 7534.264614394,
+            "force_z": 16.057546846197152,
+            "contact_count": 1,
+            "points": [
+              [
+                0.005007138516001119,
+                0.16699999999999152,
+                -2.8647332328546327e-07
+              ],
+              [
+                0.005007138516001853,
+                0.19299999999999154,
+                -2.8647332328546327e-07
+              ]
+            ],
+            "collision_pairs": [
+              [
+                "raptor::left_toe_2_proximal_link::left_toe_2_proximal_link_collision",
+                "ground_plane::link::collision"
+              ]
+            ],
+            "age_wall_s": 0.034113083000193
+          },
+          "left_toe_2_distal": {
+            "received": 7534.264662852,
+            "force_z": 0.1324748232603432,
+            "contact_count": 1,
+            "points": [
+              [
+                0.1500059799804656,
+                0.19299999999998746,
+                -2.6078123482875526e-07
+              ],
+              [
+                0.1500059799804649,
+                0.16699999999998744,
+                -2.6078123482875526e-07
+              ]
+            ],
+            "collision_pairs": [
+              [
+                "raptor::left_toe_2_distal_link::left_toe_2_distal_link_collision",
+                "ground_plane::link::collision"
+              ]
+            ],
+            "age_wall_s": 0.03406516700033535
+          },
+          "left_toe_3_proximal": {
+            "received": 7534.264738185,
+            "force_z": 18.15278442727239,
+            "contact_count": 1,
+            "points": [
+              [
+                0.003450152880524217,
+                0.1270934954921227,
+                -2.809554189298069e-07
+              ],
+              [
+                0.00656267027001721,
+                0.15290652002432312,
+                -2.920116912719095e-07
+              ],
+              [
+                0.07605927477789624,
+                0.1445266655141577,
+                -8.057338618527865e-07
+              ],
+              [
+                0.07294675738840324,
+                0.11871364098195726,
+                -7.946775895106839e-07
+              ]
+            ],
+            "collision_pairs": [
+              [
+                "raptor::left_toe_3_proximal_link::left_toe_3_proximal_link_collision",
+                "ground_plane::link::collision"
+              ]
+            ],
+            "age_wall_s": 0.033990083999924536
+          },
+          "left_toe_3_distal": {
+            "received": 7534.264813769,
+            "force_z": 1.6709321639203094,
+            "contact_count": 1,
+            "points": [
+              [
+                0.07294704008642912,
+                0.11871360689441667,
+                -7.946769073896576e-07
+              ],
+              [
+                0.07605955747592213,
+                0.1445266314266171,
+                -8.057331797317602e-07
+              ],
+              [
+                0.15052020516170722,
+                0.13554821588069743,
+                -9.991890692617744e-08
+              ],
+              [
+                0.14740768777221427,
+                0.109735191348497,
+                -8.886263458407484e-08
+              ]
+            ],
+            "collision_pairs": [
+              [
+                "raptor::left_toe_3_distal_link::left_toe_3_distal_link_collision",
+                "ground_plane::link::collision"
+              ]
+            ],
+            "age_wall_s": 0.03391474999989441
+          }
+        },
+        "raw_body1_force_z": {
+          "left_heel": 28.812702706378843,
+          "left_toe_1_proximal": 18.337209789869306,
+          "left_toe_1_distal": 1.6739960199665038,
+          "left_toe_2_proximal": 16.057546846197152,
+          "left_toe_2_distal": 0.1324748232603432,
+          "left_toe_3_proximal": 18.15278442727239,
+          "left_toe_3_distal": 1.6709321639203094
+        },
+        "recent_sources": [
+          "left_heel",
+          "left_toe_1_proximal",
+          "left_toe_1_distal",
+          "left_toe_2_proximal",
+          "left_toe_2_distal",
+          "left_toe_3_proximal",
+          "left_toe_3_distal"
+        ]
+      },
+      "right": {
+        "recent_messages": true,
+        "active_sources": [
+          "right_heel",
+          "right_toe_1_proximal",
+          "right_toe_1_distal",
+          "right_toe_2_proximal",
+          "right_toe_2_distal",
+          "right_toe_3_proximal",
+          "right_toe_3_distal"
+        ],
+        "samples": {
+          "right_heel": {
+            "received": 7534.26489206,
+            "force_z": 28.845281233785066,
+            "contact_count": 1,
+            "points": [
+              [
+                -0.059993524083029354,
+                -0.2299999999999891,
+                -5.558808879868593e-08
+              ],
+              [
+                -0.05999352408302654,
+                -0.12999999999998912,
+                -5.558808879868593e-08
+              ],
+              [
+                0.03000647591640564,
+                -0.12999999999999168,
+                -3.752895736397477e-07
+              ],
+              [
+                0.030006475916402816,
+                -0.22999999999999166,
+                -3.752895736397477e-07
+              ]
+            ],
+            "collision_pairs": [
+              [
+                "raptor::right_foot_link::right_foot_link_collision",
+                "ground_plane::link::collision"
+              ]
+            ],
+            "age_wall_s": 0.033876583999699506
+          },
+          "right_toe_1_proximal": {
+            "received": 7534.26496931,
+            "force_z": 18.15278439235109,
+            "contact_count": 1,
+            "points": [
+              [
+                0.006562670270011694,
+                -0.15290652002432226,
+                -2.920116912719095e-07
+              ],
+              [
+                0.0034501528805201535,
+                -0.12709349549212162,
+                -2.809554189298069e-07
+              ],
+              [
+                0.07294675738839966,
+                -0.11871364098196015,
+                -7.946775895106839e-07
+              ],
+              [
+                0.07605927477789119,
+                -0.14452666551416077,
+                -8.057338618527865e-07
+              ]
+            ],
+            "collision_pairs": [
+              [
+                "raptor::right_toe_1_proximal_link::right_toe_1_proximal_link_collision",
+                "ground_plane::link::collision"
+              ]
+            ],
+            "age_wall_s": 0.033799709000049916
+          },
+          "right_toe_1_distal": {
+            "received": 7534.265056769,
+            "force_z": 1.6709321594587256,
+            "contact_count": 1,
+            "points": [
+              [
+                0.07605955747591137,
+                -0.14452663142662084,
+                -8.057331797317602e-07
+              ],
+              [
+                0.07294704008641983,
+                -0.11871360689442022,
+                -7.946769073896576e-07
+              ],
+              [
+                0.14740768777220545,
+                -0.10973519134850478,
+                -8.886263458407484e-08
+              ],
+              [
+                0.15052020516169698,
+                -0.1355482158807054,
+                -9.991890692617744e-08
+              ]
+            ],
+            "collision_pairs": [
+              [
+                "raptor::right_toe_1_distal_link::right_toe_1_distal_link_collision",
+                "ground_plane::link::collision"
+              ]
+            ],
+            "age_wall_s": 0.03371258300012414
+          },
+          "right_toe_2_proximal": {
+            "received": 7534.265106227,
+            "force_z": 16.05754684383797,
+            "contact_count": 1,
+            "points": [
+              [
+                0.005007138515992223,
+                -0.19299999999999096,
+                -2.8647332328546327e-07
+              ],
+              [
+                0.005007138515992957,
+                -0.16699999999999093,
+                -2.8647332328546327e-07
+              ]
+            ],
+            "collision_pairs": [
+              [
+                "raptor::right_toe_2_proximal_link::right_toe_2_proximal_link_collision",
+                "ground_plane::link::collision"
+              ]
+            ],
+            "age_wall_s": 0.033663333000731654
+          },
+          "right_toe_2_distal": {
+            "received": 7534.26515456,
+            "force_z": 0.1324748232593543,
+            "contact_count": 1,
+            "points": [
+              [
+                0.15000597998045445,
+                -0.166999999999995,
+                -2.6078123482875526e-07
+              ],
+              [
+                0.15000597998045373,
+                -0.19299999999999504,
+                -2.6078123482875526e-07
+              ]
+            ],
+            "collision_pairs": [
+              [
+                "raptor::right_toe_2_distal_link::right_toe_2_distal_link_collision",
+                "ground_plane::link::collision"
+              ]
+            ],
+            "age_wall_s": 0.033615249999456864
+          },
+          "right_toe_3_proximal": {
+            "received": 7534.265231644,
+            "force_z": 18.323308799628123,
+            "contact_count": 1,
+            "points": [
+              [
+                0.003450152837830271,
+                -0.23290650450271308,
+                -2.8095519155613147e-07
+              ],
+              [
+                0.00656267022732327,
+                -0.20709347997051264,
+                -2.9201146389823407e-07
+              ],
+              [
+                0.07605927473520101,
+                -0.21547333448067804,
+                -8.059109859459568e-07
+              ],
+              [
+                0.07294675734570799,
+                -0.24128635901287845,
+                -7.948547136038542e-07
+              ]
+            ],
+            "collision_pairs": [
+              [
+                "raptor::right_toe_3_proximal_link::right_toe_3_proximal_link_collision",
+                "ground_plane::link::collision"
+              ]
+            ],
+            "age_wall_s": 0.03353845800029376
+          },
+          "right_toe_3_distal": {
+            "received": 7534.265308644,
+            "force_z": 1.6739960186024898,
+            "contact_count": 1,
+            "points": [
+              [
+                0.07294704012639616,
+                -0.24128639311038635,
+                -7.948540314828278e-07
+              ],
+              [
+                0.07605955751588916,
+                -0.21547336857818594,
+                -8.059103038249305e-07
+              ],
+              [
+                0.15052020520167259,
+                -0.22445178412410532,
+                -9.991822480515111e-08
+              ],
+              [
+                0.1474076878121796,
+                -0.25026480865630574,
+                -8.886195246304851e-08
+              ]
+            ],
+            "collision_pairs": [
+              [
+                "raptor::right_toe_3_distal_link::right_toe_3_distal_link_collision",
+                "ground_plane::link::collision"
+              ]
+            ],
+            "age_wall_s": 0.033461875000284635
+          }
+        },
+        "raw_body1_force_z": {
+          "right_heel": 28.845281233785066,
+          "right_toe_1_proximal": 18.15278439235109,
+          "right_toe_1_distal": 1.6709321594587256,
+          "right_toe_2_proximal": 16.05754684383797,
+          "right_toe_2_distal": 0.1324748232593543,
+          "right_toe_3_proximal": 18.323308799628123,
+          "right_toe_3_distal": 1.6739960186024898
+        },
+        "recent_sources": [
+          "right_heel",
+          "right_toe_1_proximal",
+          "right_toe_1_distal",
+          "right_toe_2_proximal",
+          "right_toe_2_distal",
+          "right_toe_3_proximal",
+          "right_toe_3_distal"
+        ]
+      }
+    },
+    "rotation_rad": 4.956243593050985e-06
+  },
+  {
+    "phase": "shift_left",
+    "target": {
+      "left_hip_roll_joint": -0.36,
+      "left_hip_pitch_joint": -0.15,
+      "left_knee_pitch_joint": 0.4,
+      "left_ankle_pitch_joint": -0.25,
+      "right_hip_roll_joint": 0.36,
+      "right_hip_pitch_joint": -0.15,
+      "right_knee_pitch_joint": 0.4,
+      "right_ankle_pitch_joint": -0.25,
+      "tail_yaw_joint": 0.0,
+      "tail_pitch_joint": 0.0
+    },
+    "tracking_error": 5.633990191600269e-07,
+    "pose": {
+      "name": "raptor",
+      "id": 10,
+      "position": {
+        "x": 0.02678384310166044,
+        "y": 0.2789716610573393,
+        "z": -0.04599321362366951
+      },
+      "orientation": {
+        "x": -0.017885181906469268,
+        "y": -0.008904415386721126,
+        "z": 0.0006259621258049412,
+        "w": 0.9998001999530758
+      }
+    },
+    "joint_positions": {
+      "left_hip_roll_joint": -0.35999943777750537,
+      "left_hip_pitch_joint": -0.14999999999006336,
+      "left_knee_pitch_joint": 0.4000000000202735,
+      "left_ankle_pitch_joint": -0.24999999977456297,
+      "right_hip_roll_joint": 0.3599994366009808,
+      "right_hip_pitch_joint": -0.1499999999932004,
+      "right_knee_pitch_joint": 0.39999999998148783,
+      "right_ankle_pitch_joint": -0.24999999997887004,
+      "tail_yaw_joint": -4.1688711561852935e-14,
+      "tail_pitch_joint": -1.84276942934453e-12
+    },
+    "all_joint_positions": {
+      "left_ankle_pitch_joint": {
+        "position": -0.24999999978454954,
+        "age_wall_s": 0.003990874999544758
+      },
+      "left_hip_pitch_joint": {
+        "position": -0.14999999999607935,
+        "age_wall_s": 0.003991042000052403
+      },
+      "left_hip_roll_joint": {
+        "position": -0.35999996759421915,
+        "age_wall_s": 0.00399116700009472
+      },
+      "left_knee_pitch_joint": {
+        "position": 0.4000000000362346,
+        "age_wall_s": 0.0039910000004965696
+      },
+      "right_ankle_pitch_joint": {
+        "position": -0.24999999998883765,
+        "age_wall_s": 0.0039910000004965696
+      },
+      "right_hip_pitch_joint": {
+        "position": -0.14999999999920074,
+        "age_wall_s": 0.003991042000052403
+      },
+      "right_hip_roll_joint": {
+        "position": 0.3599999675200045,
+        "age_wall_s": 0.003991292000137037
+      },
+      "right_knee_pitch_joint": {
+        "position": 0.3999999999975029,
+        "age_wall_s": 0.0039914580002005096
+      },
+      "tail_pitch_joint": {
+        "position": -1.839516519033627e-12,
+        "age_wall_s": 0.003991374999714026
+      },
+      "tail_yaw_joint": {
+        "position": -4.1143895199689423e-14,
+        "age_wall_s": 0.003991374999714026
+      },
+      "left_toe_1_proximal_joint": {
+        "position": -0.031254807430488064,
+        "age_wall_s": 0.021762666000540776
+      },
+      "left_toe_1_distal_joint": {
+        "position": -3.905907153957653e-05,
+        "age_wall_s": 0.021763292000287038
+      },
+      "left_toe_2_proximal_joint": {
+        "position": 0.005269409999785324,
+        "age_wall_s": 0.021763415999885183
+      },
+      "left_toe_2_distal_joint": {
+        "position": -0.0020207005833568097,
+        "age_wall_s": 0.021763499999906344
+      },
+      "left_toe_3_proximal_joint": {
+        "position": 0.0052790084103099405,
+        "age_wall_s": 0.021763957999610284
+      },
+      "left_toe_3_distal_joint": {
+        "position": -0.0019479603051295003,
+        "age_wall_s": 0.021764167000583257
+      },
+      "right_toe_1_proximal_joint": {
+        "position": 0.010450988183580931,
+        "age_wall_s": 0.02176458299982187
+      },
+      "right_toe_1_distal_joint": {
+        "position": -0.003673218519738799,
+        "age_wall_s": 0.021764750000329514
+      },
+      "right_toe_2_proximal_joint": {
+        "position": 0.009491000645836453,
+        "age_wall_s": 0.021764916999927664
+      },
+      "right_toe_2_distal_joint": {
+        "position": -0.0016160955321729308,
+        "age_wall_s": 0.02177233300062653
+      },
+      "right_toe_3_proximal_joint": {
+        "position": 0.009467719006428343,
+        "age_wall_s": 0.02177408299939998
+      },
+      "right_toe_3_distal_joint": {
+        "position": -0.0016099940427159833,
+        "age_wall_s": 0.021774124999865307
+      }
+    },
+    "contacts": {
+      "left": {
+        "recent_messages": true,
+        "active_sources": [
+          "left_heel",
+          "left_toe_1_proximal",
+          "left_toe_1_distal"
+        ],
+        "samples": {
+          "left_heel": {
+            "received": 7539.537807896,
+            "force_z": 98.03107547683562,
+            "contact_count": 1,
+            "points": [
+              [
+                -0.06037902532346492,
+                0.23003115546287695,
+                -4.2157398638664745e-07
+              ]
+            ],
+            "collision_pairs": [
+              [
+                "raptor::left_foot_link::left_foot_link_collision",
+                "ground_plane::link::collision"
+              ]
+            ],
+            "age_wall_s": 4.85419996039127e-05
+          },
+          "left_toe_1_proximal": {
+            "received": 7539.537465313,
+            "force_z": 58.18399323734685,
+            "contact_count": 1,
+            "points": [
+              [
+                0.003600211922870926,
+                0.23287446592068442,
+                -6.831851351307705e-08
+              ],
+              [
+                0.07305956881002901,
+                0.24155765308091617,
+                -1.3184353520045988e-06
+              ]
+            ],
+            "collision_pairs": [
+              [
+                "raptor::left_toe_1_proximal_link::left_toe_1_proximal_link_collision",
+                "ground_plane::link::collision"
+              ]
+            ],
+            "age_wall_s": 0.0003919159998986288
+          },
+          "left_toe_1_distal": {
+            "received": 7539.537527563,
+            "force_z": 13.24533364434898,
+            "contact_count": 1,
+            "points": [
+              [
+                0.0730601725929646,
+                0.24155772856474103,
+                -1.3184362614993006e-06
+              ],
+              [
+                0.1474807820634824,
+                0.25086218366729796,
+                -1.8654372979654e-07
+              ]
+            ],
+            "collision_pairs": [
+              [
+                "raptor::left_toe_1_distal_link::left_toe_1_distal_link_collision",
+                "ground_plane::link::collision"
+              ]
+            ],
+            "age_wall_s": 0.0003301249998912681
+          },
+          "left_toe_2_proximal": {
+            "received": 7534.328489185,
+            "force_z": 0.0,
+            "contact_count": 1,
+            "points": [
+              [
+                0.07495861926846123,
+                0.19299979207577092,
+                -3.359662741786451e-06
+              ]
+            ],
+            "collision_pairs": [
+              [
+                "raptor::left_toe_2_proximal_link::left_toe_2_proximal_link_collision",
+                "ground_plane::link::collision"
+              ]
+            ],
+            "age_wall_s": 5.209369127999707
+          },
+          "left_toe_2_distal": {
+            "received": 7534.562813185,
+            "force_z": 0.0,
+            "contact_count": 1,
+            "points": [
+              [
+                0.1499056298838275,
+                0.1929746841874413,
+                -4.2121109800064005e-07
+              ]
+            ],
+            "collision_pairs": [
+              [
+                "raptor::left_toe_2_distal_link::left_toe_2_distal_link_collision",
+                "ground_plane::link::collision"
+              ]
+            ],
+            "age_wall_s": 4.975045586000306
+          },
+          "left_toe_3_proximal": {
+            "received": 7534.32456981,
+            "force_z": 0.0,
+            "contact_count": 1,
+            "points": [
+              [
+                0.07601942037831537,
+                0.14453131275876213,
+                -6.455777565861354e-07
+              ]
+            ],
+            "collision_pairs": [
+              [
+                "raptor::left_toe_3_proximal_link::left_toe_3_proximal_link_collision",
+                "ground_plane::link::collision"
+              ]
+            ],
+            "age_wall_s": 5.213289461000386
+          },
+          "left_toe_3_distal": {
+            "received": 7534.41245656,
+            "force_z": 0.0,
+            "contact_count": 1,
+            "points": [
+              [
+                0.1504171309495361,
+                0.13555441696954446,
+                -2.655017397046322e-07
+              ]
+            ],
+            "collision_pairs": [
+              [
+                "raptor::left_toe_3_distal_link::left_toe_3_distal_link_collision",
+                "ground_plane::link::collision"
+              ]
+            ],
+            "age_wall_s": 5.125403128000471
+          }
+        },
+        "raw_body1_force_z": {
+          "left_heel": 98.03107547683562,
+          "left_toe_1_proximal": 58.18399323734685,
+          "left_toe_1_distal": 13.24533364434898,
+          "left_toe_2_proximal": 0.0,
+          "left_toe_2_distal": 0.0,
+          "left_toe_3_proximal": 0.0,
+          "left_toe_3_distal": 0.0
+        },
+        "recent_sources": [
+          "left_heel",
+          "left_toe_1_proximal",
+          "left_toe_1_distal"
+        ]
+      },
+      "right": {
+        "recent_messages": true,
+        "active_sources": [
+          "right_toe_1_distal"
+        ],
+        "samples": {
+          "right_heel": {
+            "received": 7538.820858354,
+            "force_z": 0.0,
+            "contact_count": 1,
+            "points": [
+              [
+                -0.05999763168541512,
+                -0.12996890852084028,
+                -4.616433670889819e-07
+              ]
+            ],
+            "collision_pairs": [
+              [
+                "raptor::right_foot_link::right_foot_link_collision",
+                "ground_plane::link::collision"
+              ]
+            ],
+            "age_wall_s": 0.7170395419998385
+          },
+          "right_toe_1_proximal": {
+            "received": 7538.867476354,
+            "force_z": 0.0,
+            "contact_count": 1,
+            "points": [
+              [
+                0.0731674928513693,
+                -0.11895364562301908,
+                -2.753065700744628e-06
+              ]
+            ],
+            "collision_pairs": [
+              [
+                "raptor::right_toe_1_proximal_link::right_toe_1_proximal_link_collision",
+                "ground_plane::link::collision"
+              ]
+            ],
+            "age_wall_s": 0.6704232920001232
+          },
+          "right_toe_1_distal": {
+            "received": 7539.060428729,
+            "force_z": 0.0,
+            "contact_count": 1,
+            "points": [
+              [
+                0.14743346761177642,
+                -0.1111354441174887,
+                -1.8821467620000476e-06
+              ]
+            ],
+            "collision_pairs": [
+              [
+                "raptor::right_toe_1_distal_link::right_toe_1_distal_link_collision",
+                "ground_plane::link::collision"
+              ]
+            ],
+            "age_wall_s": 0.4774717500004044
+          },
+          "right_toe_2_proximal": {
+            "received": 7534.435564144,
+            "force_z": 0.0,
+            "contact_count": 1,
+            "points": [
+              [
+                0.07493348105140735,
+                -0.16700208043662132,
+                -1.2811428860004526e-06
+              ]
+            ],
+            "collision_pairs": [
+              [
+                "raptor::right_toe_2_proximal_link::right_toe_2_proximal_link_collision",
+                "ground_plane::link::collision"
+              ]
+            ],
+            "age_wall_s": 5.102347669000665
+          },
+          "right_toe_2_distal": {
+            "received": 7534.610745727,
+            "force_z": 0.0,
+            "contact_count": 1,
+            "points": [
+              [
+                0.14988185354785333,
+                -0.1670155665065972,
+                -7.947480753500713e-07
+              ]
+            ],
+            "collision_pairs": [
+              [
+                "raptor::right_toe_2_distal_link::right_toe_2_distal_link_collision",
+                "ground_plane::link::collision"
+              ]
+            ],
+            "age_wall_s": 4.92716725199989
+          },
+          "right_toe_3_proximal": {
+            "received": 7534.36252581,
+            "force_z": 0.0,
+            "contact_count": 1,
+            "points": [
+              [
+                0.07600604810494288,
+                -0.21546827661635481,
+                -8.804295248410199e-08
+              ]
+            ],
+            "collision_pairs": [
+              [
+                "raptor::right_toe_3_proximal_link::right_toe_3_proximal_link_collision",
+                "ground_plane::link::collision"
+              ]
+            ],
+            "age_wall_s": 5.175387878000038
+          },
+          "right_toe_3_distal": {
+            "received": 7534.453589102,
+            "force_z": 0.0,
+            "contact_count": 1,
+            "points": [
+              [
+                0.15041967455971333,
+                -0.22444797876612957,
+                -1.4744462077942444e-06
+              ]
+            ],
+            "collision_pairs": [
+              [
+                "raptor::right_toe_3_distal_link::right_toe_3_distal_link_collision",
+                "ground_plane::link::collision"
+              ]
+            ],
+            "age_wall_s": 5.084337586000402
+          }
+        },
+        "raw_body1_force_z": {
+          "right_heel": 0.0,
+          "right_toe_1_proximal": 0.0,
+          "right_toe_1_distal": 0.0,
+          "right_toe_2_proximal": 0.0,
+          "right_toe_2_distal": 0.0,
+          "right_toe_3_proximal": 0.0,
+          "right_toe_3_distal": 0.0
+        },
+        "recent_sources": [
+          "right_toe_1_distal"
+        ]
+      }
+    },
+    "rotation_rad": 0.039980665389345645
+  },
+  {
+    "phase": "lift_right",
+    "target": {
+      "left_hip_roll_joint": -0.36,
+      "left_hip_pitch_joint": -0.15,
+      "left_knee_pitch_joint": 0.4,
+      "left_ankle_pitch_joint": -0.25,
+      "right_hip_roll_joint": 0.36,
+      "right_hip_pitch_joint": -0.39999999999999997,
+      "right_knee_pitch_joint": 0.95,
+      "right_ankle_pitch_joint": -0.55,
+      "tail_yaw_joint": 0.0,
+      "tail_pitch_joint": 0.0
+    },
+    "pose": {
+      "name": "raptor",
+      "id": 10,
+      "position": {
+        "x": 0.026976871408375076,
+        "y": 0.2657599024171114,
+        "z": -0.05591366958738866
+      },
+      "orientation": {
+        "x": -0.14560951306672945,
+        "y": -0.014403524681012395,
+        "z": 0.0012730636414265244,
+        "w": 0.9892364669229488
+      }
+    },
+    "joint_positions": {
+      "left_hip_roll_joint": -0.3599999836463333,
+      "left_hip_pitch_joint": -0.1499999999942359,
+      "left_knee_pitch_joint": 0.4000000000597841,
+      "left_ankle_pitch_joint": -0.24999999966817882,
+      "right_hip_roll_joint": 0.35999998359997953,
+      "right_hip_pitch_joint": -0.21968994293620772,
+      "right_knee_pitch_joint": 0.5533178744585168,
+      "right_ankle_pitch_joint": -0.33362793150621384,
+      "tail_yaw_joint": -6.520118239502037e-14,
+      "tail_pitch_joint": -2.99774699940187e-12
+    }
+  },
+  {
+    "error": "IMU tilt 0.253780 exceeded 0.250 rad; cancellation acknowledged"
+  },
+  {
+    "cancellation_events": [
+      {
+        "reason": "IMU tilt 0.253780 exceeded 0.250 rad",
+        "tilt_rad": 0.25378001247328913,
+        "requested": true,
+        "accepted": true,
+        "terminal_status": 5
+      }
+    ]
+  }
+]

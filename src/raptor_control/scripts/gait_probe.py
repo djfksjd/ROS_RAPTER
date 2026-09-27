@@ -7,7 +7,8 @@ import time
 from pathlib import Path
 from motion_probe import Probe, JOINTS, pose, rclpy
 from ros_gz_interfaces.msg import Contacts
-from sensor_msgs.msg import JointState
+from sensor_msgs.msg import JointState, Imu
+from motion_guard import TiltGuard
 
 
 def main():
@@ -20,6 +21,11 @@ def main():
     lift_hip=-args.lift/2+.075
     rclpy.init();node=Probe(); rows=[]
     failed=False
+    guard=TiltGuard()
+    def observe_imu(msg):
+        q=msg.orientation
+        guard.observe(q.x,q.y,q.z,q.w,msg.orientation_covariance[0]!=-1)
+    node.create_subscription(Imu,'/raptor/imu',observe_imu,10)
     contacts={}
     all_joints={}
     def observe_joints(msg):
@@ -46,6 +52,8 @@ def main():
         node.settle(1)
         if 'raptor_mission_gate' in node.get_node_names():
             raise RuntimeError('Stop operator mission gate before a development probe')
+        node.guard=guard
+        node.check_guard()
         target=dict.fromkeys(JOINTS,0.)
         crouch={f'{s}_{j}_joint':v for s in ['left','right']
                 for j,v in [('hip_pitch',-.15),('knee_pitch',.4),('ankle_pitch',-.25)]}
@@ -99,6 +107,8 @@ def main():
         rows.append({'error':str(exc)})
         print(str(exc))
     finally:
+        if node.cancellation_events:
+            rows.append({'cancellation_events':node.cancellation_events})
         Path('/raptor_ws/log/gait-probe.json').write_text(json.dumps(rows,indent=2))
         node.destroy_node();rclpy.shutdown()
     if failed:
