@@ -1,0 +1,31 @@
+{
+  "limitation": "Pose and ROS snapshots are not synchronized; flat z=0 ground only. Contact y bounds are not a support polygon or dynamic stability proof.",
+  "snapshots": [
+    {
+      "phase": "crouch",
+      "com_world": [
+        0.04742111598364685,
+        -1.0244237305978548e-16,
+        0.6276532030673007
+      ],
+      "foot_collision_min_z": {
+        "left": -3.7834129579250586e-08,
+        "right": -3.78341295653728e-08
+      },
+      "contact_y_bounds": {
+        "left": [
+          0.13000000000000028,
+          0.23000000000000026
+        ],
+        "right": [
+          -0.23000000000000026,
+          -0.13000000000000028
+        ]
+      },
+      "contact_hull_margin_xy": {
+        "left": -0.13065798378152735,
+        "right": -0.13065798378962148
+      }
+    }
+  ]
+}

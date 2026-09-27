@@ -52,3 +52,30 @@ roll=0.39의 동일 margin은 -0.03663m다. 중간값도 lift에서 전도했다
 다음은 연속 IMU 감시 후 앞뒤 COM/접촉 기하 분석이다. roll 값만 계속 탐색하지 않는다.
 분석 함수는 정사각형 내부(+0.5m), 외부(-0.2m), 퇴화 선분(None) sanity 검사 통과.
 기존 SafetyTests 7개도 통과했다.
+
+## 동작 중 IMU 중단 감시
+
+`motion_guard.py`는 world 기준 quaternion에서 중력축 기울기를 계산한다.
+yaw는 기울기로 세지 않는다. 무효 quaternion, orientation 미제공, 오래된 IMU는 거부한다.
+임계값 초과는 latch되며 같은 probe에서 다음 궤적을 보내지 않는다.
+`Probe.move()`는 결과 대기 중 주기적으로 검사해 active action을 취소하고 응답/최종 상태를 기록한다.
+
+46번 실제 roll=.36/lift=.95 재현: tilt=0.253780rad에서 취소 승인,
+terminal status=5(CANCELED). 이전 단계 끝에 1.2rad 전도를 발견하던 경로보다 이르게 중단한다.
+취소는 균형 회복이나 넘어짐 방지의 증명이 아니다. 물리는 계속 진행하며 position hold만 남는다.
+센서 표본과 Python/ROS 실행 지연이 있으므로 하드 실시간 보호 장치로 간주하지 않는다.
+
+정상/과도 기울기, yaw 분리, 무효/누락/지연 표본 회귀 검사와 기존 안전 검사 총 10개 통과.
+
+## 앞뒤 자세 비교
+
+기본 roll=.36/lift=.95를 유지하고 --crouch-hip 인수만 비교했다.
+hip과 ankle은 합계 knee를 상쇄해 명목상 발 pitch를 유지한다.
+47/48번 hip=-.05: crouch COM x=0.0474m, shift 중 pitch 증가,
+IMU 0.261557rad에서 action 취소 승인/STATUS_CANCELED.
+49번 hip=-.10도 shift 완료 후 settle 중 tilt=0.256586rad로 거부했다.
+그 시점에는 action이 이미 성공 종료되어 취소 이벤트는 없고 다음 lift를 보내지 않았다.
+앞뒤 위치 이동만으로 안정화하지 못했으며 기본 crouch 값은 -.15로 유지한다.
+
+다음은 전환 중 시간 연속 IMU/수동 발가락/접촉 계측이다.
+표본 두세 개만으로 단일 원인을 단정하거나 파라미터 탐색을 반복하지 않는다.

@@ -16,8 +16,9 @@ def main():
     parser.add_argument('--roll',type=float,default=.15)
     parser.add_argument('--cycles',type=int,default=4)
     parser.add_argument('--lift',type=float,default=.65)
+    parser.add_argument('--crouch-hip',type=float,default=-.15)
     args=parser.parse_args()
-    if not 0<=args.roll<=.45 or not 0<=args.cycles<=8 or not .65<=args.lift<=1.1:parser.error('Outside experimental bounds')
+    if not 0<=args.roll<=.45 or not 0<=args.cycles<=8 or not .65<=args.lift<=1.1 or not -.15<=args.crouch_hip<=.05:parser.error('Outside experimental bounds')
     lift_hip=-args.lift/2+.075
     rclpy.init();node=Probe(); rows=[]
     failed=False
@@ -56,7 +57,7 @@ def main():
         node.check_guard()
         target=dict.fromkeys(JOINTS,0.)
         crouch={f'{s}_{j}_joint':v for s in ['left','right']
-                for j,v in [('hip_pitch',-.15),('knee_pitch',.4),('ankle_pitch',-.25)]}
+                for j,v in [('hip_pitch',args.crouch_hip),('knee_pitch',.4),('ankle_pitch',-.4-args.crouch_hip)]}
         phases=[('crouch',crouch),
             ('shift_left',{'left_hip_roll_joint':-args.roll,'right_hip_roll_joint':args.roll}),
             ('lift_right',{'right_hip_pitch_joint':lift_hip,'right_knee_pitch_joint':args.lift,'right_ankle_pitch_joint':-lift_hip-args.lift}),
@@ -71,8 +72,8 @@ def main():
                 (f'step{step}_shift',{'left_hip_roll_joint':roll,'right_hip_roll_joint':-roll}),
                 (f'step{step}_lift',{f'{swing}_hip_pitch_joint':lift_hip,
                     f'{swing}_knee_pitch_joint':args.lift,f'{swing}_ankle_pitch_joint':-lift_hip-args.lift,
-                    f'{support}_hip_pitch_joint':-.15,f'{support}_knee_pitch_joint':.4,
-                    f'{support}_ankle_pitch_joint':-.25}),
+                    f'{support}_hip_pitch_joint':args.crouch_hip,f'{support}_knee_pitch_joint':.4,
+                    f'{support}_ankle_pitch_joint':-.4-args.crouch_hip}),
                 (f'step{step}_swing',{f'{swing}_hip_pitch_joint':lift_hip-.1,f'{swing}_ankle_pitch_joint':-lift_hip-args.lift+.1}),
                 (f'step{step}_land',{f'{swing}_hip_pitch_joint':-.22,f'{swing}_knee_pitch_joint':.4,
                     f'{swing}_ankle_pitch_joint':-.18}),

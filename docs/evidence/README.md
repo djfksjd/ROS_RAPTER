@@ -54,3 +54,7 @@ File 34 verifies that refused development probes emit no trajectory commands.
 - `41-gait-contact-details.*`: roll .28의 실제 접촉 상세 재현.
 - `42-gait-larger-shift.*`, `43-gait-support-analysis.json`: roll .39 전도 및 FK/contact hull 분석.
 - `44-gait-middle-shift.*`, `45-gait-middle-support-analysis.json`: roll .36 전도 및 분석.
+
+- `46-gait-imu-cancel.*`: 실제 IMU 한계 초과와 action 취소 승인/STATUS_CANCELED.
+- `47-gait-forward-crouch.*`, `48-forward-crouch-analysis.json`: hip -.05 비교 실패.
+- `49-gait-middle-crouch.*`: hip -.10 비교, shift 이후 감시 중 실패.

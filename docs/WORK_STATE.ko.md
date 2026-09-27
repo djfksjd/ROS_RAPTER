@@ -37,14 +37,17 @@
 
 ## 지금 진행
 
-브랜치 fix/gait-contact-evidence (외형 기준 23d93dd에서 분기).
+브랜치 fix/gait-imu-cancel (4b94162에서 분기).
 발 메시 통합은 완료. 한 발 지지 실험 계측 개선 및 세 비교 실행 완료.
 41: roll .28는 오른발 실제 접촉이 남음.
 42/43: roll .39는 오른발 이탈했으나 COM이 접촉 hull 밖, 전도.
 44/45: roll .36도 hull margin -5.29mm, 이후 전도.
 상세: GAIT_CONTACT_ANALYSIS.ko.md. 새 analyzer는 실제 passive joint 표본까지 사용.
-다음: 동작 중 IMU 제한 초과 시 trajectory 취소 감시를 먼저 보강한 다음,
-앞뒤 COM 위치/기울어진 발 접촉 기하를 고려한 한 변수 비교 실험.
+46: IMU .25378rad에서 ROS action 취소 승인, terminal CANCELED 확인. 10개 테스트 통과.
+47/48: crouch hip -.05 전환 중 pitch 전도, 취소 승인.
+49: hip -.10도 shift 후 settle 중 기울기 초과, 다음 action 발행 안 함.
+다음: 시간 연속 IMU/수동 발가락/접촉 계측으로 전환 순간을 분석한다.
+기본 자세/제어 파라미터는 채택 변경하지 않았다. 숫자 탐색 반복 금지.
 시각 모델 전체 완성·안정 보행·강화학습은 아직 완료되지 않았다.
 
 ## 알려진 실패
