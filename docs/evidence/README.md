@@ -50,3 +50,7 @@ File 34 verifies that refused development probes emit no trajectory commands.
 - `38-passive-toe-visual-build.txt`: 수동 발 상세 메시 적용 후 빌드/URDF 검사.
 - `39-passive-toe-visual-contract.txt`: 비시각 모델 불변, 10 active + 12 passive 확인.
 - `40-passive-toe-visual-gazebo.png`: 실제 Gazebo 수동 발 메시 표시 확인.
+
+- `41-gait-contact-details.*`: roll .28의 실제 접촉 상세 재현.
+- `42-gait-larger-shift.*`, `43-gait-support-analysis.json`: roll .39 전도 및 FK/contact hull 분석.
+- `44-gait-middle-shift.*`, `45-gait-middle-support-analysis.json`: roll .36 전도 및 분석.

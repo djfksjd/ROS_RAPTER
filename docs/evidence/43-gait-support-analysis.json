@@ -1,0 +1,77 @@
+{
+  "limitation": "Pose and ROS snapshots are not synchronized; flat z=0 ground only. Contact y bounds are not a support polygon or dynamic stability proof.",
+  "snapshots": [
+    {
+      "phase": "crouch",
+      "com_world": [
+        -0.011619904984992768,
+        3.2950007680740913e-16,
+        0.633223354943345
+      ],
+      "foot_collision_min_z": {
+        "left": 1.8118967374386452e-07,
+        "right": 1.8118967355651439e-07
+      },
+      "contact_y_bounds": {
+        "left": [
+          0.10973524394071524,
+          0.2502647560613151
+        ],
+        "right": [
+          -0.2502647560613164,
+          -0.10973524394071661
+        ]
+      },
+      "contact_hull_margin_xy": {
+        "left": -0.12467952273933357,
+        "right": -0.12467952273169802
+      }
+    },
+    {
+      "phase": "shift_left",
+      "com_world": [
+        -0.024328012399158366,
+        0.270527235076196,
+        0.6062172559992836
+      ],
+      "foot_collision_min_z": {
+        "left": -1.039010365192633e-06,
+        "right": 0.01563176639018926
+      },
+      "contact_y_bounds": {
+        "left": [
+          0.23003830381601564,
+          0.2511524665391101
+        ],
+        "right": null
+      },
+      "contact_hull_margin_xy": {
+        "left": -0.036629961036927255,
+        "right": null
+      }
+    },
+    {
+      "phase": "lift_right",
+      "com_world": [
+        -0.06251087828435102,
+        0.8254668141203603,
+        0.22914016762841583
+      ],
+      "foot_collision_min_z": {
+        "left": -5.5928547003716855e-08,
+        "right": 0.3254199291090595
+      },
+      "contact_y_bounds": {
+        "left": [
+          0.3156375078503685,
+          0.3156375078503685
+        ],
+        "right": null
+      },
+      "contact_hull_margin_xy": {
+        "left": null,
+        "right": null
+      }
+    }
+  ]
+}

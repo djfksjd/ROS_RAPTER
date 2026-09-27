@@ -7,6 +7,7 @@ import time
 from pathlib import Path
 from motion_probe import Probe, JOINTS, pose, rclpy
 from ros_gz_interfaces.msg import Contacts
+from sensor_msgs.msg import JointState
 
 
 def main():
@@ -20,9 +21,18 @@ def main():
     rclpy.init();node=Probe(); rows=[]
     failed=False
     contacts={}
+    all_joints={}
+    def observe_joints(msg):
+        if len(msg.name)==len(msg.position):
+            all_joints.update({name:{'position':value,'received':time.monotonic()}
+                for name,value in zip(msg.name,msg.position) if math.isfinite(value)})
+    node.create_subscription(JointState,'/joint_states',observe_joints,10)
     def observe(msg,key):
         contacts[key]={'received':time.monotonic(),'force_z':sum(
-            w.body_1_wrench.force.z for c in msg.contacts for w in c.wrenches)}
+            w.body_1_wrench.force.z for c in msg.contacts for w in c.wrenches),
+            'contact_count':len(msg.contacts),
+            'points':[[p.x,p.y,p.z] for c in msg.contacts for p in c.positions],
+            'collision_pairs':[[c.collision1.name,c.collision2.name] for c in msg.contacts]}
     for side in ['left','right']:
         node.create_subscription(Contacts,f'/raptor/{side}_foot/contact',
                                  lambda msg,s=side:observe(msg,s+'_heel'),10)
@@ -63,9 +73,19 @@ def main():
             target.update(changes)
             row={'phase':name,'target':dict(target)};rows.append(row)
             try:row['tracking_error']=node.move(target,seconds=2)
-            finally:row['pose']=pose()
-            row['contacts']={side:{'recent':any(time.monotonic()-v['received']<.5
+            finally:
+                row['pose']=pose()
+                row['joint_positions']=dict(node.state)
+            # pose() blocks on Gazebo transport: refresh ROS callbacks before contact snapshot.
+            node.settle(.1)
+            row['all_joint_positions']={name:{'position':v['position'],
+                'age_wall_s':time.monotonic()-v['received']} for name,v in all_joints.items()}
+            row['contacts']={side:{'recent_messages':any(time.monotonic()-v['received']<.5
                 for key,v in contacts.items() if key.startswith(side+'_')),
+                'active_sources':[key for key,v in contacts.items() if key.startswith(side+'_')
+                    and time.monotonic()-v['received']<.5 and v['contact_count']>0],
+                'samples':{key:{**v,'age_wall_s':time.monotonic()-v['received']}
+                    for key,v in contacts.items() if key.startswith(side+'_')},
                 'raw_body1_force_z':{key:v['force_z'] for key,v in contacts.items() if key.startswith(side+'_')},
                 'recent_sources':[key for key,v in contacts.items()
                     if key.startswith(side+'_') and time.monotonic()-v['received']<.5]}

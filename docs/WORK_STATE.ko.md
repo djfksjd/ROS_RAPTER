@@ -37,12 +37,15 @@
 
 ## 지금 진행
 
-전시 모델의 고정 발과 실제 passive toe 구조 간 외형 불일치 해소.
-구현: passive toe/heel 공통 메시를 Gazebo와 Blender에 연결했다.
-검증: 38번 빌드/URDF 통과, 39번 비시각 URDF 동일/10active+12passive 통과, 렌더 확인.
-Gazebo 실제 새 발가락 표시를 40번 화면으로 확인했다.
-다음: 제어 브랜치에서 한 발 지지 실패의 접촉 기하와 지지 영역을 분석한다.
-외형 전체 완성은 아니며 본 단계는 발의 시각 모델 일치만 완료다.
+브랜치 fix/gait-contact-evidence (외형 기준 23d93dd에서 분기).
+발 메시 통합은 완료. 한 발 지지 실험 계측 개선 및 세 비교 실행 완료.
+41: roll .28는 오른발 실제 접촉이 남음.
+42/43: roll .39는 오른발 이탈했으나 COM이 접촉 hull 밖, 전도.
+44/45: roll .36도 hull margin -5.29mm, 이후 전도.
+상세: GAIT_CONTACT_ANALYSIS.ko.md. 새 analyzer는 실제 passive joint 표본까지 사용.
+다음: 동작 중 IMU 제한 초과 시 trajectory 취소 감시를 먼저 보강한 다음,
+앞뒤 COM 위치/기울어진 발 접촉 기하를 고려한 한 변수 비교 실험.
+시각 모델 전체 완성·안정 보행·강화학습은 아직 완료되지 않았다.
 
 ## 알려진 실패
 
