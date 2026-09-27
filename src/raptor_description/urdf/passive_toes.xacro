@@ -5,6 +5,7 @@
     <xacro:property name="link_name" value="${side}_toe_${digit}_${part}_link"/>
     <xacro:property name="joint_name" value="${side}_toe_${digit}_${part}_joint"/>
     <link name="${link_name}">
+      <xacro:unless value="$(arg detailed_visuals)">
       <visual><origin xyz="${length/2} 0 0"/>
         <geometry><box size="${length} 0.026 0.034"/></geometry>
         <material name="toe_armor"><color rgba="0.65 0.66 0.60 1"/></material></visual>
@@ -19,6 +20,13 @@
         <visual><origin xyz="${length+0.010} 0 -0.004" rpy="0 0.3 0"/>
           <geometry><box size="0.026 0.012 0.013"/></geometry>
           <material name="toe_claw"><color rgba="0.12 0.14 0.16 1"/></material></visual>
+      </xacro:if>
+      </xacro:unless>
+      <xacro:if value="$(arg detailed_visuals)">
+        <visual><geometry><mesh filename="package://raptor_description/meshes/raptor/toe_${part}__graphite.dae"/></geometry><material name="toe_detail_graphite"><color rgba=".065 .075 .085 1"/></material></visual>
+        <visual><geometry><mesh filename="package://raptor_description/meshes/raptor/toe_${part}__ivory.dae"/></geometry><material name="toe_detail_ivory"><color rgba=".72 .72 .65 1"/></material></visual>
+        <visual><geometry><mesh filename="package://raptor_description/meshes/raptor/toe_${part}__titanium.dae"/></geometry><material name="toe_detail_titanium"><color rgba=".36 .40 .43 1"/></material></visual>
+        <visual><geometry><mesh filename="package://raptor_description/meshes/raptor/toe_${part}__rubber.dae"/></geometry><material name="toe_detail_rubber"><color rgba=".025 .028 .032 1"/></material></visual>
       </xacro:if>
       <collision><origin xyz="${length/2} 0 0"/>
         <geometry><box size="${length} 0.026 0.034"/></geometry></collision>
@@ -57,12 +65,20 @@
   </xacro:macro>
   <xacro:macro name="passive_foot" params="side">
     <link name="${side}_foot_link">
+      <xacro:unless value="$(arg detailed_visuals)">
       <visual><origin xyz="-0.015 0 -0.03"/>
         <geometry><box size="0.09 0.10 0.06"/></geometry>
         <material name="heel_pad"><color rgba="0.08 0.09 0.10 1"/></material></visual>
       <visual><origin rpy="1.57079632679 0 0"/>
         <geometry><cylinder radius="0.037" length="0.10"/></geometry>
         <material name="ankle_housing"><color rgba="0.36 0.40 0.43 1"/></material></visual>
+      </xacro:unless>
+      <xacro:if value="$(arg detailed_visuals)">
+        <visual><geometry><mesh filename="package://raptor_description/meshes/raptor/passive_heel__graphite.dae"/></geometry><material name="heel_detail_graphite"><color rgba=".065 .075 .085 1"/></material></visual>
+        <visual><geometry><mesh filename="package://raptor_description/meshes/raptor/passive_heel__ivory.dae"/></geometry><material name="heel_detail_ivory"><color rgba=".72 .72 .65 1"/></material></visual>
+        <visual><geometry><mesh filename="package://raptor_description/meshes/raptor/passive_heel__titanium.dae"/></geometry><material name="heel_detail_titanium"><color rgba=".36 .40 .43 1"/></material></visual>
+        <visual><geometry><mesh filename="package://raptor_description/meshes/raptor/passive_heel__rubber.dae"/></geometry><material name="heel_detail_rubber"><color rgba=".025 .028 .032 1"/></material></visual>
+      </xacro:if>
       <collision><origin xyz="-0.015 0 -0.03"/>
         <geometry><box size="0.09 0.10 0.06"/></geometry></collision>
       <inertial><origin xyz="-0.015 0 -0.03"/><mass value="0.30"/>

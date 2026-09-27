@@ -46,3 +46,7 @@ File 34 verifies that refused development probes emit no trajectory commands.
 - `35-reference-appearance-build.txt`: 외형 개선 후 colcon/URDF 검사.
 - `36-reference-appearance-control.txt`: 재실행 후 active controller와 10개 claimed interface.
 - `37-reference-appearance-gazebo.png`: 개선 메시가 표시된 실제 Gazebo 화면.
+
+- `38-passive-toe-visual-build.txt`: 수동 발 상세 메시 적용 후 빌드/URDF 검사.
+- `39-passive-toe-visual-contract.txt`: 비시각 모델 불변, 10 active + 12 passive 확인.
+- `40-passive-toe-visual-gazebo.png`: 실제 Gazebo 수동 발 메시 표시 확인.

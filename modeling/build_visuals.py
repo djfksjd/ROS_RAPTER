@@ -171,6 +171,24 @@ for i in range(8):
             (x+.024,sign*radius*.72,0),.005,'copper')
 
 
+
+# Link-local cosmetic meshes follow passive_toes.xacro's measured geometry.
+for part,length in [('proximal',.070),('distal',.075)]:
+    active='toe_'+part
+    profile('Toe phalanx fairing',[(.006,-.009),(length-.008,-.009),
+            (length-.004,.006),(length-.018,.017),(.012,.017)],.026,'ivory')
+    rod('Passive toe pivot',(0,-.0165,0),(0,.0165,0),.020,'graphite')
+    for sign in [-1,1]:
+        rod('Toe pivot cap',(0,sign*.017,0),(0,sign*.019,0),.010,'titanium')
+    box('Toe sole',(length/2,0,-.014),(length*.9,.027,.008),'rubber',.002)
+    if part=='distal':
+        profile('Blunt claw visual',[(length-.014,.006),(length+.015,-.004),
+                (length+.022,-.011),(length-.002,-.009)],.012,'graphite')
+active='passive_heel'
+box('Heel sole',(-.015,0,-.032),(.09,.10,.056),'rubber',.008)
+servo((0,0,0),.037,.10)
+
+
 def export_dae(link, objects):
     # Portable COLLADA with baked link-local vertices and per-part material.
     doc=ET.Element('COLLADA',xmlns='http://www.collada.org/2005/11/COLLADASchema',version='1.4.1')
@@ -231,12 +249,32 @@ for joint in urdf.findall('joint'):
     origin=joint.find('origin');xyz=[float(v) for v in origin.get('xyz','0 0 0').split()]
     angle=-.65 if 'hip_pitch' in joint.get('name') else 1.30 if 'knee_pitch' in joint.get('name') else -.65 if 'ankle_pitch' in joint.get('name') else 0
     transforms[child]=transforms[parent] @ Matrix.Translation(xyz) @ Euler((0,angle,0)).to_matrix().to_4x4()
+# Keep baseline foot exports, but show the actual optional passive assembly.
 for link,objects in GROUPS.items():
-    for obj in objects:obj.matrix_world=transforms[link] @ obj.matrix_world
+    if link in ['toe_proximal','toe_distal','passive_heel']:
+        for obj in objects: obj.hide_render=True; obj.hide_set(True)
+        continue
+    for obj in objects:
+        obj.matrix_world=transforms[link] @ obj.matrix_world
+        if link.endswith('_foot_link'): obj.hide_render=True; obj.hide_set(True)
+passive_objects=[]
+for side in ['left','right']:
+    foot=transforms[side+'_foot_link']
+    placements=[('passive_heel',foot)]
+    for y,yaw in [(.040,.12),(0,0),(-.040,-.12)]:
+        proximal=foot @ Matrix.Translation((.005,y,-.043)) @ Euler((0,0,yaw)).to_matrix().to_4x4()
+        placements += [('toe_proximal',proximal),
+                       ('toe_distal',proximal @ Matrix.Translation((.070,0,0)))]
+    for name,transform in placements:
+        for template in GROUPS[name]:
+            obj=template.copy(); obj.data=template.data
+            bpy.context.collection.objects.link(obj)
+            obj.hide_render=False; obj.hide_set(False)
+            obj.matrix_world=transform @ template.matrix_world
+            passive_objects.append(obj)
 
 ground_z = min((obj.matrix_world @ v.co).z
-               for link,objects in GROUPS.items() if link.endswith('_foot_link')
-               for obj in objects for v in obj.data.vertices)
+               for obj in passive_objects for v in obj.data.vertices)
 bpy.ops.mesh.primitive_plane_add(size=200,location=(0,0,ground_z))
 plane=bpy.context.object;plane.name='Presentation ground';plane.data.materials.append(MATS['graphite'])
 world=bpy.context.scene.world;world.use_nodes=True

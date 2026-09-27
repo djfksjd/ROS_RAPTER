@@ -1,0 +1,2 @@
+PASS: all nonvisual URDF elements identical before/after
+PASS: 10 actuated joints, 12 passive toe joints, all referenced meshes exist

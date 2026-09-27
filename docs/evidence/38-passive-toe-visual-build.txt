@@ -1,0 +1,32 @@
+Starting >>> raptor_description
+Finished <<< raptor_description [0.52s]
+Starting >>> raptor_control
+Finished <<< raptor_control [0.15s]
+
+Summary: 2 packages finished [0.99s]
+robot name is: raptor
+---------- Successfully Parsed XML ---------------
+root Link: base_root has 1 child(ren)
+    child(1):  base_link
+        child(1):  left_hip_roll_link
+            child(1):  left_thigh_link
+                child(1):  left_shin_link
+                    child(1):  left_foot_link
+                        child(1):  left_toe_1_proximal_link
+                            child(1):  left_toe_1_distal_link
+                        child(2):  left_toe_2_proximal_link
+                            child(1):  left_toe_2_distal_link
+                        child(3):  left_toe_3_proximal_link
+                            child(1):  left_toe_3_distal_link
+        child(2):  right_hip_roll_link
+            child(1):  right_thigh_link
+                child(1):  right_shin_link
+                    child(1):  right_foot_link
+                        child(1):  right_toe_1_proximal_link
+                            child(1):  right_toe_1_distal_link
+                        child(2):  right_toe_2_proximal_link
+                            child(1):  right_toe_2_distal_link
+                        child(3):  right_toe_3_proximal_link
+                            child(1):  right_toe_3_distal_link
+        child(3):  tail_yaw_link
+            child(1):  tail_link
