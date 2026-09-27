@@ -159,3 +159,11 @@ upstream code with `scripts/setup_ai.py` or extract the backed-up source archive
 `vendor/NanoJev/`. Restore HF `models/ollama/` under `~/.ollama/models/` while Ollama
 is stopped, preserving existing unrelated models. Verify restored file hashes
 against `model-backup-assets.json`. No automatic or scheduled backup is configured.
+
+## UNI_AI development API
+
+For API-assisted development after cloning on another machine, follow
+[UNI_AI workflow](UNI_AI_WORKFLOW.ko.md) and the root [agent instructions](../AGENTS.md).
+Set `UNI_AI` in the ignored local `.env`; preserve existing `HF_TOKEN` entries.
+This development gateway does not replace the robot's Qwen/NanoJev mission pipeline
+and does not automatically resume paused experiments.

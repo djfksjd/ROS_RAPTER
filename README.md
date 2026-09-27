@@ -119,6 +119,18 @@ tail_yaw_joint            tail_pitch_joint
 
 작은 평가셋이며 첫 요청 비용이 포함됩니다. 정밀도·런타임이 달라 모델 구조의 우열이나 일반 성능으로 해석할 수 없습니다. 로봇 실행 지연과 원격 네트워크 지연을 포함한 값도 아닙니다. [평가 조건과 원본 결과](docs/PROJECT_REPORT.ko.md#qwen과-nanojev-비교)
 
+## UNI_AI API로 개발 작업
+
+다른 환경에서 저장소를 받은 뒤 `.env.example`을 참고해 로컬 `.env`의 **`UNI_AI`**에
+Gateway API 키를 넣고, 저장소를 연 작업 에이전트에게 **“API로 작업 진행해”**라고 요청합니다.
+루트 [AGENTS.md](AGENTS.md)가 [API 작업 가이드](docs/UNI_AI_WORKFLOW.ko.md)로 안내하므로
+별도 프롬프트나 모델 목록을 매번 전달할 필요가 없습니다.
+
+가이드에는 공식 endpoint, 모델 조회·선택, Python 표준 라이브러리 호출 예제, 오류 처리와
+실행 검증 절차가 있습니다. API 모델은 개발 분석·초안·검토를 맡으며 로봇 제어와 구분합니다.
+호스트 에이전트의 과금은 별개이고, 키 설정만으로 ROS 환경이나 자율 실행기가 설치되지는 않습니다.
+문서·API 설정 요청만으로 일시정지된 goal을 재개하지 않습니다.
+
 ## 로컬 실행
 
 **검증 환경:** Apple M5 · RAM 24GB · Docker Linux ARM64 · Ubuntu 24.04 · ROS 2 Jazzy · Gazebo Harmonic. macOS native ROS 포팅을 사용하지 않습니다.
@@ -194,6 +206,7 @@ ROS 실행·응답 확인·STOP 사용법은 [로컬 개발 가이드](docs/loca
 
 | 문서 | 내용 |
 |---|---|
+| [UNI_AI API 작업 가이드](docs/UNI_AI_WORKFLOW.ko.md) | 다른 환경의 키 설정·모델 호출·에이전트 작업 절차 |
 | [설치 완료 보고서](docs/INSTALLATION_REPORT.ko.md) | ROS/Gazebo 설치와 실제 증거 화면 |
 | [프로젝트 보고서](docs/PROJECT_REPORT.ko.md) | 시스템 구현·AI 평가·한계 |
 | [보행 오픈소스 조사](docs/OPEN_SOURCE_LOCOMOTION_RESEARCH.ko.md) | Open Duck·PlaCo·Microduck·DR Legs 비교, Mac 제약과 재사용 범위 |
