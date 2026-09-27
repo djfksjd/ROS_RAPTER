@@ -1,0 +1,1745 @@
+{
+  "samples": [
+    {
+      "sim_seconds": 0.0,
+      "roll": 3.076213554238605e-15,
+      "pitch": -3.357690151743035e-06,
+      "toe_angles": {
+        "left_toe_1_proximal_joint": 1.332540706775023e-05,
+        "left_toe_1_distal_joint": -2.6367187857017343e-05,
+        "left_toe_2_proximal_joint": 1.8922714487918187e-05,
+        "left_toe_2_distal_joint": -3.7171860414052676e-05,
+        "left_toe_3_proximal_joint": 1.331942432063251e-05,
+        "left_toe_3_distal_joint": -2.6355623823822207e-05,
+        "right_toe_1_proximal_joint": 1.3319424326091619e-05,
+        "right_toe_1_distal_joint": -2.6355623819708473e-05,
+        "right_toe_2_proximal_joint": 1.892271446906602e-05,
+        "right_toe_2_distal_joint": -3.717186039616159e-05,
+        "right_toe_3_proximal_joint": 1.3325407009289136e-05,
+        "right_toe_3_distal_joint": -2.6367187738007503e-05
+      },
+      "contacts": {
+        "left_toe_1_proximal": {
+          "recent": true,
+          "force_z": 6.4779133107577485
+        },
+        "left_toe_1_distal": {
+          "recent": true,
+          "force_z": 1.5207615060601942
+        },
+        "left_toe_2_distal": {
+          "recent": true,
+          "force_z": 0.5139934791989513
+        },
+        "left_toe_3_proximal": {
+          "recent": true,
+          "force_z": 6.222554326167991
+        },
+        "right_toe_1_proximal": {
+          "recent": true,
+          "force_z": 6.222554313528095
+        },
+        "right_toe_2_distal": {
+          "recent": true,
+          "force_z": 0.513993479186748
+        },
+        "right_toe_3_proximal": {
+          "recent": true,
+          "force_z": 6.477913318733251
+        },
+        "left_toe_2_proximal": {
+          "recent": true,
+          "force_z": 0.4307659251633815
+        },
+        "left_toe_3_distal": {
+          "recent": true,
+          "force_z": 1.4781387104115111
+        },
+        "right_toe_1_distal": {
+          "recent": true,
+          "force_z": 1.4781387092867282
+        },
+        "right_toe_2_proximal": {
+          "recent": true,
+          "force_z": 0.4307659251801941
+        },
+        "right_toe_3_distal": {
+          "recent": true,
+          "force_z": 1.5207615068328149
+        }
+      }
+    },
+    {
+      "sim_seconds": 0.20099999999999696,
+      "roll": 3.0994812277783316e-15,
+      "pitch": -2.4940623705715055e-06,
+      "toe_angles": {
+        "left_toe_1_proximal_joint": 1.8590270553740405e-06,
+        "left_toe_1_distal_joint": -2.3409282107100435e-06,
+        "left_toe_2_proximal_joint": 3.1108472390163213e-06,
+        "left_toe_2_distal_joint": -4.731672976216206e-06,
+        "left_toe_3_proximal_joint": 1.8543886445366859e-06,
+        "left_toe_3_distal_joint": -2.3319608910134627e-06,
+        "right_toe_1_proximal_joint": 1.8543885014637608e-06,
+        "right_toe_1_distal_joint": -2.3319606560566672e-06,
+        "right_toe_2_proximal_joint": 3.1108472488101453e-06,
+        "right_toe_2_distal_joint": -4.731673008110888e-06,
+        "right_toe_3_proximal_joint": 1.859026830269485e-06,
+        "right_toe_3_distal_joint": -2.3409277623937077e-06
+      },
+      "contacts": {
+        "left_toe_1_proximal": {
+          "recent": true,
+          "force_z": 10.886282268698016
+        },
+        "left_toe_1_distal": {
+          "recent": true,
+          "force_z": 0.16132524526360612
+        },
+        "left_toe_2_distal": {
+          "recent": true,
+          "force_z": 0.514540887637964
+        },
+        "left_toe_3_proximal": {
+          "recent": true,
+          "force_z": 10.426694905310118
+        },
+        "right_toe_1_proximal": {
+          "recent": true,
+          "force_z": 10.426694887457451
+        },
+        "right_toe_2_distal": {
+          "recent": true,
+          "force_z": 0.5145408876053735
+        },
+        "right_toe_3_proximal": {
+          "recent": true,
+          "force_z": 10.886282272880534
+        },
+        "left_toe_2_proximal": {
+          "recent": true,
+          "force_z": 0.43175813297505516
+        },
+        "left_toe_3_distal": {
+          "recent": true,
+          "force_z": 0.15894489493498065
+        },
+        "right_toe_1_distal": {
+          "recent": true,
+          "force_z": 0.15894489565294828
+        },
+        "right_toe_2_proximal": {
+          "recent": true,
+          "force_z": 0.43175813301081994
+        },
+        "right_toe_3_distal": {
+          "recent": true,
+          "force_z": 0.16132524544675617
+        }
+      }
+    },
+    {
+      "sim_seconds": 0.4009999999999998,
+      "roll": 1.1809291671933565e-15,
+      "pitch": -2.2649631196816147e-06,
+      "toe_angles": {
+        "left_toe_1_proximal_joint": -4.788397144016273e-07,
+        "left_toe_1_distal_joint": 1.6563980721661977e-06,
+        "left_toe_2_proximal_joint": 4.93122920661733e-07,
+        "left_toe_2_distal_joint": -2.15049584382147e-07,
+        "left_toe_3_proximal_joint": -4.800945791035333e-07,
+        "left_toe_3_distal_joint": 1.6588438051333042e-06,
+        "right_toe_1_proximal_joint": -4.800946552541087e-07,
+        "right_toe_1_distal_joint": 1.6588439894752928e-06,
+        "right_toe_2_proximal_joint": 4.931229242225903e-07,
+        "right_toe_2_distal_joint": -2.1504958970859788e-07,
+        "right_toe_3_proximal_joint": -4.788397481153788e-07,
+        "right_toe_3_distal_joint": 1.6563981754196148e-06
+      },
+      "contacts": {
+        "left_toe_1_proximal": {
+          "recent": true,
+          "force_z": 11.281675052815757
+        },
+        "left_toe_1_distal": {
+          "recent": true,
+          "force_z": 0.1276795882760283
+        },
+        "left_toe_2_distal": {
+          "recent": true,
+          "force_z": 0.38862031816280956
+        },
+        "left_toe_3_proximal": {
+          "recent": true,
+          "force_z": 10.804572569298095
+        },
+        "right_toe_1_proximal": {
+          "recent": true,
+          "force_z": 10.804572562521015
+        },
+        "right_toe_2_distal": {
+          "recent": true,
+          "force_z": 0.38862031815082526
+        },
+        "right_toe_3_proximal": {
+          "recent": true,
+          "force_z": 11.281675055305994
+        },
+        "left_toe_2_proximal": {
+          "recent": true,
+          "force_z": 0.2929448669753127
+        },
+        "left_toe_3_distal": {
+          "recent": true,
+          "force_z": 0.12768055819809881
+        },
+        "right_toe_1_distal": {
+          "recent": true,
+          "force_z": 0.12768055819639765
+        },
+        "right_toe_2_proximal": {
+          "recent": true,
+          "force_z": 0.2929448669841305
+        },
+        "right_toe_3_distal": {
+          "recent": true,
+          "force_z": 0.12767958827473522
+        }
+      }
+    },
+    {
+      "sim_seconds": 0.6019999999999968,
+      "roll": 1.2255987460005271e-15,
+      "pitch": -2.0592553547317064e-06,
+      "toe_angles": {
+        "left_toe_1_proximal_joint": 8.67391516113613e-08,
+        "left_toe_1_distal_joint": -2.02125555209041e-06,
+        "left_toe_2_proximal_joint": -1.4378538013516286e-06,
+        "left_toe_2_distal_joint": 9.719880694124066e-07,
+        "left_toe_3_proximal_joint": 8.549667824934372e-08,
+        "left_toe_3_distal_joint": -2.0178108761935725e-06,
+        "right_toe_1_proximal_joint": 8.549660616027487e-08,
+        "right_toe_1_distal_joint": -2.017810721004769e-06,
+        "right_toe_2_proximal_joint": -1.4378537980339964e-06,
+        "right_toe_2_distal_joint": 9.719880643985416e-07,
+        "right_toe_3_proximal_joint": 8.673912892915103e-08,
+        "right_toe_3_distal_joint": -2.0212554742720586e-06
+      },
+      "contacts": {
+        "left_toe_1_proximal": {
+          "recent": true,
+          "force_z": 11.447720461456138
+        },
+        "left_toe_1_distal": {
+          "recent": true,
+          "force_z": 0.08639144491201475
+        },
+        "left_toe_2_distal": {
+          "recent": true,
+          "force_z": 0.3977869905159662
+        },
+        "left_toe_3_proximal": {
+          "recent": true,
+          "force_z": 10.963595104246377
+        },
+        "right_toe_1_proximal": {
+          "recent": true,
+          "force_z": 10.963595091434598
+        },
+        "right_toe_2_distal": {
+          "recent": true,
+          "force_z": 0.39778699054774214
+        },
+        "right_toe_3_proximal": {
+          "recent": true,
+          "force_z": 11.447720460081047
+        },
+        "left_toe_2_proximal": {
+          "recent": true,
+          "force_z": 0.16790707274169014
+        },
+        "left_toe_3_distal": {
+          "recent": true,
+          "force_z": 0.08639139564438421
+        },
+        "right_toe_1_distal": {
+          "recent": true,
+          "force_z": 0.08639139563260148
+        },
+        "right_toe_2_proximal": {
+          "recent": true,
+          "force_z": 0.16790707271458716
+        },
+        "right_toe_3_distal": {
+          "recent": true,
+          "force_z": 0.08639144492606035
+        }
+      }
+    },
+    {
+      "sim_seconds": 0.8019999999999996,
+      "roll": -6.183689859874365e-16,
+      "pitch": -4.11280868496776e-06,
+      "toe_angles": {
+        "left_toe_1_proximal_joint": 3.2947154033356458e-06,
+        "left_toe_1_distal_joint": -5.399082548734479e-06,
+        "left_toe_2_proximal_joint": 4.4473549076524117e-07,
+        "left_toe_2_distal_joint": 1.540632916578259e-07,
+        "left_toe_3_proximal_joint": 3.2931693115087308e-06,
+        "left_toe_3_distal_joint": -5.410148193230525e-06,
+        "right_toe_1_proximal_joint": 3.2931684517875302e-06,
+        "right_toe_1_distal_joint": -5.410146572168226e-06,
+        "right_toe_2_proximal_joint": 4.4473563390012453e-07,
+        "right_toe_2_distal_joint": 1.540629534367821e-07,
+        "right_toe_3_proximal_joint": 3.2947156769852663e-06,
+        "right_toe_3_distal_joint": -5.399083038643761e-06
+      },
+      "contacts": {
+        "left_toe_1_proximal": {
+          "recent": true,
+          "force_z": 9.477027516330802
+        },
+        "left_toe_1_distal": {
+          "recent": true,
+          "force_z": 0.6831759316963472
+        },
+        "left_toe_2_distal": {
+          "recent": true,
+          "force_z": 0.3977287786026446
+        },
+        "left_toe_3_proximal": {
+          "recent": true,
+          "force_z": 9.102617445871315
+        },
+        "right_toe_1_proximal": {
+          "recent": true,
+          "force_z": 9.101684314580972
+        },
+        "right_toe_2_distal": {
+          "recent": true,
+          "force_z": 0.39772877860981504
+        },
+        "right_toe_3_proximal": {
+          "recent": true,
+          "force_z": 9.477511589638496
+        },
+        "left_toe_2_proximal": {
+          "recent": true,
+          "force_z": 0.16785801506249803
+        },
+        "left_toe_3_distal": {
+          "recent": true,
+          "force_z": 0.6824127073443846
+        },
+        "right_toe_1_distal": {
+          "recent": true,
+          "force_z": 0.6824180054443881
+        },
+        "right_toe_2_proximal": {
+          "recent": true,
+          "force_z": 0.16785801505508896
+        },
+        "right_toe_3_distal": {
+          "recent": true,
+          "force_z": 0.6831766716465968
+        }
+      }
+    },
+    {
+      "sim_seconds": 1.0030000000000001,
+      "roll": -8.611157886675465e-16,
+      "pitch": -3.623105562330358e-06,
+      "toe_angles": {
+        "left_toe_1_proximal_joint": -8.2982819793338e-07,
+        "left_toe_1_distal_joint": 8.683531950540848e-07,
+        "left_toe_2_proximal_joint": -6.331215474511648e-07,
+        "left_toe_2_distal_joint": 5.285801213171224e-07,
+        "left_toe_3_proximal_joint": -8.30173948276374e-07,
+        "left_toe_3_distal_joint": 8.67138948601202e-07,
+        "right_toe_1_proximal_joint": -8.301740450398603e-07,
+        "right_toe_1_distal_joint": 8.671390979682131e-07,
+        "right_toe_2_proximal_joint": -6.331215262856879e-07,
+        "right_toe_2_distal_joint": 5.285800667904835e-07,
+        "right_toe_3_proximal_joint": -8.298281491196089e-07,
+        "right_toe_3_distal_joint": 8.68353141484575e-07
+      },
+      "contacts": {
+        "left_toe_1_proximal": {
+          "recent": true,
+          "force_z": 11.310010945076549
+        },
+        "left_toe_1_distal": {
+          "recent": true,
+          "force_z": 0.12769750603995528
+        },
+        "left_toe_2_distal": {
+          "recent": true,
+          "force_z": 0.3977427757209335
+        },
+        "left_toe_3_proximal": {
+          "recent": true,
+          "force_z": 10.831714838985299
+        },
+        "right_toe_1_proximal": {
+          "recent": true,
+          "force_z": 10.832232486599967
+        },
+        "right_toe_2_distal": {
+          "recent": true,
+          "force_z": 0.3977427757018921
+        },
+        "right_toe_3_proximal": {
+          "recent": true,
+          "force_z": 11.309321496310138
+        },
+        "left_toe_2_proximal": {
+          "recent": true,
+          "force_z": 0.1678700620884051
+        },
+        "left_toe_3_distal": {
+          "recent": true,
+          "force_z": 0.1276975394669725
+        },
+        "right_toe_1_distal": {
+          "recent": true,
+          "force_z": 0.127697539466717
+        },
+        "right_toe_2_proximal": {
+          "recent": true,
+          "force_z": 0.16787690905753455
+        },
+        "right_toe_3_distal": {
+          "recent": true,
+          "force_z": 0.127697506039546
+        }
+      }
+    },
+    {
+      "sim_seconds": 1.203999999999997,
+      "roll": -4.142100543327862e-15,
+      "pitch": -1.953231306203351e-05,
+      "toe_angles": {
+        "left_toe_1_proximal_joint": 2.4241673388566933e-05,
+        "left_toe_1_distal_joint": -1.463123195053401e-05,
+        "left_toe_2_proximal_joint": 2.1765970305688078e-05,
+        "left_toe_2_distal_joint": -9.440219935337221e-06,
+        "left_toe_3_proximal_joint": 2.4241214066523433e-05,
+        "left_toe_3_distal_joint": -1.4630635458650715e-05,
+        "right_toe_1_proximal_joint": 2.424121397217464e-05,
+        "right_toe_1_distal_joint": -1.4630635303924301e-05,
+        "right_toe_2_proximal_joint": 2.176597034381767e-05,
+        "right_toe_2_distal_joint": -9.440220006713766e-06,
+        "right_toe_3_proximal_joint": 2.424167344254822e-05,
+        "right_toe_3_distal_joint": -1.463123199362725e-05
+      },
+      "contacts": {
+        "left_toe_1_proximal": {
+          "recent": true,
+          "force_z": 0.33560154070454484
+        },
+        "left_toe_1_distal": {
+          "recent": true,
+          "force_z": 0.620302408132758
+        },
+        "left_toe_2_distal": {
+          "recent": true,
+          "force_z": 0.6111414439980211
+        },
+        "left_toe_3_proximal": {
+          "recent": true,
+          "force_z": 0.33559712451493307
+        },
+        "right_toe_1_proximal": {
+          "recent": true,
+          "force_z": 0.33559712368278766
+        },
+        "right_toe_2_distal": {
+          "recent": true,
+          "force_z": 0.6111414439845483
+        },
+        "right_toe_3_proximal": {
+          "recent": true,
+          "force_z": 0.335601540666707
+        },
+        "left_toe_2_proximal": {
+          "recent": true,
+          "force_z": 0.33731193164757967
+        },
+        "left_toe_3_distal": {
+          "recent": true,
+          "force_z": 0.620306077042275
+        },
+        "right_toe_1_distal": {
+          "recent": true,
+          "force_z": 0.6203060777480986
+        },
+        "right_toe_2_proximal": {
+          "recent": true,
+          "force_z": 0.33731193165740114
+        },
+        "right_toe_3_distal": {
+          "recent": true,
+          "force_z": 0.6203024081604619
+        }
+      }
+    },
+    {
+      "sim_seconds": 1.404,
+      "roll": -1.8711935438378502e-15,
+      "pitch": -2.3751117312702403e-05,
+      "toe_angles": {
+        "left_toe_1_proximal_joint": 2.4678718459916604e-05,
+        "left_toe_1_distal_joint": -1.0786822381492386e-05,
+        "left_toe_2_proximal_joint": 2.498282707700367e-05,
+        "left_toe_2_distal_joint": -1.0873532400161427e-05,
+        "left_toe_3_proximal_joint": 2.4678442500583955e-05,
+        "left_toe_3_distal_joint": -1.0786326766599036e-05,
+        "right_toe_1_proximal_joint": 2.4678442496017014e-05,
+        "right_toe_1_distal_joint": -1.0786326785395855e-05,
+        "right_toe_2_proximal_joint": 2.498282708409736e-05,
+        "right_toe_2_distal_joint": -1.0873532417089424e-05,
+        "right_toe_3_proximal_joint": 2.467871849152005e-05,
+        "right_toe_3_distal_joint": -1.078682243309319e-05
+      },
+      "contacts": {
+        "left_toe_1_proximal": {
+          "recent": true,
+          "force_z": 0.33380497302276974
+        },
+        "left_toe_1_distal": {
+          "recent": true,
+          "force_z": 0.6181146190930443
+        },
+        "left_toe_2_distal": {
+          "recent": true,
+          "force_z": 0.6088586198635872
+        },
+        "left_toe_3_proximal": {
+          "recent": true,
+          "force_z": 0.3338049845973183
+        },
+        "right_toe_1_proximal": {
+          "recent": true,
+          "force_z": 0.3338049845534377
+        },
+        "right_toe_2_distal": {
+          "recent": true,
+          "force_z": 0.6088586198476833
+        },
+        "right_toe_3_proximal": {
+          "recent": true,
+          "force_z": 0.33380497298919787
+        },
+        "left_toe_2_proximal": {
+          "recent": true,
+          "force_z": 0.3354917521154118
+        },
+        "left_toe_3_distal": {
+          "recent": true,
+          "force_z": 0.6181146361958822
+        },
+        "right_toe_1_distal": {
+          "recent": true,
+          "force_z": 0.6181146362322576
+        },
+        "right_toe_2_proximal": {
+          "recent": true,
+          "force_z": 0.3354917521340365
+        },
+        "right_toe_3_distal": {
+          "recent": true,
+          "force_z": 0.618114619118048
+        }
+      }
+    },
+    {
+      "sim_seconds": 1.6049999999999969,
+      "roll": 1.7990140078505927e-15,
+      "pitch": -2.296961201169059e-06,
+      "toe_angles": {
+        "left_toe_1_proximal_joint": 1.6734918870408535e-06,
+        "left_toe_1_distal_joint": 1.1990605607294008e-06,
+        "left_toe_2_proximal_joint": 2.2860052533357953e-06,
+        "left_toe_2_distal_joint": 6.357736790212983e-08,
+        "left_toe_3_proximal_joint": 1.6728751750707863e-06,
+        "left_toe_3_distal_joint": 1.2002263937160663e-06,
+        "right_toe_1_proximal_joint": 1.672875168701996e-06,
+        "right_toe_1_distal_joint": 1.2002264007175053e-06,
+        "right_toe_2_proximal_joint": 2.286005254159548e-06,
+        "right_toe_2_distal_joint": 6.357738116850533e-08,
+        "right_toe_3_proximal_joint": 1.6734918777997044e-06,
+        "right_toe_3_distal_joint": 1.1990605523809841e-06
+      },
+      "contacts": {
+        "left_toe_1_proximal": {
+          "recent": true,
+          "force_z": 0.2853162236337077
+        },
+        "left_toe_1_distal": {
+          "recent": true,
+          "force_z": 0.3806570440681043
+        },
+        "left_toe_2_distal": {
+          "recent": true,
+          "force_z": 0.3972990942068599
+        },
+        "left_toe_3_proximal": {
+          "recent": true,
+          "force_z": 0.28531625019414214
+        },
+        "right_toe_1_proximal": {
+          "recent": true,
+          "force_z": 0.28477461928254894
+        },
+        "right_toe_2_distal": {
+          "recent": true,
+          "force_z": 0.39729909420787635
+        },
+        "right_toe_3_proximal": {
+          "recent": true,
+          "force_z": 0.28477459143062306
+        },
+        "left_toe_2_proximal": {
+          "recent": true,
+          "force_z": 0.1663750691213159
+        },
+        "left_toe_3_distal": {
+          "recent": true,
+          "force_z": 0.3806570618306779
+        },
+        "right_toe_1_distal": {
+          "recent": true,
+          "force_z": 0.38065706182019005
+        },
+        "right_toe_2_proximal": {
+          "recent": true,
+          "force_z": 0.16641891502423964
+        },
+        "right_toe_3_distal": {
+          "recent": true,
+          "force_z": 0.3806570440556154
+        }
+      }
+    },
+    {
+      "sim_seconds": 1.8049999999999997,
+      "roll": -3.5462252179613753e-15,
+      "pitch": -5.153683413217633e-06,
+      "toe_angles": {
+        "left_toe_1_proximal_joint": 1.1209461965100775e-05,
+        "left_toe_1_distal_joint": -2.2645901428789134e-05,
+        "left_toe_2_proximal_joint": -8.115574355759824e-07,
+        "left_toe_2_distal_joint": 6.369371709279438e-07,
+        "left_toe_3_proximal_joint": 1.1202795703913858e-05,
+        "left_toe_3_distal_joint": -2.2633015565627534e-05,
+        "right_toe_1_proximal_joint": 1.120279580142581e-05,
+        "right_toe_1_distal_joint": -2.2633015782977015e-05,
+        "right_toe_2_proximal_joint": -8.11557420373759e-07,
+        "right_toe_2_distal_joint": 6.369371665412062e-07,
+        "right_toe_3_proximal_joint": 1.1209461958137407e-05,
+        "right_toe_3_distal_joint": -2.2645901456118462e-05
+      },
+      "contacts": {
+        "left_toe_1_proximal": {
+          "recent": true,
+          "force_z": 6.6969618708126815
+        },
+        "left_toe_1_distal": {
+          "recent": true,
+          "force_z": 1.5447366747452886
+        },
+        "left_toe_2_distal": {
+          "recent": true,
+          "force_z": 0.39782140453688425
+        },
+        "left_toe_3_proximal": {
+          "recent": true,
+          "force_z": 6.432339280166384
+        },
+        "right_toe_1_proximal": {
+          "recent": true,
+          "force_z": 6.4323393565276135
+        },
+        "right_toe_2_distal": {
+          "recent": true,
+          "force_z": 0.39782140451679104
+        },
+        "right_toe_3_proximal": {
+          "recent": true,
+          "force_z": 6.6969619199293495
+        },
+        "left_toe_2_proximal": {
+          "recent": true,
+          "force_z": 0.1679379907150451
+        },
+        "left_toe_3_distal": {
+          "recent": true,
+          "force_z": 1.5010943695128187
+        },
+        "right_toe_1_distal": {
+          "recent": true,
+          "force_z": 1.5010943778258294
+        },
+        "right_toe_2_proximal": {
+          "recent": true,
+          "force_z": 0.16793799073102061
+        },
+        "right_toe_3_distal": {
+          "recent": true,
+          "force_z": 1.544736681201244
+        }
+      }
+    },
+    {
+      "sim_seconds": 2.0060000000000002,
+      "roll": -1.2035448561590561e-15,
+      "pitch": -4.292604227623253e-06,
+      "toe_angles": {
+        "left_toe_1_proximal_joint": -7.628799451805029e-07,
+        "left_toe_1_distal_joint": -6.147813510929728e-07,
+        "left_toe_2_proximal_joint": -1.7713471599059392e-06,
+        "left_toe_2_distal_joint": 1.3726054056685242e-06,
+        "left_toe_3_proximal_joint": -7.666596592877546e-07,
+        "left_toe_3_distal_joint": -6.074739134378186e-07,
+        "right_toe_1_proximal_joint": -7.666597927161787e-07,
+        "right_toe_1_distal_joint": -6.074737442158977e-07,
+        "right_toe_2_proximal_joint": -1.7713471778592074e-06,
+        "right_toe_2_distal_joint": 1.3726054562236422e-06,
+        "right_toe_3_proximal_joint": -7.628799638087547e-07,
+        "right_toe_3_distal_joint": -6.147812958215135e-07
+      },
+      "contacts": {
+        "left_toe_1_proximal": {
+          "recent": true,
+          "force_z": 11.446463887036444
+        },
+        "left_toe_1_distal": {
+          "recent": true,
+          "force_z": 0.0863660095004991
+        },
+        "left_toe_2_distal": {
+          "recent": true,
+          "force_z": 0.3977813555268944
+        },
+        "left_toe_3_proximal": {
+          "recent": true,
+          "force_z": 10.963573069007696
+        },
+        "right_toe_1_proximal": {
+          "recent": true,
+          "force_z": 10.963573064453751
+        },
+        "right_toe_2_distal": {
+          "recent": true,
+          "force_z": 0.3977757826868499
+        },
+        "right_toe_3_proximal": {
+          "recent": true,
+          "force_z": 11.446463893421031
+        },
+        "left_toe_2_proximal": {
+          "recent": true,
+          "force_z": 0.16791669877041648
+        },
+        "left_toe_3_distal": {
+          "recent": true,
+          "force_z": 0.08636737703996253
+        },
+        "right_toe_1_distal": {
+          "recent": true,
+          "force_z": 0.0863685399253251
+        },
+        "right_toe_2_proximal": {
+          "recent": true,
+          "force_z": 0.16791669880688828
+        },
+        "right_toe_3_distal": {
+          "recent": true,
+          "force_z": 0.0863660095077342
+        }
+      }
+    },
+    {
+      "sim_seconds": 2.206999999999997,
+      "roll": 2.492117065780486e-15,
+      "pitch": -2.200422735330994e-05,
+      "toe_angles": {
+        "left_toe_1_proximal_joint": 2.9674486921855793e-05,
+        "left_toe_1_distal_joint": -1.8160505650950543e-05,
+        "left_toe_2_proximal_joint": 2.6694291868115992e-05,
+        "left_toe_2_distal_joint": -1.189384119087593e-05,
+        "left_toe_3_proximal_joint": 2.9670855909890016e-05,
+        "left_toe_3_distal_joint": -1.815349164293166e-05,
+        "right_toe_1_proximal_joint": 2.9670855814437636e-05,
+        "right_toe_1_distal_joint": -1.8153491347493915e-05,
+        "right_toe_2_proximal_joint": 2.669429186361184e-05,
+        "right_toe_2_distal_joint": -1.1893841214444563e-05,
+        "right_toe_3_proximal_joint": 2.967448687102654e-05,
+        "right_toe_3_distal_joint": -1.8160505566859538e-05
+      },
+      "contacts": {
+        "left_toe_1_proximal": {
+          "recent": true,
+          "force_z": 0.33489580474171793
+        },
+        "left_toe_1_distal": {
+          "recent": true,
+          "force_z": 0.618943436819688
+        },
+        "left_toe_2_distal": {
+          "recent": true,
+          "force_z": 0.609681498840107
+        },
+        "left_toe_3_proximal": {
+          "recent": true,
+          "force_z": 0.3348958276435135
+        },
+        "right_toe_1_proximal": {
+          "recent": true,
+          "force_z": 0.33489582586294775
+        },
+        "right_toe_2_distal": {
+          "recent": true,
+          "force_z": 0.6096814988451459
+        },
+        "right_toe_3_proximal": {
+          "recent": true,
+          "force_z": 0.33489580474515734
+        },
+        "left_toe_2_proximal": {
+          "recent": true,
+          "force_z": 0.3368451885143564
+        },
+        "left_toe_3_distal": {
+          "recent": true,
+          "force_z": 0.6189437573328722
+        },
+        "right_toe_1_distal": {
+          "recent": true,
+          "force_z": 0.6189437588375598
+        },
+        "right_toe_2_proximal": {
+          "recent": true,
+          "force_z": 0.3368451885065521
+        },
+        "right_toe_3_distal": {
+          "recent": true,
+          "force_z": 0.6189434368220779
+        }
+      }
+    },
+    {
+      "sim_seconds": 2.407,
+      "roll": 5.987497675165517e-16,
+      "pitch": -2.318756055160363e-05,
+      "toe_angles": {
+        "left_toe_1_proximal_joint": 2.8170287598687225e-05,
+        "left_toe_1_distal_joint": -1.298913449045488e-05,
+        "left_toe_2_proximal_joint": 2.839031346251079e-05,
+        "left_toe_2_distal_joint": -1.2863642126642525e-05,
+        "left_toe_3_proximal_joint": 2.8169528723452807e-05,
+        "left_toe_3_distal_joint": -1.2987514753633683e-05,
+        "right_toe_1_proximal_joint": 2.8169528710664893e-05,
+        "right_toe_1_distal_joint": -1.2987514734751089e-05,
+        "right_toe_2_proximal_joint": 2.8390313481116114e-05,
+        "right_toe_2_distal_joint": -1.2863642149893854e-05,
+        "right_toe_3_proximal_joint": 2.817028758098357e-05,
+        "right_toe_3_distal_joint": -1.298913444568694e-05
+      },
+      "contacts": {
+        "left_toe_1_proximal": {
+          "recent": true,
+          "force_z": 0.33518828550437313
+        },
+        "left_toe_1_distal": {
+          "recent": true,
+          "force_z": 0.6199782661624008
+        },
+        "left_toe_2_distal": {
+          "recent": true,
+          "force_z": 0.6105155133566819
+        },
+        "left_toe_3_proximal": {
+          "recent": true,
+          "force_z": 0.33535882090619085
+        },
+        "right_toe_1_proximal": {
+          "recent": true,
+          "force_z": 0.3353588208639213
+        },
+        "right_toe_2_distal": {
+          "recent": true,
+          "force_z": 0.6105155133456511
+        },
+        "right_toe_3_proximal": {
+          "recent": true,
+          "force_z": 0.33535882166010267
+        },
+        "left_toe_2_proximal": {
+          "recent": true,
+          "force_z": 0.3371902071330326
+        },
+        "left_toe_3_distal": {
+          "recent": true,
+          "force_z": 0.6199783370774108
+        },
+        "right_toe_1_distal": {
+          "recent": true,
+          "force_z": 0.6199783370781635
+        },
+        "right_toe_2_proximal": {
+          "recent": true,
+          "force_z": 0.33731302166089977
+        },
+        "right_toe_3_distal": {
+          "recent": true,
+          "force_z": 0.6199782661469184
+        }
+      }
+    },
+    {
+      "sim_seconds": 2.607999999999997,
+      "roll": 2.4923796426031993e-15,
+      "pitch": -2.167704261630063e-06,
+      "toe_angles": {
+        "left_toe_1_proximal_joint": 8.059366370787382e-07,
+        "left_toe_1_distal_joint": 2.613604446479938e-06,
+        "left_toe_2_proximal_joint": 2.148836176421616e-06,
+        "left_toe_2_distal_joint": 7.295243916529607e-08,
+        "left_toe_3_proximal_joint": 8.048146570511988e-07,
+        "left_toe_3_distal_joint": 2.615771818890834e-06,
+        "right_toe_1_proximal_joint": 8.048146846327977e-07,
+        "right_toe_1_distal_joint": 2.6157717795174404e-06,
+        "right_toe_2_proximal_joint": 2.148836165948615e-06,
+        "right_toe_2_distal_joint": 7.295246844582394e-08,
+        "right_toe_3_proximal_joint": 8.059366850720439e-07,
+        "right_toe_3_distal_joint": 2.61360434331387e-06
+      },
+      "contacts": {
+        "left_toe_1_proximal": {
+          "recent": true,
+          "force_z": 0.1689206772381452
+        },
+        "left_toe_1_distal": {
+          "recent": true,
+          "force_z": 0.39034546104390927
+        },
+        "left_toe_2_distal": {
+          "recent": true,
+          "force_z": 0.3967153915707813
+        },
+        "left_toe_3_proximal": {
+          "recent": true,
+          "force_z": 0.16892076340187967
+        },
+        "right_toe_1_proximal": {
+          "recent": true,
+          "force_z": 0.16892076332998465
+        },
+        "right_toe_2_distal": {
+          "recent": true,
+          "force_z": 0.39671539156067026
+        },
+        "right_toe_3_proximal": {
+          "recent": true,
+          "force_z": 0.16892067719806184
+        },
+        "left_toe_2_proximal": {
+          "recent": true,
+          "force_z": 0.16585899477118488
+        },
+        "left_toe_3_distal": {
+          "recent": true,
+          "force_z": 0.3903454639548962
+        },
+        "right_toe_1_distal": {
+          "recent": true,
+          "force_z": 0.39034546404447845
+        },
+        "right_toe_2_proximal": {
+          "recent": true,
+          "force_z": 0.16585899478092164
+        },
+        "right_toe_3_distal": {
+          "recent": true,
+          "force_z": 0.3903454610905659
+        }
+      }
+    },
+    {
+      "sim_seconds": 2.808,
+      "roll": -2.982390137321205e-15,
+      "pitch": -2.0918066375479607e-06,
+      "toe_angles": {
+        "left_toe_1_proximal_joint": 2.233925409844748e-06,
+        "left_toe_1_distal_joint": -4.3450424909207533e-07,
+        "left_toe_2_proximal_joint": 1.96871829481957e-06,
+        "left_toe_2_distal_joint": 1.7267249410371216e-07,
+        "left_toe_3_proximal_joint": 2.2333809038405908e-06,
+        "left_toe_3_distal_joint": -4.334515945650171e-07,
+        "right_toe_1_proximal_joint": 2.2333809088643923e-06,
+        "right_toe_1_distal_joint": -4.3345160454042963e-07,
+        "right_toe_2_proximal_joint": 1.968718299383618e-06,
+        "right_toe_2_distal_joint": 1.7267248482607564e-07,
+        "right_toe_3_proximal_joint": 2.2339254369528857e-06,
+        "right_toe_3_distal_joint": -4.345042814209847e-07
+      },
+      "contacts": {
+        "left_toe_1_proximal": {
+          "recent": true,
+          "force_z": 10.799945290532342
+        },
+        "left_toe_1_distal": {
+          "recent": true,
+          "force_z": 0.2863891334046317
+        },
+        "left_toe_2_distal": {
+          "recent": true,
+          "force_z": 0.39765118753408124
+        },
+        "left_toe_3_proximal": {
+          "recent": true,
+          "force_z": 10.35254594711957
+        },
+        "right_toe_1_proximal": {
+          "recent": true,
+          "force_z": 10.352545959181345
+        },
+        "right_toe_2_distal": {
+          "recent": true,
+          "force_z": 0.3976511875307958
+        },
+        "right_toe_3_proximal": {
+          "recent": true,
+          "force_z": 10.799945297810751
+        },
+        "left_toe_2_proximal": {
+          "recent": true,
+          "force_z": 0.16780895203360013
+        },
+        "left_toe_3_distal": {
+          "recent": true,
+          "force_z": 0.2860818734548952
+        },
+        "right_toe_1_distal": {
+          "recent": true,
+          "force_z": 0.2860818733277375
+        },
+        "right_toe_2_proximal": {
+          "recent": true,
+          "force_z": 0.16780895203563878
+        },
+        "right_toe_3_distal": {
+          "recent": true,
+          "force_z": 0.28638913302639696
+        }
+      }
+    },
+    {
+      "sim_seconds": 3.008999999999997,
+      "roll": -2.891378795642839e-15,
+      "pitch": -1.964866362334502e-06,
+      "toe_angles": {
+        "left_toe_1_proximal_joint": -6.204253479275077e-07,
+        "left_toe_1_distal_joint": 4.757115116264017e-06,
+        "left_toe_2_proximal_joint": 1.7279194480284803e-06,
+        "left_toe_2_distal_joint": 2.824186466190555e-07,
+        "left_toe_3_proximal_joint": -6.21303041992928e-07,
+        "left_toe_3_distal_joint": 4.75880606722375e-06,
+        "right_toe_1_proximal_joint": -6.21303036753513e-07,
+        "right_toe_1_distal_joint": 4.758806056729685e-06,
+        "right_toe_2_proximal_joint": 1.7279194906551952e-06,
+        "right_toe_2_distal_joint": 2.824185825759001e-07,
+        "right_toe_3_proximal_joint": -6.204253201272028e-07,
+        "right_toe_3_distal_joint": 4.757115081980172e-06
+      },
+      "contacts": {
+        "left_toe_1_proximal": {
+          "recent": true,
+          "force_z": 11.097492296023205
+        },
+        "left_toe_1_distal": {
+          "recent": true,
+          "force_z": 0.19330577924011308
+        },
+        "left_toe_2_distal": {
+          "recent": true,
+          "force_z": 0.3976412958849512
+        },
+        "left_toe_3_proximal": {
+          "recent": true,
+          "force_z": 10.62817805490988
+        },
+        "right_toe_1_proximal": {
+          "recent": true,
+          "force_z": 10.628178055862504
+        },
+        "right_toe_2_distal": {
+          "recent": true,
+          "force_z": 0.39764024328033004
+        },
+        "right_toe_3_proximal": {
+          "recent": true,
+          "force_z": 11.097492301142157
+        },
+        "left_toe_2_proximal": {
+          "recent": true,
+          "force_z": 0.16780317116338858
+        },
+        "left_toe_3_distal": {
+          "recent": true,
+          "force_z": 0.19317088882667582
+        },
+        "right_toe_1_distal": {
+          "recent": true,
+          "force_z": 0.1931708868164734
+        },
+        "right_toe_2_proximal": {
+          "recent": true,
+          "force_z": 0.16780237612870882
+        },
+        "right_toe_3_distal": {
+          "recent": true,
+          "force_z": 0.19330577914295138
+        }
+      }
+    },
+    {
+      "sim_seconds": 3.2089999999999996,
+      "roll": -2.690502717268939e-15,
+      "pitch": -2.096672831844496e-06,
+      "toe_angles": {
+        "left_toe_1_proximal_joint": 2.4159151916216614e-06,
+        "left_toe_1_distal_joint": -7.273964442427539e-07,
+        "left_toe_2_proximal_joint": 2.072312214311304e-06,
+        "left_toe_2_distal_joint": 3.5204143746065784e-08,
+        "left_toe_3_proximal_joint": 2.4155911293703657e-06,
+        "left_toe_3_distal_joint": -7.267739932738379e-07,
+        "right_toe_1_proximal_joint": 2.4155911519933134e-06,
+        "right_toe_1_distal_joint": -7.267740112017425e-07,
+        "right_toe_2_proximal_joint": 2.072312249870366e-06,
+        "right_toe_2_distal_joint": 3.5204073232259024e-08,
+        "right_toe_3_proximal_joint": 2.415915201809046e-06,
+        "right_toe_3_distal_joint": -7.273964721539231e-07
+      },
+      "contacts": {
+        "left_toe_1_proximal": {
+          "recent": true,
+          "force_z": 10.642605179663862
+        },
+        "left_toe_1_distal": {
+          "recent": true,
+          "force_z": 0.33496662245633135
+        },
+        "left_toe_2_distal": {
+          "recent": true,
+          "force_z": 0.39703581553615974
+        },
+        "left_toe_3_proximal": {
+          "recent": true,
+          "force_z": 10.201685081966854
+        },
+        "right_toe_1_proximal": {
+          "recent": true,
+          "force_z": 10.201685086312759
+        },
+        "right_toe_2_distal": {
+          "recent": true,
+          "force_z": 0.3970358155842841
+        },
+        "right_toe_3_proximal": {
+          "recent": true,
+          "force_z": 10.642605179730188
+        },
+        "left_toe_2_proximal": {
+          "recent": true,
+          "force_z": 0.1672433993149769
+        },
+        "left_toe_3_distal": {
+          "recent": true,
+          "force_z": 0.3347863753874304
+        },
+        "right_toe_1_distal": {
+          "recent": true,
+          "force_z": 0.3347863756195535
+        },
+        "right_toe_2_proximal": {
+          "recent": true,
+          "force_z": 0.16724339928601317
+        },
+        "right_toe_3_distal": {
+          "recent": true,
+          "force_z": 0.3349666222586686
+        }
+      }
+    },
+    {
+      "sim_seconds": 3.410999999999998,
+      "roll": -2.5725032467082953e-15,
+      "pitch": -2.0097454214421024e-06,
+      "toe_angles": {
+        "left_toe_1_proximal_joint": 1.3192732175396518e-06,
+        "left_toe_1_distal_joint": 1.2424142172320478e-06,
+        "left_toe_2_proximal_joint": 1.9730727002683327e-06,
+        "left_toe_2_distal_joint": 4.400087665666952e-08,
+        "left_toe_3_proximal_joint": 1.3188099517748685e-06,
+        "left_toe_3_distal_joint": 1.243292775013641e-06,
+        "right_toe_1_proximal_joint": 1.3188099635262654e-06,
+        "right_toe_1_distal_joint": 1.243292735052516e-06,
+        "right_toe_2_proximal_joint": 1.9730727026758375e-06,
+        "right_toe_2_distal_joint": 4.4000899806183674e-08,
+        "right_toe_3_proximal_joint": 1.319273215285586e-06,
+        "right_toe_3_distal_joint": 1.2424142365617145e-06
+      },
+      "contacts": {
+        "left_toe_1_proximal": {
+          "recent": true,
+          "force_z": 10.972527495570008
+        },
+        "left_toe_1_distal": {
+          "recent": true,
+          "force_z": 0.23052548107332255
+        },
+        "left_toe_2_distal": {
+          "recent": true,
+          "force_z": 0.3976458674621498
+        },
+        "left_toe_3_proximal": {
+          "recent": true,
+          "force_z": 10.508498191592722
+        },
+        "right_toe_1_proximal": {
+          "recent": true,
+          "force_z": 10.50849818987898
+        },
+        "right_toe_2_distal": {
+          "recent": true,
+          "force_z": 0.39764586748820696
+        },
+        "right_toe_3_proximal": {
+          "recent": true,
+          "force_z": 10.972527496522384
+        },
+        "left_toe_2_proximal": {
+          "recent": true,
+          "force_z": 0.1678027892281595
+        },
+        "left_toe_3_distal": {
+          "recent": true,
+          "force_z": 0.2304086791818006
+        },
+        "right_toe_1_distal": {
+          "recent": true,
+          "force_z": 0.2304086790305303
+        },
+        "right_toe_2_proximal": {
+          "recent": true,
+          "force_z": 0.16780278920796637
+        },
+        "right_toe_3_distal": {
+          "recent": true,
+          "force_z": 0.23052548112542426
+        }
+      }
+    },
+    {
+      "sim_seconds": 3.6129999999999995,
+      "roll": 6.2992574020107846e-15,
+      "pitch": -1.9527492182052056e-06,
+      "toe_angles": {
+        "left_toe_1_proximal_joint": 2.3610533503511706e-05,
+        "left_toe_1_distal_joint": -4.215740237851943e-05,
+        "left_toe_2_proximal_joint": 3.102339805851146e-05,
+        "left_toe_2_distal_joint": -5.6428154666505375e-05,
+        "left_toe_3_proximal_joint": 2.3603596044025867e-05,
+        "left_toe_3_distal_joint": -4.214399406669106e-05,
+        "right_toe_1_proximal_joint": 2.360359602395446e-05,
+        "right_toe_1_distal_joint": -4.214399401621451e-05,
+        "right_toe_2_proximal_joint": 3.102339803214075e-05,
+        "right_toe_2_distal_joint": -5.6428154613679894e-05,
+        "right_toe_3_proximal_joint": 2.3610533459802522e-05,
+        "right_toe_3_distal_joint": -4.2157402308275814e-05
+      },
+      "contacts": {
+        "left_toe_1_proximal": {
+          "recent": true,
+          "force_z": 0.16733079085222796
+        },
+        "left_toe_1_distal": {
+          "recent": true,
+          "force_z": 0.3906485056568101
+        },
+        "left_toe_2_distal": {
+          "recent": true,
+          "force_z": 0.3982886705722518
+        },
+        "left_toe_3_proximal": {
+          "recent": true,
+          "force_z": 0.16732566762857382
+        },
+        "right_toe_1_proximal": {
+          "recent": true,
+          "force_z": 0.16732566768883653
+        },
+        "right_toe_2_distal": {
+          "recent": true,
+          "force_z": 0.3982886705798557
+        },
+        "right_toe_3_proximal": {
+          "recent": true,
+          "force_z": 0.16733079084751054
+        },
+        "left_toe_2_proximal": {
+          "recent": true,
+          "force_z": 0.16220876227966685
+        },
+        "left_toe_3_distal": {
+          "recent": true,
+          "force_z": 0.39065577258752626
+        },
+        "right_toe_1_distal": {
+          "recent": true,
+          "force_z": 0.390655772511012
+        },
+        "right_toe_2_proximal": {
+          "recent": true,
+          "force_z": 0.16220876227820222
+        },
+        "right_toe_3_distal": {
+          "recent": true,
+          "force_z": 0.3906485056664552
+        }
+      }
+    },
+    {
+      "sim_seconds": 3.814,
+      "roll": 8.963527831345141e-16,
+      "pitch": -2.2956022130173574e-05,
+      "toe_angles": {
+        "left_toe_1_proximal_joint": 3.1294460464153015e-05,
+        "left_toe_1_distal_joint": -1.7893565795521792e-05,
+        "left_toe_2_proximal_joint": 3.287500211168986e-05,
+        "left_toe_2_distal_joint": -2.041175030326707e-05,
+        "left_toe_3_proximal_joint": 3.1288012533391564e-05,
+        "left_toe_3_distal_joint": -1.7881100204219766e-05,
+        "right_toe_1_proximal_joint": 3.1288012626266903e-05,
+        "right_toe_1_distal_joint": -1.7881100428981483e-05,
+        "right_toe_2_proximal_joint": 3.287500210984245e-05,
+        "right_toe_2_distal_joint": -2.0411750332750815e-05,
+        "right_toe_3_proximal_joint": 3.129446048688217e-05,
+        "right_toe_3_distal_joint": -1.7893565824020795e-05
+      },
+      "contacts": {
+        "left_toe_1_proximal": {
+          "recent": true,
+          "force_z": 12.195867333665355
+        },
+        "left_toe_1_distal": {
+          "recent": true,
+          "force_z": 0.13096389840559616
+        },
+        "left_toe_2_distal": {
+          "recent": true,
+          "force_z": 0.5145551274506286
+        },
+        "left_toe_3_proximal": {
+          "recent": true,
+          "force_z": 11.679057544444293
+        },
+        "right_toe_1_proximal": {
+          "recent": true,
+          "force_z": 11.679057546171542
+        },
+        "right_toe_2_distal": {
+          "recent": true,
+          "force_z": 0.5145551274733214
+        },
+        "right_toe_3_proximal": {
+          "recent": true,
+          "force_z": 12.195867318529372
+        },
+        "left_toe_2_proximal": {
+          "recent": true,
+          "force_z": 0.4317389624614356
+        },
+        "left_toe_3_distal": {
+          "recent": true,
+          "force_z": 0.12802273062796363
+        },
+        "right_toe_1_distal": {
+          "recent": true,
+          "force_z": 0.12802273142488482
+        },
+        "right_toe_2_proximal": {
+          "recent": true,
+          "force_z": 0.4317389624326678
+        },
+        "right_toe_3_distal": {
+          "recent": true,
+          "force_z": 0.09936918135289666
+        }
+      }
+    },
+    {
+      "sim_seconds": 4.014999999999997,
+      "roll": 8.33529621474486e-16,
+      "pitch": -2.2596166190104513e-05,
+      "toe_angles": {
+        "left_toe_1_proximal_joint": 2.804193069488112e-05,
+        "left_toe_1_distal_joint": -1.2449392484681288e-05,
+        "left_toe_2_proximal_joint": 2.8931223246426348e-05,
+        "left_toe_2_distal_joint": -1.3655646000748793e-05,
+        "left_toe_3_proximal_joint": 2.8040675012739473e-05,
+        "left_toe_3_distal_joint": -1.2446935721522514e-05,
+        "right_toe_1_proximal_joint": 2.8040675023577825e-05,
+        "right_toe_1_distal_joint": -1.2446935738610565e-05,
+        "right_toe_2_proximal_joint": 2.8931223245199594e-05,
+        "right_toe_2_distal_joint": -1.3655645989651866e-05,
+        "right_toe_3_proximal_joint": 2.8041930679086218e-05,
+        "right_toe_3_distal_joint": -1.2449392413582694e-05
+      },
+      "contacts": {
+        "left_toe_1_proximal": {
+          "recent": true,
+          "force_z": 11.265972804076815
+        },
+        "left_toe_1_distal": {
+          "recent": true,
+          "force_z": 0.12769749314664058
+        },
+        "left_toe_2_distal": {
+          "recent": true,
+          "force_z": 0.38864804003938747
+        },
+        "left_toe_3_proximal": {
+          "recent": true,
+          "force_z": 10.788353135711288
+        },
+        "right_toe_1_proximal": {
+          "recent": true,
+          "force_z": 10.788353136025767
+        },
+        "right_toe_2_distal": {
+          "recent": true,
+          "force_z": 0.38864804004702874
+        },
+        "right_toe_3_proximal": {
+          "recent": true,
+          "force_z": 11.265972797126143
+        },
+        "left_toe_2_proximal": {
+          "recent": true,
+          "force_z": 0.2929611933857088
+        },
+        "left_toe_3_distal": {
+          "recent": true,
+          "force_z": 0.1276982953610109
+        },
+        "right_toe_1_distal": {
+          "recent": true,
+          "force_z": 0.12769829536105484
+        },
+        "right_toe_2_proximal": {
+          "recent": true,
+          "force_z": 0.2929611933794468
+        },
+        "right_toe_3_distal": {
+          "recent": true,
+          "force_z": 0.12769749317750345
+        }
+      }
+    },
+    {
+      "sim_seconds": 4.215,
+      "roll": 2.751918125202983e-15,
+      "pitch": -1.2162910816450393e-05,
+      "toe_angles": {
+        "left_toe_1_proximal_joint": 5.309620111552672e-06,
+        "left_toe_1_distal_joint": -6.745758466162903e-06,
+        "left_toe_2_proximal_joint": 1.9547186787583434e-06,
+        "left_toe_2_distal_joint": -2.5744515711637494e-07,
+        "left_toe_3_proximal_joint": 5.3081872738234526e-06,
+        "left_toe_3_distal_joint": -6.7430057526720895e-06,
+        "right_toe_1_proximal_joint": 5.308187281779399e-06,
+        "right_toe_1_distal_joint": -6.743005770757228e-06,
+        "right_toe_2_proximal_joint": 1.954718661542212e-06,
+        "right_toe_2_distal_joint": -2.5744514363392055e-07,
+        "right_toe_3_proximal_joint": 5.309620061889004e-06,
+        "right_toe_3_distal_joint": -6.745758425537571e-06
+      },
+      "contacts": {
+        "left_toe_1_proximal": {
+          "recent": true,
+          "force_z": 0.33485103582146275
+        },
+        "left_toe_1_distal": {
+          "recent": true,
+          "force_z": 0.6188441925136585
+        },
+        "left_toe_2_distal": {
+          "recent": true,
+          "force_z": 0.6095399934269495
+        },
+        "left_toe_3_proximal": {
+          "recent": true,
+          "force_z": 0.3348554306101065
+        },
+        "right_toe_1_proximal": {
+          "recent": true,
+          "force_z": 0.3348554329104436
+        },
+        "right_toe_2_distal": {
+          "recent": true,
+          "force_z": 0.6095399934416597
+        },
+        "right_toe_3_proximal": {
+          "recent": true,
+          "force_z": 0.3348510358520575
+        },
+        "left_toe_2_proximal": {
+          "recent": true,
+          "force_z": 0.3368211434017614
+        },
+        "left_toe_3_distal": {
+          "recent": true,
+          "force_z": 0.6188407050894186
+        },
+        "right_toe_1_distal": {
+          "recent": true,
+          "force_z": 0.6188407031580272
+        },
+        "right_toe_2_proximal": {
+          "recent": true,
+          "force_z": 0.33682114338492575
+        },
+        "right_toe_3_distal": {
+          "recent": true,
+          "force_z": 0.618844192493378
+        }
+      }
+    },
+    {
+      "sim_seconds": 4.415999999999997,
+      "roll": 2.6546657019807183e-15,
+      "pitch": -1.9984705021380786e-06,
+      "toe_angles": {
+        "left_toe_1_proximal_joint": 1.602497419865826e-06,
+        "left_toe_1_distal_joint": 5.729177036344514e-07,
+        "left_toe_2_proximal_joint": 1.8409035965413785e-06,
+        "left_toe_2_distal_joint": 1.9141985691741102e-07,
+        "left_toe_3_proximal_joint": 1.6007385643232438e-06,
+        "left_toe_3_distal_joint": 5.767144857632514e-07,
+        "right_toe_1_proximal_joint": 1.6007385869900108e-06,
+        "right_toe_1_distal_joint": 5.767144307916414e-07,
+        "right_toe_2_proximal_joint": 1.840903606189387e-06,
+        "right_toe_2_distal_joint": 1.91419829924104e-07,
+        "right_toe_3_proximal_joint": 1.602497326524722e-06,
+        "right_toe_3_distal_joint": 5.729178179269823e-07
+      },
+      "contacts": {
+        "left_toe_1_proximal": {
+          "recent": true,
+          "force_z": 0.15437494443581956
+        },
+        "left_toe_1_distal": {
+          "recent": true,
+          "force_z": 0.3599968032747506
+        },
+        "left_toe_2_distal": {
+          "recent": true,
+          "force_z": 0.36938637538657243
+        },
+        "left_toe_3_proximal": {
+          "recent": true,
+          "force_z": 0.15437193153682324
+        },
+        "right_toe_1_proximal": {
+          "recent": true,
+          "force_z": 0.15418695606330843
+        },
+        "right_toe_2_distal": {
+          "recent": true,
+          "force_z": 0.36938637540979696
+        },
+        "right_toe_3_proximal": {
+          "recent": true,
+          "force_z": 0.15418708714265572
+        },
+        "left_toe_2_proximal": {
+          "recent": true,
+          "force_z": 0.15295505071611232
+        },
+        "left_toe_3_distal": {
+          "recent": true,
+          "force_z": 0.36000074408154514
+        },
+        "right_toe_1_distal": {
+          "recent": true,
+          "force_z": 0.3600007440164964
+        },
+        "right_toe_2_proximal": {
+          "recent": true,
+          "force_z": 0.15272361261480485
+        },
+        "right_toe_3_distal": {
+          "recent": true,
+          "force_z": 0.3599968033132707
+        }
+      }
+    },
+    {
+      "sim_seconds": 4.616,
+      "roll": -8.37158519089582e-16,
+      "pitch": -2.276644887375731e-06,
+      "toe_angles": {
+        "left_toe_1_proximal_joint": 2.9220496554054518e-06,
+        "left_toe_1_distal_joint": -1.2898176100450976e-06,
+        "left_toe_2_proximal_joint": 2.3017462872755854e-06,
+        "left_toe_2_distal_joint": 2.1493425204212747e-08,
+        "left_toe_3_proximal_joint": 2.921679862333055e-06,
+        "left_toe_3_distal_joint": -1.2919172609604771e-06,
+        "right_toe_1_proximal_joint": 2.9216798828107825e-06,
+        "right_toe_1_distal_joint": -1.2919172947783933e-06,
+        "right_toe_2_proximal_joint": 2.3017462886397823e-06,
+        "right_toe_2_distal_joint": 2.1493420115164463e-08,
+        "right_toe_3_proximal_joint": 2.9220496581104134e-06,
+        "right_toe_3_distal_joint": -1.2898176095873984e-06
+      },
+      "contacts": {
+        "left_toe_1_proximal": {
+          "recent": true,
+          "force_z": 0.1691450148042624
+        },
+        "left_toe_1_distal": {
+          "recent": true,
+          "force_z": 0.39030548079728
+        },
+        "left_toe_2_distal": {
+          "recent": true,
+          "force_z": 0.39668099690067443
+        },
+        "left_toe_3_proximal": {
+          "recent": true,
+          "force_z": 0.16914788442412187
+        },
+        "right_toe_1_proximal": {
+          "recent": true,
+          "force_z": 0.16914788442137121
+        },
+        "right_toe_2_distal": {
+          "recent": true,
+          "force_z": 0.39668099684457403
+        },
+        "right_toe_3_proximal": {
+          "recent": true,
+          "force_z": 0.16914501483341288
+        },
+        "left_toe_2_proximal": {
+          "recent": true,
+          "force_z": 0.16580560451744875
+        },
+        "left_toe_3_distal": {
+          "recent": true,
+          "force_z": 0.39030185380518834
+        },
+        "right_toe_1_distal": {
+          "recent": true,
+          "force_z": 0.3903018538063408
+        },
+        "right_toe_2_proximal": {
+          "recent": true,
+          "force_z": 0.1658056045628964
+        },
+        "right_toe_3_distal": {
+          "recent": true,
+          "force_z": 0.3903054807601327
+        }
+      }
+    },
+    {
+      "sim_seconds": 4.817,
+      "roll": -7.910154293223336e-16,
+      "pitch": -2.062870754621529e-06,
+      "toe_angles": {
+        "left_toe_1_proximal_joint": 5.953081187801181e-07,
+        "left_toe_1_distal_joint": 2.769980077565349e-06,
+        "left_toe_2_proximal_joint": 2.0078297597055222e-06,
+        "left_toe_2_distal_joint": 1.0226150134954936e-07,
+        "left_toe_3_proximal_joint": 5.94684586152197e-07,
+        "left_toe_3_distal_joint": 2.7707682761422303e-06,
+        "right_toe_1_proximal_joint": 5.946845870516045e-07,
+        "right_toe_1_distal_joint": 2.7707682858331914e-06,
+        "right_toe_2_proximal_joint": 2.0078297607585837e-06,
+        "right_toe_2_distal_joint": 1.022614964824548e-07,
+        "right_toe_3_proximal_joint": 5.953081210845011e-07,
+        "right_toe_3_distal_joint": 2.769980078302076e-06
+      },
+      "contacts": {
+        "left_toe_1_proximal": {
+          "recent": true,
+          "force_z": 10.878451704042455
+        },
+        "left_toe_1_distal": {
+          "recent": true,
+          "force_z": 0.2585474444879057
+        },
+        "left_toe_2_distal": {
+          "recent": true,
+          "force_z": 0.3976357494126555
+        },
+        "left_toe_3_proximal": {
+          "recent": true,
+          "force_z": 10.418400942096303
+        },
+        "right_toe_1_proximal": {
+          "recent": true,
+          "force_z": 10.41840094166927
+        },
+        "right_toe_2_distal": {
+          "recent": true,
+          "force_z": 0.3976357494114677
+        },
+        "right_toe_3_proximal": {
+          "recent": true,
+          "force_z": 10.878451697411283
+        },
+        "left_toe_2_proximal": {
+          "recent": true,
+          "force_z": 0.16779696955530998
+        },
+        "left_toe_3_distal": {
+          "recent": true,
+          "force_z": 0.2583491785576283
+        },
+        "right_toe_1_distal": {
+          "recent": true,
+          "force_z": 0.25834917857672585
+        },
+        "right_toe_2_proximal": {
+          "recent": true,
+          "force_z": 0.16779696955574877
+        },
+        "right_toe_3_distal": {
+          "recent": true,
+          "force_z": 0.2585474447354598
+        }
+      }
+    }
+  ],
+  "passed_static_observation": true,
+  "final_pose": {
+    "name": "raptor",
+    "id": 10,
+    "position": {
+      "x": 6.809947753815262e-06,
+      "y": 3.1777502971481826e-15,
+      "z": -4.969029414208075e-08
+    },
+    "orientation": {
+      "x": -3.983974212093799e-16,
+      "y": -1.36487245287861e-06,
+      "z": -6.511463019636188e-15,
+      "w": 0.9999999999990685
+    }
+  }
+}

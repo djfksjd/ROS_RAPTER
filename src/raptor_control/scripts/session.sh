@@ -1,6 +1,12 @@
 #!/usr/bin/env bash
 # One container owns all ROS, simulator and desktop processes.
 set -eo pipefail
+experiment=false
+if [[ ${1:-} == --experiment ]]; then experiment=true; shift; fi
+if [[ $experiment == false && $# -gt 0 ]]; then
+  echo 'Custom launch arguments require --experiment (operator gate disabled).' >&2
+  exit 1
+fi
 source /opt/ros/jazzy/setup.bash
 source /raptor_ws/install/setup.bash
 export DISPLAY=:99 LIBGL_ALWAYS_SOFTWARE=1
@@ -21,8 +27,12 @@ done
 fluxbox > /raptor_ws/log/session/desktop.log 2>&1 & pids+=("$!")
 x11vnc -display :99 -localhost -forever -shared -nopw -rfbport 5900 > /raptor_ws/log/session/vnc.log 2>&1 & pids+=("$!")
 websockify --web=/usr/share/novnc 6080 localhost:5900 > /raptor_ws/log/session/websockify.log 2>&1 & pids+=("$!")
-ros2 launch raptor_control sim.launch.py detailed_visuals:=true sensors:=true > /raptor_ws/log/session/simulation.log 2>&1 &
+ros2 launch raptor_control sim.launch.py detailed_visuals:=true sensors:=true passive_toes:="${RAPTOR_PASSIVE_TOES:-false}" "$@" > /raptor_ws/log/session/simulation.log 2>&1 &
 sim_pid=$!;pids+=("$sim_pid")
-python3 /raptor_ws/src/raptor_control/scripts/mission_gate.py > /raptor_ws/log/session/mission.log 2>&1 & pids+=("$!")
+if [[ $experiment == false ]]; then
+  python3 /raptor_ws/src/raptor_control/scripts/mission_gate.py > /raptor_ws/log/session/mission.log 2>&1 & pids+=("$!")
+else
+  echo 'Experiment session: operator mission gate is disabled.'
+fi
 gz sim -g --gui-config /raptor_ws/src/raptor_control/config/gui.config > /raptor_ws/log/session/gui.log 2>&1 & pids+=("$!")
 wait "$sim_pid"

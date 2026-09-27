@@ -28,3 +28,12 @@ Trailing whitespace in the simulation log was normalized; message content is unc
 
 A successful joint target or static pose does not establish stable walking,
 field autonomy, mechanical manufacturability or flexible-tail dynamics.
+
+## Passive toe follow-up
+
+See [passive toe results](../PASSIVE_TOES.ko.md) for files 15–28 and their initial
+conditions. Files 14–15, 18, 21, 23 and 28 record failures; they are not success
+evidence. File 24 used the original startup-relative IMU reference; file 27
+repeats the aligned slope test with explicit world ENU IMU orientation.
+Screenshots 20 and 25 are actual Gazebo views of the small step and 5° ramp.
+None establishes rough-terrain walking or steep-slope climbing.

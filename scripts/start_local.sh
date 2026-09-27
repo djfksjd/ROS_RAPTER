@@ -8,7 +8,7 @@ if docker container inspect raptor-dev >/dev/null 2>&1; then
 fi
 docker compose build
 docker compose run --rm ros bash -c 'colcon build --symlink-install'
-docker compose run -d --service-ports --name raptor-dev ros bash /raptor_ws/src/raptor_control/scripts/session.sh
+docker compose run -d --service-ports --name raptor-dev ros bash /raptor_ws/src/raptor_control/scripts/session.sh "$@"
 sleep 2
 if [[ $(docker inspect --format '{{.State.Running}}' raptor-dev) != true ]]; then
   docker logs raptor-dev >&2

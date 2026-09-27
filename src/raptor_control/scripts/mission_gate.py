@@ -9,6 +9,7 @@ from rclpy.node import Node
 from rclpy.parameter import Parameter
 from rclpy.qos import QoSProfile, DurabilityPolicy
 from sensor_msgs.msg import JointState
+from mission_policy import active_positions
 from std_msgs.msg import String
 from trajectory_msgs.msg import JointTrajectory, JointTrajectoryPoint
 from motion_probe import JOINTS
@@ -34,8 +35,10 @@ class MissionGate(Node):
         self.create_timer(.1, self.monitor)
 
     def observe(self, msg):
-        self.state = dict(zip(msg.name, msg.position))
-        self.last_state = time.monotonic()
+        values = active_positions(msg.name, msg.position, JOINTS)
+        if values is not None:
+            self.state = values
+            self.last_state = time.monotonic()
 
     def report(self, request_id, action, result):
         data = {'id': request_id, 'action': action, 'result': result,

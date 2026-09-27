@@ -23,3 +23,16 @@ class Policy:
         if action == 'STAND':
             return 'stand'
         return 'rejected_unverified_mission'
+
+
+def active_positions(names, positions, required):
+    """Ignore partial/passive JointState messages; do not refresh active feedback."""
+    import math
+    if len(names) != len(positions):
+        return None
+    values = dict(zip(names, positions))
+    if not set(required).issubset(values):
+        return None
+    if not all(math.isfinite(values[j]) for j in required):
+        return None
+    return {j: values[j] for j in required}

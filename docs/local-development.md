@@ -47,6 +47,11 @@ The launch file regenerates Xacro: the old checked-in `raptor.urdf` contains an
 obsolete absolute path and is not the runtime input. The previous PC's initialization
 stall did not reproduce; its original cause remains unconfirmed.
 
+For optional passive toes and isolated contact experiments, follow
+[the passive-toe report](PASSIVE_TOES.ko.md). `start_local.sh --experiment ...`
+accepts custom ROS launch arguments and disables the operator mission gate.
+Do not send AI commands in that development mode.
+
 ## AI setup and commands
 
 The existing local `.venv-ai`, NanoJev inputs and Ollama model are already installed.
@@ -144,7 +149,7 @@ To restore, authenticate to the private HF dataset and download `raptor.bundle`,
 
 ```bash
 git clone raptor.bundle raptor-restored
-git -C raptor-restored checkout feature/segmented-tail
+git -C raptor-restored checkout feature/passive-toes
 ```
 
 The bundle includes Git branches/history, not `.env`, Docker images, virtualenvs

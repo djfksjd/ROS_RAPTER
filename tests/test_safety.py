@@ -5,7 +5,7 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 sys.path[:0]=[str(ROOT/'ai'),str(ROOT/'src/raptor_control/scripts')]
 from commands import validate_action, validate_text
-from mission_policy import Policy
+from mission_policy import Policy, active_positions
 
 
 class SafetyTests(unittest.TestCase):
@@ -29,6 +29,14 @@ class SafetyTests(unittest.TestCase):
         for data in [{'action':'STAND','positions':[10]}, {'action':'__import__("os")'},
                      {'action':['STOP']}, None, []]:
             with self.assertRaises(ValueError):validate_action(data)
+
+    def test_passive_feedback_does_not_replace_active_joints(self):
+        self.assertIsNone(active_positions(['toe'], [.1], ['hip']))
+        self.assertEqual(active_positions(['hip'], [.2], ['hip']), {'hip': .2})
+
+    def test_invalid_joint_feedback(self):
+        self.assertIsNone(active_positions(['hip'], [], ['hip']))
+        self.assertIsNone(active_positions(['hip'], [float('nan')], ['hip']))
 
     def test_invalid_text(self):
         for text in ['',None,[], 'x'*501]:

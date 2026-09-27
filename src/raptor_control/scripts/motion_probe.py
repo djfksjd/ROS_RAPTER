@@ -12,6 +12,7 @@ from rclpy.action import ActionClient
 from rclpy.node import Node
 from control_msgs.action import FollowJointTrajectory
 from sensor_msgs.msg import JointState
+from mission_policy import active_positions
 from trajectory_msgs.msg import JointTrajectoryPoint
 
 JOINTS = [f'{side}_{joint}_joint' for side in ('left', 'right')
@@ -29,8 +30,10 @@ class Probe(Node):
                                    '/raptor_joint_controller/follow_joint_trajectory')
 
     def observe(self, msg):
-        self.state = dict(zip(msg.name, msg.position))
-        self.received = time.monotonic()
+        values = active_positions(msg.name, msg.position, JOINTS)
+        if values is not None:
+            self.state = values
+            self.received = time.monotonic()
 
     def settle(self, seconds):
         end = time.monotonic() + seconds

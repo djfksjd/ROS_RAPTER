@@ -1,0 +1,26 @@
+{
+  "samples": [
+    {
+      "sim_seconds": 0.0010000000000012221,
+      "roll": 1.290242649956239e-08,
+      "pitch": -0.8531593053301387,
+      "toe_angles": {
+        "left_toe_1_proximal_joint": 0.007350316886626396,
+        "left_toe_1_distal_joint": -0.0017314423348944845,
+        "left_toe_2_proximal_joint": 0.007382230487726675,
+        "left_toe_2_distal_joint": -0.0018445637364397644,
+        "left_toe_3_proximal_joint": 0.007350205112681856,
+        "left_toe_3_distal_joint": -0.0017314276576653486,
+        "right_toe_1_proximal_joint": 0.007350087807367751,
+        "right_toe_1_distal_joint": -0.0017314447075354976,
+        "right_toe_2_proximal_joint": 0.00738200453593907,
+        "right_toe_2_distal_joint": -0.0018445652692783473,
+        "right_toe_3_proximal_joint": 0.007349979950743429,
+        "right_toe_3_distal_joint": -0.0017314284281297386
+      },
+      "contacts": {}
+    }
+  ],
+  "passed_static_observation": false,
+  "error": "Static attitude exceeded 0.1 rad"
+}

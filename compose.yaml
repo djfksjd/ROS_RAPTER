@@ -14,6 +14,7 @@ services:
     environment:
       ROS_DOMAIN_ID: "42"
       ROS_LOCALHOST_ONLY: "1"
+      RAPTOR_PASSIVE_TOES: "${RAPTOR_PASSIVE_TOES:-false}"
       DISPLAY: ":99"
       LIBGL_ALWAYS_SOFTWARE: "1"
     volumes:

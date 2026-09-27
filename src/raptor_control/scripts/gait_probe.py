@@ -20,15 +20,22 @@ def main():
     rclpy.init();node=Probe(); rows=[]
     failed=False
     contacts={}
-    def observe(msg,side):
-        contacts[side]={'received':time.monotonic(),'force_z':sum(
+    def observe(msg,key):
+        contacts[key]={'received':time.monotonic(),'force_z':sum(
             w.body_1_wrench.force.z for c in msg.contacts for w in c.wrenches)}
     for side in ['left','right']:
         node.create_subscription(Contacts,f'/raptor/{side}_foot/contact',
-                                 lambda msg,s=side:observe(msg,s),10)
+                                 lambda msg,s=side:observe(msg,s+'_heel'),10)
+        for digit in range(1,4):
+            for part in ['proximal','distal']:
+                key=f'{side}_toe_{digit}_{part}'
+                node.create_subscription(Contacts,f'/raptor/{side}/toe_{digit}_{part}/contact',
+                                         lambda msg,k=key:observe(msg,k),10)
     try:
         if not node.client.wait_for_server(timeout_sec=10):raise RuntimeError('No controller')
         node.settle(1)
+        if 'raptor_mission_gate' in node.get_node_names():
+            raise RuntimeError('Stop operator mission gate before a development probe')
         target=dict.fromkeys(JOINTS,0.)
         crouch={f'{s}_{j}_joint':v for s in ['left','right']
                 for j,v in [('hip_pitch',-.15),('knee_pitch',.4),('ankle_pitch',-.25)]}
@@ -57,8 +64,11 @@ def main():
             row={'phase':name,'target':dict(target)};rows.append(row)
             try:row['tracking_error']=node.move(target,seconds=2)
             finally:row['pose']=pose()
-            row['contacts']={side:{'recent':time.monotonic()-v['received']<.5,
-                                      'force_z':v['force_z']} for side,v in contacts.items()}
+            row['contacts']={side:{'recent':any(time.monotonic()-v['received']<.5
+                for key,v in contacts.items() if key.startswith(side+'_')),
+                'recent_sources':[key for key,v in contacts.items()
+                    if key.startswith(side+'_') and time.monotonic()-v['received']<.5]}
+                for side in ['left','right']}
             q=row['pose']['orientation'];tilt=2*math.acos(min(1.,abs(q.get('w',1.))))
             row['rotation_rad']=tilt
             if tilt>.25:raise RuntimeError('Body rotation exceeded 0.25 rad; gait disabled')

@@ -100,6 +100,12 @@ RESUME은 이전 이동 궤적을 자동 재생하지 않는다. 별도 `--stop`
 [안전 정책 테스트](evidence/safety-tests.txt) 5개 통과. 위 4개 gate 사례는
 전체 탐색 mission의 실행 성공률로 환산하지 않는다.
 
+## 발가락 추가 검증
+
+[수동 발가락 보고서](PASSIVE_TOES.ko.md)에 10 active + 12 passive 구조,
+8mm 단차 및 정렬된 5° 경사 정적 시험과 보행 실패 기록을 추가했다.
+[MuJoCo·MJX 강화학습](MUJOCO_MJX_ROADMAP.ko.md)은 Gazebo 검증 이후의 후속 단계다.
+
 ## 남은 개발
 
 1. IMU·접촉 기반 교대 지지와 안정적인 전진 보행.

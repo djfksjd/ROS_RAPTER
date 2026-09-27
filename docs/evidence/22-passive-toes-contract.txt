@@ -1,0 +1,2 @@
+PASS: default 10 DOF; toe variant 10 actuated + 12 passive; springs retained in SDF
+PASS: active joint geometry/limits unchanged; positive toe inertias; total mass 17.3

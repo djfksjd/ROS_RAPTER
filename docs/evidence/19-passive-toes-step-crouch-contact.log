@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/raptor_ws/src/raptor_control/scripts/motion_probe.py", line 10, in <module>
+    import rclpy
+ModuleNotFoundError: No module named 'rclpy'
+[WARN] [1790477522.951257548] [rcl]: ROS_LOCALHOST_ONLY is deprecated but still honored if it is enabled. Use ROS_AUTOMATIC_DISCOVERY_RANGE and ROS_STATIC_PEERS instead.
+[WARN] [1790477522.951267839] [rcl]: 'localhost_only' is enabled, 'automatic_discovery_range' and 'static_peers' will be ignored.
+{"passed_static_observation": true, "final_pose": {"name": "raptor", "id": 14, "position": {"x": -0.0008725839108147725, "y": 0.00010916733682632281, "z": -0.012919515969337537}, "orientation": {"x": -4.944462419407363e-09, "y": -4.498855300874004e-07, "z": 0.00042164353109078553, "w": 0.9999999111082769}}}
