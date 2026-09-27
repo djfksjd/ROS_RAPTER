@@ -4,6 +4,7 @@ import json
 import argparse
 import math
 import time
+from collections import deque
 from pathlib import Path
 from motion_probe import Probe, JOINTS, pose, rclpy
 from ros_gz_interfaces.msg import Contacts
@@ -23,19 +24,38 @@ def main():
     rclpy.init();node=Probe(); rows=[]
     failed=False
     guard=TiltGuard()
+    telemetry=deque(maxlen=2000)
+    telemetry_count=0
+    last_sample=-math.inf
+    current_phase='initializing'
+    def stamp(msg):
+        return msg.header.stamp.sec+msg.header.stamp.nanosec*1e-9
     def observe_imu(msg):
         q=msg.orientation
         guard.observe(q.x,q.y,q.z,q.w,msg.orientation_covariance[0]!=-1)
+        nonlocal last_sample,telemetry_count
+        sim_time=stamp(msg)
+        if sim_time-last_sample >= .049 or guard.failure:
+            last_sample=sim_time
+            telemetry_count+=1
+            telemetry.append({'sim_time':sim_time,'phase':current_phase,
+                'orientation':[q.x,q.y,q.z,q.w],
+                'angular_velocity':[msg.angular_velocity.x,msg.angular_velocity.y,msg.angular_velocity.z],
+                'tilt_rad':guard.tilt,
+                'joints':{name:{'position':v['position'],'sim_time':v['sim_time']} for name,v in all_joints.items()},
+                'contacts':{name:{'sim_time':v['sim_time'],'count':v['contact_count'],
+                    'points':v['points'],'raw_body1_force_z':v['force_z']}
+                    for name,v in contacts.items()}})
     node.create_subscription(Imu,'/raptor/imu',observe_imu,10)
     contacts={}
     all_joints={}
     def observe_joints(msg):
         if len(msg.name)==len(msg.position):
-            all_joints.update({name:{'position':value,'received':time.monotonic()}
+            all_joints.update({name:{'position':value,'received':time.monotonic(),'sim_time':stamp(msg)}
                 for name,value in zip(msg.name,msg.position) if math.isfinite(value)})
     node.create_subscription(JointState,'/joint_states',observe_joints,10)
     def observe(msg,key):
-        contacts[key]={'received':time.monotonic(),'force_z':sum(
+        contacts[key]={'received':time.monotonic(),'sim_time':stamp(msg),'force_z':sum(
             w.body_1_wrench.force.z for c in msg.contacts for w in c.wrenches),
             'contact_count':len(msg.contacts),
             'points':[[p.x,p.y,p.z] for c in msg.contacts for p in c.positions],
@@ -79,6 +99,7 @@ def main():
                     f'{swing}_ankle_pitch_joint':-.18}),
                 (f'step{step}_center',{'left_hip_roll_joint':0.,'right_hip_roll_joint':0.})]
         for name,changes in phases:
+            current_phase=name
             target.update(changes)
             row={'phase':name,'target':dict(target)};rows.append(row)
             try:row['tracking_error']=node.move(target,seconds=2)
@@ -108,6 +129,9 @@ def main():
         rows.append({'error':str(exc)})
         print(str(exc))
     finally:
+        Path('/raptor_ws/log/gait-telemetry.json').write_text(json.dumps({
+            'arguments':vars(args),'sample_count':telemetry_count,
+            'dropped_samples':telemetry_count-len(telemetry),'samples':list(telemetry)},separators=(',',':')))
         if node.cancellation_events:
             rows.append({'cancellation_events':node.cancellation_events})
         Path('/raptor_ws/log/gait-probe.json').write_text(json.dumps(rows,indent=2))
