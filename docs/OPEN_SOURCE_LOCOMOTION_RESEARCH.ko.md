@@ -234,4 +234,3 @@ GitHub REST API로 기본 branch와 tree SHA를 기록하고 README·파일 목�
 [^24]: [BDX-R IsaacLab](https://github.com/BDX-R/BDX-R-IsaacLab). 확인 위치: README / tree.
 
 [^25]: [Microduck simulation guide](https://github.com/pollen-robotics/microduck/blob/main/docs/robot/simulation.md). 확인 위치: What it is / What you need.
-
