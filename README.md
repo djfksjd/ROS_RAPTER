@@ -13,7 +13,7 @@
 **목표 외형 · AI 생성 콘셉트**<br>
 실제 제작품이나 Gazebo 실행 화면이 아닙니다. 이미지의 관절·부품 표현은 확정 설계가 아닙니다.
 
-[현재 구현](#현재-구현) · [시스템 구조](#시스템-구조) · [로컬 실행](#로컬-실행) · [개발 순서](#개발-순서) · [문서와 증거](#문서와-증거)
+[현재 구현](#현재-구현) · [시스템 구조](#시스템-구조) · [로컬 실행](#로컬-실행) · [개발 순서](#개발-순서) · [오픈소스 조사](#보행-오픈소스-조사) · [문서와 증거](#문서와-증거)
 
 </div>
 
@@ -170,12 +170,33 @@ ROS 실행·응답 확인·STOP 사용법은 [로컬 개발 가이드](docs/loca
 - [ ] 탐색/복귀 mission 연결과 독립 명령 평가
 - [ ] 제작용 부품·구동기·하중·간섭 검증
 
+## 보행 오픈소스 조사
+
+**조사일: 2026-09-27 · 원문과 코드 정적 검토 완료 · 로컬 보행 재현 및 Raptor 적용은 미실행.**
+
+보행 제어를 처음부터 모두 작성하는 부담을 줄이기 위해 공개 모델·정책·궤적 생성기를 비교했습니다. 우선 후보는 **Open Duck의 원본 보행 기준선**과 **PlaCo의 발 위치·무게중심 기반 궤적 생성**입니다. [상세 조사와 25개 출처](docs/OPEN_SOURCE_LOCOMOTION_RESEARCH.ko.md)
+
+| 후보 | 참고·재사용할 부분 | 적용 전에 확인할 점 |
+|---|---|---|
+| [Open Duck Mini v2](https://github.com/apirrone/Open_Duck_Mini/tree/v2) | 공개 ONNX 보행 정책, 모델, MuJoCo 실행 경로 | 정책·모델·추론 코드의 revision 일치. 일부 README 경로는 현재 트리와 다름 |
+| [PlaCo](https://github.com/Rhoban/placo) / [참조 동작 생성기](https://github.com/apirrone/Open_Duck_reference_motion_generator) | 발·COM 목표와 역운동학, imitation용 참조 궤적 | 4축 다리에 맞는 제약과 Gazebo 접촉 검증. 생성기 저장소의 라이선스 확인 필요 |
+| [Microduck RL](https://github.com/pollen-robotics/microduck_rl) | 관측·보상·구동기 모델·ONNX 배포 구조 | 최신 학습 경로는 CUDA 요구. 코드와 3D 모델의 라이선스 구분 |
+| [Disney DR Legs](https://github.com/newton-physics/newton-assets/tree/main/disneyresearch/dr_legs) | 공식 2족 USD 모델과 학습된 보행 정책 | BDX 완제품과 다른 기구. 연구·소프트웨어 개발 목적의 별도 자산 라이선스 |
+| [BDX-R](https://github.com/BDX-R/BDX-R-MjLab) | 2족 모델 및 속도 추종 RL 예제 | 문서·실물 배포·험지 roadmap의 미완료 항목 |
+
+**기존 10 active DOF를 유지합니다.** 확인한 Open Duck 모델은 다리 5+5축과 머리·목 4축으로, Raptor의 다리 4+4축·꼬리 2축과 다릅니다. 공개 정책을 그대로 연결하지 않고 관측값·행동 매핑·제어 주기·물리 모델을 검증해야 합니다. 외부 보행 영상은 Raptor의 성능 증거가 아닙니다.
+
+**Mac 실행과 학습을 구분합니다.** 일반 MuJoCo와 ONNX CPU 추론은 우선 재현 후보입니다. MJX의 Apple Silicon 지원만으로 M5 GPU 대규모 학습이 검증됐다고 보지 않으며, JAX Apple GPU의 실험적 지원과 각 저장소의 CUDA 의존성을 확인해야 합니다. [실행 환경 비교](docs/OPEN_SOURCE_LOCOMOTION_RESEARCH.ko.md#발견-5--mac-실행과-gazebo-복귀-조건)
+
+제안 순서는 원본 보행 기준선 재현 → Raptor 운동학·접촉 검증 → 필요 시 전용 정책 학습 → Gazebo 재검증입니다. **조사는 개발 재개나 기존 실험의 성공을 의미하지 않으며, 일시정지 상태를 유지합니다.**
+
 ## 문서와 증거
 
 | 문서 | 내용 |
 |---|---|
 | [설치 완료 보고서](docs/INSTALLATION_REPORT.ko.md) | ROS/Gazebo 설치와 실제 증거 화면 |
 | [프로젝트 보고서](docs/PROJECT_REPORT.ko.md) | 시스템 구현·AI 평가·한계 |
+| [보행 오픈소스 조사](docs/OPEN_SOURCE_LOCOMOTION_RESEARCH.ko.md) | Open Duck·PlaCo·Microduck·DR Legs 비교, Mac 제약과 재사용 범위 |
 | [외형 모델링](docs/REFERENCE_APPEARANCE.ko.md) | 참고 이미지와 현재 모델의 차이 |
 | [수동 발가락](docs/PASSIVE_TOES.ko.md) | 접촉·단차·경사 실험 |
 | [보행 접촉 분석](docs/GAIT_CONTACT_ANALYSIS.ko.md) | 접촉 영역·무게중심·IMU 중단 |
