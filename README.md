@@ -1,5 +1,21 @@
 # ROS_RAPTER
 
+## 2026-09-27 Mac 로컬 검증 업데이트
+
+현재 개발 브랜치: `feature/reference-appearance`. 아래 기존 진행표는 이전 PC의 기록이며,
+최신 실제 검증은 다음 문서를 기준으로 확인합니다.
+
+- [ROS 2·Gazebo 설치 완료 보고서와 실제 화면](docs/INSTALLATION_REPORT.ko.md)
+- [시뮬레이션 주제 보고서·외형·Qwen/NanoJev 비교](docs/PROJECT_REPORT.ko.md)
+- [참고 이미지 외형 개선과 남은 작업](docs/REFERENCE_APPEARANCE.ko.md)
+- [수동 발가락·단차·경사 접촉 검증](docs/PASSIVE_TOES.ko.md)
+- [MuJoCo·MJX 강화학습 후속 순서](docs/MUJOCO_MJX_ROADMAP.ko.md)
+- [로컬 실행·AI 명령·백업 복원](docs/local-development.md)
+
+10축 제어, 제한된 static standing, 센서, 두 모델의 ROS 명령 연결을 확인했습니다.
+안정적인 보행·탐색 mission·유연 꼬리 동역학은 미완료입니다.
+
+
 ## Project Overview
 운영자의 자연어 명령을 입력받아 ROS 2 기반 랩터형 2족 로봇의 행동 명령으로 변환하고 시뮬레이션 환경에서 제어하는 10축 지상 탐사 로봇 시뮬레이션 프로젝트입니다. 로봇은 독자적으로 임의 판단을 내리지 않으며, 항상 운영자의 통제 하에 사전 정의된 안전 범위 내에서 동작합니다.
 
@@ -25,7 +41,7 @@
 | Tail Yaw | 1 | 꼬리 좌우 회전 (Yaw, Z축) | `tail_yaw_joint` | -0.80 ~ 0.80 rad |
 | Tail Pitch | 1 | 꼬리 상하 회전 (Pitch, Y축) | `tail_pitch_joint` | -0.60 ~ 0.60 rad |
 
-## Current Status
+## Previous PC Status (historical)
 
 | Item | Status | Notes |
 |---|---|---|
@@ -40,7 +56,7 @@
 | Camera / IMU | Not Started | 시뮬레이션 센서 xacro 링크 및 플러그인 미구현 |
 | NanoJev | Not Started | 모델 연동 코드 및 액션 매핑 레이어 미구현 (향후 과제) |
 
-## Current Known Issue
+## Previous PC Issue (not reproduced locally)
 - **ros2_control 하드웨어 인터페이스 초기화 블로킹**:
   - `raptor.urdf.xacro`에 `gz_ros2_control::GazeboSimROS2ControlPlugin`을 적용하고 Gazebo에서 로봇을 스폰할 때, `/controller_manager` 및 `/gz_ros_control` 노드는 정상 생성됩니다.
   - 그러나 실행 로그상에서 다음과 같은 경고가 지속 발생합니다:

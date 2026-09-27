@@ -1,0 +1,180 @@
+[INFO] [launch]: All log files can be found below /root/.ros/log/2026-09-27-02-04-58-844636-fe45a8697bc8-2358
+[INFO] [launch]: Default logging verbosity is set to INFO
+[INFO] [gz-1]: process started with pid [2373]
+[INFO] [robot_state_publisher-2]: process started with pid [2374]
+[INFO] [parameter_bridge-3]: process started with pid [2375]
+[INFO] [parameter_bridge-4]: process started with pid [2376]
+[INFO] [create-5]: process started with pid [2377]
+[robot_state_publisher-2] [WARN] [1790474698.881639546] [rcl]: ROS_LOCALHOST_ONLY is deprecated but still honored if it is enabled. Use ROS_AUTOMATIC_DISCOVERY_RANGE and ROS_STATIC_PEERS instead.
+[robot_state_publisher-2] [WARN] [1790474698.881651129] [rcl]: 'localhost_only' is enabled, 'automatic_discovery_range' and 'static_peers' will be ignored.
+[robot_state_publisher-2] [INFO] [1790474698.890081671] [robot_state_publisher]: Robot initialized
+[parameter_bridge-3] [WARN] [1790474698.895530338] [rcl]: ROS_LOCALHOST_ONLY is deprecated but still honored if it is enabled. Use ROS_AUTOMATIC_DISCOVERY_RANGE and ROS_STATIC_PEERS instead.
+[parameter_bridge-3] [WARN] [1790474698.895542379] [rcl]: 'localhost_only' is enabled, 'automatic_discovery_range' and 'static_peers' will be ignored.
+[parameter_bridge-4] [WARN] [1790474698.895978296] [rcl]: ROS_LOCALHOST_ONLY is deprecated but still honored if it is enabled. Use ROS_AUTOMATIC_DISCOVERY_RANGE and ROS_STATIC_PEERS instead.
+[parameter_bridge-4] [WARN] [1790474698.895987296] [rcl]: 'localhost_only' is enabled, 'automatic_discovery_range' and 'static_peers' will be ignored.
+[create-5] [WARN] [1790474698.897013796] [rcl]: ROS_LOCALHOST_ONLY is deprecated but still honored if it is enabled. Use ROS_AUTOMATIC_DISCOVERY_RANGE and ROS_STATIC_PEERS instead.
+[create-5] [WARN] [1790474698.897020088] [rcl]: 'localhost_only' is enabled, 'automatic_discovery_range' and 'static_peers' will be ignored.
+[create-5] [INFO] [1790474698.903295546] [ros_gz_sim]: Waiting messages on topic [robot_description].
+[parameter_bridge-4] [INFO] [1790474698.903425338] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/raptor/imu (gz.msgs.IMU) -> /raptor/imu (sensor_msgs/msg/Imu)] (Lazy 0)
+[parameter_bridge-3] [INFO] [1790474698.904210754] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/clock (gz.msgs.Clock) -> /clock (rosgraph_msgs/msg/Clock)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1790474698.904703129] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/raptor/left_foot/contact (gz.msgs.Contacts) -> /raptor/left_foot/contact (ros_gz_interfaces/msg/Contacts)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1790474698.905541088] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/raptor/right_foot/contact (gz.msgs.Contacts) -> /raptor/right_foot/contact (ros_gz_interfaces/msg/Contacts)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1790474698.905742671] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/raptor/camera/image (gz.msgs.Image) -> /raptor/camera/image (sensor_msgs/msg/Image)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1790474698.906038504] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/raptor/camera/depth_image (gz.msgs.Image) -> /raptor/camera/depth_image (sensor_msgs/msg/Image)] (Lazy 0)
+[parameter_bridge-4] [INFO] [1790474698.906260629] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/raptor/camera/camera_info (gz.msgs.CameraInfo) -> /raptor/camera/camera_info (sensor_msgs/msg/CameraInfo)] (Lazy 0)
+[create-5] [INFO] [1790474699.367498380] [ros_gz_sim]: Entity creation successful.
+[INFO] [create-5]: process has finished cleanly [pid 2377]
+[INFO] [spawner-6]: process started with pid [2488]
+[spawner-6] [WARN] [1790474699.648207421] [rcl]: ROS_LOCALHOST_ONLY is deprecated but still honored if it is enabled. Use ROS_AUTOMATIC_DISCOVERY_RANGE and ROS_STATIC_PEERS instead.
+[spawner-6] [WARN] [1790474699.648217005] [rcl]: 'localhost_only' is enabled, 'automatic_discovery_range' and 'static_peers' will be ignored.
+[spawner-6] [INFO] [1790474699.738410713] [spawner_joint_state_broadcaster]: waiting for service /controller_manager/list_controllers to become available...
+[gz-1] [WARN] [1790474700.989315339] [rcl]: ROS_LOCALHOST_ONLY is deprecated but still honored if it is enabled. Use ROS_AUTOMATIC_DISCOVERY_RANGE and ROS_STATIC_PEERS instead.
+[gz-1] [WARN] [1790474700.989334422] [rcl]: 'localhost_only' is enabled, 'automatic_discovery_range' and 'static_peers' will be ignored.
+[gz-1] [INFO] [1790474700.998931839] [gz_ros_control]: Loading controller_manager
+[gz-1] [INFO] [1790474701.005106630] [controller_manager]: Using ROS clock for triggering controller manager cycles.
+[gz-1] [WARN] [1790474701.005124672] [controller_manager]: The resource manager is not yet initialized, will wait for the robot description to initialize it..
+[gz-1] [INFO] [1790474701.008314464] [controller_manager]: Subscribing to '/robot_description' topic for robot description.
+[gz-1] [WARN] [1790474701.008432047] [gz_ros_control]: Waiting RM to load and initialize hardware...
+[gz-1] [INFO] [1790474701.854468131] [controller_manager]: Received robot description from topic.
+[gz-1] [INFO] [1790474701.854523506] [controller_manager]: Enforcing command limits is disabled. Command limits from URDF will be ignored.
+[gz-1] [INFO] [1790474701.856373297] [gz_ros_control]: The position_proportional_gain has been set to: 0.3
+[gz-1] [INFO] [1790474701.856399756] [gz_ros_control]: Loading joint: left_hip_roll_joint
+[gz-1] [INFO] [1790474701.856403172] [gz_ros_control]: 	State:
+[gz-1] [INFO] [1790474701.856405756] [gz_ros_control]: 		 position
+[gz-1] [INFO] [1790474701.856407881] [gz_ros_control]: 		 velocity
+[gz-1] [INFO] [1790474701.856411422] [gz_ros_control]: 	Command:
+[gz-1] [INFO] [1790474701.856416797] [gz_ros_control]: 		 position
+[gz-1] [INFO] [1790474701.856426381] [gz_ros_control]: Loading joint: left_hip_pitch_joint
+[gz-1] [INFO] [1790474701.856428047] [gz_ros_control]: 	State:
+[gz-1] [INFO] [1790474701.856429506] [gz_ros_control]: 		 position
+[gz-1] [INFO] [1790474701.856431214] [gz_ros_control]: 		 velocity
+[gz-1] [INFO] [1790474701.856432631] [gz_ros_control]: 	Command:
+[gz-1] [INFO] [1790474701.856433964] [gz_ros_control]: 		 position
+[gz-1] [INFO] [1790474701.856437422] [gz_ros_control]: Loading joint: left_knee_pitch_joint
+[gz-1] [INFO] [1790474701.856438881] [gz_ros_control]: 	State:
+[gz-1] [INFO] [1790474701.856440256] [gz_ros_control]: 		 position
+[gz-1] [INFO] [1790474701.856441922] [gz_ros_control]: 		 velocity
+[gz-1] [INFO] [1790474701.856443214] [gz_ros_control]: 	Command:
+[gz-1] [INFO] [1790474701.856444464] [gz_ros_control]: 		 position
+[gz-1] [INFO] [1790474701.856447672] [gz_ros_control]: Loading joint: left_ankle_pitch_joint
+[gz-1] [INFO] [1790474701.856449422] [gz_ros_control]: 	State:
+[gz-1] [INFO] [1790474701.856450839] [gz_ros_control]: 		 position
+[gz-1] [INFO] [1790474701.856452214] [gz_ros_control]: 		 velocity
+[gz-1] [INFO] [1790474701.856453589] [gz_ros_control]: 	Command:
+[gz-1] [INFO] [1790474701.856455006] [gz_ros_control]: 		 position
+[gz-1] [INFO] [1790474701.856458131] [gz_ros_control]: Loading joint: right_hip_roll_joint
+[gz-1] [INFO] [1790474701.856459672] [gz_ros_control]: 	State:
+[gz-1] [INFO] [1790474701.856461006] [gz_ros_control]: 		 position
+[gz-1] [INFO] [1790474701.856462797] [gz_ros_control]: 		 velocity
+[gz-1] [INFO] [1790474701.856464131] [gz_ros_control]: 	Command:
+[gz-1] [INFO] [1790474701.856465422] [gz_ros_control]: 		 position
+[gz-1] [INFO] [1790474701.856469089] [gz_ros_control]: Loading joint: right_hip_pitch_joint
+[gz-1] [INFO] [1790474701.856470756] [gz_ros_control]: 	State:
+[gz-1] [INFO] [1790474701.856472089] [gz_ros_control]: 		 position
+[gz-1] [INFO] [1790474701.856473381] [gz_ros_control]: 		 velocity
+[gz-1] [INFO] [1790474701.856474714] [gz_ros_control]: 	Command:
+[gz-1] [INFO] [1790474701.856476047] [gz_ros_control]: 		 position
+[gz-1] [INFO] [1790474701.856479214] [gz_ros_control]: Loading joint: right_knee_pitch_joint
+[gz-1] [INFO] [1790474701.856480631] [gz_ros_control]: 	State:
+[gz-1] [INFO] [1790474701.856481964] [gz_ros_control]: 		 position
+[gz-1] [INFO] [1790474701.856483256] [gz_ros_control]: 		 velocity
+[gz-1] [INFO] [1790474701.856484506] [gz_ros_control]: 	Command:
+[gz-1] [INFO] [1790474701.856485756] [gz_ros_control]: 		 position
+[gz-1] [INFO] [1790474701.856489506] [gz_ros_control]: Loading joint: right_ankle_pitch_joint
+[gz-1] [INFO] [1790474701.856491047] [gz_ros_control]: 	State:
+[gz-1] [INFO] [1790474701.856492381] [gz_ros_control]: 		 position
+[gz-1] [INFO] [1790474701.856493672] [gz_ros_control]: 		 velocity
+[gz-1] [INFO] [1790474701.856494922] [gz_ros_control]: 	Command:
+[gz-1] [INFO] [1790474701.856496172] [gz_ros_control]: 		 position
+[gz-1] [INFO] [1790474701.856499214] [gz_ros_control]: Loading joint: tail_yaw_joint
+[gz-1] [INFO] [1790474701.856500797] [gz_ros_control]: 	State:
+[gz-1] [INFO] [1790474701.856502089] [gz_ros_control]: 		 position
+[gz-1] [INFO] [1790474701.856517714] [gz_ros_control]: 		 velocity
+[gz-1] [INFO] [1790474701.856519756] [gz_ros_control]: 	Command:
+[gz-1] [INFO] [1790474701.856521089] [gz_ros_control]: 		 position
+[gz-1] [INFO] [1790474701.856524881] [gz_ros_control]: Loading joint: tail_pitch_joint
+[gz-1] [INFO] [1790474701.856526381] [gz_ros_control]: 	State:
+[gz-1] [INFO] [1790474701.856527714] [gz_ros_control]: 		 position
+[gz-1] [INFO] [1790474701.856529047] [gz_ros_control]: 		 velocity
+[gz-1] [INFO] [1790474701.856530339] [gz_ros_control]: 	Command:
+[gz-1] [INFO] [1790474701.856531589] [gz_ros_control]: 		 position
+[gz-1] [INFO] [1790474701.856548714] [gz_ros_control]: Loading sensor: body_imu
+[gz-1] [INFO] [1790474701.856551339] [gz_ros_control]: 	State:
+[gz-1] [WARN] [1790474701.856552881] [gz_ros_control]: IMU sensor 'body_imu' not found in hardware_info, skipping.
+[gz-1] [INFO] [1790474701.856590631] [controller_manager]: Initialize hardware 'GazeboSimSystem'
+[gz-1] [WARN] [1790474701.856598297] [controller_manager.hardware_component.system.GazeboSimSystem]: Executor is not available during hardware component initialization for 'GazeboSimSystem'. Skipping node creation!
+[gz-1] [INFO] [1790474701.856629714] [controller_manager]: Successful initialization of hardware 'GazeboSimSystem'
+[gz-1] [INFO] [1790474701.856707881] [controller_manager]: Activating component 'GazeboSimSystem'.
+[gz-1] [INFO] [1790474701.856713714] [resource_manager]: 'configure' hardware 'GazeboSimSystem'
+[gz-1] [INFO] [1790474701.856716047] [gz_ros_control]: System Successfully configured!
+[gz-1] [INFO] [1790474701.856718047] [resource_manager]: Successful 'configure' of hardware 'GazeboSimSystem'
+[gz-1] [INFO] [1790474701.856722297] [resource_manager]: 'activate' hardware 'GazeboSimSystem'
+[gz-1] [INFO] [1790474701.856729631] [resource_manager]: Successful 'activate' of hardware 'GazeboSimSystem'
+[gz-1] [WARN] [1790474701.856777839] [controller_manager]: Component 'GazeboSimSystem' does not have read or write statistics initialized, skipping registration.
+[gz-1] [INFO] [1790474701.856781214] [controller_manager]: Resource Manager has been successfully initialized. Starting Controller Manager services...
+[gz-1] [INFO] [1790474701.998215839] [controller_manager]: Loading controller : 'joint_state_broadcaster' of type 'joint_state_broadcaster/JointStateBroadcaster'
+[gz-1] [INFO] [1790474701.998253922] [controller_manager]: Loading controller 'joint_state_broadcaster'
+[gz-1] [INFO] [1790474702.000490047] [controller_manager]: Controller 'joint_state_broadcaster' node arguments: --ros-args --params-file /raptor_ws/install/raptor_control/share/raptor_control/config/controllers.yaml -p use_sim_time:=true --param use_sim_time:=true
+[spawner-6] [INFO] [1790474702.007052256] [spawner_joint_state_broadcaster]: Loaded joint_state_broadcaster
+[gz-1] [INFO] [1790474702.008109922] [controller_manager]: Configuring controller: 'joint_state_broadcaster'
+[gz-1] [INFO] [1790474702.008218047] [joint_state_broadcaster]: 'joints' or 'interfaces' parameter is empty. All available state interfaces will be published
+[gz-1] [INFO] [1790474702.016784922] [controller_manager]: Activating controllers: [ joint_state_broadcaster ]
+[gz-1] [WARN] [1790474703.034562715] [gz_ros_control]:  Desired controller update period (0.01 s) is slower than the gazebo simulation period (0.001 s).
+[gz-1] [INFO] [1790474703.187482715] [controller_manager]: Successfully switched controllers!
+[spawner-6] [INFO] [1790474703.198443631] [spawner_joint_state_broadcaster]: Configured and activated joint_state_broadcaster
+[INFO] [spawner-6]: process has finished cleanly [pid 2488]
+[INFO] [spawner-7]: process started with pid [2636]
+[spawner-7] [WARN] [1790474703.426995006] [rcl]: ROS_LOCALHOST_ONLY is deprecated but still honored if it is enabled. Use ROS_AUTOMATIC_DISCOVERY_RANGE and ROS_STATIC_PEERS instead.
+[spawner-7] [WARN] [1790474703.427006465] [rcl]: 'localhost_only' is enabled, 'automatic_discovery_range' and 'static_peers' will be ignored.
+[spawner-7] [INFO] [1790474703.450113173] [spawner_raptor_joint_controller]: waiting for service /controller_manager/list_controllers to become available...
+[gz-1] [INFO] [1790474703.728078923] [controller_manager]: Loading controller : 'raptor_joint_controller' of type 'joint_trajectory_controller/JointTrajectoryController'
+[gz-1] [INFO] [1790474703.728120298] [controller_manager]: Loading controller 'raptor_joint_controller'
+[gz-1] [INFO] [1790474703.731138132] [controller_manager]: Controller 'raptor_joint_controller' node arguments: --ros-args --params-file /raptor_ws/install/raptor_control/share/raptor_control/config/controllers.yaml -p use_sim_time:=true --param use_sim_time:=true
+[spawner-7] [INFO] [1790474703.749769382] [spawner_raptor_joint_controller]: Loaded raptor_joint_controller
+[gz-1] [INFO] [1790474703.834065882] [controller_manager]: Configuring controller: 'raptor_joint_controller'
+[gz-1] [INFO] [1790474703.834230090] [raptor_joint_controller]: No specific joint names are used for command interfaces. Using 'joints' parameter.
+[gz-1] [INFO] [1790474703.834250423] [raptor_joint_controller]: Command interfaces are [position] and state interfaces are [position velocity].
+[gz-1] [INFO] [1790474703.834267632] [raptor_joint_controller]: Using 'splines' interpolation method.
+[gz-1] [INFO] [1790474703.838193090] [raptor_joint_controller]: Action status changes will be monitored at 20.00 Hz.
+[gz-1] [INFO] [1790474703.840448465] [raptor_joint_controller]: Setting initial scaling factor to 1.000000
+[gz-1] [INFO] [1790474703.840458923] [raptor_joint_controller]: No scaling interface set. This controller will not read speed scaling from the hardware.
+[gz-1] [INFO] [1790474703.931982590] [controller_manager]: Activating controllers: [ raptor_joint_controller ]
+[gz-1] [INFO] [1790474703.936264673] [controller_manager]: Successfully switched controllers!
+[spawner-7] [INFO] [1790474703.950066173] [spawner_raptor_joint_controller]: Configured and activated raptor_joint_controller
+[INFO] [spawner-7]: process has finished cleanly [pid 2636]
+[gz-1] [INFO] [1790474790.607252588] [raptor_joint_controller]: Received new action goal
+[gz-1] [INFO] [1790474790.607792630] [raptor_joint_controller]: Accepted new action goal
+[gz-1] [INFO] [1790474796.198197258] [raptor_joint_controller]: Goal reached, success!
+[gz-1] [INFO] [1790474854.032019673] [raptor_joint_controller]: Received new action goal
+[gz-1] [INFO] [1790474854.032053465] [raptor_joint_controller]: Accepted new action goal
+[gz-1] [INFO] [1790474858.347539800] [raptor_joint_controller]: Goal reached, success!
+[gz-1] [INFO] [1790474858.969861926] [raptor_joint_controller]: Received new action goal
+[gz-1] [INFO] [1790474858.969929759] [raptor_joint_controller]: Accepted new action goal
+[gz-1] [INFO] [1790474863.186651219] [raptor_joint_controller]: Goal reached, success!
+[gz-1] [INFO] [1790474863.794725095] [raptor_joint_controller]: Received new action goal
+[gz-1] [INFO] [1790474863.794751553] [raptor_joint_controller]: Accepted new action goal
+[gz-1] [INFO] [1790474867.946807513] [raptor_joint_controller]: Goal reached, success!
+[gz-1] [INFO] [1790474868.626627722] [raptor_joint_controller]: Received new action goal
+[gz-1] [INFO] [1790474868.626658347] [raptor_joint_controller]: Accepted new action goal
+[gz-1] [INFO] [1790474872.773062793] [raptor_joint_controller]: Goal reached, success!
+[gz-1] [INFO] [1790474873.377045543] [raptor_joint_controller]: Received new action goal
+[gz-1] [INFO] [1790474873.377075668] [raptor_joint_controller]: Accepted new action goal
+[gz-1] [INFO] [1790474877.572994129] [raptor_joint_controller]: Goal reached, success!
+[gz-1] [INFO] [1790474878.168387296] [raptor_joint_controller]: Received new action goal
+[gz-1] [INFO] [1790474878.168414462] [raptor_joint_controller]: Accepted new action goal
+[gz-1] [INFO] [1790474882.432103256] [raptor_joint_controller]: Goal reached, success!
+[gz-1] [INFO] [1790474883.052474798] [raptor_joint_controller]: Received new action goal
+[gz-1] [INFO] [1790474883.052519756] [raptor_joint_controller]: Accepted new action goal
+[gz-1] [INFO] [1790474887.253188717] [raptor_joint_controller]: Goal reached, success!
+[gz-1] [INFO] [1790474887.924247925] [raptor_joint_controller]: Received new action goal
+[gz-1] [INFO] [1790474887.924284509] [raptor_joint_controller]: Accepted new action goal
+[gz-1] [INFO] [1790474891.986131469] [raptor_joint_controller]: Goal reached, success!
+[gz-1] [INFO] [1790474892.585559844] [raptor_joint_controller]: Received new action goal
+[gz-1] [INFO] [1790474892.585584386] [raptor_joint_controller]: Accepted new action goal
+[gz-1] [INFO] [1790474896.865175471] [raptor_joint_controller]: Goal reached, success!
+[gz-1] [INFO] [1790474897.482667346] [raptor_joint_controller]: Received new action goal
+[gz-1] [INFO] [1790474897.482702305] [raptor_joint_controller]: Accepted new action goal
+[gz-1] [INFO] [1790474901.740589793] [raptor_joint_controller]: Goal reached, success!
+[gz-1] [INFO] [1790474902.430041085] [raptor_joint_controller]: Received new action goal
+[gz-1] [INFO] [1790474902.430100835] [raptor_joint_controller]: Accepted new action goal
+[gz-1] [INFO] [1790474906.685999587] [raptor_joint_controller]: Goal reached, success!

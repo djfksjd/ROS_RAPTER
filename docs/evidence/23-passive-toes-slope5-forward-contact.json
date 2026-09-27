@@ -1,0 +1,87 @@
+{
+  "samples": [
+    {
+      "sim_seconds": 0.0,
+      "roll": 7.499324930363256e-16,
+      "pitch": 1.163773345577282,
+      "toe_angles": {
+        "left_toe_1_proximal_joint": -0.058498892779464705,
+        "left_toe_1_distal_joint": -0.03134202617538519,
+        "left_toe_2_proximal_joint": -0.05370617343552856,
+        "left_toe_2_distal_joint": -0.009218789974665915,
+        "left_toe_3_proximal_joint": -0.05849889165434109,
+        "left_toe_3_distal_joint": -0.03134202864022896,
+        "right_toe_1_proximal_joint": -0.0584988916544276,
+        "right_toe_1_distal_joint": -0.03134202863998321,
+        "right_toe_2_proximal_joint": -0.05370617343560291,
+        "right_toe_2_distal_joint": -0.009218789974431717,
+        "right_toe_3_proximal_joint": -0.058498892779530486,
+        "right_toe_3_distal_joint": -0.031342026175197726
+      },
+      "contacts": {
+        "left_toe_1_distal": {
+          "recent": true,
+          "raw_body1_force_z": 8.368984648702437,
+          "collision_pairs": [
+            [
+              "raptor::left_toe_1_distal_link::left_toe_1_distal_link_collision",
+              "slope_5deg::ramp::collision"
+            ]
+          ]
+        },
+        "left_toe_2_distal": {
+          "recent": true,
+          "raw_body1_force_z": 8.81519682394088,
+          "collision_pairs": [
+            [
+              "raptor::left_toe_2_distal_link::left_toe_2_distal_link_collision",
+              "slope_5deg::ramp::collision"
+            ]
+          ]
+        },
+        "left_toe_3_distal": {
+          "recent": true,
+          "raw_body1_force_z": 8.36901441403045,
+          "collision_pairs": [
+            [
+              "raptor::left_toe_3_distal_link::left_toe_3_distal_link_collision",
+              "slope_5deg::ramp::collision"
+            ]
+          ]
+        },
+        "right_toe_1_distal": {
+          "recent": true,
+          "raw_body1_force_z": 8.369014401562142,
+          "collision_pairs": [
+            [
+              "raptor::right_toe_1_distal_link::right_toe_1_distal_link_collision",
+              "slope_5deg::ramp::collision"
+            ]
+          ]
+        },
+        "right_toe_2_distal": {
+          "recent": true,
+          "raw_body1_force_z": 8.815201732805795,
+          "collision_pairs": [
+            [
+              "raptor::right_toe_2_distal_link::right_toe_2_distal_link_collision",
+              "slope_5deg::ramp::collision"
+            ]
+          ]
+        },
+        "right_toe_3_distal": {
+          "recent": true,
+          "raw_body1_force_z": 8.368984652475158,
+          "collision_pairs": [
+            [
+              "raptor::right_toe_3_distal_link::right_toe_3_distal_link_collision",
+              "slope_5deg::ramp::collision"
+            ]
+          ]
+        }
+      }
+    }
+  ],
+  "passed_static_observation": false,
+  "error": "Static attitude exceeded 0.1 rad"
+}

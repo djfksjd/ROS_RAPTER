@@ -1,0 +1,42 @@
+[WARN] [1790478639.255085800] [rcl]: ROS_LOCALHOST_ONLY is deprecated but still honored if it is enabled. Use ROS_AUTOMATIC_DISCOVERY_RANGE and ROS_STATIC_PEERS instead.
+[WARN] [1790478639.255098675] [rcl]: 'localhost_only' is enabled, 'automatic_discovery_range' and 'static_peers' will be ignored.
+/controller_manager/list_hardware_interfaces
+[WARN] [1790478642.638727468] [rcl]: ROS_LOCALHOST_ONLY is deprecated but still honored if it is enabled. Use ROS_AUTOMATIC_DISCOVERY_RANGE and ROS_STATIC_PEERS instead.
+[WARN] [1790478642.638765051] [rcl]: 'localhost_only' is enabled, 'automatic_discovery_range' and 'static_peers' will be ignored.
+raptor_joint_controller joint_trajectory_controller/JointTrajectoryController  active
+joint_state_broadcaster joint_state_broadcaster/JointStateBroadcaster          active
+[WARN] [1790478643.502420093] [rcl]: ROS_LOCALHOST_ONLY is deprecated but still honored if it is enabled. Use ROS_AUTOMATIC_DISCOVERY_RANGE and ROS_STATIC_PEERS instead.
+[WARN] [1790478643.502432093] [rcl]: 'localhost_only' is enabled, 'automatic_discovery_range' and 'static_peers' will be ignored.
+[INFO] [1790478644.028167844] [_ros2cli_556]: waiting for service /controller_manager/list_hardware_interfaces to become available...
+command interfaces
+	left_ankle_pitch_joint/position [available] [claimed]
+	left_hip_pitch_joint/position [available] [claimed]
+	left_hip_roll_joint/position [available] [claimed]
+	left_knee_pitch_joint/position [available] [claimed]
+	right_ankle_pitch_joint/position [available] [claimed]
+	right_hip_pitch_joint/position [available] [claimed]
+	right_hip_roll_joint/position [available] [claimed]
+	right_knee_pitch_joint/position [available] [claimed]
+	tail_pitch_joint/position [available] [claimed]
+	tail_yaw_joint/position [available] [claimed]
+state interfaces
+	left_ankle_pitch_joint/position
+	left_ankle_pitch_joint/velocity
+	left_hip_pitch_joint/position
+	left_hip_pitch_joint/velocity
+	left_hip_roll_joint/position
+	left_hip_roll_joint/velocity
+	left_knee_pitch_joint/position
+	left_knee_pitch_joint/velocity
+	right_ankle_pitch_joint/position
+	right_ankle_pitch_joint/velocity
+	right_hip_pitch_joint/position
+	right_hip_pitch_joint/velocity
+	right_hip_roll_joint/position
+	right_hip_roll_joint/velocity
+	right_knee_pitch_joint/position
+	right_knee_pitch_joint/velocity
+	tail_pitch_joint/position
+	tail_pitch_joint/velocity
+	tail_yaw_joint/position
+	tail_yaw_joint/velocity

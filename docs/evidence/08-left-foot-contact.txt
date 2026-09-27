@@ -1,0 +1,171 @@
+header:
+  stamp:
+    sec: 40
+    nanosec: 148000000
+  frame_id: ''
+contacts:
+- collision1:
+    id: 27
+    name: raptor::left_foot_link::left_foot_link_collision
+    type: 0
+  collision2:
+    id: 7
+    name: ground_plane::link::collision
+    type: 0
+  positions:
+  - x: -0.0599999672889992
+    y: 0.12000000000000388
+    z: -3.789000402321108e-08
+  - x: -0.0599999672889992
+    y: 0.24000000000000388
+    z: -3.789000402321108e-08
+  - x: 0.18000003271100024
+    y: 0.24000000000000388
+    z: -2.140450305887498e-08
+  - x: 0.18000003271100024
+    y: 0.12000000000000388
+    z: -2.140450305887498e-08
+  normals:
+  - x: 0.0
+    y: 0.0
+    z: 1.0
+  - x: 0.0
+    y: 0.0
+    z: 1.0
+  - x: 0.0
+    y: 0.0
+    z: 1.0
+  - x: 0.0
+    y: 0.0
+    z: 1.0
+  depths:
+  - 3.789000402321108e-08
+  - 3.789000402321108e-08
+  - 2.140450305887498e-08
+  - 2.140450305887498e-08
+  wrenches:
+  - header:
+      stamp:
+        sec: 0
+        nanosec: 0
+      frame_id: ''
+    body_1_name:
+      data: ''
+    body_1_id:
+      data: 0
+    body_2_name:
+      data: ''
+    body_2_id:
+      data: 0
+    body_1_wrench:
+      force:
+        x: 2.5929470954130656e-08
+        y: -1.2675222221786616e-08
+        z: 38.5824450116484
+      torque:
+        x: 0.0
+        y: 0.0
+        z: 0.0
+    body_2_wrench:
+      force:
+        x: -2.5929470954130656e-08
+        y: 1.2675222221786616e-08
+        z: -38.5824450116484
+      torque:
+        x: 0.0
+        y: 0.0
+        z: 0.0
+  - header:
+      stamp:
+        sec: 0
+        nanosec: 0
+      frame_id: ''
+    body_1_name:
+      data: ''
+    body_1_id:
+      data: 0
+    body_2_name:
+      data: ''
+    body_2_id:
+      data: 0
+    body_1_wrench:
+      force:
+        x: 2.318753709329506e-08
+        y: -1.3127229052664855e-08
+        z: 39.080071123751146
+      torque:
+        x: 0.0
+        y: 0.0
+        z: 0.0
+    body_2_wrench:
+      force:
+        x: -2.318753709329506e-08
+        y: 1.3127229052664855e-08
+        z: -39.080071123751146
+      torque:
+        x: 0.0
+        y: 0.0
+        z: 0.0
+  - header:
+      stamp:
+        sec: 0
+        nanosec: 0
+      frame_id: ''
+    body_1_name:
+      data: ''
+    body_1_id:
+      data: 0
+    body_2_name:
+      data: ''
+    body_2_id:
+      data: 0
+    body_1_wrench:
+      force:
+        x: 2.3391799989953985e-08
+        y: -3.9147667877443265e-09
+        z: 3.5965328887269195
+      torque:
+        x: 0.0
+        y: 0.0
+        z: 0.0
+    body_2_wrench:
+      force:
+        x: -2.3391799989953985e-08
+        y: 3.9147667877443265e-09
+        z: -3.5965328887269195
+      torque:
+        x: 0.0
+        y: 0.0
+        z: 0.0
+  - header:
+      stamp:
+        sec: 0
+        nanosec: 0
+      frame_id: ''
+    body_1_name:
+      data: ''
+    body_1_id:
+      data: 0
+    body_2_name:
+      data: ''
+    body_2_id:
+      data: 0
+    body_1_wrench:
+      force:
+        x: 2.5106129329108155e-08
+        y: -3.912423993744025e-09
+        z: 3.5974511071854915
+      torque:
+        x: 0.0
+        y: 0.0
+        z: 0.0
+    body_2_wrench:
+      force:
+        x: -2.5106129329108155e-08
+        y: 3.912423993744025e-09
+        z: -3.5974511071854915
+      torque:
+        x: 0.0
+        y: 0.0
+        z: 0.0
+---

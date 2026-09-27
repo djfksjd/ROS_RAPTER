@@ -1,0 +1,318 @@
+[
+  {
+    "phase": "crouch",
+    "target": {
+      "left_hip_roll_joint": 0.0,
+      "left_hip_pitch_joint": -0.15,
+      "left_knee_pitch_joint": 0.4,
+      "left_ankle_pitch_joint": -0.25,
+      "right_hip_roll_joint": 0.0,
+      "right_hip_pitch_joint": -0.15,
+      "right_knee_pitch_joint": 0.4,
+      "right_ankle_pitch_joint": -0.25,
+      "tail_yaw_joint": 0.0,
+      "tail_pitch_joint": 0.0
+    },
+    "tracking_error": 3.723595860205542e-06,
+    "pose": {
+      "name": "raptor",
+      "id": 10,
+      "position": {
+        "x": 0.026409005987618576,
+        "y": 2.3498034842327943e-15,
+        "z": -0.012919208558928334
+      },
+      "orientation": {
+        "x": 3.762992410914419e-17,
+        "y": -3.2334312897824634e-07,
+        "z": -2.0537374144437576e-14,
+        "w": 0.9999999999999477
+      }
+    },
+    "contacts": {
+      "left": {
+        "recent": true,
+        "recent_sources": [
+          "left_heel",
+          "left_toe_1_proximal",
+          "left_toe_1_distal",
+          "left_toe_2_proximal",
+          "left_toe_2_distal",
+          "left_toe_3_proximal",
+          "left_toe_3_distal"
+        ]
+      },
+      "right": {
+        "recent": true,
+        "recent_sources": [
+          "right_heel",
+          "right_toe_1_proximal",
+          "right_toe_1_distal",
+          "right_toe_2_proximal",
+          "right_toe_2_distal",
+          "right_toe_3_proximal",
+          "right_toe_3_distal"
+        ]
+      }
+    },
+    "rotation_rad": 6.467859272423625e-07
+  },
+  {
+    "phase": "shift_left",
+    "target": {
+      "left_hip_roll_joint": -0.28,
+      "left_hip_pitch_joint": -0.15,
+      "left_knee_pitch_joint": 0.4,
+      "left_ankle_pitch_joint": -0.25,
+      "right_hip_roll_joint": 0.28,
+      "right_hip_pitch_joint": -0.15,
+      "right_knee_pitch_joint": 0.4,
+      "right_ankle_pitch_joint": -0.25,
+      "tail_yaw_joint": 0.0,
+      "tail_pitch_joint": 0.0
+    },
+    "tracking_error": 3.921436614318097e-08,
+    "pose": {
+      "name": "raptor",
+      "id": 10,
+      "position": {
+        "x": 0.0263584748170179,
+        "y": 0.21953922142757917,
+        "z": -0.028652801589118936
+      },
+      "orientation": {
+        "x": 2.7286296372185547e-06,
+        "y": -0.006361888835367705,
+        "z": 0.00038295875197168254,
+        "w": 0.9999796896465424
+      }
+    },
+    "contacts": {
+      "left": {
+        "recent": true,
+        "recent_sources": [
+          "left_heel",
+          "left_toe_1_proximal",
+          "left_toe_1_distal"
+        ]
+      },
+      "right": {
+        "recent": true,
+        "recent_sources": [
+          "right_heel",
+          "right_toe_1_proximal",
+          "right_toe_1_distal"
+        ]
+      }
+    },
+    "rotation_rad": 0.012746896786193944
+  },
+  {
+    "phase": "lift_right",
+    "target": {
+      "left_hip_roll_joint": -0.28,
+      "left_hip_pitch_joint": -0.15,
+      "left_knee_pitch_joint": 0.4,
+      "left_ankle_pitch_joint": -0.25,
+      "right_hip_roll_joint": 0.28,
+      "right_hip_pitch_joint": -0.39999999999999997,
+      "right_knee_pitch_joint": 0.95,
+      "right_ankle_pitch_joint": -0.55,
+      "tail_yaw_joint": 0.0,
+      "tail_pitch_joint": 0.0
+    },
+    "tracking_error": 8.244005478275085e-11,
+    "pose": {
+      "name": "raptor",
+      "id": 10,
+      "position": {
+        "x": 0.025916080905942142,
+        "y": 0.22447841121632978,
+        "z": -0.030544711768604717
+      },
+      "orientation": {
+        "x": 0.078206242092387,
+        "y": -0.002096874316098157,
+        "z": 0.009395882383371468,
+        "w": 0.9968907182886835
+      }
+    },
+    "contacts": {
+      "left": {
+        "recent": true,
+        "recent_sources": [
+          "left_heel",
+          "left_toe_1_proximal",
+          "left_toe_1_distal"
+        ]
+      },
+      "right": {
+        "recent": true,
+        "recent_sources": [
+          "right_heel",
+          "right_toe_1_proximal",
+          "right_toe_1_distal"
+        ]
+      }
+    },
+    "rotation_rad": 0.1577566308147576
+  },
+  {
+    "phase": "swing_right",
+    "target": {
+      "left_hip_roll_joint": -0.28,
+      "left_hip_pitch_joint": -0.15,
+      "left_knee_pitch_joint": 0.4,
+      "left_ankle_pitch_joint": -0.25,
+      "right_hip_roll_joint": 0.28,
+      "right_hip_pitch_joint": -0.5,
+      "right_knee_pitch_joint": 0.95,
+      "right_ankle_pitch_joint": -0.45000000000000007,
+      "tail_yaw_joint": 0.0,
+      "tail_pitch_joint": 0.0
+    },
+    "tracking_error": 1.4017534355481587e-10,
+    "pose": {
+      "name": "raptor",
+      "id": 10,
+      "position": {
+        "x": 0.02364465814119831,
+        "y": 0.22016866263295495,
+        "z": -0.030540253648784134
+      },
+      "orientation": {
+        "x": 0.07759481021728122,
+        "y": -0.008172738306159314,
+        "z": -0.06819093825129022,
+        "w": 0.9946166335409498
+      }
+    },
+    "contacts": {
+      "left": {
+        "recent": true,
+        "recent_sources": [
+          "left_heel",
+          "left_toe_1_proximal",
+          "left_toe_1_distal"
+        ]
+      },
+      "right": {
+        "recent": true,
+        "recent_sources": [
+          "right_heel",
+          "right_toe_1_proximal",
+          "right_toe_1_distal"
+        ]
+      }
+    },
+    "rotation_rad": 0.20761894924573782
+  },
+  {
+    "phase": "land_right",
+    "target": {
+      "left_hip_roll_joint": -0.28,
+      "left_hip_pitch_joint": -0.15,
+      "left_knee_pitch_joint": 0.4,
+      "left_ankle_pitch_joint": -0.25,
+      "right_hip_roll_joint": 0.28,
+      "right_hip_pitch_joint": -0.22,
+      "right_knee_pitch_joint": 0.4,
+      "right_ankle_pitch_joint": -0.18,
+      "tail_yaw_joint": 0.0,
+      "tail_pitch_joint": 0.0
+    },
+    "tracking_error": 1.6763956889320752e-10,
+    "pose": {
+      "name": "raptor",
+      "id": 10,
+      "position": {
+        "x": 0.024329728876712246,
+        "y": 0.21893874408909425,
+        "z": -0.028660830703444648
+      },
+      "orientation": {
+        "x": -0.00014761161034269383,
+        "y": -0.006352797110043463,
+        "z": -0.065581903893896,
+        "w": 0.9978269559704944
+      }
+    },
+    "contacts": {
+      "left": {
+        "recent": true,
+        "recent_sources": [
+          "left_heel",
+          "left_toe_1_proximal",
+          "left_toe_1_distal"
+        ]
+      },
+      "right": {
+        "recent": true,
+        "recent_sources": [
+          "right_heel",
+          "right_toe_1_proximal",
+          "right_toe_1_distal"
+        ]
+      }
+    },
+    "rotation_rad": 0.1318736215001175
+  },
+  {
+    "phase": "center",
+    "target": {
+      "left_hip_roll_joint": 0.0,
+      "left_hip_pitch_joint": -0.15,
+      "left_knee_pitch_joint": 0.4,
+      "left_ankle_pitch_joint": -0.25,
+      "right_hip_roll_joint": 0.0,
+      "right_hip_pitch_joint": -0.22,
+      "right_knee_pitch_joint": 0.4,
+      "right_ankle_pitch_joint": -0.18,
+      "tail_yaw_joint": 0.0,
+      "tail_pitch_joint": 0.0
+    },
+    "tracking_error": 1.9172446963366951e-10,
+    "pose": {
+      "name": "raptor",
+      "id": 10,
+      "position": {
+        "x": -0.004947411847245447,
+        "y": 0.0012670361455190341,
+        "z": -0.012687129401442166
+      },
+      "orientation": {
+        "x": -0.0004976677914724813,
+        "y": 8.253177748282193e-06,
+        "z": -0.06579506778351639,
+        "w": 0.9978330327835498
+      }
+    },
+    "contacts": {
+      "left": {
+        "recent": true,
+        "recent_sources": [
+          "left_heel",
+          "left_toe_1_proximal",
+          "left_toe_1_distal",
+          "left_toe_2_proximal",
+          "left_toe_2_distal",
+          "left_toe_3_proximal",
+          "left_toe_3_distal"
+        ]
+      },
+      "right": {
+        "recent": true,
+        "recent_sources": [
+          "right_heel",
+          "right_toe_1_proximal",
+          "right_toe_1_distal",
+          "right_toe_2_proximal",
+          "right_toe_2_distal",
+          "right_toe_3_proximal",
+          "right_toe_3_distal"
+        ]
+      }
+    },
+    "rotation_rad": 0.13168903655194247
+  }
+]

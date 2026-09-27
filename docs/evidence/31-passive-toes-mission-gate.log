@@ -1,0 +1,8 @@
+[WARN] [1790478518.112814091] [rcl]: ROS_LOCALHOST_ONLY is deprecated but still honored if it is enabled. Use ROS_AUTOMATIC_DISCOVERY_RANGE and ROS_STATIC_PEERS instead.
+[WARN] [1790478518.112823716] [rcl]: 'localhost_only' is enabled, 'automatic_discovery_range' and 'static_peers' will be ignored.
+[INFO] [1790478544.901732673] [raptor_mission_gate]: {"id": "a8992109-b77a-4448-a0c1-16d186d76d36", "action": "STAND", "result": "accepted", "stop_latched": false}
+[INFO] [1790478547.412811549] [raptor_mission_gate]: {"id": "a8992109-b77a-4448-a0c1-16d186d76d36", "action": "STAND", "result": "joint_target_reached", "stop_latched": false}
+[INFO] [1790478560.802168014] [raptor_mission_gate]: {"id": "5bbf72c6-3111-46eb-941a-a3f429e37d9b", "action": "STAND", "result": "accepted", "stop_latched": false}
+[INFO] [1790478563.362673667] [raptor_mission_gate]: {"id": "5bbf72c6-3111-46eb-941a-a3f429e37d9b", "action": "STAND", "result": "joint_target_reached", "stop_latched": false}
+[INFO] [1790478570.624268921] [raptor_mission_gate]: {"id": "b23f4578-0661-44a9-a575-b38823882c44", "action": "STOP", "result": "accepted", "stop_latched": true}
+[INFO] [1790478573.194763714] [raptor_mission_gate]: {"id": "b23f4578-0661-44a9-a575-b38823882c44", "action": "STOP", "result": "joint_target_reached", "stop_latched": true}

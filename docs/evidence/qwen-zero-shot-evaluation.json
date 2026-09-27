@@ -1,0 +1,153 @@
+{
+  "scope": "16 command smoke cases; first call includes cold inference; no ROS execution",
+  "rows": [
+    {
+      "action": "SEARCH_EAST",
+      "backend": "qwen3:0.6b",
+      "e2e_ms": 1428.4719170000244,
+      "model_ms": 392.771,
+      "text": "산 동쪽을 수색해",
+      "expected": "SEARCH_EAST",
+      "correct": true
+    },
+    {
+      "action": "REJECT",
+      "backend": "qwen3:0.6b",
+      "e2e_ms": 85.66454199990403,
+      "model_ms": 82.735,
+      "text": "서쪽 구역을 찾아봐",
+      "expected": "SEARCH_WEST",
+      "correct": false
+    },
+    {
+      "action": "REJECT",
+      "backend": "qwen3:0.6b",
+      "e2e_ms": 87.52412500007267,
+      "model_ms": 84.75,
+      "text": "북쪽 지역을 수색해",
+      "expected": "SEARCH_NORTH",
+      "correct": false
+    },
+    {
+      "action": "REJECT",
+      "backend": "qwen3:0.6b",
+      "e2e_ms": 85.67725000011706,
+      "model_ms": 82.729,
+      "text": "남쪽 지역을 수색해",
+      "expected": "SEARCH_SOUTH",
+      "correct": false
+    },
+    {
+      "action": "MOVE_EAST",
+      "backend": "qwen3:0.6b",
+      "e2e_ms": 87.15699999993376,
+      "model_ms": 84.651,
+      "text": "동쪽으로 이동해",
+      "expected": "MOVE_EAST",
+      "correct": true
+    },
+    {
+      "action": "MOVE_WEST",
+      "backend": "qwen3:0.6b",
+      "e2e_ms": 87.60537500029386,
+      "model_ms": 85.117,
+      "text": "서쪽으로 이동해",
+      "expected": "MOVE_WEST",
+      "correct": true
+    },
+    {
+      "action": "RETURN_BASE",
+      "backend": "qwen3:0.6b",
+      "e2e_ms": 79.45000000017899,
+      "model_ms": 77.095,
+      "text": "기지로 복귀해",
+      "expected": "RETURN_BASE",
+      "correct": true
+    },
+    {
+      "action": "REJECT",
+      "backend": "qwen3:0.6b",
+      "e2e_ms": 85.86508300004425,
+      "model_ms": 83.114,
+      "text": "잠깐 멈춰",
+      "expected": "PAUSE",
+      "correct": false
+    },
+    {
+      "action": "REJECT",
+      "backend": "qwen3:0.6b",
+      "e2e_ms": 81.78695799961133,
+      "model_ms": 79.247,
+      "text": "계속 진행해",
+      "expected": "RESUME",
+      "correct": false
+    },
+    {
+      "action": "STOP",
+      "backend": "qwen3:0.6b",
+      "e2e_ms": 76.07241699997758,
+      "model_ms": 73.321,
+      "text": "긴급 정지",
+      "expected": "STOP",
+      "correct": true
+    },
+    {
+      "action": "REJECT",
+      "backend": "qwen3:0.6b",
+      "e2e_ms": 86.62470799981747,
+      "model_ms": 84.223,
+      "text": "제자리에서 서 있어",
+      "expected": "STAND",
+      "correct": false
+    },
+    {
+      "action": "REJECT",
+      "backend": "qwen3:0.6b",
+      "e2e_ms": 78.66962500020236,
+      "model_ms": 76.178,
+      "text": "오늘 저녁 메뉴 추천해줘",
+      "expected": "REJECT",
+      "correct": true
+    },
+    {
+      "action": "REJECT",
+      "backend": "qwen3:0.6b",
+      "e2e_ms": 87.11224999979095,
+      "model_ms": 84.545,
+      "text": "Search the eastern ridge",
+      "expected": "SEARCH_EAST",
+      "correct": false
+    },
+    {
+      "action": "RETURN_BASE",
+      "backend": "qwen3:0.6b",
+      "e2e_ms": 80.32474999981787,
+      "model_ms": 77.843,
+      "text": "Return to base",
+      "expected": "RETURN_BASE",
+      "correct": true
+    },
+    {
+      "action": "STOP",
+      "backend": "qwen3:0.6b",
+      "e2e_ms": 76.55662500019389,
+      "model_ms": 73.994,
+      "text": "Stop immediately",
+      "expected": "STOP",
+      "correct": true
+    },
+    {
+      "action": "REJECT",
+      "backend": "qwen3:0.6b",
+      "e2e_ms": 85.95512500005498,
+      "model_ms": 83.545,
+      "text": "Go somewhere",
+      "expected": "REJECT",
+      "correct": true
+    }
+  ],
+  "accuracy": 0.5625,
+  "invalid_output_rate": 0.0,
+  "median_ms": 85.77116650008065,
+  "p95_ms": 1428.4719170000244
+}

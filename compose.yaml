@@ -1,0 +1,29 @@
+services:
+  ros:
+    image: raptor:jazzy-local
+    build: ./docker
+    platform: linux/arm64
+    working_dir: /raptor_ws
+    init: true
+    network_mode: bridge
+    cpus: 4
+    mem_limit: 4g
+    shm_size: 512m
+    ports:
+      - "127.0.0.1:6080:6080"
+    environment:
+      ROS_DOMAIN_ID: "42"
+      ROS_LOCALHOST_ONLY: "1"
+      RAPTOR_PASSIVE_TOES: "${RAPTOR_PASSIVE_TOES:-false}"
+      DISPLAY: ":99"
+      LIBGL_ALWAYS_SOFTWARE: "1"
+    volumes:
+      - ./src:/raptor_ws/src:ro
+      - raptor_build:/raptor_ws/build
+      - raptor_install:/raptor_ws/install
+      - raptor_log:/raptor_ws/log
+
+volumes:
+  raptor_build:
+  raptor_install:
+  raptor_log:

@@ -1,0 +1,7 @@
+{"action": "STAND", "backend": "qwen3:0.6b", "e2e_ms": 1167.8444999997737, "model_ms": 119.2}
+{"id": "959d44b5-f3ff-413e-87fd-a1ed96ff1340", "action": "STAND", "sent_at": 1790474122.289254}
+{"action": "SEARCH_EAST", "backend": "qwen3:0.6b", "e2e_ms": 112.7982080001857, "model_ms": 86.222999}
+{"id": "687f2bff-965a-475b-b603-1960f3dcf3bc", "action": "SEARCH_EAST", "sent_at": 1790474156.5988648}
+{"id": "2bbc5375-fda2-45b6-9273-70aeb37d68de", "action": "STOP", "sent_at": 1790474158.356093}
+{"action": "STAND", "backend": "qwen3:0.6b", "e2e_ms": 80.04779200018675, "model_ms": 66.453}
+{"id": "115d7612-a865-477a-ab56-ae29d799d000", "action": "STAND", "sent_at": 1790474161.7023559}

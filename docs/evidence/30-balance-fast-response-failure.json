@@ -1,0 +1,342 @@
+{
+  "passed": false,
+  "samples": [
+    {
+      "sim_seconds": 0.0009999999999994458,
+      "roll": -0.015306133632132892,
+      "pitch": -1.6276763751008615e-08,
+      "roll_rate": 0.0027710480187357845,
+      "roll_target": 0.37,
+      "requested_roll_target": 0.381512451171875,
+      "actual_left_hip_roll": -0.3399998168350068,
+      "margin": -0.024730745125590974,
+      "desired_margin": -0.0003760525684019132,
+      "contacts": {
+        "left": {
+          "recent": true,
+          "force_z": 169.49508678492114
+        },
+        "right": {
+          "recent": false,
+          "force_z": 0.0
+        }
+      }
+    },
+    {
+      "sim_seconds": 0.021999999999998465,
+      "roll": -0.015144754504708504,
+      "pitch": 1.9615550446244846e-08,
+      "roll_rate": 0.012871191413656212,
+      "roll_target": 0.382196044921875,
+      "requested_roll_target": 0.382196044921875,
+      "actual_left_hip_roll": -0.3444901807241322,
+      "margin": -0.02218470985933501,
+      "desired_margin": -6.820689273156875e-05,
+      "contacts": {
+        "left": {
+          "recent": true,
+          "force_z": 0.0
+        },
+        "right": {
+          "recent": false,
+          "force_z": 0.0
+        }
+      }
+    },
+    {
+      "sim_seconds": 0.041999999999999815,
+      "roll": -0.0059447373637996305,
+      "pitch": 0.0001721842776078311,
+      "roll_rate": 0.5761786141565468,
+      "roll_target": 0.412196044921875,
+      "requested_roll_target": 0.421502685546875,
+      "actual_left_hip_roll": -0.35736105803891527,
+      "margin": -0.02027138553954718,
+      "desired_margin": 0.017107016303782415,
+      "contacts": {
+        "left": {
+          "recent": true,
+          "force_z": 0.0
+        },
+        "right": {
+          "recent": true,
+          "force_z": 152.68199648756888
+        }
+      }
+    },
+    {
+      "sim_seconds": 0.06299999999999883,
+      "roll": 0.003491816767818402,
+      "pitch": 0.0002396201883903836,
+      "roll_rate": 0.4436160772021199,
+      "roll_target": 0.425091552734375,
+      "requested_roll_target": 0.425091552734375,
+      "actual_left_hip_roll": -0.37166534832211895,
+      "margin": -0.017669585709651242,
+      "desired_margin": 0.013413236819098147,
+      "contacts": {
+        "left": {
+          "recent": true,
+          "force_z": 0.0
+        },
+        "right": {
+          "recent": true,
+          "force_z": 149.45377494578025
+        }
+      }
+    },
+    {
+      "sim_seconds": 0.08399999999999963,
+      "roll": 0.014643037686819139,
+      "pitch": -5.300600166542882e-05,
+      "roll_rate": 0.7211468266759582,
+      "roll_target": 0.449957275390625,
+      "requested_roll_target": 0.449957275390625,
+      "actual_left_hip_roll": -0.39217498501706766,
+      "margin": -0.012532607689478864,
+      "desired_margin": 0.02207369593088332,
+      "contacts": {
+        "left": {
+          "recent": true,
+          "force_z": 0.0
+        },
+        "right": {
+          "recent": true,
+          "force_z": 133.43395449733998
+        }
+      }
+    },
+    {
+      "sim_seconds": 0.10499999999999865,
+      "roll": 0.020474163903477092,
+      "pitch": -0.0004626922553214238,
+      "roll_rate": 0.10607686715385892,
+      "roll_target": 0.426373291015625,
+      "requested_roll_target": 0.426373291015625,
+      "actual_left_hip_roll": -0.40503919095689,
+      "margin": -0.0086222426386669,
+      "desired_margin": 0.00379653093172008,
+      "contacts": {
+        "left": {
+          "recent": true,
+          "force_z": 0.0
+        },
+        "right": {
+          "recent": true,
+          "force_z": 138.86496420467174
+        }
+      }
+    },
+    {
+      "sim_seconds": 0.12599999999999945,
+      "roll": 0.029620643989579046,
+      "pitch": -0.00013251742043146952,
+      "roll_rate": 0.6275798449687651,
+      "roll_target": 0.449957275390625,
+      "requested_roll_target": 0.449957275390625,
+      "actual_left_hip_roll": -0.42796552258624204,
+      "margin": -0.0008788974769390612,
+      "desired_margin": 0.019716014668750323,
+      "contacts": {
+        "left": {
+          "recent": true,
+          "force_z": 0.0
+        },
+        "right": {
+          "recent": true,
+          "force_z": 0.0
+        }
+      }
+    },
+    {
+      "sim_seconds": 0.14699999999999847,
+      "roll": 0.019938393795735858,
+      "pitch": 0.0002324601824272529,
+      "roll_rate": -0.40935786622360065,
+      "roll_target": 0.419957275390625,
+      "requested_roll_target": 0.39971313476562503,
+      "actual_left_hip_roll": -0.4307941385394233,
+      "margin": 0.0064475166813826035,
+      "desired_margin": -0.011682584172835943,
+      "contacts": {
+        "left": {
+          "recent": true,
+          "force_z": 0.0
+        },
+        "right": {
+          "recent": true,
+          "force_z": 413.25338626015883
+        }
+      }
+    },
+    {
+      "sim_seconds": 0.16699999999999982,
+      "roll": 0.008314658174796857,
+      "pitch": -4.1653165137407284e-06,
+      "roll_rate": -0.9005165899030765,
+      "roll_target": 0.38995727539062497,
+      "requested_roll_target": 0.36203002929687506,
+      "actual_left_hip_roll": -0.4342591061238444,
+      "margin": 0.015412167816368144,
+      "desired_margin": -0.026766057951848388,
+      "contacts": {
+        "left": {
+          "recent": true,
+          "force_z": 0.0
+        },
+        "right": {
+          "recent": true,
+          "force_z": 0.0
+        }
+      }
+    },
+    {
+      "sim_seconds": 0.18799999999999883,
+      "roll": -0.008004711208794386,
+      "pitch": -0.00045848311939561095,
+      "roll_rate": -0.8875122561232945,
+      "roll_target": 0.35995727539062494,
+      "requested_roll_target": 0.34485473632812513,
+      "actual_left_hip_roll": -0.4330092231970793,
+      "margin": 0.02495658429338092,
+      "desired_margin": -0.026865509019962666,
+      "contacts": {
+        "left": {
+          "recent": true,
+          "force_z": 401.7548343283229
+        },
+        "right": {
+          "recent": true,
+          "force_z": 0.0
+        }
+      }
+    },
+    {
+      "sim_seconds": 0.20899999999999963,
+      "roll": -0.03296386440101202,
+      "pitch": -0.00046344919679726495,
+      "roll_rate": -1.3743895816920675,
+      "roll_target": 0.3299572753906249,
+      "requested_roll_target": 0.29273071289062497,
+      "actual_left_hip_roll": -0.4233958972166823,
+      "margin": 0.03529872632571916,
+      "desired_margin": -0.042220603382792384,
+      "contacts": {
+        "left": {
+          "recent": true,
+          "force_z": 241.07863852948915
+        },
+        "right": {
+          "recent": true,
+          "force_z": 0.0
+        }
+      }
+    },
+    {
+      "sim_seconds": 0.22999999999999865,
+      "roll": -0.06781792835385414,
+      "pitch": -0.0003852431205749703,
+      "roll_rate": -1.821435381027486,
+      "roll_target": 0.2999572753906249,
+      "requested_roll_target": 0.231549072265625,
+      "actual_left_hip_roll": -0.40329294788910725,
+      "margin": 0.04525980348391298,
+      "desired_margin": -0.0566775992814402,
+      "contacts": {
+        "left": {
+          "recent": true,
+          "force_z": 243.33200893447093
+        },
+        "right": {
+          "recent": true,
+          "force_z": 0.0
+        }
+      }
+    },
+    {
+      "sim_seconds": 0.25099999999999945,
+      "roll": -0.10985969983266078,
+      "pitch": -0.00030635463266309726,
+      "roll_rate": -2.055188702220876,
+      "roll_target": 0.26995727539062486,
+      "requested_roll_target": 0.17267456054687497,
+      "actual_left_hip_roll": -0.3753351964145033,
+      "margin": 0.05480328302872371,
+      "desired_margin": -0.0649514520616061,
+      "contacts": {
+        "left": {
+          "recent": true,
+          "force_z": 308.94485072096154
+        },
+        "right": {
+          "recent": true,
+          "force_z": 0.0
+        }
+      }
+    },
+    {
+      "sim_seconds": 0.27199999999999847,
+      "roll": -0.1555379514444885,
+      "pitch": -0.00012842236308488762,
+      "roll_rate": -2.1004899356718765,
+      "roll_target": 0.23995727539062486,
+      "requested_roll_target": 0.11858520507812499,
+      "actual_left_hip_roll": -0.34431400269706164,
+      "margin": 0.06507820051270907,
+      "desired_margin": -0.06768083661349095,
+      "contacts": {
+        "left": {
+          "recent": true,
+          "force_z": 645.0188869936424
+        },
+        "right": {
+          "recent": true,
+          "force_z": 0.0
+        }
+      }
+    },
+    {
+      "sim_seconds": 0.2919999999999998,
+      "roll": -0.20086041096034282,
+      "pitch": 1.2492480028321902e-05,
+      "roll_rate": -2.0239419127651606,
+      "roll_target": 0.20995727539062486,
+      "requested_roll_target": 0.10004272460937501,
+      "actual_left_hip_roll": -0.3130279068847794,
+      "margin": 0.07536493105713772,
+      "desired_margin": -0.0667440697117651,
+      "contacts": {
+        "left": {
+          "recent": true,
+          "force_z": 246.0625726446074
+        },
+        "right": {
+          "recent": true,
+          "force_z": 0.0
+        }
+      }
+    },
+    {
+      "sim_seconds": 0.31299999999999883,
+      "roll": -0.24528548173938589,
+      "pitch": 0.00012094973501787595,
+      "roll_rate": -1.9972707265598542,
+      "roll_target": 0.17995727539062487,
+      "requested_roll_target": 0.10004272460937501,
+      "actual_left_hip_roll": -0.28243132482218425,
+      "margin": 0.08587648479142677,
+      "desired_margin": -0.0672766862489772,
+      "contacts": {
+        "left": {
+          "recent": true,
+          "force_z": 245.8051011002124
+        },
+        "right": {
+          "recent": true,
+          "force_z": 0.0
+        }
+      }
+    }
+  ],
+  "error": "Body tilt exceeded 0.25 rad"
+}

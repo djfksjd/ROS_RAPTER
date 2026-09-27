@@ -1,0 +1,12 @@
+test_invalid_joint_feedback (test_safety.SafetyTests.test_invalid_joint_feedback) ... ok
+test_invalid_text (test_safety.SafetyTests.test_invalid_text) ... ok
+test_model_cannot_inject_motor_values_or_code (test_safety.SafetyTests.test_model_cannot_inject_motor_values_or_code) ... ok
+test_passive_feedback_does_not_replace_active_joints (test_safety.SafetyTests.test_passive_feedback_does_not_replace_active_joints) ... ok
+test_pause_requires_explicit_resume (test_safety.SafetyTests.test_pause_requires_explicit_resume) ... ok
+test_stop_latches_and_cannot_be_resumed (test_safety.SafetyTests.test_stop_latches_and_cannot_be_resumed) ... ok
+test_unverified_navigation_is_rejected (test_safety.SafetyTests.test_unverified_navigation_is_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.000s
+
+OK
