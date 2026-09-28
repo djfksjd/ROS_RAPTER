@@ -70,3 +70,4 @@ File 34 verifies that refused development probes emit no trajectory commands.
 - `55-joint-load-reanalysis.json`: 54번 재분석, 명령으로 설명 안 되는 속도 한도 표본과 모서리 접촉.
 - `56-lateral-support-feasibility.json`: 평평한 발 정적 한 발 지지의 측방 COM 여유(오프라인 FK).
 - `57-mujoco-crouch-standing.json`, `57-mujoco-zero-start-failure.json`: MuJoCo 변환 모델 정적 기립 비교.
+- `58-mujoco-lateral-rocking.json`: MuJoCo open-loop 흔들기/보폭 견고성(60s, 질량·마찰 변화). 보행 성공 아님.
