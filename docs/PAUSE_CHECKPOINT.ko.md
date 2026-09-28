@@ -61,3 +61,11 @@ Qwen/NanoJev 기본 STAND/STOP 및 ROS 환경 복구는 기존 검증 기록에 
 GitHub: 소스, Blender 원본, 메시, 문서, 실제 검증 기록과 개발 브랜치.
 비공개 Hugging Face: 최신 전체 Git bundle 및 기존 Qwen/NanoJev 모델 자산.
 .env/토큰/가상환경/build/install/log는 백업 제외. 재현 지침은 저장소에 있다.
+
+## 2026-09-28 사용 한도로 중단 (WIP, 미검증)
+
+사용자 결정: 꼬리·머리·디테일 반영(다리 길이·자세 유지). 레퍼런스 Tripo GLB는 참고용만(저장소 미포함).
+완료: digitigrade 꼬리 링크 0.5→0.95m(0.8kg, 폭 0.065, legacy URDF 수치 동일 확인), 쐐기형 머리·꼬리 16마디·
+기어열·볼트·배선 등 디테일(349부품, morphloom review-pass), 링크 GLB 탄젠트 포함 재출력(14MB).
+미검증: 꼬리 변경 후 MuJoCo 기립·흔들기·보폭, Gazebo 기립·줄무늬 음영 해소, RViz GLB 표시.
+재개: MuJoCo 재검증 → Gazebo(spawn_z 0.1075) 기립·스크린샷 → RViz → 결과 문서화.

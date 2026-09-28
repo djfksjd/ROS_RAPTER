@@ -25,6 +25,11 @@
   <xacro:property name="shin_length" value="0.30"/>
   <!-- Legacy inertias are the original literals; digitigrade uses the box formula. -->
   <xacro:property name="thigh_ixx" value="${0.0140 if legacy else 1.5*(0.10**2+thigh_length**2)/12}"/>
+  <!-- Tail link: legacy 0.50 m; digitigrade 0.95 m (longer, slimmer, same 0.8 kg; COM moves ~1 cm aft). -->
+  <xacro:property name="tail_length" value="${0.50 if legacy else 0.95}"/>
+  <xacro:property name="tail_width" value="${0.075 if legacy else 0.065}"/>
+  <xacro:property name="tail_ixx" value="${0.0008 if legacy else 0.8*2*tail_width**2/12}"/>
+  <xacro:property name="tail_iyy" value="${0.0169 if legacy else 0.8*(tail_length**2+tail_width**2)/12}"/>
   <xacro:property name="shin_ixx" value="${0.0089 if legacy else 1.1*(0.085**2+shin_length**2)/12}"/>
   <!-- Legacy thigh/shin meshes fit only the legacy lengths. -->
   <xacro:property name="detailed" value="${'$(arg detailed_visuals)' == 'true'}"/>
@@ -792,10 +797,10 @@
 
     <xacro:unless value="${detailed}"><visual>
       <!-- Pitch 관절에서 뒤쪽으로 0.5m 뻗는 꼬리 -->
-      <origin xyz="-0.25 0 0" rpy="0 0 0"/>
+      <origin xyz="${-tail_length/2} 0 0" rpy="0 0 0"/>
 
       <geometry>
-        <box size="0.50 0.075 0.075"/>
+        <box size="${tail_length} ${tail_width} ${tail_width}"/>
       </geometry>
 
       <material name="tail_gray">
@@ -810,25 +815,25 @@
     </xacro:if>
 
     <collision>
-      <origin xyz="-0.25 0 0" rpy="0 0 0"/>
+      <origin xyz="${-tail_length/2} 0 0" rpy="0 0 0"/>
 
       <geometry>
-        <box size="0.50 0.075 0.075"/>
+        <box size="${tail_length} ${tail_width} ${tail_width}"/>
       </geometry>
     </collision>
 
     <inertial>
-      <origin xyz="-0.25 0 0" rpy="0 0 0"/>
+      <origin xyz="${-tail_length/2} 0 0" rpy="0 0 0"/>
 
       <mass value="0.8"/>
 
       <inertia
-        ixx="0.0008"
+        ixx="${tail_ixx}"
         ixy="0.0"
         ixz="0.0"
-        iyy="0.0169"
+        iyy="${tail_iyy}"
         iyz="0.0"
-        izz="0.0169"/>
+        izz="${tail_iyy}"/>
     </inertial>
 
   </link>

@@ -63,7 +63,7 @@ for link, objs in sorted(groups.items()):
     bpy.ops.object.select_all(action='DESELECT')
     joined.select_set(True)
     bpy.ops.export_scene.gltf(filepath=str(out/f'{link}.glb'), export_format='GLB', use_selection=True,
-                              export_yup=True, export_apply=True)
+                              export_yup=True, export_apply=True, export_tangents=True)
 print('exported', len(links), 'links to', out)
 
 if preview:
@@ -94,11 +94,13 @@ if preview:
     camera.data.lens = 55
     scene.collection.objects.link(camera)
     scene.camera = camera
-    for view, location in (('side', (0.1, -3.4, 0.55)), ('three_quarter', (2.3, -2.4, 1.0)),
-                           ('front', (3.2, 0.0, 0.6))):
+    views = (('side', (0.1, -3.6, 0.6), (-.12, 0, .5), 55), ('three_quarter', (2.4, -2.5, 1.1), (-.12, 0, .5), 55),
+             ('front', (3.3, 0.0, 0.65), (0, 0, .5), 55), ('detail_head', (1.3, -.9, 1.0), (.2, 0, .68), 60),
+             ('detail_foot', (.75, -.75, .25), (.08, -.18, .05), 60))
+    for view, location, target, lens in views:
         camera.location = location
-        direction = Vector((-.12, 0, .42))-camera.location
-        camera.rotation_euler = direction.to_track_quat('-Z', 'Y').to_euler()
+        camera.data.lens = lens
+        camera.rotation_euler = (Vector(target)-camera.location).to_track_quat('-Z', 'Y').to_euler()
         scene.render.filepath = f'{preview}_{view}.png'
         bpy.ops.render.render(write_still=True)
     print('preview', preview)
