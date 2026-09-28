@@ -42,13 +42,16 @@ HOLDOUT = [
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--backend', choices=['qwen', 'nanojev'], required=True)
+    parser.add_argument('--backend', choices=['qwen', 'nanojev', 'laya'], required=True)
     parser.add_argument('--output', required=True)
     parser.add_argument('--adapter')
     parser.add_argument('--holdout',action='store_true')
     args = parser.parse_args()
     if args.backend == 'qwen':
         model = Qwen()
+    elif args.backend == 'laya':
+        from laya_backend import Laya
+        model = Laya()
     else:
         from nanojev import NanoJev
         model = NanoJev(adapter=args.adapter)

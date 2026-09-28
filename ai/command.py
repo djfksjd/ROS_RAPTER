@@ -22,7 +22,7 @@ def dispatch(action):
 def main():
     p=argparse.ArgumentParser()
     p.add_argument('text',nargs='?')
-    p.add_argument('--backend',choices=['qwen','nanojev'],default='qwen')
+    p.add_argument('--backend',choices=['qwen','nanojev','laya'],default='qwen')
     p.add_argument('--adapter',help='Optional trained NanoJev decision-head safetensors')
     p.add_argument('--execute',action='store_true')
     p.add_argument('--stop',action='store_true')
@@ -31,6 +31,9 @@ def main():
         print(json.dumps(dispatch('STOP')));return
     if not args.text:p.error('text is required unless --stop is used')
     if args.backend=='qwen':model=Qwen()
+    elif args.backend=='laya':
+        from laya_backend import Laya
+        model=Laya()
     else:
         from nanojev import NanoJev
         model=NanoJev(adapter=args.adapter)

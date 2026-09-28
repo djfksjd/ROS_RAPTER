@@ -9,6 +9,9 @@
   is a separate task adaptation, not an upstream release.
 - Qwen3-0.6B: https://huggingface.co/Qwen/Qwen3-0.6B (Apache-2.0), distributed here
   through Ollama's `qwen3:0.6b` quantized package.
+- Laya: https://github.com/NandhaKishorM/laya (Apache-2.0, code and weights),
+  optional backend `ai/laya_backend.py`; checkpoint revision pinned in `ai/models.json`.
+  Weights are not bundled. See `docs/LAYA_REVIEW.ko.md`.
 - Ollama: https://github.com/ollama/ollama (MIT).
 - Blender meshes are generated locally by `modeling/build_visuals.py`. Reference
   imagery informed the appearance only; no dimensional or fabrication claim follows

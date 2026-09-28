@@ -3,3 +3,4 @@ transformers==5.17.0
 safetensors==0.8.0
 numpy==2.5.3
 huggingface_hub==1.33.0
+laya==0.3.21

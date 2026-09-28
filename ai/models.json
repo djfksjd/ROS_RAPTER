@@ -15,5 +15,16 @@
     "runtime": "MPS FP32, upstream architecture and tokenizer, local device adapter",
     "task_adapter": "ai/artifacts/raptor-head.safetensors",
     "task_adapter_training": "108 labeled command examples; frozen backbone; 180 epochs; seed 7"
+  },
+  "laya": {
+    "repository": "https://github.com/NandhaKishorM/laya",
+    "package": "laya==0.3.21",
+    "license": "Apache-2.0",
+    "model_repository": "convaiinnovations/laya-multilingual",
+    "revisions": {
+      "multilingual": "e4e9ddf21a7b1903b7acffd8814ad4307bf63a67"
+    },
+    "download_mb": 678,
+    "status": "backend added; weights not downloaded or evaluated yet"
   }
 }
