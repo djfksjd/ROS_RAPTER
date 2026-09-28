@@ -61,11 +61,13 @@ def roll_pitch(quat):
 
 
 def run(amplitude, frequency, cycles=6, ramp=1., guard=.25, model_path=None, crouch_hip=-.15, log_every=0,
-        lift=0., lift_width=.35, lift_centers=(('left', .28), ('right', .78)), stride=0., rhythm=None, friction=None, mass_scale=1.):
+        lift=0., lift_width=.35, lift_centers=(('left', .28), ('right', .78)), stride=0., rhythm=None, friction=None, mass_scale=1., smooth_swing=False, pitch_feedback=None, servo_kv=None):
     model = mujoco.MjModel.from_xml_path(model_path or str(HERE/'raptor.xml'))
     if friction is not None:
         model.geom_friction[:, 0] = friction
     model.body_mass[:] *= mass_scale
+    if servo_kv is not None:  # velocity-servo stiffness is an unvalidated approximation of the DART servo
+        model.actuator_gainprm[:, 0], model.actuator_biasprm[:, 2] = servo_kv, -servo_kv
     data = mujoco.MjData(model)
     pose = crouch(crouch_hip)
     for name, value in pose.items():
@@ -111,12 +113,21 @@ def run(amplitude, frequency, cycles=6, ramp=1., guard=.25, model_path=None, cro
                 # Stride: hip swings forward (negative pitch) across the unloaded window and returns
                 # linearly during stance; ankle cancels it so the sole stays parallel in pitch.
                 u = (offset+lift_width/2)/lift_width
-                swing = -stride*(u-.5) if 0 <= u <= 1 else -stride*(.5-((offset-lift_width/2) % 1)/(1-lift_width))
+                if 0 <= u <= 1:  # swing: cosine profile, zero hip velocity at liftoff and touchdown
+                    swing = stride*.5*math.cos(math.pi*u) if smooth_swing else -stride*(u-.5)
+                else:
+                    swing = -stride*(.5-((offset-lift_width/2) % 1)/(1-lift_width))
                 swing *= min(1., max(0., phase-ramp))
                 target |= {f'{side}_hip_pitch_joint': pose[f'{side}_hip_pitch_joint']-h/2+swing,
                            f'{side}_knee_pitch_joint': pose[f'{side}_knee_pitch_joint']+h,
                            f'{side}_ankle_pitch_joint': pose[f'{side}_ankle_pitch_joint']-h/2-swing}
                 lifting[side] = bump > .5
+            if pitch_feedback:  # ankle strategy on base pitch; position targets only, clipped
+                kp, kd, limit = pitch_feedback
+                correction = max(-limit, min(limit, kp*roll_pitch(data.qpos[3:7])[1]+kd*data.qvel[4]))
+                for side in ('left', 'right'):
+                    name = f'{side}_ankle_pitch_joint'
+                    target[name] = target.get(name, pose[name])+correction
             servo.set_target(target)
         servo.step(data)
         roll, pitch = roll_pitch(data.qpos[3:7])
