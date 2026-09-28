@@ -60,8 +60,11 @@ def roll_pitch(quat):
 
 
 def run(amplitude, frequency, cycles=6, ramp=1., guard=.25, model_path=None, crouch_hip=-.15, log_every=0,
-        lift=0., lift_width=.35, lift_centers=(('left', .28), ('right', .78)), stride=0.):
+        lift=0., lift_width=.35, lift_centers=(('left', .28), ('right', .78)), stride=0., rhythm=None, friction=None, mass_scale=1.):
     model = mujoco.MjModel.from_xml_path(model_path or str(HERE/'raptor.xml'))
+    if friction is not None:
+        model.geom_friction[:, 0] = friction
+    model.body_mass[:] *= mass_scale
     data = mujoco.MjData(model)
     pose = crouch(crouch_hip)
     for name, value in pose.items():
@@ -76,6 +79,7 @@ def run(amplitude, frequency, cycles=6, ramp=1., guard=.25, model_path=None, cro
     unloaded = {'left': 0, 'right': 0}
     longest, current = {'left': 0., 'right': 0.}, {'left': 0., 'right': 0.}
     both_off = 0
+    both_run = longest_both = 0.
     worst = {'tilt': 0., 'roll': 0., 'pitch': 0.}
     stopped_at, samples = None, []
     lifting = {'left': False, 'right': False}
@@ -91,9 +95,13 @@ def run(amplitude, frequency, cycles=6, ramp=1., guard=.25, model_path=None, cro
         t = k*dt
         if stopped_at is None and t >= settle:
             phase = t-settle
-            r = amplitude*min(1., phase/ramp)*math.sin(2*math.pi*frequency*phase)
+            if rhythm is None:
+                r = amplitude*min(1., phase/ramp)*math.sin(2*math.pi*frequency*phase)
+                cycle = (phase*frequency) % 1
+            else:  # closed loop: oscillator phase replaces time phase
+                r = min(1., phase/ramp)*rhythm.step(roll_pitch(data.qpos[3:7])[0])
+                cycle = (rhythm.theta/(2*math.pi)) % 1
             target = {'left_hip_roll_joint': -r, 'right_hip_roll_joint': r}
-            cycle = (phase*frequency) % 1
             for side, center in lift_centers:
                 offset = (cycle-center+.5) % 1-.5
                 bump = math.cos(math.pi*offset/lift_width)**2 if abs(offset) < lift_width/2 and phase >= ramp else 0.
@@ -125,6 +133,8 @@ def run(amplitude, frequency, cycles=6, ramp=1., guard=.25, model_path=None, cro
                 lowest = min(lowest_z(model, data, g) for g in feet[side])
                 clearance[side] = max(clearance[side], lowest)
         both_off += off['left'] and off['right']
+        both_run = both_run+dt if off['left'] and off['right'] else 0.
+        longest_both = max(longest_both, both_run)
         for s in off:
             if off[s] and not off['left' if s == 'right' else 'right']:
                 unloaded[s] += 1
@@ -152,7 +162,9 @@ def run(amplitude, frequency, cycles=6, ramp=1., guard=.25, model_path=None, cro
             'stopped_by_guard_at_s': stopped_at, 'max_tilt_rad': worst['tilt'],
             'max_body_roll_rad': worst['roll'], 'max_body_pitch_rad': worst['pitch'],
             'single_support_fraction': {s: unloaded[s]/active for s in unloaded},
-            'longest_single_support_s': longest, 'both_feet_unloaded_fraction': both_off/active,
+            'longest_single_support_s': longest, 'both_feet_unloaded_fraction': both_off/active, 'longest_both_unloaded_s': longest_both,
+            'friction': friction, 'mass_scale': mass_scale,
+            'final_amplitude_rad': rhythm.amplitude if rhythm else amplitude,
             'lift_rad': lift, 'stride_rad': stride, 'final_yaw_rad': yaw(data.qpos[3:7]), 'max_swing_clearance_m': clearance,
             'contact_slip_max_m_s': slip,
             'contact_slip_mean_m_s': {k: slip_sum[k]/loaded_time[k] if loaded_time[k] else None for k in slip},

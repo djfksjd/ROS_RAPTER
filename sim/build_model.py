@@ -30,6 +30,8 @@ def build(urdf_text):
     spec.modelname = 'raptor'
     spec.option.timestep = .001
     spec.option.integrator = mujoco.mjtIntegrator.mjINT_IMPLICITFAST
+    # Pyramidal cone made static standing creep/wobble depending on mu (0.5-1.0); elliptic did not.
+    spec.option.cone = mujoco.mjtCone.mjCONE_ELLIPTIC
     world = spec.worldbody
     floor = world.add_geom(name='floor', type=mujoco.mjtGeom.mjGEOM_PLANE, size=[0, 0, .05])
     floor.friction = [1., .005, .0001]

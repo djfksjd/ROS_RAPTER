@@ -2,7 +2,7 @@
 <mujoco model="raptor">
   <compiler angle="radian"/>
 
-  <option timestep="0.001" integrator="implicitfast"/>
+  <option timestep="0.001" integrator="implicitfast" cone="elliptic"/>
 
   <worldbody>
     <geom name="floor" size="0 0 0.05" type="plane"/>
