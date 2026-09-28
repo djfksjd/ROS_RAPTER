@@ -54,10 +54,10 @@ class Curriculum(BaseCallback):
         return True
 
 
-def make(terrain, level, cmd, vel_scale, seed, actuator='urdf', dof=10):
+def make(terrain, level, cmd, vel_scale, seed, actuator='urdf', dof=10, sole='flat'):
     def thunk():
         return RaptorEnv(terrain=terrain, level=level, cmd_max=cmd, vel_scale=vel_scale, seed=seed, actuator=actuator,
-                         dof=dof)
+                         dof=dof, sole=sole)
     return thunk
 
 
@@ -73,6 +73,7 @@ def main():
     p.add_argument('--vel-scale', type=float, default=1.)
     p.add_argument('--actuator', default='urdf', help='joint speed spec: urdf or r01a (hypothetical)')
     p.add_argument('--dof', type=int, choices=[10, 12], default=10, help='12 = with ankle roll')
+    p.add_argument('--sole', choices=['flat', 'rocker'], default='flat')
     p.add_argument('--init', help='model.zip to continue from (its vecnorm.pkl is loaded too)')
     p.add_argument('--seed', type=int, default=0)
     a = p.parse_args()
@@ -80,7 +81,7 @@ def main():
     out.mkdir(parents=True, exist_ok=True)
     (out/'args.json').write_text(json.dumps(vars(a), indent=1))
     torch.set_num_threads(1)
-    env = VecMonitor(SubprocVecEnv([make(a.terrain, a.level, a.cmd, a.vel_scale, a.seed*100+i, a.actuator, a.dof) for i in range(a.envs)]))
+    env = VecMonitor(SubprocVecEnv([make(a.terrain, a.level, a.cmd, a.vel_scale, a.seed*100+i, a.actuator, a.dof, a.sole) for i in range(a.envs)]))
     if a.init:
         env = VecNormalize.load(str(Path(a.init).with_name('vecnorm.pkl')), env)
         model = PPO.load(a.init, env=env, device='cpu')

@@ -26,7 +26,8 @@ DEFAULT = {**crouch(-.1, .5), 'left_hip_roll_joint': 0., 'right_hip_roll_joint':
 # rad per unit action, by joint type; the active joints are read from the model's actuators
 SCALE = {'hip_roll': .3, 'hip_pitch': .6, 'knee_pitch': .8, 'ankle_pitch': .5, 'ankle_roll': .3,
          'tail_yaw': .4, 'tail_pitch': .3}
-MODELS = {10: SIM/'raptor_digitigrade.xml', 12: SIM/'raptor_digitigrade_ankleroll.xml'}
+MODELS = {(10, 'flat'): SIM/'raptor_digitigrade.xml', (12, 'flat'): SIM/'raptor_digitigrade_ankleroll.xml',
+          (12, 'rocker'): SIM/'raptor_digitigrade_ankleroll_rocker.xml'}
 
 
 def joint_type(name):
@@ -52,12 +53,12 @@ class RaptorEnv(gym.Env):
 
     def __init__(self, terrain='flat', level=0., cmd_max=(.5, .2, .5), vel_scale=1., episode_s=20.,
                  randomize=True, seed=None, render_mode=None, model_path=None, servo_kv=SERVO_KV,
-                 actuator='urdf', dof=10):
+                 actuator='urdf', dof=10, sole='flat'):
         self.kinds = [terrain] if isinstance(terrain, str) else list(terrain)
         self.level, self.cmd_max, self.vel_scale = level, np.array(cmd_max, float), vel_scale
         self.servo_kv, self.actuator = servo_kv, actuator
         self.episode_steps, self.randomize, self.render_mode = int(episode_s/CONTROL_DT), randomize, render_mode
-        self.model_path = str(model_path or MODELS[dof])
+        self.model_path = str(model_path or MODELS[dof, sole])
         probe = mujoco.MjModel.from_xml_path(self.model_path)
         names = [probe.actuator(i).name for i in range(probe.nu)]
         self.active = names
