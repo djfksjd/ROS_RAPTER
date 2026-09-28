@@ -1,0 +1,207 @@
+{
+  "schema": "morphloom.job-result/0.1",
+  "jobId": "raptor-digitigrade-visual",
+  "target": "review",
+  "assemblyFingerprint": "079ce99c730d4aeb863ef1e3a4486d4bc8a35829686f601458e4ed92efa127ee",
+  "sourceAudit": {
+    "schema": "morphloom.source-audit/0.1",
+    "pass": true,
+    "receipts": [
+      {
+        "viewId": "view_01",
+        "path": "work/raptor/sources/design.png",
+        "sha256": "808e5a5c19401295d3a9d9ed51971055ff76599fdb96a743cf2daca91276b04f",
+        "bytes": 14618,
+        "mimeType": "image/png",
+        "width": 2040,
+        "height": 1270
+      },
+      {
+        "viewId": "view_02",
+        "path": "work/raptor/sources/concept.png",
+        "sha256": "ad45bfc3d55671dbb213ef646d80fd2c8330bb218e2158683877b5970be450d0",
+        "bytes": 2192647,
+        "mimeType": "image/png",
+        "width": 1672,
+        "height": 941
+      }
+    ],
+    "blockers": []
+  },
+  "evidenceAudit": {
+    "schema": "morphloom.evidence-claim-audit/0.1",
+    "pass": true,
+    "blockers": [],
+    "warnings": [],
+    "checkedComponents": 165,
+    "checkedDimensions": 6,
+    "recomputedReadiness": {
+      "target": "semi-professional-editable",
+      "profile": "product-visualization",
+      "buildReady": true,
+      "deliveryReady": true,
+      "score": 100,
+      "recommendedRoles": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom",
+        "measurement",
+        "material"
+      ],
+      "presentRecommendedRoles": [
+        "front",
+        "left",
+        "right",
+        "measurement",
+        "material"
+      ],
+      "missingRecommendedRoles": [
+        "rear",
+        "top",
+        "bottom"
+      ],
+      "requiredCapabilities": [
+        "shape",
+        "depth",
+        "scale",
+        "surface",
+        "interfaces"
+      ],
+      "resolvedCapabilities": [
+        "shape",
+        "depth",
+        "scale",
+        "surface",
+        "interfaces"
+      ],
+      "unresolvedCapabilities": [],
+      "strongDimensionProperties": [
+        "foot_pad_length",
+        "foot_pad_width",
+        "metatarsus_length"
+      ],
+      "calibratedViews": [
+        "view_01"
+      ],
+      "identifiedComponentIds": [],
+      "sourceAuditReady": true,
+      "sourceAuditIssues": [],
+      "conflicts": [],
+      "blockers": [],
+      "warnings": [],
+      "nextActions": [
+        "근거 팩을 잠그고 동일 시점 비교·토폴로지·표면·내보내기 게이트 실행"
+      ]
+    }
+  },
+  "route": {
+    "schema": "morphloom.modeling-route/0.1",
+    "request": "10축 디지티그레이드 랩터 로봇 제품의 링크별 부품 어셈블리 시각 외형을 목표 콘셉트 스타일로 상세 제작 (물리 형상은 Xacro 기준)",
+    "domains": [
+      "product"
+    ],
+    "buildAllowed": true,
+    "deliveryAllowed": true,
+    "stages": [
+      {
+        "id": "evidence",
+        "tools": [
+          "evidence-readiness"
+        ],
+        "reason": "Resolve capabilities from drawings, measurements, scans, datasheets, or photographs without imposing a fixed photo count.",
+        "blocking": false
+      },
+      {
+        "id": "reconstruction",
+        "tools": [
+          "camera-calibration",
+          "semantic-part-decomposition",
+          "visual-plan-audit",
+          "visual-hull",
+          "thin-feature-reconstruction",
+          "implicit-surface",
+          "surface-reconstruction",
+          "pbr-reference-audit",
+          "assembly-compiler"
+        ],
+        "reason": "Compile the evidence-supported product representation into editable geometry and material systems.",
+        "blocking": false
+      },
+      {
+        "id": "verification",
+        "tools": [
+          "visual-plan-audit",
+          "part-inventory-audit",
+          "topology-audit",
+          "visual-comparison",
+          "glb-roundtrip",
+          "native-reopen"
+        ],
+        "reason": "Verify geometry, calibrated-view likeness, delivered bytes, and the target application before release.",
+        "blocking": true
+      }
+    ],
+    "blockers": []
+  },
+  "detailAudit": {
+    "pass": false,
+    "modelPass": false,
+    "modelBlockers": [
+      "locked fidelity contract is required",
+      "evidence-first part decomposition contract is required"
+    ],
+    "blockers": [
+      "locked fidelity contract is required",
+      "evidence-first part decomposition contract is required"
+    ],
+    "warnings": [],
+    "evidenceCoverage": 1,
+    "explicitSurfaceCoverage": 1,
+    "microSurfaceCoverage": 1,
+    "semanticDetailCoverage": 1,
+    "finiteTransformCoverage": 1,
+    "duplicateComponentIds": [],
+    "fidelityBlockers": [],
+    "fidelityWarnings": [],
+    "partDecompositionBlockers": [],
+    "partDecompositionWarnings": [],
+    "visualPlanBlockers": [],
+    "visualPlanWarnings": []
+  },
+  "patchReceipts": [],
+  "releaseAllowed": false,
+  "blockers": [],
+  "status": "review-pass",
+  "glbSha256": "235af284cf351bdb61dabc7437c85f3fd46ba2593e131602e6967dfe3ac3d0d1",
+  "repeatGlbSha256": "235af284cf351bdb61dabc7437c85f3fd46ba2593e131602e6967dfe3ac3d0d1",
+  "byteDeterministic": true,
+  "validation": {
+    "status": "pass",
+    "validator": "Khronos glTF Validator",
+    "validatorVersion": "2.0.0-dev.3.10",
+    "errors": 0,
+    "warnings": 0,
+    "infos": 0,
+    "hints": 0,
+    "truncated": false,
+    "issueCodes": [],
+    "independentRead": {
+      "status": "pass",
+      "parser": "glTF Transform WebIO",
+      "nodes": 166,
+      "meshes": 165,
+      "materials": 165,
+      "skins": 0,
+      "animations": 0
+    }
+  },
+  "metrics": {
+    "parts": 165,
+    "triangles": 73988,
+    "vertices": 153563,
+    "bytes": 8459308
+  }
+}

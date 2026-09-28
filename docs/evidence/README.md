@@ -75,3 +75,6 @@ File 34 verifies that refused development probes emit no trajectory commands.
 - `60-mujoco-stride-clean-steps.json`: 보폭+발목 피드백 깨끗한 걸음 지표, servo kv 30/50/100 비교. 조건부 결과.
 - `61-gazebo-servo-step-*.json`: 고정 베이스 servo 계단 응답(발목/무릎/hip, 발가락 유무, 0.5ms, Bullet-FS). DART 발목 포화 결함 재현.
 - `62-gazebo-bullet-featherstone-standing.txt`: Bullet-FS 전신 기립 실패 기록.
+- `63-digitigrade-leg-design.txt`: 디지티그레이드 설계 FK·MuJoCo 비교. Gazebo 항목은 legacy였다는 정정 포함.
+- `63-digitigrade-gazebo-standing.png`: 정정 대상 — legacy 모델 화면(leg_design 미전달).
+- `64-*`: morphloom 외형 digitigrade Gazebo 정지 기립, Blender 렌더, morphloom run report.

@@ -35,7 +35,14 @@
 5. AI: 허용 mission 연결, STOP 우선, 독립 명령 평가와 end-to-end 지연.
 6. 부품 제작 설계: 치수/하중/구동기 선택의 미정 사항을 명시. 이미지로 단정 금지.
 
-## 현재 상태 — 2026-09-28, 방향 A(동적 흔들기 보행) 진행 중
+## 현재 상태 — 2026-09-28, 외형·디지티그레이드 다리 작업
+
+브랜치 feature/digitigrade-appearance. 상세 DIGITIGRADE_APPEARANCE.ko.md.
+leg_design:=digitigrade 추가(기본 legacy, 기존 결과 재현 가능). 10축 유지. morphloom 외형 23개 링크 GLB.
+MuJoCo에서 지지 여유·보폭 견고성 개선, Gazebo 정지 기립 확인. evidence 63의 Gazebo 기록은 legacy였음을 정정.
+다음: 줄무늬 음영 정리, RViz 표시 확인, Gazebo에서 흔들기 재현. 모터 사양 범위는 여전히 사용자 결정 대기.
+
+## 이전 상태 — 방향 A(동적 흔들기 보행)
 
 브랜치 analysis/lateral-support-feasibility. 상세 LATERAL_SUPPORT_FEASIBILITY.ko.md.
 새 Gazebo 실험 없음. 54번 재분석 + 설치 버전 소스 대조 + 오프라인 FK.

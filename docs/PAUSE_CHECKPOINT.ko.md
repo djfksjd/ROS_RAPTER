@@ -1,6 +1,11 @@
 # 체크포인트
 
-## 2026-09-28 재개 결과 (최신)
+## 2026-09-28 외형 단계 (최신)
+
+디지티그레이드 다리 설계와 morphloom 외형 완료(review 초안). DIGITIGRADE_APPEARANCE.ko.md.
+재개 지점: Gazebo에서 digitigrade 흔들기 재현 또는 외형 개선. Gazebo 실행은 --experiment leg_design:=digitigrade.
+
+## 2026-09-28 재개 결과
 
 재개 첫 작업 2번을 기록·소스·오프라인 계산으로 수행했다. 상세 LATERAL_SUPPORT_FEASIBILITY.ko.md.
 - physics 1ms/DART 6.13.2, 제어 100Hz, position 경로 = 10ms 지연 위치의 P 속도 명령(유효 gain 30/s).

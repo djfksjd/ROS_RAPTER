@@ -1,0 +1,11 @@
+Digitigrade design in Gazebo with Morphloom visuals, 2026-09-28 (after the leg_design launch fix).
+Launch: --experiment leg_design:=digitigrade passive_toes (RAPTOR_PASSIVE_TOES=true) crouched_start:=true
+  crouch_hip_pitch:=-0.10 (knee 0.50, ankle -0.40) spawn_z:=0.1075 (lowest collision at -0.1055 m from base_root in crouch).
+robot_description contains the digitigrade/<link>.glb visuals (checked with ros2 param get).
+Pose samples (sim time s, x, z, tilt rad): (1.24, -0.0, 0.10547, 0.0) ... (5.63, -0.0, 0.10547, 0.0); 8 samples, static.
+Earlier attempt with spawn_z 0 put the feet 0.106 m below the ground and the base rose ~1 mm/s: not a valid start.
+Visual meshes: glTF is Y-up; Gazebo did not convert, so each <visual> has origin rpy="pi/2 0 0". RViz GLB display untested.
+Screenshot 64-digitigrade-morphloom-gazebo.png. Blender previews 64-digitigrade-morphloom-blender-*.png show the same
+meshes at the same crouch. Morphloom run report: 64-morphloom-run-report.json (status review-pass, releaseAllowed false:
+fidelity and part-decomposition contracts for a delivery release are not provided).
+Static standing only; no walking in Gazebo yet.
