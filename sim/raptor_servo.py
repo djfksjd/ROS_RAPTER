@@ -42,3 +42,39 @@ class GazeboLikeServo:
         data.ctrl[self.actuators] = -self.gain*(self.read-self.command)*self.update_rate
         mujoco.mj_step(self.model, data)
         self.steps += 1
+
+
+class JTCLikeServo(GazeboLikeServo):
+    """GazeboLikeServo behind a streamed JointTrajectoryController (rock_gz_probe.py path).
+
+    Targets are sampled every `sample` s (zero-order hold, like the probe's stream); each new goal replaces
+    the trajectory and, at every controller tick, the command moves linearly from its value when the goal
+    arrived to the goal over `horizon` s. Approximation of JTC single-point replacement, not a JTC port.
+    """
+
+    def __init__(self, model, sample=.02, horizon=.02, **kwargs):
+        super().__init__(model, **kwargs)
+        self.sample, self.horizon = sample, horizon
+        self.time, self.last_sample, self.goal, self.segment = 0., -np.inf, None, None
+
+    def set_target(self, positions):
+        if self.command is None:
+            raise RuntimeError('call step() once before set_target()')
+        if self.time-self.last_sample < self.sample-1e-9:
+            return
+        self.last_sample = self.time
+        goal = (self.command if self.goal is None else self.goal).copy()
+        for name, value in positions.items():
+            goal[ACTIVE.index(name)] = value
+        self.goal, self.segment = goal, (self.time, self.command.copy(), goal)
+
+    def stop(self):
+        super().stop()
+        self.goal, self.segment = self.command.copy(), None
+
+    def step(self, data):
+        if self.steps % self.period_steps == 0 and self.segment is not None:
+            start, origin, goal = self.segment
+            self.command = origin+(goal-origin)*min(1., (self.time-start)/self.horizon)
+        super().step(data)
+        self.time += self.model.opt.timestep

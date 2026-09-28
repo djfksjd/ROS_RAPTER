@@ -25,3 +25,13 @@ Review fixes (UNI_AI gpt-6-sol review of the probe, applied after local check): 
   nonfinite measurements and is repeated 3x; any exception holds; normal end returns to the crouch; ramp must be > 0.
   Re-run: 20 cycles no STOP (single support L 0.283 R 0.285, max tilt 0.151); STOP test stopped at sim 2.041 s
   ("velocity saturation right_hip_roll_joint -2.000 rad/s"). The stale/clock paths were not exercised in Gazebo.
+Phase-gap follow-up (MuJoCo, sim/raptor_servo.py JTCLikeServo, rock_probe.run(jtc=(sample, horizon))):
+  body roll vs the ideal sine command, A 0.08 / 2 Hz, 40 cycles:
+    instant servo        amp 1.034  lag 15.8 ms
+    jtc (0.02, 0.02)     amp 1.028  lag 40.5 ms   (Gazebo horizon 20 ms: 1.04 / 62 ms)
+    jtc (0.02, 0.05)     amp 0.942  lag 67.4 ms   (Gazebo horizon 50 ms: 0.76 / 97 ms)
+  The streamed-JTC path explains most of the gap (46 -> ~21 ms at 20 ms horizon). A ~21-30 ms lag and extra amplitude
+  loss remain in Gazebo (loaded servo slower than the MuJoCo velocity-actuator approximation; IMU is 50 Hz, <= 20 ms
+  sampling delay in the Gazebo log). Criterion ~20 ms: borderline, not claimed as passed.
+  Stride 0.05 + pitch fb, 60 s, with jtc (0.02, 0.02): kv30 +5.85 m slip/step 0.20 (unchanged), kv100 +4.52 m 0.37-0.38
+  (0.34 without) - the JTC delay does not change the MuJoCo stepping result materially.

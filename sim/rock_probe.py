@@ -13,7 +13,7 @@ import json
 import math
 import numpy as np
 import mujoco
-from raptor_servo import GazeboLikeServo
+from raptor_servo import GazeboLikeServo, JTCLikeServo
 from stand_check import HERE, crouch, place_on_floor
 from step_metrics import steps, summarize
 
@@ -63,7 +63,8 @@ def roll_pitch(quat):
 
 
 def run(amplitude, frequency, cycles=6, ramp=1., guard=.25, model_path=None, crouch_hip=-.15, log_every=0, crouch_knee=.4,
-        lift=0., lift_width=.35, lift_centers=(('left', .28), ('right', .78)), stride=0., rhythm=None, friction=None, mass_scale=1., smooth_swing=False, pitch_feedback=None, servo_kv=None):
+        lift=0., lift_width=.35, lift_centers=(('left', .28), ('right', .78)), stride=0., rhythm=None, friction=None, mass_scale=1., smooth_swing=False, pitch_feedback=None, servo_kv=None,
+        jtc=None):
     model = mujoco.MjModel.from_xml_path(model_path or str(HERE/'raptor.xml'))
     if friction is not None:
         model.geom_friction[:, 0] = friction
@@ -75,7 +76,8 @@ def run(amplitude, frequency, cycles=6, ramp=1., guard=.25, model_path=None, cro
     for name, value in pose.items():
         data.qpos[model.jnt_qposadr[model.joint(name).id]] = value
     place_on_floor(model, data)
-    servo = GazeboLikeServo(model)
+    # jtc=(sample, horizon): emulate the streamed JTC path of rock_gz_probe.py (evidence 68)
+    servo = GazeboLikeServo(model) if jtc is None else JTCLikeServo(model, *jtc)
     servo.step(data)
     weight = float(model.body_mass.sum()*-model.opt.gravity[2])
     force = np.zeros(6)
