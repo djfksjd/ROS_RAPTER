@@ -1,0 +1,101 @@
+[
+ {
+  "mass_kg": 17.3,
+  "com_z": 0.757,
+  "rear_margin": 0.067,
+  "front_margin": 0.149,
+  "alpha": 0.309,
+  "standing_tilt": 0.011,
+  "noise_survival_s": 1.8
+ },
+ {
+  "head_mass": 1.0,
+  "mass_kg": 17.3,
+  "com_z": 0.763,
+  "rear_margin": 0.126,
+  "front_margin": 0.09,
+  "alpha": 0.306,
+  "standing_tilt": 0.008,
+  "noise_survival_s": 1.38
+ },
+ {
+  "head_mass": 2.0,
+  "mass_kg": 17.3,
+  "com_z": 0.375,
+  "rear_margin": 0.64,
+  "front_margin": 0.376,
+  "alpha": 0.589,
+  "standing_tilt": 1.142,
+  "noise_survival_s": 0.98
+ },
+ {
+  "head_mass": 3.0,
+  "mass_kg": 17.3,
+  "com_z": 0.346,
+  "rear_margin": -0.322,
+  "front_margin": 0.322,
+  "alpha": 0.144,
+  "standing_tilt": 1.206,
+  "noise_survival_s": 0.81
+ },
+ {
+  "leg_scale": 0.85,
+  "mass_kg": 17.3,
+  "com_z": 0.687,
+  "rear_margin": 0.052,
+  "front_margin": 0.237,
+  "alpha": 0.349,
+  "standing_tilt": 0.013,
+  "noise_survival_s": 1.46
+ },
+ {
+  "leg_scale": 0.7,
+  "mass_kg": 17.3,
+  "com_z": 0.617,
+  "rear_margin": 0.039,
+  "front_margin": 0.252,
+  "alpha": 0.385,
+  "standing_tilt": 0.015,
+  "noise_survival_s": 1.11
+ },
+ {
+  "half_width": 0.14,
+  "mass_kg": 17.3,
+  "com_z": 0.757,
+  "rear_margin": 0.067,
+  "front_margin": 0.149,
+  "alpha": 0.26,
+  "standing_tilt": 0.011,
+  "noise_survival_s": 1.65
+ },
+ {
+  "half_width": 0.1,
+  "mass_kg": 17.3,
+  "com_z": 0.757,
+  "rear_margin": 0.067,
+  "front_margin": 0.149,
+  "alpha": 0.21,
+  "standing_tilt": 0.011,
+  "noise_survival_s": 2.29
+ },
+ {
+  "mass_scale": 0.6936416184971098,
+  "mass_kg": 12.0,
+  "com_z": 0.757,
+  "rear_margin": 0.067,
+  "front_margin": 0.149,
+  "alpha": 0.308,
+  "standing_tilt": 0.008,
+  "noise_survival_s": 1.34
+ },
+ {
+  "vel_scale": 4.0,
+  "mass_kg": 17.3,
+  "com_z": 0.757,
+  "rear_margin": 0.067,
+  "front_margin": 0.149,
+  "alpha": 0.309,
+  "standing_tilt": 0.011,
+  "noise_survival_s": 1.39
+ }
+]

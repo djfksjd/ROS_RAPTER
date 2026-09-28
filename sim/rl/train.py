@@ -86,7 +86,7 @@ def main():
         model = PPO('MlpPolicy', env, n_steps=1024, batch_size=4096, n_epochs=5, learning_rate=3e-4,
                     gamma=.99, gae_lambda=.95, clip_range=.2, ent_coef=.003, max_grad_norm=1., device='cpu',
                     policy_kwargs=dict(net_arch=dict(pi=[256, 128, 64], vf=[256, 128, 64]),
-                                       activation_fn=torch.nn.ELU, log_std_init=-1.),
+                                       activation_fn=torch.nn.ELU, log_std_init=-2.),
                     seed=a.seed, verbose=0)
     model.set_logger(configure(str(out), ['csv']))
     cb = Curriculum(out/'curriculum.jsonl', a.level, a.cmd, a.cmd_final)
