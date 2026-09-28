@@ -142,7 +142,7 @@ class PolicyNode(Node):
         self.target = dict(zip(self.joints_order, new))
         self.send(self.target, horizon)
         self.rows.append({'t': round(phase, 3), 'tilt': round(self.guard.tilt or 0., 4), 'command': list(command),
-                          'gyro': [round(v, 4) for v in gyro], 'q': [round(v, 4) for v in q],
+                          'gyro': [round(v, 4) for v in gyro], 'quat_wxyz': [round(v, 6) for v in quat], 'q': [round(v, 4) for v in q],
                           'qd': [round(v, 3) for v in qd], 'action': [round(float(v), 4) for v in action]})
         return False
 
