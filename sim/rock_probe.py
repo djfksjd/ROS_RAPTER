@@ -13,6 +13,7 @@ import numpy as np
 import mujoco
 from raptor_servo import GazeboLikeServo
 from stand_check import HERE, crouch, place_on_floor
+from step_metrics import steps, summarize
 
 
 def foot_forces(model, data, force):
@@ -87,6 +88,7 @@ def run(amplitude, frequency, cycles=6, ramp=1., guard=.25, model_path=None, cro
     was_loaded, was_off = {'left': False, 'right': False}, {'left': False, 'right': False}
     touchdowns = {'left': [], 'right': []}
     velocity = np.zeros(6)
+    trace = {side: {'force': [], 'slip': [], 'x': []} for side in ('left', 'right')}
     clearance = {'left': 0., 'right': 0.}
     feet = {side: [g for g in range(model.ngeom) if model.body(model.geom_bodyid[g]).name.startswith(side+'_')
                    and ('foot' in model.body(model.geom_bodyid[g]).name or 'toe' in model.body(model.geom_bodyid[g]).name)]
@@ -144,6 +146,10 @@ def run(amplitude, frequency, cycles=6, ramp=1., guard=.25, model_path=None, cro
                 current[s] = 0.
         for side in ('left', 'right'):
             body = model.body(side+'_foot_link').id
+            speed_now = contact_slip(model, data, side, force, velocity)
+            trace[side]['force'].append(f[side])
+            trace[side]['slip'].append(np.nan if speed_now is None else speed_now)
+            trace[side]['x'].append(float(data.xpos[body][0]))
             loaded = f[side] >= .2*weight
             if loaded and was_loaded[side]:
                 speed = contact_slip(model, data, side, force, velocity)
@@ -169,6 +175,8 @@ def run(amplitude, frequency, cycles=6, ramp=1., guard=.25, model_path=None, cro
             'contact_slip_max_m_s': slip,
             'contact_slip_mean_m_s': {k: slip_sum[k]/loaded_time[k] if loaded_time[k] else None for k in slip},
             'touchdown_step_m': {k: [b-a for a, b in zip(v, v[1:])] for k, v in touchdowns.items()},
+            'clean_steps': summarize(*(steps(trace[k]['force'], trace[k]['slip'], trace[k]['x'], dt, weight)
+                                       for k in ('left', 'right')), cycles),
             'final_xy': data.qpos[:2].tolist(), 'samples': samples}
 
 
