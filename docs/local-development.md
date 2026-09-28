@@ -160,6 +160,22 @@ upstream code with `scripts/setup_ai.py` or extract the backed-up source archive
 is stopped, preserving existing unrelated models. Verify restored file hashes
 against `model-backup-assets.json`. No automatic or scheduled backup is configured.
 
+## MuJoCo model (sim/)
+
+A separate environment keeps MuJoCo/PlaCo apart from the AI environment:
+
+```bash
+python3 -m venv .venv-sim
+.venv-sim/bin/python -m pip install mujoco==3.14.0 placo==0.10.0
+bash sim/generate_urdf.sh sim/raptor_passive_toes.urdf passive_toes:=true sensors:=true
+.venv-sim/bin/python sim/build_model.py sim/raptor_passive_toes.urdf sim/raptor.xml
+.venv-sim/bin/python -m unittest tests.test_sim_contract -v
+.venv-sim/bin/python sim/stand_check.py
+```
+
+`generate_urdf.sh` needs the existing `raptor:jazzy-local` image and runs xacro only.
+The MuJoCo model is a separate engine approximation; see the MuJoCo roadmap for its limits.
+
 ## UNI_AI development API
 
 For API-assisted development after cloning on another machine, follow

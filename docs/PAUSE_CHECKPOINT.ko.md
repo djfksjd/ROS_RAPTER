@@ -9,8 +9,9 @@
 - 떨림 기전(접촉+속도 constraint vs 지연 servo 진동)은 미확정. 1ms 단위 계측이 필요하나
   방향 결정 전에는 우선순위가 낮다.
 
-다음 재개 지점: 사용자에게 A/B/C/D 방향을 받은 뒤 그 한 가지를 진행한다.
-A 선택 시 PlaCo·Open Duck 라이선스/revision 확인 후 MuJoCo 모델 대응부터 시작한다.
+사용자가 A(동적 흔들기 보행, 10축 유지)를 선택했다. 라이선스/revision은 기존 조사 문서를 재사용했다.
+MuJoCo 모델 대응과 정적 기립 비교까지 완료: MUJOCO_MJX_ROADMAP.ko.md 진행 기록.
+다음 재개 지점: crouch 초기 자세에서 동적 측방 흔들기 open-loop 궤적 MuJoCo 시험.
 
 ## 이전 일시정지 체크포인트 — 2026-09-27
 

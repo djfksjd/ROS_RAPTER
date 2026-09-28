@@ -35,7 +35,7 @@
 5. AI: 허용 mission 연결, STOP 우선, 독립 명령 평가와 end-to-end 지연.
 6. 부품 제작 설계: 치수/하중/구동기 선택의 미정 사항을 명시. 이미지로 단정 금지.
 
-## 현재 상태 — 2026-09-28 재개, 방향 결정 대기
+## 현재 상태 — 2026-09-28, 방향 A(동적 흔들기 보행) 진행 중
 
 브랜치 analysis/lateral-support-feasibility. 상세 LATERAL_SUPPORT_FEASIBILITY.ko.md.
 새 Gazebo 실험 없음. 54번 재분석 + 설치 버전 소스 대조 + 오프라인 FK.
@@ -43,7 +43,9 @@
 56: 평평한 발 정적 한 발 지지의 측방 COM 여유 최대 -0.008m(한도·기울기 무시), 몸통 수직 -0.110m.
 결론: ankle roll 없는 현재 기하에서 준정적 교대 지지는 운동학적으로 찾지 못함.
 roll/crouch 수치 탐색·gain/토크/속도 한도 상향은 중단. 동적 보행 불가능 증명은 아님.
-다음: 사용자 방향 선택(A 동적 흔들기 보행 / B 기하 변경 / C 모서리 rocking / D ankle roll 12축).
+사용자 선택: A 동적 흔들기 보행(10축 유지). B 기하 변경/D ankle roll은 선택하지 않음.
+MuJoCo 모델 변환·계약 시험 통과, crouch 시작 정적 기립 10s 통과, zero pose는 MuJoCo 실패(57).
+다음: crouch 기준 동적 측방 흔들기 open-loop 궤적을 MuJoCo에서 시험. MJX/JAX 미설치.
 기본 강성/gain/속도/effort 제한 변경 없음. 안정 보행/강화학습 등 전체 목표 미완료.
 
 ## 알려진 실패
