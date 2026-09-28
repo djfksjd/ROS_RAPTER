@@ -93,6 +93,7 @@ def main():
                 rows.append(row)
                 print(json.dumps(row), flush=True)
     if a.out:
+        Path(a.out).parent.mkdir(parents=True, exist_ok=True)
         Path(a.out).write_text(json.dumps(rows, indent=1)+'\n')
     if a.video:
         frames = []
