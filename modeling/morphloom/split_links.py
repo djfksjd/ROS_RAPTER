@@ -5,6 +5,8 @@ Usage:
 
 Component ids are `<link>__<part>` authored at the URDF zero pose. Each link's parts are joined,
 moved into that link frame with the inverse zero-pose transform and exported as OUT_DIR/<link>.glb.
+Images are not exported: the Morphloom micro normal/roughness maps depend on KHR_texture_transform
+tiling, which Gazebo ignores, so they rendered as stretched streaks. Colour/roughness factors remain.
 The preview places links at the nominal digitigrade crouch (hip -0.10, knee 0.50, ankle -0.40)
 on flat ground. Rendered preview is a visual check, not a physics result.
 """
@@ -63,7 +65,7 @@ for link, objs in sorted(groups.items()):
     bpy.ops.object.select_all(action='DESELECT')
     joined.select_set(True)
     bpy.ops.export_scene.gltf(filepath=str(out/f'{link}.glb'), export_format='GLB', use_selection=True,
-                              export_yup=True, export_apply=True, export_tangents=True)
+                              export_yup=True, export_apply=True, export_image_format='NONE')
 print('exported', len(links), 'links to', out)
 
 if preview:
@@ -94,8 +96,8 @@ if preview:
     camera.data.lens = 55
     scene.collection.objects.link(camera)
     scene.camera = camera
-    views = (('side', (0.1, -3.6, 0.6), (-.12, 0, .5), 55), ('three_quarter', (2.4, -2.5, 1.1), (-.12, 0, .5), 55),
-             ('front', (3.3, 0.0, 0.65), (0, 0, .5), 55), ('detail_head', (1.3, -.9, 1.0), (.2, 0, .68), 60),
+    views = (('side', (-.25, -4.6, 0.7), (-.35, 0, .45), 50), ('three_quarter', (2.4, -2.5, 1.1), (-.12, 0, .5), 55),
+             ('front', (3.3, 0.0, 0.65), (0, 0, .5), 55), ('detail_head', (1.7, -1.15, 1.15), (.3, 0, .78), 55),
              ('detail_foot', (.75, -.75, .25), (.08, -.18, .05), 60))
     for view, location, target, lens in views:
         camera.location = location

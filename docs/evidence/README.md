@@ -78,3 +78,5 @@ File 34 verifies that refused development probes emit no trajectory commands.
 - `63-digitigrade-leg-design.txt`: 디지티그레이드 설계 FK·MuJoCo 비교. Gazebo 항목은 legacy였다는 정정 포함.
 - `63-digitigrade-gazebo-standing.png`: 정정 대상 — legacy 모델 화면(leg_design 미전달).
 - `64-*`: morphloom 외형 digitigrade Gazebo 정지 기립, Blender 렌더, morphloom run report.
+- `65-wip-*`: 꼬리·머리 변경 WIP Blender 미리보기(미검증 시점).
+- `66-*`: 0.95m 꼬리 MuJoCo 재검증, Gazebo 기립·줄무늬 해소, RViz GLB 표시, Blender 렌더.

@@ -3,7 +3,9 @@
 ## 2026-09-28 외형 단계 (최신)
 
 디지티그레이드 다리 설계와 morphloom 외형 완료(review 초안). DIGITIGRADE_APPEARANCE.ko.md.
-재개 지점: Gazebo에서 digitigrade 흔들기 재현 또는 외형 개선. Gazebo 실행은 --experiment leg_design:=digitigrade.
+꼬리 0.95m·쐐기형 머리·디테일 반영 후 MuJoCo·Gazebo 기립·RViz 재검증 완료, 줄무늬 음영 해소(evidence/66).
+재개 지점: Gazebo에서 digitigrade 흔들기 재현(포화 감시 포함) 또는 actuator 사양 범위(사용자 결정).
+Gazebo 실행은 --experiment leg_design:=digitigrade. 실험 컨테이너는 정지 상태.
 
 ## 2026-09-28 재개 결과
 
@@ -62,7 +64,7 @@ GitHub: 소스, Blender 원본, 메시, 문서, 실제 검증 기록과 개발 �
 비공개 Hugging Face: 최신 전체 Git bundle 및 기존 Qwen/NanoJev 모델 자산.
 .env/토큰/가상환경/build/install/log는 백업 제외. 재현 지침은 저장소에 있다.
 
-## 2026-09-28 사용 한도로 중단 (WIP, 미검증)
+## 2026-09-28 사용 한도로 중단 (WIP → 같은 날 검증 완료, evidence/66)
 
 사용자 결정: 꼬리·머리·디테일 반영(다리 길이·자세 유지). 레퍼런스 Tripo GLB는 참고용만(저장소 미포함).
 완료: digitigrade 꼬리 링크 0.5→0.95m(0.8kg, 폭 0.065, legacy URDF 수치 동일 확인), 쐐기형 머리·꼬리 16마디·

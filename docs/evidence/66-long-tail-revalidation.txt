@@ -1,0 +1,19 @@
+Digitigrade long tail (0.95 m) + wedge head + 349-part detail revalidation, 2026-09-28. Active DOF 10 (unchanged).
+MuJoCo (sim/raptor_digitigrade.xml, elliptic cone, crouch hip -0.10 knee 0.50), before (0.50 m tail, evidence 63) -> after:
+  static standing 10 s: max tilt 0.0047 -> 0.0069 rad, pass
+  rocking A0.08 f2 120 cycles, mu{0.5,0.8,1} x mass{0.9,1,1.1}: 9/9 -> 9/9 (no guard stop; max tilt 0.128-0.136 rad)
+  stride 0.05 + ankle pitch fb (.5,.05,.15), 60 s, kv30:  +5.51 m td 1.0 slip/step 0.22 -> +5.82 m td 1.0 slip/step 0.20 pitch 0.027
+  same, kv100: no fall, +4.48 m slip/step 0.33 -> no fall, +4.57 m td 1.0 slip/step 0.34 pitch 0.023 (clean criterion 0.25 not met)
+Gazebo Harmonic DART, --experiment leg_design:=digitigrade passive toes crouched_start crouch_hip_pitch -0.10 spawn_z 0.1075:
+  pose samples (sim time s, x, z, tilt rad): 9.28 -0.0 0.10547 1.67e-07 ... 10.86 -0.0 0.10547 1.67e-07; 8 samples, static.
+  test_fixture off (free base). Static standing only.
+Stripe shading root cause: Morphloom materials put micro normal and metallic-roughness maps behind KHR_texture_transform
+  tiling (e.g. scale 12x48). Exporting tangents (previous hypothesis) did not remove the stripes in Gazebo, so the tiling
+  extension is not applied there and the maps are stretched. split_links.py now exports without images
+  (export_image_format NONE); colour, metallic and roughness factors remain. Link GLBs 14 MB -> 8.5 MB.
+  66-gazebo-no-texture-stripes.png: stripes gone. 66-gazebo-long-tail-side.png: side view in Gazebo.
+RViz 2 (Jazzy, robot_description topic, fixed frame base_root): Global Status Ok, GLB visuals shown with the same
+  orientation as Gazebo including toes (66-rviz-digitigrade-glb.png, separate Xvfb display, temporary window geometry).
+Blender renders (not physics): 66-blender-long-tail-side.png, 66-blender-wedge-head.png (Blender preview still uses the
+  textured source materials).
+Not validated: walking or rocking in Gazebo, terrain, ankle step robustness.
