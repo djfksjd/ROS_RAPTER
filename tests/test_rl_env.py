@@ -54,6 +54,24 @@ class RaptorEnvTest(unittest.TestCase):
         self.assertTrue(terminated)
         self.assertLess(reward, 0)
 
+    def test_base_velocity_is_the_torso_velocity_in_its_frame(self):
+        """Tracking must use the torso's velocity, not the free-joint origin 0.85 m below base_link."""
+        from raptor_env import RaptorEnv
+        env = RaptorEnv('flat', randomize=False, seed=0)
+        env.reset()
+        d = env.data
+        d.qvel[:] = 0
+        d.qvel[0] = .5  # pure forward translation
+        mujoco.mj_forward(env.model, d)
+        np.testing.assert_allclose(env.body_velocity(env.base)[1], [.5, 0, 0], atol=1e-6)
+        d.qvel[:] = 0
+        d.qvel[4] = .8  # pitch rate about the root: the torso 0.85 m above moves forward ~0.68 m/s
+        mujoco.mj_forward(env.model, d)
+        w, v = env.body_velocity(env.base)
+        np.testing.assert_allclose(w, [0, .8, 0], atol=1e-6)
+        self.assertGreater(v[0], .6)
+
 
 if __name__ == '__main__':
     unittest.main()
+

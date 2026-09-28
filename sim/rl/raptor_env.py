@@ -154,6 +154,20 @@ class RaptorEnv(gym.Env):
                                d.qpos[self.q_adr]-self.q0, d.qvel[self.v_adr]*.05, self.last_action,
                                [np.sin(2*np.pi*self.phase), np.cos(2*np.pi*self.phase)]]).astype(np.float32)
 
+    def body_velocity(self, body, local=True):
+        """(angular, linear) velocity at the body's centre of mass, in the body frame (local) or the world frame.
+
+        Not qvel[:3]: the free joint sits on base_root, 0.85 m below base_link, so its linear velocity
+        mixes in torso pitch/roll rates (measured up to +-0.7 m/s of spurious speed). mj_objectVelocity's
+        own local option uses the inertia principal axes, so the rotation to the body frame is done here.
+        """
+        v = np.zeros(6)
+        mujoco.mj_objectVelocity(self.model, self.data, mujoco.mjtObj.mjOBJ_BODY, body, v, 0)
+        if not local:
+            return v[:3], v[3:]
+        R = self.data.xmat[body].reshape(3, 3)
+        return R.T @ v[:3], R.T @ v[3:]
+
     def _contacts(self):
         m, d = self.model, self.data
         feet = {'left': 0., 'right': 0.}
@@ -192,8 +206,7 @@ class RaptorEnv(gym.Env):
             self.command = self._sample_command()
 
         R = d.xmat[self.base].reshape(3, 3)
-        v_body = R.T @ d.qvel[:3]
-        w = d.qvel[3:6]
+        w, v_body = self.body_velocity(self.base)
         grav = R.T @ np.array([0, 0, -1.])
         qd = d.qvel[self.v_adr]
         torque = d.actuator_force[self.act]
@@ -220,7 +233,7 @@ class RaptorEnv(gym.Env):
                 if self.air[s] > 0 and moving:
                     air_reward += min(self.air[s], .5)-.25  # reward swings of 0.25..0.5 s
                 self.air[s] = 0.
-                slip += np.sum(d.cvel[self.foot_body[s]][3:5]**2)
+                slip += np.sum(self.body_velocity(self.foot_body[s], local=False)[1][:2]**2)
             else:
                 self.air[s] += CONTROL_DT
         terms['air_time'] = air_reward/CONTROL_DT if moving else 0.  # event reward, per-second scaled
