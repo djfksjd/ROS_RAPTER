@@ -6,7 +6,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT/'src/raptor_control/scripts'))
-from rock_law import GaitPhase, TailSync, crouch_pose, tail_sync_targets, tail_targets, targets  # noqa: E402
+from rock_law import GaitPhase, TailSync, crouch_pose, step_roll, tail_sync_targets, tail_targets, targets  # noqa: E402
 
 JOINTS = [f'{s}_{j}_joint' for s in ('left', 'right') for j in ('hip_roll', 'hip_pitch', 'knee_pitch', 'ankle_pitch')]
 JOINTS += ['tail_yaw_joint', 'tail_pitch_joint']
@@ -86,6 +86,14 @@ class RockLawTest(unittest.TestCase):
         out = law.update(.02, None, 10.)  # yaw-rate step: filtered, then slew limited to 1 rad/s * 20 ms
         self.assertAlmostEqual(out['tail_yaw_joint'], .02)
         self.assertLess(law.yaw_rate, 10.)
+
+    def test_step_roll_profile_is_rate_limited(self):
+        values = [step_roll(k*.001) for k in range(-100, 4000)]
+        self.assertAlmostEqual(max(values), .08)
+        self.assertAlmostEqual(min(values), -.08)
+        self.assertLessEqual(max(abs(b-a) for a, b in zip(values, values[1:]))/.001, 1.6+1e-6)
+        self.assertEqual(step_roll(1.5), 0.)
+        self.assertAlmostEqual(step_roll(.3), .08)
 
 
 if __name__ == '__main__':

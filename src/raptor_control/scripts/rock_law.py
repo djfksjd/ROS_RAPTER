@@ -116,3 +116,21 @@ class TailSync:
             yaw = min(self.command+step, max(self.command-step, yaw))
         self.command = yaw
         return target | {'tail_yaw_joint': yaw}
+
+
+def step_roll(a, amp=.08, hold=.5, rate=1.6, second=3.):
+    """Experiment F profile (evidence 74): hip-roll 'r' ramps at `rate` to +amp at a = 0, holds `hold` s, returns
+    to 0; the mirrored event (-amp) starts at a = `second`. By 3 s MuJoCo has stopped rocking; Gazebo has not.
+    Rate-limited to 80 % of the 2 rad/s hip-roll limit. Returns r (left hip roll = -r, right = +r)."""
+    rise = amp/rate
+    hold = max(hold, rise)  # never a step: the down-ramp starts after the up-ramp ends
+
+    def pulse(t):
+        if t < 0:
+            return 0.
+        if t < rise:
+            return rate*t
+        if t < hold:
+            return amp
+        return max(0., amp-rate*(t-hold))
+    return pulse(a)-pulse(a-second)

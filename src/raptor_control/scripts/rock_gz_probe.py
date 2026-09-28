@@ -26,7 +26,7 @@ from trajectory_msgs.msg import JointTrajectory, JointTrajectoryPoint
 
 from motion_guard import TiltGuard
 from motion_probe import JOINTS, pose
-from rock_law import GaitPhase, TailSync, crouch_pose, tail_targets, targets
+from rock_law import GaitPhase, TailSync, crouch_pose, step_roll, tail_targets, targets
 
 # Velocity limits from raptor.urdf.xacro (rad/s); unchanged by leg_design.
 VELOCITY_LIMIT = {'hip_roll': 2.0, 'hip_pitch': 2.5, 'knee_pitch': 3.0, 'ankle_pitch': 2.5,
@@ -199,6 +199,9 @@ class RockProbe(Node):
         new = targets(self.crouch, a, g.amplitude, g.frequency, g.ramp, stride=g.stride, window=g.window,
                       pitch=self.imu[1], pitch_rate=self.imu[2], feedback=g.pitch_feedback, mirror=g.mirror)
         self.gait_phase = self.gait.update(t, self.in_contact('left'))  # phase 0 at left touchdown (contact messages)
+        if g.step_roll:  # experiment F: rate-limited hip-roll steps instead of the gait (no stride)
+            r = step_roll(a, *g.step_roll)
+            new = dict(self.crouch) | {'left_hip_roll_joint': -r, 'right_hip_roll_joint': r}
         if g.tail_sync and a >= 0:  # gait-synchronised tail yaw (amp, phi0, k_fb) with IMU yaw rate
             new |= self.tail_law.update(t, self.gait_phase, self.imu[3])
         if g.tail and a >= 0:  # tail balance: (ky, kr, kp, kd) on hip-roll command, IMU roll, pitch, pitch rate
@@ -251,6 +254,8 @@ def main():
     parser.add_argument('--pitch-feedback', type=float, nargs=3, metavar=('KP', 'KD', 'LIMIT'))
     parser.add_argument('--tail', type=float, nargs=4, metavar=('KY', 'KR', 'KP', 'KD'))
     parser.add_argument('--tail-sync', type=float, nargs=3, metavar=('AMP', 'PHI0', 'KFB'))
+    parser.add_argument('--step-roll', type=float, nargs=2, metavar=('AMP', 'HOLD'),
+                        help='experiment F: +AMP step at t=0 and -AMP at t=3 s (1.6 rad/s ramps), replaces the gait')
     parser.add_argument('--window', type=float, default=.35, help='unloaded (swing) window, fraction of a cycle')
     parser.add_argument('--mirror', action='store_true', help='left/right mirrored gait (r -> -r, windows swapped)')
     parser.add_argument('--diag', action='store_true', help='log 100 Hz joint/IMU/contact wrench rows (no control effect)')
@@ -260,6 +265,7 @@ def main():
     if not (0 <= args.amplitude <= .12 and .5 <= args.frequency <= 2.5 and 1 <= args.cycles <= 150
             and .01 <= args.horizon <= .1 and .1 <= args.ramp <= 5 and 0 <= args.settle <= 5 and 0 <= args.stride <= .08
             and .2 <= args.window <= .4
+            and (args.step_roll is None or (0 < args.step_roll[0] <= .1 and .1 <= args.step_roll[1] <= 1.))
             and (args.pitch_feedback is None or (0 <= args.pitch_feedback[0] <= 1 and 0 <= args.pitch_feedback[1] <= .2
                                                   and 0 <= args.pitch_feedback[2] <= .2))
             and (args.tail is None or all(abs(v) <= 3 for v in args.tail))
