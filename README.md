@@ -25,10 +25,10 @@
 
 핵심은 **빠르고 정확한 명령 이해와 사람의 통제**입니다. AI가 작전을 자율 결정하거나 모터 명령을 직접 만들지 않습니다. `STOP`은 모델 추론을 거치지 않고 우선 처리합니다.
 
-> **최근 체크포인트 · 2026-09-27**<br>
-> ROS 환경·10축 제어·제한된 정적 지지·Qwen/NanoJev의 STAND/STOP 연결을 확인했습니다.<br>
-> **안정 보행, 급경사 대응, 탐색 mission, MuJoCo/MJX 강화학습은 아직 미완료**입니다.<br>
-> 개발 실험은 사용자 요청으로 일시정지 중입니다. [재개 메모](docs/PAUSE_CHECKPOINT.ko.md) · [작업 상태](docs/WORK_STATE.ko.md)
+> **최근 체크포인트 · 2026-09-29**<br>
+> 제자리 교대 지지(2.5Hz 좌우 흔들기 + 작은 보폭)가 Gazebo 60초에서 **5/5 · 거울 보행 3/3 · 꼬리 켬 4/4** 생존했습니다.<br>
+> 완료 기준 중 **디딘 발 옆힘 비(Gazebo)와 착지 발바닥 각도(MuJoCo)는 미달**이며, 발목 roll 없는 구조의 절충으로 결정 대기 중입니다.<br>
+> **전진 보행, 지형 대응, 탐색 mission, 강화학습은 아직 미완료**입니다. [보행 진행](#보행-진행--흔들목마-모델) · [작업 상태](docs/WORK_STATE.ko.md)
 
 ## 현재 구현
 
@@ -54,9 +54,10 @@
 | 발·지면 접촉 | 선택형 수동 발가락 12관절, 평지·8mm 단차·정렬된 5° 경사 정적 시험 | 경사 진입·연속 보행·불규칙 지형 |
 | 센서 | IMU, RGB-D, 관절 상태, 발 접촉 계측 | 인식·지도·탐사 mission |
 | 명령 이해 | 실제 Qwen/Ollama 및 NanoJev decision head, STAND/STOP ROS 연결 | 정확도 개선·이동/탐색 실행 |
+| 교대 지지 | Gazebo 60초 5/5, 거울 3/3, 꼬리 켬 4/4 · MuJoCo kv30 60초 | 옆힘 비·착지 각도 기준, 약한 서보(kv20), 전진 |
 | 실패 감시 | IMU 기울기 초과 시 action 취소 승인 확인 | 균형 회복·실물 비상 정지 |
 
-정적 시험은 제한된 조건의 결과입니다. 발이 지면에 닿거나 궤적 추종이 끝난 것만으로 보행 성공을 판정하지 않습니다. 최근 지지 전환은 발목 추종 오차로 실패했고, [원본 기록](docs/evidence/README.md)을 보존했습니다.
+정적 시험과 제자리 교대 지지는 제한된 조건의 결과입니다. 발이 지면에 닿거나 궤적 추종이 끝난 것만으로 보행 성공을 판정하지 않습니다. 실패 기록도 [원본 그대로](docs/evidence/README.md) 보존합니다.
 
 ## 시스템 구조
 
@@ -80,6 +81,35 @@ flowchart LR
 - **현재 동작:** `STAND`, `PAUSE`, `RESUME`, `STOP`. `RESUME`은 이전 궤적을 자동 재개하지 않습니다. `STOP`은 시뮬레이션 위치 유지이며 실물 전원 차단이 아닙니다.
 
 `“동쪽 능선부터 찾아봐” → SEARCH_EAST`는 명령 이해의 목표 예시입니다. 실제 동쪽 수색 mission은 아직 활성화하지 않았습니다.
+
+## 보행 진행 · 흔들목마 모델
+
+<div align="center">
+<img src="docs/assets/video/gazebo-alternating-support.gif" width="480" alt="Gazebo에서 기본 교대 지지 보행을 실시간 속도로 재생한 장면" /><br>
+<b>실제 Gazebo 실행 · 실시간 속도로 재생</b> · 2.5Hz 제자리 교대 지지 24초, 넘어짐 없음 (최대 기울기 0.093rad)<br>
+전진 보행이 아닙니다. <a href="docs/assets/video/gazebo-alternating-support.mp4">MP4 원본</a> · <a href="docs/evidence/74-rocking/video-run.json.gz">실행 로그</a>
+</div>
+
+발목 roll이 없는 다리에서 hip roll은 다리를 기울이지 않고 **몸통을 굴립니다**. 그래서 디딘 발 패드 바깥 모서리를 축으로 넘어졌다 돌아오는 흔들목마(Housner rocking block)로 좌우 흔들림을 모델링했습니다.
+
+| 모델 값 | 식 | 값 |
+|---|---|---|
+| 무게중심 높이 · 피벗까지 각 | h, α = atan(d/h), d = 패드 바깥 모서리 0.23m | 0.758m · 0.295rad |
+| 고유 속도 | p = √(g/R), R = 0.792m | 3.52/s |
+| 흔들림 반주기 | T½ = (2/p)·acosh(1/(1−θ/α)) | Gazebo 자유 흔들림과 −5~+7% 일치 |
+
+- **저주파 흔들림의 정체:** 명령 시계의 3걸음 부조화(f/3). 2.5Hz에서 예측 진폭 0.085m, Gazebo 측정 0.084m.
+- **넘어짐의 원인:** 정상 상태가 아니라 보폭이 1초 만에 들어가는 **시작 구간**. 진폭 3초 · 보폭 2초 raised-cosine 램프로 해결했습니다.
+
+| 완료 기준 | 결과 | 판정 |
+|---|---|---|
+| Gazebo 60초 생존 (기본 · 거울 · 꼬리 켬) | 5/5 · 3/3 · 4/4 | 충족 |
+| 0.3~1.6Hz 무게중심 진폭 ≤ 0.03m | Gazebo ≤ 0.009 · MuJoCo kv30 ≤ 0.024 | 충족 |
+| 걸음당 성장률 ≤ 1.0 | 0.994~1.004 | 경계 |
+| 착지 발바닥 각도 ≤ 0.02rad | Gazebo 0.015 · MuJoCo kv30 0.032~0.041 | MuJoCo 미달 |
+| 디딘 발 Fy/Fz p90 ≤ 0.4 | Gazebo 0.405~0.422 · MuJoCo 0.28 | Gazebo 미달 |
+
+발 간격을 좁히면 옆힘 비는 0.36~0.39로 들어오지만 착지 각도가 0.05rad로 커집니다. 발목 roll 없이 두 기준을 동시에 맞추는 방법은 찾지 못했습니다. 이것은 **제자리 교대 지지의 결과이며 전진 보행 성공이 아닙니다.** [진단 72](docs/evidence/72-diagnosis/README.md) · [측방 73](docs/evidence/73-lateral/README.md) · [흔들목마 74](docs/evidence/74-rocking/README.md)
 
 ## 10 Active DOF
 
@@ -108,7 +138,7 @@ tail_yaw_joint            tail_pitch_joint
 
 </details>
 
-## Qwen × NanoJev
+## Qwen × NanoJev · Laya 후보
 
 38개 명령 평가셋에서 측정한 **로컬 호출부터 출력 파싱까지의 지연**입니다.
 
@@ -116,6 +146,8 @@ tail_yaw_joint            tail_pitch_joint
 |---|---:|---:|---:|---:|
 | Qwen3-0.6B Q4_K_M / Ollama | 27/38 · 71.1% | 81.0ms | 202.2ms | 0% |
 | NanoJev + Raptor head / MPS FP32 | 24/38 · 63.2% | 312.7ms | 361.2ms | 0% |
+
+**Laya 검토 (2026-09-29):** [Laya](https://github.com/NandhaKishorM/laya)는 NanoJev와 같은 `choice` 질문 형식을 쓰는 Apache-2.0 인코더 결정 모델입니다. `--backend laya`로 연결해 두었지만, 공개 벤치마크의 한국어 zero-shot 점수가 0.45(20지선다)라 **같은 38개 평가셋으로 측정한 뒤 교체를 판단**합니다. 가중치(678MB)는 아직 받지 않았습니다. [검토 문서](docs/LAYA_REVIEW.ko.md)
 
 작은 평가셋이며 첫 요청 비용이 포함됩니다. 정밀도·런타임이 달라 모델 구조의 우열이나 일반 성능으로 해석할 수 없습니다. 로봇 실행 지연과 원격 네트워크 지연을 포함한 값도 아닙니다. [평가 조건과 원본 결과](docs/PROJECT_REPORT.ko.md#qwen과-nanojev-비교)
 
@@ -175,7 +207,8 @@ ROS 실행·응답 확인·STOP 사용법은 [로컬 개발 가이드](docs/loca
 - [x] 10축 제어·기본 센서·제한된 정적 지지 검증
 - [x] Qwen/NanoJev 기본 연결과 소규모 명령 평가
 - [ ] 목표 외형·부품 모델링 고도화
-- [ ] 안정적인 한 발 지지 → 반복 보행
+- [x] 제자리 교대 지지 60초 (Gazebo 5/5) — 옆힘·착지 각도 기준은 미달
+- [ ] 전진 반복 보행
 - [ ] 단차·경사·불규칙 지형 성능 평가
 - [ ] 수동 분절 꼬리의 실제 유연 동역학
 - [ ] MuJoCo/MJX 모델 대응·강화학습·Gazebo 재검증
@@ -214,6 +247,8 @@ ROS 실행·응답 확인·STOP 사용법은 [로컬 개발 가이드](docs/loca
 | [수동 발가락](docs/PASSIVE_TOES.ko.md) | 접촉·단차·경사 실험 |
 | [보행 접촉 분석](docs/GAIT_CONTACT_ANALYSIS.ko.md) | 접촉 영역·무게중심·IMU 중단 |
 | [발가락 강성 비교](docs/TOE_STIFFNESS_EXPERIMENT.ko.md) | 한 변수 실험과 실패 결과 |
+| [흔들목마 보행 증거 74](docs/evidence/74-rocking/README.md) | 예측 대 측정, 긴 램프 보행, 완료 기준 표 |
+| [Laya 검토](docs/LAYA_REVIEW.ko.md) | NanoJev 대체 후보 비교와 평가 절차 |
 | [MuJoCo/MJX 로드맵](docs/MUJOCO_MJX_ROADMAP.ko.md) | 후속 학습 계획 — 아직 미실행 |
 | [검증 자료 전체](docs/evidence/README.md) | 원본 로그·측정값·스크린샷 |
 | [일시정지 체크포인트](docs/PAUSE_CHECKPOINT.ko.md) | 마지막 실험과 재개 지점 |
