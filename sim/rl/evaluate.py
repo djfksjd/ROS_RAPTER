@@ -73,6 +73,7 @@ def main():
     p.add_argument('--actuator', default='urdf')
     p.add_argument('--dof', type=int, choices=[10, 12], default=10)
     p.add_argument('--sole', choices=['flat', 'rocker'], default='flat')
+    p.add_argument('--jtc', type=float, default=0.)
     p.add_argument('--video')
     p.add_argument('--out')
     a = p.parse_args()
@@ -83,7 +84,7 @@ def main():
                 eps = []
                 for ep in range(a.episodes):
                     env = RaptorEnv(kind, level=level, vel_scale=a.vel_scale, randomize=False, seed=1000+ep,
-                                    actuator=a.actuator, dof=a.dof, sole=a.sole)
+                                    actuator=a.actuator, dof=a.dof, sole=a.sole, jtc_horizon=a.jtc)
                     model, venv = load(a.model, env)
                     eps.append(episode(model, venv, env, [vx, 0., 0.], a.seconds))
                 row = {'terrain': kind, 'level': level, 'cmd_vx': vx, 'falls': sum(e['fell'] for e in eps),
@@ -100,7 +101,7 @@ def main():
         frames = []
         for kind in a.terrain:
             env = RaptorEnv(kind, level=a.levels[-1], vel_scale=a.vel_scale, randomize=False, seed=7, render_mode='rgb_array',
-                            actuator=a.actuator, dof=a.dof, sole=a.sole)
+                            actuator=a.actuator, dof=a.dof, sole=a.sole, jtc_horizon=a.jtc)
             model, venv = load(a.model, env)
             episode(model, venv, env, [a.commands[-1], 0., 0.], min(a.seconds, 10.), frames)
             env.close()

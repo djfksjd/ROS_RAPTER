@@ -54,10 +54,11 @@ class Curriculum(BaseCallback):
         return True
 
 
-def make(terrain, level, cmd, vel_scale, seed, actuator='urdf', dof=10, sole='flat', weights=None, zero_cmd=.1):
+def make(terrain, level, cmd, vel_scale, seed, actuator='urdf', dof=10, sole='flat', weights=None, zero_cmd=.1, jtc=0., kv_range=None):
     def thunk():
         return RaptorEnv(terrain=terrain, level=level, cmd_max=cmd, vel_scale=vel_scale, seed=seed, actuator=actuator,
-                         dof=dof, sole=sole, weights=weights, zero_cmd=zero_cmd)
+                         dof=dof, sole=sole, weights=weights, zero_cmd=zero_cmd,
+                         jtc_horizon=jtc, kv_range=kv_range)
     return thunk
 
 
@@ -76,6 +77,8 @@ def main():
     p.add_argument('--sole', choices=['flat', 'rocker'], default='flat')
     p.add_argument('--weights', default='{}', help='JSON reward-weight overrides, e.g. {"track_lin": 4}')
     p.add_argument('--zero-cmd', type=float, default=.1, help='fraction of zero (stand) commands')
+    p.add_argument('--jtc', type=float, default=0., help='trajectory-controller ramp per goal (s), Gazebo 0.02')
+    p.add_argument('--kv-range', type=float, nargs=2, help='per-episode servo kv range, e.g. 20 60')
     p.add_argument('--init', help='model.zip to continue from (its vecnorm.pkl is loaded too)')
     p.add_argument('--seed', type=int, default=0)
     a = p.parse_args()
@@ -84,7 +87,7 @@ def main():
     (out/'args.json').write_text(json.dumps(vars(a), indent=1))
     torch.set_num_threads(1)
     env = VecMonitor(SubprocVecEnv([make(a.terrain, a.level, a.cmd, a.vel_scale, a.seed*100+i, a.actuator, a.dof, a.sole,
-                                          json.loads(a.weights), a.zero_cmd) for i in range(a.envs)]))
+                                          json.loads(a.weights), a.zero_cmd, a.jtc, a.kv_range) for i in range(a.envs)]))
     if a.init:
         env = VecNormalize.load(str(Path(a.init).with_name('vecnorm.pkl')), env)
         model = PPO.load(a.init, env=env, device='cpu')

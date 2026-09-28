@@ -53,11 +53,14 @@ class RaptorEnv(gym.Env):
 
     def __init__(self, terrain='flat', level=0., cmd_max=(.5, .2, .5), vel_scale=1., episode_s=20.,
                  randomize=True, seed=None, render_mode=None, model_path=None, servo_kv=SERVO_KV,
-                 actuator='urdf', dof=10, sole='flat', weights=None, zero_cmd=.1):
+                 actuator='urdf', dof=10, sole='flat', weights=None, zero_cmd=.1, jtc_horizon=0., kv_range=None):
         self.kinds = [terrain] if isinstance(terrain, str) else list(terrain)
         self.level, self.cmd_max, self.vel_scale = level, np.array(cmd_max, float), vel_scale
         self.servo_kv, self.actuator = servo_kv, actuator
         self.weights, self.zero_cmd = {**WEIGHTS, **(weights or {})}, zero_cmd
+        # Gazebo path (evidence 74): the trajectory controller ramps each new goal over jtc_horizon s;
+        # kv_range randomizes the velocity-servo stiffness per episode (Gazebo matched kv ~30).
+        self.jtc_horizon, self.kv_range = jtc_horizon, kv_range
         self.episode_steps, self.randomize, self.render_mode = int(episode_s/CONTROL_DT), randomize, render_mode
         self.model_path = str(model_path or MODELS[dof, sole])
         probe = mujoco.MjModel.from_xml_path(self.model_path)
@@ -118,6 +121,10 @@ class RaptorEnv(gym.Env):
         m.body_mass[:] = self.nominal_mass
         m.geom_friction[:] = self.nominal_friction
         m.actuator_forcerange[:] = self.nominal_force
+        kv = self.servo_kv
+        if self.randomize and self.kv_range:
+            kv = self.rng.uniform(*self.kv_range)
+        m.actuator_gainprm[:, 0], m.actuator_biasprm[:, 2] = kv, -kv
         if not self.randomize:
             return
         m.body_mass[self.base] += self.rng.uniform(-1., 1.5)
@@ -145,6 +152,7 @@ class RaptorEnv(gym.Env):
         self.substeps = int(round(SERVO_DT/m.opt.timestep))
         d.ctrl[:] = 0.
         self.steps, self.last_action, self.prev_qd = 0, np.zeros(len(self.q0)), d.qvel[self.v_adr].copy()
+        self.setpoint = d.qpos[self.q_adr].copy()
         self.air = {'left': 0., 'right': 0.}
         self.command = self._sample_command()
         self.phase = 0.
@@ -209,9 +217,12 @@ class RaptorEnv(gym.Env):
             d.qvel[:2] += self.rng.uniform(-.4, .4, 2)
         # Same law as GazeboLikeServo (positions read every 10 ms, ctrl held in between), batched.
         vmax = m.actuator_ctrlrange[self.act, 1]
-        for _ in range(int(round(CONTROL_DT/SERVO_DT))):
+        start = self.setpoint
+        for i in range(int(round(CONTROL_DT/SERVO_DT))):
+            frac = min(1., (i+1)*SERVO_DT/self.jtc_horizon) if self.jtc_horizon > 0 else 1.
+            self.setpoint = start+frac*(target-start)
             read = d.qpos[self.q_adr]
-            d.ctrl[self.act] = np.clip(-SERVO_GAIN*(read-target), -vmax, vmax)
+            d.ctrl[self.act] = np.clip(-SERVO_GAIN*(read-self.setpoint), -vmax, vmax)
             mujoco.mj_step(m, d, nstep=self.substeps)
         self.steps += 1
         self.phase = (self.phase+CONTROL_DT*1.6) % 1.  # 1.6 Hz nominal stride clock (advisory input)
