@@ -1,0 +1,60 @@
+[
+ {
+  "run": "N03_1",
+  "frequency": 2.5,
+  "pll": null,
+  "damping": null,
+  "stop_reason": null,
+  "error": null,
+  "end_s": 63.98700000000001,
+  "survived_60s": true,
+  "window_s": [
+   2.0,
+   63.99
+  ],
+  "com_y_0.3_1.6Hz_m": 0.014003346642036535,
+  "com_y_low_peak_hz": 0.5000806581706727,
+  "com_y_2_3Hz_m": 0.007925136874764193,
+  "body_y_2_3Hz_m": 0.009907725349562857,
+  "roll_2_3Hz_rad": 0.06870461130624299,
+  "loaded_fy_fz_p90": 0.36698564784321863,
+  "load_share_left": 0.4983132555112954,
+  "growth_per_step_median": 0.9964440783382587,
+  "growth_per_step_max": 2.2814546911213314,
+  "roll_0.3_1.6Hz_rad": 0.019003407229562407,
+  "roll_low_peak_hz": 0.5646071947088239,
+  "single_support_median_s": 0.1899999999999995,
+  "com_y_f_over_3_m": 0.003714343005792125,
+  "com_y_f_m": 0.007824685016242647,
+  "landing_sole_roll_p90_rad": 0.05387155644630059
+ },
+ {
+  "run": "N03_2",
+  "frequency": 2.5,
+  "pll": null,
+  "damping": null,
+  "stop_reason": null,
+  "error": null,
+  "end_s": 63.99099999999999,
+  "survived_60s": true,
+  "window_s": [
+   2.0,
+   63.99
+  ],
+  "com_y_0.3_1.6Hz_m": 0.014162832898630032,
+  "com_y_low_peak_hz": 0.6290322580645161,
+  "com_y_2_3Hz_m": 0.009049862816749993,
+  "body_y_2_3Hz_m": 0.011372935787669772,
+  "roll_2_3Hz_rad": 0.06824188513934452,
+  "loaded_fy_fz_p90": 0.39375411641096064,
+  "load_share_left": 0.5007780223088294,
+  "growth_per_step_median": 0.9996113427697559,
+  "growth_per_step_max": 1.1623234261191895,
+  "roll_0.3_1.6Hz_rad": 0.017403221018320154,
+  "roll_low_peak_hz": 0.6290322580645161,
+  "single_support_median_s": 0.04499999999999993,
+  "com_y_f_over_3_m": 0.003778919658197743,
+  "com_y_f_m": 0.00903007522235507,
+  "landing_sole_roll_p90_rad": 0.05103849746623494
+ }
+]

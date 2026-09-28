@@ -12,8 +12,8 @@ Gazebo 보폭 시도 불합격(evidence/69): STOP 2회, MuJoCo actuator 근사 �
 보행 동기 꼬리 완료(evidence/71): MuJoCo 빠른 보행 kv 전 범위 전도 없음, Gazebo는 roll 전도·위상 추정 부정확.
 꼬리 동결. roll 전도 진단 완료(evidence/72-diagnosis), 사용자 확인 대기(1단계 끝에서 정지 지시).
 0단계·실험 A(MuJoCo) 완료 후 예측 20% 이상 불일치로 정지(evidence/73-lateral). 사용자 판단 대기.
-흔들목마 모델 실험 F 완료 후 예측 이탈로 정지(evidence/74-rocking). 사용자 판단 대기.
-재개 지점: 사용자 결정에 따라 실험 E·C·D(모델 보정 후) 또는 2단계(접지 이벤트 위상·착지 보정). 실험 D는 이득 곱 30/s 고정 조건.
+흔들목마 모델 1·2단계 진행 완료(evidence/74-rocking): 기본 보행 = 2.5Hz 개루프 + 긴 raised-cosine 램프(Gazebo 5/5).
+재개 지점: Fy/Fz(0.41) 대 착지 발바닥(외전 시 0.05) 맞바꿈에 대한 사용자 결정, 또는 actuator 사양 범위로 kv20 재평가.
 Gazebo 실행은 --experiment leg_design:=digitigrade. 실험 컨테이너는 정지 상태.
 
 ## 2026-09-28 재개 결과

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """MuJoCo side of the evidence-73/74 lateral experiments, tail fixed. Gazebo runs use rock_gz_probe.py.
 
-Usage: python lateral_experiments.py OUT.json {A|B|D|E|F|G|P|R|S} [--kv 20 30 100] [--cycles 150]
+Usage: python lateral_experiments.py OUT.json {A|B|D|E|F|G|N|P|R|S|T} [--kv 20 30 100] [--cycles 150]
 A/B rows: fall time and roll_diagnosis.table_metrics over [2 s, fall or end] (60 s gait).
 F rows: rate-limited hip-roll steps from the crouch (rock_law.step_roll); per event the lifted foot, liftoff ->
 touchdown time and release -> touchdown time from normal forces (off < 5 % weight, on >= 20 % held 20 ms).
@@ -29,7 +29,13 @@ SWEEPS = {'A': [('amplitude', a) for a in (.08, .04, .02, .01, 0.)],
                                        {'pll': (2., .25, {'accept': 'last', 'learn': 4})})],
           # long cosine ramp (R) with smaller rocking amplitude for the Fy/Fz <= 0.4 criterion, and mirrored R
           'R': [('combo', dict({'ramp_shape': 'cosine', 'stride_ramp': 2., 'ramp': 3.}, **x))
-                for x in ({}, {'amplitude': .07}, {'amplitude': .065}, {'mirror': True})]}
+                for x in ({}, {'amplitude': .07}, {'amplitude': .065}, {'mirror': True})],
+          # tail re-enabled on the long-ramp gait with the frozen c2c1b03 law (A 0.015, phi0 0.3, K -0.1)
+          'T': [('combo', dict({'ramp_shape': 'cosine', 'stride_ramp': 2., 'ramp': 3.}, **x))
+                for x in ({}, {'tail_sync': (.015, .3, -.1)}, {'tail_sync': (.015, .3, -.1), 'mirror': True})],
+          # narrower stance (Fable review 4) for the Fy/Fz criterion; watch the landing sole angle
+          'N': [('combo', dict({'ramp_shape': 'cosine', 'stride_ramp': 2., 'ramp': 3.}, **x))
+                for x in ({}, {'abduction': -.03}, {'abduction': -.05})]}
 
 
 def one(job):

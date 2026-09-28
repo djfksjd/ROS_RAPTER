@@ -293,7 +293,7 @@ def main():
     parser.add_argument('--freq-profile', help='JSON [[t, f], ...] command-frequency history to replay')
     parser.add_argument('--ramp-shape', choices=('linear', 'cosine'), default='linear')
     parser.add_argument('--stride-ramp', type=float, default=1., help='stride ramp duration after the amplitude ramp (s)')
-    parser.add_argument('--abduction', type=float, default=0., help='hip-roll outward offset on both legs (rad)')
+    parser.add_argument('--abduction', type=float, default=0., help='hip-roll offset on both legs (rad): + moves the feet outward, - inward')
     parser.add_argument('--window', type=float, default=.35, help='unloaded (swing) window, fraction of a cycle')
     parser.add_argument('--mirror', action='store_true', help='left/right mirrored gait (r -> -r, windows swapped)')
     parser.add_argument('--diag', action='store_true', help='log 100 Hz joint/IMU/contact wrench rows (no control effect)')
@@ -302,7 +302,7 @@ def main():
     args = parser.parse_args()
     if not (0 <= args.amplitude <= .12 and .5 <= args.frequency <= 3. and 1 <= args.cycles <= 200
             and .01 <= args.horizon <= .1 and .1 <= args.ramp <= 5 and 0 <= args.settle <= 5 and 0 <= args.stride <= .08
-            and .2 <= args.window <= .4 and 0 <= args.abduction <= .06 and .5 <= args.stride_ramp <= 5
+            and .2 <= args.window <= .4 and -.06 <= args.abduction <= .06 and .5 <= args.stride_ramp <= 5
             and 0 <= args.pll_learn <= 10
             and (args.damping is None or (0 <= args.damping[0] <= .1 and args.damping[1] in (-1., 1.)))
             and (args.pll is None or (0 <= args.pll[0] <= 6 and 0 <= args.pll[1] <= .4
