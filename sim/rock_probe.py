@@ -68,7 +68,7 @@ def roll_pitch(quat):
 
 def run(amplitude, frequency, cycles=6, ramp=1., guard=.25, model_path=None, crouch_hip=-.15, log_every=0, crouch_knee=.4,
         lift=0., lift_width=.35, lift_centers=(('left', .28), ('right', .78)), stride=0., rhythm=None, friction=None, mass_scale=1., smooth_swing=False, pitch_feedback=None, servo_kv=None,
-        jtc=None, tail=None, tail_sync=None, tail_mass_scale=1.):
+        jtc=None, tail=None, tail_sync=None, tail_mass_scale=1., step_hook=None):
     model = mujoco.MjModel.from_xml_path(model_path or str(HERE/'raptor.xml'))
     if friction is not None:
         model.geom_friction[:, 0] = friction
@@ -158,6 +158,8 @@ def run(amplitude, frequency, cycles=6, ramp=1., guard=.25, model_path=None, cro
                     target[name] = target.get(name, pose[name])+correction
             servo.set_target(target)
         servo.step(data)
+        if step_hook is not None:  # diagnostics hook (sim/roll_diagnosis.py); must not change the simulation
+            step_hook(t+dt, model, data)
         roll, pitch = roll_pitch(data.qpos[3:7])
         w, x, y, z = data.qpos[3:7]
         tilt = math.acos(max(-1., min(1., 1-2*(x*x+y*y))))  # angle between body z and world z

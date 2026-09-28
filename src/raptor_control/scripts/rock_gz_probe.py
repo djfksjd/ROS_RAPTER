@@ -58,7 +58,8 @@ class RockProbe(Node):
         self.gait, self.gait_phase = GaitPhase(), None
         self.tail_law = TailSync(*args.tail_sync) if args.tail_sync else None
         self.over_since, self.spikes, self.spike_keys = {}, [], set()
-        self.raw = deque(maxlen=200)  # last ~2 s of 100 Hz joint states, dumped around a STOP
+        self.raw = deque(maxlen=200)
+        self.wrenches, self.diag = {}, []  # --diag: 100 Hz diagnostic log (no effect on control)  # last ~2 s of 100 Hz joint states, dumped around a STOP
         self.pub = self.create_publisher(JointTrajectory, '/raptor_joint_controller/joint_trajectory', 10)
         self.create_subscription(Clock, '/clock', self.on_clock, 10)
         self.create_subscription(JointState, '/joint_states', self.on_joints, 10)
@@ -84,6 +85,22 @@ class RockProbe(Node):
             if name in JOINTS and i < len(msg.position):
                 self.joints[name] = (msg.position[i], msg.velocity[i] if i < len(msg.velocity) else float('nan'))
         self.joints_at = self.sim_time
+        if self.args.diag and self.imu is not None and self.start is not None:
+            fresh = {k: v for k, v in self.wrenches.items() if self.sim_time-v[0] < .03}
+            self.diag.append({'t': round(self.sim_time-self.start, 4),
+                              'q': {j: round(v[0], 5) for j, v in self.joints.items()},
+                              'v': {j: round(v[1], 4) for j, v in self.joints.items()},
+                              'roll': round(self.imu[0], 5), 'pitch': round(self.imu[1], 5),
+                              'roll_rate': round(self.imu[4], 4), 'yaw_rate': round(self.imu[3], 4),
+                              'cmd_hip_roll_right': round(self.target['right_hip_roll_joint'], 5),
+                              'contact': {s: {'n': sum(n for k, (t, n) in self.contacts.items()
+                                                       if k.startswith(s) and t is not None and self.sim_time-t < .03),
+                                              'f1': [round(sum(v[1][i] for k, v in fresh.items() if k.startswith(s)), 2)
+                                                     for i in range(3)],
+                                              'f2': [round(sum(v[2][i] for k, v in fresh.items() if k.startswith(s)), 2)
+                                                     for i in range(3)],
+                                              'names': sorted({v[3] for k, v in fresh.items() if k.startswith(s)})}
+                                          for s in ('left', 'right')}})
         self.raw.append({'t': self.sim_time, 'q': {j: round(v[0], 4) for j, v in self.joints.items()},
                          'v': {j: round(v[1], 4) for j, v in self.joints.items()},
                          'contact': {s: self.in_contact(s) for s in ('left', 'right')} if self.sim_time else None,
@@ -94,10 +111,16 @@ class RockProbe(Node):
         self.imu_at = self.sim_time
         self.guard.observe(q.x, q.y, q.z, q.w, msg.orientation_covariance[0] != -1)
         self.imu = (math.atan2(2*(q.w*q.x+q.y*q.z), 1-2*(q.x*q.x+q.y*q.y)),
-                    math.asin(max(-1., min(1., 2*(q.w*q.y-q.z*q.x)))), msg.angular_velocity.y, msg.angular_velocity.z)
+                    math.asin(max(-1., min(1., 2*(q.w*q.y-q.z*q.x)))), msg.angular_velocity.y, msg.angular_velocity.z,
+                    msg.angular_velocity.x)
 
     def on_contact(self, msg, key):
         self.contacts[key] = (self.sim_time, len(msg.contacts))
+        if self.args.diag:  # logging only: raw wrench sums, frame/sign convention not assumed
+            f1 = [sum(getattr(w.body_1_wrench.force, a) for c in msg.contacts for w in c.wrenches) for a in 'xyz']
+            f2 = [sum(getattr(w.body_2_wrench.force, a) for c in msg.contacts for w in c.wrenches) for a in 'xyz']
+            names = msg.contacts[0].collision1.name if msg.contacts else ''
+            self.wrenches[key] = (self.sim_time, f1, f2, names)
 
     def send(self, positions, horizon=.05):
         msg = JointTrajectory()
@@ -228,6 +251,7 @@ def main():
     parser.add_argument('--pitch-feedback', type=float, nargs=3, metavar=('KP', 'KD', 'LIMIT'))
     parser.add_argument('--tail', type=float, nargs=4, metavar=('KY', 'KR', 'KP', 'KD'))
     parser.add_argument('--tail-sync', type=float, nargs=3, metavar=('AMP', 'PHI0', 'KFB'))
+    parser.add_argument('--diag', action='store_true', help='log 100 Hz joint/IMU/contact wrench rows (no control effect)')
     parser.add_argument('--horizon', type=float, default=.02, help='JTC time_from_start of each streamed target (s)')
     parser.add_argument('--out', default='/raptor_ws/log/rock-gz-probe.json')
     args = parser.parse_args()
@@ -272,7 +296,7 @@ def main():
         result = {'arguments': vars(args), 'stop_reason': node.stop_reason, 'error': error, 'base_pose': poses,
                   'wall_s': round(time.monotonic()-wall, 1), 'summary': summary(node.rows, args),
                   'raw_joint_states_tail': list(node.raw) if node.stop_reason else [],
-                  'speed_spikes': node.spikes, 'gait_period_s': node.gait.period, 'gait_duty': node.gait.duty,
+                  'speed_spikes': node.spikes, 'diag': node.diag, 'start_sim_time': node.start, 'gait_period_s': node.gait.period, 'gait_duty': node.gait.duty,
                   'limitation': 'Gazebo DART open-loop rocking in place; contact = any foot/toe contact message; '
                                 'not walking.', 'rows': node.rows}
         Path(args.out).write_text(json.dumps(result, separators=(',', ':')))
