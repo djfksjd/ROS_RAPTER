@@ -113,7 +113,7 @@ def gazebo_series(diag_path, poses_path):
         total = sum(m for n, (m, _) in masses.items() if n in world)
         com = sum(m*(world[n][:3, :3]@c+world[n][:3, 3]) for n, (m, c) in masses.items() if n in world)/total
         pads = {s: world[f'{s}_foot_link'][:3, :3]@pad+world[f'{s}_foot_link'][:3, 3] for s in ('left', 'right')}
-        poses.append((ts, com, pads))
+        poses.append((ts, com, pads, world['base_link'][:3, 3].copy()))
     poses.sort(key=lambda r: r[0])
     pt = np.array([p[0] for p in poses])
     diag = log['diag']
@@ -131,6 +131,7 @@ def gazebo_series(diag_path, poses_path):
         x = interp([p[2][s][0] for p in poses], pt)
         series[f'pad_y_{s}'] = y
         series[f'slip_{s}'] = np.r_[np.nan, np.hypot(np.diff(x), np.diff(y))/.01]
+    series['body_y'] = interp([p[3][1] for p in poses], pt)  # base_link origin (body centre), not the COM
     com_y = interp([p[1][1] for p in poses], pt)
     com_z = interp([p[1][2] for p in poses], pt)
     vy = np.r_[0., np.diff(com_y)/.01]
@@ -138,7 +139,7 @@ def gazebo_series(diag_path, poses_path):
     return series, log
 
 
-def mujoco_series(kv, cycles, frequency=2.5, stride=.08):
+def mujoco_series(kv, cycles, frequency=2.5, stride=.08, amplitude=.08, window_width=.35, mirror=False, model='raptor_digitigrade.xml'):
     sys.path.insert(0, str(HERE))
     import mujoco
     from rock_probe import foot_forces, run
@@ -151,7 +152,8 @@ def mujoco_series(kv, cycles, frequency=2.5, stride=.08):
         w, x, y, z = data.qpos[3:7]
         roll = math.atan2(2*(w*x+y*z), 1-2*(x*x+y*y))
         root = model.body('base_root').id
-        row = {'t': t, 'roll': roll, 'roll_rate': float(data.qvel[3]), 'com': data.subtree_com[root].copy()}
+        row = {'t': t, 'roll': roll, 'roll_rate': float(data.qvel[3]), 'com': data.subtree_com[root].copy(),
+               'body_y': float(data.xpos[model.body('base_link').id][1])}
         for s in ('left', 'right'):
             b = model.body(f'{s}_foot_link').id
             row[f'pad_{s}'] = data.xmat[b].reshape(3, 3)@pad+data.xpos[b]
@@ -168,11 +170,13 @@ def mujoco_series(kv, cycles, frequency=2.5, stride=.08):
                 fy += sign*f[1]
             row[f'fz_{s}'], row[f'fy_{s}'] = fz, fy
         rows.append(row)
-    result = run(.08, frequency, cycles=cycles, stride=stride, pitch_feedback=(.5, .05, .15), servo_kv=kv,
-                 jtc=(.02, .02), model_path=str(HERE/'raptor_digitigrade.xml'), crouch_hip=-.10, crouch_knee=.5,
-                 step_hook=trace)
+    centers = (('left', .78), ('right', .28)) if mirror else (('left', .28), ('right', .78))
+    result = run(-amplitude if mirror else amplitude, frequency, cycles=cycles, stride=stride,
+                 pitch_feedback=(.5, .05, .15), servo_kv=kv, jtc=(.02, .02), model_path=str(HERE/model),
+                 crouch_hip=-.10, crouch_knee=.5, step_hook=trace, lift_width=window_width, lift_centers=centers)
     t = np.array([r['t'] for r in rows])
-    series = {'t': t, 'roll': np.array([r['roll'] for r in rows]), 'roll_rate': np.array([r['roll_rate'] for r in rows])}
+    series = {'t': t, 'roll': np.array([r['roll'] for r in rows]), 'roll_rate': np.array([r['roll_rate'] for r in rows]),
+              'body_y': np.array([r['body_y'] for r in rows])}
     for s in ('left', 'right'):
         series[f'fz_{s}'] = np.array([r[f'fz_{s}'] for r in rows])
         series[f'fy_{s}'] = np.array([r[f'fy_{s}'] for r in rows])
@@ -183,6 +187,59 @@ def mujoco_series(kv, cycles, frequency=2.5, stride=.08):
     vy = np.r_[0., np.diff(com[:, 1])/.01]
     series['com_y'], series['xcom_y'] = com[:, 1], com[:, 1]+vy/np.sqrt(G/np.maximum(com[:, 2], .1))
     return series, result
+
+
+def band_amplitude(t, y, lo, hi, f0, f1):
+    """Hann-windowed FFT amplitude (sinusoid peak units) summed (RSS) over [f0, f1) Hz within t in [lo, hi]."""
+    t, y = np.asarray(t), np.asarray(y)
+    m = (t >= lo) & (t <= hi)
+    y = y[m]-y[m].mean()
+    n = len(y)
+    if n < 20:
+        return None, None
+    f = np.fft.rfftfreq(n, .01)
+    a = np.abs(np.fft.rfft(y*np.hanning(n)))*4/n  # Hann coherent gain 0.5
+    band = (f >= f0) & (f < f1)
+    return float(np.sqrt(np.sum(a[band]**2))), float(f[band][np.argmax(a[band])]) if band.any() else None
+
+
+def step_growth(t, y, lo, hi, frequency):
+    """Per-step growth of the lateral oscillation: peak |y - moving mean| in each step (half cycle), then
+    (A[k+3]/A[k])**(1/3) over consecutive 3-step spans. Returns (median, max, per-step amplitudes)."""
+    t, y = np.asarray(t), np.asarray(y)
+    m = (t >= lo) & (t <= hi)
+    t, y = t[m], y[m]
+    if len(t) < 50:
+        return None, None, []
+    k = max(1, int(round(1/frequency/.01)))  # one gait cycle of samples
+    mean = np.convolve(y, np.ones(k)/k, mode='same')
+    dev = np.abs(y-mean)
+    step = .5/frequency
+    amps = [float(dev[(t >= a) & (t < a+step)].max()) for a in np.arange(t[0], t[-1]-step, step)]
+    ratios = [(amps[i+3]/amps[i])**(1/3) for i in range(len(amps)-3) if amps[i] > 1e-4]
+    return (float(np.median(ratios)) if ratios else None, float(np.max(ratios)) if ratios else None, amps)
+
+
+def table_metrics(series, lo, hi, frequency, weight=17.3*G):
+    """Metrics requested for evidence 73 tables over [lo, hi] s."""
+    t = np.asarray(series['t'])
+    m = (t >= lo) & (t <= hi)
+    low, low_f = band_amplitude(t, series['com_y'], lo, hi, .3, 1.6)
+    gait, _ = band_amplitude(t, series['com_y'], lo, hi, 2., 3.)
+    body_gait, _ = band_amplitude(t, series['body_y'], lo, hi, 2., 3.)
+    roll_gait, _ = band_amplitude(t, series['roll'], lo, hi, 2., 3.)
+    ratios = []
+    for s in ('left', 'right'):
+        fz, fy = np.asarray(series[f'fz_{s}'])[m], np.asarray(series[f'fy_{s}'])[m]
+        loaded = fz > .2*weight
+        ratios.extend(list(np.abs(fy[loaded])/fz[loaded]))
+    fl, fr = np.asarray(series['fz_left'])[m], np.asarray(series['fz_right'])[m]
+    growth_med, growth_max, _ = step_growth(t, series['com_y'], lo, hi, frequency)
+    return {'window_s': [round(lo, 2), round(hi, 2)], 'com_y_0.3_1.6Hz_m': low, 'com_y_low_peak_hz': low_f,
+            'com_y_2_3Hz_m': gait, 'body_y_2_3Hz_m': body_gait, 'roll_2_3Hz_rad': roll_gait,
+            'loaded_fy_fz_p90': float(np.percentile(ratios, 90)) if ratios else None,
+            'load_share_left': float(fl.sum()/max(fl.sum()+fr.sum(), 1e-9)),
+            'growth_per_step_median': growth_med, 'growth_per_step_max': growth_max}
 
 
 KEYS = ('roll', 'roll_rate', 'com_y', 'xcom_y', 'pad_y_left', 'pad_y_right', 'fz_left', 'fz_right',

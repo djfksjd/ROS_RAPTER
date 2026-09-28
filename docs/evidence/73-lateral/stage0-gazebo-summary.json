@@ -1,0 +1,112 @@
+{
+ "mirror1": {
+  "stop_reason": null,
+  "end_s": 61.99,
+  "roll_end": -0.07066,
+  "pitch_end": -0.00238,
+  "com_y_end": 1.04780110219753,
+  "metrics": {
+   "window_s": [
+    2.0,
+    61.99
+   ],
+   "com_y_0.3_1.6Hz_m": 0.008388773122675329,
+   "com_y_low_peak_hz": 1.2833333333333332,
+   "com_y_2_3Hz_m": 0.012070429034246662,
+   "body_y_2_3Hz_m": 0.01494992322700986,
+   "roll_2_3Hz_rad": 0.08381855334081341,
+   "loaded_fy_fz_p90": 0.41199668797684835,
+   "load_share_left": 0.48188948260629,
+   "growth_per_step_median": 1.0033313047528631,
+   "growth_per_step_max": 1.3881531792360182
+  }
+ },
+ "mirror2": {
+  "stop_reason": "IMU tilt 0.250507 exceeded 0.250 rad at sim 14.285 s",
+  "end_s": 14.280999999999997,
+  "roll_end": -0.0535,
+  "pitch_end": -0.22299,
+  "com_y_end": -0.028322263565704355,
+  "metrics": {
+   "window_s": [
+    2.0,
+    14.28
+   ],
+   "com_y_0.3_1.6Hz_m": 0.0609543601434844,
+   "com_y_low_peak_hz": 0.8136696501220504,
+   "com_y_2_3Hz_m": 0.00784933485196863,
+   "body_y_2_3Hz_m": 0.009962489541236148,
+   "roll_2_3Hz_rad": 0.08202722615669546,
+   "loaded_fy_fz_p90": 0.37177011188940357,
+   "load_share_left": 0.46200807057324716,
+   "growth_per_step_median": 0.9983449727308502,
+   "growth_per_step_max": 1.1640742574492349
+  }
+ },
+ "mirror3": {
+  "stop_reason": "IMU tilt 0.250657 exceeded 0.250 rad at sim 6.930 s",
+  "end_s": 6.92,
+  "roll_end": 0.20897,
+  "pitch_end": -0.08871,
+  "com_y_end": -0.1717245585364783,
+  "metrics": {
+   "window_s": [
+    2.0,
+    6.92
+   ],
+   "com_y_0.3_1.6Hz_m": 0.10173266191206502,
+   "com_y_low_peak_hz": 0.8113590263691685,
+   "com_y_2_3Hz_m": 0.0043523252534996785,
+   "body_y_2_3Hz_m": 0.0051932180796649095,
+   "roll_2_3Hz_rad": 0.07645126220158817,
+   "loaded_fy_fz_p90": 0.3826767380077898,
+   "load_share_left": 0.5917176237549251,
+   "growth_per_step_median": 1.0110226499961525,
+   "growth_per_step_max": 1.7221314574712412
+  }
+ },
+ "mirror4": {
+  "stop_reason": "IMU tilt 0.255612 exceeded 0.250 rad at sim 3.330 s",
+  "end_s": 3.3200000000000003,
+  "roll_end": 0.24485,
+  "pitch_end": 0.03244,
+  "com_y_end": -0.153949829492833,
+  "metrics": {
+   "window_s": [
+    2.0,
+    3.32
+   ],
+   "com_y_0.3_1.6Hz_m": 0.11761683007796764,
+   "com_y_low_peak_hz": 0.7518796992481203,
+   "com_y_2_3Hz_m": 0.004285245724116565,
+   "body_y_2_3Hz_m": 0.004385019965961826,
+   "roll_2_3Hz_rad": 0.058514781832588125,
+   "loaded_fy_fz_p90": 0.36539985693580596,
+   "load_share_left": 0.3724881072499773,
+   "growth_per_step_median": 1.020704850200049,
+   "growth_per_step_max": 1.4444688388178926
+  }
+ },
+ "static": {
+  "stop_reason": null,
+  "end_s": 6.99,
+  "roll_end": -0.0,
+  "pitch_end": -0.0,
+  "com_y_end": -6.406369611920198e-16,
+  "metrics": {
+   "window_s": [
+    1.0,
+    6.99
+   ],
+   "com_y_0.3_1.6Hz_m": 0.0,
+   "com_y_low_peak_hz": 0.3333333333333333,
+   "com_y_2_3Hz_m": 0.0,
+   "body_y_2_3Hz_m": 0.0,
+   "roll_2_3Hz_rad": 0.0,
+   "loaded_fy_fz_p90": 0.0,
+   "load_share_left": 0.5,
+   "growth_per_step_median": null,
+   "growth_per_step_max": null
+  }
+ }
+}

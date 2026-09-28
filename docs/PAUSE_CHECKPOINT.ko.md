@@ -11,7 +11,8 @@ Gazebo 보폭 시도 불합격(evidence/69): STOP 2회, MuJoCo actuator 근사 �
 꼬리 균형·속도 탐색 완료(evidence/70): 꼬리 효과 작음, 개루프 보행 한계 ~0.16m/s(MuJoCo), Gazebo 보폭 불합격 유지.
 보행 동기 꼬리 완료(evidence/71): MuJoCo 빠른 보행 kv 전 범위 전도 없음, Gazebo는 roll 전도·위상 추정 부정확.
 꼬리 동결. roll 전도 진단 완료(evidence/72-diagnosis), 사용자 확인 대기(1단계 끝에서 정지 지시).
-재개 지점: 사용자 승인 후 2단계 roll 피드백(착지 위치 보정 우선), 3단계 궤적 생성기 φ 발행. 완료 기준: Gazebo 빠른 보행 60초, kv 20~100.
+0단계·실험 A(MuJoCo) 완료 후 예측 20% 이상 불일치로 정지(evidence/73-lateral). 사용자 판단 대기.
+재개 지점: 사용자 결정에 따라 수정 모델로 실험 A(Gazebo)·B~D 또는 2단계 착지 피드백. 실험 D는 이득 곱 유지 방법 확인 필요.
 Gazebo 실행은 --experiment leg_design:=digitigrade. 실험 컨테이너는 정지 상태.
 
 ## 2026-09-28 재개 결과

@@ -8,6 +8,7 @@ pitch and pitch rate, clipped. Position targets only; the caller owns STOP.
 import math
 
 CENTERS = (('left', .28), ('right', .78))
+MIRRORED = (('left', .78), ('right', .28))  # left/right roles swapped (with r -> -r): exact y-mirror of the gait
 
 
 def crouch_pose(joints, hip, knee):
@@ -18,14 +19,15 @@ def crouch_pose(joints, hip, knee):
     return pose
 
 
-def targets(pose, a, amplitude, frequency, ramp, stride=0., window=.35, pitch=0., pitch_rate=0., feedback=None):
+def targets(pose, a, amplitude, frequency, ramp, stride=0., window=.35, pitch=0., pitch_rate=0., feedback=None,
+            mirror=False):
     target = dict(pose)
     if a < 0:
         return target
-    r = amplitude*min(1., a/ramp)*math.sin(2*math.pi*frequency*a)
+    r = amplitude*min(1., a/ramp)*math.sin(2*math.pi*frequency*a)*(-1 if mirror else 1)
     target |= {'left_hip_roll_joint': -r, 'right_hip_roll_joint': r}
     cycle = (a*frequency) % 1
-    for side, center in CENTERS:
+    for side, center in (MIRRORED if mirror else CENTERS):
         offset = (cycle-center+.5) % 1-.5
         u = (offset+window/2)/window
         swing = -stride*(u-.5) if 0 <= u <= 1 else -stride*(.5-((offset-window/2) % 1)/(1-window))

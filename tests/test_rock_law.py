@@ -44,6 +44,15 @@ class RockLawTest(unittest.TestCase):
                 level = sum(t[f'{side}_{j}_joint'] for j in ('hip_pitch', 'knee_pitch', 'ankle_pitch'))
                 self.assertAlmostEqual(level, 0.)
 
+    def test_mirror_swaps_sides(self):
+        for a in (2.1, 2.23, 2.37, 2.55):
+            t, m = targets(POSE, a, .08, 2.5, 1., stride=.08), targets(POSE, a, .08, 2.5, 1., stride=.08, mirror=True)
+            self.assertAlmostEqual(m['left_hip_roll_joint'], -t['left_hip_roll_joint'])
+            self.assertAlmostEqual(m['right_hip_roll_joint'], -t['right_hip_roll_joint'])
+            for j in ('hip_pitch', 'ankle_pitch'):  # same instant: the legs exchange stride roles
+                self.assertAlmostEqual(m[f'left_{j}_joint'], t[f'right_{j}_joint'])
+                self.assertAlmostEqual(m[f'right_{j}_joint'], t[f'left_{j}_joint'])
+
     def test_pitch_feedback_is_clipped(self):
         t = targets(POSE, 2., .08, 2., 1., pitch=1., feedback=(.5, .05, .15))
         self.assertAlmostEqual(t['left_ankle_pitch_joint']-POSE['left_ankle_pitch_joint'], .15)

@@ -86,7 +86,7 @@ class RockProbe(Node):
                 self.joints[name] = (msg.position[i], msg.velocity[i] if i < len(msg.velocity) else float('nan'))
         self.joints_at = self.sim_time
         if self.args.diag and self.imu is not None and self.start is not None:
-            fresh = {k: v for k, v in self.wrenches.items() if self.sim_time-v[0] < .03}
+            fresh = {k: v for k, v in self.wrenches.items() if v[0] is not None and self.sim_time-v[0] < .03}
             self.diag.append({'t': round(self.sim_time-self.start, 4),
                               'q': {j: round(v[0], 5) for j, v in self.joints.items()},
                               'v': {j: round(v[1], 4) for j, v in self.joints.items()},
@@ -196,8 +196,8 @@ class RockProbe(Node):
             return False
         self.last_sent = t
         a, g = phase-self.args.settle, self.args
-        new = targets(self.crouch, a, g.amplitude, g.frequency, g.ramp, stride=g.stride, pitch=self.imu[1],
-                      pitch_rate=self.imu[2], feedback=g.pitch_feedback)
+        new = targets(self.crouch, a, g.amplitude, g.frequency, g.ramp, stride=g.stride, window=g.window,
+                      pitch=self.imu[1], pitch_rate=self.imu[2], feedback=g.pitch_feedback, mirror=g.mirror)
         self.gait_phase = self.gait.update(t, self.in_contact('left'))  # phase 0 at left touchdown (contact messages)
         if g.tail_sync and a >= 0:  # gait-synchronised tail yaw (amp, phi0, k_fb) with IMU yaw rate
             new |= self.tail_law.update(t, self.gait_phase, self.imu[3])
@@ -251,18 +251,21 @@ def main():
     parser.add_argument('--pitch-feedback', type=float, nargs=3, metavar=('KP', 'KD', 'LIMIT'))
     parser.add_argument('--tail', type=float, nargs=4, metavar=('KY', 'KR', 'KP', 'KD'))
     parser.add_argument('--tail-sync', type=float, nargs=3, metavar=('AMP', 'PHI0', 'KFB'))
+    parser.add_argument('--window', type=float, default=.35, help='unloaded (swing) window, fraction of a cycle')
+    parser.add_argument('--mirror', action='store_true', help='left/right mirrored gait (r -> -r, windows swapped)')
     parser.add_argument('--diag', action='store_true', help='log 100 Hz joint/IMU/contact wrench rows (no control effect)')
     parser.add_argument('--horizon', type=float, default=.02, help='JTC time_from_start of each streamed target (s)')
     parser.add_argument('--out', default='/raptor_ws/log/rock-gz-probe.json')
     args = parser.parse_args()
-    if not (0 <= args.amplitude <= .12 and .5 <= args.frequency <= 2.5 and 1 <= args.cycles <= 120
+    if not (0 <= args.amplitude <= .12 and .5 <= args.frequency <= 2.5 and 1 <= args.cycles <= 150
             and .01 <= args.horizon <= .1 and .1 <= args.ramp <= 5 and 0 <= args.settle <= 5 and 0 <= args.stride <= .08
+            and .2 <= args.window <= .4
             and (args.pitch_feedback is None or (0 <= args.pitch_feedback[0] <= 1 and 0 <= args.pitch_feedback[1] <= .2
                                                   and 0 <= args.pitch_feedback[2] <= .2))
             and (args.tail is None or all(abs(v) <= 3 for v in args.tail))
             and (args.tail_sync is None or (0 <= args.tail_sync[0] <= .2 and 0 <= args.tail_sync[1] < 1
                                             and abs(args.tail_sync[2]) <= .5))):
-        parser.error('outside experimental bounds (A <= 0.12, 0.5 <= f <= 2.5, cycles <= 120, 0.1 <= ramp <= 5, '
+        parser.error('outside experimental bounds (A <= 0.12, 0.5 <= f <= 2.5, cycles <= 150, 0.1 <= ramp <= 5, '
                      'stride <= 0.08, feedback kp <= 1 kd <= 0.2 limit <= 0.2)')
     rclpy.init()
     node = RockProbe(args)
