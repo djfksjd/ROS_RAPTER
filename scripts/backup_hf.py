@@ -15,8 +15,22 @@ def main():
         raise SystemExit("Commit reviewed changes before backing up.")
     # Reject sensitive files or generated directories anywhere in Git history.
     paths = git("log", "--all", "--pretty=format:", "--name-only").decode().splitlines()
+    # The root template is allowed only if every committed version holds comments/empty values.
+    template = ".env.example"
+    if template in paths:
+        for sha in git("log", "--all", "--format=%H", "--", template).decode().split():
+            try:
+                text = git("show", f"{sha}:{template}").decode()
+            except subprocess.CalledProcessError:
+                continue  # deleted in this commit
+            for line in text.splitlines():
+                line = line.strip()
+                if line and not line.startswith("#") and line.partition("=")[2].strip().strip("\"'"):
+                    raise SystemExit("Non-empty value in .env.example history; backup stopped.")
     for name in paths:
         p = Path(name)
+        if name == template:
+            continue
         if (p.name == ".env" or p.name.startswith(".env.")
                 or p.suffix in {".key", ".pem"}
                 or {"build", "install", "log"}.intersection(p.parts)):
