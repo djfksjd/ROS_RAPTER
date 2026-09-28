@@ -15,6 +15,9 @@ def setup(context):
     hip = float(LaunchConfiguration('crouch_hip_pitch').perform(context))
     if not -.25 <= hip <= .05:
         raise ValueError('crouch_hip_pitch outside experimental bounds [-0.25, 0.05]')
+    leg_design = LaunchConfiguration('leg_design').perform(context)
+    if leg_design not in ('legacy', 'digitigrade'):
+        raise ValueError('leg_design must be legacy or digitigrade')
     toe_scale = float(LaunchConfiguration('toe_stiffness_scale').perform(context))
     if not 1 <= toe_scale <= 5:
         raise ValueError('toe_stiffness_scale outside experimental bounds [1, 5]')
@@ -25,6 +28,7 @@ def setup(context):
                   'passive_toes': LaunchConfiguration('passive_toes').perform(context),
                   'crouched_start': LaunchConfiguration('crouched_start').perform(context),
                   'toe_stiffness_scale': str(toe_scale),
+                  'leg_design': leg_design,
                   'crouch_hip_pitch': str(hip)}).toxml()
     spawn = Node(package='ros_gz_sim', executable='create', arguments=[
         '-world', 'raptor_world', '-topic', 'robot_description',
@@ -75,6 +79,7 @@ def generate_launch_description():
         DeclareLaunchArgument('passive_toes', default_value='false'),
         DeclareLaunchArgument('toe_stiffness_scale', default_value='1.0'),
         DeclareLaunchArgument('crouched_start', default_value='false'),
+        DeclareLaunchArgument('leg_design', default_value='legacy'),
         DeclareLaunchArgument('crouch_hip_pitch', default_value='-0.15'),
         OpaqueFunction(function=setup),
     ])

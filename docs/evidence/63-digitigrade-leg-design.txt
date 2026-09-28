@@ -11,6 +11,8 @@ MuJoCo (elliptic cone, Gazebo-like servo), legacy crouch -0.15/0.4 vs digitigrad
   rocking A0.08 f2, mu{0.5,0.8,1} x mass{0.9,1,1.1} x 60 s: 9/9 | 9/9
   stride 0.05 + ankle pitch fb, 60 s, kv30:  legacy +4.94 m td 1.0 slip/step 0.23 pitch 0.059 | digitigrade +5.51 m td 1.0 slip/step 0.22 pitch 0.017
   same, kv100:                               legacy FALL (pitch 0.76)                       | digitigrade no fall, +4.48 m td 1.0 slip/step 0.33 pitch 0.019
-Gazebo (DART, passive toes, crouched_start hip -0.10, spawn_z 0): stood; pose static to <1e-6 m while sim time advanced
-  (11.744 -> 12.774 s); tilt 7e-7 rad. Screenshot: 63-digitigrade-gazebo-standing.png (box visuals for new links).
+CORRECTION (2026-09-28, same day): the Gazebo run originally recorded here was the LEGACY design. sim.launch.py did not
+  forward leg_design to xacro, so leg_design:=digitigrade was silently ignored. 63-digitigrade-gazebo-standing.png therefore
+  shows the legacy model (legacy knee 0.4 crouch, spawn_z 0) and is not digitigrade evidence. Fixed in sim.launch.py
+  (validated leg_design argument); the digitigrade Gazebo standing result is in 64-digitigrade-morphloom-gazebo.txt.
 Not validated: walking in Gazebo, ankle step robustness, terrain. Stepping remains conditional on the actuator model.
