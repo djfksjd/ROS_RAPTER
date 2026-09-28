@@ -7,7 +7,8 @@
 참고 모습 스타일 digitigrade_low 추가(evidence/67): 기립·흔들기 통과, 보폭 걷기 깨끗한 걸음 기준 미달, Gazebo 정지 기립.
 Gazebo digitigrade 흔들기 재현·STOP 감시 완료(evidence/68). MuJoCo와 위상 ~46ms 차이.
 MuJoCo JTCLikeServo로 위상 차이 46→~21ms 설명, 보폭 결과 영향 작음.
-재개 지점: Gazebo 보폭 시험(rock_gz_probe에 stride·IMU pitch 발목 피드백 추가), 또는 actuator 사양 범위(사용자 결정).
+Gazebo 보폭 시도 불합격(evidence/69): STOP 2회, MuJoCo actuator 근사 불일치 확인.
+재개 지점: actuator 사양 범위(사용자 결정) → MuJoCo actuator 교체, 또는 roll 위상 피드백을 rock_gz_probe에 넣어 Gazebo 재시험.
 Gazebo 실행은 --experiment leg_design:=digitigrade. 실험 컨테이너는 정지 상태.
 
 ## 2026-09-28 재개 결과

@@ -1,0 +1,23 @@
+Gazebo stride attempt, digitigrade, 2026-09-28. rock_gz_probe.py --stride 0.05 --pitch-feedback 0.5 0.05 0.15 (A 0.08,
+2 Hz, JTC horizon 20 ms, same law as the MuJoCo stride via rock_law.py; tests/test_rock_law.py checks the law).
+Result: FAIL in Gazebo - both runs stopped by the watchdog within ~2.5 s of full stride (stride ramps in at 2-3 s):
+  run 1: STOP "velocity saturation right_ankle_pitch_joint -2.500 rad/s" at sim 4.559 s. The right foot was in swing
+    (no contact); ankle speed jumped from 0.03 to the 2.5 rad/s limit within one 20 ms row while the commanded ankle
+    rate was ~0.29 rad/s. Same signature as the DART light-joint saturation defect (evidence 61) or a touchdown impact;
+    not resolved (raw 100 Hz buffer was added after this run). Base moved +0.10 m in x, stayed up.
+  run 2 (fresh inputs, raw buffer): STOP "IMU tilt 0.254 exceeded 0.250" at sim 5.646 s. No joint speed > 0.6 rad/s
+    in the last 2 s; body roll grew 0.12 -> 0.17 -> 0.25 with stride (rocking alone: max 0.12-0.15). The robot tipped.
+Probe fixes found while running: wait for fresh joint/IMU data before start (a blocking start pose query caused a
+  false stale STOP), ignore contact messages stamped before the first /clock.
+MuJoCo cross-check with JTCLikeServo (0.02, 0.02), velocity-servo kv sweep:
+  kv    rocking amp/lag      stride 0.05 + fb, 20 s
+  8     0.12 / 54 ms         no fall, barely moves
+  12    0.11 / 49 ms         no fall, slip/step 4.6
+  20    0.40 / 65 ms         FALL at 5.6 s, slip/step 0.45
+  30    0.80 / 44 ms         no fall, slip/step 0.20
+  100   1.03 / 41 ms         no fall, slip/step 0.37
+  Gazebo rocking: 1.04 / 62 ms. No kv reproduces both amplitude and lag: the MuJoCo velocity-actuator approximation does
+  not represent the loaded Gazebo servo, and the stride outcome depends on it (fails at kv 20, passes at 30).
+Conclusion: the MuJoCo stride success is NOT confirmed in the second engine (methodology: one-engine success = fail).
+  Next: replace the actuator model with a spec-range model (torque-limited PD + speed-torque curve + delay; needs the
+  user's actuator candidate ranges) and/or add roll-phase feedback (sim/rhythm.py) before retrying stride in Gazebo.

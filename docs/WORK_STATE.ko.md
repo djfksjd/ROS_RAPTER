@@ -48,7 +48,9 @@ Gazebo 정지 기립 확인. 보행 개발 기준 설계는 digitigrade 유지.
 Gazebo 흔들기 재현(evidence/68): digitigrade A 0.08/2Hz 120주기 STOP 없이 교대 지지, 포화 감시 STOP 동작 확인.
 MuJoCo 대비 몸통 roll 진폭 일치, 위상 ~46ms 지연(기준 미달). JTC horizon 50→20ms로 추종 개선.
 MuJoCo JTCLikeServo로 위상 차이 대부분 설명(46→~21ms), JTC 지연에도 MuJoCo 보폭 결과 유지.
-다음: Gazebo 보폭 시험(IMU pitch 발목 피드백, 포화 감시 유지), Gazebo 힘 기준 접촉 지표. 모터 사양 범위는 사용자 결정 대기.
+Gazebo 보폭 시도(evidence/69): 불합격 — 보폭 최대 후 ~2.5초 안에 STOP 2회(발목 속도 포화, 기울기).
+MuJoCo 속도 actuator 근사로는 Gazebo servo 응답을 재현 못 함. MuJoCo 보폭 성공은 두 엔진 기준 미확인.
+다음: actuator 사양 범위 모델 교체(사용자 부품 후보 필요) 또는 roll 위상 피드백 추가 후 재시험. 모터 사양 범위는 사용자 결정 대기.
 
 ## 이전 상태 — 방향 A(동적 흔들기 보행)
 

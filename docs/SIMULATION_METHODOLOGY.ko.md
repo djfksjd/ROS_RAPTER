@@ -74,7 +74,11 @@ kv 300은 발목에서 불안정했다. 기존 60번의 깨끗한 걸음은 kv 3
 - MuJoCo `JTCLikeServo`(`rock_probe.run(jtc=(0.02, 0.02))`)로 스트리밍 JTC 경로를 모사하면 위상 차이가
   46ms → 약 21ms로 줄었다. 남은 차이는 하중 상태 servo 응답과 IMU 50Hz 표본화로 추정하며 기준 통과로 보지 않는다.
   JTC 지연을 넣어도 MuJoCo 보폭 결과는 거의 같다(kv30 0.20, kv100 0.37).
-- 다음: Gazebo 보폭 시험(자세 피드백은 IMU pitch, 위치 목표만), Gazebo 접촉 힘 기준 지표.
+- **Gazebo 보폭(evidence/69): 불합격.** MuJoCo와 같은 법칙(stride 0.05 + 발목 pitch 피드백)이 Gazebo에서
+  보폭 최대 후 약 2.5초 안에 두 번 STOP됐다(스윙 중 발목 2.5rad/s 포화, 몸통 roll 0.25 초과).
+  MuJoCo kv를 바꿔도 Gazebo 흔들기 응답(진폭 1.04, 지연 62ms)을 동시에 재현하지 못했고, 보폭 성공 여부가
+  kv에 따라 뒤집혔다(kv20 전도, kv30 통과). MuJoCo 보폭 성공은 두 번째 엔진에서 확인되지 않았다.
+- 다음: 4절의 actuator 사양 범위 모델 교체(사용자 부품 후보 필요), 또는 roll 위상 피드백(sim/rhythm.py) 추가 후 재시험.
 
 ## 4. 다음 한 단계
 
