@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
-"""Open-loop lateral rocking from crouch in MuJoCo: does rocking unload each foot in turn?
+"""Lateral rocking (and optional stepping) from crouch in MuJoCo.
 
 Both hip rolls move in parallel (left = -r, right = +r because the right axis is -x),
-r(t) = amplitude*sin(2*pi*f*t) after a ramp. Optional lift: inside each foot's measured unloaded
-phase window the knee flexes by `lift` with hip and ankle each -lift/2 (sole pitch kept), cos^2
-profile. A tilt guard latches STOP (hold). 'unloaded' means < 5% of body weight. Not walking.
+r = A*sin(phase) after a ramp; the phase is time-based or from `rhythm` (roll feedback).
+Inside each foot's unloaded phase window: optional knee `lift` (hip/ankle -lift/2) and hip-pitch
+`stride` (ankle cancels it); `pitch_feedback` adds a clipped ankle correction on base pitch.
+Joint position targets only. A tilt guard latches STOP (hold). 'unloaded' = < 5% body weight.
+Metrics are simulation diagnostics, not a walking certificate.
 """
 import argparse
 import json
@@ -162,12 +164,10 @@ def run(amplitude, frequency, cycles=6, ramp=1., guard=.25, model_path=None, cro
             trace[side]['slip'].append(np.nan if speed_now is None else speed_now)
             trace[side]['x'].append(float(data.xpos[body][0]))
             loaded = f[side] >= .2*weight
-            if loaded and was_loaded[side]:
-                speed = contact_slip(model, data, side, force, velocity)
-                if speed is not None:
-                    slip[side] = max(slip[side], speed)
-                    slip_sum[side] += speed*dt
-                    loaded_time[side] += dt
+            if loaded and was_loaded[side] and speed_now is not None:
+                slip[side] = max(slip[side], speed_now)
+                slip_sum[side] += speed_now*dt
+                loaded_time[side] += dt
             if not off[side] and was_off[side]:
                 touchdowns[side].append(float(data.xpos[body][0]))
             was_loaded[side], was_off[side] = loaded, off[side]
