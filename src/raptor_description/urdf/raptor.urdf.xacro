@@ -27,7 +27,13 @@
   <xacro:property name="thigh_ixx" value="${0.0140 if legacy else 1.5*(0.10**2+thigh_length**2)/12}"/>
   <xacro:property name="shin_ixx" value="${0.0089 if legacy else 1.1*(0.085**2+shin_length**2)/12}"/>
   <!-- Legacy thigh/shin meshes fit only the legacy lengths. -->
-  <xacro:property name="leg_meshes" value="${'$(arg detailed_visuals)' == 'true' and legacy}"/>
+  <xacro:property name="detailed" value="${'$(arg detailed_visuals)' == 'true'}"/>
+  <!-- legacy_detail: original DAE visuals. dg_detail: per-link Morphloom GLBs (modeling/morphloom). -->
+  <xacro:property name="legacy_detail" value="${detailed and legacy}"/>
+  <xacro:property name="dg_detail" value="${detailed and not legacy}"/>
+  <xacro:macro name="dg_visual" params="link">
+    <xacro:if value="${dg_detail}"><visual><origin rpy="${pi/2} 0 0"/><geometry><mesh filename="package://raptor_description/meshes/digitigrade/${link}.glb"/></geometry></visual></xacro:if>
+  </xacro:macro>
   <xacro:include filename="passive_toes.xacro"/>
   <xacro:include filename="digitigrade_foot.xacro"/>
   <!-- crouched_start knee; the ankle keeps the sole level (hip + knee + ankle = 0). -->
@@ -88,9 +94,10 @@
   -->
 
   <link name="base_link">
+    <xacro:dg_visual link="base_link"/>
 
     <!-- 화면에 보이는 외형 -->
-    <xacro:unless value="$(arg detailed_visuals)"><visual>
+    <xacro:unless value="${detailed}"><visual>
       <origin xyz="0 0 0" rpy="0 0 0"/>
 
       <geometry>
@@ -101,7 +108,7 @@
         <color rgba="0.35 0.37 0.40 1.0"/>
       </material>
     </visual></xacro:unless>
-    <xacro:if value="$(arg detailed_visuals)">
+    <xacro:if value="${legacy_detail}">
       <visual><geometry><mesh filename="package://raptor_description/meshes/raptor/base_link__graphite.dae"/></geometry><material name="raptor_graphite"><color rgba="0.065 0.075 0.085 1"/></material></visual>
       <visual><geometry><mesh filename="package://raptor_description/meshes/raptor/base_link__titanium.dae"/></geometry><material name="raptor_titanium"><color rgba="0.36 0.4 0.43 1"/></material></visual>
       <visual><geometry><mesh filename="package://raptor_description/meshes/raptor/base_link__ivory.dae"/></geometry><material name="raptor_ivory"><color rgba="0.72 0.72 0.65 1"/></material></visual>
@@ -141,8 +148,9 @@
     <!-- ========================================= -->
 
     <link name="left_hip_roll_link">
+    <xacro:dg_visual link="left_hip_roll_link"/>
 
-    <xacro:unless value="$(arg detailed_visuals)"><visual>
+    <xacro:unless value="${detailed}"><visual>
       <origin xyz="0 0 -0.06" rpy="0 0 0"/>
 
       <geometry>
@@ -153,7 +161,7 @@
         <color rgba="0.15 0.16 0.18 1.0"/>
       </material>
     </visual></xacro:unless>
-    <xacro:if value="$(arg detailed_visuals)">
+    <xacro:if value="${legacy_detail}">
       <visual><geometry><mesh filename="package://raptor_description/meshes/raptor/left_hip_roll_link__graphite.dae"/></geometry><material name="raptor_graphite"><color rgba="0.065 0.075 0.085 1"/></material></visual>
       <visual><geometry><mesh filename="package://raptor_description/meshes/raptor/left_hip_roll_link__titanium.dae"/></geometry><material name="raptor_titanium"><color rgba="0.36 0.4 0.43 1"/></material></visual>
       <visual><geometry><mesh filename="package://raptor_description/meshes/raptor/left_hip_roll_link__ivory.dae"/></geometry><material name="raptor_ivory"><color rgba="0.72 0.72 0.65 1"/></material></visual>
@@ -209,8 +217,9 @@
   <!-- ========================================= -->
 
   <link name="left_thigh_link">
+    <xacro:dg_visual link="left_thigh_link"/>
 
-    <xacro:unless value="${leg_meshes}"><visual>
+    <xacro:unless value="${detailed}"><visual>
       <!-- 관절에서 아래쪽으로 허벅지가 내려감 -->
       <origin xyz="0 0 ${-thigh_length/2}" rpy="0 0 0"/>
 
@@ -222,7 +231,7 @@
         <color rgba="0.55 0.57 0.60 1.0"/>
       </material>
     </visual></xacro:unless>
-    <xacro:if value="${leg_meshes}">
+    <xacro:if value="${legacy_detail}">
       <visual><geometry><mesh filename="package://raptor_description/meshes/raptor/left_thigh_link__graphite.dae"/></geometry><material name="raptor_graphite"><color rgba="0.065 0.075 0.085 1"/></material></visual>
       <visual><geometry><mesh filename="package://raptor_description/meshes/raptor/left_thigh_link__titanium.dae"/></geometry><material name="raptor_titanium"><color rgba="0.36 0.4 0.43 1"/></material></visual>
       <visual><geometry><mesh filename="package://raptor_description/meshes/raptor/left_thigh_link__ivory.dae"/></geometry><material name="raptor_ivory"><color rgba="0.72 0.72 0.65 1"/></material></visual>
@@ -279,8 +288,9 @@
   <!-- ========================================= -->
 
   <link name="left_shin_link">
+    <xacro:dg_visual link="left_shin_link"/>
 
-    <xacro:unless value="${leg_meshes}"><visual>
+    <xacro:unless value="${detailed}"><visual>
       <!-- 무릎 아래로 종아리가 내려감 -->
       <origin xyz="0 0 ${-shin_length/2}" rpy="0 0 0"/>
 
@@ -292,7 +302,7 @@
         <color rgba="0.42 0.44 0.47 1.0"/>
       </material>
     </visual></xacro:unless>
-    <xacro:if value="${leg_meshes}">
+    <xacro:if value="${legacy_detail}">
       <visual><geometry><mesh filename="package://raptor_description/meshes/raptor/left_shin_link__graphite.dae"/></geometry><material name="raptor_graphite"><color rgba="0.065 0.075 0.085 1"/></material></visual>
       <visual><geometry><mesh filename="package://raptor_description/meshes/raptor/left_shin_link__titanium.dae"/></geometry><material name="raptor_titanium"><color rgba="0.36 0.4 0.43 1"/></material></visual>
       <visual><geometry><mesh filename="package://raptor_description/meshes/raptor/left_shin_link__ivory.dae"/></geometry><material name="raptor_ivory"><color rgba="0.72 0.72 0.65 1"/></material></visual>
@@ -354,7 +364,7 @@
   <xacro:unless value="$(arg passive_toes)">
   <link name="left_foot_link">
 
-    <xacro:unless value="$(arg detailed_visuals)"><visual>
+    <xacro:unless value="${detailed}"><visual>
       <!-- 발목 기준으로 발을 약간 앞으로 배치 -->
       <origin xyz="0.06 0 -0.03" rpy="0 0 0"/>
 
@@ -366,7 +376,7 @@
         <color rgba="0.12 0.13 0.15 1.0"/>
       </material>
     </visual></xacro:unless>
-    <xacro:if value="$(arg detailed_visuals)">
+    <xacro:if value="${legacy_detail}">
       <visual><geometry><mesh filename="package://raptor_description/meshes/raptor/left_foot_link__graphite.dae"/></geometry><material name="raptor_graphite"><color rgba="0.065 0.075 0.085 1"/></material></visual>
       <visual><geometry><mesh filename="package://raptor_description/meshes/raptor/left_foot_link__titanium.dae"/></geometry><material name="raptor_titanium"><color rgba="0.36 0.4 0.43 1"/></material></visual>
       <visual><geometry><mesh filename="package://raptor_description/meshes/raptor/left_foot_link__ivory.dae"/></geometry><material name="raptor_ivory"><color rgba="0.72 0.72 0.65 1"/></material></visual>
@@ -430,8 +440,9 @@
   <!-- 1. RIGHT HIP ROLL LINK -->
 
   <link name="right_hip_roll_link">
+    <xacro:dg_visual link="right_hip_roll_link"/>
 
-    <xacro:unless value="$(arg detailed_visuals)"><visual>
+    <xacro:unless value="${detailed}"><visual>
       <origin xyz="0 0 -0.06" rpy="0 0 0"/>
 
       <geometry>
@@ -442,7 +453,7 @@
         <color rgba="0.15 0.16 0.18 1.0"/>
       </material>
     </visual></xacro:unless>
-    <xacro:if value="$(arg detailed_visuals)">
+    <xacro:if value="${legacy_detail}">
       <visual><geometry><mesh filename="package://raptor_description/meshes/raptor/right_hip_roll_link__graphite.dae"/></geometry><material name="raptor_graphite"><color rgba="0.065 0.075 0.085 1"/></material></visual>
       <visual><geometry><mesh filename="package://raptor_description/meshes/raptor/right_hip_roll_link__titanium.dae"/></geometry><material name="raptor_titanium"><color rgba="0.36 0.4 0.43 1"/></material></visual>
       <visual><geometry><mesh filename="package://raptor_description/meshes/raptor/right_hip_roll_link__ivory.dae"/></geometry><material name="raptor_ivory"><color rgba="0.72 0.72 0.65 1"/></material></visual>
@@ -499,8 +510,9 @@
   <!-- 2. RIGHT HIP PITCH + THIGH -->
 
   <link name="right_thigh_link">
+    <xacro:dg_visual link="right_thigh_link"/>
 
-    <xacro:unless value="${leg_meshes}"><visual>
+    <xacro:unless value="${detailed}"><visual>
       <origin xyz="0 0 ${-thigh_length/2}" rpy="0 0 0"/>
 
       <geometry>
@@ -511,7 +523,7 @@
         <color rgba="0.55 0.57 0.60 1.0"/>
       </material>
     </visual></xacro:unless>
-    <xacro:if value="${leg_meshes}">
+    <xacro:if value="${legacy_detail}">
       <visual><geometry><mesh filename="package://raptor_description/meshes/raptor/right_thigh_link__graphite.dae"/></geometry><material name="raptor_graphite"><color rgba="0.065 0.075 0.085 1"/></material></visual>
       <visual><geometry><mesh filename="package://raptor_description/meshes/raptor/right_thigh_link__titanium.dae"/></geometry><material name="raptor_titanium"><color rgba="0.36 0.4 0.43 1"/></material></visual>
       <visual><geometry><mesh filename="package://raptor_description/meshes/raptor/right_thigh_link__ivory.dae"/></geometry><material name="raptor_ivory"><color rgba="0.72 0.72 0.65 1"/></material></visual>
@@ -565,8 +577,9 @@
   <!-- 3. RIGHT KNEE PITCH + SHIN -->
 
   <link name="right_shin_link">
+    <xacro:dg_visual link="right_shin_link"/>
 
-    <xacro:unless value="${leg_meshes}"><visual>
+    <xacro:unless value="${detailed}"><visual>
       <origin xyz="0 0 ${-shin_length/2}" rpy="0 0 0"/>
 
       <geometry>
@@ -577,7 +590,7 @@
         <color rgba="0.42 0.44 0.47 1.0"/>
       </material>
     </visual></xacro:unless>
-    <xacro:if value="${leg_meshes}">
+    <xacro:if value="${legacy_detail}">
       <visual><geometry><mesh filename="package://raptor_description/meshes/raptor/right_shin_link__graphite.dae"/></geometry><material name="raptor_graphite"><color rgba="0.065 0.075 0.085 1"/></material></visual>
       <visual><geometry><mesh filename="package://raptor_description/meshes/raptor/right_shin_link__titanium.dae"/></geometry><material name="raptor_titanium"><color rgba="0.36 0.4 0.43 1"/></material></visual>
       <visual><geometry><mesh filename="package://raptor_description/meshes/raptor/right_shin_link__ivory.dae"/></geometry><material name="raptor_ivory"><color rgba="0.72 0.72 0.65 1"/></material></visual>
@@ -632,7 +645,7 @@
   <xacro:unless value="$(arg passive_toes)">
   <link name="right_foot_link">
 
-    <xacro:unless value="$(arg detailed_visuals)"><visual>
+    <xacro:unless value="${detailed}"><visual>
       <origin xyz="0.06 0 -0.03" rpy="0 0 0"/>
 
       <geometry>
@@ -643,7 +656,7 @@
         <color rgba="0.12 0.13 0.15 1.0"/>
       </material>
     </visual></xacro:unless>
-    <xacro:if value="$(arg detailed_visuals)">
+    <xacro:if value="${legacy_detail}">
       <visual><geometry><mesh filename="package://raptor_description/meshes/raptor/right_foot_link__graphite.dae"/></geometry><material name="raptor_graphite"><color rgba="0.065 0.075 0.085 1"/></material></visual>
       <visual><geometry><mesh filename="package://raptor_description/meshes/raptor/right_foot_link__titanium.dae"/></geometry><material name="raptor_titanium"><color rgba="0.36 0.4 0.43 1"/></material></visual>
       <visual><geometry><mesh filename="package://raptor_description/meshes/raptor/right_foot_link__ivory.dae"/></geometry><material name="raptor_ivory"><color rgba="0.72 0.72 0.65 1"/></material></visual>
@@ -705,8 +718,9 @@
   <!-- 몸통 뒤쪽에서 좌우로 회전하는 꼬리 베이스 -->
 
   <link name="tail_yaw_link">
+    <xacro:dg_visual link="tail_yaw_link"/>
 
-    <xacro:unless value="$(arg detailed_visuals)"><visual>
+    <xacro:unless value="${detailed}"><visual>
       <!-- 관절 기준 뒤쪽(-X)으로 꼬리 베이스가 뻗음 -->
       <origin xyz="-0.08 0 0" rpy="0 0 0"/>
 
@@ -718,7 +732,7 @@
         <color rgba="0.18 0.19 0.21 1.0"/>
       </material>
     </visual></xacro:unless>
-    <xacro:if value="$(arg detailed_visuals)">
+    <xacro:if value="${legacy_detail}">
       <visual><geometry><mesh filename="package://raptor_description/meshes/raptor/tail_yaw_link__graphite.dae"/></geometry><material name="raptor_graphite"><color rgba="0.065 0.075 0.085 1"/></material></visual>
       <visual><geometry><mesh filename="package://raptor_description/meshes/raptor/tail_yaw_link__titanium.dae"/></geometry><material name="raptor_titanium"><color rgba="0.36 0.4 0.43 1"/></material></visual>
       <visual><geometry><mesh filename="package://raptor_description/meshes/raptor/tail_yaw_link__ivory.dae"/></geometry><material name="raptor_ivory"><color rgba="0.72 0.72 0.65 1"/></material></visual>
@@ -774,8 +788,9 @@
   <!-- 꼬리를 위아래로 움직이는 관절 -->
 
   <link name="tail_link">
+    <xacro:dg_visual link="tail_link"/>
 
-    <xacro:unless value="$(arg detailed_visuals)"><visual>
+    <xacro:unless value="${detailed}"><visual>
       <!-- Pitch 관절에서 뒤쪽으로 0.5m 뻗는 꼬리 -->
       <origin xyz="-0.25 0 0" rpy="0 0 0"/>
 
@@ -787,7 +802,7 @@
         <color rgba="0.35 0.37 0.40 1.0"/>
       </material>
     </visual></xacro:unless>
-    <xacro:if value="$(arg detailed_visuals)">
+    <xacro:if value="${legacy_detail}">
       <visual><geometry><mesh filename="package://raptor_description/meshes/raptor/tail_link__graphite.dae"/></geometry><material name="raptor_graphite"><color rgba="0.065 0.075 0.085 1"/></material></visual>
       <visual><geometry><mesh filename="package://raptor_description/meshes/raptor/tail_link__titanium.dae"/></geometry><material name="raptor_titanium"><color rgba="0.36 0.4 0.43 1"/></material></visual>
       <visual><geometry><mesh filename="package://raptor_description/meshes/raptor/tail_link__ivory.dae"/></geometry><material name="raptor_ivory"><color rgba="0.72 0.72 0.65 1"/></material></visual>
