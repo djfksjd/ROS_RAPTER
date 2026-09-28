@@ -1,0 +1,260 @@
+{
+ "fore_aft": {
+  "uphill_5deg": {
+   "kinematic": {
+    "score": 0.0016782630594394886,
+    "body_pitch_rel_floor": -0.013,
+    "hip_pitch": 0.25,
+    "knee_pitch": 0.2,
+    "ankle_pitch": -0.437,
+    "com_plumb_dx_m": -0.0016,
+    "com_height_m": 0.749
+   },
+   "static": {
+    "max_tilt_change_rad": 0.007,
+    "final_tilt_change_rad": 0.006,
+    "xy_drift_m": 0.0011,
+    "stands_5s": true
+   }
+  },
+  "downhill_5deg": {
+   "kinematic": {
+    "score": 8.916560888854591e-05,
+    "body_pitch_rel_floor": 0.013,
+    "hip_pitch": -0.4,
+    "knee_pitch": 0.75,
+    "ankle_pitch": -0.363,
+    "com_plumb_dx_m": 0.0,
+    "com_height_m": 0.75
+   },
+   "static": {
+    "max_tilt_change_rad": 0.013,
+    "final_tilt_change_rad": 0.012,
+    "xy_drift_m": 0.0104,
+    "stands_5s": true
+   }
+  },
+  "uphill_10deg": {
+   "kinematic": {
+    "score": 0.002203819859034134,
+    "body_pitch_rel_floor": 0.275,
+    "hip_pitch": 0.0,
+    "knee_pitch": 0.3,
+    "ankle_pitch": -0.575,
+    "com_plumb_dx_m": 0.0006,
+    "com_height_m": 0.742
+   },
+   "static": {
+    "max_tilt_change_rad": 0.002,
+    "final_tilt_change_rad": 0.0,
+    "xy_drift_m": 0.0052,
+    "stands_5s": true
+   }
+  },
+  "downhill_10deg": {
+   "kinematic": {
+    "score": 0.0014313737340648184,
+    "body_pitch_rel_floor": -0.075,
+    "hip_pitch": -0.45,
+    "knee_pitch": 0.75,
+    "ankle_pitch": -0.225,
+    "com_plumb_dx_m": 0.0002,
+    "com_height_m": 0.744
+   },
+   "static": {
+    "max_tilt_change_rad": 0.025,
+    "final_tilt_change_rad": 0.018,
+    "xy_drift_m": 0.0148,
+    "stands_5s": true
+   }
+  },
+  "uphill_15deg": {
+   "kinematic": {
+    "score": 0.006812768305070311,
+    "body_pitch_rel_floor": 0.362,
+    "hip_pitch": 0.1,
+    "knee_pitch": 0.2,
+    "ankle_pitch": -0.662,
+    "com_plumb_dx_m": -0.0005,
+    "com_height_m": 0.718
+   },
+   "static": {
+    "max_tilt_change_rad": 0.007,
+    "final_tilt_change_rad": 0.004,
+    "xy_drift_m": 0.0111,
+    "stands_5s": true
+   }
+  },
+  "downhill_15deg": {
+   "kinematic": {
+    "score": 0.000947696934632901,
+    "body_pitch_rel_floor": -0.262,
+    "hip_pitch": 0.0,
+    "knee_pitch": 0.1,
+    "ankle_pitch": 0.162,
+    "com_plumb_dx_m": -0.0004,
+    "com_height_m": 0.753
+   },
+   "static": {
+    "max_tilt_change_rad": 0.022,
+    "final_tilt_change_rad": 0.015,
+    "xy_drift_m": 0.017,
+    "stands_5s": true
+   }
+  },
+  "uphill_20deg": {
+   "kinematic": {
+    "score": 0.01691976850825505,
+    "body_pitch_rel_floor": 0.449,
+    "hip_pitch": 0.25,
+    "knee_pitch": 0.0,
+    "ankle_pitch": -0.699,
+    "com_plumb_dx_m": -0.0047,
+    "com_height_m": 0.689
+   },
+   "static": {
+    "max_tilt_change_rad": 0.008,
+    "final_tilt_change_rad": 0.005,
+    "xy_drift_m": 0.0169,
+    "stands_5s": true
+   }
+  },
+  "downhill_20deg": {
+   "kinematic": {
+    "score": 0.0048660343054786614,
+    "body_pitch_rel_floor": -0.249,
+    "hip_pitch": -0.2,
+    "knee_pitch": 0.15,
+    "ankle_pitch": 0.299,
+    "com_plumb_dx_m": -0.0015,
+    "com_height_m": 0.733
+   },
+   "static": {
+    "max_tilt_change_rad": 0.026,
+    "final_tilt_change_rad": 0.018,
+    "xy_drift_m": 0.0218,
+    "stands_5s": true
+   }
+  },
+  "uphill_25deg": {
+   "kinematic": null
+  },
+  "downhill_25deg": {
+   "kinematic": {
+    "score": 0.010206564591291229,
+    "body_pitch_rel_floor": -0.336,
+    "hip_pitch": -0.3,
+    "knee_pitch": 0.25,
+    "ankle_pitch": 0.386,
+    "com_plumb_dx_m": 0.0004,
+    "com_height_m": 0.701
+   },
+   "static": {
+    "max_tilt_change_rad": 0.032,
+    "final_tilt_change_rad": 0.022,
+    "xy_drift_m": 0.0278,
+    "stands_5s": true
+   }
+  },
+  "uphill_30deg": {
+   "kinematic": null
+  },
+  "downhill_30deg": {
+   "kinematic": {
+    "score": 0.017645785594569887,
+    "body_pitch_rel_floor": -0.424,
+    "hip_pitch": -0.2,
+    "knee_pitch": 0.0,
+    "ankle_pitch": 0.624,
+    "com_plumb_dx_m": -0.0006,
+    "com_height_m": 0.665
+   }
+  },
+  "uphill_35deg": {
+   "kinematic": null
+  },
+  "downhill_35deg": {
+   "kinematic": {
+    "score": 0.02820381857013561,
+    "body_pitch_rel_floor": -0.511,
+    "hip_pitch": -0.45,
+    "knee_pitch": 0.35,
+    "ankle_pitch": 0.611,
+    "com_plumb_dx_m": -0.001,
+    "com_height_m": 0.614
+   }
+  }
+ },
+ "lateral": {
+  "lateral_5deg": {
+   "kinematic": {
+    "margin_m": 0.1681,
+    "body_roll_rel_floor": 0.187,
+    "hip_roll_abs": 0.187,
+    "short_leg": "right",
+    "short_knee": 0.899,
+    "com_plumb_y_m": -0.0902,
+    "feet_y_m": [
+     0.028,
+     -0.326
+    ],
+    "com_height_m": 0.729
+   },
+   "static": {
+    "max_tilt_change_rad": 0.006,
+    "final_tilt_change_rad": 0.005,
+    "xy_drift_m": 0.011,
+    "stands_5s": true
+   }
+  },
+  "lateral_10deg": {
+   "kinematic": {
+    "margin_m": 0.1045,
+    "body_roll_rel_floor": 0.275,
+    "hip_roll_abs": 0.275,
+    "short_leg": "right",
+    "short_knee": 1.033,
+    "com_plumb_y_m": -0.0981,
+    "feet_y_m": [
+     -0.044,
+     -0.39
+    ],
+    "com_height_m": 0.715
+   },
+   "static": {
+    "max_tilt_change_rad": 0.025,
+    "final_tilt_change_rad": 0.021,
+    "xy_drift_m": 0.0375,
+    "stands_5s": true
+   }
+  },
+  "lateral_15deg": {
+   "kinematic": {
+    "margin_m": 0.0399,
+    "body_roll_rel_floor": 0.362,
+    "hip_roll_abs": 0.362,
+    "short_leg": "right",
+    "short_knee": 1.151,
+    "com_plumb_y_m": -0.1048,
+    "feet_y_m": [
+     -0.115,
+     -0.452
+    ],
+    "com_height_m": 0.701
+   },
+   "static": {
+    "max_tilt_change_rad": 1.242,
+    "final_tilt_change_rad": 0.848,
+    "xy_drift_m": 0.1489,
+    "stands_5s": false
+   }
+  },
+  "lateral_20deg": {
+   "kinematic": null
+  },
+  "lateral_25deg": {
+   "kinematic": null
+  }
+ },
+ "kv": 30.0
+}

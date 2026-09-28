@@ -1,0 +1,214 @@
+{
+ "leg_length_m": 0.785,
+ "hip_limit_rad_s": 2.5,
+ "swing_table": [
+  {
+   "stride_hz": 1.5,
+   "amplitude_rad": 0.4,
+   "peak_hip_speed_sinusoid_rad_s": 3.77,
+   "peak_hip_speed_40pct_swing_rad_s": 4.71,
+   "ratio_to_limit_sinusoid": 1.51,
+   "ratio_to_limit_40pct": 1.88
+  },
+  {
+   "stride_hz": 1.5,
+   "amplitude_rad": 0.5,
+   "peak_hip_speed_sinusoid_rad_s": 4.71,
+   "peak_hip_speed_40pct_swing_rad_s": 5.89,
+   "ratio_to_limit_sinusoid": 1.88,
+   "ratio_to_limit_40pct": 2.36
+  },
+  {
+   "stride_hz": 1.5,
+   "amplitude_rad": 0.6,
+   "peak_hip_speed_sinusoid_rad_s": 5.65,
+   "peak_hip_speed_40pct_swing_rad_s": 7.07,
+   "ratio_to_limit_sinusoid": 2.26,
+   "ratio_to_limit_40pct": 2.83
+  },
+  {
+   "stride_hz": 2.0,
+   "amplitude_rad": 0.4,
+   "peak_hip_speed_sinusoid_rad_s": 5.03,
+   "peak_hip_speed_40pct_swing_rad_s": 6.28,
+   "ratio_to_limit_sinusoid": 2.01,
+   "ratio_to_limit_40pct": 2.51
+  },
+  {
+   "stride_hz": 2.0,
+   "amplitude_rad": 0.5,
+   "peak_hip_speed_sinusoid_rad_s": 6.28,
+   "peak_hip_speed_40pct_swing_rad_s": 7.85,
+   "ratio_to_limit_sinusoid": 2.51,
+   "ratio_to_limit_40pct": 3.14
+  },
+  {
+   "stride_hz": 2.0,
+   "amplitude_rad": 0.6,
+   "peak_hip_speed_sinusoid_rad_s": 7.54,
+   "peak_hip_speed_40pct_swing_rad_s": 9.42,
+   "ratio_to_limit_sinusoid": 3.02,
+   "ratio_to_limit_40pct": 3.77
+  },
+  {
+   "stride_hz": 2.5,
+   "amplitude_rad": 0.4,
+   "peak_hip_speed_sinusoid_rad_s": 6.28,
+   "peak_hip_speed_40pct_swing_rad_s": 7.85,
+   "ratio_to_limit_sinusoid": 2.51,
+   "ratio_to_limit_40pct": 3.14
+  },
+  {
+   "stride_hz": 2.5,
+   "amplitude_rad": 0.5,
+   "peak_hip_speed_sinusoid_rad_s": 7.85,
+   "peak_hip_speed_40pct_swing_rad_s": 9.82,
+   "ratio_to_limit_sinusoid": 3.14,
+   "ratio_to_limit_40pct": 3.93
+  },
+  {
+   "stride_hz": 2.5,
+   "amplitude_rad": 0.6,
+   "peak_hip_speed_sinusoid_rad_s": 9.42,
+   "peak_hip_speed_40pct_swing_rad_s": 11.78,
+   "ratio_to_limit_sinusoid": 3.77,
+   "ratio_to_limit_40pct": 4.71
+  },
+  {
+   "stride_hz": 3.0,
+   "amplitude_rad": 0.4,
+   "peak_hip_speed_sinusoid_rad_s": 7.54,
+   "peak_hip_speed_40pct_swing_rad_s": 9.42,
+   "ratio_to_limit_sinusoid": 3.02,
+   "ratio_to_limit_40pct": 3.77
+  },
+  {
+   "stride_hz": 3.0,
+   "amplitude_rad": 0.5,
+   "peak_hip_speed_sinusoid_rad_s": 9.42,
+   "peak_hip_speed_40pct_swing_rad_s": 11.78,
+   "ratio_to_limit_sinusoid": 3.77,
+   "ratio_to_limit_40pct": 4.71
+  },
+  {
+   "stride_hz": 3.0,
+   "amplitude_rad": 0.6,
+   "peak_hip_speed_sinusoid_rad_s": 11.31,
+   "peak_hip_speed_40pct_swing_rad_s": 14.14,
+   "ratio_to_limit_sinusoid": 4.52,
+   "ratio_to_limit_40pct": 5.65
+  }
+ ],
+ "walking_bound": [
+  {
+   "amplitude_rad": 0.2,
+   "stride_m": 0.312,
+   "max_f_sinusoid_hz": 1.99,
+   "max_speed_sinusoid_mps": 0.621,
+   "max_f_40pct_swing_hz": 1.59,
+   "max_speed_40pct_swing_mps": 0.497
+  },
+  {
+   "amplitude_rad": 0.3,
+   "stride_m": 0.464,
+   "max_f_sinusoid_hz": 1.33,
+   "max_speed_sinusoid_mps": 0.616,
+   "max_f_40pct_swing_hz": 1.06,
+   "max_speed_40pct_swing_mps": 0.493
+  },
+  {
+   "amplitude_rad": 0.4,
+   "stride_m": 0.612,
+   "max_f_sinusoid_hz": 0.99,
+   "max_speed_sinusoid_mps": 0.609,
+   "max_f_40pct_swing_hz": 0.8,
+   "max_speed_40pct_swing_mps": 0.487
+  },
+  {
+   "amplitude_rad": 0.5,
+   "stride_m": 0.753,
+   "max_f_sinusoid_hz": 0.8,
+   "max_speed_sinusoid_mps": 0.599,
+   "max_f_40pct_swing_hz": 0.64,
+   "max_speed_40pct_swing_mps": 0.479
+  },
+  {
+   "amplitude_rad": 0.6,
+   "stride_m": 0.887,
+   "max_f_sinusoid_hz": 0.66,
+   "max_speed_sinusoid_mps": 0.588,
+   "max_f_40pct_swing_hz": 0.53,
+   "max_speed_40pct_swing_mps": 0.471
+  }
+ ],
+ "stance_leg_speed_bound_mps": 1.964,
+ "walk_run_transition_froude_0_5_mps": 1.963,
+ "running_froude_1_mps": 2.776,
+ "running_2_75hz_0_5rad_peak_hip_rad_s": {
+  "sinusoid": 8.64,
+  "40pct_swing": 10.8
+ },
+ "kv": 30.0,
+ "swing_check": [
+  {
+   "stride_hz": 1.5,
+   "amplitude_rad": 0.4,
+   "v_scale": 1.0,
+   "achieved_amplitude_rad": 0.363,
+   "amplitude_ratio": 0.908,
+   "peak_hip_speed_rad_s": 2.51,
+   "peak_hip_torque_nm": 32.1,
+   "hip_speed_limit_rad_s": 2.5
+  },
+  {
+   "stride_hz": 2.0,
+   "amplitude_rad": 0.5,
+   "v_scale": 1.0,
+   "achieved_amplitude_rad": 0.289,
+   "amplitude_ratio": 0.579,
+   "peak_hip_speed_rad_s": 2.52,
+   "peak_hip_torque_nm": 59.2,
+   "hip_speed_limit_rad_s": 2.5
+  },
+  {
+   "stride_hz": 3.0,
+   "amplitude_rad": 0.5,
+   "v_scale": 1.0,
+   "achieved_amplitude_rad": 0.21,
+   "amplitude_ratio": 0.419,
+   "peak_hip_speed_rad_s": 2.52,
+   "peak_hip_torque_nm": 70.9,
+   "hip_speed_limit_rad_s": 2.5
+  },
+  {
+   "stride_hz": 1.5,
+   "amplitude_rad": 0.4,
+   "v_scale": 4.0,
+   "achieved_amplitude_rad": 0.397,
+   "amplitude_ratio": 0.992,
+   "peak_hip_speed_rad_s": 3.74,
+   "peak_hip_torque_nm": 15.8,
+   "hip_speed_limit_rad_s": 10.0
+  },
+  {
+   "stride_hz": 2.0,
+   "amplitude_rad": 0.5,
+   "v_scale": 4.0,
+   "achieved_amplitude_rad": 0.493,
+   "amplitude_ratio": 0.986,
+   "peak_hip_speed_rad_s": 6.18,
+   "peak_hip_torque_nm": 35.2,
+   "hip_speed_limit_rad_s": 10.0
+  },
+  {
+   "stride_hz": 3.0,
+   "amplitude_rad": 0.5,
+   "v_scale": 4.0,
+   "achieved_amplitude_rad": 0.48,
+   "amplitude_ratio": 0.961,
+   "peak_hip_speed_rad_s": 8.99,
+   "peak_hip_torque_nm": 78.8,
+   "hip_speed_limit_rad_s": 10.0
+  }
+ ]
+}

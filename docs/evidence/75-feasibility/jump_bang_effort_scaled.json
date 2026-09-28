@@ -1,0 +1,329 @@
+{
+ "limitation": "Open-loop feedforward extension along a balanced path in MuJoCo; an upper bound for this model, not a learned jump.",
+ "results": [
+  {
+   "profile": "bang",
+   "kv": 30.0,
+   "v_scale": 2.0,
+   "effort_scale": 1.5,
+   "deep_crouch": {
+    "hip_pitch": -0.703,
+    "knee_pitch": 1.35,
+    "ankle_pitch": -0.697
+   },
+   "top_pose": {
+    "hip_pitch": 0.071,
+    "knee_pitch": 0.0,
+    "ankle_pitch": -0.121
+   },
+   "path_stroke_m": 0.0958,
+   "tilt_before_push_rad": 0.0268,
+   "max_tilt_while_lowering_rad": 0.0273,
+   "push_time_s": 0.225,
+   "kinematic_takeoff_vz_bound_mps": 0.814,
+   "kinematic_bound_at_u": 0.01,
+   "com_rise_m": 0.0968,
+   "flight_s": 0.068,
+   "takeoff_vz_mps": 0.139,
+   "ballistic_rise_from_vz_m": 0.001,
+   "max_tilt_during_push_rad": 0.069,
+   "peak_joint_speed_rad_s": {
+    "hip_roll": 0.0,
+    "hip_pitch": 3.99,
+    "knee_pitch": 5.97,
+    "ankle_pitch": 2.93
+   },
+   "static_hold_torque_nm": {
+    "hip_roll": 0.0,
+    "hip_pitch": 4.2,
+    "knee_pitch": 14.1,
+    "ankle_pitch": 0.0
+   },
+   "max_tilt_until_apex_rad": 0.069,
+   "final_tilt_rad": 0.012,
+   "peak_torque_nm": {
+    "hip_roll": 0.0,
+    "hip_pitch": 99.1,
+    "knee_pitch": 180.0,
+    "ankle_pitch": 76.7
+   },
+   "torque_limit_nm": {
+    "hip_roll": 120.0,
+    "hip_pitch": 150.0,
+    "knee_pitch": 180.0,
+    "ankle_pitch": 120.0
+   },
+   "valid": true
+  },
+  {
+   "profile": "bang",
+   "kv": 30.0,
+   "v_scale": 4.0,
+   "effort_scale": 1.5,
+   "deep_crouch": {
+    "hip_pitch": -0.703,
+    "knee_pitch": 1.35,
+    "ankle_pitch": -0.697
+   },
+   "top_pose": {
+    "hip_pitch": 0.071,
+    "knee_pitch": 0.0,
+    "ankle_pitch": -0.121
+   },
+   "path_stroke_m": 0.0958,
+   "tilt_before_push_rad": 0.0268,
+   "max_tilt_while_lowering_rad": 0.0273,
+   "push_time_s": 0.113,
+   "kinematic_takeoff_vz_bound_mps": 1.628,
+   "kinematic_bound_at_u": 0.01,
+   "com_rise_m": 0.1392,
+   "flight_s": 0.207,
+   "takeoff_vz_mps": 1.165,
+   "ballistic_rise_from_vz_m": 0.0692,
+   "max_tilt_during_push_rad": 0.089,
+   "peak_joint_speed_rad_s": {
+    "hip_roll": 0.0,
+    "hip_pitch": 7.83,
+    "knee_pitch": 12.03,
+    "ankle_pitch": 6.24
+   },
+   "static_hold_torque_nm": {
+    "hip_roll": 0.0,
+    "hip_pitch": 4.2,
+    "knee_pitch": 14.1,
+    "ankle_pitch": 0.0
+   },
+   "max_tilt_until_apex_rad": 0.089,
+   "final_tilt_rad": 0.361,
+   "peak_torque_nm": {
+    "hip_roll": 0.0,
+    "hip_pitch": 150.0,
+    "knee_pitch": 180.0,
+    "ankle_pitch": 120.0
+   },
+   "torque_limit_nm": {
+    "hip_roll": 120.0,
+    "hip_pitch": 150.0,
+    "knee_pitch": 180.0,
+    "ankle_pitch": 120.0
+   },
+   "valid": true
+  },
+  {
+   "profile": "bang",
+   "kv": 30.0,
+   "v_scale": 6.0,
+   "effort_scale": 1.5,
+   "deep_crouch": {
+    "hip_pitch": -0.703,
+    "knee_pitch": 1.35,
+    "ankle_pitch": -0.697
+   },
+   "top_pose": {
+    "hip_pitch": 0.071,
+    "knee_pitch": 0.0,
+    "ankle_pitch": -0.121
+   },
+   "path_stroke_m": 0.0958,
+   "tilt_before_push_rad": 0.0268,
+   "max_tilt_while_lowering_rad": 0.0273,
+   "push_time_s": 0.075,
+   "kinematic_takeoff_vz_bound_mps": 2.443,
+   "kinematic_bound_at_u": 0.01,
+   "com_rise_m": 0.236,
+   "flight_s": 0.366,
+   "takeoff_vz_mps": 1.864,
+   "ballistic_rise_from_vz_m": 0.1771,
+   "max_tilt_during_push_rad": 0.136,
+   "peak_joint_speed_rad_s": {
+    "hip_roll": 0.0,
+    "hip_pitch": 12.11,
+    "knee_pitch": 17.99,
+    "ankle_pitch": 9.78
+   },
+   "static_hold_torque_nm": {
+    "hip_roll": 0.0,
+    "hip_pitch": 4.2,
+    "knee_pitch": 14.1,
+    "ankle_pitch": 0.0
+   },
+   "max_tilt_until_apex_rad": 0.149,
+   "final_tilt_rad": 0.374,
+   "peak_torque_nm": {
+    "hip_roll": 0.0,
+    "hip_pitch": 150.0,
+    "knee_pitch": 180.0,
+    "ankle_pitch": 120.0
+   },
+   "torque_limit_nm": {
+    "hip_roll": 120.0,
+    "hip_pitch": 150.0,
+    "knee_pitch": 180.0,
+    "ankle_pitch": 120.0
+   },
+   "valid": true
+  },
+  {
+   "profile": "bang",
+   "kv": 30.0,
+   "v_scale": 2.0,
+   "effort_scale": 2.0,
+   "deep_crouch": {
+    "hip_pitch": -0.703,
+    "knee_pitch": 1.35,
+    "ankle_pitch": -0.697
+   },
+   "top_pose": {
+    "hip_pitch": 0.071,
+    "knee_pitch": 0.0,
+    "ankle_pitch": -0.121
+   },
+   "path_stroke_m": 0.0958,
+   "tilt_before_push_rad": 0.0268,
+   "max_tilt_while_lowering_rad": 0.0273,
+   "push_time_s": 0.225,
+   "kinematic_takeoff_vz_bound_mps": 0.814,
+   "kinematic_bound_at_u": 0.01,
+   "com_rise_m": 0.095,
+   "flight_s": 0.016,
+   "takeoff_vz_mps": 0.034,
+   "ballistic_rise_from_vz_m": 0.0001,
+   "max_tilt_during_push_rad": 0.075,
+   "peak_joint_speed_rad_s": {
+    "hip_roll": 0.0,
+    "hip_pitch": 3.87,
+    "knee_pitch": 5.99,
+    "ankle_pitch": 2.99
+   },
+   "static_hold_torque_nm": {
+    "hip_roll": 0.0,
+    "hip_pitch": 4.2,
+    "knee_pitch": 14.1,
+    "ankle_pitch": 0.0
+   },
+   "max_tilt_until_apex_rad": 0.075,
+   "final_tilt_rad": 0.258,
+   "peak_torque_nm": {
+    "hip_roll": 0.0,
+    "hip_pitch": 99.1,
+    "knee_pitch": 180.0,
+    "ankle_pitch": 77.0
+   },
+   "torque_limit_nm": {
+    "hip_roll": 160.0,
+    "hip_pitch": 200.0,
+    "knee_pitch": 240.0,
+    "ankle_pitch": 160.0
+   },
+   "valid": true
+  },
+  {
+   "profile": "bang",
+   "kv": 30.0,
+   "v_scale": 4.0,
+   "effort_scale": 2.0,
+   "deep_crouch": {
+    "hip_pitch": -0.703,
+    "knee_pitch": 1.35,
+    "ankle_pitch": -0.697
+   },
+   "top_pose": {
+    "hip_pitch": 0.071,
+    "knee_pitch": 0.0,
+    "ankle_pitch": -0.121
+   },
+   "path_stroke_m": 0.0958,
+   "tilt_before_push_rad": 0.0268,
+   "max_tilt_while_lowering_rad": 0.0273,
+   "push_time_s": 0.113,
+   "kinematic_takeoff_vz_bound_mps": 1.628,
+   "kinematic_bound_at_u": 0.01,
+   "com_rise_m": 0.1184,
+   "flight_s": 0.204,
+   "takeoff_vz_mps": 1.196,
+   "ballistic_rise_from_vz_m": 0.0729,
+   "max_tilt_during_push_rad": 0.153,
+   "peak_joint_speed_rad_s": {
+    "hip_roll": 0.0,
+    "hip_pitch": 8.16,
+    "knee_pitch": 12.02,
+    "ankle_pitch": 6.11
+   },
+   "static_hold_torque_nm": {
+    "hip_roll": 0.0,
+    "hip_pitch": 4.2,
+    "knee_pitch": 14.1,
+    "ankle_pitch": 0.0
+   },
+   "max_tilt_until_apex_rad": 0.162,
+   "final_tilt_rad": 0.399,
+   "peak_torque_nm": {
+    "hip_roll": 0.0,
+    "hip_pitch": 200.0,
+    "knee_pitch": 240.0,
+    "ankle_pitch": 155.8
+   },
+   "torque_limit_nm": {
+    "hip_roll": 160.0,
+    "hip_pitch": 200.0,
+    "knee_pitch": 240.0,
+    "ankle_pitch": 160.0
+   },
+   "valid": true
+  },
+  {
+   "profile": "bang",
+   "kv": 30.0,
+   "v_scale": 6.0,
+   "effort_scale": 2.0,
+   "deep_crouch": {
+    "hip_pitch": -0.703,
+    "knee_pitch": 1.35,
+    "ankle_pitch": -0.697
+   },
+   "top_pose": {
+    "hip_pitch": 0.071,
+    "knee_pitch": 0.0,
+    "ankle_pitch": -0.121
+   },
+   "path_stroke_m": 0.0958,
+   "tilt_before_push_rad": 0.0268,
+   "max_tilt_while_lowering_rad": 0.0273,
+   "push_time_s": 0.075,
+   "kinematic_takeoff_vz_bound_mps": 2.443,
+   "kinematic_bound_at_u": 0.01,
+   "com_rise_m": 0.2434,
+   "flight_s": 0.382,
+   "takeoff_vz_mps": 1.889,
+   "ballistic_rise_from_vz_m": 0.1819,
+   "max_tilt_during_push_rad": 0.146,
+   "peak_joint_speed_rad_s": {
+    "hip_roll": 0.0,
+    "hip_pitch": 12.11,
+    "knee_pitch": 17.99,
+    "ankle_pitch": 9.52
+   },
+   "static_hold_torque_nm": {
+    "hip_roll": 0.0,
+    "hip_pitch": 4.2,
+    "knee_pitch": 14.1,
+    "ankle_pitch": 0.0
+   },
+   "max_tilt_until_apex_rad": 0.195,
+   "final_tilt_rad": 0.382,
+   "peak_torque_nm": {
+    "hip_roll": 0.0,
+    "hip_pitch": 200.0,
+    "knee_pitch": 240.0,
+    "ankle_pitch": 160.0
+   },
+   "torque_limit_nm": {
+    "hip_roll": 160.0,
+    "hip_pitch": 200.0,
+    "knee_pitch": 240.0,
+    "ankle_pitch": 160.0
+   },
+   "valid": true
+  }
+ ]
+}

@@ -80,6 +80,7 @@ File 34 verifies that refused development probes emit no trajectory commands.
 - `64-*`: morphloom 외형 digitigrade Gazebo 정지 기립, Blender 렌더, morphloom run report.
 - `65-wip-*`: 꼬리·머리 변경 WIP Blender 미리보기(미검증 시점).
 - `66-*`: 0.95m 꼬리 MuJoCo 재검증, Gazebo 기립·줄무늬 해소, RViz GLB 표시, Blender 렌더.
+- `75-feasibility/`: 현재 구동기 사양 물리 타당성(MuJoCo, kv 30) — 점프 속도 배율 스윕, 낙하 착지, 경사 정적, 달리기 해석, 권고 사양. 정책 학습 없음.
 - `74-rocking/`: 흔들목마 모델 F·E·D·C, 2단계(PLL·anti-pump), 분리 실험, 긴 램프 보행(Gazebo 5/5·거울 3/3·꼬리 4/4), 기준 대비표.
 - `73-lateral/`: 측방 안정 0단계(정지 하중비·거울 보행·낮은 자세 FK)와 실험 A(MuJoCo) — 예측 불일치로 정지.
 - `72-diagnosis/`: Gazebo 빠른 보행 roll 전도 진단(1단계) — 시계열·주파수·설정 대조·가설 3개.
