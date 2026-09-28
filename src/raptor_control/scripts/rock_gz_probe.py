@@ -26,7 +26,7 @@ from trajectory_msgs.msg import JointTrajectory, JointTrajectoryPoint
 
 from motion_guard import TiltGuard
 from motion_probe import JOINTS, pose
-from rock_law import GaitPhase, TailSync, crouch_pose, step_roll, tail_targets, targets
+from rock_law import GaitPhase, TailSync, TouchdownPLL, antipump, crouch_pose, step_roll, tail_targets, targets
 
 # Velocity limits from raptor.urdf.xacro (rad/s); unchanged by leg_design.
 VELOCITY_LIMIT = {'hip_roll': 2.0, 'hip_pitch': 2.5, 'knee_pitch': 3.0, 'ankle_pitch': 2.5,
@@ -57,6 +57,9 @@ class RockProbe(Node):
         self.stop_reason, self.rows = None, []
         self.gait, self.gait_phase = GaitPhase(), None
         self.tail_law = TailSync(*args.tail_sync) if args.tail_sync else None
+        # touchdown-anchored clock; 40 ms window max bridges zero-force contact frames (Fable review, evidence 74)
+        self.clock = TouchdownPLL(args.frequency, *args.pll, window=.04) if args.pll else None
+        self.roll_rate_f, self.last_a = 0., None  # anti-pump input: 20 ms low-pass IMU roll rate
         self.over_since, self.spikes, self.spike_keys = {}, [], set()
         self.raw = deque(maxlen=200)
         self.wrenches, self.diag = {}, []  # --diag: 100 Hz diagnostic log (no effect on control)  # last ~2 s of 100 Hz joint states, dumped around a STOP
@@ -116,7 +119,7 @@ class RockProbe(Node):
 
     def on_contact(self, msg, key):
         self.contacts[key] = (self.sim_time, len(msg.contacts))
-        if self.args.diag:  # logging only: raw wrench sums, frame/sign convention not assumed
+        if self.args.diag or self.args.pll or self.args.damping:  # raw wrench sums (logging, PLL, stance detection)
             f1 = [sum(getattr(w.body_1_wrench.force, a) for c in msg.contacts for w in c.wrenches) for a in 'xyz']
             f2 = [sum(getattr(w.body_2_wrench.force, a) for c in msg.contacts for w in c.wrenches) for a in 'xyz']
             names = msg.contacts[0].collision1.name if msg.contacts else ''
@@ -194,28 +197,47 @@ class RockProbe(Node):
             return True
         if t-self.last_sent < PERIOD:
             return False
+        # a late loop (CPU load) must not squeeze a larger step into the nominal horizon: stretch it to the real gap
+        horizon = min(max(self.args.horizon, t-self.last_sent), .1)
         self.last_sent = t
         a, g = phase-self.args.settle, self.args
+        cycle = None
+        if self.clock is not None and a >= 0:
+            fresh = {s: sum(v[1][2] for k, v in self.wrenches.items()
+                            if k.startswith(s) and v[0] is not None and t-v[0] < .03) for s in ('left', 'right')}
+            cycle = self.clock.update(a, fresh)
         new = targets(self.crouch, a, g.amplitude, g.frequency, g.ramp, stride=g.stride, window=g.window,
                       pitch=self.imu[1], pitch_rate=self.imu[2], feedback=g.pitch_feedback, mirror=g.mirror,
-                      abduction=g.abduction)
+                      abduction=g.abduction, cycle=cycle)
         self.gait_phase = self.gait.update(t, self.in_contact('left'))  # phase 0 at left touchdown (contact messages)
         if g.step_roll:  # experiment F: rate-limited hip-roll steps instead of the gait (no stride)
             r = step_roll(a, *g.step_roll)
             new = dict(self.crouch) | {'left_hip_roll_joint': -r, 'right_hip_roll_joint': r}
+        if g.damping:  # single-support anti-pump (after the F hold, or during the gait)
+            dt = 0. if self.last_a is None else max(0., a-self.last_a)
+            self.roll_rate_f += (self.imu[4]-self.roll_rate_f)*(dt/(.02+dt) if dt else 0.)
+            if a >= (g.step_roll[1] if g.step_roll else 0.):
+                fz = {s: sum(v[1][2] for k, v in self.wrenches.items()
+                             if k.startswith(s) and v[0] is not None and t-v[0] < .04) for s in ('left', 'right')}
+                weight = 17.3*9.81
+                stance = ('left' if fz['right'] < .05*weight <= fz['left'] else
+                          'right' if fz['left'] < .05*weight <= fz['right'] else None)
+                for name, offset in antipump(self.roll_rate_f, stance, *g.damping).items():
+                    new[name] += offset
+        self.last_a = a
         if g.tail_sync and a >= 0:  # gait-synchronised tail yaw (amp, phi0, k_fb) with IMU yaw rate
             new |= self.tail_law.update(t, self.gait_phase, self.imu[3])
         if g.tail and a >= 0:  # tail balance: (ky, kr, kp, kd) on hip-roll command, IMU roll, pitch, pitch rate
             new |= tail_targets(new['right_hip_roll_joint'], self.imu[0], 0., self.imu[1], self.imu[2], g.tail)
         # Command-side saturation: never stream a target whose rate needs >= 90% of a joint's velocity limit.
         for j in JOINTS:
-            rate = abs(new[j]-self.target[j])/max(g.horizon, PERIOD)
+            rate = abs(new[j]-self.target[j])/max(horizon, PERIOD)
             if rate >= .9*limit_of(j):
                 self.stop_reason = f'commanded speed {j} {rate:.3f} rad/s (limit {limit_of(j)}) at sim {phase:.3f} s'
                 self.hold()
                 return True
         self.target = new
-        self.send(self.target, self.args.horizon)
+        self.send(self.target, horizon)
         self.rows.append({'t': round(phase, 3), 'r_cmd': round(self.target['right_hip_roll_joint'], 5),
                           'roll': round(self.imu[0], 5),
                           'pitch': round(self.imu[1], 5), 'tilt': round(self.guard.tilt or 0., 5),
@@ -257,6 +279,10 @@ def main():
     parser.add_argument('--tail-sync', type=float, nargs=3, metavar=('AMP', 'PHI0', 'KFB'))
     parser.add_argument('--step-roll', type=float, nargs=2, metavar=('AMP', 'HOLD'),
                         help='experiment F: +AMP step at t=0 and -AMP at t=3 s (1.6 rad/s ramps), replaces the gait')
+    parser.add_argument('--pll', type=float, nargs=2, metavar=('K', 'CLAMP'),
+                        help='touchdown-anchored gait clock: f = f0 + K*phase error, clamped to f0 +- CLAMP Hz')
+    parser.add_argument('--damping', type=float, nargs=2, metavar=('K_D', 'SIGN'),
+                        help='single-support anti-pump on the stance hip roll (rock_law.antipump), sign -1 damps')
     parser.add_argument('--abduction', type=float, default=0., help='hip-roll outward offset on both legs (rad)')
     parser.add_argument('--window', type=float, default=.35, help='unloaded (swing) window, fraction of a cycle')
     parser.add_argument('--mirror', action='store_true', help='left/right mirrored gait (r -> -r, windows swapped)')
@@ -267,6 +293,9 @@ def main():
     if not (0 <= args.amplitude <= .12 and .5 <= args.frequency <= 3. and 1 <= args.cycles <= 200
             and .01 <= args.horizon <= .1 and .1 <= args.ramp <= 5 and 0 <= args.settle <= 5 and 0 <= args.stride <= .08
             and .2 <= args.window <= .4 and 0 <= args.abduction <= .06
+            and (args.damping is None or (0 <= args.damping[0] <= .1 and args.damping[1] in (-1., 1.)))
+            and (args.pll is None or (0 <= args.pll[0] <= 6 and 0 <= args.pll[1] <= .4
+                                      and args.frequency+args.pll[1] <= 3.))
             and (args.step_roll is None or (0 < args.step_roll[0] <= .1 and .1 <= args.step_roll[1] <= 1.))
             and (args.pitch_feedback is None or (0 <= args.pitch_feedback[0] <= 1 and 0 <= args.pitch_feedback[1] <= .2
                                                   and 0 <= args.pitch_feedback[2] <= .2))
@@ -307,6 +336,7 @@ def main():
         result = {'arguments': vars(args), 'stop_reason': node.stop_reason, 'error': error, 'base_pose': poses,
                   'wall_s': round(time.monotonic()-wall, 1), 'summary': summary(node.rows, args),
                   'raw_joint_states_tail': list(node.raw) if node.stop_reason else [],
+                  'pll_events': node.clock.events if node.clock else None,
                   'speed_spikes': node.spikes, 'diag': node.diag, 'start_sim_time': node.start, 'gait_period_s': node.gait.period, 'gait_duty': node.gait.duty,
                   'limitation': 'Gazebo DART open-loop rocking in place; contact = any foot/toe contact message; '
                                 'not walking.', 'rows': node.rows}

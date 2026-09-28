@@ -142,7 +142,7 @@ def gazebo_series(diag_path, poses_path):
 
 
 def mujoco_series(kv, cycles, frequency=2.5, stride=.08, amplitude=.08, window_width=.35, mirror=False,
-                  model='raptor_digitigrade.xml', delay=0., abduction=0.):
+                  model='raptor_digitigrade.xml', delay=0., abduction=0., pll=None, damping=None):
     sys.path.insert(0, str(HERE))
     import mujoco
     from rock_probe import foot_forces, run
@@ -179,7 +179,7 @@ def mujoco_series(kv, cycles, frequency=2.5, stride=.08, amplitude=.08, window_w
     result = run(-amplitude if mirror else amplitude, frequency, cycles=cycles, stride=stride,
                  pitch_feedback=(.5, .05, .15), servo_kv=kv, jtc=(.02, .02, delay), model_path=str(HERE/model),
                  crouch_hip=-.10, crouch_knee=.5, step_hook=trace, lift_width=window_width, lift_centers=centers,
-                 abduction=abduction)
+                 abduction=abduction, pll=pll, damping=damping)
     t = np.array([r['t'] for r in rows])
     series = {'t': t, 'roll': np.array([r['roll'] for r in rows]), 'roll_rate': np.array([r['roll_rate'] for r in rows]),
               'body_y': np.array([r['body_y'] for r in rows])}
@@ -211,7 +211,9 @@ def band_amplitude(t, y, lo, hi, f0, f1):
     f = np.fft.rfftfreq(n, .01)
     a = np.abs(np.fft.rfft(y*np.hanning(n)))*4/n  # Hann coherent gain 0.5
     band = (f >= f0) & (f < f1)
-    return float(np.sqrt(np.sum(a[band]**2)/1.5)), float(f[band][np.argmax(a[band])]) if band.any() else None
+    if not band.any():  # window too short to resolve this band
+        return None, None
+    return float(np.sqrt(np.sum(a[band]**2)/1.5)), float(f[band][np.argmax(a[band])])
 
 
 def step_growth(t, y, lo, hi, frequency):
@@ -249,13 +251,17 @@ def table_metrics(series, lo, hi, frequency, weight=17.3*G):
     fl, fr = np.asarray(series['fz_left'])[m], np.asarray(series['fz_right'])[m]
     growth_med, growth_max, _ = step_growth(t, series['com_y'], lo, hi, frequency)
     roll_low, roll_low_f = band_amplitude(t, series['roll'], lo, hi, .3, 1.6)
+    # period-3 subharmonic and fundamental separately (the 0.3-1.6 Hz band contains the fundamental when f <= 1.6)
+    sub3, _ = band_amplitude(t, series['com_y'], lo, hi, frequency/3-.05, frequency/3+.05)
+    fund, _ = band_amplitude(t, series['com_y'], lo, hi, frequency-.05, frequency+.05)
     single = single_support_median(t[m], np.asarray(series['fz_left'])[m], np.asarray(series['fz_right'])[m], weight)
     return {'window_s': [round(lo, 2), round(hi, 2)], 'com_y_0.3_1.6Hz_m': low, 'com_y_low_peak_hz': low_f,
             'com_y_2_3Hz_m': gait, 'body_y_2_3Hz_m': body_gait, 'roll_2_3Hz_rad': roll_gait,
             'loaded_fy_fz_p90': float(np.percentile(ratios, 90)) if ratios else None,
             'load_share_left': float(fl.sum()/max(fl.sum()+fr.sum(), 1e-9)),
             'growth_per_step_median': growth_med, 'growth_per_step_max': growth_max,
-            'roll_0.3_1.6Hz_rad': roll_low, 'roll_low_peak_hz': roll_low_f, 'single_support_median_s': single}
+            'roll_0.3_1.6Hz_rad': roll_low, 'roll_low_peak_hz': roll_low_f, 'single_support_median_s': single,
+            'com_y_f_over_3_m': sub3, 'com_y_f_m': fund}
 
 
 def single_support_median(t, fl, fr, weight):

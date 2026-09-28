@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """MuJoCo side of the evidence-73/74 lateral experiments, tail fixed. Gazebo runs use rock_gz_probe.py.
 
-Usage: python lateral_experiments.py OUT.json {A|B|D|E|F} [--kv 20 30 100] [--cycles 150]
+Usage: python lateral_experiments.py OUT.json {A|B|D|E|F|G|P} [--kv 20 30 100] [--cycles 150]
 A/B rows: fall time and roll_diagnosis.table_metrics over [2 s, fall or end] (60 s gait).
 F rows: rate-limited hip-roll steps from the crouch (rock_law.step_roll); per event the lifted foot, liftoff ->
 touchdown time and release -> touchdown time from normal forces (off < 5 % weight, on >= 20 % held 20 ms).
@@ -19,7 +19,10 @@ import roll_diagnosis as rd
 SWEEPS = {'A': [('amplitude', a) for a in (.08, .04, .02, .01, 0.)],
           'B': [('window_width', w) for w in (.35, .30, .25)],
           'E': [('frequency', f) for f in (1.0, 1.4, 1.8, 2.0, 2.2, 2.5, 2.8, 3.0)],
-          'D': [('delay', d) for d in (0., .02, .04, .06)]}  # command delay injected in MuJoCo (evidence 74)
+          'D': [('delay', d) for d in (0., .02, .04, .06)],  # command delay injected in MuJoCo (evidence 74)
+          'P': [('pll', (k, .4)) for k in (0., 1.5, 2.5, 3.5)],  # stage 2 (1): touchdown-anchored clock
+          'G': [('combo', c) for c in ({}, {'pll': (3.5, .4)}, {'damping': (.03, -1.)},  # stage 2 (1)+(2) ablation
+                                       {'pll': (3.5, .4), 'damping': (.03, -1.)}, {'pll': (3.5, .4), 'damping': (.05, -1.)})]}
 
 
 def one(job):
@@ -27,11 +30,20 @@ def one(job):
     frequency = value if key == 'frequency' else 2.5
     if key == 'frequency':
         cycles = int(round(60*frequency))  # always 60 s of gait
-    series, result = rd.mujoco_series(kv, cycles, **{key: value})
+    series, result = rd.mujoco_series(kv, cycles, **(value if key == 'combo' else {key: value}))
     fall = result['stopped_by_guard_at_s']
     end = fall if fall else float(series['t'][-1])
+    extra = {}
+    if result.get('pll_events'):
+        ev = result['pll_events']
+        gaps = []  # touchdown-to-touchdown intervals of the same foot
+        for side in ('left', 'right'):
+            times = [e[0] for e in ev if e[1] == side]
+            gaps += list(np.diff(times))
+        extra = {'touchdowns': len(ev), 'td_interval_cv': float(np.std(gaps)/np.mean(gaps)) if gaps else None,
+                 'f_cmd_mean': float(np.mean([e[3] for e in ev])), 'phase_error_abs_mean': float(np.mean([abs(e[2]) for e in ev]))}
     return {'kv': kv, key: value, 'fall_s': fall, 'x_m': result['final_xy'][0],
-            **rd.table_metrics(series, 2., end, frequency)}
+            **rd.table_metrics(series, 2., end, frequency), **extra}
 
 
 def transitions(t, fz, weight, lo, hi):
@@ -84,11 +96,32 @@ def step_events(t, fz, weight, events, hold=.5, on_hold=.02):
     return out
 
 
-def experiment_f(kv, amp=.08, hold=.5, settle=1., duration=5.5):
+def peak_decay(t, roll, start, count=5):
+    """Ratios of successive opposite-sign |roll| extrema after `start` (free rocking decay per half period)."""
+    t, roll = np.asarray(t), np.asarray(roll)
+    m = t >= start
+    t, roll = t[m], roll[m]
+    peaks, i = [], 0
+    while i < len(roll) and len(peaks) < count+1:
+        sign = np.sign(roll[i])
+        if sign == 0:
+            i += 1
+            continue
+        j = i
+        while j < len(roll) and np.sign(roll[j]) == sign:
+            j += 1
+        seg = np.abs(roll[i:j])
+        if seg.max() > 1e-3:
+            peaks.append(float(seg.max()))
+        i = j
+    return [round(b/a, 3) for a, b in zip(peaks, peaks[1:]) if a > 0]
+
+
+def experiment_f(kv, amp=.08, hold=.5, settle=1., duration=5.5, antipump_gain=0., antipump_sign=1.):
     import mujoco
     sys.path.insert(0, str(rd.HERE.parent/'src/raptor_control/scripts'))
     from raptor_servo import JTCLikeServo
-    from rock_law import step_roll
+    from rock_law import antipump, step_roll
     from rock_probe import foot_forces
     from stand_check import crouch, place_on_floor
     model = mujoco.MjModel.from_xml_path(str(rd.HERE/'raptor_digitigrade.xml'))
@@ -101,13 +134,20 @@ def experiment_f(kv, amp=.08, hold=.5, settle=1., duration=5.5):
     servo.step(data)
     weight = float(model.body_mass.sum()*-model.opt.gravity[2])
     force, rows, dt = np.zeros(6), [], model.opt.timestep
+    rate_f, f = 0., {'left': weight/2, 'right': weight/2}
     for k in range(int((settle+duration)/dt)):
         a = k*dt-settle
         r = step_roll(a, amp, hold)
-        servo.set_target({'left_hip_roll_joint': -r, 'right_hip_roll_joint': r})
+        target = {'left_hip_roll_joint': -r, 'right_hip_roll_joint': r}
+        rate_f += (float(data.qvel[3])-rate_f)*dt/(.02+dt)  # 20 ms low-pass on the body roll rate
+        if antipump_gain and a > hold:  # only after the command returned (free rocking)
+            stance = 'left' if f['right'] < .05*weight <= f['left'] else 'right' if f['left'] < .05*weight <= f['right'] else None
+            for name, offset in antipump(rate_f, stance, antipump_gain, antipump_sign).items():
+                target[name] += offset
+        servo.set_target(target)
         servo.step(data)
         w, x, y, z = data.qpos[3:7]
-        f = foot_forces(model, data, force)
+        f = dict(foot_forces(model, data, force))
         rows.append((a, r, math.atan2(2*(w*x+y*z), 1-2*(x*x+y*y)), f['left'], f['right']))
     arr = np.array(rows)
     t, fz = arr[:, 0], {'left': arr[:, 3], 'right': arr[:, 4]}
@@ -116,7 +156,8 @@ def experiment_f(kv, amp=.08, hold=.5, settle=1., duration=5.5):
         m = (t >= ev['event_start_s']) & (t < ev['event_start_s']+1.)
         ev['roll_peak_rad'] = float(arr[m, 2][np.argmax(np.abs(arr[m, 2]))])
     curve = arr[::10]  # 100 Hz roll curve for the report
-    return {'kv': kv, 'events': events,
+    return {'kv': kv, 'antipump': [antipump_gain, antipump_sign], 'decay_after_release': peak_decay(t, arr[:, 2], hold+.1),
+            'events': events,
             'curve': {'t': curve[:, 0].round(3).tolist(), 'r_cmd': curve[:, 1].round(4).tolist(),
                       'roll': curve[:, 2].round(4).tolist(), 'fz_left': curve[:, 3].round(1).tolist(),
                       'fz_right': curve[:, 4].round(1).tolist()}}

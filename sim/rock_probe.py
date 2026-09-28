@@ -19,7 +19,7 @@ from raptor_servo import GazeboLikeServo, JTCLikeServo
 from stand_check import HERE, crouch, place_on_floor
 from step_metrics import steps, summarize
 sys.path.insert(0, str(HERE.parent/'src/raptor_control/scripts'))
-from rock_law import GaitPhase, TailSync, tail_targets  # noqa: E402  shared with rock_gz_probe.py
+from rock_law import GaitPhase, TailSync, TouchdownPLL, antipump, tail_targets  # noqa: E402  shared with rock_gz_probe.py
 
 
 def foot_forces(model, data, force):
@@ -68,7 +68,8 @@ def roll_pitch(quat):
 
 def run(amplitude, frequency, cycles=6, ramp=1., guard=.25, model_path=None, crouch_hip=-.15, log_every=0, crouch_knee=.4,
         lift=0., lift_width=.35, lift_centers=(('left', .28), ('right', .78)), stride=0., rhythm=None, friction=None, mass_scale=1., smooth_swing=False, pitch_feedback=None, servo_kv=None,
-        jtc=None, tail=None, tail_sync=None, tail_mass_scale=1., step_hook=None, abduction=0.):
+        jtc=None, tail=None, tail_sync=None, tail_mass_scale=1., step_hook=None, abduction=0., pll=None,
+        damping=None):
     model = mujoco.MjModel.from_xml_path(model_path or str(HERE/'raptor.xml'))
     if friction is not None:
         model.geom_friction[:, 0] = friction
@@ -106,6 +107,9 @@ def run(amplitude, frequency, cycles=6, ramp=1., guard=.25, model_path=None, cro
     clearance = {'left': 0., 'right': 0.}
     gait, left_contact, last_f = GaitPhase(), False, {'left': 0., 'right': 0.}
     tail_law = TailSync(*tail_sync) if tail_sync else None
+    # pll=(k, clamp): touchdown-anchored clock (rock_law.TouchdownPLL) replaces the time phase
+    clock = TouchdownPLL(frequency, *pll) if pll else None
+    roll_rate_f = 0.  # damping=(k_d, sign): single-support anti-pump on the stance hip roll (rock_law.antipump)
     legs = [model.actuator(n).id for n in (f'{s}_{j}_joint' for s in ('left', 'right')
                                            for j in ('hip_roll', 'hip_pitch', 'knee_pitch', 'ankle_pitch'))]
     tails = [model.actuator(n).id for n in ('tail_yaw_joint', 'tail_pitch_joint')]
@@ -119,7 +123,11 @@ def run(amplitude, frequency, cycles=6, ramp=1., guard=.25, model_path=None, cro
         t = k*dt
         if stopped_at is None and t >= settle:
             phase = t-settle
-            if rhythm is None:
+            if clock is not None:
+                c = clock.update(t, last_f)
+                r = amplitude*min(1., phase/ramp)*math.sin(2*math.pi*c)
+                cycle = c % 1
+            elif rhythm is None:
                 r = amplitude*min(1., phase/ramp)*math.sin(2*math.pi*frequency*phase)
                 cycle = (phase*frequency) % 1
             else:  # closed loop: oscillator phase replaces time phase
@@ -146,6 +154,12 @@ def run(amplitude, frequency, cycles=6, ramp=1., guard=.25, model_path=None, cro
             # gait phase from left-foot contact (force hysteresis 20 % on / 5 % off), as a ROS node would from sensors
             left_contact = last_f['left'] >= .2*weight or (left_contact and last_f['left'] >= .05*weight)
             gait_phase = gait.update(t, left_contact)
+            if damping:
+                roll_rate_f += (float(data.qvel[3])-roll_rate_f)*dt/(.02+dt)
+                stance = ('left' if last_f['right'] < .05*weight <= last_f['left'] else
+                          'right' if last_f['left'] < .05*weight <= last_f['right'] else None)
+                for name, offset in antipump(roll_rate_f, stance, *damping).items():
+                    target[name] += offset
             if tail_sync:  # gait-synchronised tail yaw (amp, phi0, k_fb); qvel[5] = body yaw rate
                 target |= tail_law.update(t, gait_phase, data.qvel[5])
             if tail:  # tail balance (ky, kr, kp, kd); qvel[3:6] is the body-frame angular velocity
@@ -216,6 +230,7 @@ def run(amplitude, frequency, cycles=6, ramp=1., guard=.25, model_path=None, cro
         if len(yaw_trace) > 1 else yaw_trace
     return {'amplitude_rad': amplitude, 'frequency_hz': frequency,
             'stopped_by_guard_at_s': stopped_at, 'max_tilt_rad': worst['tilt'], 'max_abs_yaw_rad': worst['yaw'],
+            'pll_events': clock.events if clock else None,
             'yaw_rate_rms': float(np.sqrt(np.mean(np.square(yaw_rates)))) if yaw_rates else None,
             'yaw_oscillation_std_rad': float(np.std(yaw_trace-trend)),
             'actuator_work_j': work, 'gait_period_s': gait.period, 'gait_duty': gait.duty,

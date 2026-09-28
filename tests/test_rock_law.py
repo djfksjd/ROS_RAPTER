@@ -6,7 +6,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT/'src/raptor_control/scripts'))
-from rock_law import (ContactEvents, GaitPhase, TailSync, WindowMax, crouch_pose, step_roll,  # noqa: E402
+from rock_law import (ContactEvents, GaitPhase, TailSync, TouchdownPLL, WindowMax, antipump, crouch_pose,  # noqa: E402
+                      step_roll,
                       tail_sync_targets, tail_targets, targets)
 
 JOINTS = [f'{s}_{j}_joint' for s in ('left', 'right') for j in ('hip_roll', 'hip_pitch', 'knee_pitch', 'ankle_pitch')]
@@ -61,6 +62,11 @@ class RockLawTest(unittest.TestCase):
         self.assertAlmostEqual(half['right_hip_roll_joint'], .02)
         self.assertAlmostEqual(full['left_hip_roll_joint'], .04)
         self.assertEqual(targets(POSE, 3., 0., 2.5, 1.)['left_hip_roll_joint'], 0.)
+
+    def test_external_cycle_matches_time_clock(self):
+        for a in (1.3, 2.07, 3.91):
+            self.assertEqual(targets(POSE, a, .08, 2.5, 1., stride=.08), targets(POSE, a, .08, 2.5, 1., stride=.08,
+                                                                              cycle=a*2.5))
 
     def test_pitch_feedback_is_clipped(self):
         t = targets(POSE, 2., .08, 2., 1., pitch=1., feedback=(.5, .05, .15))
@@ -123,6 +129,36 @@ class RockLawTest(unittest.TestCase):
             if ev:
                 events.append(ev)
         self.assertEqual(events, ['touchdown', 'liftoff'])
+
+    def test_pll_speeds_up_when_touchdown_comes_early_and_clamps(self):
+        pll = TouchdownPLL(2.5, k=2.5, clamp=.4)
+        t, dt = 0., .001
+        forces = {'left': 100., 'right': 100.}
+        pll.update(t, forces)
+        forces['left'] = 0.
+        while pll.c < .45:  # left in the air until the clock shows 0.45 (< nominal 0.595): touchdown is early
+            t += dt
+            pll.update(t, forces)
+        forces['left'] = 100.
+        for _ in range(40):
+            t += dt
+            pll.update(t, forces)
+        side, e, f = pll.events[-1][1:]
+        self.assertEqual(side, 'left')
+        self.assertGreater(e, 0)
+        self.assertAlmostEqual(f, 2.5+2.5*e, places=3)
+        wide = TouchdownPLL(2.5, k=10., clamp=.4)
+        wide.detect['left'].loaded, wide.c, wide.t = False, .1, 0.
+        for k in range(30):
+            wide.update(.001*k, {'left': 100., 'right': 100.})
+        self.assertAlmostEqual(wide.f, 2.9)  # e = 0.495 -> clamped at f0 + 0.4
+
+    def test_antipump_stance_only_mirrored_and_clamped(self):
+        self.assertEqual(antipump(1., None, .05), {})
+        self.assertAlmostEqual(antipump(.5, 'left', .05)['left_hip_roll_joint'], .025)
+        self.assertAlmostEqual(antipump(.5, 'right', .05)['right_hip_roll_joint'], -.025)
+        self.assertAlmostEqual(antipump(5., 'left', .05)['left_hip_roll_joint'], .03)
+        self.assertAlmostEqual(antipump(.5, 'left', .05, sign=-1)['left_hip_roll_joint'], -.025)
 
 
 if __name__ == '__main__':

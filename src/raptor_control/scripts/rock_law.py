@@ -21,15 +21,17 @@ def crouch_pose(joints, hip, knee):
 
 
 def targets(pose, a, amplitude, frequency, ramp, stride=0., window=.35, pitch=0., pitch_rate=0., feedback=None,
-            mirror=False, abduction=0.):
+            mirror=False, abduction=0., cycle=None):
     target = dict(pose)
     if a < 0:
         return target
-    r = amplitude*min(1., a/ramp)*math.sin(2*math.pi*frequency*a)*(-1 if mirror else 1)
+    # cycle: external gait clock in cycles (TouchdownPLL); default is the open-loop time clock a*frequency
+    c = a*frequency if cycle is None else cycle
+    r = amplitude*min(1., a/ramp)*math.sin(2*math.pi*c)*(-1 if mirror else 1)
     # abduction: +delta on both hip rolls moves both feet outward (right axis is -x); ramped in with the gait
     ab = abduction*min(1., a/ramp)
     target |= {'left_hip_roll_joint': -r+ab, 'right_hip_roll_joint': r+ab}
-    cycle = (a*frequency) % 1
+    cycle = c % 1
     for side, center in (MIRRORED if mirror else CENTERS):
         offset = (cycle-center+.5) % 1-.5
         u = (offset+window/2)/window
@@ -175,3 +177,42 @@ class ContactEvents:
             self.loaded, self.candidate_since = raw, None
             return 'touchdown' if raw else 'liftoff'
         return None
+
+
+class TouchdownPLL:
+    """Stage 2 (1): touchdown-anchored gait clock (Fable review, evidence 74). The cycle variable c is integrated at
+    f; at each debounced touchdown the phase error e = wrap(nominal - c mod 1) (cycles, [-0.5, 0.5)) sets
+    f = clip(f0 + k*e, f0 +- clamp). No phase jumps (a 0.15-cycle jump would need > 2 rad/s of hip roll).
+    Nominal touchdown phases 0.595 / 0.095 are the kv30 open-loop means at 2.5 Hz. `window` > 0 applies WindowMax
+    to the forces first (Gazebo contact messages). Returns c from update(); `events` logs (t, side, e, f)."""
+
+    def __init__(self, f0, k=2.5, clamp=.4, nominal=(.595, .095), window=0.):
+        self.f0, self.k, self.clamp = f0, k, clamp
+        self.nominal = {'left': nominal[0], 'right': nominal[1]}
+        self.detect = {s: ContactEvents() for s in self.nominal}
+        self.smooth = {s: WindowMax(window) for s in self.nominal} if window > 0 else None
+        self.f, self.c, self.t, self.events = f0, 0., None, []
+
+    def update(self, t, forces):
+        if self.t is not None:
+            self.c += self.f*max(0., t-self.t)
+        self.t = t
+        for side, force in forces.items():
+            if self.smooth:
+                force = self.smooth[side].update(t, force)
+            if self.detect[side].update(t, force) == 'touchdown':
+                e = (self.nominal[side]-self.c % 1+.5) % 1-.5
+                self.f = min(self.f0+self.clamp, max(self.f0-self.clamp, self.f0+self.k*e))
+                self.events.append((round(t, 4), side, round(e, 4), round(self.f, 4)))
+        return self.c
+
+
+def antipump(roll_rate, stance, k_d, sign=1., clamp=.03):
+    """Stage 2 (2): single-support damping on the stance hip roll only. The body roll follows -q_left and +q_right
+    when that foot is planted (right hip-roll axis is -x), so sign=+1 asks for a body-roll acceleration of
+    -k_d*roll_rate; sign=-1 is the opposite (sign is settled by experiment F pulses, evidence 74).
+    stance: 'left', 'right' or None (double/no support: no correction). Returns {joint: offset}."""
+    if stance is None or k_d == 0:
+        return {}
+    delta = max(-clamp, min(clamp, sign*k_d*roll_rate))
+    return {'left_hip_roll_joint': delta} if stance == 'left' else {'right_hip_roll_joint': -delta}

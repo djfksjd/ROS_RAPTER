@@ -19,7 +19,9 @@
   "growth_per_step_max": null,
   "roll_0.3_1.6Hz_rad": 0.06980284424761465,
   "roll_low_peak_hz": 1.3513513513513513,
-  "single_support_median_s": 0.32499999999999973
+  "single_support_median_s": 0.32499999999999973,
+  "com_y_f_over_3_m": 0.0,
+  "com_y_f_m": 0.0
  },
  {
   "kv": 20.0,
@@ -41,7 +43,9 @@
   "growth_per_step_max": 1.066750616244174,
   "roll_0.3_1.6Hz_rad": 0.1189753601572573,
   "roll_low_peak_hz": 0.4098360655737705,
-  "single_support_median_s": 0.23000000000000043
+  "single_support_median_s": 0.23000000000000043,
+  "com_y_f_over_3_m": 0.0,
+  "com_y_f_m": 0.0
  },
  {
   "kv": 20.0,
@@ -63,7 +67,9 @@
   "growth_per_step_max": 1.6640646753206507,
   "roll_0.3_1.6Hz_rad": 0.08874267341591818,
   "roll_low_peak_hz": 0.6172839506172839,
-  "single_support_median_s": 0.2599999999999998
+  "single_support_median_s": 0.2599999999999998,
+  "com_y_f_over_3_m": 0.060812166045477505,
+  "com_y_f_m": 0.0
  },
  {
   "kv": 20.0,
@@ -85,7 +91,9 @@
   "growth_per_step_max": 1.0919732303778265,
   "roll_0.3_1.6Hz_rad": 0.0732465889468759,
   "roll_low_peak_hz": 0.727802037845706,
-  "single_support_median_s": 0.2699999999999996
+  "single_support_median_s": 0.2699999999999996,
+  "com_y_f_over_3_m": 0.0,
+  "com_y_f_m": 0.007165239412640871
  },
  {
   "kv": 20.0,
@@ -107,7 +115,9 @@
   "growth_per_step_max": 1.15577388758522,
   "roll_0.3_1.6Hz_rad": 0.047727419311627974,
   "roll_low_peak_hz": 0.7333333333333333,
-  "single_support_median_s": 0.24000000000000377
+  "single_support_median_s": 0.24000000000000377,
+  "com_y_f_over_3_m": 0.03516723226390446,
+  "com_y_f_m": 0.007244669110865575
  },
  {
   "kv": 20.0,
@@ -129,7 +139,9 @@
   "growth_per_step_max": 1.3551076374584776,
   "roll_0.3_1.6Hz_rad": 0.0601894272851619,
   "roll_low_peak_hz": 0.6791171477079797,
-  "single_support_median_s": 0.2200000000000002
+  "single_support_median_s": 0.2200000000000002,
+  "com_y_f_over_3_m": 0.027175553063255774,
+  "com_y_f_m": 0.004958624759627971
  },
  {
   "kv": 20.0,
@@ -151,7 +163,9 @@
   "growth_per_step_max": 1.0666357841377159,
   "roll_0.3_1.6Hz_rad": 0.027468752842199563,
   "roll_low_peak_hz": 0.755287009063444,
-  "single_support_median_s": 0.16000000000000014
+  "single_support_median_s": 0.16000000000000014,
+  "com_y_f_over_3_m": 0.01873834716234553,
+  "com_y_f_m": 0.0
  },
  {
   "kv": 20.0,
@@ -173,7 +187,9 @@
   "growth_per_step_max": 1.042058373817236,
   "roll_0.3_1.6Hz_rad": 0.010729985437479998,
   "roll_low_peak_hz": 0.8620689655172414,
-  "single_support_median_s": 0.14999999999999947
+  "single_support_median_s": 0.14999999999999947,
+  "com_y_f_over_3_m": 0.0,
+  "com_y_f_m": 0.005937153368974411
  },
  {
   "kv": 30.0,
@@ -195,7 +211,9 @@
   "growth_per_step_max": null,
   "roll_0.3_1.6Hz_rad": 0.07249973297616646,
   "roll_low_peak_hz": 1.36986301369863,
-  "single_support_median_s": 0.34999999999999964
+  "single_support_median_s": 0.34999999999999964,
+  "com_y_f_over_3_m": 0.0,
+  "com_y_f_m": 0.0
  },
  {
   "kv": 30.0,
@@ -217,7 +235,9 @@
   "growth_per_step_max": 1.6696284473523362,
   "roll_0.3_1.6Hz_rad": 0.15720445716525086,
   "roll_low_peak_hz": 0.4366812227074236,
-  "single_support_median_s": 0.25
+  "single_support_median_s": 0.25,
+  "com_y_f_over_3_m": 0.10314534577486958,
+  "com_y_f_m": 0.0
  },
  {
   "kv": 30.0,
@@ -239,7 +259,9 @@
   "growth_per_step_max": 1.066291139610324,
   "roll_0.3_1.6Hz_rad": 0.0186015241828551,
   "roll_low_peak_hz": 0.5999000166638894,
-  "single_support_median_s": 0.2500000000000018
+  "single_support_median_s": 0.2500000000000018,
+  "com_y_f_over_3_m": 0.015137286252176781,
+  "com_y_f_m": 0.01965872050498784
  },
  {
   "kv": 30.0,
@@ -261,7 +283,9 @@
   "growth_per_step_max": 1.0889302423759688,
   "roll_0.3_1.6Hz_rad": 0.018033465725166703,
   "roll_low_peak_hz": 0.6665555740709882,
-  "single_support_median_s": 0.22000000000000064
+  "single_support_median_s": 0.22000000000000064,
+  "com_y_f_over_3_m": 0.016689402806678903,
+  "com_y_f_m": 0.015897440548771073
  },
  {
   "kv": 30.0,
@@ -283,7 +307,9 @@
   "growth_per_step_max": 1.0146657262104035,
   "roll_0.3_1.6Hz_rad": 0.047944421195465624,
   "roll_low_peak_hz": 0.7333333333333333,
-  "single_support_median_s": 0.25
+  "single_support_median_s": 0.25,
+  "com_y_f_over_3_m": 0.05398859104852647,
+  "com_y_f_m": 0.010402094886854963
  },
  {
   "kv": 30.0,
@@ -305,7 +331,9 @@
   "growth_per_step_max": 1.1047743731785762,
   "roll_0.3_1.6Hz_rad": 0.008679543950400822,
   "roll_low_peak_hz": 0.8165305782369605,
-  "single_support_median_s": 0.1800000000000015
+  "single_support_median_s": 0.1800000000000015,
+  "com_y_f_over_3_m": 0.00970397587014891,
+  "com_y_f_m": 0.011168719872969187
  },
  {
   "kv": 30.0,
@@ -327,7 +355,9 @@
   "growth_per_step_max": 1.110180085265211,
   "roll_0.3_1.6Hz_rad": 0.03102770803758567,
   "roll_low_peak_hz": 0.7498750208298617,
-  "single_support_median_s": 0.13000000000000078
+  "single_support_median_s": 0.13000000000000078,
+  "com_y_f_over_3_m": 0.00036906023378128523,
+  "com_y_f_m": 0.007290223633165683
  },
  {
   "kv": 30.0,
@@ -349,7 +379,9 @@
   "growth_per_step_max": 1.5477670517959528,
   "roll_0.3_1.6Hz_rad": 0.03283117584174612,
   "roll_low_peak_hz": 0.7770762506070908,
-  "single_support_median_s": 0.13000000000000078
+  "single_support_median_s": 0.13000000000000078,
+  "com_y_f_over_3_m": 0.00012958009325131727,
+  "com_y_f_m": 0.006091805492957022
  },
  {
   "kv": 100.0,
@@ -371,7 +403,9 @@
   "growth_per_step_max": null,
   "roll_0.3_1.6Hz_rad": 0.08827804023678355,
   "roll_low_peak_hz": 0.8547008547008548,
-  "single_support_median_s": 0.15999999999999992
+  "single_support_median_s": 0.15999999999999992,
+  "com_y_f_over_3_m": 0.0,
+  "com_y_f_m": 0.0
  },
  {
   "kv": 100.0,
@@ -393,7 +427,9 @@
   "growth_per_step_max": 1.174794404322296,
   "roll_0.3_1.6Hz_rad": 0.10249089202229168,
   "roll_low_peak_hz": 1.3997667055490752,
-  "single_support_median_s": 0.3400000000000034
+  "single_support_median_s": 0.3400000000000034,
+  "com_y_f_over_3_m": 0.0012449779896252925,
+  "com_y_f_m": 0.030927111133577507
  },
  {
   "kv": 100.0,
@@ -415,7 +451,9 @@
   "growth_per_step_max": 1.0835110263809495,
   "roll_0.3_1.6Hz_rad": 0.0007792600494007515,
   "roll_low_peak_hz": 0.7998666888851858,
-  "single_support_median_s": 0.2599999999999998
+  "single_support_median_s": 0.2599999999999998,
+  "com_y_f_over_3_m": 0.00014999844424515383,
+  "com_y_f_m": 0.018486705161142696
  },
  {
   "kv": 100.0,
@@ -437,7 +475,9 @@
   "growth_per_step_max": 1.1093145570301628,
   "roll_0.3_1.6Hz_rad": 0.0002866609417786146,
   "roll_low_peak_hz": 0.6665555740709882,
-  "single_support_median_s": 0.129999999999999
+  "single_support_median_s": 0.129999999999999,
+  "com_y_f_over_3_m": 0.0001561429322356508,
+  "com_y_f_m": 0.014547010152227396
  },
  {
   "kv": 100.0,
@@ -459,7 +499,9 @@
   "growth_per_step_max": 1.0432793097335853,
   "roll_0.3_1.6Hz_rad": 0.0022163231606987625,
   "roll_low_peak_hz": 0.9166666666666666,
-  "single_support_median_s": 0.09000000000000163
+  "single_support_median_s": 0.09000000000000163,
+  "com_y_f_over_3_m": 0.0006066469093999602,
+  "com_y_f_m": 0.011756231998711649
  },
  {
   "kv": 100.0,
@@ -481,7 +523,9 @@
   "growth_per_step_max": 1.0719243834840282,
   "roll_0.3_1.6Hz_rad": 8.21336210421416e-05,
   "roll_low_peak_hz": 0.3666055657390435,
-  "single_support_median_s": 0.07999999999999652
+  "single_support_median_s": 0.07999999999999652,
+  "com_y_f_over_3_m": 1.1789562838559842e-05,
+  "com_y_f_m": 0.00903972758601197
  },
  {
   "kv": 100.0,
@@ -503,7 +547,9 @@
   "growth_per_step_max": 1.0959755673197786,
   "roll_0.3_1.6Hz_rad": 0.006801402958188843,
   "roll_low_peak_hz": 1.183136143976004,
-  "single_support_median_s": 0.06000000000000405
+  "single_support_median_s": 0.06000000000000405,
+  "com_y_f_over_3_m": 0.0008465651290450444,
+  "com_y_f_m": 0.007001798725606188
  },
  {
   "kv": 100.0,
@@ -525,6 +571,8 @@
   "growth_per_step_max": 2.0271541816532013,
   "roll_0.3_1.6Hz_rad": 0.010568970964007274,
   "roll_low_peak_hz": 0.9998333611064822,
-  "single_support_median_s": 0.05000000000000249
+  "single_support_median_s": 0.05000000000000249,
+  "com_y_f_over_3_m": 0.006909593654081974,
+  "com_y_f_m": 0.007346254963994114
  }
 ]
