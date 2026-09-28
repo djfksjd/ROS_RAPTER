@@ -88,6 +88,19 @@ flowchart LR
 
 **최종 목표 형태 · AI 생성 콘셉트.** 수평 몸통과 긴 꼬리로 무게중심을 낮추고 걷기·달리기·점프·등반을 목표로 합니다. 표기된 사양(40km/h, 20+ DOF)은 검증값이 아닙니다. 현재 모델은 무게중심이 0.73~0.76m로 높고 뒤쪽 여유가 2.8cm뿐이라, 한 번에 바꾸지 않고 한 변수씩 시뮬레이션으로 검증하며 옮겨 갑니다. [현재 대비 차이와 순서](docs/DESIGN_R01.ko.md)
 
+## 강화학습 보행 · 12축 (MuJoCo)
+
+<div align="center">
+<img src="docs/assets/video/mujoco-rl-walk12.gif" width="400" alt="MuJoCo에서 12축 강화학습 정책이 0.4m/s 명령으로 평지를 걷는 장면" /><br>
+<b>MuJoCo 평지 · 실시간 속도</b> · 발목 roll 포함 12축, 0.4m/s 명령. <a href="docs/evidence/79-rl-walk12/walk12_flat_0.4mps.mp4">MP4</a>
+</div>
+
+| 명령 | 넘어짐 (20초 × 4) | 실제 속도 |
+|---|---|---|
+| 0 / 0.2 / 0.4 / 0.6 m/s | 0 / 0 / 0 / 0 | −0.06 / 0.12 / 0.29 / 0.47 m/s |
+
+평지에서 명령 속도를 따라 넘어지지 않고 걷습니다. 명령보다 0.1m/s 안팎 느리고, 학습하지 않은 요철·계단·단상에서는 막히거나 넘어집니다. 다음 단계는 지형 커리큘럼입니다. MuJoCo 결과이며 Gazebo·실물 보행은 아직 검증하지 않았습니다. [증거 79](docs/evidence/79-rl-walk12/README.md) · [보상·환경](docs/RL_LOCOMOTION.ko.md)
+
 ## 보행 진행 · 흔들목마 모델
 
 <div align="center">
