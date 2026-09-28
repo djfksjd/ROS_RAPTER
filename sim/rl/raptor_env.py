@@ -77,6 +77,16 @@ class RaptorEnv(gym.Env):
         spec = mujoco.MjSpec.from_file(self.model_path)
         self.kind = self.rng.choice(self.kinds)
         self.heights = tr.add_terrain(spec, self.kind, self.level, self.rng)
+        if self.render_mode == 'rgb_array':  # visual only: light and a checker floor so motion is visible
+            spec.worldbody.add_light(pos=[0, 0, 5], dir=[.3, .2, -1], diffuse=[.7, .7, .7], ambient=[.35, .35, .35],
+                                     specular=[.1, .1, .1], type=mujoco.mjtLightType.mjLIGHT_DIRECTIONAL,
+                                     castshadow=True)
+            spec.add_texture(name='grid', type=mujoco.mjtTexture.mjTEXTURE_2D, builtin=mujoco.mjtBuiltin.mjBUILTIN_CHECKER,
+                             rgb1=[.82, .84, .86], rgb2=[.62, .65, .68], width=512, height=512)
+            spec.add_material(name='grid', textures=['', 'grid'], texrepeat=[16, 16], reflectance=.05)
+            for g in spec.geoms:
+                if g.parent.name == 'world':
+                    g.material = 'grid'
         m = spec.compile()
         m.actuator_ctrlrange[:] *= self.vel_scale
         for i, name in enumerate(self.active):
@@ -262,7 +272,7 @@ class RaptorEnv(gym.Env):
         if self.renderer is None:
             self.renderer = mujoco.Renderer(self.model, 480, 640)
             self.cam = mujoco.MjvCamera()
-            self.cam.distance, self.cam.elevation, self.cam.azimuth = 2.6, -15., 130.
+            self.cam.distance, self.cam.elevation, self.cam.azimuth = 3.2, -12., 115.
         self.cam.lookat[:] = self.data.xpos[self.base]
         self.renderer.update_scene(self.data, self.cam)
         return self.renderer.render()

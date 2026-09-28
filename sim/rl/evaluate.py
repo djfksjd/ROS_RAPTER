@@ -99,7 +99,7 @@ def main():
     if a.video:
         frames = []
         for kind in a.terrain:
-            env = RaptorEnv(kind, level=a.levels[-1], vel_scale=a.vel_scale, randomize=False, seed=7,
+            env = RaptorEnv(kind, level=a.levels[-1], vel_scale=a.vel_scale, randomize=False, seed=7, render_mode='rgb_array',
                             actuator=a.actuator, dof=a.dof, sole=a.sole)
             model, venv = load(a.model, env)
             episode(model, venv, env, [a.commands[-1], 0., 0.], min(a.seconds, 10.), frames)
