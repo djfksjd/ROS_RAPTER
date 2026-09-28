@@ -65,3 +65,7 @@ File 34 verifies that refused development probes emit no trajectory commands.
 
 - `53-joint-load-interfaces.txt`: 10 active 제어/effort 상태 확인.
 - `54-joint-load-*`: 실제 속도/전달 effort 계측, 발목 속도 포화와 추종 실패.
+
+- `55-control-path-sources.txt`: 설치 버전과 gz_ros2_control/gz-sim/DART 소스 경로 대조.
+- `55-joint-load-reanalysis.json`: 54번 재분석, 명령으로 설명 안 되는 속도 한도 표본과 모서리 접촉.
+- `56-lateral-support-feasibility.json`: 평평한 발 정적 한 발 지지의 측방 COM 여유(오프라인 FK).
