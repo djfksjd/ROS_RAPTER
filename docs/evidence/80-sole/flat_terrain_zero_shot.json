@@ -1,0 +1,112 @@
+[
+ {
+  "terrain": "rough",
+  "level": 0.2,
+  "cmd_vx": 0.3,
+  "falls": 0,
+  "episodes": 3,
+  "mean_vx": 0.036,
+  "track_err": 0.32,
+  "distance_m": 0.21,
+  "max_tilt": 0.195
+ },
+ {
+  "terrain": "rough",
+  "level": 0.5,
+  "cmd_vx": 0.3,
+  "falls": 1,
+  "episodes": 3,
+  "mean_vx": 0.072,
+  "track_err": 0.299,
+  "distance_m": 0.5,
+  "max_tilt": 0.813
+ },
+ {
+  "terrain": "slope",
+  "level": 0.2,
+  "cmd_vx": 0.3,
+  "falls": 2,
+  "episodes": 3,
+  "mean_vx": 0.598,
+  "track_err": 0.549,
+  "distance_m": 3.58,
+  "max_tilt": 0.871
+ },
+ {
+  "terrain": "slope",
+  "level": 0.5,
+  "cmd_vx": 0.3,
+  "falls": 2,
+  "episodes": 3,
+  "mean_vx": 0.56,
+  "track_err": 0.537,
+  "distance_m": 2.63,
+  "max_tilt": 0.821
+ },
+ {
+  "terrain": "side_slope",
+  "level": 0.2,
+  "cmd_vx": 0.3,
+  "falls": 3,
+  "episodes": 3,
+  "mean_vx": -0.149,
+  "track_err": 0.982,
+  "distance_m": 1.08,
+  "max_tilt": 0.863
+ },
+ {
+  "terrain": "side_slope",
+  "level": 0.5,
+  "cmd_vx": 0.3,
+  "falls": 3,
+  "episodes": 3,
+  "mean_vx": -0.235,
+  "track_err": 1.575,
+  "distance_m": 0.23,
+  "max_tilt": 0.824
+ },
+ {
+  "terrain": "stairs",
+  "level": 0.2,
+  "cmd_vx": 0.3,
+  "falls": 0,
+  "episodes": 3,
+  "mean_vx": 0.029,
+  "track_err": 0.299,
+  "distance_m": 0.67,
+  "max_tilt": 0.163
+ },
+ {
+  "terrain": "stairs",
+  "level": 0.5,
+  "cmd_vx": 0.3,
+  "falls": 0,
+  "episodes": 3,
+  "mean_vx": 0.034,
+  "track_err": 0.306,
+  "distance_m": 0.58,
+  "max_tilt": 0.163
+ },
+ {
+  "terrain": "platform",
+  "level": 0.2,
+  "cmd_vx": 0.3,
+  "falls": 0,
+  "episodes": 3,
+  "mean_vx": 0.287,
+  "track_err": 0.175,
+  "distance_m": 4.3,
+  "max_tilt": 0.228
+ },
+ {
+  "terrain": "platform",
+  "level": 0.5,
+  "cmd_vx": 0.3,
+  "falls": 3,
+  "episodes": 3,
+  "mean_vx": 0.307,
+  "track_err": 0.275,
+  "distance_m": 1.85,
+  "max_tilt": 0.812
+ }
+]

@@ -53,10 +53,11 @@ class RaptorEnv(gym.Env):
 
     def __init__(self, terrain='flat', level=0., cmd_max=(.5, .2, .5), vel_scale=1., episode_s=20.,
                  randomize=True, seed=None, render_mode=None, model_path=None, servo_kv=SERVO_KV,
-                 actuator='urdf', dof=10, sole='flat'):
+                 actuator='urdf', dof=10, sole='flat', weights=None, zero_cmd=.1):
         self.kinds = [terrain] if isinstance(terrain, str) else list(terrain)
         self.level, self.cmd_max, self.vel_scale = level, np.array(cmd_max, float), vel_scale
         self.servo_kv, self.actuator = servo_kv, actuator
+        self.weights, self.zero_cmd = {**WEIGHTS, **(weights or {})}, zero_cmd
         self.episode_steps, self.randomize, self.render_mode = int(episode_s/CONTROL_DT), randomize, render_mode
         self.model_path = str(model_path or MODELS[dof, sole])
         probe = mujoco.MjModel.from_xml_path(self.model_path)
@@ -153,7 +154,7 @@ class RaptorEnv(gym.Env):
     def _sample_command(self):
         c = self.rng.uniform(-1, 1, 3)*self.cmd_max
         c[0] = self.rng.uniform(-.3*self.cmd_max[0], self.cmd_max[0])
-        if self.rng.random() < .1:
+        if self.rng.random() < self.zero_cmd:
             c[:] = 0.
         return c
 
@@ -256,7 +257,7 @@ class RaptorEnv(gym.Env):
         mid = (self.hi+self.lo)/2
         terms['joint_limit'] = np.sum(np.clip(np.abs(q-mid)-margin, 0, None))
         terms['alive'] = 1.
-        reward = CONTROL_DT*sum(WEIGHTS[k]*v for k, v in terms.items())
+        reward = CONTROL_DT*sum(self.weights[k]*v for k, v in terms.items())
 
         tilt = np.arccos(np.clip(-grav[2], -1, 1))
         fallen = body_hit or tilt > .8 or bz-ground < .5 or not np.isfinite(d.qpos).all()

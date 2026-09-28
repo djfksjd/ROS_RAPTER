@@ -1,0 +1,46 @@
+[
+ {
+  "terrain": "flat",
+  "level": 0.0,
+  "cmd_vx": 0.0,
+  "falls": 0,
+  "episodes": 4,
+  "mean_vx": -0.041,
+  "track_err": 0.085,
+  "distance_m": -0.95,
+  "max_tilt": 0.158
+ },
+ {
+  "terrain": "flat",
+  "level": 0.0,
+  "cmd_vx": 0.2,
+  "falls": 0,
+  "episodes": 4,
+  "mean_vx": 0.12,
+  "track_err": 0.124,
+  "distance_m": 1.96,
+  "max_tilt": 0.173
+ },
+ {
+  "terrain": "flat",
+  "level": 0.0,
+  "cmd_vx": 0.4,
+  "falls": 0,
+  "episodes": 4,
+  "mean_vx": 0.297,
+  "track_err": 0.146,
+  "distance_m": 5.26,
+  "max_tilt": 0.166
+ },
+ {
+  "terrain": "flat",
+  "level": 0.0,
+  "cmd_vx": 0.6,
+  "falls": 0,
+  "episodes": 4,
+  "mean_vx": 0.54,
+  "track_err": 0.091,
+  "distance_m": 10.54,
+  "max_tilt": 0.173
+ }
+]
