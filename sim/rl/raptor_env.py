@@ -53,7 +53,7 @@ class RaptorEnv(gym.Env):
 
     def __init__(self, terrain='flat', level=0., cmd_max=(.5, .2, .5), vel_scale=1., episode_s=20.,
                  randomize=True, seed=None, render_mode=None, model_path=None, servo_kv=SERVO_KV,
-                 actuator='urdf', dof=10, sole='flat', weights=None, zero_cmd=.1, jtc_horizon=0., kv_range=None):
+                 actuator='urdf', dof=10, sole='flat', weights=None, zero_cmd=.1, jtc_horizon=0., kv_range=None, slew=None):
         self.kinds = [terrain] if isinstance(terrain, str) else list(terrain)
         self.level, self.cmd_max, self.vel_scale = level, np.array(cmd_max, float), vel_scale
         self.servo_kv, self.actuator = servo_kv, actuator
@@ -61,6 +61,9 @@ class RaptorEnv(gym.Env):
         # Gazebo path (evidence 74): the trajectory controller ramps each new goal over jtc_horizon s;
         # kv_range randomizes the velocity-servo stiffness per episode (Gazebo matched kv ~30).
         self.jtc_horizon, self.kv_range = jtc_horizon, kv_range
+        # slew: streamed targets move at most slew*velocity-limit per control step (same limiter as
+        # rl_policy_node). Unlimited targets saturated the servos (Gazebo DART overshoot defect, evidence 61).
+        self.slew = slew
         self.episode_steps, self.randomize, self.render_mode = int(episode_s/CONTROL_DT), randomize, render_mode
         self.model_path = str(model_path or MODELS[dof, sole])
         probe = mujoco.MjModel.from_xml_path(self.model_path)
@@ -153,6 +156,7 @@ class RaptorEnv(gym.Env):
         d.ctrl[:] = 0.
         self.steps, self.last_action, self.prev_qd = 0, np.zeros(len(self.q0)), d.qvel[self.v_adr].copy()
         self.setpoint = d.qpos[self.q_adr].copy()
+        self.streamed = self.setpoint.copy()
         self.air = {'left': 0., 'right': 0.}
         self.command = self._sample_command()
         self.phase = 0.
@@ -217,6 +221,10 @@ class RaptorEnv(gym.Env):
             d.qvel[:2] += self.rng.uniform(-.4, .4, 2)
         # Same law as GazeboLikeServo (positions read every 10 ms, ctrl held in between), batched.
         vmax = m.actuator_ctrlrange[self.act, 1]
+        if self.slew:
+            step = self.slew*vmax*CONTROL_DT
+            target = self.streamed+np.clip(target-self.streamed, -step, step)
+        self.streamed = target
         start = self.setpoint
         for i in range(int(round(CONTROL_DT/SERVO_DT))):
             frac = min(1., (i+1)*SERVO_DT/self.jtc_horizon) if self.jtc_horizon > 0 else 1.

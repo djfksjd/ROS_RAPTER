@@ -135,7 +135,11 @@ class PolicyNode(Node):
         qd = [self.joints[j][1] for j in self.joints_order]
         gyro, quat = self.imu
         action = self.policy.act(self.policy.observation(gyro, quat, command, q, qd))
-        self.target = dict(zip(self.joints_order, self.policy.targets(action)))
+        new = self.policy.targets(action)
+        if self.args.slew:  # same target rate limit as training (raptor_env slew): no servo saturation
+            new = [self.target[j]+max(-s, min(s, v-self.target[j])) for j, v, s in
+                   zip(self.joints_order, new, (self.args.slew*limit_of(j)*PERIOD for j in self.joints_order))]
+        self.target = dict(zip(self.joints_order, new))
         self.send(self.target, horizon)
         self.rows.append({'t': round(phase, 3), 'tilt': round(self.guard.tilt or 0., 4), 'command': list(command),
                           'gyro': [round(v, 4) for v in gyro], 'q': [round(v, 4) for v in q],
@@ -152,11 +156,12 @@ def main():
     parser.add_argument('--horizon', type=float, default=.02, help='JTC time_from_start of each target (s)')
     parser.add_argument('--tilt-limit', type=float, default=.6)
     parser.add_argument('--saturation-hold', type=float, default=.2)
+    parser.add_argument('--slew', type=float, help='target rate limit, fraction of each velocity limit (match training)')
     parser.add_argument('--out', default='/raptor_ws/log/rl-policy.json')
     args = parser.parse_args()
     if not (abs(args.command[0]) <= .8 and abs(args.command[1]) <= .3 and abs(args.command[2]) <= .8
             and 1 <= args.duration <= 120 and .01 <= args.horizon <= .1 and .1 <= args.tilt_limit <= .8
-            and .03 <= args.saturation_hold <= .5):
+            and .03 <= args.saturation_hold <= .5 and (args.slew is None or 0 < args.slew <= 1)):
         parser.error('outside experimental bounds')
     rclpy.init()
     node = PolicyNode(args)
