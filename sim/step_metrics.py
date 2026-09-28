@@ -5,7 +5,10 @@ import numpy as np
 
 def steps(force, slip_speed, foot_x, dt, weight,
           load_frac=0.2, unload_frac=0.05, hold=0.03):
-    """Find touchdowns, stances, and step metrics for one foot."""
+    """Find touchdowns, completed stances, and step metrics for one foot.
+
+    Slip samples without contact (NaN) add no slip. Only stances ended by a debounced liftoff are kept.
+    """
     force = np.asarray(force)
     slip_speed = np.asarray(slip_speed)
     foot_x = np.asarray(foot_x)
@@ -17,6 +20,7 @@ def steps(force, slip_speed, foot_x, dt, weight,
         raise ValueError("dt must be positive and hold nonnegative")
 
     loaded = bool(len(force) and force[0] >= load_frac * weight)
+    unloaded_from = None if loaded else 0
     run_start = None
     touchdown = None
     touchdowns = []
@@ -45,14 +49,17 @@ def steps(force, slip_speed, foot_x, dt, weight,
             if touchdown is not None:
                 add_stance(touchdown, run_start)
                 touchdown = None
+            unloaded_from = run_start
         else:
             touchdown = run_start
-            touchdowns.append(run_start)
+            if unloaded_from is not None and (run_start - unloaded_from) * dt + 1e-12 >= hold:
+                touchdowns.append(run_start)
+            else:  # the preceding unloaded period was not observed for `hold`
+                touchdown = None
         loaded = not loaded
         run_start = None
 
-    if touchdown is not None:
-        add_stance(touchdown, len(force))
+    # A stance still open at the end is incomplete and is not reported.
 
     lengths = [
         float(foot_x[b] - foot_x[a])

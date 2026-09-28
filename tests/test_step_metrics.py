@@ -69,5 +69,14 @@ class StepMetricsTests(unittest.TestCase):
         self.assertAlmostEqual(summary["slip_to_step"]["right"], 0.1)
 
 
+    def test_initial_unloaded_shorter_than_hold_is_not_touchdown(self):
+        dt, weight = 0.001, 100.0
+        force = np.r_[np.zeros(10), np.full(200, 100.0), np.zeros(200), np.full(200, 100.0), np.zeros(100)]
+        out = steps(force, np.full(len(force), 0.01), np.arange(len(force)) * 1e-3, dt, weight)
+        self.assertEqual(out["count"], 1)
+        self.assertAlmostEqual(out["touchdown_times"][0], 0.41, places=9)
+        self.assertEqual(len(out["stances"]), 1)
+
+
 if __name__ == "__main__":
     unittest.main()
