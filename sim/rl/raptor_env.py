@@ -92,7 +92,8 @@ class RaptorEnv(gym.Env):
         self.lo, self.hi = m.jnt_range[[m.joint(n).id for n in self.active]].T
         self.floor = m.geom('floor').id
         self.ground = {self.floor}|{g for g in range(m.ngeom) if m.geom_bodyid[g] == 0}
-        foot_bodies = [b for b in range(m.nbody) if 'foot' in m.body(b).name or 'toe' in m.body(b).name]
+        # the metatarsus is part of the foot (a separate link only with ankle roll); its ground contact is not a fall
+        foot_bodies = [b for b in range(m.nbody) if any(k in m.body(b).name for k in ('foot', 'toe', 'metatarsus'))]
         self.foot_geoms = {s: [g for g in range(m.ngeom) if m.geom_bodyid[g] in foot_bodies
                                and m.body(m.geom_bodyid[g]).name.startswith(s)] for s in ('left', 'right')}
         self.foot_body = {s: m.body(f'{s}_foot_link').id for s in ('left', 'right')}

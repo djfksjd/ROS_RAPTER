@@ -71,6 +71,17 @@ class RaptorEnvTest(unittest.TestCase):
         np.testing.assert_allclose(w, [0, .8, 0], atol=1e-6)
         self.assertGreater(v[0], .6)
 
+    def test_metatarsus_counts_as_foot_with_ankle_roll(self):
+        """With ankle roll the metatarsus is its own link; touching the ground with it is not a fall."""
+        from raptor_env import RaptorEnv
+        env = RaptorEnv('flat', dof=12, randomize=False, seed=0)
+        env.reset()
+        m = env.model
+        feet = set(env.foot_geoms['left'])|set(env.foot_geoms['right'])
+        meta = {g for g in range(m.ngeom) if 'metatarsus' in m.body(m.geom_bodyid[g]).name}
+        self.assertTrue(meta)
+        self.assertTrue(meta <= feet)
+
 
 if __name__ == '__main__':
     unittest.main()
