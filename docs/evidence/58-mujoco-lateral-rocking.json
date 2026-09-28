@@ -1,0 +1,428 @@
+{
+ "limitation": "Open-loop MuJoCo (sim/raptor.xml, Gazebo-like servo approximation). Rocking gives alternating support; stride progress is sliding/bouncing, not walking.",
+ "amplitude_rad": 0.08,
+ "frequency_hz": 2.0,
+ "crouch_hip": -0.15,
+ "results": [
+  {
+   "amplitude_rad": 0.08,
+   "frequency_hz": 2.0,
+   "stopped_by_guard_at_s": null,
+   "max_tilt_rad": 0.11782373693388781,
+   "max_body_roll_rad": 0.11736864141853277,
+   "max_body_pitch_rad": 0.03618819765578476,
+   "single_support_fraction": {
+    "left": 0.46091666666666664,
+    "right": 0.46091666666666664
+   },
+   "longest_single_support_s": {
+    "left": 0.2460000000000002,
+    "right": 0.2650000000000002
+   },
+   "both_feet_unloaded_fraction": 0.0,
+   "lift_rad": 0.0,
+   "stride_rad": 0.0,
+   "final_yaw_rad": 0.031612136970709935,
+   "max_swing_clearance_m": {
+    "left": 0.034064910156143526,
+    "right": 0.035741188633347895
+   },
+   "contact_slip_max_m_s": {
+    "left": 0.10481619881130144,
+    "right": 0.09954031773871638
+   },
+   "contact_slip_mean_m_s": {
+    "left": 0.02672970132878116,
+    "right": 0.026791352743980566
+   },
+   "final_xy": [
+    -0.40770670924510755,
+    -0.03037245610528809
+   ],
+   "touchdowns_per_foot_per_cycle": {
+    "left": 1.0083333333333333,
+    "right": 1.0166666666666666
+   },
+   "case": "nominal 60 s",
+   "cycles": 120
+  },
+  {
+   "amplitude_rad": 0.08,
+   "frequency_hz": 2.0,
+   "stopped_by_guard_at_s": null,
+   "max_tilt_rad": 0.11957024794858243,
+   "max_body_roll_rad": 0.11884277716114552,
+   "max_body_pitch_rad": 0.03333571040315351,
+   "single_support_fraction": {
+    "left": 0.4593,
+    "right": 0.45905
+   },
+   "longest_single_support_s": {
+    "left": 0.23900000000000018,
+    "right": 0.2650000000000002
+   },
+   "both_feet_unloaded_fraction": 0.0,
+   "lift_rad": 0.0,
+   "stride_rad": 0.0,
+   "final_yaw_rad": -0.00867968927446521,
+   "max_swing_clearance_m": {
+    "left": 0.03225762690166492,
+    "right": 0.03525542704588196
+   },
+   "contact_slip_max_m_s": {
+    "left": 0.09379776641528172,
+    "right": 0.08939416917101084
+   },
+   "contact_slip_mean_m_s": {
+    "left": 0.02618824215259027,
+    "right": 0.026262310041418338
+   },
+   "final_xy": [
+    -0.1316557318276083,
+    -0.02167333018020857
+   ],
+   "touchdowns_per_foot_per_cycle": {
+    "left": 1.0,
+    "right": 1.0
+   },
+   "case": "mass +10%",
+   "cycles": 40
+  },
+  {
+   "amplitude_rad": 0.08,
+   "frequency_hz": 2.0,
+   "stopped_by_guard_at_s": null,
+   "max_tilt_rad": 0.1187042725383045,
+   "max_body_roll_rad": 0.11830088797725727,
+   "max_body_pitch_rad": 0.03574759658394834,
+   "single_support_fraction": {
+    "left": 0.46165,
+    "right": 0.46285
+   },
+   "longest_single_support_s": {
+    "left": 0.2470000000000002,
+    "right": 0.2690000000000002
+   },
+   "both_feet_unloaded_fraction": 0.0002,
+   "lift_rad": 0.0,
+   "stride_rad": 0.0,
+   "final_yaw_rad": 0.005713435250902518,
+   "max_swing_clearance_m": {
+    "left": 0.03443561863545763,
+    "right": 0.03626017422622025
+   },
+   "contact_slip_max_m_s": {
+    "left": 0.10062339334211276,
+    "right": 0.11816859458011433
+   },
+   "contact_slip_mean_m_s": {
+    "left": 0.02767760468000084,
+    "right": 0.027967381435826524
+   },
+   "final_xy": [
+    -0.14338036180414418,
+    -0.017936459865271016
+   ],
+   "touchdowns_per_foot_per_cycle": {
+    "left": 1.05,
+    "right": 1.025
+   },
+   "case": "mass -10%",
+   "cycles": 40
+  },
+  {
+   "amplitude_rad": 0.08,
+   "frequency_hz": 2.0,
+   "stopped_by_guard_at_s": 3.503,
+   "max_tilt_rad": 0.7598506403247388,
+   "max_body_roll_rad": 0.11824237303951633,
+   "max_body_pitch_rad": 0.7555925289890691,
+   "single_support_fraction": {
+    "left": 0.02555,
+    "right": 0.02835
+   },
+   "longest_single_support_s": {
+    "left": 0.16900000000000012,
+    "right": 0.19900000000000015
+   },
+   "both_feet_unloaded_fraction": 0.01555,
+   "lift_rad": 0.0,
+   "stride_rad": 0.0,
+   "final_yaw_rad": 0.07072105739448312,
+   "max_swing_clearance_m": {
+    "left": 0.0339331285484182,
+    "right": 0.03716123603093041
+   },
+   "contact_slip_max_m_s": {
+    "left": 0.2194979068117829,
+    "right": 0.3118041296593203
+   },
+   "contact_slip_mean_m_s": {
+    "left": 0.07723364195364471,
+    "right": 0.07558882423881352
+   },
+   "final_xy": [
+    -0.07408694179330187,
+    -0.03980614984378967
+   ],
+   "touchdowns_per_foot_per_cycle": {
+    "left": 0.175,
+    "right": 0.175
+   },
+   "case": "friction 0.8",
+   "cycles": 40
+  },
+  {
+   "amplitude_rad": 0.08,
+   "frequency_hz": 2.0,
+   "stopped_by_guard_at_s": 4.346,
+   "max_tilt_rad": 0.769671443936804,
+   "max_body_roll_rad": 0.1284617081374102,
+   "max_body_pitch_rad": 0.769669537550351,
+   "single_support_fraction": {
+    "left": 0.04385,
+    "right": 0.0367
+   },
+   "longest_single_support_s": {
+    "left": 0.2940000000000002,
+    "right": 0.20000000000000015
+   },
+   "both_feet_unloaded_fraction": 0.02835,
+   "lift_rad": 0.0,
+   "stride_rad": 0.0,
+   "final_yaw_rad": 0.012109104993954118,
+   "max_swing_clearance_m": {
+    "left": 0.041931991290706856,
+    "right": 0.03436341478448666
+   },
+   "contact_slip_max_m_s": {
+    "left": 0.4666831059634672,
+    "right": 0.3571712147532998
+   },
+   "contact_slip_mean_m_s": {
+    "left": 0.07174979586010065,
+    "right": 0.07487186113400952
+   },
+   "final_xy": [
+    -0.04917238043945649,
+    -0.09098278187658085
+   ],
+   "touchdowns_per_foot_per_cycle": {
+    "left": 0.3,
+    "right": 0.275
+   },
+   "case": "friction 0.5",
+   "cycles": 40
+  },
+  {
+   "amplitude_rad": 0.08,
+   "frequency_hz": 2.0,
+   "stopped_by_guard_at_s": null,
+   "max_tilt_rad": 0.13477789201451074,
+   "max_body_roll_rad": 0.11736864141853277,
+   "max_body_pitch_rad": 0.048111029684155815,
+   "single_support_fraction": {
+    "left": 0.3454,
+    "right": 0.3427
+   },
+   "longest_single_support_s": {
+    "left": 0.2630000000000002,
+    "right": 0.2650000000000002
+   },
+   "both_feet_unloaded_fraction": 0.23335,
+   "lift_rad": 0.0,
+   "stride_rad": 0.05,
+   "final_yaw_rad": -0.026537283898857556,
+   "max_swing_clearance_m": {
+    "left": 0.0339478490255327,
+    "right": 0.03197662363137939
+   },
+   "contact_slip_max_m_s": {
+    "left": 0.5998914828120937,
+    "right": 0.5873013987774603
+   },
+   "contact_slip_mean_m_s": {
+    "left": 0.07889785687680617,
+    "right": 0.07865946237564933
+   },
+   "final_xy": [
+    2.1139016108181496,
+    0.20182344393841284
+   ],
+   "touchdowns_per_foot_per_cycle": {
+    "left": 2.933333333333333,
+    "right": 2.908333333333333
+   },
+   "case": "nominal 60 s",
+   "cycles": 120
+  },
+  {
+   "amplitude_rad": 0.08,
+   "frequency_hz": 2.0,
+   "stopped_by_guard_at_s": null,
+   "max_tilt_rad": 0.15184316070898896,
+   "max_body_roll_rad": 0.11884277716114552,
+   "max_body_pitch_rad": 0.05666424508214305,
+   "single_support_fraction": {
+    "left": 0.3564,
+    "right": 0.34935
+   },
+   "longest_single_support_s": {
+    "left": 0.2620000000000002,
+    "right": 0.2690000000000002
+   },
+   "both_feet_unloaded_fraction": 0.2107,
+   "lift_rad": 0.0,
+   "stride_rad": 0.05,
+   "final_yaw_rad": 0.0939647898011555,
+   "max_swing_clearance_m": {
+    "left": 0.03233595589927003,
+    "right": 0.03267612492128794
+   },
+   "contact_slip_max_m_s": {
+    "left": 0.5337634096992823,
+    "right": 0.5553110898048903
+   },
+   "contact_slip_mean_m_s": {
+    "left": 0.07682859441809825,
+    "right": 0.0764343370369858
+   },
+   "final_xy": [
+    0.7645539020652375,
+    0.05164773677416252
+   ],
+   "touchdowns_per_foot_per_cycle": {
+    "left": 2.7,
+    "right": 2.85
+   },
+   "case": "mass +10%",
+   "cycles": 40
+  },
+  {
+   "amplitude_rad": 0.08,
+   "frequency_hz": 2.0,
+   "stopped_by_guard_at_s": null,
+   "max_tilt_rad": 0.1187042725383045,
+   "max_body_roll_rad": 0.11830088797725727,
+   "max_body_pitch_rad": 0.03237368599786742,
+   "single_support_fraction": {
+    "left": 0.32575,
+    "right": 0.31985
+   },
+   "longest_single_support_s": {
+    "left": 0.2470000000000002,
+    "right": 0.20200000000000015
+   },
+   "both_feet_unloaded_fraction": 0.281,
+   "lift_rad": 0.0,
+   "stride_rad": 0.05,
+   "final_yaw_rad": 0.006555148016122874,
+   "max_swing_clearance_m": {
+    "left": 0.03425271032651204,
+    "right": 0.02604940416822119
+   },
+   "contact_slip_max_m_s": {
+    "left": 0.5874090470929694,
+    "right": 0.5816916832677235
+   },
+   "contact_slip_mean_m_s": {
+    "left": 0.08087803582311713,
+    "right": 0.07949160059207955
+   },
+   "final_xy": [
+    0.5072380747133155,
+    0.00010363941624161464
+   ],
+   "touchdowns_per_foot_per_cycle": {
+    "left": 2.85,
+    "right": 2.7
+   },
+   "case": "mass -10%",
+   "cycles": 40
+  },
+  {
+   "amplitude_rad": 0.08,
+   "frequency_hz": 2.0,
+   "stopped_by_guard_at_s": null,
+   "max_tilt_rad": 0.12177284492742352,
+   "max_body_roll_rad": 0.10994397097879549,
+   "max_body_pitch_rad": 0.04593957665556525,
+   "single_support_fraction": {
+    "left": 0.3335,
+    "right": 0.34825
+   },
+   "longest_single_support_s": {
+    "left": 0.2590000000000002,
+    "right": 0.2810000000000002
+   },
+   "both_feet_unloaded_fraction": 0.24645,
+   "lift_rad": 0.0,
+   "stride_rad": 0.05,
+   "final_yaw_rad": -0.06431150028997064,
+   "max_swing_clearance_m": {
+    "left": 0.03056909941197387,
+    "right": 0.03326634011927583
+   },
+   "contact_slip_max_m_s": {
+    "left": 0.5047855204007493,
+    "right": 0.5282673648298951
+   },
+   "contact_slip_mean_m_s": {
+    "left": 0.07616949975174715,
+    "right": 0.07756451732723202
+   },
+   "final_xy": [
+    0.952356856141604,
+    -0.10923999987725709
+   ],
+   "touchdowns_per_foot_per_cycle": {
+    "left": 3.55,
+    "right": 3.125
+   },
+   "case": "friction 0.8",
+   "cycles": 40
+  },
+  {
+   "amplitude_rad": 0.08,
+   "frequency_hz": 2.0,
+   "stopped_by_guard_at_s": null,
+   "max_tilt_rad": 0.12426807733999154,
+   "max_body_roll_rad": 0.12397709177491274,
+   "max_body_pitch_rad": 0.035481939964259475,
+   "single_support_fraction": {
+    "left": 0.35425,
+    "right": 0.34205
+   },
+   "longest_single_support_s": {
+    "left": 0.2930000000000002,
+    "right": 0.22200000000000017
+   },
+   "both_feet_unloaded_fraction": 0.2485,
+   "lift_rad": 0.0,
+   "stride_rad": 0.05,
+   "final_yaw_rad": 0.04149127868421122,
+   "max_swing_clearance_m": {
+    "left": 0.041821604521067535,
+    "right": 0.03667821186233381
+   },
+   "contact_slip_max_m_s": {
+    "left": 0.41911383225293763,
+    "right": 0.36598020965038586
+   },
+   "contact_slip_mean_m_s": {
+    "left": 0.0756818643765932,
+    "right": 0.07406174105965538
+   },
+   "final_xy": [
+    1.4226273168191292,
+    0.0688032675371568
+   ],
+   "touchdowns_per_foot_per_cycle": {
+    "left": 3.375,
+    "right": 3.35
+   },
+   "case": "friction 0.5",
+   "cycles": 40
+  }
+ ]
+}
