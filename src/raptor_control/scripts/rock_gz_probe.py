@@ -26,7 +26,8 @@ from trajectory_msgs.msg import JointTrajectory, JointTrajectoryPoint
 
 from motion_guard import TiltGuard
 from motion_probe import JOINTS, pose
-from rock_law import GaitPhase, TailSync, TouchdownPLL, antipump, crouch_pose, step_roll, tail_targets, targets
+from rock_law import (GaitPhase, SlewLimiter, TailSync, TouchdownPLL, antipump, crouch_pose, step_roll, tail_targets,
+                      targets)
 
 # Velocity limits from raptor.urdf.xacro (rad/s); unchanged by leg_design.
 VELOCITY_LIMIT = {'hip_roll': 2.0, 'hip_pitch': 2.5, 'knee_pitch': 3.0, 'ankle_pitch': 2.5,
@@ -58,7 +59,8 @@ class RockProbe(Node):
         self.gait, self.gait_phase = GaitPhase(), None
         self.tail_law = TailSync(*args.tail_sync) if args.tail_sync else None
         # touchdown-anchored clock; 40 ms window max bridges zero-force contact frames (Fable review, evidence 74)
-        self.clock = TouchdownPLL(args.frequency, *args.pll, window=.04) if args.pll else None
+        self.clock = TouchdownPLL(args.frequency, *args.pll, window=.04, active_after=args.ramp) if args.pll else None
+        self.damping_slew = SlewLimiter(.5)
         self.roll_rate_f, self.last_a = 0., None  # anti-pump input: 20 ms low-pass IMU roll rate
         self.over_since, self.spikes, self.spike_keys = {}, [], set()
         self.raw = deque(maxlen=200)
@@ -222,7 +224,7 @@ class RockProbe(Node):
                 weight = 17.3*9.81
                 stance = ('left' if fz['right'] < .05*weight <= fz['left'] else
                           'right' if fz['left'] < .05*weight <= fz['right'] else None)
-                for name, offset in antipump(self.roll_rate_f, stance, *g.damping).items():
+                for name, offset in self.damping_slew.update(a, antipump(self.roll_rate_f, stance, *g.damping)).items():
                     new[name] += offset
         self.last_a = a
         if g.tail_sync and a >= 0:  # gait-synchronised tail yaw (amp, phi0, k_fb) with IMU yaw rate

@@ -6,7 +6,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT/'src/raptor_control/scripts'))
-from rock_law import (ContactEvents, GaitPhase, TailSync, TouchdownPLL, WindowMax, antipump, crouch_pose,  # noqa: E402
+from rock_law import (ContactEvents, GaitPhase, SlewLimiter, TailSync, TouchdownPLL, WindowMax, antipump,  # noqa: E402
+                      crouch_pose,
                       step_roll,
                       tail_sync_targets, tail_targets, targets)
 
@@ -159,6 +160,21 @@ class RockLawTest(unittest.TestCase):
         self.assertAlmostEqual(antipump(.5, 'right', .05)['right_hip_roll_joint'], -.025)
         self.assertAlmostEqual(antipump(5., 'left', .05)['left_hip_roll_joint'], .03)
         self.assertAlmostEqual(antipump(.5, 'left', .05, sign=-1)['left_hip_roll_joint'], -.025)
+
+    def test_slew_limiter_limits_and_decays(self):
+        lim = SlewLimiter(.5)
+        lim.update(0., {})
+        self.assertAlmostEqual(lim.update(.02, {'a': .03})['a'], .01)
+        self.assertAlmostEqual(lim.update(.04, {'a': .03})['a'], .02)
+        self.assertAlmostEqual(lim.update(.06, {})['a'], .01)  # missing key decays toward 0
+
+    def test_pll_ignores_bounces_and_waits_for_ramp_end(self):
+        pll = TouchdownPLL(2.5, k=3.5, active_after=1.)
+        for t, f in ((0., 100.), (.5, 0.), (.53, 100.), (1.5, 0.), (1.53, 100.), (1.6, 0.), (1.63, 100.)):
+            for k in range(30):
+                pll.update(t+k*.001, {'left': f, 'right': 100.})
+        # touchdown at ~0.55 s is before active_after; ~1.55 s is accepted; ~1.65 s is a bounce (< 0.24 s later)
+        self.assertEqual([e[0] for e in pll.events], [1.55])
 
 
 if __name__ == '__main__':

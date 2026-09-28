@@ -1,0 +1,172 @@
+[
+ {
+  "run": "pll_1",
+  "frequency": 2.5,
+  "pll": [
+   3.5,
+   0.4
+  ],
+  "damping": null,
+  "stop_reason": null,
+  "error": null,
+  "end_s": 61.99099999999999,
+  "survived_60s": true,
+  "window_s": [
+   2.0,
+   61.99
+  ],
+  "com_y_0.3_1.6Hz_m": 0.007607109281337683,
+  "com_y_low_peak_hz": 1.0166666666666666,
+  "com_y_2_3Hz_m": 0.010761870988306143,
+  "body_y_2_3Hz_m": 0.013667531622376623,
+  "roll_2_3Hz_rad": 0.07252730766552797,
+  "loaded_fy_fz_p90": 0.41199008248547386,
+  "load_share_left": 0.4920174758058439,
+  "growth_per_step_median": 0.9989041596906554,
+  "growth_per_step_max": 1.2306008939591353,
+  "roll_0.3_1.6Hz_rad": 0.00890114220128233,
+  "roll_low_peak_hz": 1.0,
+  "single_support_median_s": 0.059999999999996945,
+  "com_y_f_over_3_m": 0.0023860086342542314,
+  "com_y_f_m": 0.00042733380630693974,
+  "touchdowns": 316,
+  "td_interval_cv": 0.27866433540137303,
+  "f_cmd_mean": 2.2862215189873414
+ },
+ {
+  "run": "pll_2",
+  "frequency": 2.5,
+  "pll": [
+   3.5,
+   0.4
+  ],
+  "damping": null,
+  "stop_reason": "IMU tilt 0.251059 exceeded 0.250 rad at sim 3.302 s",
+  "error": null,
+  "end_s": 3.3009999999999997,
+  "survived_60s": false,
+  "window_s": [
+   2.0,
+   3.3
+  ],
+  "com_y_0.3_1.6Hz_m": 0.08982396330012407,
+  "com_y_low_peak_hz": 0.7633587786259541,
+  "com_y_2_3Hz_m": 0.0033766541347677956,
+  "body_y_2_3Hz_m": 0.003879198536196203,
+  "roll_2_3Hz_rad": 0.048244465889165686,
+  "loaded_fy_fz_p90": 0.3449024113245372,
+  "load_share_left": 0.5569486760079932,
+  "growth_per_step_median": 1.0171582475122898,
+  "growth_per_step_max": 1.5720945393664232,
+  "roll_0.3_1.6Hz_rad": 0.10560527775340499,
+  "roll_low_peak_hz": 0.7633587786259541,
+  "single_support_median_s": 0.04499999999999971,
+  "com_y_f_over_3_m": null,
+  "com_y_f_m": null,
+  "touchdowns": 11,
+  "td_interval_cv": 0.40456536240358176,
+  "f_cmd_mean": 2.5726727272727272
+ },
+ {
+  "run": "pll_3",
+  "frequency": 2.5,
+  "pll": [
+   3.5,
+   0.4
+  ],
+  "damping": null,
+  "stop_reason": null,
+  "error": null,
+  "end_s": 61.99,
+  "survived_60s": true,
+  "window_s": [
+   2.0,
+   61.99
+  ],
+  "com_y_0.3_1.6Hz_m": 0.008396403481233158,
+  "com_y_low_peak_hz": 1.0333333333333332,
+  "com_y_2_3Hz_m": 0.011774837775569856,
+  "body_y_2_3Hz_m": 0.014869064118008441,
+  "roll_2_3Hz_rad": 0.07248604973488046,
+  "loaded_fy_fz_p90": 0.41511486142229403,
+  "load_share_left": 0.4982574845578969,
+  "growth_per_step_median": 1.0026416187541094,
+  "growth_per_step_max": 1.2390676687283155,
+  "roll_0.3_1.6Hz_rad": 0.009207966352210445,
+  "roll_low_peak_hz": 1.0333333333333332,
+  "single_support_median_s": 0.05999999999999739,
+  "com_y_f_over_3_m": 0.002990104870706079,
+  "com_y_f_m": 0.0004404139450913983,
+  "touchdowns": 312,
+  "td_interval_cv": 0.2608202881533106,
+  "f_cmd_mean": 2.2882701923076927
+ },
+ {
+  "run": "pll_4",
+  "frequency": 2.5,
+  "pll": [
+   3.5,
+   0.4
+  ],
+  "damping": null,
+  "stop_reason": null,
+  "error": null,
+  "end_s": 61.99099999999999,
+  "survived_60s": true,
+  "window_s": [
+   2.0,
+   61.99
+  ],
+  "com_y_0.3_1.6Hz_m": 0.008376135266328768,
+  "com_y_low_peak_hz": 0.8833333333333333,
+  "com_y_2_3Hz_m": 0.01183545704318347,
+  "body_y_2_3Hz_m": 0.014957409654594415,
+  "roll_2_3Hz_rad": 0.07254093033267217,
+  "loaded_fy_fz_p90": 0.4156070592157913,
+  "load_share_left": 0.509275331458718,
+  "growth_per_step_median": 0.996664699961963,
+  "growth_per_step_max": 1.2609350576538974,
+  "roll_0.3_1.6Hz_rad": 0.008484808621560718,
+  "roll_low_peak_hz": 0.8833333333333333,
+  "single_support_median_s": 0.07000000000000028,
+  "com_y_f_over_3_m": 0.004371997009837022,
+  "com_y_f_m": 0.00021972242000102343,
+  "touchdowns": 319,
+  "td_interval_cv": 0.29048953839176006,
+  "f_cmd_mean": 2.2837630094043884
+ },
+ {
+  "run": "pll_5",
+  "frequency": 2.5,
+  "pll": [
+   3.5,
+   0.4
+  ],
+  "damping": null,
+  "stop_reason": null,
+  "error": null,
+  "end_s": 61.98099999999999,
+  "survived_60s": true,
+  "window_s": [
+   2.0,
+   61.98
+  ],
+  "com_y_0.3_1.6Hz_m": 0.007883209156476362,
+  "com_y_low_peak_hz": 1.0501750291715284,
+  "com_y_2_3Hz_m": 0.010936872250564354,
+  "body_y_2_3Hz_m": 0.013885734241516755,
+  "roll_2_3Hz_rad": 0.07280068935824141,
+  "loaded_fy_fz_p90": 0.4042480146454744,
+  "load_share_left": 0.5021494258396294,
+  "growth_per_step_median": 0.9979013512343997,
+  "growth_per_step_max": 1.665114140536249,
+  "roll_0.3_1.6Hz_rad": 0.008307576538600881,
+  "roll_low_peak_hz": 1.0501750291715284,
+  "single_support_median_s": 0.05999999999999961,
+  "com_y_f_over_3_m": 0.0040068974148539304,
+  "com_y_f_m": 0.0004785323042442764,
+  "touchdowns": 319,
+  "td_interval_cv": 0.29007427748600545,
+  "f_cmd_mean": 2.2845332288401257
+ }
+]

@@ -163,15 +163,37 @@ def experiment_f(kv, amp=.08, hold=.5, settle=1., duration=5.5, antipump_gain=0.
                       'fz_right': curve[:, 4].round(1).tolist()}}
 
 
+def gazebo_row(json_path):
+    """Metrics of one rock_gz_probe.py --diag run (needs NAME.poses.jsonl next to NAME.json)."""
+    from pathlib import Path
+    path = Path(json_path)
+    series, log = rd.gazebo_series(str(path), str(path.with_suffix('.poses.jsonl')))
+    args = log['arguments']
+    end = float(series['t'][-1])
+    row = {'run': path.stem, 'frequency': args['frequency'], 'pll': args.get('pll'), 'damping': args.get('damping'),
+           'stop_reason': log['stop_reason'], 'error': log['error'], 'end_s': end,
+           'survived_60s': log['stop_reason'] is None and log['error'] is None and end > 55,
+           **rd.table_metrics(series, 2., end, args['frequency'])}
+    ev = log.get('pll_events') or []
+    gaps = [g for side in ('left', 'right') for g in np.diff([e[0] for e in ev if e[1] == side])]
+    if gaps:
+        row |= {'touchdowns': len(ev), 'td_interval_cv': float(np.std(gaps)/np.mean(gaps)),
+                'f_cmd_mean': float(np.mean([e[3] for e in ev]))}
+    return row
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('out')
-    parser.add_argument('experiment', choices=sorted(SWEEPS)+['F'])
+    parser.add_argument('experiment', choices=sorted(SWEEPS)+['F', 'gazebo'])
+    parser.add_argument('--runs', nargs='*', default=[], help='gazebo: rock_gz_probe --diag JSON files')
     parser.add_argument('--kv', type=float, nargs='+', default=[20., 30., 100.])
     parser.add_argument('--cycles', type=int, default=150)
     args = parser.parse_args()
     with ProcessPoolExecutor(8) as pool:
-        if args.experiment == 'F':
+        if args.experiment == 'gazebo':
+            rows = list(pool.map(gazebo_row, args.runs))
+        elif args.experiment == 'F':
             rows = list(pool.map(experiment_f, args.kv))
         else:
             jobs = [(kv, key, value, args.cycles) for kv in args.kv for key, value in SWEEPS[args.experiment]]

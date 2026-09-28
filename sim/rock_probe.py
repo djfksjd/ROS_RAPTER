@@ -19,7 +19,7 @@ from raptor_servo import GazeboLikeServo, JTCLikeServo
 from stand_check import HERE, crouch, place_on_floor
 from step_metrics import steps, summarize
 sys.path.insert(0, str(HERE.parent/'src/raptor_control/scripts'))
-from rock_law import GaitPhase, TailSync, TouchdownPLL, antipump, tail_targets  # noqa: E402  shared with rock_gz_probe.py
+from rock_law import GaitPhase, SlewLimiter, TailSync, TouchdownPLL, antipump, tail_targets  # noqa: E402  shared with rock_gz_probe.py
 
 
 def foot_forces(model, data, force):
@@ -108,8 +108,9 @@ def run(amplitude, frequency, cycles=6, ramp=1., guard=.25, model_path=None, cro
     gait, left_contact, last_f = GaitPhase(), False, {'left': 0., 'right': 0.}
     tail_law = TailSync(*tail_sync) if tail_sync else None
     # pll=(k, clamp): touchdown-anchored clock (rock_law.TouchdownPLL) replaces the time phase
-    clock = TouchdownPLL(frequency, *pll) if pll else None
+    clock = TouchdownPLL(frequency, *pll, active_after=settle+ramp) if pll else None
     roll_rate_f = 0.  # damping=(k_d, sign): single-support anti-pump on the stance hip roll (rock_law.antipump)
+    damping_slew = SlewLimiter(.5)  # offsets change at <= 0.5 rad/s (the Gazebo command-rate check needs it)
     legs = [model.actuator(n).id for n in (f'{s}_{j}_joint' for s in ('left', 'right')
                                            for j in ('hip_roll', 'hip_pitch', 'knee_pitch', 'ankle_pitch'))]
     tails = [model.actuator(n).id for n in ('tail_yaw_joint', 'tail_pitch_joint')]
@@ -158,7 +159,7 @@ def run(amplitude, frequency, cycles=6, ramp=1., guard=.25, model_path=None, cro
                 roll_rate_f += (float(data.qvel[3])-roll_rate_f)*dt/(.02+dt)
                 stance = ('left' if last_f['right'] < .05*weight <= last_f['left'] else
                           'right' if last_f['left'] < .05*weight <= last_f['right'] else None)
-                for name, offset in antipump(roll_rate_f, stance, *damping).items():
+                for name, offset in damping_slew.update(t, antipump(roll_rate_f, stance, *damping)).items():
                     target[name] += offset
             if tail_sync:  # gait-synchronised tail yaw (amp, phi0, k_fb); qvel[5] = body yaw rate
                 target |= tail_law.update(t, gait_phase, data.qvel[5])

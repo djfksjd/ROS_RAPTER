@@ -184,14 +184,17 @@ class TouchdownPLL:
     f; at each debounced touchdown the phase error e = wrap(nominal - c mod 1) (cycles, [-0.5, 0.5)) sets
     f = clip(f0 + k*e, f0 +- clamp). No phase jumps (a 0.15-cycle jump would need > 2 rad/s of hip roll).
     Nominal touchdown phases 0.595 / 0.095 are the kv30 open-loop means at 2.5 Hz. `window` > 0 applies WindowMax
-    to the forces first (Gazebo contact messages). Returns c from update(); `events` logs (t, side, e, f)."""
+    to the forces first (Gazebo contact messages). Returns c from update(); `events` logs (t, side, e, f).
+    Touchdowns of the same foot sooner than `min_gap` cycles after its last accepted one are bounces and ignored;
+    no frequency change before `active_after` (caller's clock: ramp end), where contacts are still ambiguous."""
 
-    def __init__(self, f0, k=2.5, clamp=.4, nominal=(.595, .095), window=0.):
+    def __init__(self, f0, k=2.5, clamp=.4, nominal=(.595, .095), window=0., min_gap=.6, active_after=-math.inf):
         self.f0, self.k, self.clamp = f0, k, clamp
         self.nominal = {'left': nominal[0], 'right': nominal[1]}
         self.detect = {s: ContactEvents() for s in self.nominal}
         self.smooth = {s: WindowMax(window) for s in self.nominal} if window > 0 else None
         self.f, self.c, self.t, self.events = f0, 0., None, []
+        self.min_gap, self.active_after, self.last_touchdown = min_gap/f0, active_after, {}
 
     def update(self, t, forces):
         if self.t is not None:
@@ -201,6 +204,10 @@ class TouchdownPLL:
             if self.smooth:
                 force = self.smooth[side].update(t, force)
             if self.detect[side].update(t, force) == 'touchdown':
+                if t-self.last_touchdown.get(side, -math.inf) < self.min_gap or t < self.active_after:
+                    self.last_touchdown.setdefault(side, t)
+                    continue
+                self.last_touchdown[side] = t
                 e = (self.nominal[side]-self.c % 1+.5) % 1-.5
                 self.f = min(self.f0+self.clamp, max(self.f0-self.clamp, self.f0+self.k*e))
                 self.events.append((round(t, 4), side, round(e, 4), round(self.f, 4)))
@@ -216,3 +223,18 @@ def antipump(roll_rate, stance, k_d, sign=1., clamp=.03):
         return {}
     delta = max(-clamp, min(clamp, sign*k_d*roll_rate))
     return {'left_hip_roll_joint': delta} if stance == 'left' else {'right_hip_roll_joint': -delta}
+
+
+class SlewLimiter:
+    """Per-key rate limit (units/s) on a dict of offsets; keys missing from an update decay toward 0."""
+
+    def __init__(self, rate=.5):
+        self.rate, self.t, self.value = rate, None, {}
+
+    def update(self, t, targets):
+        dt = 0. if self.t is None else max(0., t-self.t)
+        self.t = t
+        for key in set(self.value) | set(targets):
+            goal, now = targets.get(key, 0.), self.value.get(key, 0.)
+            self.value[key] = now+max(-self.rate*dt, min(self.rate*dt, goal-now))
+        return dict(self.value)
