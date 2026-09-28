@@ -15,6 +15,10 @@ import mujoco
 ACTIVE = [f'{s}_{j}_joint' for s in ('left', 'right')
           for j in ('hip_roll', 'hip_pitch', 'knee_pitch', 'ankle_pitch', 'ankle_roll')] + ['tail_yaw_joint', 'tail_pitch_joint']
 SERVO_KV = 100.  # N*m*s/rad; stiff velocity servo, force-bounded by URDF effort limits.
+# Reflected rotor inertia (kg m^2) for the ankle roll only. Its child (pad + toes, ~0.15 kg) is so light
+# that the force-limited velocity servo chattered at +-90 rad/s without it (measured 2026-09-29);
+# 0.01 ~ a small rotor through a 25:1 gear. Other joints keep 0 so the 10-DOF model is unchanged.
+ANKLE_ROLL_ARMATURE = .01
 
 
 def build(urdf_text):
@@ -48,6 +52,8 @@ def build(urdf_text):
         joint = spec.joint(name)
         joint.stiffness, joint.springref = [stiffness, 0., 0.], 0.
     for name in [n for n in ACTIVE if n in joints]:  # ankle roll only when the URDF has it (12 DOF)
+        if 'ankle_roll' in name:
+            spec.joint(name).armature = ANKLE_ROLL_ARMATURE
         limit = joints[name].find('limit')
         effort = float(limit.get('effort'))
         actuator = spec.add_actuator(name=name, target=name, trntype=mujoco.mjtTrn.mjTRN_JOINT)

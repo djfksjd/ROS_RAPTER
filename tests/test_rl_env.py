@@ -82,6 +82,20 @@ class RaptorEnvTest(unittest.TestCase):
         self.assertTrue(meta)
         self.assertTrue(meta <= feet)
 
+    def test_ankle_roll_does_not_chatter(self):
+        """Light pad on a force-limited velocity servo chattered at +-90 rad/s before the roll armature."""
+        from raptor_env import RaptorEnv
+        env = RaptorEnv('flat', dof=12, randomize=False, seed=0)
+        env.reset()
+        roll = [i for i, n in enumerate(env.active) if 'ankle_roll' in n]
+        rng, peak = np.random.default_rng(0), 0.
+        for _ in range(60):
+            action = np.zeros(12)
+            action[roll] = rng.normal(0, .11, 2)
+            env.step(action)
+            peak = max(peak, np.abs(env.data.qvel[env.v_adr][roll]).max())
+        self.assertLess(peak, 5.)
+
 
 if __name__ == '__main__':
     unittest.main()
