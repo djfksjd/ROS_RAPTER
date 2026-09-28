@@ -117,7 +117,9 @@ flowchart LR
 
 발 간격을 좁히면 옆힘 비는 0.36~0.39로 들어오지만 착지 각도가 0.05rad로 커집니다. 발목 roll 없이 두 기준을 동시에 맞추는 방법은 찾지 못했습니다. 이것은 **제자리 교대 지지의 결과이며 전진 보행 성공이 아닙니다.** [진단 72](docs/evidence/72-diagnosis/README.md) · [측방 73](docs/evidence/73-lateral/README.md) · [흔들목마 74](docs/evidence/74-rocking/README.md)
 
-## 10 Active DOF
+## 10 Active DOF · 발목 roll 12축 변형
+
+**2026-09-29 사용자 결정으로 발목 roll(다리당 1축)을 추가한 12축 변형을 만들었습니다.** `ankle_roll:=true`로 켜며, 기존 10축 실험은 그대로 재현됩니다. 옆 경사 정지 한계가 10°(10축)에서 20°(12축)로 늘었습니다. [증거 77](docs/evidence/77-ankle-roll/README.md)
 
 | 구성 | 능동 관절 | 축 수 |
 |---|---|---:|
@@ -125,6 +127,7 @@ flowchart LR
 | 오른쪽 다리 | Hip Roll · Hip Pitch · Knee Pitch · Ankle Pitch | 4 |
 | 꼬리 기부 | Tail Yaw · Tail Pitch | 2 |
 | **합계** | **능동 구동축** | **10** |
+| 12축 변형 | 왼쪽·오른쪽 Ankle Roll 추가 | **12** |
 
 **발가락:** 선택형 모델은 각 발 3개 발가락 × 2개 수동 관절, 총 12개입니다. 추가 모터는 없습니다.<br>
 **꼬리:** 기부 2축이 능동 구동되며, 현재 뒤쪽 마디는 고정 시각 메시입니다. 수동 유연 동역학은 향후 과제입니다. 꼬리는 균형을 보조하며 완전한 균형 제어를 보장하지 않습니다.

@@ -89,3 +89,4 @@ File 34 verifies that refused development probes emit no trajectory commands.
 - `69-*`: digitigrade Gazebo 보폭 시도 — 감시기 STOP 2회(발목 속도 포화, 기울기)로 불합격, MuJoCo kv 교차 점검.
 - `68-*`: digitigrade Gazebo 흔들기 재현(포화 감시 STOP 포함)과 MuJoCo 비교.
 - `67-*`: 참고 모습 스타일(`leg_design:=digitigrade_low`) 낮은 자세·MuJoCo 비교·Gazebo 기립·Blender 렌더·morphloom run report.
+- [77 — 발목 roll 추가(12 능동축)](77-ankle-roll/README.md): Gazebo 12축 제어기·정지 확인, 옆 경사 정지 10축 10°까지 → 12축 20°까지.

@@ -1,6 +1,6 @@
 """Gymnasium environment: velocity-command locomotion for the 10-DOF Raptor (MuJoCo).
 
-The policy outputs position targets for the 10 active joints at 50 Hz; they go through the same
+The policy outputs position targets for the active joints (10, or 12 with ankle roll) at 50 Hz; they go through the same
 Gazebo-like position servo used for the rocking experiments (velocity limit, effort limit, 30/s gain).
 Observations are proprioceptive only (what the ROS robot has): IMU gyro and gravity direction,
 joint positions/velocities, last action, command and a gait clock. The language model never produces
@@ -18,14 +18,19 @@ import numpy as np
 
 SIM = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(SIM))
-from raptor_servo import ACTIVE  # noqa: E402
 from stand_check import crouch  # noqa: E402
 import terrain as tr  # noqa: E402
 
 DEFAULT = {**crouch(-.1, .5), 'left_hip_roll_joint': 0., 'right_hip_roll_joint': 0.,
            'tail_yaw_joint': 0., 'tail_pitch_joint': 0.}
-Q0 = np.array([DEFAULT[n] for n in ACTIVE])
-ACTION_SCALE = np.array([.3, .6, .8, .5]*2+[.4, .3])  # rad per unit action
+# rad per unit action, by joint type; the active joints are read from the model's actuators
+SCALE = {'hip_roll': .3, 'hip_pitch': .6, 'knee_pitch': .8, 'ankle_pitch': .5, 'ankle_roll': .3,
+         'tail_yaw': .4, 'tail_pitch': .3}
+MODELS = {10: SIM/'raptor_digitigrade.xml', 12: SIM/'raptor_digitigrade_ankleroll.xml'}
+
+
+def joint_type(name):
+    return name.removesuffix('_joint').removeprefix('left_').removeprefix('right_')
 CONTROL_DT = .02
 SERVO_DT, SERVO_GAIN = .01, 30.  # gz_ros2_control update 100 Hz, gain 0.3 x 100
 # Velocity-actuator stiffness. kv 30 is the value compared against Gazebo in evidence 74; the model
@@ -34,7 +39,7 @@ SERVO_KV = 30.
 # Joint speed limits (rad/s) per actuator spec. 'r01a' is the evidence-75 recommendation for jumps and
 # running (hypothetical actuator, torque limits unchanged); results with it are not the current robot's.
 ACTUATORS = {'urdf': None,
-             'r01a': {'hip_roll': 5., 'hip_pitch': 11., 'knee_pitch': 18., 'ankle_pitch': 10.}}
+             'r01a': {'hip_roll': 5., 'hip_pitch': 11., 'knee_pitch': 18., 'ankle_pitch': 10., 'ankle_roll': 10.}}
 
 # weights: reward per second (multiplied by CONTROL_DT each step)
 WEIGHTS = dict(track_lin=2., track_yaw=1., lin_vel_z=-2., ang_vel_xy=-.05, orientation=-5.,
@@ -47,15 +52,21 @@ class RaptorEnv(gym.Env):
 
     def __init__(self, terrain='flat', level=0., cmd_max=(.5, .2, .5), vel_scale=1., episode_s=20.,
                  randomize=True, seed=None, render_mode=None, model_path=None, servo_kv=SERVO_KV,
-                 actuator='urdf'):
+                 actuator='urdf', dof=10):
         self.kinds = [terrain] if isinstance(terrain, str) else list(terrain)
         self.level, self.cmd_max, self.vel_scale = level, np.array(cmd_max, float), vel_scale
         self.servo_kv, self.actuator = servo_kv, actuator
         self.episode_steps, self.randomize, self.render_mode = int(episode_s/CONTROL_DT), randomize, render_mode
-        self.model_path = str(model_path or SIM/'raptor_digitigrade.xml')
+        self.model_path = str(model_path or MODELS[dof])
+        probe = mujoco.MjModel.from_xml_path(self.model_path)
+        names = [probe.actuator(i).name for i in range(probe.nu)]
+        self.active = names
+        self.q0 = np.array([DEFAULT.get(n, 0.) for n in names])
+        self.scale = np.array([SCALE[joint_type(n)] for n in names])
+        n = len(names)
         self.rng = np.random.default_rng(seed)
-        self.observation_space = gym.spaces.Box(-np.inf, np.inf, (41,), np.float32)
-        self.action_space = gym.spaces.Box(-1., 1., (10,), np.float32)
+        self.observation_space = gym.spaces.Box(-np.inf, np.inf, (11+3*n,), np.float32)
+        self.action_space = gym.spaces.Box(-1., 1., (n,), np.float32)
         self.resample_steps = 250  # new random command every 5 s (0 = keep)
         self.model = None
         self.renderer = None
@@ -67,17 +78,18 @@ class RaptorEnv(gym.Env):
         self.heights = tr.add_terrain(spec, self.kind, self.level, self.rng)
         m = spec.compile()
         m.actuator_ctrlrange[:] *= self.vel_scale
-        for joint, speed in (ACTUATORS[self.actuator] or {}).items():
-            for side in ('left', 'right'):
-                m.actuator_ctrlrange[m.actuator(f'{side}_{joint}_joint').id] = [-speed, speed]
+        for i, name in enumerate(self.active):
+            speed = (ACTUATORS[self.actuator] or {}).get(joint_type(name))
+            if speed:
+                m.actuator_ctrlrange[m.actuator(name).id] = [-speed, speed]
         m.actuator_gainprm[:, 0], m.actuator_biasprm[:, 2] = self.servo_kv, -self.servo_kv
         self.model, self.data = m, mujoco.MjData(m)
         self.close()  # a renderer is bound to the previous model
         self.base = m.body('base_link').id
-        self.q_adr = np.array([m.jnt_qposadr[m.joint(n).id] for n in ACTIVE])
-        self.v_adr = np.array([m.jnt_dofadr[m.joint(n).id] for n in ACTIVE])
-        self.act = np.array([m.actuator(n).id for n in ACTIVE])
-        self.lo, self.hi = m.jnt_range[[m.joint(n).id for n in ACTIVE]].T
+        self.q_adr = np.array([m.jnt_qposadr[m.joint(n).id] for n in self.active])
+        self.v_adr = np.array([m.jnt_dofadr[m.joint(n).id] for n in self.active])
+        self.act = np.array([m.actuator(n).id for n in self.active])
+        self.lo, self.hi = m.jnt_range[[m.joint(n).id for n in self.active]].T
         self.floor = m.geom('floor').id
         self.ground = {self.floor}|{g for g in range(m.ngeom) if m.geom_bodyid[g] == 0}
         foot_bodies = [b for b in range(m.nbody) if 'foot' in m.body(b).name or 'toe' in m.body(b).name]
@@ -111,7 +123,7 @@ class RaptorEnv(gym.Env):
         self._randomize()
         m, d = self.model, self.data
         mujoco.mj_resetData(m, d)
-        d.qpos[self.q_adr] = Q0 + (self.rng.normal(0, .02, 10) if self.randomize else 0)
+        d.qpos[self.q_adr] = self.q0 + (self.rng.normal(0, .02, len(self.q0)) if self.randomize else 0)
         mujoco.mj_forward(m, d)
         lowest = min(d.geom_xpos[g][2]-.02 for s in self.foot_geoms for g in self.foot_geoms[s])
         d.qpos[2] += tr.height_at(self.heights, 0., 0.)-lowest+.005
@@ -119,7 +131,7 @@ class RaptorEnv(gym.Env):
         self.h_nom = d.xpos[self.base][2]-tr.height_at(self.heights, 0., 0.)-.03  # allow a little crouch
         self.substeps = int(round(SERVO_DT/m.opt.timestep))
         d.ctrl[:] = 0.
-        self.steps, self.last_action, self.prev_qd = 0, np.zeros(10), d.qvel[self.v_adr].copy()
+        self.steps, self.last_action, self.prev_qd = 0, np.zeros(len(self.q0)), d.qvel[self.v_adr].copy()
         self.air = {'left': 0., 'right': 0.}
         self.command = self._sample_command()
         self.phase = 0.
@@ -139,7 +151,7 @@ class RaptorEnv(gym.Env):
         gyro = d.qvel[3:6]  # free-joint angular velocity is expressed in the body frame (IMU gyro)
         grav = R.T @ np.array([0, 0, -1.])
         return np.concatenate([gyro*.25, grav, self.command*np.array([2., 2., .5]),
-                               d.qpos[self.q_adr]-Q0, d.qvel[self.v_adr]*.05, self.last_action,
+                               d.qpos[self.q_adr]-self.q0, d.qvel[self.v_adr]*.05, self.last_action,
                                [np.sin(2*np.pi*self.phase), np.cos(2*np.pi*self.phase)]]).astype(np.float32)
 
     def _contacts(self):
@@ -165,7 +177,7 @@ class RaptorEnv(gym.Env):
     def step(self, action):
         m, d = self.model, self.data
         action = np.clip(np.asarray(action, float), -1, 1)
-        target = np.clip(Q0+ACTION_SCALE*action, self.lo, self.hi)
+        target = np.clip(self.q0+self.scale*action, self.lo, self.hi)
         if self.randomize and abs(d.time-self.push_at) < CONTROL_DT/2:  # one lateral/fore-aft shove
             d.qvel[:2] += self.rng.uniform(-.4, .4, 2)
         # Same law as GazeboLikeServo (positions read every 10 ms, ctrl held in between), batched.

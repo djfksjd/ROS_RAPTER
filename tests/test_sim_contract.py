@@ -61,3 +61,25 @@ class SimContractTest(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+@unittest.skipIf(mujoco is None, 'mujoco not installed')
+class AnkleRollContractTest(unittest.TestCase):
+    """12-DOF variant (user decision 2026-09-29): ankle roll added, nothing else changed."""
+
+    def test_twelve_actuators_same_mass_and_com(self):
+        import xml.etree.ElementTree as ET
+        m10 = mujoco.MjModel.from_xml_path(str(ROOT/'sim/raptor_digitigrade.xml'))
+        m12 = mujoco.MjModel.from_xml_path(str(ROOT/'sim/raptor_digitigrade_ankleroll.xml'))
+        names = [m12.actuator(i).name for i in range(m12.nu)]
+        self.assertEqual(len(names), 12)
+        self.assertEqual([n for n in names if 'ankle_roll' not in n], [m10.actuator(i).name for i in range(m10.nu)])
+        self.assertAlmostEqual(sum(m12.body_mass), sum(m10.body_mass), places=6)
+        d10, d12 = mujoco.MjData(m10), mujoco.MjData(m12)
+        mujoco.mj_forward(m10, d10); mujoco.mj_forward(m12, d12)
+        np.testing.assert_allclose(d12.subtree_com[1], d10.subtree_com[1], atol=1e-6)
+        urdf = ET.fromstring((ROOT/'sim/raptor_digitigrade_ankleroll.urdf').read_text())
+        for side in ('left', 'right'):
+            joint = next(j for j in urdf.findall('joint') if j.get('name') == f'{side}_ankle_roll_joint')
+            self.assertEqual(joint.find('axis').get('xyz'), '1 0 0')
+            self.assertEqual(joint.find('child').get('link'), f'{side}_foot_link')

@@ -23,6 +23,12 @@
   <!-- Unknown values fail with a KeyError instead of silently picking a design. -->
   <xacro:property name="legacy" value="${dict(legacy=True, digitigrade=False, digitigrade_low=False)['$(arg leg_design)']}"/>
   <xacro:property name="low" value="${'$(arg leg_design)' == 'digitigrade_low'}"/>
+  <!-- ankle_roll (digitigrade designs only): adds left/right ankle roll, 12 active DOF (user decision
+       2026-09-29). Off by default so the 10-DOF evidence stays reproducible. -->
+  <xacro:arg name="ankle_roll" default="false"/>
+  <xacro:property name="ankle_roll" value="${'$(arg ankle_roll)' == 'true'}"/>
+  <xacro:property name="ankle_roll_limit" value="0.50"/>
+  <xacro:if value="${ankle_roll and legacy}"><xacro:ERROR_ankle_roll_needs_a_digitigrade_leg_design/></xacro:if>
   <xacro:property name="hip_drop" value="${0.06 if low else 0.12}"/>
   <xacro:property name="ankle_limit" value="${0.95 if low else 0.70}"/>
   <xacro:property name="toe_splay" value="${0.35 if low else 0.12}"/>
@@ -425,7 +431,7 @@
   <joint name="left_ankle_pitch_joint" type="revolute">
 
     <parent link="left_shin_link"/>
-    <child link="left_foot_link"/>
+    <child link="${'left_metatarsus_link' if ankle_roll else 'left_foot_link'}"/>
 
     <!-- 종아리 끝부분에 발목 배치 -->
     <origin xyz="0 0 ${-shin_length}" rpy="0 0 0"/>
@@ -705,7 +711,7 @@
   <joint name="right_ankle_pitch_joint" type="revolute">
 
     <parent link="right_shin_link"/>
-    <child link="right_foot_link"/>
+    <child link="${'right_metatarsus_link' if ankle_roll else 'right_foot_link'}"/>
 
     <origin xyz="0 0 ${-shin_length}" rpy="0 0 0"/>
 
@@ -903,6 +909,14 @@
       <state_interface name="velocity"/>
       <state_interface name="effort"/>
     </joint>
+    <xacro:if value="${ankle_roll}">
+    <joint name="left_ankle_roll_joint">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+      <state_interface name="effort"/>
+    </joint>
+    </xacro:if>
 
 
     <!-- RIGHT LEG -->
@@ -934,6 +948,14 @@
       <state_interface name="velocity"/>
       <state_interface name="effort"/>
     </joint>
+    <xacro:if value="${ankle_roll}">
+    <joint name="right_ankle_roll_joint">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+      <state_interface name="effort"/>
+    </joint>
+    </xacro:if>
 
 
     <!-- TAIL -->
@@ -964,7 +986,7 @@
       name="gz_ros2_control::GazeboSimROS2ControlPlugin">
 
       <parameters>
-        $(find raptor_control)/config/controllers.yaml
+        $(find raptor_control)/config/${'controllers_ankle_roll.yaml' if ankle_roll else 'controllers.yaml'}
       </parameters>
 
       <!-- controller가 아직 안 잡은 관절도 현재 위치 유지 -->

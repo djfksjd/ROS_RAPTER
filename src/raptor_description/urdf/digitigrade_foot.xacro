@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
   <!-- Digitigrade foot link: the ankle joint sits at the top of a forward-inclined metatarsus
-       that ends in a rigid sole pad. Still one link on the existing ankle joint (10 active DOF).
+       that ends in a rigid sole pad. Without ankle_roll: one link on the ankle pitch joint (10 active DOF); with ankle_roll see below.
        The pad is the FIRST collision so <side>_foot_link_collision (contact sensor) is the pad.
        Experimental simulation geometry, not rated hardware. -->
   <xacro:property name="meta_length" value="0.24"/>
@@ -23,6 +23,7 @@
   <xacro:macro name="digitigrade_foot" params="side passive">
     <!-- Mass kept equal to the legacy foot variant (0.3 kg with passive toes, else 0.6 kg). -->
     <xacro:property name="foot_mass" value="${0.3 if passive else 0.6}"/>
+    <xacro:unless value="${ankle_roll}">
     <link name="${side}_foot_link">
       <xacro:dg_visual link="${side}_foot_link"/>
       <xacro:unless value="${detailed}">
@@ -46,6 +47,53 @@
       <xacro:toe_digit side="${side}" digit="1" y="0.040" yaw="${toe_splay}" x0="${pad_x+pad_length/2-0.005}" z0="${pad_z-pad_thickness/2+0.017}"/>
       <xacro:toe_digit side="${side}" digit="2" y="0" yaw="0" x0="${pad_x+pad_length/2-0.005}" z0="${pad_z-pad_thickness/2+0.017}"/>
       <xacro:toe_digit side="${side}" digit="3" y="-0.040" yaw="${-toe_splay}" x0="${pad_x+pad_length/2-0.005}" z0="${pad_z-pad_thickness/2+0.017}"/>
+    </xacro:if>
+    </xacro:unless>
+
+    <!-- ankle_roll: the foot splits at the lower end of the metatarsus. The ankle pitch joint drives
+         <side>_metatarsus_link; <side>_ankle_roll_joint (axis x) sits just above the pad, so the pad
+         and toes roll close to the ground. <side>_foot_link stays the pad (contact sensor unchanged).
+         Masses split half/half; total foot mass and pad/toe world geometry at zero pose are unchanged. -->
+    <xacro:if value="${ankle_roll}">
+    <link name="${side}_metatarsus_link">
+      <xacro:dg_visual link="${side}_foot_link"/>
+      <xacro:unless value="${detailed}">
+      <visual><origin xyz="${meta_end_x/2} 0 ${meta_end_z/2}" rpy="0 ${-meta_angle} 0"/>
+        <geometry><box size="${meta_width} ${meta_width} ${meta_length}"/></geometry>
+        <material name="metatarsus_gray"><color rgba="0.42 0.44 0.47 1"/></material></visual>
+      </xacro:unless>
+      <collision><origin xyz="${meta_end_x/2} 0 ${meta_end_z/2}" rpy="0 ${-meta_angle} 0"/>
+        <geometry><box size="${meta_width} ${meta_width} ${meta_length}"/></geometry></collision>
+      <inertial><origin xyz="${meta_end_x/2} 0 ${meta_end_z/2}"/><mass value="${foot_mass/2}"/>
+        <xacro:box_inertia m="${foot_mass/2}" x="${meta_width}" y="${meta_width}" z="${meta_length}"/>
+      </inertial>
+    </link>
+    <joint name="${side}_ankle_roll_joint" type="revolute">
+      <parent link="${side}_metatarsus_link"/>
+      <child link="${side}_foot_link"/>
+      <origin xyz="${meta_end_x} 0 ${meta_end_z}"/>
+      <axis xyz="1 0 0"/>
+      <limit lower="${-ankle_roll_limit}" upper="${ankle_roll_limit}" effort="60" velocity="2.5"/>
+    </joint>
+    <link name="${side}_foot_link">
+      <xacro:unless value="${detailed}">
+      <visual><origin xyz="${pad_x-meta_end_x} 0 ${pad_z-meta_end_z}"/>
+        <geometry><box size="${pad_length} ${pad_width} ${pad_thickness}"/></geometry>
+        <material name="foot_pad_dark"><color rgba="0.08 0.09 0.10 1"/></material></visual>
+      </xacro:unless>
+      <collision><origin xyz="${pad_x-meta_end_x} 0 ${pad_z-meta_end_z}"/>
+        <geometry><box size="${pad_length} ${pad_width} ${pad_thickness}"/></geometry></collision>
+      <inertial><origin xyz="${pad_x-meta_end_x} 0 ${pad_z-meta_end_z}"/><mass value="${foot_mass/2}"/>
+        <xacro:box_inertia m="${foot_mass/2}" x="${pad_length}" y="${pad_width}" z="${pad_thickness}"/>
+      </inertial>
+    </link>
+    <xacro:if value="${passive}">
+      <xacro:property name="tx" value="${pad_x+pad_length/2-0.005-meta_end_x}"/>
+      <xacro:property name="tz" value="${pad_z-pad_thickness/2+0.017-meta_end_z}"/>
+      <xacro:toe_digit side="${side}" digit="1" y="0.040" yaw="${toe_splay}" x0="${tx}" z0="${tz}"/>
+      <xacro:toe_digit side="${side}" digit="2" y="0" yaw="0" x0="${tx}" z0="${tz}"/>
+      <xacro:toe_digit side="${side}" digit="3" y="-0.040" yaw="${-toe_splay}" x0="${tx}" z0="${tz}"/>
+    </xacro:if>
     </xacro:if>
   </xacro:macro>
 </robot>

@@ -71,14 +71,14 @@ def metrics(params, episodes=8):
     env = re.RaptorEnv('flat', randomize=False, seed=0, model_path=path, vel_scale=params.get('vel_scale', 1.))
     env.reset()
     for _ in range(100):  # 2 s hold of the default crouch
-        env.step(np.zeros(10))
+        env.step(np.zeros(env.action_space.shape[0]))
     d, m = env.data, env.model
     com = d.subtree_com[env.base].copy()
     xs = [d.contact[i].pos[0] for i in range(d.ncon)]
     ys = [abs(d.contact[i].pos[1]) for i in range(d.ncon)]
     row = {**params, 'mass_kg': round(float(m.body_subtreemass[env.base]), 2), 'com_z': round(float(com[2]), 3),
            'rear_margin': round(float(com[0]-min(xs)), 3), 'front_margin': round(float(max(xs)-com[0]), 3),
-           'alpha': round(float(np.arctan(max(ys)/com[2])), 3), 'standing_tilt': round(float(env.step(np.zeros(10))[4]['tilt']), 3)}
+           'alpha': round(float(np.arctan(max(ys)/com[2])), 3), 'standing_tilt': round(float(env.step(np.zeros(env.action_space.shape[0]))[4]['tilt']), 3)}
     rng = np.random.default_rng(0)
     times = []
     for ep in range(episodes):
@@ -86,7 +86,7 @@ def metrics(params, episodes=8):
         e.reset()
         t = 0
         while t < 500:
-            _, _, term, _, _ = e.step(np.clip(rng.normal(0, .1, 10), -1, 1))
+            _, _, term, _, _ = e.step(np.clip(rng.normal(0, .1, e.action_space.shape[0]), -1, 1))
             t += 1
             if term:
                 break

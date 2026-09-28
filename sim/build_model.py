@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Build a MuJoCo MJCF from the xacro-generated Raptor URDF without changing the robot contract.
 
-Kept from the URDF: links, masses, inertias, collision boxes, 10 active + 12 passive joints,
+Kept from the URDF: links, masses, inertias, collision boxes, 10 (or 12 with ankle roll) active + 12 passive joints,
 limits, damping/friction. Mirrored from Gazebo tags/world: toe spring stiffness, toe mu 0.8,
 default ground mu 1, no self-collision, 1 ms step. Actuators emulate the gz_ros2_control
 position path as velocity servos (see raptor_servo.py); this is an approximation, not DART.
@@ -13,7 +13,7 @@ from pathlib import Path
 import mujoco
 
 ACTIVE = [f'{s}_{j}_joint' for s in ('left', 'right')
-          for j in ('hip_roll', 'hip_pitch', 'knee_pitch', 'ankle_pitch')] + ['tail_yaw_joint', 'tail_pitch_joint']
+          for j in ('hip_roll', 'hip_pitch', 'knee_pitch', 'ankle_pitch', 'ankle_roll')] + ['tail_yaw_joint', 'tail_pitch_joint']
 SERVO_KV = 100.  # N*m*s/rad; stiff velocity servo, force-bounded by URDF effort limits.
 
 
@@ -47,7 +47,7 @@ def build(urdf_text):
     for name, stiffness in springs.items():
         joint = spec.joint(name)
         joint.stiffness, joint.springref = [stiffness, 0., 0.], 0.
-    for name in ACTIVE:
+    for name in [n for n in ACTIVE if n in joints]:  # ankle roll only when the URDF has it (12 DOF)
         limit = joints[name].find('limit')
         effort = float(limit.get('effort'))
         actuator = spec.add_actuator(name=name, target=name, trntype=mujoco.mjtTrn.mjTRN_JOINT)
