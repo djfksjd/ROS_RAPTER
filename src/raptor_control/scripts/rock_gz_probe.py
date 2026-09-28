@@ -26,7 +26,7 @@ from trajectory_msgs.msg import JointTrajectory, JointTrajectoryPoint
 
 from motion_guard import TiltGuard
 from motion_probe import JOINTS, pose
-from rock_law import crouch_pose, tail_targets, targets
+from rock_law import GaitPhase, TailSync, crouch_pose, tail_targets, targets
 
 # Velocity limits from raptor.urdf.xacro (rad/s); unchanged by leg_design.
 VELOCITY_LIMIT = {'hip_roll': 2.0, 'hip_pitch': 2.5, 'knee_pitch': 3.0, 'ankle_pitch': 2.5,
@@ -55,6 +55,8 @@ class RockProbe(Node):
         self.clock_wall, self.clock_fault = time.monotonic(), None
         self.target, self.start, self.last_sent = dict(self.crouch), None, -math.inf
         self.stop_reason, self.rows = None, []
+        self.gait, self.gait_phase = GaitPhase(), None
+        self.tail_law = TailSync(*args.tail_sync) if args.tail_sync else None
         self.over_since, self.spikes, self.spike_keys = {}, [], set()
         self.raw = deque(maxlen=200)  # last ~2 s of 100 Hz joint states, dumped around a STOP
         self.pub = self.create_publisher(JointTrajectory, '/raptor_joint_controller/joint_trajectory', 10)
@@ -92,7 +94,7 @@ class RockProbe(Node):
         self.imu_at = self.sim_time
         self.guard.observe(q.x, q.y, q.z, q.w, msg.orientation_covariance[0] != -1)
         self.imu = (math.atan2(2*(q.w*q.x+q.y*q.z), 1-2*(q.x*q.x+q.y*q.y)),
-                    math.asin(max(-1., min(1., 2*(q.w*q.y-q.z*q.x)))), msg.angular_velocity.y)
+                    math.asin(max(-1., min(1., 2*(q.w*q.y-q.z*q.x)))), msg.angular_velocity.y, msg.angular_velocity.z)
 
     def on_contact(self, msg, key):
         self.contacts[key] = (self.sim_time, len(msg.contacts))
@@ -173,6 +175,9 @@ class RockProbe(Node):
         a, g = phase-self.args.settle, self.args
         new = targets(self.crouch, a, g.amplitude, g.frequency, g.ramp, stride=g.stride, pitch=self.imu[1],
                       pitch_rate=self.imu[2], feedback=g.pitch_feedback)
+        self.gait_phase = self.gait.update(t, self.in_contact('left'))  # phase 0 at left touchdown (contact messages)
+        if g.tail_sync and a >= 0:  # gait-synchronised tail yaw (amp, phi0, k_fb) with IMU yaw rate
+            new |= self.tail_law.update(t, self.gait_phase, self.imu[3])
         if g.tail and a >= 0:  # tail balance: (ky, kr, kp, kd) on hip-roll command, IMU roll, pitch, pitch rate
             new |= tail_targets(new['right_hip_roll_joint'], self.imu[0], 0., self.imu[1], self.imu[2], g.tail)
         # Command-side saturation: never stream a target whose rate needs >= 90% of a joint's velocity limit.
@@ -190,6 +195,8 @@ class RockProbe(Node):
                           'contact': {s: self.in_contact(s) for s in ('left', 'right')},
                           'q': {j: round(self.joints[j][0], 4) for j in JOINTS},
                           'v': {j: round(self.joints[j][1], 4) for j in JOINTS},
+                          'gait_phase': None if self.gait_phase is None else round(self.gait_phase, 3),
+                          'yaw_rate': round(self.imu[3], 4), 'tail_yaw_cmd': round(self.target['tail_yaw_joint'], 4),
                           'hip_pitch_cmd': {s: round(self.target[f'{s}_hip_pitch_joint'], 4) for s in ('left', 'right')}})
         return False
 
@@ -203,7 +210,9 @@ def summary(rows, args):
             'max_body_roll_rad': max((abs(r['roll']) for r in active), default=None),
             'max_body_pitch_rad': max((abs(r['pitch']) for r in active), default=None),
             'max_tilt_rad': max((r['tilt'] for r in rows), default=None),
-            'max_abs_velocity': {j: max((abs(r['v'][j]) for r in rows), default=None) for j in JOINTS}}
+            'max_abs_velocity': {j: max((abs(r['v'][j]) for r in rows), default=None) for j in JOINTS},
+            'yaw_rate_rms': math.sqrt(sum(r['yaw_rate']**2 for r in active)/n) if active else None,
+            'phase_known_fraction': sum(r['gait_phase'] is not None for r in active)/n}
 
 
 def main():
@@ -218,6 +227,7 @@ def main():
     parser.add_argument('--stride', type=float, default=0.)
     parser.add_argument('--pitch-feedback', type=float, nargs=3, metavar=('KP', 'KD', 'LIMIT'))
     parser.add_argument('--tail', type=float, nargs=4, metavar=('KY', 'KR', 'KP', 'KD'))
+    parser.add_argument('--tail-sync', type=float, nargs=3, metavar=('AMP', 'PHI0', 'KFB'))
     parser.add_argument('--horizon', type=float, default=.02, help='JTC time_from_start of each streamed target (s)')
     parser.add_argument('--out', default='/raptor_ws/log/rock-gz-probe.json')
     args = parser.parse_args()
@@ -225,7 +235,9 @@ def main():
             and .01 <= args.horizon <= .1 and .1 <= args.ramp <= 5 and 0 <= args.settle <= 5 and 0 <= args.stride <= .08
             and (args.pitch_feedback is None or (0 <= args.pitch_feedback[0] <= 1 and 0 <= args.pitch_feedback[1] <= .2
                                                   and 0 <= args.pitch_feedback[2] <= .2))
-            and (args.tail is None or all(abs(v) <= 3 for v in args.tail))):
+            and (args.tail is None or all(abs(v) <= 3 for v in args.tail))
+            and (args.tail_sync is None or (0 <= args.tail_sync[0] <= .2 and 0 <= args.tail_sync[1] < 1
+                                            and abs(args.tail_sync[2]) <= .5))):
         parser.error('outside experimental bounds (A <= 0.12, 0.5 <= f <= 2.5, cycles <= 120, 0.1 <= ramp <= 5, '
                      'stride <= 0.08, feedback kp <= 1 kd <= 0.2 limit <= 0.2)')
     rclpy.init()
@@ -260,7 +272,7 @@ def main():
         result = {'arguments': vars(args), 'stop_reason': node.stop_reason, 'error': error, 'base_pose': poses,
                   'wall_s': round(time.monotonic()-wall, 1), 'summary': summary(node.rows, args),
                   'raw_joint_states_tail': list(node.raw) if node.stop_reason else [],
-                  'speed_spikes': node.spikes,
+                  'speed_spikes': node.spikes, 'gait_period_s': node.gait.period, 'gait_duty': node.gait.duty,
                   'limitation': 'Gazebo DART open-loop rocking in place; contact = any foot/toe contact message; '
                                 'not walking.', 'rows': node.rows}
         Path(args.out).write_text(json.dumps(result, separators=(',', ':')))

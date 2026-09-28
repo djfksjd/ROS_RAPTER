@@ -6,7 +6,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT/'src/raptor_control/scripts'))
-from rock_law import crouch_pose, tail_targets, targets  # noqa: E402
+from rock_law import GaitPhase, TailSync, crouch_pose, tail_sync_targets, tail_targets, targets  # noqa: E402
 
 JOINTS = [f'{s}_{j}_joint' for s in ('left', 'right') for j in ('hip_roll', 'hip_pitch', 'knee_pitch', 'ankle_pitch')]
 JOINTS += ['tail_yaw_joint', 'tail_pitch_joint']
@@ -55,6 +55,28 @@ class RockLawTest(unittest.TestCase):
         big = tail_targets(1., roll=1., pitch=1., gains=(3., 3., 3., 0.))
         self.assertEqual((big['tail_yaw_joint'], big['tail_pitch_joint']), (.6, .4))
         self.assertEqual(tail_targets(.05), {'tail_yaw_joint': 0., 'tail_pitch_joint': 0.})
+
+    def test_gait_phase_from_left_touchdowns(self):
+        gait, phases = GaitPhase(), []
+        for k in range(400):  # 2 Hz gait, left stance 55 % of the cycle, 10 ms samples
+            t = k*.01
+            phases.append(gait.update(t, (t % .5) < .275))
+        self.assertIsNone(phases[10])
+        self.assertAlmostEqual(gait.period, .5, places=6)
+        self.assertAlmostEqual(gait.duty, .55, delta=.03)
+        self.assertAlmostEqual(phases[-1], (3.99 % .5)/.5, delta=.03)
+
+    def test_tail_sync_sign_and_unknown_phase(self):
+        left = tail_sync_targets(.55, 0., .1, .3, 0.)  # sin(2*pi*.25) = 1: tail to the left = negative joint
+        self.assertAlmostEqual(left['tail_yaw_joint'], -.1)
+        self.assertEqual(tail_sync_targets(None, 0., .1, .3, 0.)['tail_yaw_joint'], 0.)
+
+    def test_tail_sync_filter_and_slew_limit(self):
+        law = TailSync(0., 0., -.1, tau=.05, max_rate=1.)
+        law.update(0., None, 0.)
+        out = law.update(.02, None, 10.)  # yaw-rate step: filtered, then slew limited to 1 rad/s * 20 ms
+        self.assertAlmostEqual(out['tail_yaw_joint'], .02)
+        self.assertLess(law.yaw_rate, 10.)
 
 
 if __name__ == '__main__':

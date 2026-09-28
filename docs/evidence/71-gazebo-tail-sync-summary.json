@@ -1,0 +1,402 @@
+{
+ "fast-fixed1": {
+  "arguments": {
+   "amplitude": 0.08,
+   "frequency": 2.5,
+   "cycles": 40,
+   "ramp": 1.0,
+   "settle": 1.0,
+   "crouch_hip": -0.1,
+   "crouch_knee": 0.5,
+   "stride": 0.08,
+   "pitch_feedback": [
+    0.5,
+    0.05,
+    0.15
+   ],
+   "tail": null,
+   "tail_sync": null,
+   "horizon": 0.02,
+   "out": "/raptor_ws/log/fast-fixed1.json"
+  },
+  "stop_reason": "IMU tilt 0.265402 exceeded 0.250 rad at sim 6.700 s",
+  "error": null,
+  "wall_s": 16.7,
+  "base_pose": {
+   "start": {
+    "x": -5.830088219592044e-08,
+    "y": -5.761871558275703e-18,
+    "z": 0.10546806555419064
+   },
+   "end": {
+    "x": 0.15582622848389396,
+    "y": 0.05283812751451797,
+    "z": 0.17419052094406579
+   }
+  },
+  "summary": {
+   "samples": 322,
+   "active_samples": 226,
+   "single_support_fraction": {
+    "left": 0.25663716814159293,
+    "right": 0.3274336283185841
+   },
+   "no_contact_fraction": 0.0,
+   "max_body_roll_rad": 0.24665,
+   "max_body_pitch_rad": 0.04163,
+   "max_tilt_rad": 0.24742,
+   "max_abs_velocity": {
+    "left_hip_roll_joint": 1.4125,
+    "left_hip_pitch_joint": 0.4361,
+    "left_knee_pitch_joint": 0.1645,
+    "left_ankle_pitch_joint": 0.6101,
+    "right_hip_roll_joint": 1.3809,
+    "right_hip_pitch_joint": 0.5548,
+    "right_knee_pitch_joint": 0.4916,
+    "right_ankle_pitch_joint": 0.8402,
+    "tail_yaw_joint": 0.0,
+    "tail_pitch_joint": 0.0
+   },
+   "yaw_rate_rms": 0.1720709211419956,
+   "phase_known_fraction": 0.8185840707964602
+  },
+  "gait_period_s": 0.5333840790000001,
+  "gait_duty": 0.47686899482232925
+ },
+ "fast-fixed2": {
+  "arguments": {
+   "amplitude": 0.08,
+   "frequency": 2.5,
+   "cycles": 40,
+   "ramp": 1.0,
+   "settle": 1.0,
+   "crouch_hip": -0.1,
+   "crouch_knee": 0.5,
+   "stride": 0.08,
+   "pitch_feedback": [
+    0.5,
+    0.05,
+    0.15
+   ],
+   "tail": null,
+   "tail_sync": null,
+   "horizon": 0.02,
+   "out": "/raptor_ws/log/fast-fixed2.json"
+  },
+  "stop_reason": "IMU tilt 0.252557 exceeded 0.250 rad at sim 5.532 s",
+  "error": null,
+  "wall_s": 14.2,
+  "base_pose": {
+   "start": {
+    "x": -5.8302469098168824e-08,
+    "y": 2.4377413252325957e-17,
+    "z": 0.10546806555402799
+   },
+   "end": {
+    "x": 0.05476429408036536,
+    "y": 0.0679126148914905,
+    "z": 0.13641200226595224
+   }
+  },
+  "summary": {
+   "samples": 264,
+   "active_samples": 170,
+   "single_support_fraction": {
+    "left": 0.25882352941176473,
+    "right": 0.3235294117647059
+   },
+   "no_contact_fraction": 0.0,
+   "max_body_roll_rad": 0.16372,
+   "max_body_pitch_rad": 0.24215,
+   "max_tilt_rad": 0.24824,
+   "max_abs_velocity": {
+    "left_hip_roll_joint": 1.2206,
+    "left_hip_pitch_joint": 0.4184,
+    "left_knee_pitch_joint": 0.0396,
+    "left_ankle_pitch_joint": 0.6032,
+    "right_hip_roll_joint": 1.224,
+    "right_hip_pitch_joint": 0.4322,
+    "right_knee_pitch_joint": 0.2886,
+    "right_ankle_pitch_joint": 0.558,
+    "tail_yaw_joint": 0.0,
+    "tail_pitch_joint": 0.0007
+   },
+   "yaw_rate_rms": 0.16151644480106808,
+   "phase_known_fraction": 0.8294117647058824
+  },
+  "gait_period_s": 0.5969389700000002,
+  "gait_duty": 0.4388625611162945
+ },
+ "fast-sync1": {
+  "arguments": {
+   "amplitude": 0.08,
+   "frequency": 2.5,
+   "cycles": 40,
+   "ramp": 1.0,
+   "settle": 1.0,
+   "crouch_hip": -0.1,
+   "crouch_knee": 0.5,
+   "stride": 0.08,
+   "pitch_feedback": [
+    0.5,
+    0.05,
+    0.15
+   ],
+   "tail": null,
+   "tail_sync": [
+    0.015,
+    0.3,
+    -0.1
+   ],
+   "horizon": 0.02,
+   "out": "/raptor_ws/log/fast-sync1.json"
+  },
+  "stop_reason": "commanded speed tail_yaw_joint 2.033 rad/s (limit 2.0) at sim 2.811 s",
+  "error": null,
+  "wall_s": 10.9,
+  "base_pose": {
+   "start": {
+    "x": -5.830098075422421e-08,
+    "y": -7.631497024985818e-18,
+    "z": 0.10546806555400288
+   },
+   "end": {
+    "x": -0.0009502789193447815,
+    "y": 0.06126650098308404,
+    "z": 0.12132267873057245
+   }
+  },
+  "summary": {
+   "samples": 135,
+   "active_samples": 38,
+   "single_support_fraction": {
+    "left": 0.05263157894736842,
+    "right": 0.42105263157894735
+   },
+   "no_contact_fraction": 0.0,
+   "max_body_roll_rad": 0.14525,
+   "max_body_pitch_rad": 0.00897,
+   "max_tilt_rad": 0.14536,
+   "max_abs_velocity": {
+    "left_hip_roll_joint": 1.3267,
+    "left_hip_pitch_joint": 0.3102,
+    "left_knee_pitch_joint": 0.0074,
+    "left_ankle_pitch_joint": 0.2246,
+    "right_hip_roll_joint": 1.3095,
+    "right_hip_pitch_joint": 0.3634,
+    "right_knee_pitch_joint": 0.0048,
+    "right_ankle_pitch_joint": 0.5483,
+    "tail_yaw_joint": 0.2707,
+    "tail_pitch_joint": 0.0
+   },
+   "yaw_rate_rms": 0.08591895967467802,
+   "phase_known_fraction": 0.9736842105263158
+  },
+  "gait_period_s": 0.4208000000000002,
+  "gait_duty": 0.5123220627165703
+ },
+ "fast-sync2": {
+  "arguments": {
+   "amplitude": 0.08,
+   "frequency": 2.5,
+   "cycles": 40,
+   "ramp": 1.0,
+   "settle": 1.0,
+   "crouch_hip": -0.1,
+   "crouch_knee": 0.5,
+   "stride": 0.08,
+   "pitch_feedback": [
+    0.5,
+    0.05,
+    0.15
+   ],
+   "tail": null,
+   "tail_sync": [
+    0.015,
+    0.3,
+    -0.1
+   ],
+   "horizon": 0.02,
+   "out": "/raptor_ws/log/fast-sync2.json"
+  },
+  "stop_reason": "commanded speed tail_yaw_joint 1.854 rad/s (limit 2.0) at sim 3.270 s",
+  "error": null,
+  "wall_s": 8.9,
+  "base_pose": {
+   "start": {
+    "x": -5.830098075422421e-08,
+    "y": -7.631497024985818e-18,
+    "z": 0.10546806555400288
+   },
+   "end": {
+    "x": 0.047481750898993196,
+    "y": -0.023293529839352956,
+    "z": 0.11100613482540973
+   }
+  },
+  "summary": {
+   "samples": 157,
+   "active_samples": 61,
+   "single_support_fraction": {
+    "left": 0.22950819672131148,
+    "right": 0.21311475409836064
+   },
+   "no_contact_fraction": 0.0,
+   "max_body_roll_rad": 0.13826,
+   "max_body_pitch_rad": 0.00935,
+   "max_tilt_rad": 0.13829,
+   "max_abs_velocity": {
+    "left_hip_roll_joint": 1.1141,
+    "left_hip_pitch_joint": 0.3745,
+    "left_knee_pitch_joint": 0.054,
+    "left_ankle_pitch_joint": 0.5079,
+    "right_hip_roll_joint": 1.1044,
+    "right_hip_pitch_joint": 0.4028,
+    "right_knee_pitch_joint": 0.0178,
+    "right_ankle_pitch_joint": 0.3953,
+    "tail_yaw_joint": 0.4541,
+    "tail_pitch_joint": 0.0002
+   },
+   "yaw_rate_rms": 0.10965189180788985,
+   "phase_known_fraction": 0.9672131147540983
+  },
+  "gait_period_s": 0.41261000000000003,
+  "gait_duty": 0.5942528876168939
+ },
+ "fast-sync3": {
+  "arguments": {
+   "amplitude": 0.08,
+   "frequency": 2.5,
+   "cycles": 40,
+   "ramp": 1.0,
+   "settle": 1.0,
+   "crouch_hip": -0.1,
+   "crouch_knee": 0.5,
+   "stride": 0.08,
+   "pitch_feedback": [
+    0.5,
+    0.05,
+    0.15
+   ],
+   "tail": null,
+   "tail_sync": [
+    0.015,
+    0.3,
+    -0.1
+   ],
+   "horizon": 0.02,
+   "out": "/raptor_ws/log/fast-sync3.json"
+  },
+  "stop_reason": "IMU tilt 0.260417 exceeded 0.250 rad at sim 6.479 s",
+  "error": null,
+  "wall_s": 16.7,
+  "base_pose": {
+   "start": {
+    "x": -5.830098075422421e-08,
+    "y": -7.631497024985818e-18,
+    "z": 0.10546806555400288
+   },
+   "end": {
+    "x": 0.059994657608571846,
+    "y": 0.006160740849343417,
+    "z": 0.1782389116832729
+   }
+  },
+  "summary": {
+   "samples": 312,
+   "active_samples": 216,
+   "single_support_fraction": {
+    "left": 0.32407407407407407,
+    "right": 0.37962962962962965
+   },
+   "no_contact_fraction": 0.0,
+   "max_body_roll_rad": 0.24704,
+   "max_body_pitch_rad": 0.05441,
+   "max_tilt_rad": 0.24704,
+   "max_abs_velocity": {
+    "left_hip_roll_joint": 1.4054,
+    "left_hip_pitch_joint": 0.6886,
+    "left_knee_pitch_joint": 0.2976,
+    "left_ankle_pitch_joint": 0.6271,
+    "right_hip_roll_joint": 1.5446,
+    "right_hip_pitch_joint": 0.6751,
+    "right_knee_pitch_joint": 0.8605,
+    "right_ankle_pitch_joint": 0.6374,
+    "tail_yaw_joint": 0.3595,
+    "tail_pitch_joint": 0.0013
+   },
+   "yaw_rate_rms": 0.11665321271631159,
+   "phase_known_fraction": 0.6342592592592593
+  },
+  "gait_period_s": 1.0485799999999996,
+  "gait_duty": 0.5661832901804682
+ },
+ "fast-sync4": {
+  "arguments": {
+   "amplitude": 0.08,
+   "frequency": 2.5,
+   "cycles": 40,
+   "ramp": 1.0,
+   "settle": 1.0,
+   "crouch_hip": -0.1,
+   "crouch_knee": 0.5,
+   "stride": 0.08,
+   "pitch_feedback": [
+    0.5,
+    0.05,
+    0.15
+   ],
+   "tail": null,
+   "tail_sync": [
+    0.015,
+    0.3,
+    -0.1
+   ],
+   "horizon": 0.02,
+   "out": "/raptor_ws/log/fast-sync4.json"
+  },
+  "stop_reason": "IMU tilt 0.254528 exceeded 0.250 rad at sim 6.691 s",
+  "error": null,
+  "wall_s": 16.0,
+  "base_pose": {
+   "start": {
+    "x": -5.821794780303848e-08,
+    "y": -5.4115486574531045e-20,
+    "z": 0.10546806553918281
+   },
+   "end": {
+    "x": 0.11456732239292561,
+    "y": 0.015538396709924924,
+    "z": 0.17440934420724516
+   }
+  },
+  "summary": {
+   "samples": 319,
+   "active_samples": 225,
+   "single_support_fraction": {
+    "left": 0.21777777777777776,
+    "right": 0.3511111111111111
+   },
+   "no_contact_fraction": 0.0,
+   "max_body_roll_rad": 0.22788,
+   "max_body_pitch_rad": 0.06462,
+   "max_tilt_rad": 0.23611,
+   "max_abs_velocity": {
+    "left_hip_roll_joint": 1.2497,
+    "left_hip_pitch_joint": 0.4774,
+    "left_knee_pitch_joint": 0.1679,
+    "left_ankle_pitch_joint": 0.6215,
+    "right_hip_roll_joint": 1.3019,
+    "right_hip_pitch_joint": 0.6468,
+    "right_knee_pitch_joint": 0.3571,
+    "right_ankle_pitch_joint": 0.7011,
+    "tail_yaw_joint": 0.5692,
+    "tail_pitch_joint": 0.0025
+   },
+   "yaw_rate_rms": 0.13456155088946387,
+   "phase_known_fraction": 0.7955555555555556
+  },
+  "gait_period_s": 0.5300659120000001,
+  "gait_duty": 0.4456575810704484
+ }
+}

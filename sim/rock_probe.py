@@ -19,7 +19,7 @@ from raptor_servo import GazeboLikeServo, JTCLikeServo
 from stand_check import HERE, crouch, place_on_floor
 from step_metrics import steps, summarize
 sys.path.insert(0, str(HERE.parent/'src/raptor_control/scripts'))
-from rock_law import tail_targets  # noqa: E402  shared with rock_gz_probe.py
+from rock_law import GaitPhase, TailSync, tail_targets  # noqa: E402  shared with rock_gz_probe.py
 
 
 def foot_forces(model, data, force):
@@ -68,11 +68,15 @@ def roll_pitch(quat):
 
 def run(amplitude, frequency, cycles=6, ramp=1., guard=.25, model_path=None, crouch_hip=-.15, log_every=0, crouch_knee=.4,
         lift=0., lift_width=.35, lift_centers=(('left', .28), ('right', .78)), stride=0., rhythm=None, friction=None, mass_scale=1., smooth_swing=False, pitch_feedback=None, servo_kv=None,
-        jtc=None, tail=None):
+        jtc=None, tail=None, tail_sync=None, tail_mass_scale=1.):
     model = mujoco.MjModel.from_xml_path(model_path or str(HERE/'raptor.xml'))
     if friction is not None:
         model.geom_friction[:, 0] = friction
     model.body_mass[:] *= mass_scale
+    if tail_mass_scale != 1.:  # 'no tail' comparison: shrink tail links (whole-body COM moves forward)
+        for name in ('tail_yaw_link', 'tail_link'):
+            model.body_mass[model.body(name).id] *= tail_mass_scale
+            model.body_inertia[model.body(name).id] *= tail_mass_scale
     if servo_kv is not None:  # velocity-servo stiffness is an unvalidated approximation of the DART servo
         model.actuator_gainprm[:, 0], model.actuator_biasprm[:, 2] = servo_kv, -servo_kv
     data = mujoco.MjData(model)
@@ -100,6 +104,14 @@ def run(amplitude, frequency, cycles=6, ramp=1., guard=.25, model_path=None, cro
     velocity = np.zeros(6)
     trace = {side: {'force': [], 'slip': [], 'x': []} for side in ('left', 'right')}
     clearance = {'left': 0., 'right': 0.}
+    gait, left_contact, last_f = GaitPhase(), False, {'left': 0., 'right': 0.}
+    tail_law = TailSync(*tail_sync) if tail_sync else None
+    legs = [model.actuator(n).id for n in (f'{s}_{j}_joint' for s in ('left', 'right')
+                                           for j in ('hip_roll', 'hip_pitch', 'knee_pitch', 'ankle_pitch'))]
+    tails = [model.actuator(n).id for n in ('tail_yaw_joint', 'tail_pitch_joint')]
+    dofs = model.actuator_trnid[:, 0]
+    work = {'legs': 0., 'tail': 0.}
+    yaw_rates, yaws = [], []
     feet = {side: [g for g in range(model.ngeom) if model.body(model.geom_bodyid[g]).name.startswith(side+'_')
                    and ('foot' in model.body(model.geom_bodyid[g]).name or 'toe' in model.body(model.geom_bodyid[g]).name)]
             for side in ('left', 'right')}
@@ -130,6 +142,11 @@ def run(amplitude, frequency, cycles=6, ramp=1., guard=.25, model_path=None, cro
                            f'{side}_knee_pitch_joint': pose[f'{side}_knee_pitch_joint']+h,
                            f'{side}_ankle_pitch_joint': pose[f'{side}_ankle_pitch_joint']-h/2-swing}
                 lifting[side] = bump > .5
+            # gait phase from left-foot contact (force hysteresis 20 % on / 5 % off), as a ROS node would from sensors
+            left_contact = last_f['left'] >= .2*weight or (left_contact and last_f['left'] >= .05*weight)
+            gait_phase = gait.update(t, left_contact)
+            if tail_sync:  # gait-synchronised tail yaw (amp, phi0, k_fb); qvel[5] = body yaw rate
+                target |= tail_law.update(t, gait_phase, data.qvel[5])
             if tail:  # tail balance (ky, kr, kp, kd); qvel[3:6] is the body-frame angular velocity
                 body_roll, body_pitch = roll_pitch(data.qpos[3:7])
                 target |= tail_targets(r, body_roll, data.qvel[3], body_pitch, data.qvel[4], tail)
@@ -152,8 +169,13 @@ def run(amplitude, frequency, cycles=6, ramp=1., guard=.25, model_path=None, cro
             servo.stop()
         if t < settle+ramp or stopped_at is not None:
             continue
-        f = foot_forces(model, data, force)
+        f = last_f = foot_forces(model, data, force)
         off = {s: f[s] < .05*weight for s in f}
+        power = np.abs(data.actuator_force*data.qvel[model.jnt_dofadr[dofs]])
+        work['legs'] += float(power[legs].sum())*dt
+        work['tail'] += float(power[tails].sum())*dt
+        yaw_rates.append(float(data.qvel[5]))
+        yaws.append(yaw(data.qpos[3:7]))
         for side in lifting:
             if lifting[side]:
                 lowest = min(lowest_z(model, data, g) for g in feet[side])
@@ -186,8 +208,14 @@ def run(amplitude, frequency, cycles=6, ramp=1., guard=.25, model_path=None, cro
             samples.append({'t': round(t, 3), 'hip_roll_cmd': -servo.command[0], 'body_roll': roll,
                             'fz_left': f['left'], 'fz_right': f['right'], 'y': float(data.qpos[1])})
     active = (cycles/frequency)/dt
+    yaw_trace = np.unwrap(np.array(yaws)) if yaws else np.zeros(1)
+    trend = np.polyval(np.polyfit(np.arange(len(yaw_trace)), yaw_trace, 1), np.arange(len(yaw_trace))) \
+        if len(yaw_trace) > 1 else yaw_trace
     return {'amplitude_rad': amplitude, 'frequency_hz': frequency,
             'stopped_by_guard_at_s': stopped_at, 'max_tilt_rad': worst['tilt'], 'max_abs_yaw_rad': worst['yaw'],
+            'yaw_rate_rms': float(np.sqrt(np.mean(np.square(yaw_rates)))) if yaw_rates else None,
+            'yaw_oscillation_std_rad': float(np.std(yaw_trace-trend)),
+            'actuator_work_j': work, 'gait_period_s': gait.period, 'gait_duty': gait.duty,
             'max_body_roll_rad': worst['roll'], 'max_body_pitch_rad': worst['pitch'],
             'single_support_fraction': {s: unloaded[s]/active for s in unloaded},
             'longest_single_support_s': longest, 'both_feet_unloaded_fraction': both_off/active, 'longest_both_unloaded_s': longest_both,
