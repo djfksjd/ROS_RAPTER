@@ -38,3 +38,15 @@ def targets(pose, a, amplitude, frequency, ramp, stride=0., window=.35, pitch=0.
         for side in ('left', 'right'):
             target[f'{side}_ankle_pitch_joint'] += correction
     return target
+
+
+def tail_targets(r, roll=0., roll_rate=0., pitch=0., pitch_rate=0., gains=(0., 0., 0., 0.), yaw_limit=.6,
+                 pitch_limit=.4):
+    """Tail balance, position targets only (tail yaw axis +z, tail pitch axis +y; +pitch raises the tail).
+
+    yaw = ky*r + kr*roll (+yaw swings the tail to -y); pitch = kp*pitch + kd*pitch_rate (body pitch, + = nose down).
+    `roll_rate` is accepted for a later damping term and unused now. Signs are chosen by experiment (evidence 70).
+    """
+    ky, kr, kp, kd = gains
+    return {'tail_yaw_joint': max(-yaw_limit, min(yaw_limit, ky*r+kr*roll)),
+            'tail_pitch_joint': max(-pitch_limit, min(pitch_limit, kp*pitch+kd*pitch_rate))}

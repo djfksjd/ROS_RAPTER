@@ -8,7 +8,8 @@
 Gazebo digitigrade 흔들기 재현·STOP 감시 완료(evidence/68). MuJoCo와 위상 ~46ms 차이.
 MuJoCo JTCLikeServo로 위상 차이 46→~21ms 설명, 보폭 결과 영향 작음.
 Gazebo 보폭 시도 불합격(evidence/69): STOP 2회, MuJoCo actuator 근사 불일치 확인.
-재개 지점: actuator 사양 범위(사용자 결정) → MuJoCo actuator 교체, 또는 roll 위상 피드백을 rock_gz_probe에 넣어 Gazebo 재시험.
+꼬리 균형·속도 탐색 완료(evidence/70): 꼬리 효과 작음, 개루프 보행 한계 ~0.16m/s(MuJoCo), Gazebo 보폭 불합격 유지.
+재개 지점: 사용자 선택 — 꼬리 설계 비교(질량·힘줄 구동, MuJoCo) 또는 피드백/학습 다리 제어, actuator 사양 범위.
 Gazebo 실행은 --experiment leg_design:=digitigrade. 실험 컨테이너는 정지 상태.
 
 ## 2026-09-28 재개 결과

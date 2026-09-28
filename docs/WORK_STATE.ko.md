@@ -50,7 +50,10 @@ MuJoCo 대비 몸통 roll 진폭 일치, 위상 ~46ms 지연(기준 미달). JTC
 MuJoCo JTCLikeServo로 위상 차이 대부분 설명(46→~21ms), JTC 지연에도 MuJoCo 보폭 결과 유지.
 Gazebo 보폭 시도(evidence/69): 불합격 — 보폭 최대 후 ~2.5초 안에 STOP 2회(발목 속도 포화, 기울기).
 MuJoCo 속도 actuator 근사로는 Gazebo servo 응답을 재현 못 함. MuJoCo 보폭 성공은 두 엔진 기준 미확인.
-다음: actuator 사양 범위 모델 교체(사용자 부품 후보 필요) 또는 roll 위상 피드백 추가 후 재시험. 모터 사양 범위는 사용자 결정 대기.
+꼬리 균형(evidence/70): 꼬리 pitch 피드백은 MuJoCo에서 작은 개선, 꼬리 yaw는 몸통을 돌려 채택 안 함.
+속도 MuJoCo 최고 ~0.16m/s(kv30, stride 0.08, 2.5Hz), kv 범위 전체 통과 못 함. Gazebo 보폭은 여전히 불합격.
+MuJoCo 전도 감시를 중력 기울기로 수정(이전엔 yaw 포함). Gazebo 감시기: 속도 30ms 지속 + 명령 속도 사전 검사.
+다음: 피드백/학습 기반 다리 제어(actuator 범위 무작위화) 또는 꼬리 설계(질량·힘줄 구동) 비교 — 사용자 선택. 모터 사양 범위는 사용자 결정 대기.
 
 ## 이전 상태 — 방향 A(동적 흔들기 보행)
 

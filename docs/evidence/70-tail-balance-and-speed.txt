@@ -1,0 +1,28 @@
+Tail balance and speed, digitigrade, 2026-09-28. User request: raptor-like slightly bent stance (already the default:
+hip -0.10, knee 0.50, ankle -0.40) and tail balance for faster motion. Active DOF 10 (the 2 existing tail joints).
+Law (src/raptor_control/scripts/rock_law.py tail_targets, position targets only, clipped yaw +-0.6, pitch +-0.4):
+  tail yaw = ky*r + kr*roll; tail pitch = kp*pitch + kd*pitch_rate. FK: +tail pitch raises the tail, +yaw moves it to -y.
+  Tail mass 1.3 kg of 17.3 kg (7.5 %): yaw 0.5 rad shifts the whole-body COM ~1.5 cm.
+Guard fix: rock_probe.py used 2*acos|w| (total rotation incl. yaw) as "tilt"; now gravity tilt like the Gazebo TiltGuard,
+  yaw reported as max_abs_yaw_rad. Earlier MuJoCo results were conservative (yaw also counted); kv20 baseline stride now
+  falls at 7.15 s instead of 5.6 s.
+MuJoCo (JTCLikeServo 0.02/0.02, stride 0.05 + ankle fb, 20 s, kv 20/30/100), vs no tail:
+  tail pitch (0,0,2,0.1): kv20 fall 7.2 -> 10.2 s; kv30 slip/step 0.21 -> 0.19; kv100 0.38 -> 0.35 (small, consistent here)
+  tail yaw feedforward (ky +-1.5..3) or roll feedback (kr +-1..2.5): reduces max roll a little but turns the body
+    (max yaw 0.16-0.68 rad) and often falls earlier -> not adopted. Pure pitch-rate (kd only) variants were unstable.
+Speed sweep, 60 s, stride {0.05,0.08} x f {2,2.5} x kv {20,30,100}, tail pitch off/on (70-mujoco-tail-speed-sweep.jsonl):
+  kv30  best stride 0.08 f 2.5: 0.156 / 0.162 m/s (off/on), slip/step 0.18 / 0.17, 1.0 touchdowns - clean
+  kv100 best stride 0.08 f 2.5: 0.129 / 0.126 m/s, slip/step 0.26 / 0.28, touchdowns 1.15-1.26 - not clean
+  kv20  falls in 7 of 8 settings. The tail effect is mixed across settings (e.g. kv30 0.08/2 Hz: 0.136 -> 0.092 m/s).
+  Speed rises from ~0.10 to ~0.13-0.16 m/s in MuJoCo but does not pass the whole kv range.
+Gazebo (rock_gz_probe.py --stride 0.05 --pitch-feedback 0.5 0.05 0.15 [--tail 0 0 2 0.1], 20 cycles):
+  tail run 1: STOP at sim 11.05 s, right ankle -3.23 rad/s at the touchdown sample (contact False->True, position on target
+    -0.3838 vs -0.3846, knee 1.21 rad/s): a one-sample impact spike, not the DART runaway. +0.44 m, upright.
+  Watchdog change (identified cause, limits unchanged): measured speed >= 90% must persist 30 ms to STOP (spikes counted);
+    new command-side check refuses any streamed target needing >= 90% of a velocity limit.
+  With the new rule: no-tail STOP by tilt 0.255 at 6.88 s; tail STOP by tilt 0.251 at 4.15 s; no speed spikes.
+  Run-to-run variation is large (tail: 11.05 s vs 4.15 s). Gazebo stride still FAILS; the tail effect is not shown in Gazebo.
+  STOP path: A 0.12 f 2.5 -> "commanded speed left_hip_roll_joint 1.894 rad/s" at sim 1.999 s; the next probe then
+  refused to start (hold pose 0.077 rad from the crouch), as designed.
+Conclusion: the 1.3 kg tail gives small pitch help and cannot correct the roll failure; open-loop stepping has plateaued
+  (~0.16 m/s in one engine). Faster raptor-like motion needs feedback/learned leg control with actuator randomization.

@@ -6,7 +6,7 @@ hip rolls left = -r, right = +r, optional hip-pitch stride in each foot's unload
 ankle pitch feedback on IMU pitch / pitch rate.
 Each target is streamed every 20 ms with a 20 ms JTC horizon (50 ms halved hip-roll tracking, evidence 68).
 Saturation watchdog (SIMULATION_METHODOLOGY.ko.md): STOP when a joint velocity reaches 90% of its
-limit, a joint leaves its target by more than 0.15 rad, the IMU tilt exceeds 0.25 rad, joint/IMU data go
+limit for 30 ms of sim time (single-sample touchdown spikes are counted, not stopped), a joint leaves its target by more than 0.15 rad, the IMU tilt exceeds 0.25 rad, joint/IMU data go
 stale, or sim time stalls or runs backwards. STOP holds the measured positions (last finite target where a
 measurement is unusable) and ends streaming; any exception also holds. A normal end returns to the crouch. Writes /raptor_ws/log/rock-gz-probe.json.
 """
@@ -26,12 +26,15 @@ from trajectory_msgs.msg import JointTrajectory, JointTrajectoryPoint
 
 from motion_guard import TiltGuard
 from motion_probe import JOINTS, pose
-from rock_law import crouch_pose, targets
+from rock_law import crouch_pose, tail_targets, targets
 
 # Velocity limits from raptor.urdf.xacro (rad/s); unchanged by leg_design.
 VELOCITY_LIMIT = {'hip_roll': 2.0, 'hip_pitch': 2.5, 'knee_pitch': 3.0, 'ankle_pitch': 2.5,
                   'tail_yaw': 2.0, 'tail_pitch': 2.0}
 TRACKING_LIMIT = .15
+# Touchdown impacts give one-sample speed spikes with on-target positions (evidence 70); the DART runaway
+# (evidence 61) stays at the limit for hundreds of ms. STOP on speed only when it persists this long.
+SATURATION_HOLD = .03
 STALE = .1  # s of sim time without joint/IMU updates
 CLOCK_STALL = 2.  # s of wall time without a /clock advance after start
 PERIOD = .02  # s of sim time between streamed targets
@@ -52,6 +55,7 @@ class RockProbe(Node):
         self.clock_wall, self.clock_fault = time.monotonic(), None
         self.target, self.start, self.last_sent = dict(self.crouch), None, -math.inf
         self.stop_reason, self.rows = None, []
+        self.over_since, self.spikes, self.spike_keys = {}, [], set()
         self.raw = deque(maxlen=200)  # last ~2 s of 100 Hz joint states, dumped around a STOP
         self.pub = self.create_publisher(JointTrajectory, '/raptor_joint_controller/joint_trajectory', 10)
         self.create_subscription(Clock, '/clock', self.on_clock, 10)
@@ -129,7 +133,14 @@ class RockProbe(Node):
             if not math.isfinite(q) or not math.isfinite(v):
                 return f'nonfinite state {j}'
             if abs(v) >= .9*limit_of(j):
-                return f'velocity saturation {j} {v:.3f} rad/s (limit {limit_of(j)})'
+                first = self.over_since.setdefault(j, self.joints_at)
+                if (j, first) not in self.spike_keys:
+                    self.spike_keys.add((j, first))
+                    self.spikes.append([j, first, round(v, 3)])
+                if self.joints_at-first >= SATURATION_HOLD:
+                    return f'velocity saturation {j} {v:.3f} rad/s for {self.joints_at-first:.3f} s (limit {limit_of(j)})'
+            else:
+                self.over_since.pop(j, None)
             if abs(q-self.target[j]) > TRACKING_LIMIT:
                 return f'tracking error {j} {q-self.target[j]:+.3f} rad'
         return None
@@ -160,8 +171,18 @@ class RockProbe(Node):
             return False
         self.last_sent = t
         a, g = phase-self.args.settle, self.args
-        self.target = targets(self.crouch, a, g.amplitude, g.frequency, g.ramp, stride=g.stride, pitch=self.imu[1],
-                              pitch_rate=self.imu[2], feedback=g.pitch_feedback)
+        new = targets(self.crouch, a, g.amplitude, g.frequency, g.ramp, stride=g.stride, pitch=self.imu[1],
+                      pitch_rate=self.imu[2], feedback=g.pitch_feedback)
+        if g.tail and a >= 0:  # tail balance: (ky, kr, kp, kd) on hip-roll command, IMU roll, pitch, pitch rate
+            new |= tail_targets(new['right_hip_roll_joint'], self.imu[0], 0., self.imu[1], self.imu[2], g.tail)
+        # Command-side saturation: never stream a target whose rate needs >= 90% of a joint's velocity limit.
+        for j in JOINTS:
+            rate = abs(new[j]-self.target[j])/max(g.horizon, PERIOD)
+            if rate >= .9*limit_of(j):
+                self.stop_reason = f'commanded speed {j} {rate:.3f} rad/s (limit {limit_of(j)}) at sim {phase:.3f} s'
+                self.hold()
+                return True
+        self.target = new
         self.send(self.target, self.args.horizon)
         self.rows.append({'t': round(phase, 3), 'r_cmd': round(self.target['right_hip_roll_joint'], 5),
                           'roll': round(self.imu[0], 5),
@@ -196,13 +217,15 @@ def main():
     parser.add_argument('--crouch-knee', type=float, default=.5)
     parser.add_argument('--stride', type=float, default=0.)
     parser.add_argument('--pitch-feedback', type=float, nargs=3, metavar=('KP', 'KD', 'LIMIT'))
+    parser.add_argument('--tail', type=float, nargs=4, metavar=('KY', 'KR', 'KP', 'KD'))
     parser.add_argument('--horizon', type=float, default=.02, help='JTC time_from_start of each streamed target (s)')
     parser.add_argument('--out', default='/raptor_ws/log/rock-gz-probe.json')
     args = parser.parse_args()
     if not (0 <= args.amplitude <= .12 and .5 <= args.frequency <= 2.5 and 1 <= args.cycles <= 120
             and .01 <= args.horizon <= .1 and .1 <= args.ramp <= 5 and 0 <= args.settle <= 5 and 0 <= args.stride <= .08
             and (args.pitch_feedback is None or (0 <= args.pitch_feedback[0] <= 1 and 0 <= args.pitch_feedback[1] <= .2
-                                                  and 0 <= args.pitch_feedback[2] <= .2))):
+                                                  and 0 <= args.pitch_feedback[2] <= .2))
+            and (args.tail is None or all(abs(v) <= 3 for v in args.tail))):
         parser.error('outside experimental bounds (A <= 0.12, 0.5 <= f <= 2.5, cycles <= 120, 0.1 <= ramp <= 5, '
                      'stride <= 0.08, feedback kp <= 1 kd <= 0.2 limit <= 0.2)')
     rclpy.init()
@@ -237,10 +260,12 @@ def main():
         result = {'arguments': vars(args), 'stop_reason': node.stop_reason, 'error': error, 'base_pose': poses,
                   'wall_s': round(time.monotonic()-wall, 1), 'summary': summary(node.rows, args),
                   'raw_joint_states_tail': list(node.raw) if node.stop_reason else [],
+                  'speed_spikes': node.spikes,
                   'limitation': 'Gazebo DART open-loop rocking in place; contact = any foot/toe contact message; '
                                 'not walking.', 'rows': node.rows}
         Path(args.out).write_text(json.dumps(result, separators=(',', ':')))
-        print(json.dumps({k: result[k] for k in ('stop_reason', 'error', 'wall_s', 'base_pose', 'summary')}, indent=1))
+        print(json.dumps({k: result[k] for k in ('stop_reason', 'error', 'wall_s', 'base_pose', 'summary')}
+                         | {'speed_spike_count': len(node.spikes)}, indent=1))
         node.destroy_node()
         rclpy.shutdown()
 

@@ -5,17 +5,21 @@ Both hip rolls move in parallel (left = -r, right = +r because the right axis is
 r = A*sin(phase) after a ramp; the phase is time-based or from `rhythm` (roll feedback).
 Inside each foot's unloaded phase window: optional knee `lift` (hip/ankle -lift/2) and hip-pitch
 `stride` (ankle cancels it); `pitch_feedback` adds a clipped ankle correction on base pitch.
-Joint position targets only. A tilt guard latches STOP (hold). 'unloaded' = < 5% body weight.
+Joint position targets only. A gravity-tilt guard (roll/pitch, not yaw; same as Gazebo TiltGuard) latches STOP.
+Before 2026-09-28 evidence 70 the guard used the total rotation 2*acos|w|, which also counted body yaw. 'unloaded' = < 5% body weight.
 Metrics are simulation diagnostics, not a walking certificate.
 """
 import argparse
 import json
 import math
+import sys
 import numpy as np
 import mujoco
 from raptor_servo import GazeboLikeServo, JTCLikeServo
 from stand_check import HERE, crouch, place_on_floor
 from step_metrics import steps, summarize
+sys.path.insert(0, str(HERE.parent/'src/raptor_control/scripts'))
+from rock_law import tail_targets  # noqa: E402  shared with rock_gz_probe.py
 
 
 def foot_forces(model, data, force):
@@ -64,7 +68,7 @@ def roll_pitch(quat):
 
 def run(amplitude, frequency, cycles=6, ramp=1., guard=.25, model_path=None, crouch_hip=-.15, log_every=0, crouch_knee=.4,
         lift=0., lift_width=.35, lift_centers=(('left', .28), ('right', .78)), stride=0., rhythm=None, friction=None, mass_scale=1., smooth_swing=False, pitch_feedback=None, servo_kv=None,
-        jtc=None):
+        jtc=None, tail=None):
     model = mujoco.MjModel.from_xml_path(model_path or str(HERE/'raptor.xml'))
     if friction is not None:
         model.geom_friction[:, 0] = friction
@@ -87,7 +91,7 @@ def run(amplitude, frequency, cycles=6, ramp=1., guard=.25, model_path=None, cro
     longest, current = {'left': 0., 'right': 0.}, {'left': 0., 'right': 0.}
     both_off = 0
     both_run = longest_both = 0.
-    worst = {'tilt': 0., 'roll': 0., 'pitch': 0.}
+    worst = {'tilt': 0., 'roll': 0., 'pitch': 0., 'yaw': 0.}
     stopped_at, samples = None, []
     lifting = {'left': False, 'right': False}
     slip, slip_sum, loaded_time = {'left': 0., 'right': 0.}, {'left': 0., 'right': 0.}, {'left': 0., 'right': 0.}
@@ -126,6 +130,9 @@ def run(amplitude, frequency, cycles=6, ramp=1., guard=.25, model_path=None, cro
                            f'{side}_knee_pitch_joint': pose[f'{side}_knee_pitch_joint']+h,
                            f'{side}_ankle_pitch_joint': pose[f'{side}_ankle_pitch_joint']-h/2-swing}
                 lifting[side] = bump > .5
+            if tail:  # tail balance (ky, kr, kp, kd); qvel[3:6] is the body-frame angular velocity
+                body_roll, body_pitch = roll_pitch(data.qpos[3:7])
+                target |= tail_targets(r, body_roll, data.qvel[3], body_pitch, data.qvel[4], tail)
             if pitch_feedback:  # ankle strategy on base pitch; position targets only, clipped
                 kp, kd, limit = pitch_feedback
                 correction = max(-limit, min(limit, kp*roll_pitch(data.qpos[3:7])[1]+kd*data.qvel[4]))
@@ -135,8 +142,10 @@ def run(amplitude, frequency, cycles=6, ramp=1., guard=.25, model_path=None, cro
             servo.set_target(target)
         servo.step(data)
         roll, pitch = roll_pitch(data.qpos[3:7])
-        tilt = 2*math.acos(min(1., abs(data.qpos[3])))
+        w, x, y, z = data.qpos[3:7]
+        tilt = math.acos(max(-1., min(1., 1-2*(x*x+y*y))))  # angle between body z and world z
         worst = {'tilt': max(worst['tilt'], tilt), 'roll': max(worst['roll'], abs(roll)),
+                 'yaw': max(worst['yaw'], abs(yaw(data.qpos[3:7]))),
                  'pitch': max(worst['pitch'], abs(pitch))}
         if tilt > guard and stopped_at is None:
             stopped_at = t
@@ -178,7 +187,7 @@ def run(amplitude, frequency, cycles=6, ramp=1., guard=.25, model_path=None, cro
                             'fz_left': f['left'], 'fz_right': f['right'], 'y': float(data.qpos[1])})
     active = (cycles/frequency)/dt
     return {'amplitude_rad': amplitude, 'frequency_hz': frequency,
-            'stopped_by_guard_at_s': stopped_at, 'max_tilt_rad': worst['tilt'],
+            'stopped_by_guard_at_s': stopped_at, 'max_tilt_rad': worst['tilt'], 'max_abs_yaw_rad': worst['yaw'],
             'max_body_roll_rad': worst['roll'], 'max_body_pitch_rad': worst['pitch'],
             'single_support_fraction': {s: unloaded[s]/active for s in unloaded},
             'longest_single_support_s': longest, 'both_feet_unloaded_fraction': both_off/active, 'longest_both_unloaded_s': longest_both,

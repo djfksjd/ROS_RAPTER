@@ -6,7 +6,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT/'src/raptor_control/scripts'))
-from rock_law import crouch_pose, targets  # noqa: E402
+from rock_law import crouch_pose, tail_targets, targets  # noqa: E402
 
 JOINTS = [f'{s}_{j}_joint' for s in ('left', 'right') for j in ('hip_roll', 'hip_pitch', 'knee_pitch', 'ankle_pitch')]
 JOINTS += ['tail_yaw_joint', 'tail_pitch_joint']
@@ -47,6 +47,14 @@ class RockLawTest(unittest.TestCase):
     def test_pitch_feedback_is_clipped(self):
         t = targets(POSE, 2., .08, 2., 1., pitch=1., feedback=(.5, .05, .15))
         self.assertAlmostEqual(t['left_ankle_pitch_joint']-POSE['left_ankle_pitch_joint'], .15)
+
+    def test_tail_targets_signs_and_limits(self):
+        t = tail_targets(.05, roll=.1, pitch=.02, pitch_rate=.1, gains=(1.5, 2.5, 2., .1))
+        self.assertAlmostEqual(t['tail_yaw_joint'], 1.5*.05+2.5*.1)
+        self.assertAlmostEqual(t['tail_pitch_joint'], 2*.02+.1*.1)
+        big = tail_targets(1., roll=1., pitch=1., gains=(3., 3., 3., 0.))
+        self.assertEqual((big['tail_yaw_joint'], big['tail_pitch_joint']), (.6, .4))
+        self.assertEqual(tail_targets(.05), {'tail_yaw_joint': 0., 'tail_pitch_joint': 0.})
 
 
 if __name__ == '__main__':
