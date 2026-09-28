@@ -13,11 +13,13 @@ import xacro
 def setup(context):
     description = get_package_share_directory('raptor_description')
     hip = float(LaunchConfiguration('crouch_hip_pitch').perform(context))
-    if not -.25 <= hip <= .05:
-        raise ValueError('crouch_hip_pitch outside experimental bounds [-0.25, 0.05]')
     leg_design = LaunchConfiguration('leg_design').perform(context)
-    if leg_design not in ('legacy', 'digitigrade'):
-        raise ValueError('leg_design must be legacy or digitigrade')
+    if leg_design not in ('legacy', 'digitigrade', 'digitigrade_low'):
+        raise ValueError('leg_design must be legacy, digitigrade or digitigrade_low')
+    # digitigrade_low stands with knee 1.65, so its level-sole crouch needs a much lower hip pitch.
+    low, high = (-.85, -.75) if leg_design == 'digitigrade_low' else (-.25, .05)
+    if not low <= hip <= high:
+        raise ValueError(f'crouch_hip_pitch outside experimental bounds [{low}, {high}] for {leg_design}')
     toe_scale = float(LaunchConfiguration('toe_stiffness_scale').perform(context))
     if not 1 <= toe_scale <= 5:
         raise ValueError('toe_stiffness_scale outside experimental bounds [1, 5]')

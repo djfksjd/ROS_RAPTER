@@ -1,0 +1,28 @@
+leg_design:=digitigrade_low + Morphloom --style reference, 2026-09-28. User request: match the Tripo reference views
+(/Users/danny/Downloads/raptor-views, user-supplied Tripo Studio renders; used for proportion/style only, not in the repo).
+Reference measured on its orthographic side view (inspect_reference.py): tail ~1.6x nose-to-tail-root body length,
+  hip height ~0.57x body length, shin nearly horizontal (extreme crouch), tail rising toward the tip, splayed talons,
+  silver armour on a dark frame, chrome tail bands.
+Ours before (digitigrade, crouch -0.10/0.50): hip axis 0.785 m above ground, body length ~0.75 m (ratio ~1.05), tail ratio ~1.5.
+Level-sole crouch sweep, current limits (ankle +-0.70, sagittal margin > 4 cm): lowest hip axis 0.740 m (only -4.5 cm).
+Chosen (active DOF still 10; masses, torque/velocity limits and gains unchanged):
+  hip_drop 0.12 -> 0.06 (hip pitch axis closer to the body), ankle position limit +-0.70 -> +-0.95,
+  crouch hip -0.80 knee 1.65 ankle -0.85: hip axis 0.63 m, body centre 0.955 -> 0.74 m, sagittal margin 4.8 cm,
+  static torque estimate (W/2 x lever): knee ~18 Nm (limit 120). Passive toe yaw 0.12 -> 0.35 (splay).
+  Full reference match (shin horizontal) would need ankle ~-1.5 rad: not attempted.
+  legacy and digitigrade URDFs regenerated numerically identical (4 argument sets).
+MuJoCo (sim/raptor_digitigrade_low.xml, elliptic cone, Gazebo-like servo):
+  static standing 10 s: pass, max tilt 0.0119 rad; no body self-contact at the crouch.
+  rocking A0.08 f2 120 cycles, mu{0.5,0.8,1} x mass{0.9,1,1.1}: 9/9, no guard stop (max tilt 0.131-0.142).
+  stride + ankle pitch fb (.5,.05,.15), 60 s: no fall in any case, but clean-step criterion (slip/step < 0.25) FAILS:
+    kv30  stride .03/.05/.08, smooth off/on: slip/step 0.65/0.61, 0.52/0.48, 0.43/0.38; x +3.4..+6.0 m
+    kv100 same:                              1.40/1.29, 0.98/0.88, 0.69/0.60; x +1.8..+4.2 m
+    (digitigrade at the same settings: kv30 0.20, kv100 0.34). The low stance costs step quality with this open-loop gait.
+Visual: Morphloom raptor-low-003 review-pass (349 parts, 23 link GLBs, 8.5 MB, meshes/digitigrade_low).
+  Silver/chrome metalness lowered (0.25/0.35): at 0.75-1.0 Gazebo rendered them nearly black (no environment map).
+  Concept style output (digitigrade) is byte-identical to before.
+Gazebo Harmonic DART, --experiment leg_design:=digitigrade_low passive toes crouched_start crouch_hip_pitch -0.80
+  spawn_z -0.1084 (lowest collision +0.1104 m above base_root at the crouch):
+  pose samples (sim time s, x, z, tilt rad): 6.76 -0.0 -0.11041 3.05e-07 ... 8.68 -0.0 -0.11041 3.05e-07; 8 samples, static.
+  Static standing only. 67-low-reference-gazebo-*.png are Gazebo; 67-low-reference-blender-*.png are Blender renders.
+Not validated: rocking/walking in Gazebo, terrain, RViz for this design (same GLB path mechanism as evidence 66).

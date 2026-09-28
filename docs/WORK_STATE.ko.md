@@ -42,6 +42,9 @@ leg_design:=digitigrade 추가(기본 legacy, 기존 결과 재현 가능). 10�
 MuJoCo에서 지지 여유·보폭 견고성 개선, Gazebo 정지 기립 확인. evidence 63의 Gazebo 기록은 legacy였음을 정정.
 꼬리 0.95m·쐐기형 머리·349부품 디테일 후 재검증(evidence/66): MuJoCo 기립·흔들기 9/9·보폭 결과 유지,
 Gazebo 정지 기립, RViz GLB 표시 확인. 줄무늬 원인은 Gazebo가 적용하지 않는 텍스처 타일링 확장 → 이미지 없이 출력.
+참고 모습 스타일 leg_design:=digitigrade_low 추가(evidence/67): 낮은 자세(hip_drop 0.06, 발목 위치 한도 ±0.95,
+crouch -0.80/1.65), 은색·크롬 외형. MuJoCo 기립·흔들기 9/9 통과, 보폭 걷기는 전도 없으나 깨끗한 걸음 기준 미달.
+Gazebo 정지 기립 확인. 보행 개발 기준 설계는 digitigrade 유지.
 다음: Gazebo에서 흔들기 재현(포화 감시 포함). 모터 사양 범위는 여전히 사용자 결정 대기.
 
 ## 이전 상태 — 방향 A(동적 흔들기 보행)

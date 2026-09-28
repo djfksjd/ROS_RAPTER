@@ -40,6 +40,22 @@
 - Blender 렌더: `evidence/64-digitigrade-morphloom-blender-*.png`(같은 메시, 같은 crouch).
 - 실제 Gazebo: `evidence/64-digitigrade-morphloom-gazebo.png`, `evidence/66-gazebo-*.png`. RViz: `evidence/66-rviz-digitigrade-glb.png`. 정지 기립만 확인. 보행은 아직 Gazebo에서 검증하지 않았다.
 
+## 4. 참고 모습 스타일 — `leg_design:=digitigrade_low` (evidence/67)
+
+사용자 요청: Tripo 참고 이미지(raptor-views)와 같은 모습. 참고 이미지는 비율·스타일 참고용이며 저장소에 넣지 않았다.
+
+- 참고 측면 비율: 꼬리 ≈ 몸통의 1.6배, 엉덩이 높이 ≈ 몸통 길이의 0.57배, 정강이가 거의 수평인 극단적 웅크림.
+  기존 digitigrade는 엉덩이 높이 비 ≈ 1.05. 현재 관절 한도 안에서는 4.5cm만 낮출 수 있었다.
+- 변경(능동축 10 유지, 질량·토크·속도 한도·gain 불변): hip_drop 0.12→0.06, 발목 **위치 한도** ±0.70→±0.95,
+  기본 웅크림 hip -0.80 / knee 1.65 / ankle -0.85, 수동 발가락 벌림 0.12→0.35rad.
+  엉덩이 축 0.785→0.63m, 몸통 중심 0.955→0.74m, 앞뒤 여유 4.8cm. 완전 일치(정강이 수평)는 발목 약 -1.5rad가 필요해 하지 않았다.
+- 외형: `raptor_parts.py --style reference` — 은색 장갑·어두운 프레임·크롬 꼬리 띠, 꼬리 끝이 위로 0.2m 휨(시각만,
+  collision은 직선 상자), 발톱 연장. Gazebo는 환경 반사가 없어 금속도 높은 재질이 검게 보여 금속도를 낮췄다.
+- MuJoCo: 정지 기립 통과(기울기 0.012), 흔들기 9/9. 보폭 걷기는 전도는 없지만 깨끗한 걸음 기준(미끄럼/보폭 < 0.25)을
+  모든 조건에서 통과하지 못했다(최선 kv30 0.38, kv100 0.60; digitigrade는 0.20/0.34). **낮은 자세는 현재 개루프 보행의
+  걸음 품질을 떨어뜨린다.** 보행 개발 기준 설계는 digitigrade로 두고, digitigrade_low는 외형 선택지로 둔다.
+- Gazebo: spawn_z -0.1084에서 정지 기립 확인. 보행은 미검증.
+
 ## 재현
 
 ```bash
@@ -52,4 +68,10 @@ npx vite-node work/raptor/make-job.ts && npm run morphloom -- build --job work/r
 /Applications/Blender.app/Contents/MacOS/Blender --background --python modeling/morphloom/split_links.py -- \
   ~/Documents/morphloom/outputs/raptor-NNN/asset.glb sim/raptor_digitigrade.urdf src/raptor_description/meshes/digitigrade /tmp/preview
 RAPTOR_PASSIVE_TOES=true bash scripts/start_local.sh --experiment leg_design:=digitigrade crouched_start:=true crouch_hip_pitch:=-0.10 spawn_z:=0.1075
+# 참고 모습 스타일 (morphloom 쪽 work/raptor-low, make-job.ts는 RAPTOR_JOB_DIR/RAPTOR_JOB_ID/RAPTOR_CONCEPT_NOTE로 선택)
+bash sim/generate_urdf.sh sim/raptor_digitigrade_low.urdf leg_design:=digitigrade_low passive_toes:=true sensors:=true
+.venv-sim/bin/python modeling/morphloom/raptor_parts.py sim/raptor_digitigrade_low.urdf ~/Documents/morphloom/work/raptor-low/assembly.json --style reference
+/Applications/Blender.app/Contents/MacOS/Blender --background --python modeling/morphloom/split_links.py -- \
+  ~/Documents/morphloom/outputs/raptor-low-NNN/asset.glb sim/raptor_digitigrade_low.urdf src/raptor_description/meshes/digitigrade_low /tmp/preview -0.80 1.65
+RAPTOR_PASSIVE_TOES=true bash scripts/start_local.sh --experiment leg_design:=digitigrade_low crouched_start:=true crouch_hip_pitch:=-0.80 spawn_z:=-0.1084
 ```

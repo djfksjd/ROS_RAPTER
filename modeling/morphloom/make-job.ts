@@ -20,7 +20,10 @@ async function analyse(file: string) {
     brightness: (r * 0.2126 + g * 0.7152 + b * 0.0722) / 255, fit: Math.round((ratioScore * 0.62 + resolutionScore * 0.38) * 100) };
 }
 
-const dir = 'work/raptor';
+// Defaults reproduce the concept-style job; RAPTOR_JOB_* select another work dir (e.g. the reference style).
+const dir = process.env.RAPTOR_JOB_DIR ?? 'work/raptor';
+const jobId = process.env.RAPTOR_JOB_ID ?? 'raptor-digitigrade-visual';
+const conceptNote = process.env.RAPTOR_CONCEPT_NOTE ?? 'AI-generated concept image; styling and material reference only.';
 const sha = (path: string) => createHash('sha256').update(readFileSync(path)).digest('hex');
 async function view(id: string, file: string, sourceType: ReferenceView['sourceType'],
   role: ReferenceView['role'], covered: ReferenceView['coveredRoles'], capabilities: ReferenceView['capabilities'],
@@ -34,7 +37,7 @@ const design = await view('design-drawing', 'design.png', 'cad', 'measurement', 
   ['shape', 'depth', 'scale', 'interfaces'], ['Orthographic side/front of the Xacro collision boxes at zero pose, 1 px = 1 mm.',
     'Design specification, not a physical measurement.']);
 const concept = await view('concept-image', 'concept.png', 'photo', 'material', ['left'], ['shape', 'surface'],
-  ['AI-generated concept image; styling and material reference only.']);
+  [conceptNote]);
 const pad = (id: string, property: string, valueMm: number) => ({ id, property, valueMm, toleranceMm: 0.5,
   status: 'measured' as const, sourceViewId: 'design-drawing' });
 const evidencePack = buildSemiProfessionalEvidencePack([design, concept], {
@@ -51,7 +54,7 @@ const contract = (id: string, componentId: string, axis: 'x' | 'y' | 'z', expect
   evidence: { status: 'measured', sourceViewId: 'view_01', source: 'measured on the Xacro-derived CAD drawing' } });
 assembly.dimensionContracts = [contract('pad-length', 'left_foot_link__pad', 'x', 150),
   contract('pad-width', 'left_foot_link__pad', 'z', 100), contract('metatarsus-length', 'left_foot_link__metatarsus', 'y', 240)];
-const job = { schema: 'morphloom.job/0.1', id: 'raptor-digitigrade-visual', target: 'review',
+const job = { schema: 'morphloom.job/0.1', id: jobId, target: 'review',
   request: '10축 디지티그레이드 랩터 로봇 제품의 링크별 부품 어셈블리 시각 외형을 목표 콘셉트 스타일로 상세 제작 (물리 형상은 Xacro 기준)',
   sources: [{ viewId: 'view_01', path: `${dir}/sources/design.png`, sha256: sha(`${dir}/sources/design.png`) },
     { viewId: 'view_02', path: `${dir}/sources/concept.png`, sha256: sha(`${dir}/sources/concept.png`) }],

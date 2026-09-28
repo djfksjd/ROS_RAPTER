@@ -36,7 +36,15 @@ MATERIALS = {
     'label': ('warning label', {'color': '#b8452a', 'surface': 'molded-polymer', 'roughness': .5, 'metalness': 0.}),
     'lens': ('camera glass', {'color': '#0b1a24', 'surface': 'optical-glass', 'roughness': .04, 'metalness': 0.,
                               'transmission': .25, 'ior': 1.5}),
+    # Low metalness on purpose: Gazebo (no environment map) renders high-metalness parts nearly black.
+    'silver': ('silver armour', {'color': '#aeb0ad', 'surface': 'coated-metal', 'roughness': .3, 'metalness': .25,
+                                 'clearcoat': .3, 'clearcoatRoughness': .25}),
+    'chrome': ('chrome band', {'color': '#c3c8cd', 'surface': 'polished-metal', 'roughness': .2, 'metalness': .35}),
 }
+MATERIALS['face'] = MATERIALS['ivory']  # head face plates stay light in every style
+# --style reference (user's Tripo reference views): silver armour on a dark frame, chrome bands, no orange.
+STYLES = {'concept': {}, 'reference': {'ivory': 'silver', 'accent': 'chrome', 'copper': 'graphite', 'label': 'chrome'}}
+STYLE = STYLES['concept']
 
 
 def rot(axis, angle):
@@ -73,7 +81,7 @@ class Builder:
         frame = self.frames[link]
         p_ros = frame[:3, :3]@np.array(xyz, float)+frame[:3, 3]
         r = C@(frame[:3, :3]@r_ros)@C.T
-        label, material = MATERIALS[mat]
+        label, material = MATERIALS[STYLE.get(mat, mat)]
         self.components.append({
             'id': f'{link}__{name}', 'name': f'{link} {name}'.replace('_', ' ')[:120],
             'category': 'mechanical', 'materialName': label, 'detail': detail or f'visual part of {link}',
@@ -114,7 +122,7 @@ class Builder:
     def tube(self, link, name, points, radius, mat):
         frame = self.frames[link]
         world = [C@(frame[:3, :3]@np.array(p, float)+frame[:3, 3]) for p in points]
-        label, material = MATERIALS[mat]
+        label, material = MATERIALS[STYLE.get(mat, mat)]
         self.components.append({
             'id': f'{link}__{name}', 'name': f'{link} {name}'.replace('_', ' ')[:120], 'category': 'interconnect',
             'materialName': label, 'detail': f'cable/rod on {link}',
@@ -143,6 +151,9 @@ def claw(b, link, name, root, length, radius, s_rot=0., mat='bone'):
         b.cyl(link, f'{name}_{k}', r_bot, seg, pos+r@np.array([0, 0, seg/2]), r, mat,
               radius_top=r_bot*taper, segments=18)
         pos = pos+r@np.array([0, 0, seg*.92])
+
+
+CLAW, SICKLE, TAIL_RISE, TAIL_TILT, BAND = .075, .07, .07, .14, 'ivory'
 
 
 def build_base(b):
@@ -175,13 +186,13 @@ def build_base(b):
     # wedge head (reference): arrow-shaped helmet in plan, chamfered cheek plates, blunt nose with slot
     b.box(L, 'head_core', (.17, .17, .10), (.23, 0, -.005), 'graphite', .02)
     b.plan_plate(L, 'helmet', [(.11, .1), (.25, .097), (.33, .05), (.358, .012), (.358, -.012), (.33, -.05),
-                               (.25, -.097), (.11, -.1)], .022, .058, 'ivory', .004)
+                               (.25, -.097), (.11, -.1)], .022, .058, 'face', .004)
     b.plan_plate(L, 'helmet_ridge', [(.14, .03), (.30, .022), (.33, 0), (.30, -.022), (.14, -.03)], .01, .073,
-                 'ivory', .002)
+                 'face', .002)
     b.cyl(L, 'helmet_sensor', .008, .006, (.29, 0, .08), 'z', 'lens', segments=16)
     for side, y in (('l', 1), ('r', -1)):
         b.plate(L, f'cheek_{side}', [(.10, -.07), (.28, -.058), (.345, -.03), (.352, .005), (.33, .04), (.24, .052),
-                                     (.11, .055)], .014, y*.097, 'ivory', .003)
+                                     (.11, .055)], .014, y*.097, 'face', .003)
         b.plate(L, f'cheek_trim_{side}', [(.14, -.045), (.29, -.04), (.32, -.028), (.15, -.032)], .004, y*.105,
                 'accent', .001)
         b.cyl(L, f'cheek_sensor_{side}', .009, .006, (.27, y*.105, .012), 'y', 'lens', segments=16)
@@ -208,7 +219,7 @@ def build_base(b):
     b.cyl(L, 'mast_window', .028, .012, (.12, 0, .275), 'z', 'lens')
     # camera box with label and cable loop, spine rail and heat sink
     b.box(L, 'camera_pod', (.10, .09, .085), (-.03, 0, .135), 'graphite', .012)
-    b.box(L, 'camera_face', (.012, .08, .07), (.022, 0, .135), 'ivory', .006)
+    b.box(L, 'camera_face', (.012, .08, .07), (.022, 0, .135), 'face', .006)
     b.box(L, 'camera_label', (.004, .03, .018), (.029, .015, .145), 'label', .002)
     b.tube(L, 'camera_cable', [(-.07, .045, .15), (-.1, .06, .12), (-.09, .05, .08), (-.06, .03, .09)], .004, 'graphite')
     b.box(L, 'spine_rail', (.44, .05, .022), (-.03, 0, .09), 'titanium', .008)
@@ -269,7 +280,7 @@ def build_leg(b, side):
     b.box(F, 'pad', (.15, .10, .035), (pad_x, 0, pad_z), 'rubber', .01)
     b.box(F, 'pad_frame', (.13, .085, .02), (pad_x, 0, pad_z+.022), 'graphite', .006)
     b.cyl(F, 'ball_joint', .03, .07, (end[0], 0, end[2]+.02), 'y', 'titanium')
-    claw(b, F, 'sickle_claw', (pad_x-.055, s*.035, pad_z+.03), .07, .011, s_rot=math.pi)
+    claw(b, F, 'sickle_claw', (pad_x-.055, s*.035, pad_z+.03), SICKLE, .011, s_rot=math.pi)
     for d, y in ((1, .040), (2, 0), (3, -.040)):
         for part, length_ in (('proximal', .070), ('distal', .075)):
             link = f'{side}_toe_{d}_{part}_link'
@@ -278,7 +289,7 @@ def build_leg(b, side):
             b.cyl(link, 'knuckle', .016, .032, (0, 0, 0), 'y', 'titanium', segments=24)
             b.cyl(link, 'knuckle_pin', .006, .036, (0, 0, 0), 'y', 'steel', segments=12)
             if part == 'distal':
-                claw(b, link, 'claw', (length_-.004, 0, .004), .075, .012)
+                claw(b, link, 'claw', (length_-.004, 0, .004), CLAW, .012)
 
 
 def build_tail(b):
@@ -289,15 +300,16 @@ def build_tail(b):
     L = 'tail_link'
     segments, span = 16, .93
     step = span/segments
-    curve = lambda u: .07*u**2  # noqa: E731  gentle upward sweep (reference tail is nearly level)
+    rise = TAIL_RISE
+    curve = lambda u: rise*u**2  # noqa: E731  upward sweep; collision stays a straight box
     b.tube(L, 'spine', [(-.01, 0, 0), (-.3, 0, curve(.32)), (-.6, 0, curve(.65)), (-.94, 0, curve(1.))], .01, 'graphite')
     for i in range(segments):
         u = i/(segments-1)
         x = -.03-step*i
         z = curve(u)
         w = .088*(1-.74*u)
-        tilt = rot((0, 1, 0), -.14*u)
-        b.box(L, f'band_{i:02d}', (step*.84, w, w*.84), (x, 0, z), 'ivory', min(.016, w/3), tilt)
+        tilt = rot((0, 1, 0), -TAIL_TILT*u)
+        b.box(L, f'band_{i:02d}', (step*.84, w, w*.84), (x, 0, z), BAND, min(.016, w/3), tilt)
         b.box(L, f'band_joint_{i:02d}', (step*.2, w*.84, w*.72), (x-step*.5, 0, z), 'graphite', w/5, tilt)
         b.box(L, f'band_seam_{i:02d}', (step*.66, w*.9, .004), (x, 0, z+w*.3), 'graphite', .0015, tilt)
         if i < 11:
@@ -306,15 +318,22 @@ def build_tail(b):
     b.cyl(L, 'tip', .012, .05, (-.03-step*(segments-1)-step*.7, 0, curve(1.)+.003), rot((0, 1, 0), -math.pi/2), 'ivory', radius_top=.002,
           segments=16)
     for side, y in (('l', 1), ('r', -1)):
-        b.tube(L, f'side_cable_{side}', [(-.02, y*.045, -.008), (-.3, y*.036, .0), (-.6, y*.026, .02),
-                                         (-.86, y*.014, .05)], .0032, 'copper')
+        # follows the tail sweep; max() keeps the original concept-style points unchanged
+        b.tube(L, f'side_cable_{side}', [(-.02, y*.045, -.008), (-.3, y*.036, max(0., curve(.32)-.008)),
+                                         (-.6, y*.026, max(.02, curve(.645)-.01)),
+                                         (-.86, y*.014, max(.05, curve(.925)-.012))], .0032, 'copper')
 
 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('urdf')
     parser.add_argument('output')
+    parser.add_argument('--style', choices=sorted(STYLES), default='concept')
     args = parser.parse_args()
+    global STYLE, CLAW, SICKLE, TAIL_RISE, TAIL_TILT, BAND
+    STYLE = STYLES[args.style]
+    if args.style == 'reference':  # longer talons, rising chrome tail (visual only); tilt follows the slope
+        CLAW, SICKLE, TAIL_RISE, TAIL_TILT, BAND = .10, .095, .20, .43, 'chrome'
     b = Builder(Path(args.urdf).read_text())
     build_base(b)
     for side in ('left', 'right'):

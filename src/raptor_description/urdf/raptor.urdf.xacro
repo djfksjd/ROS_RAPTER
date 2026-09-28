@@ -16,11 +16,16 @@
   <xacro:property name="crouch_hip" value="$(arg crouch_hip_pitch)"/>
   <!-- Leg proportions (m). Link inertias below are still literal values for these lengths. -->
   <!-- legacy: original straight leg and flat foot (reproduces evidence 01-62).
-       digitigrade: shorter thigh + inclined metatarsus foot, still 10 active DOF. -->
+       digitigrade: shorter thigh + inclined metatarsus foot, still 10 active DOF.
+       digitigrade_low: digitigrade links with a lower stance (reference look): hip_drop 0.06,
+       ankle range +-0.95 (position limit only), crouch knee 1.65, wider passive toe splay. -->
   <xacro:arg name="leg_design" default="legacy"/>
   <!-- Unknown values fail with a KeyError instead of silently picking a design. -->
-  <xacro:property name="legacy" value="${dict(legacy=True, digitigrade=False)['$(arg leg_design)']}"/>
-  <xacro:property name="hip_drop" value="0.12"/>
+  <xacro:property name="legacy" value="${dict(legacy=True, digitigrade=False, digitigrade_low=False)['$(arg leg_design)']}"/>
+  <xacro:property name="low" value="${'$(arg leg_design)' == 'digitigrade_low'}"/>
+  <xacro:property name="hip_drop" value="${0.06 if low else 0.12}"/>
+  <xacro:property name="ankle_limit" value="${0.95 if low else 0.70}"/>
+  <xacro:property name="toe_splay" value="${0.35 if low else 0.12}"/>
   <xacro:property name="thigh_length" value="${0.32 if legacy else 0.26}"/>
   <xacro:property name="shin_length" value="0.30"/>
   <!-- Legacy inertias are the original literals; digitigrade uses the box formula. -->
@@ -37,12 +42,12 @@
   <xacro:property name="legacy_detail" value="${detailed and legacy}"/>
   <xacro:property name="dg_detail" value="${detailed and not legacy}"/>
   <xacro:macro name="dg_visual" params="link">
-    <xacro:if value="${dg_detail}"><visual><origin rpy="${pi/2} 0 0"/><geometry><mesh filename="package://raptor_description/meshes/digitigrade/${link}.glb"/></geometry></visual></xacro:if>
+    <xacro:if value="${dg_detail}"><visual><origin rpy="${pi/2} 0 0"/><geometry><mesh filename="package://raptor_description/meshes/${'digitigrade_low' if low else 'digitigrade'}/${link}.glb"/></geometry></visual></xacro:if>
   </xacro:macro>
   <xacro:include filename="passive_toes.xacro"/>
   <xacro:include filename="digitigrade_foot.xacro"/>
   <!-- crouched_start knee; the ankle keeps the sole level (hip + knee + ankle = 0). -->
-  <xacro:property name="crouch_knee" value="${0.4 if legacy else 0.5}"/>
+  <xacro:property name="crouch_knee" value="${0.4 if legacy else (1.65 if low else 0.5)}"/>
   <xacro:if value="$(arg sensors)">
     <gazebo reference="base_link">
       <sensor name="body_imu" type="imu">
@@ -430,8 +435,8 @@
 
     <!-- 약 -40도 ~ +40도 -->
     <limit
-      lower="-0.70"
-      upper="0.70"
+      lower="${-ankle_limit}"
+      upper="${ankle_limit}"
       effort="80"
       velocity="2.5"/>
 
@@ -707,8 +712,8 @@
     <axis xyz="0 1 0"/>
 
     <limit
-      lower="-0.70"
-      upper="0.70"
+      lower="${-ankle_limit}"
+      upper="${ankle_limit}"
       effort="80"
       velocity="2.5"/>
 

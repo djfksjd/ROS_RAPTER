@@ -43,9 +43,9 @@
       </inertial>
     </link>
     <xacro:if value="${passive}">
-      <xacro:toe_digit side="${side}" digit="1" y="0.040" yaw="0.12" x0="${pad_x+pad_length/2-0.005}" z0="${pad_z-pad_thickness/2+0.017}"/>
+      <xacro:toe_digit side="${side}" digit="1" y="0.040" yaw="${toe_splay}" x0="${pad_x+pad_length/2-0.005}" z0="${pad_z-pad_thickness/2+0.017}"/>
       <xacro:toe_digit side="${side}" digit="2" y="0" yaw="0" x0="${pad_x+pad_length/2-0.005}" z0="${pad_z-pad_thickness/2+0.017}"/>
-      <xacro:toe_digit side="${side}" digit="3" y="-0.040" yaw="-0.12" x0="${pad_x+pad_length/2-0.005}" z0="${pad_z-pad_thickness/2+0.017}"/>
+      <xacro:toe_digit side="${side}" digit="3" y="-0.040" yaw="${-toe_splay}" x0="${pad_x+pad_length/2-0.005}" z0="${pad_z-pad_thickness/2+0.017}"/>
     </xacro:if>
   </xacro:macro>
 </robot>

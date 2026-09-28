@@ -1,14 +1,14 @@
 """Split a Morphloom Raptor GLB into URDF link-local visual meshes and render a posed preview.
 
 Usage:
-  Blender --background --python modeling/morphloom/split_links.py -- ASSET.glb URDF OUT_DIR [PREVIEW_PREFIX]
+  Blender --background --python modeling/morphloom/split_links.py -- ASSET.glb URDF OUT_DIR [PREVIEW_PREFIX [HIP KNEE]]
 
 Component ids are `<link>__<part>` authored at the URDF zero pose. Each link's parts are joined,
 moved into that link frame with the inverse zero-pose transform and exported as OUT_DIR/<link>.glb.
 Images are not exported: the Morphloom micro normal/roughness maps depend on KHR_texture_transform
 tiling, which Gazebo ignores, so they rendered as stretched streaks. Colour/roughness factors remain.
-The preview places links at the nominal digitigrade crouch (hip -0.10, knee 0.50, ankle -0.40)
-on flat ground. Rendered preview is a visual check, not a physics result.
+The preview places links at a level-sole crouch (default digitigrade hip -0.10, knee 0.50; ankle = -(hip+knee);
+digitigrade_low uses -0.80 1.65) on flat ground. Rendered preview is a visual check, not a physics result.
 """
 import sys
 from collections import defaultdict
@@ -25,11 +25,12 @@ from lateral_feasibility import Model  # noqa: E402
 args = sys.argv[sys.argv.index('--')+1:]
 asset, urdf, out = Path(args[0]), Path(args[1]), Path(args[2])
 preview = args[3] if len(args) > 3 else None
+hip, knee = (float(args[4]), float(args[5])) if len(args) > 5 else (-.10, .50)
 out.mkdir(parents=True, exist_ok=True)
 model = Model(urdf.read_text())
 zero = model.fk({})
 pose = {f'{s}_{j}_joint': v for s in ('left', 'right')
-        for j, v in (('hip_pitch', -.10), ('knee_pitch', .50), ('ankle_pitch', -.40))}
+        for j, v in (('hip_pitch', hip), ('knee_pitch', knee), ('ankle_pitch', -(hip+knee)))}
 posed = model.fk(pose)
 
 bpy.ops.wm.read_factory_settings(use_empty=True)
