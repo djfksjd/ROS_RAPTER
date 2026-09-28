@@ -73,3 +73,5 @@ File 34 verifies that refused development probes emit no trajectory commands.
 - `58-mujoco-lateral-rocking.json`: MuJoCo open-loop 흔들기/보폭 견고성(60s, 질량·마찰 변화). 보행 성공 아님.
 - `59-mujoco-rocking-robustness.json`: elliptic cone 모델 흔들기 open/closed-loop 9조건 60s.
 - `60-mujoco-stride-clean-steps.json`: 보폭+발목 피드백 깨끗한 걸음 지표, servo kv 30/50/100 비교. 조건부 결과.
+- `61-gazebo-servo-step-*.json`: 고정 베이스 servo 계단 응답(발목/무릎/hip, 발가락 유무, 0.5ms, Bullet-FS). DART 발목 포화 결함 재현.
+- `62-gazebo-bullet-featherstone-standing.txt`: Bullet-FS 전신 기립 실패 기록.

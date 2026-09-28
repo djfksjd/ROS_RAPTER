@@ -122,3 +122,8 @@ UNI_AI 원인 검토(`gpt-6-sol`, 1,945 tokens)는 뒤꿈치 강체 지지(9cm) 
 다음 한 단계: servo 동특성 식별. Gazebo에서 한 관절 계단/경사 응답(명령·위치·속도, 1ms)을 기록해
 MuJoCo kv를 맞춘 뒤 60번 시험을 다시 한다. Gazebo 실행이 필요하므로 사용자 확인 후 진행한다.
 대안은 kv를 도메인 무작위화 범위로 두고 RL로 넘어가는 것이다.
+
+### Gazebo servo 식별 결과 반영 (2026-09-28)
+
+고정 베이스 계단 응답으로는 MuJoCo kv가 결정되지 않았고, Gazebo DART는 발목 속도 포화 시 결함을 보였다.
+60번 결과는 계속 조건부다. 방법론과 다음 단계: [SIMULATION_METHODOLOGY](SIMULATION_METHODOLOGY.ko.md).

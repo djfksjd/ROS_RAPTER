@@ -13,7 +13,8 @@
 MuJoCo 모델 대응과 정적 기립 비교까지 완료: MUJOCO_MJX_ROADMAP.ko.md 진행 기록.
 open-loop 흔들기 시험 완료(58): 교대 지지는 μ1에서만 안정, 보폭 전진은 깨끗한 걸음 미확립.
 closed-loop 단계 완료(59, 60): 교대 지지 견고, 깨끗한 걸음은 servo kv 가정(30)에서만.
-다음 재개 지점: Gazebo 한 관절 servo 응답 식별(실험 재시작이므로 사용자 확인) → MuJoCo kv 확정 → 60번 재시험.
+Gazebo servo 식별 완료(61, 62): DART 발목 포화 결함, kv는 고정 베이스로 결정 불가. SIMULATION_METHODOLOGY.ko.md.
+다음 재개 지점: actuator 후보 사양 범위 확정(사용자) → MuJoCo actuator 모델 교체·범위 평가. 실험 컨테이너는 정지 상태.
 
 ## 이전 일시정지 체크포인트 — 2026-09-27
 

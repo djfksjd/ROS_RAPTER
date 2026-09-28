@@ -49,7 +49,9 @@ MuJoCo 모델 변환·계약 시험 통과, crouch 시작 정적 기립 10s 통�
 보폭 추가 전진은 미끄럼·반복 착지 혼합, 깨끗한 걸음 미확립. open-loop 수치 탐색 중단.
 59: 마찰 cone을 elliptic으로 수정 후 흔들기 open-loop μ0.5~1.0×질량±10% 60s 9/9. roll 위상 피드백 필수 아님.
 60: 보폭+발목 pitch 피드백은 servo kv30에서만 명목 깨끗한 걸음(+4.9m/60s). kv50/100 실패 → 조건부, 보행 미확정.
-다음: Gazebo servo 응답 식별로 kv 결정(사용자 확인 필요) 또는 kv 무작위화 RL. MJX/JAX 미설치.
+61: Gazebo servo 식별(사용자 승인) — 기본 DART에서 발목 속도 포화 시 목표 초과·한도 고착 결함 재현. Bullet-FS는 관절은 정상이나 전신 사용 불가(62).
+고정 베이스 시험은 kv를 정하지 못함. 방법론: SIMULATION_METHODOLOGY.ko.md.
+다음: actuator 후보 사양 범위(사용자 확인) → MuJoCo actuator를 토크 한도 PD+속도-토크+지연으로 교체해 60 재평가. Gazebo에는 포화 감시 추가. MJX/JAX 미설치.
 기본 강성/gain/속도/effort 제한 변경 없음. 안정 보행/강화학습 등 전체 목표 미완료.
 
 ## 알려진 실패
