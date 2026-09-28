@@ -1,0 +1,635 @@
+{
+ "limitation": "IMU-triggered sparse samples; contact topics publish only non-empty contacts.",
+ "limit_samples": 12,
+ "not_explained_by_command": 7,
+ "velocity_limit_samples": [
+  {
+   "sim_time": 7.76,
+   "joint": "right_ankle_pitch_joint",
+   "error_rad": -0.007698956263266388,
+   "p_command_rad_s": 0.23096868789799163,
+   "measured_rad_s": -2.5000000007964074,
+   "explained_by_command": false,
+   "transmitted_effort": 0.43275401024623705
+  },
+  {
+   "sim_time": 7.94,
+   "joint": "left_ankle_pitch_joint",
+   "error_rad": -0.020646955357988106,
+   "p_command_rad_s": 0.6194086607396432,
+   "measured_rad_s": -2.443215416222875,
+   "explained_by_command": false,
+   "transmitted_effort": 3.2526065174565133e-16
+  },
+  {
+   "sim_time": 7.94,
+   "joint": "right_ankle_pitch_joint",
+   "error_rad": -0.02878309552780145,
+   "p_command_rad_s": 0.8634928658340435,
+   "measured_rad_s": -2.5000000020741466,
+   "explained_by_command": false,
+   "transmitted_effort": 1.129330271615716
+  },
+  {
+   "sim_time": 8.0,
+   "joint": "left_ankle_pitch_joint",
+   "error_rad": -0.02811116557789911,
+   "p_command_rad_s": 0.8433349673369733,
+   "measured_rad_s": -2.5000000015383943,
+   "explained_by_command": false,
+   "transmitted_effort": 0.8376227810847782
+  },
+  {
+   "sim_time": 8.0,
+   "joint": "right_ankle_pitch_joint",
+   "error_rad": -0.030406785257201474,
+   "p_command_rad_s": 0.9122035577160442,
+   "measured_rad_s": -2.500000001871865,
+   "explained_by_command": false,
+   "transmitted_effort": 1.0196187451433323
+  },
+  {
+   "sim_time": 8.3,
+   "joint": "left_ankle_pitch_joint",
+   "error_rad": -0.08755634698437037,
+   "p_command_rad_s": 2.5,
+   "measured_rad_s": 2.4999999912319946,
+   "explained_by_command": true,
+   "transmitted_effort": 4.859587231187266
+  },
+  {
+   "sim_time": 8.3,
+   "joint": "right_ankle_pitch_joint",
+   "error_rad": -0.08444684646127526,
+   "p_command_rad_s": 2.5,
+   "measured_rad_s": 2.4999999970553315,
+   "explained_by_command": true,
+   "transmitted_effort": 1.6254543911037043
+  },
+  {
+   "sim_time": 8.36,
+   "joint": "left_ankle_pitch_joint",
+   "error_rad": -0.10779560440834318,
+   "p_command_rad_s": 2.5,
+   "measured_rad_s": 2.499999990866217,
+   "explained_by_command": true,
+   "transmitted_effort": 5.088805754500487
+  },
+  {
+   "sim_time": 8.36,
+   "joint": "right_ankle_pitch_joint",
+   "error_rad": -0.0805130909538409,
+   "p_command_rad_s": 2.415392728615227,
+   "measured_rad_s": 2.4999999975035503,
+   "explained_by_command": true,
+   "transmitted_effort": 1.375467553673556
+  },
+  {
+   "sim_time": 8.42,
+   "joint": "left_ankle_pitch_joint",
+   "error_rad": -0.13672706213123514,
+   "p_command_rad_s": 2.5,
+   "measured_rad_s": -2.500000002438017,
+   "explained_by_command": false,
+   "transmitted_effort": 1.358375733166081
+  },
+  {
+   "sim_time": 8.48,
+   "joint": "left_ankle_pitch_joint",
+   "error_rad": -0.10148094210928976,
+   "p_command_rad_s": 2.5,
+   "measured_rad_s": 2.499999932890037,
+   "explained_by_command": true,
+   "transmitted_effort": 37.33068710537241
+  },
+  {
+   "sim_time": 8.48,
+   "joint": "right_ankle_pitch_joint",
+   "error_rad": -0.057870852559739616,
+   "p_command_rad_s": 1.7361255767921886,
+   "measured_rad_s": 2.480179392492011,
+   "explained_by_command": false,
+   "transmitted_effort": 1.0605258592142996
+  }
+ ],
+ "sole_contact": [
+  {
+   "sim_time": 6.32,
+   "body_roll_rad": 0.0014703341678700605,
+   "left": {
+    "sole_tilt_deg": 0.07317332839572023,
+    "fresh_contact_points": 3,
+    "contact_y_span_mm": 114.7123004264449
+   },
+   "right": {
+    "sole_tilt_deg": 0.07317332820146738,
+    "fresh_contact_points": 8,
+    "contact_y_span_mm": 114.7176661742992
+   }
+  },
+  {
+   "sim_time": 6.38,
+   "body_roll_rad": -0.00029473401889304463,
+   "left": {
+    "sole_tilt_deg": 0.8155470524530424,
+    "fresh_contact_points": 4,
+    "contact_y_span_mm": 17.442926449018266
+   },
+   "right": {
+    "sole_tilt_deg": 0.8145647486718858,
+    "fresh_contact_points": 4,
+    "contact_y_span_mm": 57.307081948711534
+   }
+  },
+  {
+   "sim_time": 6.44,
+   "body_roll_rad": 0.0007705115385121342,
+   "left": {
+    "sole_tilt_deg": 1.366608433431206,
+    "fresh_contact_points": 3,
+    "contact_y_span_mm": 9.030287158337341
+   },
+   "right": {
+    "sole_tilt_deg": 1.3661772254770899,
+    "fresh_contact_points": 2,
+    "contact_y_span_mm": 17.441084192592076
+   }
+  },
+  {
+   "sim_time": 6.5,
+   "body_roll_rad": 0.00041490743537190254,
+   "left": {
+    "sole_tilt_deg": 2.000758509060463,
+    "fresh_contact_points": 3,
+    "contact_y_span_mm": 9.03288020058482
+   },
+   "right": {
+    "sole_tilt_deg": 2.000622670160881,
+    "fresh_contact_points": 2,
+    "contact_y_span_mm": 17.45804667047647
+   }
+  },
+  {
+   "sim_time": 6.5600000000000005,
+   "body_roll_rad": 0.00011379748817912266,
+   "left": {
+    "sole_tilt_deg": 2.5407689099501103,
+    "fresh_contact_points": 3,
+    "contact_y_span_mm": 9.042069536252779
+   },
+   "right": {
+    "sole_tilt_deg": 2.5407461011834434,
+    "fresh_contact_points": 4,
+    "contact_y_span_mm": 17.473483333341992
+   }
+  },
+  {
+   "sim_time": 6.62,
+   "body_roll_rad": 1.7650625921980057e-06,
+   "left": {
+    "sole_tilt_deg": 3.2712607945096477,
+    "fresh_contact_points": 4,
+    "contact_y_span_mm": 17.499452557858675
+   },
+   "right": {
+    "sole_tilt_deg": 3.271258917674292,
+    "fresh_contact_points": 4,
+    "contact_y_span_mm": 17.498895694363235
+   }
+  },
+  {
+   "sim_time": 6.68,
+   "body_roll_rad": -1.0664197947119762e-06,
+   "left": {
+    "sole_tilt_deg": 3.79916216164641,
+    "fresh_contact_points": 4,
+    "contact_y_span_mm": 17.538098286605937
+   },
+   "right": {
+    "sole_tilt_deg": 3.799161846080339,
+    "fresh_contact_points": 4,
+    "contact_y_span_mm": 17.534185097858217
+   }
+  },
+  {
+   "sim_time": 6.74,
+   "body_roll_rad": -1.3426604470170445e-07,
+   "left": {
+    "sole_tilt_deg": 4.427845305829595,
+    "fresh_contact_points": 4,
+    "contact_y_span_mm": 20.509617342342136
+   },
+   "right": {
+    "sole_tilt_deg": 4.427845268183625,
+    "fresh_contact_points": 4,
+    "contact_y_span_mm": 20.50750027104496
+   }
+  },
+  {
+   "sim_time": 6.8,
+   "body_roll_rad": 2.760316295824026e-07,
+   "left": {
+    "sole_tilt_deg": 5.051782312217292,
+    "fresh_contact_points": 4,
+    "contact_y_span_mm": 20.550869354916344
+   },
+   "right": {
+    "sole_tilt_deg": 5.051782307779485,
+    "fresh_contact_points": 4,
+    "contact_y_span_mm": 20.560903277828835
+   }
+  },
+  {
+   "sim_time": 6.86,
+   "body_roll_rad": 1.9424681242295678e-07,
+   "left": {
+    "sole_tilt_deg": 5.673026508839254,
+    "fresh_contact_points": 4,
+    "contact_y_span_mm": 20.603094277726747
+   },
+   "right": {
+    "sole_tilt_deg": 5.673026508281467,
+    "fresh_contact_points": 4,
+    "contact_y_span_mm": 20.60887983374318
+   }
+  },
+  {
+   "sim_time": 6.92,
+   "body_roll_rad": 4.914387671500513e-07,
+   "left": {
+    "sole_tilt_deg": 6.392004266638757,
+    "fresh_contact_points": 4,
+    "contact_y_span_mm": 17.71591969838851
+   },
+   "right": {
+    "sole_tilt_deg": 6.392004267294922,
+    "fresh_contact_points": 4,
+    "contact_y_span_mm": 17.719634743628575
+   }
+  },
+  {
+   "sim_time": 6.98,
+   "body_roll_rad": -1.1775455111678648e-06,
+   "left": {
+    "sole_tilt_deg": 6.904985918977431,
+    "fresh_contact_points": 4,
+    "contact_y_span_mm": 17.761731496679754
+   },
+   "right": {
+    "sole_tilt_deg": 6.904985919716118,
+    "fresh_contact_points": 4,
+    "contact_y_span_mm": 17.76385115461032
+   }
+  },
+  {
+   "sim_time": 7.04,
+   "body_roll_rad": 2.5594620634540846e-06,
+   "left": {
+    "sole_tilt_deg": 7.628600024418908,
+    "fresh_contact_points": 4,
+    "contact_y_span_mm": 17.819315900197363
+   },
+   "right": {
+    "sole_tilt_deg": 7.628600024917588,
+    "fresh_contact_points": 4,
+    "contact_y_span_mm": 17.802933311507356
+   }
+  },
+  {
+   "sim_time": 7.1,
+   "body_roll_rad": 1.6427424008456934e-06,
+   "left": {
+    "sole_tilt_deg": 8.251971539164318,
+    "fresh_contact_points": 4,
+    "contact_y_span_mm": 17.890751842072977
+   },
+   "right": {
+    "sole_tilt_deg": 8.251971538915948,
+    "fresh_contact_points": 4,
+    "contact_y_span_mm": 17.881203835494077
+   }
+  },
+  {
+   "sim_time": 7.16,
+   "body_roll_rad": 8.767623744785853e-07,
+   "left": {
+    "sole_tilt_deg": 8.775923144452682,
+    "fresh_contact_points": 4,
+    "contact_y_span_mm": 17.97477455308191
+   },
+   "right": {
+    "sole_tilt_deg": 8.775923144192182,
+    "fresh_contact_points": 4,
+    "contact_y_span_mm": 17.96916023419723
+   }
+  },
+  {
+   "sim_time": 7.22,
+   "body_roll_rad": 5.7936398049811656e-06,
+   "left": {
+    "sole_tilt_deg": 9.503058329918462,
+    "fresh_contact_points": 4,
+    "contact_y_span_mm": 18.08502494068609
+   },
+   "right": {
+    "sole_tilt_deg": 9.503058329759762,
+    "fresh_contact_points": 4,
+    "contact_y_span_mm": 18.073612987444697
+   }
+  },
+  {
+   "sim_time": 7.28,
+   "body_roll_rad": 5.943305224357678e-07,
+   "left": {
+    "sole_tilt_deg": 10.029152665040305,
+    "fresh_contact_points": 4,
+    "contact_y_span_mm": 21.10874465445217
+   },
+   "right": {
+    "sole_tilt_deg": 10.02915266470013,
+    "fresh_contact_points": 4,
+    "contact_y_span_mm": 21.128293191341243
+   }
+  },
+  {
+   "sim_time": 7.34,
+   "body_roll_rad": -5.265884237327592e-07,
+   "left": {
+    "sole_tilt_deg": 10.759920052465617,
+    "fresh_contact_points": 4,
+    "contact_y_span_mm": 21.22543066263255
+   },
+   "right": {
+    "sole_tilt_deg": 10.759920052391305,
+    "fresh_contact_points": 4,
+    "contact_y_span_mm": 21.236939174321083
+   }
+  },
+  {
+   "sim_time": 7.4,
+   "body_roll_rad": -4.984965277501093e-07,
+   "left": {
+    "sole_tilt_deg": 11.377778061272512,
+    "fresh_contact_points": 5,
+    "contact_y_span_mm": 21.313998377534503
+   },
+   "right": {
+    "sole_tilt_deg": 11.37777806136444,
+    "fresh_contact_points": 5,
+    "contact_y_span_mm": 21.324720705947044
+   }
+  },
+  {
+   "sim_time": 7.46,
+   "body_roll_rad": -8.577108167275162e-07,
+   "left": {
+    "sole_tilt_deg": 11.996189048346464,
+    "fresh_contact_points": 4,
+    "contact_y_span_mm": 18.462372672638423
+   },
+   "right": {
+    "sole_tilt_deg": 11.99618904884621,
+    "fresh_contact_points": 4,
+    "contact_y_span_mm": 18.470714271099393
+   }
+  },
+  {
+   "sim_time": 7.52,
+   "body_roll_rad": -8.64768997211881e-07,
+   "left": {
+    "sole_tilt_deg": 12.614815963709352,
+    "fresh_contact_points": 4,
+    "contact_y_span_mm": 18.556324564039134
+   },
+   "right": {
+    "sole_tilt_deg": 12.614815964146862,
+    "fresh_contact_points": 4,
+    "contact_y_span_mm": 18.515029748784468
+   }
+  },
+  {
+   "sim_time": 7.58,
+   "body_roll_rad": -2.709720138324128e-06,
+   "left": {
+    "sole_tilt_deg": 13.13349575724559,
+    "fresh_contact_points": 4,
+    "contact_y_span_mm": 18.662941725515193
+   },
+   "right": {
+    "sole_tilt_deg": 13.133495757725933,
+    "fresh_contact_points": 3,
+    "contact_y_span_mm": 9.630126840473762
+   }
+  },
+  {
+   "sim_time": 7.64,
+   "body_roll_rad": -4.545655327134717e-06,
+   "left": {
+    "sole_tilt_deg": 13.750468606240599,
+    "fresh_contact_points": 4,
+    "contact_y_span_mm": 18.78547709804565
+   },
+   "right": {
+    "sole_tilt_deg": 13.75046860649861,
+    "fresh_contact_points": 4,
+    "contact_y_span_mm": 18.767411973388228
+   }
+  },
+  {
+   "sim_time": 7.7,
+   "body_roll_rad": -6.555810846225365e-07,
+   "left": {
+    "sole_tilt_deg": 14.375760320029707,
+    "fresh_contact_points": 4,
+    "contact_y_span_mm": 18.919970017220873
+   },
+   "right": {
+    "sole_tilt_deg": 14.375760320192988,
+    "fresh_contact_points": 4,
+    "contact_y_span_mm": 18.90969820600656
+   }
+  },
+  {
+   "sim_time": 7.76,
+   "body_roll_rad": 4.918649508179199e-05,
+   "left": {
+    "sole_tilt_deg": 15.009583162213383,
+    "fresh_contact_points": 4,
+    "contact_y_span_mm": 19.08948462015894
+   },
+   "right": {
+    "sole_tilt_deg": 15.009583162270491,
+    "fresh_contact_points": 4,
+    "contact_y_span_mm": 19.14083348038213
+   }
+  },
+  {
+   "sim_time": 7.82,
+   "body_roll_rad": -2.158201603508191e-05,
+   "left": {
+    "sole_tilt_deg": 15.733794452215834,
+    "fresh_contact_points": 4,
+    "contact_y_span_mm": 19.201213743774954
+   },
+   "right": {
+    "sole_tilt_deg": 15.733794452103586,
+    "fresh_contact_points": 3,
+    "contact_y_span_mm": 9.904256362887331
+   }
+  },
+  {
+   "sim_time": 7.88,
+   "body_roll_rad": -0.00027348047481947203,
+   "left": {
+    "sole_tilt_deg": 16.393623715895572,
+    "fresh_contact_points": 3,
+    "contact_y_span_mm": 23.243841925604023
+   },
+   "right": {
+    "sole_tilt_deg": 16.39362371574463,
+    "fresh_contact_points": 4,
+    "contact_y_span_mm": 23.198564928471818
+   }
+  },
+  {
+   "sim_time": 7.94,
+   "body_roll_rad": 9.130030664141243e-05,
+   "left": {
+    "sole_tilt_deg": 16.914819054356617,
+    "fresh_contact_points": 4,
+    "contact_y_span_mm": 19.71482350290063
+   },
+   "right": {
+    "sole_tilt_deg": 16.914819054299883,
+    "fresh_contact_points": 4,
+    "contact_y_span_mm": 19.7243198170835
+   }
+  },
+  {
+   "sim_time": 8.0,
+   "body_roll_rad": -0.0007866618596066457,
+   "left": {
+    "sole_tilt_deg": 17.711341050922485,
+    "fresh_contact_points": 4,
+    "contact_y_span_mm": 20.007892737964774
+   },
+   "right": {
+    "sole_tilt_deg": 17.71134105078946,
+    "fresh_contact_points": 3,
+    "contact_y_span_mm": 10.277034166881304
+   }
+  },
+  {
+   "sim_time": 8.06,
+   "body_roll_rad": -0.0002881528867978898,
+   "left": {
+    "sole_tilt_deg": 18.24086341946891,
+    "fresh_contact_points": 4,
+    "contact_y_span_mm": 20.180338002760116
+   },
+   "right": {
+    "sole_tilt_deg": 18.240617850745714,
+    "fresh_contact_points": 3,
+    "contact_y_span_mm": 10.379365821357151
+   }
+  },
+  {
+   "sim_time": 8.12,
+   "body_roll_rad": -0.000699863314055563,
+   "left": {
+    "sole_tilt_deg": 18.939311259005024,
+    "fresh_contact_points": 4,
+    "contact_y_span_mm": 20.68298270492
+   },
+   "right": {
+    "sole_tilt_deg": 18.939282458439124,
+    "fresh_contact_points": 3,
+    "contact_y_span_mm": 10.675700654202105
+   }
+  },
+  {
+   "sim_time": 8.18,
+   "body_roll_rad": -0.0013127073336117196,
+   "left": {
+    "sole_tilt_deg": 19.781977838130835,
+    "fresh_contact_points": 5,
+    "contact_y_span_mm": 23.773659137376086
+   },
+   "right": {
+    "sole_tilt_deg": 19.781477698089706,
+    "fresh_contact_points": 3,
+    "contact_y_span_mm": 10.859565050350724
+   }
+  },
+  {
+   "sim_time": 8.24,
+   "body_roll_rad": -0.0019521629221024152,
+   "left": {
+    "sole_tilt_deg": 20.440024134643544,
+    "fresh_contact_points": 5,
+    "contact_y_span_mm": 25.540367790132773
+   },
+   "right": {
+    "sole_tilt_deg": 20.43834965151188,
+    "fresh_contact_points": 3,
+    "contact_y_span_mm": 10.931579024099234
+   }
+  },
+  {
+   "sim_time": 8.3,
+   "body_roll_rad": -0.004446355393370694,
+   "left": {
+    "sole_tilt_deg": 21.326969509663588,
+    "fresh_contact_points": 3,
+    "contact_y_span_mm": 25.92063942476347
+   },
+   "right": {
+    "sole_tilt_deg": 21.321087712133735,
+    "fresh_contact_points": 3,
+    "contact_y_span_mm": 11.176422941272483
+   }
+  },
+  {
+   "sim_time": 8.36,
+   "body_roll_rad": -0.014207260475361656,
+   "left": {
+    "sole_tilt_deg": 22.248680965612778,
+    "fresh_contact_points": 3,
+    "contact_y_span_mm": 26.54472176590536
+   },
+   "right": {
+    "sole_tilt_deg": 22.243319995241226,
+    "fresh_contact_points": 2,
+    "contact_y_span_mm": 11.038701268600084
+   }
+  },
+  {
+   "sim_time": 8.42,
+   "body_roll_rad": -0.02578706019834722,
+   "left": {
+    "sole_tilt_deg": 23.15193120554037,
+    "fresh_contact_points": 4,
+    "contact_y_span_mm": 22.617054302448146
+   },
+   "right": {
+    "sole_tilt_deg": 23.145020437106822,
+    "fresh_contact_points": 1,
+    "contact_y_span_mm": 0.0
+   }
+  },
+  {
+   "sim_time": 8.48,
+   "body_roll_rad": -0.0385543434665659,
+   "left": {
+    "sole_tilt_deg": 24.19802717424768,
+    "fresh_contact_points": 4,
+    "contact_y_span_mm": 26.052385538731958
+   },
+   "right": {
+    "sole_tilt_deg": 24.191862430139825,
+    "fresh_contact_points": 1,
+    "contact_y_span_mm": 0.0
+   }
+  }
+ ]
+}

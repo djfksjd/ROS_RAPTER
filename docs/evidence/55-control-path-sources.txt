@@ -1,0 +1,32 @@
+Control/physics path actually used by the ROS Gazebo runtime (checked 2026-09-28)
+
+Installed in image raptor:jazzy-local (dpkg / library files):
+  ros-jazzy-gz-ros2-control 1.2.20-1noble.20260904.032933
+  ros-jazzy-gz-physics-vendor 0.0.9 -> libgz-physics7-dartsim-plugin.so.7.8.0
+  gz_dartsim_vendor -> libdart*.so.6.13.2
+  Gazebo Sim 8.15.0 (INSTALLATION_REPORT)
+
+Saved settings (repository):
+  worlds/*.sdf: <physics type="ignored"> max_step_size 0.001, real_time_factor 1.0.
+    Physics system plugin has no <engine>, so gz-sim uses its default DART plugin.
+  controllers.yaml: controller_manager update_rate 100; JointTrajectoryController, position command.
+  raptor.urdf.xacro: position_proportional_gain 0.3; hold_joints true.
+    ankle_pitch velocity 2.5 rad/s effort 80; hip_roll 2.0/80; hip_pitch 2.5/100; knee 3.0/120.
+
+Upstream source at the installed versions:
+  gz_ros2_control 1.2.20 gz_ros2_control_plugin.cpp
+    PreUpdate: controller_manager->write() every physics step ("Always set commands on joints").
+    PostUpdate: read()+update() only when sim_period >= control_period (1/update_rate).
+  gz_ros2_control 1.2.20 gz_system.cpp write(), POSITION branch (L797-815):
+    error = (joint_position - joint_position_cmd) * update_rate
+    target_vel = -position_proportional_gain * error  -> JointVelocityCmd
+    joint_position is refreshed in read() (L682), i.e. every 10 ms, while write() runs every 1 ms.
+    Effective P gain 0.3*100 = 30 1/s; |target_vel| reaches 2.5 rad/s only for |error| >= 0.0833 rad.
+  gz-sim 8.15.0 systems/physics/Physics.cc (L2513-2570): JointVelocityCmd -> SetVelocityCommand.
+  gz-physics 7 dartsim JointFeatures.cc SetJointVelocityCommand: actuator type SERVO.
+  DART 6.13.2 GenericJoint::setCommand SERVO: command clipped to velocity limits.
+  DART 6.13.2 JointConstraint: position limits, velocity limits and servo motor constraints;
+    servo force bounded by joint force (effort) limits.
+
+Not verified here: runtime-loaded engine name from a live log, and whether JointTransmittedWrench
+includes the constraint impulses of the same step. No simulation was started for this record.
