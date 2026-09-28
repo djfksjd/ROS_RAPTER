@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """MuJoCo side of the evidence-73/74 lateral experiments, tail fixed. Gazebo runs use rock_gz_probe.py.
 
-Usage: python lateral_experiments.py OUT.json {A|B|D|E|F|G|P} [--kv 20 30 100] [--cycles 150]
+Usage: python lateral_experiments.py OUT.json {A|B|D|E|F|G|P|R|S} [--kv 20 30 100] [--cycles 150]
 A/B rows: fall time and roll_diagnosis.table_metrics over [2 s, fall or end] (60 s gait).
 F rows: rate-limited hip-roll steps from the crouch (rock_law.step_roll); per event the lifted foot, liftoff ->
 touchdown time and release -> touchdown time from normal forces (off < 5 % weight, on >= 20 % held 20 ms).
@@ -22,7 +22,14 @@ SWEEPS = {'A': [('amplitude', a) for a in (.08, .04, .02, .01, 0.)],
           'D': [('delay', d) for d in (0., .02, .04, .06)],  # command delay injected in MuJoCo (evidence 74)
           'P': [('pll', (k, .4)) for k in (0., 1.5, 2.5, 3.5)],  # stage 2 (1): touchdown-anchored clock
           'G': [('combo', c) for c in ({}, {'pll': (3.5, .4)}, {'damping': (.03, -1.)},  # stage 2 (1)+(2) ablation
-                                       {'pll': (3.5, .4), 'damping': (.03, -1.)}, {'pll': (3.5, .4), 'damping': (.05, -1.)})]}
+                                       {'pll': (3.5, .4), 'damping': (.03, -1.)}, {'pll': (3.5, .4), 'damping': (.05, -1.)})],
+          # Fable review 3 separation: R long cosine ramp, A open loop 2.29 Hz, B replay of Gazebo PLL v1 run 1, C PLL v3
+          'S': [('combo', c) for c in ({'ramp_shape': 'cosine', 'stride_ramp': 2., 'ramp': 3.}, {'frequency': 2.29},
+                                       {'freq_profile': 'pll_v1_run1'},
+                                       {'pll': (2., .25, {'accept': 'last', 'learn': 4})})],
+          # long cosine ramp (R) with smaller rocking amplitude for the Fy/Fz <= 0.4 criterion, and mirrored R
+          'R': [('combo', dict({'ramp_shape': 'cosine', 'stride_ramp': 2., 'ramp': 3.}, **x))
+                for x in ({}, {'amplitude': .07}, {'amplitude': .065}, {'mirror': True})]}
 
 
 def one(job):
@@ -30,7 +37,13 @@ def one(job):
     frequency = value if key == 'frequency' else 2.5
     if key == 'frequency':
         cycles = int(round(60*frequency))  # always 60 s of gait
-    series, result = rd.mujoco_series(kv, cycles, **(value if key == 'combo' else {key: value}))
+    kwargs = dict(value) if key == 'combo' else {key: value}
+    if kwargs.get('freq_profile') == 'pll_v1_run1':
+        kwargs['freq_profile'] = json.loads((rd.HERE.parent/'src/raptor_control/config/pll_v1_run1_frequency_profile.json').read_text())
+    frequency = kwargs.get('frequency', frequency)
+    if key == 'combo':
+        cycles = int(round(60*frequency))
+    series, result = rd.mujoco_series(kv, cycles, **kwargs)
     fall = result['stopped_by_guard_at_s']
     end = fall if fall else float(series['t'][-1])
     extra = {}

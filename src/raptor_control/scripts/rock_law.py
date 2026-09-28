@@ -21,13 +21,15 @@ def crouch_pose(joints, hip, knee):
 
 
 def targets(pose, a, amplitude, frequency, ramp, stride=0., window=.35, pitch=0., pitch_rate=0., feedback=None,
-            mirror=False, abduction=0., cycle=None):
+            mirror=False, abduction=0., cycle=None, ramp_shape='linear', stride_ramp=1.):
     target = dict(pose)
     if a < 0:
         return target
     # cycle: external gait clock in cycles (TouchdownPLL); default is the open-loop time clock a*frequency
     c = a*frequency if cycle is None else cycle
-    r = amplitude*min(1., a/ramp)*math.sin(2*math.pi*c)*(-1 if mirror else 1)
+    u = min(1., a/ramp)
+    gain = .5*(1-math.cos(math.pi*u)) if ramp_shape == 'cosine' else u  # raised cosine: zero slope at both ends
+    r = amplitude*gain*math.sin(2*math.pi*c)*(-1 if mirror else 1)
     # abduction: +delta on both hip rolls moves both feet outward (right axis is -x); ramped in with the gait
     ab = abduction*min(1., a/ramp)
     target |= {'left_hip_roll_joint': -r+ab, 'right_hip_roll_joint': r+ab}
@@ -36,7 +38,7 @@ def targets(pose, a, amplitude, frequency, ramp, stride=0., window=.35, pitch=0.
         offset = (cycle-center+.5) % 1-.5
         u = (offset+window/2)/window
         swing = -stride*(u-.5) if 0 <= u <= 1 else -stride*(.5-((offset-window/2) % 1)/(1-window))
-        swing *= min(1., max(0., a-ramp))
+        swing *= min(1., max(0., (a-ramp)/stride_ramp))
         target[f'{side}_hip_pitch_joint'] = pose[f'{side}_hip_pitch_joint']+swing
         target[f'{side}_ankle_pitch_joint'] = pose[f'{side}_ankle_pitch_joint']-swing
     if feedback:
@@ -179,6 +181,28 @@ class ContactEvents:
         return None
 
 
+class FrequencyProfile:
+    """Replay a recorded command-frequency history [(t, f), ...] (piecewise constant) as a gait clock (experiment B)."""
+
+    def __init__(self, f0, points):
+        self.f0, self.points, self.c, self.t = f0, sorted(points), 0., None
+        self.events = []  # same interface as TouchdownPLL (no feedback events)
+
+    def frequency(self, t):
+        f = self.f0
+        for tp, fp in self.points:
+            if tp > t:
+                break
+            f = fp
+        return f
+
+    def update(self, t, forces=None):
+        if self.t is not None:
+            self.c += self.frequency(self.t)*max(0., t-self.t)
+        self.t = t
+        return self.c
+
+
 class TouchdownPLL:
     """Stage 2 (1): touchdown-anchored gait clock (Fable review, evidence 74). The cycle variable c is integrated at
     f; at each debounced touchdown the phase error e = wrap(nominal - c mod 1) (cycles, [-0.5, 0.5)) sets
@@ -188,13 +212,21 @@ class TouchdownPLL:
     Touchdowns of the same foot sooner than `min_gap` cycles after its last accepted one are bounces and ignored;
     no frequency change before `active_after` (caller's clock: ramp end), where contacts are still ambiguous."""
 
-    def __init__(self, f0, k=2.5, clamp=.4, nominal=(.595, .095), window=0., min_gap=.6, active_after=-math.inf):
+    def __init__(self, f0, k=2.5, clamp=.4, nominal=(.595, .095), window=0., min_gap=.6, active_after=-math.inf,
+                 accept='first', cluster=.25, learn=0):
         self.f0, self.k, self.clamp = f0, k, clamp
         self.nominal = {'left': nominal[0], 'right': nominal[1]}
         self.detect = {s: ContactEvents() for s in self.nominal}
         self.smooth = {s: WindowMax(window) for s in self.nominal} if window > 0 else None
         self.f, self.c, self.t, self.events = f0, 0., None, []
         self.min_gap, self.active_after, self.last_touchdown = min_gap/f0, active_after, {}
+        # v3 (Fable review 3): accept='last' keeps the LAST touchdown of a burst within `cluster` cycles (committed
+        # once the burst is over); learn=N learns each foot's nominal phase as the circular mean of its first N
+        # accepted touchdowns after active_after (no retuning until learned)
+        self.accept, self.cluster, self.learn = accept, cluster/f0, learn
+        self.pending, self.samples = {}, {'left': [], 'right': []}
+        if learn:
+            self.nominal = {}
 
     def update(self, t, forces):
         if self.t is not None:
@@ -203,15 +235,33 @@ class TouchdownPLL:
         for side, force in forces.items():
             if self.smooth:
                 force = self.smooth[side].update(t, force)
-            if self.detect[side].update(t, force) == 'touchdown':
+            touchdown = self.detect[side].update(t, force) == 'touchdown'
+            if self.accept == 'last':
+                if touchdown:
+                    self.pending[side] = (t, self.c)
+                if side in self.pending and t-self.pending[side][0] >= self.cluster:
+                    self._accept(side, *self.pending.pop(side))
+                continue
+            if touchdown:
                 if t-self.last_touchdown.get(side, -math.inf) < self.min_gap or t < self.active_after:
                     self.last_touchdown.setdefault(side, t)
                     continue
                 self.last_touchdown[side] = t
-                e = (self.nominal[side]-self.c % 1+.5) % 1-.5
-                self.f = min(self.f0+self.clamp, max(self.f0-self.clamp, self.f0+self.k*e))
-                self.events.append((round(t, 4), side, round(e, 4), round(self.f, 4)))
+                self._accept(side, t, self.c)
         return self.c
+
+    def _accept(self, side, t, c):
+        if t < self.active_after:
+            return
+        if side not in self.nominal:  # learning the nominal phase online
+            self.samples[side].append(c % 1)
+            if len(self.samples[side]) >= self.learn:
+                z = sum(complex(math.cos(2*math.pi*x), math.sin(2*math.pi*x)) for x in self.samples[side])
+                self.nominal[side] = (math.atan2(z.imag, z.real)/(2*math.pi)) % 1
+            return
+        e = (self.nominal[side]-c % 1+.5) % 1-.5
+        self.f = min(self.f0+self.clamp, max(self.f0-self.clamp, self.f0+self.k*e))
+        self.events.append((round(t, 4), side, round(e, 4), round(self.f, 4)))
 
 
 def antipump(roll_rate, stance, k_d, sign=1., clamp=.03):

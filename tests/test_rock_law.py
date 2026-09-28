@@ -6,7 +6,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT/'src/raptor_control/scripts'))
-from rock_law import (ContactEvents, GaitPhase, SlewLimiter, TailSync, TouchdownPLL, WindowMax, antipump,  # noqa: E402
+from rock_law import (ContactEvents, FrequencyProfile, GaitPhase, SlewLimiter, TailSync, TouchdownPLL,  # noqa: E402
+                      WindowMax, antipump,
                       crouch_pose,
                       step_roll,
                       tail_sync_targets, tail_targets, targets)
@@ -175,6 +176,38 @@ class RockLawTest(unittest.TestCase):
                 pll.update(t+k*.001, {'left': f, 'right': 100.})
         # touchdown at ~0.55 s is before active_after; ~1.55 s is accepted; ~1.65 s is a bounce (< 0.24 s later)
         self.assertEqual([e[0] for e in pll.events], [1.55])
+
+    def test_cosine_ramp_and_longer_stride_ramp(self):
+        t = targets(POSE, 1.5, .08, 2.5, 3., ramp_shape='cosine', cycle=.25)  # halfway: raised cosine = 0.5
+        self.assertAlmostEqual(t['right_hip_roll_joint'], .04)
+        base = targets(POSE, 4., .08, 2.5, 3., stride=.08, stride_ramp=2.)  # 1 s into a 2 s stride ramp: half
+        full = targets(POSE, 6., .08, 2.5, 3., stride=.08, stride_ramp=2.)
+        swing = base['left_hip_pitch_joint']-POSE['left_hip_pitch_joint']
+        ref = reference(4., .08, ramp=3.)['left']/min(1., 4.-3.)*.5
+        self.assertAlmostEqual(swing, ref)
+        self.assertNotEqual(full['left_hip_pitch_joint'], POSE['left_hip_pitch_joint'])
+
+    def test_frequency_profile_replay(self):
+        prof = FrequencyProfile(2.5, [(1., 2.0), (2., 3.0)])
+        for k in range(301):
+            c = prof.update(k*.01)
+        self.assertAlmostEqual(c, 2.5+2.0+3.0, places=6)  # 1 s at each frequency
+
+    def test_pll_v3_accepts_last_of_burst_and_learns_nominal(self):
+        pll = TouchdownPLL(2.5, k=2., clamp=.25, accept='last', learn=2)
+        t, dt, left = 0., .001, 100.
+        def run(until, f_left):
+            nonlocal t
+            while t < until:
+                t += dt
+                pll.update(t, {'left': f_left, 'right': 100.})
+        run(.1, 100.)
+        for cycle_start in (0., .4, .8, 1.2):  # left lifts, lands early (bounce), lifts, lands again 60 ms later
+            run(cycle_start+.2, 0.); run(cycle_start+.24, 100.); run(cycle_start+.27, 0.); run(cycle_start+.40, 100.)
+        self.assertEqual(set(pll.nominal), {'left'})
+        self.assertEqual(len(pll.events), 2)  # 2 learned, then 2 corrections
+        for e in pll.events:
+            self.assertLess(abs(e[2]), .02)  # same timing every cycle: zero phase error after learning
 
 
 if __name__ == '__main__':

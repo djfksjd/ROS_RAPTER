@@ -1,0 +1,347 @@
+[
+ {
+  "kv": 20.0,
+  "combo": {
+   "ramp_shape": "cosine",
+   "stride_ramp": 2.0,
+   "ramp": 3.0
+  },
+  "fall_s": 8.288,
+  "x_m": 0.18969602643497108,
+  "window_s": [
+   2.0,
+   8.29
+  ],
+  "com_y_0.3_1.6Hz_m": 0.06958954884525272,
+  "com_y_low_peak_hz": 0.6359300476947536,
+  "com_y_2_3Hz_m": 0.006674219226585987,
+  "body_y_2_3Hz_m": 0.00664594241510909,
+  "roll_2_3Hz_rad": 0.03601658942241027,
+  "loaded_fy_fz_p90": 0.23568783608966407,
+  "load_share_left": 0.5248970854782689,
+  "growth_per_step_median": 0.9948361119386768,
+  "growth_per_step_max": 1.9959583963992582,
+  "roll_0.3_1.6Hz_rad": 0.06310446997636976,
+  "roll_low_peak_hz": 0.6359300476947536,
+  "single_support_median_s": 0.1599999999999997,
+  "com_y_f_over_3_m": 0.03093596310116276,
+  "com_y_f_m": 0.005185109667654934
+ },
+ {
+  "kv": 20.0,
+  "combo": {
+   "ramp_shape": "cosine",
+   "stride_ramp": 2.0,
+   "ramp": 3.0,
+   "amplitude": 0.07
+  },
+  "fall_s": null,
+  "x_m": 5.889790230138543,
+  "window_s": [
+   2.0,
+   64.0
+  ],
+  "com_y_0.3_1.6Hz_m": 0.050896202976631846,
+  "com_y_low_peak_hz": 0.7256894049346879,
+  "com_y_2_3Hz_m": 0.007804074536998432,
+  "body_y_2_3Hz_m": 0.008783110861268605,
+  "roll_2_3Hz_rad": 0.033557963735848136,
+  "loaded_fy_fz_p90": 0.25492819900177566,
+  "load_share_left": 0.502492046320695,
+  "growth_per_step_median": 1.0086342147762195,
+  "growth_per_step_max": 1.2320654956119765,
+  "roll_0.3_1.6Hz_rad": 0.044920282621993955,
+  "roll_low_peak_hz": 0.7256894049346879,
+  "single_support_median_s": 0.20000000000000462,
+  "com_y_f_over_3_m": 0.014311347076489508,
+  "com_y_f_m": 0.007653829339398478
+ },
+ {
+  "kv": 20.0,
+  "combo": {
+   "ramp_shape": "cosine",
+   "stride_ramp": 2.0,
+   "ramp": 3.0,
+   "amplitude": 0.065
+  },
+  "fall_s": null,
+  "x_m": 4.771761691159695,
+  "window_s": [
+   2.0,
+   64.0
+  ],
+  "com_y_0.3_1.6Hz_m": 0.03980812060069424,
+  "com_y_low_peak_hz": 0.8385744234800838,
+  "com_y_2_3Hz_m": 0.008264439150361005,
+  "body_y_2_3Hz_m": 0.009532297129230174,
+  "roll_2_3Hz_rad": 0.03107999645786416,
+  "loaded_fy_fz_p90": 0.25327660928141227,
+  "load_share_left": 0.4982156609554597,
+  "growth_per_step_median": 1.0011437675345083,
+  "growth_per_step_max": 1.1350575588310166,
+  "roll_0.3_1.6Hz_rad": 0.03710179472727701,
+  "roll_low_peak_hz": 0.8385744234800838,
+  "single_support_median_s": 0.20000000000000107,
+  "com_y_f_over_3_m": 0.03945837400945025,
+  "com_y_f_m": 0.008258277959283595
+ },
+ {
+  "kv": 20.0,
+  "combo": {
+   "ramp_shape": "cosine",
+   "stride_ramp": 2.0,
+   "ramp": 3.0,
+   "mirror": true
+  },
+  "fall_s": 8.288,
+  "x_m": 0.18969602642574682,
+  "window_s": [
+   2.0,
+   8.29
+  ],
+  "com_y_0.3_1.6Hz_m": 0.06958954884525213,
+  "com_y_low_peak_hz": 0.6359300476947536,
+  "com_y_2_3Hz_m": 0.006674219226586029,
+  "body_y_2_3Hz_m": 0.006645942415109127,
+  "roll_2_3Hz_rad": 0.03601658942241033,
+  "loaded_fy_fz_p90": 0.23568783608966495,
+  "load_share_left": 0.4751029145217235,
+  "growth_per_step_median": 0.9948361119386717,
+  "growth_per_step_max": 1.995958396399024,
+  "roll_0.3_1.6Hz_rad": 0.06310446997636969,
+  "roll_low_peak_hz": 0.6359300476947536,
+  "single_support_median_s": 0.1599999999999997,
+  "com_y_f_over_3_m": 0.030935963101162565,
+  "com_y_f_m": 0.005185109667654945
+ },
+ {
+  "kv": 30.0,
+  "combo": {
+   "ramp_shape": "cosine",
+   "stride_ramp": 2.0,
+   "ramp": 3.0
+  },
+  "fall_s": null,
+  "x_m": 9.385204673915055,
+  "window_s": [
+   2.0,
+   64.0
+  ],
+  "com_y_0.3_1.6Hz_m": 0.02125590795002702,
+  "com_y_low_peak_hz": 0.822447992259313,
+  "com_y_2_3Hz_m": 0.010583159329677521,
+  "body_y_2_3Hz_m": 0.01167413663040478,
+  "roll_2_3Hz_rad": 0.05083725757514797,
+  "loaded_fy_fz_p90": 0.28012098110940337,
+  "load_share_left": 0.49995816751569466,
+  "growth_per_step_median": 1.0002234978589688,
+  "growth_per_step_max": 1.1240095367893943,
+  "roll_0.3_1.6Hz_rad": 0.015813415320327213,
+  "roll_low_peak_hz": 0.822447992259313,
+  "single_support_median_s": 0.1800000000000015,
+  "com_y_f_over_3_m": 0.01715555020399552,
+  "com_y_f_m": 0.010561161689549958
+ },
+ {
+  "kv": 30.0,
+  "combo": {
+   "ramp_shape": "cosine",
+   "stride_ramp": 2.0,
+   "ramp": 3.0,
+   "amplitude": 0.07
+  },
+  "fall_s": null,
+  "x_m": 8.256797332774237,
+  "window_s": [
+   2.0,
+   64.0
+  ],
+  "com_y_0.3_1.6Hz_m": 0.03510716315458212,
+  "com_y_low_peak_hz": 0.8385744234800838,
+  "com_y_2_3Hz_m": 0.009416335724747989,
+  "body_y_2_3Hz_m": 0.010856108200611054,
+  "roll_2_3Hz_rad": 0.04537248439166654,
+  "loaded_fy_fz_p90": 0.2757626977457811,
+  "load_share_left": 0.5003142127438622,
+  "growth_per_step_median": 1.0004227169951498,
+  "growth_per_step_max": 1.1141744055779454,
+  "roll_0.3_1.6Hz_rad": 0.02681631980146288,
+  "roll_low_peak_hz": 0.8385744234800838,
+  "single_support_median_s": 0.1949999999999994,
+  "com_y_f_over_3_m": 0.034698416269368364,
+  "com_y_f_m": 0.009409324257810905
+ },
+ {
+  "kv": 30.0,
+  "combo": {
+   "ramp_shape": "cosine",
+   "stride_ramp": 2.0,
+   "ramp": 3.0,
+   "amplitude": 0.065
+  },
+  "fall_s": null,
+  "x_m": 0.705941335769846,
+  "window_s": [
+   2.0,
+   64.0
+  ],
+  "com_y_0.3_1.6Hz_m": 0.02884062993554371,
+  "com_y_low_peak_hz": 0.8385744234800838,
+  "com_y_2_3Hz_m": 0.004443089077599346,
+  "body_y_2_3Hz_m": 0.0053933197807839155,
+  "roll_2_3Hz_rad": 0.04322134785865254,
+  "loaded_fy_fz_p90": 0.24855985437220593,
+  "load_share_left": 0.4996881493317203,
+  "growth_per_step_median": 1.0012554158432656,
+  "growth_per_step_max": 1.5439045064832346,
+  "roll_0.3_1.6Hz_rad": 0.04050249987328994,
+  "roll_low_peak_hz": 0.8385744234800838,
+  "single_support_median_s": 0.20000000000000462,
+  "com_y_f_over_3_m": 0.027775087869951746,
+  "com_y_f_m": 0.004431639218931244
+ },
+ {
+  "kv": 30.0,
+  "combo": {
+   "ramp_shape": "cosine",
+   "stride_ramp": 2.0,
+   "ramp": 3.0,
+   "mirror": true
+  },
+  "fall_s": null,
+  "x_m": 9.385204673836007,
+  "window_s": [
+   2.0,
+   64.0
+  ],
+  "com_y_0.3_1.6Hz_m": 0.021255907950176685,
+  "com_y_low_peak_hz": 0.822447992259313,
+  "com_y_2_3Hz_m": 0.010583159329668931,
+  "body_y_2_3Hz_m": 0.011674136630403063,
+  "roll_2_3Hz_rad": 0.05083725757512355,
+  "loaded_fy_fz_p90": 0.2801209810872238,
+  "load_share_left": 0.5000418324835675,
+  "growth_per_step_median": 1.0002234978600044,
+  "growth_per_step_max": 1.1240095367899108,
+  "roll_0.3_1.6Hz_rad": 0.015813415320621495,
+  "roll_low_peak_hz": 0.822447992259313,
+  "single_support_median_s": 0.1800000000000015,
+  "com_y_f_over_3_m": 0.01715555020429126,
+  "com_y_f_m": 0.010561161689542674
+ },
+ {
+  "kv": 100.0,
+  "combo": {
+   "ramp_shape": "cosine",
+   "stride_ramp": 2.0,
+   "ramp": 3.0
+  },
+  "fall_s": null,
+  "x_m": 7.709033011327424,
+  "window_s": [
+   2.0,
+   64.0
+  ],
+  "com_y_0.3_1.6Hz_m": 3.845573983761377e-05,
+  "com_y_low_peak_hz": 0.3870343492985002,
+  "com_y_2_3Hz_m": 0.00903846707478784,
+  "body_y_2_3Hz_m": 0.011748132298680592,
+  "roll_2_3Hz_rad": 0.07064760914008954,
+  "loaded_fy_fz_p90": 0.23969551249607823,
+  "load_share_left": 0.4994374872447535,
+  "growth_per_step_median": 1.000013931296492,
+  "growth_per_step_max": 1.100205103497782,
+  "roll_0.3_1.6Hz_rad": 5.531442599417634e-05,
+  "roll_low_peak_hz": 0.3709079180777294,
+  "single_support_median_s": 0.0799999999999983,
+  "com_y_f_over_3_m": 7.388976460242828e-06,
+  "com_y_f_m": 0.009038465221648521
+ },
+ {
+  "kv": 100.0,
+  "combo": {
+   "ramp_shape": "cosine",
+   "stride_ramp": 2.0,
+   "ramp": 3.0,
+   "amplitude": 0.07
+  },
+  "fall_s": null,
+  "x_m": 7.408881822811051,
+  "window_s": [
+   2.0,
+   64.0
+  ],
+  "com_y_0.3_1.6Hz_m": 0.00035389382880851816,
+  "com_y_low_peak_hz": 1.2739880664408965,
+  "com_y_2_3Hz_m": 0.009192752762308633,
+  "body_y_2_3Hz_m": 0.01204548136468158,
+  "roll_2_3Hz_rad": 0.06284784627292433,
+  "loaded_fy_fz_p90": 0.25398239374190745,
+  "load_share_left": 0.4994652571008346,
+  "growth_per_step_median": 0.9997678944715253,
+  "growth_per_step_max": 1.0745326726463882,
+  "roll_0.3_1.6Hz_rad": 0.0009288215723716286,
+  "roll_low_peak_hz": 1.2578616352201257,
+  "single_support_median_s": 0.07999999999999918,
+  "com_y_f_over_3_m": 4.989269208834493e-05,
+  "com_y_f_m": 0.009192678797224199
+ },
+ {
+  "kv": 100.0,
+  "combo": {
+   "ramp_shape": "cosine",
+   "stride_ramp": 2.0,
+   "ramp": 3.0,
+   "amplitude": 0.065
+  },
+  "fall_s": null,
+  "x_m": 6.880799816111617,
+  "window_s": [
+   2.0,
+   64.0
+  ],
+  "com_y_0.3_1.6Hz_m": 0.0005767571241664679,
+  "com_y_low_peak_hz": 1.241735203999355,
+  "com_y_2_3Hz_m": 0.00907068796329551,
+  "body_y_2_3Hz_m": 0.011945444940442033,
+  "roll_2_3Hz_rad": 0.05892568837671735,
+  "loaded_fy_fz_p90": 0.24815587707135725,
+  "load_share_left": 0.4994162538709225,
+  "growth_per_step_median": 0.9992880553783452,
+  "growth_per_step_max": 1.0462030100032456,
+  "roll_0.3_1.6Hz_rad": 0.0015376349563503958,
+  "roll_low_peak_hz": 1.241735203999355,
+  "single_support_median_s": 0.08000000000000007,
+  "com_y_f_over_3_m": 5.881877196545719e-05,
+  "com_y_f_m": 0.00907067877010574
+ },
+ {
+  "kv": 100.0,
+  "combo": {
+   "ramp_shape": "cosine",
+   "stride_ramp": 2.0,
+   "ramp": 3.0,
+   "mirror": true
+  },
+  "fall_s": null,
+  "x_m": 7.709033011327338,
+  "window_s": [
+   2.0,
+   64.0
+  ],
+  "com_y_0.3_1.6Hz_m": 3.845573983675361e-05,
+  "com_y_low_peak_hz": 0.3870343492985002,
+  "com_y_2_3Hz_m": 0.009038467074787873,
+  "body_y_2_3Hz_m": 0.011748132298680648,
+  "roll_2_3Hz_rad": 0.07064760914008965,
+  "loaded_fy_fz_p90": 0.2396955124960747,
+  "load_share_left": 0.5005625127552499,
+  "growth_per_step_median": 1.0000139312964937,
+  "growth_per_step_max": 1.1002051034977953,
+  "roll_0.3_1.6Hz_rad": 5.53144259938318e-05,
+  "roll_low_peak_hz": 0.3709079180777294,
+  "single_support_median_s": 0.0799999999999983,
+  "com_y_f_over_3_m": 7.38897646025258e-06,
+  "com_y_f_m": 0.009038465221648554
+ }
+]

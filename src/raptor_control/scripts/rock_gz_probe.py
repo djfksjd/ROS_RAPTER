@@ -26,8 +26,8 @@ from trajectory_msgs.msg import JointTrajectory, JointTrajectoryPoint
 
 from motion_guard import TiltGuard
 from motion_probe import JOINTS, pose
-from rock_law import (GaitPhase, SlewLimiter, TailSync, TouchdownPLL, antipump, crouch_pose, step_roll, tail_targets,
-                      targets)
+from rock_law import (FrequencyProfile, GaitPhase, SlewLimiter, TailSync, TouchdownPLL, antipump, crouch_pose,
+                      step_roll, tail_targets, targets)
 
 # Velocity limits from raptor.urdf.xacro (rad/s); unchanged by leg_design.
 VELOCITY_LIMIT = {'hip_roll': 2.0, 'hip_pitch': 2.5, 'knee_pitch': 3.0, 'ankle_pitch': 2.5,
@@ -59,7 +59,10 @@ class RockProbe(Node):
         self.gait, self.gait_phase = GaitPhase(), None
         self.tail_law = TailSync(*args.tail_sync) if args.tail_sync else None
         # touchdown-anchored clock; 40 ms window max bridges zero-force contact frames (Fable review, evidence 74)
-        self.clock = TouchdownPLL(args.frequency, *args.pll, window=.04, active_after=args.ramp) if args.pll else None
+        self.clock = TouchdownPLL(args.frequency, *args.pll, window=.04, active_after=args.ramp+args.stride_ramp,
+                                  accept=args.pll_accept, learn=args.pll_learn) if args.pll else None
+        if args.freq_profile:  # experiment B: replay a recorded command-frequency history (no feedback)
+            self.clock = FrequencyProfile(args.frequency, json.loads(Path(args.freq_profile).read_text()))
         self.damping_slew = SlewLimiter(.5)
         self.roll_rate_f, self.last_a = 0., None  # anti-pump input: 20 ms low-pass IMU roll rate
         self.over_since, self.spikes, self.spike_keys = {}, [], set()
@@ -210,7 +213,7 @@ class RockProbe(Node):
             cycle = self.clock.update(a, fresh)
         new = targets(self.crouch, a, g.amplitude, g.frequency, g.ramp, stride=g.stride, window=g.window,
                       pitch=self.imu[1], pitch_rate=self.imu[2], feedback=g.pitch_feedback, mirror=g.mirror,
-                      abduction=g.abduction, cycle=cycle)
+                      abduction=g.abduction, cycle=cycle, ramp_shape=g.ramp_shape, stride_ramp=g.stride_ramp)
         self.gait_phase = self.gait.update(t, self.in_contact('left'))  # phase 0 at left touchdown (contact messages)
         if g.step_roll:  # experiment F: rate-limited hip-roll steps instead of the gait (no stride)
             r = step_roll(a, *g.step_roll)
@@ -285,6 +288,11 @@ def main():
                         help='touchdown-anchored gait clock: f = f0 + K*phase error, clamped to f0 +- CLAMP Hz')
     parser.add_argument('--damping', type=float, nargs=2, metavar=('K_D', 'SIGN'),
                         help='single-support anti-pump on the stance hip roll (rock_law.antipump), sign -1 damps')
+    parser.add_argument('--pll-accept', choices=('first', 'last'), default='first')
+    parser.add_argument('--pll-learn', type=int, default=0, help='learn each foot nominal phase from N touchdowns')
+    parser.add_argument('--freq-profile', help='JSON [[t, f], ...] command-frequency history to replay')
+    parser.add_argument('--ramp-shape', choices=('linear', 'cosine'), default='linear')
+    parser.add_argument('--stride-ramp', type=float, default=1., help='stride ramp duration after the amplitude ramp (s)')
     parser.add_argument('--abduction', type=float, default=0., help='hip-roll outward offset on both legs (rad)')
     parser.add_argument('--window', type=float, default=.35, help='unloaded (swing) window, fraction of a cycle')
     parser.add_argument('--mirror', action='store_true', help='left/right mirrored gait (r -> -r, windows swapped)')
@@ -294,7 +302,8 @@ def main():
     args = parser.parse_args()
     if not (0 <= args.amplitude <= .12 and .5 <= args.frequency <= 3. and 1 <= args.cycles <= 200
             and .01 <= args.horizon <= .1 and .1 <= args.ramp <= 5 and 0 <= args.settle <= 5 and 0 <= args.stride <= .08
-            and .2 <= args.window <= .4 and 0 <= args.abduction <= .06
+            and .2 <= args.window <= .4 and 0 <= args.abduction <= .06 and .5 <= args.stride_ramp <= 5
+            and 0 <= args.pll_learn <= 10
             and (args.damping is None or (0 <= args.damping[0] <= .1 and args.damping[1] in (-1., 1.)))
             and (args.pll is None or (0 <= args.pll[0] <= 6 and 0 <= args.pll[1] <= .4
                                       and args.frequency+args.pll[1] <= 3.))

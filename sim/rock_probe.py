@@ -19,7 +19,8 @@ from raptor_servo import GazeboLikeServo, JTCLikeServo
 from stand_check import HERE, crouch, place_on_floor
 from step_metrics import steps, summarize
 sys.path.insert(0, str(HERE.parent/'src/raptor_control/scripts'))
-from rock_law import GaitPhase, SlewLimiter, TailSync, TouchdownPLL, antipump, tail_targets  # noqa: E402  shared with rock_gz_probe.py
+from rock_law import (FrequencyProfile, GaitPhase, SlewLimiter, TailSync, TouchdownPLL, antipump,  # noqa: E402
+                      tail_targets)  # shared with rock_gz_probe.py
 
 
 def foot_forces(model, data, force):
@@ -69,7 +70,7 @@ def roll_pitch(quat):
 def run(amplitude, frequency, cycles=6, ramp=1., guard=.25, model_path=None, crouch_hip=-.15, log_every=0, crouch_knee=.4,
         lift=0., lift_width=.35, lift_centers=(('left', .28), ('right', .78)), stride=0., rhythm=None, friction=None, mass_scale=1., smooth_swing=False, pitch_feedback=None, servo_kv=None,
         jtc=None, tail=None, tail_sync=None, tail_mass_scale=1., step_hook=None, abduction=0., pll=None,
-        damping=None):
+        damping=None, ramp_shape='linear', stride_ramp=1., freq_profile=None):
     model = mujoco.MjModel.from_xml_path(model_path or str(HERE/'raptor.xml'))
     if friction is not None:
         model.geom_friction[:, 0] = friction
@@ -108,7 +109,11 @@ def run(amplitude, frequency, cycles=6, ramp=1., guard=.25, model_path=None, cro
     gait, left_contact, last_f = GaitPhase(), False, {'left': 0., 'right': 0.}
     tail_law = TailSync(*tail_sync) if tail_sync else None
     # pll=(k, clamp): touchdown-anchored clock (rock_law.TouchdownPLL) replaces the time phase
-    clock = TouchdownPLL(frequency, *pll, active_after=settle+ramp) if pll else None
+    # pll=(k, clamp[, {accept, learn}]); active once amplitude and stride ramps are complete
+    clock = (TouchdownPLL(frequency, *pll[:2], active_after=settle+ramp+stride_ramp, **(pll[2] if len(pll) > 2 else {}))
+             if pll else None)
+    if freq_profile:  # replay [(t since settle, f), ...] without feedback
+        clock = FrequencyProfile(frequency, [(tp+settle, fp) for tp, fp in freq_profile])
     roll_rate_f = 0.  # damping=(k_d, sign): single-support anti-pump on the stance hip roll (rock_law.antipump)
     damping_slew = SlewLimiter(.5)  # offsets change at <= 0.5 rad/s (the Gazebo command-rate check needs it)
     legs = [model.actuator(n).id for n in (f'{s}_{j}_joint' for s in ('left', 'right')
@@ -124,12 +129,14 @@ def run(amplitude, frequency, cycles=6, ramp=1., guard=.25, model_path=None, cro
         t = k*dt
         if stopped_at is None and t >= settle:
             phase = t-settle
+            u = min(1., phase/ramp)
+            gain = .5*(1-math.cos(math.pi*u)) if ramp_shape == 'cosine' else u
             if clock is not None:
-                c = clock.update(t, last_f)
-                r = amplitude*min(1., phase/ramp)*math.sin(2*math.pi*c)
+                c = clock.update(t, last_f)  # a replay clock also starts integrating at t = settle
+                r = amplitude*gain*math.sin(2*math.pi*c)
                 cycle = c % 1
             elif rhythm is None:
-                r = amplitude*min(1., phase/ramp)*math.sin(2*math.pi*frequency*phase)
+                r = amplitude*gain*math.sin(2*math.pi*frequency*phase)
                 cycle = (phase*frequency) % 1
             else:  # closed loop: oscillator phase replaces time phase
                 r = min(1., phase/ramp)*rhythm.step(roll_pitch(data.qpos[3:7])[0])
@@ -147,7 +154,7 @@ def run(amplitude, frequency, cycles=6, ramp=1., guard=.25, model_path=None, cro
                     swing = stride*.5*math.cos(math.pi*u) if smooth_swing else -stride*(u-.5)
                 else:
                     swing = -stride*(.5-((offset-lift_width/2) % 1)/(1-lift_width))
-                swing *= min(1., max(0., phase-ramp))
+                swing *= min(1., max(0., (phase-ramp)/stride_ramp))
                 target |= {f'{side}_hip_pitch_joint': pose[f'{side}_hip_pitch_joint']-h/2+swing,
                            f'{side}_knee_pitch_joint': pose[f'{side}_knee_pitch_joint']+h,
                            f'{side}_ankle_pitch_joint': pose[f'{side}_ankle_pitch_joint']-h/2-swing}

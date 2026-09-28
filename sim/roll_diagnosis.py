@@ -142,7 +142,7 @@ def gazebo_series(diag_path, poses_path):
 
 
 def mujoco_series(kv, cycles, frequency=2.5, stride=.08, amplitude=.08, window_width=.35, mirror=False,
-                  model='raptor_digitigrade.xml', delay=0., abduction=0., pll=None, damping=None):
+                  model='raptor_digitigrade.xml', delay=0., abduction=0., pll=None, damping=None, **gait):
     sys.path.insert(0, str(HERE))
     import mujoco
     from rock_probe import foot_forces, run
@@ -179,7 +179,7 @@ def mujoco_series(kv, cycles, frequency=2.5, stride=.08, amplitude=.08, window_w
     result = run(-amplitude if mirror else amplitude, frequency, cycles=cycles, stride=stride,
                  pitch_feedback=(.5, .05, .15), servo_kv=kv, jtc=(.02, .02, delay), model_path=str(HERE/model),
                  crouch_hip=-.10, crouch_knee=.5, step_hook=trace, lift_width=window_width, lift_centers=centers,
-                 abduction=abduction, pll=pll, damping=damping)
+                 abduction=abduction, pll=pll, damping=damping, **gait)
     t = np.array([r['t'] for r in rows])
     series = {'t': t, 'roll': np.array([r['roll'] for r in rows]), 'roll_rate': np.array([r['roll_rate'] for r in rows]),
               'body_y': np.array([r['body_y'] for r in rows])}
@@ -261,7 +261,19 @@ def table_metrics(series, lo, hi, frequency, weight=17.3*G):
             'load_share_left': float(fl.sum()/max(fl.sum()+fr.sum(), 1e-9)),
             'growth_per_step_median': growth_med, 'growth_per_step_max': growth_max,
             'roll_0.3_1.6Hz_rad': roll_low, 'roll_low_peak_hz': roll_low_f, 'single_support_median_s': single,
-            'com_y_f_over_3_m': sub3, 'com_y_f_m': fund}
+            'com_y_f_over_3_m': sub3, 'com_y_f_m': fund, 'landing_sole_roll_p90_rad': landing_sole(series, m, weight)}
+
+
+def landing_sole(series, m, weight):
+    """p90 of |foot roll| at touchdowns (normal force crossing 20 % of the weight upward) inside mask m."""
+    values = []
+    for s in ('left', 'right'):
+        if f'sole_roll_{s}' not in series:
+            return None
+        fz, roll = np.asarray(series[f'fz_{s}'])[m], np.asarray(series[f'sole_roll_{s}'])[m]
+        up = np.nonzero((fz[1:] >= .2*weight) & (fz[:-1] < .2*weight))[0]+1
+        values += list(np.abs(roll[up]))
+    return float(np.percentile(values, 90)) if values else None
 
 
 def single_support_median(t, fl, fr, weight):
