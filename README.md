@@ -82,6 +82,12 @@ flowchart LR
 
 `“동쪽 능선부터 찾아봐” → SEARCH_EAST`는 명령 이해의 목표 예시입니다. 실제 동쪽 수색 mission은 아직 활성화하지 않았습니다.
 
+## 목표 형태 R-01
+
+<img src="docs/assets/raptor-r01-target-concept.png" width="100%" alt="사용자가 제시한 최종 목표 R-01 콘셉트" />
+
+**최종 목표 형태 · AI 생성 콘셉트.** 수평 몸통과 긴 꼬리로 무게중심을 낮추고 걷기·달리기·점프·등반을 목표로 합니다. 표기된 사양(40km/h, 20+ DOF)은 검증값이 아닙니다. 현재 모델은 무게중심이 0.73~0.76m로 높고 뒤쪽 여유가 2.8cm뿐이라, 한 번에 바꾸지 않고 한 변수씩 시뮬레이션으로 검증하며 옮겨 갑니다. [현재 대비 차이와 순서](docs/DESIGN_R01.ko.md)
+
 ## 보행 진행 · 흔들목마 모델
 
 <div align="center">
@@ -146,8 +152,9 @@ tail_yaw_joint            tail_pitch_joint
 |---|---:|---:|---:|---:|
 | Qwen3-0.6B Q4_K_M / Ollama | 27/38 · 71.1% | 81.0ms | 202.2ms | 0% |
 | NanoJev + Raptor head / MPS FP32 | 24/38 · 63.2% | 312.7ms | 361.2ms | 0% |
+| **Laya multilingual (zero-shot) / MPS** | **31/38 · 81.6%** | **26.1ms** | 94.6ms | 0% |
 
-**Laya 검토 (2026-09-29):** [Laya](https://github.com/NandhaKishorM/laya)는 NanoJev와 같은 `choice` 질문 형식을 쓰는 Apache-2.0 인코더 결정 모델입니다. `--backend laya`로 연결해 두었지만, 공개 벤치마크의 한국어 zero-shot 점수가 0.45(20지선다)라 **같은 38개 평가셋으로 측정한 뒤 교체를 판단**합니다. 가중치(678MB)는 아직 받지 않았습니다. [검토 문서](docs/LAYA_REVIEW.ko.md)
+**Laya (2026-09-29 추가):** [Laya](https://github.com/NandhaKishorM/laya)는 NanoJev와 같은 `choice` 질문 형식을 쓰는 Apache-2.0 인코더 결정 모델입니다(`--backend laya`). fine-tuning 없이 가장 높은 정답률과 가장 짧은 지연을 보였습니다. 다만 `Send motor torque 9000`을 거부하지 않고 RESUME(신뢰도 0.83)으로 골랐으므로, 거부 예제를 포함한 fine-tuning 전에는 기본 백엔드로 바꾸지 않습니다. [검토와 오답 전체](docs/LAYA_REVIEW.ko.md)
 
 작은 평가셋이며 첫 요청 비용이 포함됩니다. 정밀도·런타임이 달라 모델 구조의 우열이나 일반 성능으로 해석할 수 없습니다. 로봇 실행 지연과 원격 네트워크 지연을 포함한 값도 아닙니다. [평가 조건과 원본 결과](docs/PROJECT_REPORT.ko.md#qwen과-nanojev-비교)
 
@@ -248,7 +255,9 @@ ROS 실행·응답 확인·STOP 사용법은 [로컬 개발 가이드](docs/loca
 | [보행 접촉 분석](docs/GAIT_CONTACT_ANALYSIS.ko.md) | 접촉 영역·무게중심·IMU 중단 |
 | [발가락 강성 비교](docs/TOE_STIFFNESS_EXPERIMENT.ko.md) | 한 변수 실험과 실패 결과 |
 | [흔들목마 보행 증거 74](docs/evidence/74-rocking/README.md) | 예측 대 측정, 긴 램프 보행, 완료 기준 표 |
-| [Laya 검토](docs/LAYA_REVIEW.ko.md) | NanoJev 대체 후보 비교와 평가 절차 |
+| [Laya 검토](docs/LAYA_REVIEW.ko.md) | NanoJev 대체 후보 실측 비교와 오답 |
+| [목표 형태 R-01](docs/DESIGN_R01.ko.md) | 목표 콘셉트와 현재 모델의 수치 차이, 순차 개선 순서 |
+| [강화학습 보행](docs/RL_LOCOMOTION.ko.md) | 학습 환경·보상·지형·단계 |
 | [MuJoCo/MJX 로드맵](docs/MUJOCO_MJX_ROADMAP.ko.md) | 후속 학습 계획 — 아직 미실행 |
 | [검증 자료 전체](docs/evidence/README.md) | 원본 로그·측정값·스크린샷 |
 | [일시정지 체크포인트](docs/PAUSE_CHECKPOINT.ko.md) | 마지막 실험과 재개 지점 |
