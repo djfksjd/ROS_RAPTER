@@ -62,7 +62,7 @@ def roll_pitch(quat):
     return (math.atan2(2*(w*x+y*z), 1-2*(x*x+y*y)), math.asin(max(-1., min(1., 2*(w*y-z*x)))))
 
 
-def run(amplitude, frequency, cycles=6, ramp=1., guard=.25, model_path=None, crouch_hip=-.15, log_every=0,
+def run(amplitude, frequency, cycles=6, ramp=1., guard=.25, model_path=None, crouch_hip=-.15, log_every=0, crouch_knee=.4,
         lift=0., lift_width=.35, lift_centers=(('left', .28), ('right', .78)), stride=0., rhythm=None, friction=None, mass_scale=1., smooth_swing=False, pitch_feedback=None, servo_kv=None):
     model = mujoco.MjModel.from_xml_path(model_path or str(HERE/'raptor.xml'))
     if friction is not None:
@@ -71,7 +71,7 @@ def run(amplitude, frequency, cycles=6, ramp=1., guard=.25, model_path=None, cro
     if servo_kv is not None:  # velocity-servo stiffness is an unvalidated approximation of the DART servo
         model.actuator_gainprm[:, 0], model.actuator_biasprm[:, 2] = servo_kv, -servo_kv
     data = mujoco.MjData(model)
-    pose = crouch(crouch_hip)
+    pose = crouch(crouch_hip, crouch_knee)
     for name, value in pose.items():
         data.qpos[model.jnt_qposadr[model.joint(name).id]] = value
     place_on_floor(model, data)

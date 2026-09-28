@@ -15,10 +15,23 @@
   <xacro:arg name="crouch_hip_pitch" default="-0.15"/>
   <xacro:property name="crouch_hip" value="$(arg crouch_hip_pitch)"/>
   <!-- Leg proportions (m). Link inertias below are still literal values for these lengths. -->
+  <!-- legacy: original straight leg and flat foot (reproduces evidence 01-62).
+       digitigrade: shorter thigh + inclined metatarsus foot, still 10 active DOF. -->
+  <xacro:arg name="leg_design" default="legacy"/>
+  <!-- Unknown values fail with a KeyError instead of silently picking a design. -->
+  <xacro:property name="legacy" value="${dict(legacy=True, digitigrade=False)['$(arg leg_design)']}"/>
   <xacro:property name="hip_drop" value="0.12"/>
-  <xacro:property name="thigh_length" value="0.32"/>
+  <xacro:property name="thigh_length" value="${0.32 if legacy else 0.26}"/>
   <xacro:property name="shin_length" value="0.30"/>
+  <!-- Legacy inertias are the original literals; digitigrade uses the box formula. -->
+  <xacro:property name="thigh_ixx" value="${0.0140 if legacy else 1.5*(0.10**2+thigh_length**2)/12}"/>
+  <xacro:property name="shin_ixx" value="${0.0089 if legacy else 1.1*(0.085**2+shin_length**2)/12}"/>
+  <!-- Legacy thigh/shin meshes fit only the legacy lengths. -->
+  <xacro:property name="leg_meshes" value="${'$(arg detailed_visuals)' == 'true' and legacy}"/>
   <xacro:include filename="passive_toes.xacro"/>
+  <xacro:include filename="digitigrade_foot.xacro"/>
+  <!-- crouched_start knee; the ankle keeps the sole level (hip + knee + ankle = 0). -->
+  <xacro:property name="crouch_knee" value="${0.4 if legacy else 0.5}"/>
   <xacro:if value="$(arg sensors)">
     <gazebo reference="base_link">
       <sensor name="body_imu" type="imu">
@@ -197,7 +210,7 @@
 
   <link name="left_thigh_link">
 
-    <xacro:unless value="$(arg detailed_visuals)"><visual>
+    <xacro:unless value="${leg_meshes}"><visual>
       <!-- 관절에서 아래쪽으로 허벅지가 내려감 -->
       <origin xyz="0 0 ${-thigh_length/2}" rpy="0 0 0"/>
 
@@ -209,7 +222,7 @@
         <color rgba="0.55 0.57 0.60 1.0"/>
       </material>
     </visual></xacro:unless>
-    <xacro:if value="$(arg detailed_visuals)">
+    <xacro:if value="${leg_meshes}">
       <visual><geometry><mesh filename="package://raptor_description/meshes/raptor/left_thigh_link__graphite.dae"/></geometry><material name="raptor_graphite"><color rgba="0.065 0.075 0.085 1"/></material></visual>
       <visual><geometry><mesh filename="package://raptor_description/meshes/raptor/left_thigh_link__titanium.dae"/></geometry><material name="raptor_titanium"><color rgba="0.36 0.4 0.43 1"/></material></visual>
       <visual><geometry><mesh filename="package://raptor_description/meshes/raptor/left_thigh_link__ivory.dae"/></geometry><material name="raptor_ivory"><color rgba="0.72 0.72 0.65 1"/></material></visual>
@@ -230,10 +243,10 @@
       <mass value="1.5"/>
 
       <inertia
-        ixx="0.0140"
+        ixx="${thigh_ixx}"
         ixy="0.0"
         ixz="0.0"
-        iyy="0.0140"
+        iyy="${thigh_ixx}"
         iyz="0.0"
         izz="0.0025"/>
     </inertial>
@@ -267,7 +280,7 @@
 
   <link name="left_shin_link">
 
-    <xacro:unless value="$(arg detailed_visuals)"><visual>
+    <xacro:unless value="${leg_meshes}"><visual>
       <!-- 무릎 아래로 종아리가 내려감 -->
       <origin xyz="0 0 ${-shin_length/2}" rpy="0 0 0"/>
 
@@ -279,7 +292,7 @@
         <color rgba="0.42 0.44 0.47 1.0"/>
       </material>
     </visual></xacro:unless>
-    <xacro:if value="$(arg detailed_visuals)">
+    <xacro:if value="${leg_meshes}">
       <visual><geometry><mesh filename="package://raptor_description/meshes/raptor/left_shin_link__graphite.dae"/></geometry><material name="raptor_graphite"><color rgba="0.065 0.075 0.085 1"/></material></visual>
       <visual><geometry><mesh filename="package://raptor_description/meshes/raptor/left_shin_link__titanium.dae"/></geometry><material name="raptor_titanium"><color rgba="0.36 0.4 0.43 1"/></material></visual>
       <visual><geometry><mesh filename="package://raptor_description/meshes/raptor/left_shin_link__ivory.dae"/></geometry><material name="raptor_ivory"><color rgba="0.72 0.72 0.65 1"/></material></visual>
@@ -299,10 +312,10 @@
       <mass value="1.1"/>
 
       <inertia
-        ixx="0.0089"
+        ixx="${shin_ixx}"
         ixy="0.0"
         ixz="0.0"
-        iyy="0.0089"
+        iyy="${shin_ixx}"
         iyz="0.0"
         izz="0.0013"/>
     </inertial>
@@ -337,6 +350,7 @@
   <!-- 발목을 앞뒤로 움직이는 네 번째 관절 -->
   <!-- ========================================= -->
 
+  <xacro:if value="${legacy}">
   <xacro:unless value="$(arg passive_toes)">
   <link name="left_foot_link">
 
@@ -384,6 +398,8 @@
   </link>
   </xacro:unless>
   <xacro:if value="$(arg passive_toes)"><xacro:passive_foot side="left"/></xacro:if>
+  </xacro:if>
+  <xacro:unless value="${legacy}"><xacro:digitigrade_foot side="left" passive="$(arg passive_toes)"/></xacro:unless>
 
 
   <joint name="left_ankle_pitch_joint" type="revolute">
@@ -484,7 +500,7 @@
 
   <link name="right_thigh_link">
 
-    <xacro:unless value="$(arg detailed_visuals)"><visual>
+    <xacro:unless value="${leg_meshes}"><visual>
       <origin xyz="0 0 ${-thigh_length/2}" rpy="0 0 0"/>
 
       <geometry>
@@ -495,7 +511,7 @@
         <color rgba="0.55 0.57 0.60 1.0"/>
       </material>
     </visual></xacro:unless>
-    <xacro:if value="$(arg detailed_visuals)">
+    <xacro:if value="${leg_meshes}">
       <visual><geometry><mesh filename="package://raptor_description/meshes/raptor/right_thigh_link__graphite.dae"/></geometry><material name="raptor_graphite"><color rgba="0.065 0.075 0.085 1"/></material></visual>
       <visual><geometry><mesh filename="package://raptor_description/meshes/raptor/right_thigh_link__titanium.dae"/></geometry><material name="raptor_titanium"><color rgba="0.36 0.4 0.43 1"/></material></visual>
       <visual><geometry><mesh filename="package://raptor_description/meshes/raptor/right_thigh_link__ivory.dae"/></geometry><material name="raptor_ivory"><color rgba="0.72 0.72 0.65 1"/></material></visual>
@@ -516,10 +532,10 @@
       <mass value="1.5"/>
 
       <inertia
-        ixx="0.0140"
+        ixx="${thigh_ixx}"
         ixy="0.0"
         ixz="0.0"
-        iyy="0.0140"
+        iyy="${thigh_ixx}"
         iyz="0.0"
         izz="0.0025"/>
     </inertial>
@@ -550,7 +566,7 @@
 
   <link name="right_shin_link">
 
-    <xacro:unless value="$(arg detailed_visuals)"><visual>
+    <xacro:unless value="${leg_meshes}"><visual>
       <origin xyz="0 0 ${-shin_length/2}" rpy="0 0 0"/>
 
       <geometry>
@@ -561,7 +577,7 @@
         <color rgba="0.42 0.44 0.47 1.0"/>
       </material>
     </visual></xacro:unless>
-    <xacro:if value="$(arg detailed_visuals)">
+    <xacro:if value="${leg_meshes}">
       <visual><geometry><mesh filename="package://raptor_description/meshes/raptor/right_shin_link__graphite.dae"/></geometry><material name="raptor_graphite"><color rgba="0.065 0.075 0.085 1"/></material></visual>
       <visual><geometry><mesh filename="package://raptor_description/meshes/raptor/right_shin_link__titanium.dae"/></geometry><material name="raptor_titanium"><color rgba="0.36 0.4 0.43 1"/></material></visual>
       <visual><geometry><mesh filename="package://raptor_description/meshes/raptor/right_shin_link__ivory.dae"/></geometry><material name="raptor_ivory"><color rgba="0.72 0.72 0.65 1"/></material></visual>
@@ -581,10 +597,10 @@
       <mass value="1.1"/>
 
       <inertia
-        ixx="0.0089"
+        ixx="${shin_ixx}"
         ixy="0.0"
         ixz="0.0"
-        iyy="0.0089"
+        iyy="${shin_ixx}"
         iyz="0.0"
         izz="0.0013"/>
     </inertial>
@@ -612,6 +628,7 @@
 
   <!-- 4. RIGHT ANKLE PITCH + FOOT -->
 
+  <xacro:if value="${legacy}">
   <xacro:unless value="$(arg passive_toes)">
   <link name="right_foot_link">
 
@@ -658,6 +675,8 @@
   </link>
   </xacro:unless>
   <xacro:if value="$(arg passive_toes)"><xacro:passive_foot side="right"/></xacro:if>
+  </xacro:if>
+  <xacro:unless value="${legacy}"><xacro:digitigrade_foot side="right" passive="$(arg passive_toes)"/></xacro:unless>
 
 
   <joint name="right_ankle_pitch_joint" type="revolute">
@@ -848,14 +867,14 @@
 
     <joint name="left_knee_pitch_joint">
       <command_interface name="position"/>
-      <state_interface name="position"><xacro:if value="$(arg crouched_start)"><param name="initial_value">0.4</param></xacro:if></state_interface>
+      <state_interface name="position"><xacro:if value="$(arg crouched_start)"><param name="initial_value">${crouch_knee}</param></xacro:if></state_interface>
       <state_interface name="velocity"/>
       <state_interface name="effort"/>
     </joint>
 
     <joint name="left_ankle_pitch_joint">
       <command_interface name="position"/>
-      <state_interface name="position"><xacro:if value="$(arg crouched_start)"><param name="initial_value">${-0.4-crouch_hip}</param></xacro:if></state_interface>
+      <state_interface name="position"><xacro:if value="$(arg crouched_start)"><param name="initial_value">${-crouch_knee-crouch_hip}</param></xacro:if></state_interface>
       <state_interface name="velocity"/>
       <state_interface name="effort"/>
     </joint>
@@ -879,14 +898,14 @@
 
     <joint name="right_knee_pitch_joint">
       <command_interface name="position"/>
-      <state_interface name="position"><xacro:if value="$(arg crouched_start)"><param name="initial_value">0.4</param></xacro:if></state_interface>
+      <state_interface name="position"><xacro:if value="$(arg crouched_start)"><param name="initial_value">${crouch_knee}</param></xacro:if></state_interface>
       <state_interface name="velocity"/>
       <state_interface name="effort"/>
     </joint>
 
     <joint name="right_ankle_pitch_joint">
       <command_interface name="position"/>
-      <state_interface name="position"><xacro:if value="$(arg crouched_start)"><param name="initial_value">${-0.4-crouch_hip}</param></xacro:if></state_interface>
+      <state_interface name="position"><xacro:if value="$(arg crouched_start)"><param name="initial_value">${-crouch_knee-crouch_hip}</param></xacro:if></state_interface>
       <state_interface name="velocity"/>
       <state_interface name="effort"/>
     </joint>

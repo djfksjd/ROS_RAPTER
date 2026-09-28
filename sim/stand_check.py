@@ -15,9 +15,10 @@ from raptor_servo import GazeboLikeServo
 HERE = Path(__file__).resolve().parent
 
 
-def crouch(hip):
+def crouch(hip, knee=.4):
+    """Level-sole crouch: hip + knee + ankle = 0 (legacy knee 0.4, digitigrade 0.5)."""
     return {f'{s}_{j}_joint': v for s in ('left', 'right')
-            for j, v in (('hip_pitch', hip), ('knee_pitch', .4), ('ankle_pitch', -.4-hip))}
+            for j, v in (('hip_pitch', hip), ('knee_pitch', knee), ('ankle_pitch', -knee-hip))}
 
 
 def place_on_floor(model, data):
@@ -44,13 +45,14 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--model', default=str(HERE/'raptor.xml'))
     parser.add_argument('--crouch-hip', type=float, default=-.15)
+    parser.add_argument('--crouch-knee', type=float, default=.4)
     parser.add_argument('--ramp', type=float, default=2.)
     parser.add_argument('--hold', type=float, default=10.)
     parser.add_argument('--from-zero', action='store_true')
     args = parser.parse_args()
     model = mujoco.MjModel.from_xml_path(args.model)
     data = mujoco.MjData(model)
-    goal = crouch(args.crouch_hip)
+    goal = crouch(args.crouch_hip, args.crouch_knee)
     if not args.from_zero:
         args.ramp = 0.
         for name, value in goal.items():
@@ -76,7 +78,7 @@ def main():
             rows.append({'t': round(t, 3), 'base_z': float(data.qpos[2]), 'tilt_rad': w, 'ncon': int(data.ncon)})
     error = max(abs(data.qpos[model.jnt_qposadr[model.joint(n).id]]-goal[n]) for n in names)
     result = {'start': 'zero' if args.from_zero else 'crouch', 'limitation': 'MuJoCo static standing with a Gazebo-like servo approximation; not walking.',
-              'crouch_hip': args.crouch_hip, 'initial_base_z': z0, 'final_base_z': float(data.qpos[2]),
+              'crouch_hip': args.crouch_hip, 'crouch_knee': args.crouch_knee, 'initial_base_z': z0, 'final_base_z': float(data.qpos[2]),
               'final_xy': data.qpos[:2].tolist(), 'max_tilt_rad': worst['tilt_rad'],
               'max_ankle_speed_rad_s': worst['ankle_speed'], 'final_tracking_error_rad': float(error),
               'passed_static_standing': bool(worst['tilt_rad'] < .1 and error < .025), 'samples': rows}

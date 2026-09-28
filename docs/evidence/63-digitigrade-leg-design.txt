@@ -1,0 +1,16 @@
+Digitigrade leg design (leg_design:=digitigrade), 2026-09-28. Legacy output unchanged (numeric URDF diff: default, passive_toes+detailed, crouched_start).
+Geometry: hip_drop 0.12, thigh 0.26 (legacy 0.32), shin 0.30, foot link = metatarsus 0.24 m inclined 0.35 rad forward
++ rigid pad 0.15x0.10x0.035 (starts 0.04 m behind metatarsus end) + existing 12 passive toes on the pad front.
+Link masses unchanged (total 17.3 kg); digitigrade inertias from box formula. Active DOF: 10.
+Sagittal FK sweep (level sole, |ankle| <= 0.45, knee >= 0.5, rigid pad only, toes excluded):
+  chosen beta 0.35, pad_forward -0.04: best margin 0.071 m at hip -0.10 knee 0.50 ankle -0.40 (legacy crouch 0.042 m)
+  larger beta pushes the pad forward and reduces the margin (beta 0.45/pf 0.0: 0.021 m).
+MuJoCo (elliptic cone, Gazebo-like servo), legacy crouch -0.15/0.4 vs digitigrade -0.10/0.5:
+  static standing 10 s:          legacy max tilt 0.0131 | digitigrade 0.0047 (both pass)
+  ankle target step +-0.05 rad:  both fall (step input makes the feet leave the ground) - unresolved
+  rocking A0.08 f2, mu{0.5,0.8,1} x mass{0.9,1,1.1} x 60 s: 9/9 | 9/9
+  stride 0.05 + ankle pitch fb, 60 s, kv30:  legacy +4.94 m td 1.0 slip/step 0.23 pitch 0.059 | digitigrade +5.51 m td 1.0 slip/step 0.22 pitch 0.017
+  same, kv100:                               legacy FALL (pitch 0.76)                       | digitigrade no fall, +4.48 m td 1.0 slip/step 0.33 pitch 0.019
+Gazebo (DART, passive toes, crouched_start hip -0.10, spawn_z 0): stood; pose static to <1e-6 m while sim time advanced
+  (11.744 -> 12.774 s); tilt 7e-7 rad. Screenshot: 63-digitigrade-gazebo-standing.png (box visuals for new links).
+Not validated: walking in Gazebo, ankle step robustness, terrain. Stepping remains conditional on the actuator model.

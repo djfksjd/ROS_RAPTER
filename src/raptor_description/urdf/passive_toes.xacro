@@ -55,9 +55,9 @@
       </xacro:if>
     </gazebo>
   </xacro:macro>
-  <xacro:macro name="toe_digit" params="side digit y yaw">
+  <xacro:macro name="toe_digit" params="side digit y yaw x0:=0.005 z0:=-0.043">
     <xacro:toe_segment side="${side}" digit="${digit}" part="proximal"
-      parent="${side}_foot_link" xyz="0.005 ${y} -0.043" yaw="${yaw}"
+      parent="${side}_foot_link" xyz="${x0} ${y} ${z0}" yaw="${yaw}"
       length="0.070" stiffness="12"/>
     <xacro:toe_segment side="${side}" digit="${digit}" part="distal"
       parent="${side}_toe_${digit}_proximal_link" xyz="0.070 0 0" yaw="0"
