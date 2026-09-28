@@ -6,6 +6,7 @@ forward linearly and returns during stance; the ankle cancels it. Optional ankle
 pitch and pitch rate, clipped. Position targets only; the caller owns STOP.
 """
 import math
+from collections import deque
 
 CENTERS = (('left', .28), ('right', .78))
 MIRRORED = (('left', .78), ('right', .28))  # left/right roles swapped (with r -> -r): exact y-mirror of the gait
@@ -20,12 +21,14 @@ def crouch_pose(joints, hip, knee):
 
 
 def targets(pose, a, amplitude, frequency, ramp, stride=0., window=.35, pitch=0., pitch_rate=0., feedback=None,
-            mirror=False):
+            mirror=False, abduction=0.):
     target = dict(pose)
     if a < 0:
         return target
     r = amplitude*min(1., a/ramp)*math.sin(2*math.pi*frequency*a)*(-1 if mirror else 1)
-    target |= {'left_hip_roll_joint': -r, 'right_hip_roll_joint': r}
+    # abduction: +delta on both hip rolls moves both feet outward (right axis is -x); ramped in with the gait
+    ab = abduction*min(1., a/ramp)
+    target |= {'left_hip_roll_joint': -r+ab, 'right_hip_roll_joint': r+ab}
     cycle = (a*frequency) % 1
     for side, center in (MIRRORED if mirror else CENTERS):
         offset = (cycle-center+.5) % 1-.5
@@ -134,3 +137,41 @@ def step_roll(a, amp=.08, hold=.5, rate=1.6, second=3.):
             return amp
         return max(0., amp-rate*(t-hold))
     return pulse(a)-pulse(a-second)
+
+
+class WindowMax:
+    """Max of the samples in the last `window` s: bridges Gazebo's zero-force contact frames (evidence 72/74)."""
+
+    def __init__(self, window=.03):
+        self.window, self.samples = window, deque()
+
+    def update(self, t, value):
+        self.samples.append((t, value))
+        while self.samples and self.samples[0][0] < t-self.window:
+            self.samples.popleft()
+        return max(v for _, v in self.samples)
+
+
+class ContactEvents:
+    """Debounced foot contact from normal force: on above threshold+hysteresis, off below threshold-hysteresis,
+    a change is accepted only after it persisted `hold` s. update() returns 'touchdown', 'liftoff' or None.
+    Stage 2 (a) defaults: 34 N (20 % of the 170 N weight), +-10 N, 20 ms."""
+
+    def __init__(self, threshold=34., hysteresis=10., hold=.02):
+        self.on, self.off, self.hold = threshold+hysteresis, threshold-hysteresis, hold
+        self.loaded, self.candidate_since = None, None
+
+    def update(self, t, force):
+        raw = force >= self.on if self.loaded is not True else force >= self.off
+        if self.loaded is None:
+            self.loaded = raw
+            return None
+        if raw == self.loaded:
+            self.candidate_since = None
+            return None
+        if self.candidate_since is None:
+            self.candidate_since = t
+        if t-self.candidate_since+1e-9 >= self.hold:
+            self.loaded, self.candidate_since = raw, None
+            return 'touchdown' if raw else 'liftoff'
+        return None

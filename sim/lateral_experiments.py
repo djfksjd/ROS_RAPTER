@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """MuJoCo side of the evidence-73/74 lateral experiments, tail fixed. Gazebo runs use rock_gz_probe.py.
 
-Usage: python lateral_experiments.py OUT.json {A|B|F} [--kv 20 30 100] [--cycles 150]
+Usage: python lateral_experiments.py OUT.json {A|B|D|E|F} [--kv 20 30 100] [--cycles 150]
 A/B rows: fall time and roll_diagnosis.table_metrics over [2 s, fall or end] (60 s gait).
 F rows: rate-limited hip-roll steps from the crouch (rock_law.step_roll); per event the lifted foot, liftoff ->
 touchdown time and release -> touchdown time from normal forces (off < 5 % weight, on >= 20 % held 20 ms).
@@ -17,16 +17,21 @@ import numpy as np
 import roll_diagnosis as rd
 
 SWEEPS = {'A': [('amplitude', a) for a in (.08, .04, .02, .01, 0.)],
-          'B': [('window_width', w) for w in (.35, .30, .25)]}
+          'B': [('window_width', w) for w in (.35, .30, .25)],
+          'E': [('frequency', f) for f in (1.0, 1.4, 1.8, 2.0, 2.2, 2.5, 2.8, 3.0)],
+          'D': [('delay', d) for d in (0., .02, .04, .06)]}  # command delay injected in MuJoCo (evidence 74)
 
 
 def one(job):
     kv, key, value, cycles = job
+    frequency = value if key == 'frequency' else 2.5
+    if key == 'frequency':
+        cycles = int(round(60*frequency))  # always 60 s of gait
     series, result = rd.mujoco_series(kv, cycles, **{key: value})
     fall = result['stopped_by_guard_at_s']
     end = fall if fall else float(series['t'][-1])
     return {'kv': kv, key: value, 'fall_s': fall, 'x_m': result['final_xy'][0],
-            **rd.table_metrics(series, 2., end, 2.5)}
+            **rd.table_metrics(series, 2., end, frequency)}
 
 
 def transitions(t, fz, weight, lo, hi):

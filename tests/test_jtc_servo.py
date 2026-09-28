@@ -52,6 +52,19 @@ class JTCLikeServoTest(unittest.TestCase):
         self.run_for(.05)
         self.assertTrue((self.servo.command == held).all())
 
+    def test_delay_holds_the_goal_back(self):
+        from raptor_servo import JTCLikeServo
+        servo = JTCLikeServo(self.model, sample=.02, horizon=.02, delay=.04)
+        servo.step(self.data)
+        start = servo.command[self.index]
+        servo.set_target({self.joint: start+.1})
+        for _ in range(round(.035/self.model.opt.timestep)):
+            servo.step(self.data)
+        self.assertAlmostEqual(servo.command[self.index], start)  # nothing before 40 ms
+        for _ in range(round(.04/self.model.opt.timestep)):  # past the first 10 ms controller tick after the ramp
+            servo.step(self.data)
+        self.assertAlmostEqual(servo.command[self.index]-start, .1, places=9)  # 40 ms delay + 20 ms ramp
+
 
 if __name__ == '__main__':
     unittest.main()

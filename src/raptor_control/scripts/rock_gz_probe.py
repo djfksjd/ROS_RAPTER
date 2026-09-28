@@ -197,7 +197,8 @@ class RockProbe(Node):
         self.last_sent = t
         a, g = phase-self.args.settle, self.args
         new = targets(self.crouch, a, g.amplitude, g.frequency, g.ramp, stride=g.stride, window=g.window,
-                      pitch=self.imu[1], pitch_rate=self.imu[2], feedback=g.pitch_feedback, mirror=g.mirror)
+                      pitch=self.imu[1], pitch_rate=self.imu[2], feedback=g.pitch_feedback, mirror=g.mirror,
+                      abduction=g.abduction)
         self.gait_phase = self.gait.update(t, self.in_contact('left'))  # phase 0 at left touchdown (contact messages)
         if g.step_roll:  # experiment F: rate-limited hip-roll steps instead of the gait (no stride)
             r = step_roll(a, *g.step_roll)
@@ -256,22 +257,23 @@ def main():
     parser.add_argument('--tail-sync', type=float, nargs=3, metavar=('AMP', 'PHI0', 'KFB'))
     parser.add_argument('--step-roll', type=float, nargs=2, metavar=('AMP', 'HOLD'),
                         help='experiment F: +AMP step at t=0 and -AMP at t=3 s (1.6 rad/s ramps), replaces the gait')
+    parser.add_argument('--abduction', type=float, default=0., help='hip-roll outward offset on both legs (rad)')
     parser.add_argument('--window', type=float, default=.35, help='unloaded (swing) window, fraction of a cycle')
     parser.add_argument('--mirror', action='store_true', help='left/right mirrored gait (r -> -r, windows swapped)')
     parser.add_argument('--diag', action='store_true', help='log 100 Hz joint/IMU/contact wrench rows (no control effect)')
     parser.add_argument('--horizon', type=float, default=.02, help='JTC time_from_start of each streamed target (s)')
     parser.add_argument('--out', default='/raptor_ws/log/rock-gz-probe.json')
     args = parser.parse_args()
-    if not (0 <= args.amplitude <= .12 and .5 <= args.frequency <= 2.5 and 1 <= args.cycles <= 150
+    if not (0 <= args.amplitude <= .12 and .5 <= args.frequency <= 3. and 1 <= args.cycles <= 200
             and .01 <= args.horizon <= .1 and .1 <= args.ramp <= 5 and 0 <= args.settle <= 5 and 0 <= args.stride <= .08
-            and .2 <= args.window <= .4
+            and .2 <= args.window <= .4 and 0 <= args.abduction <= .06
             and (args.step_roll is None or (0 < args.step_roll[0] <= .1 and .1 <= args.step_roll[1] <= 1.))
             and (args.pitch_feedback is None or (0 <= args.pitch_feedback[0] <= 1 and 0 <= args.pitch_feedback[1] <= .2
                                                   and 0 <= args.pitch_feedback[2] <= .2))
             and (args.tail is None or all(abs(v) <= 3 for v in args.tail))
             and (args.tail_sync is None or (0 <= args.tail_sync[0] <= .2 and 0 <= args.tail_sync[1] < 1
                                             and abs(args.tail_sync[2]) <= .5))):
-        parser.error('outside experimental bounds (A <= 0.12, 0.5 <= f <= 2.5, cycles <= 150, 0.1 <= ramp <= 5, '
+        parser.error('outside experimental bounds (A <= 0.12, 0.5 <= f <= 3, cycles <= 200, 0.1 <= ramp <= 5, '
                      'stride <= 0.08, feedback kp <= 1 kd <= 0.2 limit <= 0.2)')
     rclpy.init()
     node = RockProbe(args)

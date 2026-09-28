@@ -6,7 +6,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT/'src/raptor_control/scripts'))
-from rock_law import GaitPhase, TailSync, crouch_pose, step_roll, tail_sync_targets, tail_targets, targets  # noqa: E402
+from rock_law import (ContactEvents, GaitPhase, TailSync, WindowMax, crouch_pose, step_roll,  # noqa: E402
+                      tail_sync_targets, tail_targets, targets)
 
 JOINTS = [f'{s}_{j}_joint' for s in ('left', 'right') for j in ('hip_roll', 'hip_pitch', 'knee_pitch', 'ankle_pitch')]
 JOINTS += ['tail_yaw_joint', 'tail_pitch_joint']
@@ -53,6 +54,14 @@ class RockLawTest(unittest.TestCase):
                 self.assertAlmostEqual(m[f'left_{j}_joint'], t[f'right_{j}_joint'])
                 self.assertAlmostEqual(m[f'right_{j}_joint'], t[f'left_{j}_joint'])
 
+    def test_abduction_ramps_in_on_both_hip_rolls(self):
+        half = targets(POSE, .5, 0., 2.5, 1., abduction=.04)
+        full = targets(POSE, 3., 0., 2.5, 1., abduction=.04)
+        self.assertAlmostEqual(half['left_hip_roll_joint'], .02)
+        self.assertAlmostEqual(half['right_hip_roll_joint'], .02)
+        self.assertAlmostEqual(full['left_hip_roll_joint'], .04)
+        self.assertEqual(targets(POSE, 3., 0., 2.5, 1.)['left_hip_roll_joint'], 0.)
+
     def test_pitch_feedback_is_clipped(self):
         t = targets(POSE, 2., .08, 2., 1., pitch=1., feedback=(.5, .05, .15))
         self.assertAlmostEqual(t['left_ankle_pitch_joint']-POSE['left_ankle_pitch_joint'], .15)
@@ -94,6 +103,26 @@ class RockLawTest(unittest.TestCase):
         self.assertLessEqual(max(abs(b-a) for a, b in zip(values, values[1:]))/.001, 1.6+1e-6)
         self.assertEqual(step_roll(1.5), 0.)
         self.assertAlmostEqual(step_roll(.3), .08)
+
+    def test_contact_events_debounce_and_hysteresis(self):
+        det, events = ContactEvents(), []
+        forces = [0.]*5+[50.]*1+[0.]*3+[50.]*5+[30.]*5+[20.]*5  # 10 ms samples
+        for k, f in enumerate(forces):
+            ev = det.update(k*.01, f)
+            if ev:
+                events.append((round(k*.01, 2), ev))
+        # a single 10 ms spike is ignored; touchdown after 20 ms above 44 N; 30 N (inside the band) keeps contact;
+        # liftoff after 20 ms below 24 N
+        self.assertEqual(events, [(.11, 'touchdown'), (.21, 'liftoff')])
+
+    def test_window_max_bridges_zero_force_frames(self):
+        wm, det, events = WindowMax(.03), ContactEvents(), []
+        forces = [0.]*3+[150., 0., 150., 0., 0., 150., 0., 150.]+[0.]*6  # Gazebo-like flicker while loaded
+        for k, f in enumerate(forces):
+            ev = det.update(k*.01, wm.update(k*.01, f))
+            if ev:
+                events.append(ev)
+        self.assertEqual(events, ['touchdown', 'liftoff'])
 
 
 if __name__ == '__main__':

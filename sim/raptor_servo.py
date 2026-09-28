@@ -6,6 +6,8 @@ period. The actuator ctrlrange clips it to the URDF velocity limit (like DART SE
 setCommand). DART's separate velocity-limit constraint on externally driven motion is
 not reproduced. STOP holds the last read positions; no learned motor commands here.
 """
+from collections import deque
+
 import numpy as np
 import mujoco
 
@@ -50,12 +52,14 @@ class JTCLikeServo(GazeboLikeServo):
     Targets are sampled every `sample` s (zero-order hold, like the probe's stream); each new goal replaces
     the trajectory and, at every controller tick, the command moves linearly from its value when the goal
     arrived to the goal over `horizon` s. Approximation of JTC single-point replacement, not a JTC port.
+    `delay` s (default 0) holds each sampled goal back before it reaches the controller (experiment D, evidence 74).
     """
 
-    def __init__(self, model, sample=.02, horizon=.02, **kwargs):
+    def __init__(self, model, sample=.02, horizon=.02, delay=0., **kwargs):
         super().__init__(model, **kwargs)
-        self.sample, self.horizon = sample, horizon
+        self.sample, self.horizon, self.delay = sample, horizon, delay
         self.time, self.last_sample, self.goal, self.segment = 0., -np.inf, None, None
+        self.pending = deque()  # (release time, goal)
 
     def set_target(self, positions):
         if self.command is None:
@@ -66,13 +70,21 @@ class JTCLikeServo(GazeboLikeServo):
         goal = (self.command if self.goal is None else self.goal).copy()
         for name, value in positions.items():
             goal[ACTIVE.index(name)] = value
-        self.goal, self.segment = goal, (self.time, self.command.copy(), goal)
+        self.goal = goal
+        if self.delay > 0:
+            self.pending.append((self.time+self.delay, goal))
+        else:
+            self.segment = (self.time, self.command.copy(), goal)
 
     def stop(self):
         super().stop()
         self.goal, self.segment = self.command.copy(), None
+        self.pending.clear()
 
     def step(self, data):
+        while self.pending and self.pending[0][0] <= self.time+1e-9:
+            _, goal = self.pending.popleft()
+            self.segment = (self.time, self.command.copy(), goal)
         if self.steps % self.period_steps == 0 and self.segment is not None:
             start, origin, goal = self.segment
             self.command = origin+(goal-origin)*min(1., (self.time-start)/self.horizon)

@@ -68,7 +68,7 @@ def roll_pitch(quat):
 
 def run(amplitude, frequency, cycles=6, ramp=1., guard=.25, model_path=None, crouch_hip=-.15, log_every=0, crouch_knee=.4,
         lift=0., lift_width=.35, lift_centers=(('left', .28), ('right', .78)), stride=0., rhythm=None, friction=None, mass_scale=1., smooth_swing=False, pitch_feedback=None, servo_kv=None,
-        jtc=None, tail=None, tail_sync=None, tail_mass_scale=1., step_hook=None):
+        jtc=None, tail=None, tail_sync=None, tail_mass_scale=1., step_hook=None, abduction=0.):
     model = mujoco.MjModel.from_xml_path(model_path or str(HERE/'raptor.xml'))
     if friction is not None:
         model.geom_friction[:, 0] = friction
@@ -84,7 +84,7 @@ def run(amplitude, frequency, cycles=6, ramp=1., guard=.25, model_path=None, cro
     for name, value in pose.items():
         data.qpos[model.jnt_qposadr[model.joint(name).id]] = value
     place_on_floor(model, data)
-    # jtc=(sample, horizon): emulate the streamed JTC path of rock_gz_probe.py (evidence 68)
+    # jtc=(sample, horizon[, delay]): emulate the streamed JTC path of rock_gz_probe.py (evidence 68)
     servo = GazeboLikeServo(model) if jtc is None else JTCLikeServo(model, *jtc)
     servo.step(data)
     weight = float(model.body_mass.sum()*-model.opt.gravity[2])
@@ -125,7 +125,8 @@ def run(amplitude, frequency, cycles=6, ramp=1., guard=.25, model_path=None, cro
             else:  # closed loop: oscillator phase replaces time phase
                 r = min(1., phase/ramp)*rhythm.step(roll_pitch(data.qpos[3:7])[0])
                 cycle = (rhythm.theta/(2*math.pi)) % 1
-            target = {'left_hip_roll_joint': -r, 'right_hip_roll_joint': r}
+            ab = abduction*min(1., phase/ramp)  # both feet outward (right hip-roll axis is -x), same as rock_law
+            target = {'left_hip_roll_joint': -r+ab, 'right_hip_roll_joint': r+ab}
             for side, center in lift_centers:
                 offset = (cycle-center+.5) % 1-.5
                 bump = math.cos(math.pi*offset/lift_width)**2 if abs(offset) < lift_width/2 and phase >= ramp else 0.
