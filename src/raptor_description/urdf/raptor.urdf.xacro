@@ -14,6 +14,10 @@
   <xacro:arg name="crouched_start" default="false"/>
   <xacro:arg name="crouch_hip_pitch" default="-0.15"/>
   <xacro:property name="crouch_hip" value="$(arg crouch_hip_pitch)"/>
+  <!-- Leg proportions (m). Link inertias below are still literal values for these lengths. -->
+  <xacro:property name="hip_drop" value="0.12"/>
+  <xacro:property name="thigh_length" value="0.32"/>
+  <xacro:property name="shin_length" value="0.30"/>
   <xacro:include filename="passive_toes.xacro"/>
   <xacro:if value="$(arg sensors)">
     <gazebo reference="base_link">
@@ -195,10 +199,10 @@
 
     <xacro:unless value="$(arg detailed_visuals)"><visual>
       <!-- 관절에서 아래쪽으로 허벅지가 내려감 -->
-      <origin xyz="0 0 -0.16" rpy="0 0 0"/>
+      <origin xyz="0 0 ${-thigh_length/2}" rpy="0 0 0"/>
 
       <geometry>
-        <box size="0.10 0.10 0.32"/>
+        <box size="0.10 0.10 ${thigh_length}"/>
       </geometry>
 
       <material name="leg_gray">
@@ -213,15 +217,15 @@
     </xacro:if>
 
     <collision>
-      <origin xyz="0 0 -0.16" rpy="0 0 0"/>
+      <origin xyz="0 0 ${-thigh_length/2}" rpy="0 0 0"/>
 
       <geometry>
-        <box size="0.10 0.10 0.32"/>
+        <box size="0.10 0.10 ${thigh_length}"/>
       </geometry>
     </collision>
 
     <inertial>
-      <origin xyz="0 0 -0.16" rpy="0 0 0"/>
+      <origin xyz="0 0 ${-thigh_length/2}" rpy="0 0 0"/>
 
       <mass value="1.5"/>
 
@@ -243,7 +247,7 @@
     <child link="left_thigh_link"/>
 
     <!-- Hip Roll 블록 아래쪽에 Hip Pitch 배치 -->
-    <origin xyz="0 0 -0.12" rpy="0 0 0"/>
+    <origin xyz="0 0 ${-hip_drop}" rpy="0 0 0"/>
 
     <!-- Y축 회전 = 다리 앞뒤 움직임 -->
     <axis xyz="0 1 0"/>
@@ -265,10 +269,10 @@
 
     <xacro:unless value="$(arg detailed_visuals)"><visual>
       <!-- 무릎 아래로 종아리가 내려감 -->
-      <origin xyz="0 0 -0.15" rpy="0 0 0"/>
+      <origin xyz="0 0 ${-shin_length/2}" rpy="0 0 0"/>
 
       <geometry>
-        <box size="0.085 0.085 0.30"/>
+        <box size="0.085 0.085 ${shin_length}"/>
       </geometry>
 
       <material name="shin_gray">
@@ -282,15 +286,15 @@
     </xacro:if>
 
     <collision>
-      <origin xyz="0 0 -0.15" rpy="0 0 0"/>
+      <origin xyz="0 0 ${-shin_length/2}" rpy="0 0 0"/>
 
       <geometry>
-        <box size="0.085 0.085 0.30"/>
+        <box size="0.085 0.085 ${shin_length}"/>
       </geometry>
     </collision>
 
     <inertial>
-      <origin xyz="0 0 -0.15" rpy="0 0 0"/>
+      <origin xyz="0 0 ${-shin_length/2}" rpy="0 0 0"/>
 
       <mass value="1.1"/>
 
@@ -312,7 +316,7 @@
     <child link="left_shin_link"/>
 
     <!-- 허벅지 끝 = 무릎 위치 -->
-    <origin xyz="0 0 -0.32" rpy="0 0 0"/>
+    <origin xyz="0 0 ${-thigh_length}" rpy="0 0 0"/>
 
     <!-- Y축 회전 = 무릎 굽힘 -->
     <axis xyz="0 1 0"/>
@@ -388,7 +392,7 @@
     <child link="left_foot_link"/>
 
     <!-- 종아리 끝부분에 발목 배치 -->
-    <origin xyz="0 0 -0.30" rpy="0 0 0"/>
+    <origin xyz="0 0 ${-shin_length}" rpy="0 0 0"/>
 
     <!-- Y축 회전 = 발 앞뒤 기울임 -->
     <axis xyz="0 1 0"/>
@@ -481,10 +485,10 @@
   <link name="right_thigh_link">
 
     <xacro:unless value="$(arg detailed_visuals)"><visual>
-      <origin xyz="0 0 -0.16" rpy="0 0 0"/>
+      <origin xyz="0 0 ${-thigh_length/2}" rpy="0 0 0"/>
 
       <geometry>
-        <box size="0.10 0.10 0.32"/>
+        <box size="0.10 0.10 ${thigh_length}"/>
       </geometry>
 
       <material name="right_leg_gray">
@@ -499,15 +503,15 @@
     </xacro:if>
 
     <collision>
-      <origin xyz="0 0 -0.16" rpy="0 0 0"/>
+      <origin xyz="0 0 ${-thigh_length/2}" rpy="0 0 0"/>
 
       <geometry>
-        <box size="0.10 0.10 0.32"/>
+        <box size="0.10 0.10 ${thigh_length}"/>
       </geometry>
     </collision>
 
     <inertial>
-      <origin xyz="0 0 -0.16" rpy="0 0 0"/>
+      <origin xyz="0 0 ${-thigh_length/2}" rpy="0 0 0"/>
 
       <mass value="1.5"/>
 
@@ -528,7 +532,7 @@
     <parent link="right_hip_roll_link"/>
     <child link="right_thigh_link"/>
 
-    <origin xyz="0 0 -0.12" rpy="0 0 0"/>
+    <origin xyz="0 0 ${-hip_drop}" rpy="0 0 0"/>
 
     <!-- 앞 / 뒤 -->
     <axis xyz="0 1 0"/>
@@ -547,10 +551,10 @@
   <link name="right_shin_link">
 
     <xacro:unless value="$(arg detailed_visuals)"><visual>
-      <origin xyz="0 0 -0.15" rpy="0 0 0"/>
+      <origin xyz="0 0 ${-shin_length/2}" rpy="0 0 0"/>
 
       <geometry>
-        <box size="0.085 0.085 0.30"/>
+        <box size="0.085 0.085 ${shin_length}"/>
       </geometry>
 
       <material name="right_shin_gray">
@@ -564,15 +568,15 @@
     </xacro:if>
 
     <collision>
-      <origin xyz="0 0 -0.15" rpy="0 0 0"/>
+      <origin xyz="0 0 ${-shin_length/2}" rpy="0 0 0"/>
 
       <geometry>
-        <box size="0.085 0.085 0.30"/>
+        <box size="0.085 0.085 ${shin_length}"/>
       </geometry>
     </collision>
 
     <inertial>
-      <origin xyz="0 0 -0.15" rpy="0 0 0"/>
+      <origin xyz="0 0 ${-shin_length/2}" rpy="0 0 0"/>
 
       <mass value="1.1"/>
 
@@ -593,7 +597,7 @@
     <parent link="right_thigh_link"/>
     <child link="right_shin_link"/>
 
-    <origin xyz="0 0 -0.32" rpy="0 0 0"/>
+    <origin xyz="0 0 ${-thigh_length}" rpy="0 0 0"/>
 
     <axis xyz="0 1 0"/>
 
@@ -661,7 +665,7 @@
     <parent link="right_shin_link"/>
     <child link="right_foot_link"/>
 
-    <origin xyz="0 0 -0.30" rpy="0 0 0"/>
+    <origin xyz="0 0 ${-shin_length}" rpy="0 0 0"/>
 
     <axis xyz="0 1 0"/>
 
