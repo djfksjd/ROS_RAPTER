@@ -71,3 +71,5 @@ File 34 verifies that refused development probes emit no trajectory commands.
 - `56-lateral-support-feasibility.json`: 평평한 발 정적 한 발 지지의 측방 COM 여유(오프라인 FK).
 - `57-mujoco-crouch-standing.json`, `57-mujoco-zero-start-failure.json`: MuJoCo 변환 모델 정적 기립 비교.
 - `58-mujoco-lateral-rocking.json`: MuJoCo open-loop 흔들기/보폭 견고성(60s, 질량·마찰 변화). 보행 성공 아님.
+- `59-mujoco-rocking-robustness.json`: elliptic cone 모델 흔들기 open/closed-loop 9조건 60s.
+- `60-mujoco-stride-clean-steps.json`: 보폭+발목 피드백 깨끗한 걸음 지표, servo kv 30/50/100 비교. 조건부 결과.
