@@ -1,0 +1,8 @@
+Gazebo Harmonic, world raptor_world.sdf with Physics <engine> gz-physics-bullet-featherstone-plugin (temporary copy in log volume)
+Launch: --experiment passive_toes:=true crouched_start:=true (free base). 2026-09-28.
+Pose samples over ~12 s (x, z, tilt rad):
+(-0.3646, 0.2434, 3.0362), (0.318, 0.2434, 3.0365), (2.3411, 0.2432, 3.0369), (5.4543, 0.2433, 3.0369),
+(9.0779, 0.2434, 3.0367), (13.7426, 0.2434, 3.0366), (19.7583, 0.2434, 3.0362), (26.7545, 0.2432, 3.0359)
+Left foot contact topic: messages received. Passive toe joints: absent from /joint_states.
+Verdict: model upside down and sliding; Bullet-Featherstone not usable for the whole robot as configured.
+Its fixed-base single-joint servo steps were clean (61-gazebo-servo-step-ankle-bulletfs.json).
