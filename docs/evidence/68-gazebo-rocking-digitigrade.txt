@@ -1,0 +1,27 @@
+Gazebo rocking reproduction, digitigrade design, 2026-09-28. Script: src/raptor_control/scripts/rock_gz_probe.py.
+Session: --experiment leg_design:=digitigrade passive toes crouched_start crouch_hip_pitch -0.10 spawn_z 0.1075 (DART).
+Command: same open-loop law as sim/rock_probe.py, A 0.08 rad, 2 Hz, 1 s settle, 1 s ramp, no stride, position targets
+  streamed on sim time every 20 ms through the JTC topic. Watchdog: STOP (hold measured positions) on |v| >= 90% of the
+  joint velocity limit, |q - target| > 0.15 rad, IMU tilt > 0.25 rad or nonfinite state. Contact = any foot/toe contact
+  message in the last 0.1 s (not a force threshold). RTF ~0.3 (120 cycles: 172 s wall for 62 s sim).
+Runs (summary: 68-gazebo-rocking-summary.json):
+  120 cycles, JTC horizon 50 ms: no STOP; single support L 0.280 R 0.277; no-contact 0; max roll 0.121; max |v| 1.30 rad/s
+    (hip roll); 120 liftoffs per foot, alternating (liftoff phases L 0.41, R 0.90 of the cycle).
+  40 cycles, horizon 20 ms: no STOP; single support L 0.272 R 0.279; max roll 0.132; max |v| 1.43 rad/s.
+  STOP path: A 0.12, 2.5 Hz (commanded peak 1.88 rad/s > 90% of 2.0): STOP "velocity saturation right_hip_roll_joint
+    -1.860 rad/s" at sim 3.709 s; robot stayed up (tilt 0.011 rad after hold).
+Sim-to-sim against MuJoCo (sim/raptor_digitigrade.xml, same A/f, 2 Hz sine fit, relative to the command):
+                           hip roll joint amp/lag   body roll amp/lag
+  Gazebo, horizon 50 ms    0.57 / 103 ms            0.76 / 97 ms
+  Gazebo, horizon 20 ms    0.88 /  64 ms            1.04 / 62 ms
+  MuJoCo (GazeboLikeServo)   -                      1.04 / ~16 ms
+  MuJoCo single support (force < 5% weight): 0.46 per foot vs Gazebo 0.28 (contact-message metric; not comparable yet).
+Conclusions: qualitative match (alternating single support, no fall, no saturation at A 0.08/2 Hz, watchdog STOP works).
+  The 50 ms trajectory horizon was the main cause of the Gazebo tracking loss. A ~46 ms body-roll phase gap remains
+  (criterion ~20 ms: NOT met); MuJoCo's servo model does not include the JTC interpolation and the 10 ms state refresh.
+Not validated: stepping/stride in Gazebo, force-based contact metric in Gazebo, digitigrade_low in Gazebo rocking.
+Review fixes (UNI_AI gpt-6-sol review of the probe, applied after local check): STOP also on stale joint/IMU data
+  (> 0.1 s sim), sim time running backwards, and clock stall (> 2 s wall); hold uses the last finite target for missing or
+  nonfinite measurements and is repeated 3x; any exception holds; normal end returns to the crouch; ramp must be > 0.
+  Re-run: 20 cycles no STOP (single support L 0.283 R 0.285, max tilt 0.151); STOP test stopped at sim 2.041 s
+  ("velocity saturation right_hip_roll_joint -2.000 rad/s"). The stale/clock paths were not exercised in Gazebo.

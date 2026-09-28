@@ -1,0 +1,205 @@
+{
+ "rock-gz-120": {
+  "arguments": {
+   "amplitude": 0.08,
+   "frequency": 2.0,
+   "cycles": 120,
+   "ramp": 1.0,
+   "settle": 1.0,
+   "crouch_hip": -0.1,
+   "crouch_knee": 0.5,
+   "out": "/raptor_ws/log/rock-gz-120.json"
+  },
+  "stop_reason": null,
+  "error": null,
+  "wall_s": 171.8,
+  "summary": {
+   "samples": 2994,
+   "active_samples": 2898,
+   "single_support_fraction": {
+    "left": 0.28019323671497587,
+    "right": 0.27674258109040717
+   },
+   "no_contact_fraction": 0.0,
+   "max_body_roll_rad": 0.12117,
+   "max_body_pitch_rad": 0.00158,
+   "max_tilt_rad": 0.12118,
+   "max_abs_velocity": {
+    "left_hip_roll_joint": 1.2124,
+    "left_hip_pitch_joint": 0.1131,
+    "left_knee_pitch_joint": 0.4684,
+    "left_ankle_pitch_joint": 0.3047,
+    "right_hip_roll_joint": 1.2952,
+    "right_hip_pitch_joint": 0.2173,
+    "right_knee_pitch_joint": 0.4047,
+    "right_ankle_pitch_joint": 0.2698,
+    "tail_yaw_joint": 0.0,
+    "tail_pitch_joint": 0.0006
+   }
+  },
+  "limitation": "Gazebo DART open-loop rocking in place; contact = any foot/toe contact message; not walking."
+ },
+ "rock-gz-h20": {
+  "arguments": {
+   "amplitude": 0.08,
+   "frequency": 2.0,
+   "cycles": 40,
+   "ramp": 1.0,
+   "settle": 1.0,
+   "crouch_hip": -0.1,
+   "crouch_knee": 0.5,
+   "horizon": 0.02,
+   "out": "/raptor_ws/log/rock-gz-h20.json"
+  },
+  "stop_reason": null,
+  "error": null,
+  "wall_s": 66.3,
+  "summary": {
+   "samples": 1053,
+   "active_samples": 955,
+   "single_support_fraction": {
+    "left": 0.27225130890052357,
+    "right": 0.27853403141361255
+   },
+   "no_contact_fraction": 0.0,
+   "max_body_roll_rad": 0.13161,
+   "max_body_pitch_rad": 0.00163,
+   "max_tilt_rad": 0.14956,
+   "max_abs_velocity": {
+    "left_hip_roll_joint": 1.4048,
+    "left_hip_pitch_joint": 0.0701,
+    "left_knee_pitch_joint": 0.2678,
+    "left_ankle_pitch_joint": 0.1741,
+    "right_hip_roll_joint": 1.4278,
+    "right_hip_pitch_joint": 0.1206,
+    "right_knee_pitch_joint": 0.01,
+    "right_ankle_pitch_joint": 0.0176,
+    "tail_yaw_joint": 0.0,
+    "tail_pitch_joint": 0.0275
+   }
+  },
+  "limitation": "Gazebo DART open-loop rocking in place; contact = any foot/toe contact message; not walking."
+ },
+ "rock-gz-stop": {
+  "arguments": {
+   "amplitude": 0.12,
+   "frequency": 2.5,
+   "cycles": 10,
+   "ramp": 1.0,
+   "settle": 1.0,
+   "crouch_hip": -0.1,
+   "crouch_knee": 0.5,
+   "out": "/raptor_ws/log/rock-gz-stop.json"
+  },
+  "stop_reason": "velocity saturation right_hip_roll_joint -1.860 rad/s (limit 2.0) at sim 3.709 s",
+  "error": null,
+  "wall_s": 13.7,
+  "summary": {
+   "samples": 177,
+   "active_samples": 81,
+   "single_support_fraction": {
+    "left": 0.18518518518518517,
+    "right": 0.2345679012345679
+   },
+   "no_contact_fraction": 0.0,
+   "max_body_roll_rad": 0.10364,
+   "max_body_pitch_rad": 0.00111,
+   "max_tilt_rad": 0.10465,
+   "max_abs_velocity": {
+    "left_hip_roll_joint": 1.5236,
+    "left_hip_pitch_joint": 0.0247,
+    "left_knee_pitch_joint": 0.0137,
+    "left_ankle_pitch_joint": 0.0092,
+    "right_hip_roll_joint": 1.5153,
+    "right_hip_pitch_joint": 0.0021,
+    "right_knee_pitch_joint": 0.0033,
+    "right_ankle_pitch_joint": 0.0023,
+    "tail_yaw_joint": 0.0,
+    "tail_pitch_joint": 0.0018
+   }
+  },
+  "limitation": "Gazebo DART open-loop rocking in place; contact = any foot/toe contact message; not walking."
+ },
+ "rock-gz-v2 (after review fixes)": {
+  "arguments": {
+   "amplitude": 0.08,
+   "frequency": 2.0,
+   "cycles": 20,
+   "ramp": 1.0,
+   "settle": 1.0,
+   "crouch_hip": -0.1,
+   "crouch_knee": 0.5,
+   "horizon": 0.02,
+   "out": "/raptor_ws/log/rock-gz-v2.json"
+  },
+  "stop_reason": null,
+  "error": null,
+  "wall_s": 28.3,
+  "summary": {
+   "samples": 577,
+   "active_samples": 481,
+   "single_support_fraction": {
+    "left": 0.28274428274428276,
+    "right": 0.28482328482328484
+   },
+   "no_contact_fraction": 0.0,
+   "max_body_roll_rad": 0.14536,
+   "max_body_pitch_rad": 0.00171,
+   "max_tilt_rad": 0.15051,
+   "max_abs_velocity": {
+    "left_hip_roll_joint": 1.2159,
+    "left_hip_pitch_joint": 0.0456,
+    "left_knee_pitch_joint": 0.0105,
+    "left_ankle_pitch_joint": 0.0068,
+    "right_hip_roll_joint": 1.2196,
+    "right_hip_pitch_joint": 0.141,
+    "right_knee_pitch_joint": 0.0072,
+    "right_ankle_pitch_joint": 0.0048,
+    "tail_yaw_joint": 0.0,
+    "tail_pitch_joint": 0.003
+   }
+  },
+  "limitation": "Gazebo DART open-loop rocking in place; contact = any foot/toe contact message; not walking."
+ },
+ "rock-gz-v2-stop (after review fixes)": {
+  "arguments": {
+   "amplitude": 0.12,
+   "frequency": 2.5,
+   "cycles": 10,
+   "ramp": 1.0,
+   "settle": 1.0,
+   "crouch_hip": -0.1,
+   "crouch_knee": 0.5,
+   "horizon": 0.02,
+   "out": "/raptor_ws/log/rock-gz-v2-stop.json"
+  },
+  "stop_reason": "velocity saturation right_hip_roll_joint -2.000 rad/s (limit 2.0) at sim 2.041 s",
+  "error": null,
+  "wall_s": 5.3,
+  "summary": {
+   "samples": 99,
+   "active_samples": 3,
+   "single_support_fraction": {
+    "left": 0.0,
+    "right": 0.6666666666666666
+   },
+   "no_contact_fraction": 0.0,
+   "max_body_roll_rad": 0.04378,
+   "max_body_pitch_rad": 0.00139,
+   "max_tilt_rad": 0.10452,
+   "max_abs_velocity": {
+    "left_hip_roll_joint": 0.9795,
+    "left_hip_pitch_joint": 0.0039,
+    "left_knee_pitch_joint": 0.0069,
+    "left_ankle_pitch_joint": 0.0046,
+    "right_hip_roll_joint": 1.1447,
+    "right_hip_pitch_joint": 0.0009,
+    "right_knee_pitch_joint": 0.0041,
+    "right_ankle_pitch_joint": 0.0026,
+    "tail_yaw_joint": 0.0,
+    "tail_pitch_joint": 0.0024
+   }
+  },
+  "limitation": "Gazebo DART open-loop rocking in place; contact = any foot/toe contact message; not walking."
+ }
+}

@@ -5,7 +5,8 @@
 디지티그레이드 다리 설계와 morphloom 외형 완료(review 초안). DIGITIGRADE_APPEARANCE.ko.md.
 꼬리 0.95m·쐐기형 머리·디테일 반영 후 MuJoCo·Gazebo 기립·RViz 재검증 완료, 줄무늬 음영 해소(evidence/66).
 참고 모습 스타일 digitigrade_low 추가(evidence/67): 기립·흔들기 통과, 보폭 걷기 깨끗한 걸음 기준 미달, Gazebo 정지 기립.
-재개 지점: Gazebo에서 digitigrade 흔들기 재현(포화 감시 포함) 또는 actuator 사양 범위(사용자 결정).
+Gazebo digitigrade 흔들기 재현·STOP 감시 완료(evidence/68). MuJoCo와 위상 ~46ms 차이.
+재개 지점: MuJoCo servo 모델에 JTC 보간·상태 지연 반영 후 같은 명령 로그로 위상 비교(sim-to-sim), 또는 actuator 사양 범위(사용자 결정).
 Gazebo 실행은 --experiment leg_design:=digitigrade. 실험 컨테이너는 정지 상태.
 
 ## 2026-09-28 재개 결과

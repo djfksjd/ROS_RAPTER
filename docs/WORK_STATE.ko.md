@@ -45,7 +45,9 @@ Gazebo 정지 기립, RViz GLB 표시 확인. 줄무늬 원인은 Gazebo가 적�
 참고 모습 스타일 leg_design:=digitigrade_low 추가(evidence/67): 낮은 자세(hip_drop 0.06, 발목 위치 한도 ±0.95,
 crouch -0.80/1.65), 은색·크롬 외형. MuJoCo 기립·흔들기 9/9 통과, 보폭 걷기는 전도 없으나 깨끗한 걸음 기준 미달.
 Gazebo 정지 기립 확인. 보행 개발 기준 설계는 digitigrade 유지.
-다음: Gazebo에서 흔들기 재현(포화 감시 포함). 모터 사양 범위는 여전히 사용자 결정 대기.
+Gazebo 흔들기 재현(evidence/68): digitigrade A 0.08/2Hz 120주기 STOP 없이 교대 지지, 포화 감시 STOP 동작 확인.
+MuJoCo 대비 몸통 roll 진폭 일치, 위상 ~46ms 지연(기준 미달). JTC horizon 50→20ms로 추종 개선.
+다음: MuJoCo servo에 JTC 보간·지연 반영(명령 로그 재생) → 위상 비교, Gazebo 힘 기준 접촉 지표. 모터 사양 범위는 사용자 결정 대기.
 
 ## 이전 상태 — 방향 A(동적 흔들기 보행)
 
