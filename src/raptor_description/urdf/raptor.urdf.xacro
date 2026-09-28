@@ -28,6 +28,8 @@
   <xacro:arg name="ankle_roll" default="false"/>
   <xacro:property name="ankle_roll" value="${'$(arg ankle_roll)' == 'true'}"/>
   <xacro:property name="ankle_roll_limit" value="0.50"/>
+  <xacro:arg name="sole_shape" default="flat"/>
+  <xacro:property name="sole_shape" value="${dict(flat='flat', rocker='rocker')['$(arg sole_shape)']}"/>
   <xacro:if value="${ankle_roll and legacy}"><xacro:ERROR_ankle_roll_needs_a_digitigrade_leg_design/></xacro:if>
   <xacro:property name="hip_drop" value="${0.06 if low else 0.12}"/>
   <xacro:property name="ankle_limit" value="${0.95 if low else 0.70}"/>

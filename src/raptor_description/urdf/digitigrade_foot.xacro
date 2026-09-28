@@ -20,6 +20,12 @@
     <inertia ixx="${m*(y*y+z*z)/12}" ixy="0" ixz="0" iyy="${m*(x*x+z*z)/12}" iyz="0" izz="${m*(x*x+y*y)/12}"/>
   </xacro:macro>
 
+  <!-- sole_shape: flat (box pad, default) or rocker (convex paraboloid bottom, modeling/build_rocker_pad.py). -->
+  <xacro:macro name="pad_geometry">
+    <xacro:if value="${sole_shape == 'rocker'}"><geometry><mesh filename="package://raptor_description/meshes/foot/rocker_pad.stl"/></geometry></xacro:if>
+    <xacro:unless value="${sole_shape == 'rocker'}"><geometry><box size="${pad_length} ${pad_width} ${pad_thickness}"/></geometry></xacro:unless>
+  </xacro:macro>
+
   <xacro:macro name="digitigrade_foot" params="side passive">
     <!-- Mass kept equal to the legacy foot variant (0.3 kg with passive toes, else 0.6 kg). -->
     <xacro:property name="foot_mass" value="${0.3 if passive else 0.6}"/>
@@ -35,7 +41,7 @@
         <material name="metatarsus_gray"><color rgba="0.42 0.44 0.47 1"/></material></visual>
       </xacro:unless>
       <collision><origin xyz="${pad_x} 0 ${pad_z}"/>
-        <geometry><box size="${pad_length} ${pad_width} ${pad_thickness}"/></geometry></collision>
+        <xacro:pad_geometry/></collision>
       <collision><origin xyz="${meta_end_x/2} 0 ${meta_end_z/2}" rpy="0 ${-meta_angle} 0"/>
         <geometry><box size="${meta_width} ${meta_width} ${meta_length}"/></geometry></collision>
       <!-- Lumped inertia: half the mass in the metatarsus, half in the pad, about their midpoint. -->
@@ -82,7 +88,7 @@
         <material name="foot_pad_dark"><color rgba="0.08 0.09 0.10 1"/></material></visual>
       </xacro:unless>
       <collision><origin xyz="${pad_x-meta_end_x} 0 ${pad_z-meta_end_z}"/>
-        <geometry><box size="${pad_length} ${pad_width} ${pad_thickness}"/></geometry></collision>
+        <xacro:pad_geometry/></collision>
       <inertial><origin xyz="${pad_x-meta_end_x} 0 ${pad_z-meta_end_z}"/><mass value="${foot_mass/2}"/>
         <xacro:box_inertia m="${foot_mass/2}" x="${pad_length}" y="${pad_width}" z="${pad_thickness}"/>
       </inertial>

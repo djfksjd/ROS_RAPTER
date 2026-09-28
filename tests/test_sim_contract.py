@@ -83,3 +83,15 @@ class AnkleRollContractTest(unittest.TestCase):
             joint = next(j for j in urdf.findall('joint') if j.get('name') == f'{side}_ankle_roll_joint')
             self.assertEqual(joint.find('axis').get('xyz'), '1 0 0')
             self.assertEqual(joint.find('child').get('link'), f'{side}_foot_link')
+
+
+@unittest.skipIf(mujoco is None, 'mujoco not installed')
+class RockerSoleContractTest(unittest.TestCase):
+    """sole_shape:=rocker changes only the pad collision shape."""
+
+    def test_same_actuators_and_mass(self):
+        flat = mujoco.MjModel.from_xml_path(str(ROOT/'sim/raptor_digitigrade_ankleroll.xml'))
+        rocker = mujoco.MjModel.from_xml_path(str(ROOT/'sim/raptor_digitigrade_ankleroll_rocker.xml'))
+        self.assertEqual([rocker.actuator(i).name for i in range(rocker.nu)], [flat.actuator(i).name for i in range(flat.nu)])
+        self.assertAlmostEqual(sum(rocker.body_mass), sum(flat.body_mass), places=6)
+        self.assertEqual(rocker.nmesh, 1)
