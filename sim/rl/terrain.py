@@ -1,6 +1,7 @@
 """Height-field terrains for Raptor RL (MuJoCo). Heights in metres, grid 0.05 m.
 
-Kinds: flat, rough (random bumps), slope (fore-aft ramp), stairs (up), platform (drop-off edge).
+Kinds: flat, rough (random bumps), slope (fore-aft ramp), side_slope (cross slope everywhere, walking
+along it), stairs (up), platform (drop-off edge).
 `level` in [0, 1] scales difficulty for a curriculum. The robot spawns at the grid centre (x = 0),
 walking along +x.
 """
@@ -9,7 +10,7 @@ import numpy as np
 
 SIZE = 8.  # m, square
 RES = .05  # m per cell
-KINDS = ('flat', 'rough', 'slope', 'stairs', 'platform')
+KINDS = ('flat', 'rough', 'slope', 'side_slope', 'stairs', 'platform')
 
 
 def heights(kind, level, rng):
@@ -26,6 +27,10 @@ def heights(kind, level, rng):
     elif kind == 'slope':
         deg = 3.+22.*level
         h = np.tan(np.radians(deg))*ahead*rng.choice([1., -1.])
+    elif kind == 'side_slope':
+        deg = 3.+17.*level
+        Y = np.tile(x[:, None], (1, n))  # rows = y
+        h = np.tan(np.radians(deg))*Y*rng.choice([1., -1.])
     elif kind == 'stairs':
         rise, run = .02+.10*level, .35
         h = np.floor(ahead/run)*rise
@@ -65,6 +70,12 @@ def add_terrain(spec, kind, level, rng):
             spec.geom('floor').pos = [0, 0, h.min()]
             world.add_geom(name='pad', type=mujoco.mjtGeom.mjGEOM_BOX, size=[(SIZE/2+.5)/2, SIZE/2, .05],
                            pos=[(-SIZE/2+.5)/2, 0, h[0, k]-.05])
+    elif kind == 'side_slope':  # one plane tilted about x through the origin
+        grade = (h[-1, 0]-h[0, 0])/SIZE
+        ang = np.arctan(grade)
+        world.add_geom(name='cross', type=mujoco.mjtGeom.mjGEOM_BOX, size=[SIZE/2, SIZE/2/np.cos(ang), .05],
+                       pos=[0, .05*np.sin(ang), -.05*np.cos(ang)], quat=[np.cos(ang/2), np.sin(ang/2), 0, 0])
+        spec.geom('floor').pos = [0, 0, h.min()-.05]
     elif kind in ('stairs', 'platform'):
         x = np.linspace(-SIZE/2, SIZE/2, n)
         row = h[0]
