@@ -70,6 +70,7 @@ def main():
     p.add_argument('--episodes', type=int, default=3)
     p.add_argument('--seconds', type=float, default=20.)
     p.add_argument('--vel-scale', type=float, default=1.)
+    p.add_argument('--actuator', default='urdf')
     p.add_argument('--video')
     p.add_argument('--out')
     a = p.parse_args()
@@ -79,7 +80,8 @@ def main():
             for vx in a.commands:
                 eps = []
                 for ep in range(a.episodes):
-                    env = RaptorEnv(kind, level=level, vel_scale=a.vel_scale, randomize=False, seed=1000+ep)
+                    env = RaptorEnv(kind, level=level, vel_scale=a.vel_scale, randomize=False, seed=1000+ep,
+                                    actuator=a.actuator)
                     model, venv = load(a.model, env)
                     eps.append(episode(model, venv, env, [vx, 0., 0.], a.seconds))
                 row = {'terrain': kind, 'level': level, 'cmd_vx': vx, 'falls': sum(e['fell'] for e in eps),
@@ -94,7 +96,8 @@ def main():
     if a.video:
         frames = []
         for kind in a.terrain:
-            env = RaptorEnv(kind, level=a.levels[-1], vel_scale=a.vel_scale, randomize=False, seed=7)
+            env = RaptorEnv(kind, level=a.levels[-1], vel_scale=a.vel_scale, randomize=False, seed=7,
+                            actuator=a.actuator)
             model, venv = load(a.model, env)
             episode(model, venv, env, [a.commands[-1], 0., 0.], min(a.seconds, 10.), frames)
             env.close()

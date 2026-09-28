@@ -31,6 +31,10 @@ SERVO_DT, SERVO_GAIN = .01, 30.  # gz_ros2_control update 100 Hz, gain 0.3 x 100
 # Velocity-actuator stiffness. kv 30 is the value compared against Gazebo in evidence 74; the model
 # default 100 makes the foot chatter and fall under 0.02 rad ankle-target noise (measured 2026-09-29).
 SERVO_KV = 30.
+# Joint speed limits (rad/s) per actuator spec. 'r01a' is the evidence-75 recommendation for jumps and
+# running (hypothetical actuator, torque limits unchanged); results with it are not the current robot's.
+ACTUATORS = {'urdf': None,
+             'r01a': {'hip_roll': 5., 'hip_pitch': 11., 'knee_pitch': 18., 'ankle_pitch': 10.}}
 
 # weights: reward per second (multiplied by CONTROL_DT each step)
 WEIGHTS = dict(track_lin=2., track_yaw=1., lin_vel_z=-2., ang_vel_xy=-.05, orientation=-5.,
@@ -42,10 +46,11 @@ class RaptorEnv(gym.Env):
     metadata = {'render_modes': ['rgb_array'], 'render_fps': int(1/CONTROL_DT)}
 
     def __init__(self, terrain='flat', level=0., cmd_max=(.5, .2, .5), vel_scale=1., episode_s=20.,
-                 randomize=True, seed=None, render_mode=None, model_path=None, servo_kv=SERVO_KV):
+                 randomize=True, seed=None, render_mode=None, model_path=None, servo_kv=SERVO_KV,
+                 actuator='urdf'):
         self.kinds = [terrain] if isinstance(terrain, str) else list(terrain)
         self.level, self.cmd_max, self.vel_scale = level, np.array(cmd_max, float), vel_scale
-        self.servo_kv = servo_kv
+        self.servo_kv, self.actuator = servo_kv, actuator
         self.episode_steps, self.randomize, self.render_mode = int(episode_s/CONTROL_DT), randomize, render_mode
         self.model_path = str(model_path or SIM/'raptor_digitigrade.xml')
         self.rng = np.random.default_rng(seed)
@@ -62,6 +67,9 @@ class RaptorEnv(gym.Env):
         self.heights = tr.add_terrain(spec, self.kind, self.level, self.rng)
         m = spec.compile()
         m.actuator_ctrlrange[:] *= self.vel_scale
+        for joint, speed in (ACTUATORS[self.actuator] or {}).items():
+            for side in ('left', 'right'):
+                m.actuator_ctrlrange[m.actuator(f'{side}_{joint}_joint').id] = [-speed, speed]
         m.actuator_gainprm[:, 0], m.actuator_biasprm[:, 2] = self.servo_kv, -self.servo_kv
         self.model, self.data = m, mujoco.MjData(m)
         self.close()  # a renderer is bound to the previous model
