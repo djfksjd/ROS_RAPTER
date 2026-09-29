@@ -11,6 +11,7 @@
       <body name="base_link" pos="0 0 0.58">
         <inertial pos="0 0 0" mass="3.74" diaginertia="0.0124667 0.0543547 0.0578453"/>
         <geom size="0.2 0.08 0.06" type="box" conaffinity="0" rgba="0.42 0.44 0.47 1" mass="0"/>
+        <geom size="0.117047 0.025 0.025" pos="0.31 0 0.04" quat="0.984833 0 -0.173503 0" type="box" contype="0" conaffinity="0" rgba="0.42 0.44 0.47 1" mass="0"/>
         <site name="imu"/>
         <body name="head_link" pos="0.42 0 0.08">
           <inertial pos="0 0 0" mass="0.45" diaginertia="0.0018 0.0018 0.0018"/>

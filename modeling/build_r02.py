@@ -16,7 +16,7 @@ Same joint/actuator names as the 12-DOF model, so sim/rl works unchanged (pass t
 Usage: .venv-sim/bin/python modeling/build_r02.py [--speed 3.0] [--out sim/raptor_r02.xml]
 """
 import argparse
-from math import cos, radians, sin
+from math import atan2, cos, radians, sin, sqrt
 from pathlib import Path
 import sys
 
@@ -98,6 +98,9 @@ def build(p, speed, achilles_k=0., achilles_preload=0.):
     base.add_site(name='imu')
     neck = body(base, 'head_link', [p.head_x, 0, .08], p.head_neck, [0, 0, 0], [p.head_neck*.004]*3)
     box(neck, [.09, .04, .04], [0, 0, 0], LIGHT)
+    nl = sqrt((p.head_x - p.torso_len/2)**2 + .08**2)  # visual neck from the torso front to the head (no mass, no contact)
+    box(base, [nl/2, .025, .025], [(p.torso_len/2 + p.head_x)/2, 0, .04], GREY, contact=False,
+        quat=pq(-atan2(.08, p.head_x - p.torso_len/2)))
     lm = p.tube_density
     for side in ('left', 'right'):
         s = 1. if side == 'left' else -1.
