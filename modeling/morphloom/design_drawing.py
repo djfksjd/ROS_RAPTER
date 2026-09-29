@@ -21,7 +21,13 @@ frames, root = Model(text).fk({}), ET.fromstring(text)
 boxes = []
 for link in root.findall('link'):
     for collision in link.findall('collision'):
-        half = np.array(list(map(float, collision.find('geometry/box').get('size').split())))/2
+        box, sphere = collision.find('geometry/box'), collision.find('geometry/sphere')
+        if box is not None:
+            half = np.array(list(map(float, box.get('size').split())))/2
+        elif sphere is not None:  # R-02 MTP pad: drawn as its bounding cube
+            half = np.full(3, float(sphere.get('radius')))
+        else:
+            continue
         t = frames[link.get('name')]@origin(collision.find('origin'))
         boxes.append(np.array([(t@np.r_[half*np.array(s), 1])[:3] for s in itertools.product([-1, 1], repeat=3)]))
 pts = np.vstack(boxes)*1000

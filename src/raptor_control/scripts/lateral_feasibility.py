@@ -36,7 +36,7 @@ class Model:
         self.boxes = [(l.get('name'), origin(c.find('origin')),
                        np.array(list(map(float, c.find('geometry/box').get('size').split())))/2)
                       for l in root.findall('link') if l.get('name') == 'left_foot_link' or l.get('name').startswith('left_toe_')
-                      for c in l.findall('collision')]
+                      for c in l.findall('collision') if c.find('geometry/box') is not None]  # R-02 pad is a sphere
 
     def fk(self, q):
         transforms, pending = {self.root: np.eye(4)}, list(self.chain)

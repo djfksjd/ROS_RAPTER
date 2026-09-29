@@ -102,6 +102,16 @@
 - 계산의 MTP 토크는 압력중심을 발가락 30% 지점으로 가정해 **과소 추정일 수 있습니다.** 밀어낼 때는 압력중심이 발끝으로 갑니다.
 - 시뮬레이션 비교(스프링 유무, 같은 학습 조건)로 확인할 예정입니다.
 
+## 4.4 모델 구성과 목표 형태 (evidence 84)
+
+**단일 원천:** 이 계산기가 `config/r02_design.yaml`을 쓰고, 그 파일이 `raptor_r02.urdf.xacro`를 거쳐 URDF와 MuJoCo 모델이 됩니다.
+Gazebo(`leg_design:=r02`)와 MuJoCo가 같은 값을 씁니다. 명령: `.venv-sim/bin/python modeling/build_r02.py`.
+
+**목표 형태:** 사용자 참고 이미지 `raptor-views`를 따랐습니다.
+- 앞쪽 질량 0.45kg은 몸통 앞 **센서 포드**, 0.2kg은 몸통 위 **센서 마스트**입니다. 목이 없습니다.
+- 꼬리 pitch 범위는 ±0.8rad입니다.
+- 외형 메시: `modeling/morphloom/raptor_r02_parts.py` → morphloom → `meshes/r02/`
+
 ## 5. 한계와 미확인
 - 팬터그래프 근사: 실제 모델은 발목을 독립 구동합니다.
 - 보행 매개변수는 u 3.2 이상에서 외삽값입니다.

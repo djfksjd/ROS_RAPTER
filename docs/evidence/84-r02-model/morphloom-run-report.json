@@ -1,0 +1,211 @@
+{
+  "schema": "morphloom.job-result/0.1",
+  "jobId": "raptor-r02-visual",
+  "target": "review",
+  "assemblyFingerprint": "2b22193a17233acd7c76c834f8615cd6075b67a50ca750c31f497478a63d6135",
+  "sourceAudit": {
+    "schema": "morphloom.source-audit/0.1",
+    "pass": true,
+    "receipts": [
+      {
+        "viewId": "view_01",
+        "path": "work/raptor-r02/sources/design.png",
+        "sha256": "b3d1bdf44c83fa7e18eb2f8e1f261a9a66909e3c0e9500b6a37d67fcaffd9fd4",
+        "bytes": 15774,
+        "mimeType": "image/png",
+        "width": 2115,
+        "height": 1257
+      },
+      {
+        "viewId": "view_02",
+        "path": "work/raptor-r02/sources/concept.png",
+        "sha256": "3867ef14e91751a4eb0e1b5d9ded78c135d413343d250f0160c1a48e7586dc74",
+        "bytes": 230969,
+        "mimeType": "image/png",
+        "width": 1080,
+        "height": 1080
+      }
+    ],
+    "blockers": []
+  },
+  "evidenceAudit": {
+    "schema": "morphloom.evidence-claim-audit/0.1",
+    "pass": true,
+    "blockers": [],
+    "warnings": [],
+    "checkedComponents": 280,
+    "checkedDimensions": 6,
+    "recomputedReadiness": {
+      "target": "semi-professional-editable",
+      "profile": "product-visualization",
+      "buildReady": true,
+      "deliveryReady": true,
+      "score": 100,
+      "recommendedRoles": [
+        "front",
+        "rear",
+        "left",
+        "right",
+        "top",
+        "bottom",
+        "measurement",
+        "material"
+      ],
+      "presentRecommendedRoles": [
+        "front",
+        "left",
+        "right",
+        "measurement",
+        "material"
+      ],
+      "missingRecommendedRoles": [
+        "rear",
+        "top",
+        "bottom"
+      ],
+      "requiredCapabilities": [
+        "shape",
+        "depth",
+        "scale",
+        "surface",
+        "interfaces"
+      ],
+      "resolvedCapabilities": [
+        "shape",
+        "depth",
+        "scale",
+        "surface",
+        "interfaces"
+      ],
+      "unresolvedCapabilities": [],
+      "strongDimensionProperties": [
+        "metatarsus_strut_length",
+        "mtp_pad_diameter",
+        "torso_length"
+      ],
+      "calibratedViews": [
+        "view_01"
+      ],
+      "identifiedComponentIds": [],
+      "sourceAuditReady": true,
+      "sourceAuditIssues": [],
+      "conflicts": [],
+      "blockers": [],
+      "warnings": [],
+      "nextActions": [
+        "근거 팩을 잠그고 동일 시점 비교·토폴로지·표면·내보내기 게이트 실행"
+      ]
+    }
+  },
+  "route": {
+    "schema": "morphloom.modeling-route/0.1",
+    "request": "R-02 12축 랩터 로봇(타조 비율 다리, 두 발가락, 앞 센서 포드, 16마디 꼬리)의 링크별 부품 어셈블리 시각 외형을 목표 참고 이미지 스타일로 상세 제작 (물리 형상은 R-02 Xacro 기준)",
+    "domains": [
+      "electronics",
+      "product"
+    ],
+    "buildAllowed": true,
+    "deliveryAllowed": true,
+    "stages": [
+      {
+        "id": "evidence",
+        "tools": [
+          "evidence-readiness"
+        ],
+        "reason": "Resolve capabilities from drawings, measurements, scans, datasheets, or photographs without imposing a fixed photo count.",
+        "blocking": false
+      },
+      {
+        "id": "reconstruction",
+        "tools": [
+          "semantic-part-decomposition",
+          "visual-plan-audit",
+          "thin-feature-reconstruction",
+          "dimension-contracts",
+          "surface-reconstruction",
+          "pbr-reference-audit",
+          "electrical-netlist",
+          "clearance-router",
+          "assembly-compiler",
+          "camera-calibration",
+          "visual-hull",
+          "implicit-surface"
+        ],
+        "reason": "Compile the evidence-supported electronics+product representation into editable geometry and material systems.",
+        "blocking": false
+      },
+      {
+        "id": "verification",
+        "tools": [
+          "visual-plan-audit",
+          "part-inventory-audit",
+          "topology-audit",
+          "visual-comparison",
+          "glb-roundtrip",
+          "native-reopen"
+        ],
+        "reason": "Verify geometry, calibrated-view likeness, delivered bytes, and the target application before release.",
+        "blocking": true
+      }
+    ],
+    "blockers": []
+  },
+  "detailAudit": {
+    "pass": false,
+    "modelPass": false,
+    "modelBlockers": [
+      "locked fidelity contract is required",
+      "evidence-first part decomposition contract is required"
+    ],
+    "blockers": [
+      "locked fidelity contract is required",
+      "evidence-first part decomposition contract is required"
+    ],
+    "warnings": [],
+    "evidenceCoverage": 1,
+    "explicitSurfaceCoverage": 1,
+    "microSurfaceCoverage": 1,
+    "semanticDetailCoverage": 1,
+    "finiteTransformCoverage": 1,
+    "duplicateComponentIds": [],
+    "fidelityBlockers": [],
+    "fidelityWarnings": [],
+    "partDecompositionBlockers": [],
+    "partDecompositionWarnings": [],
+    "visualPlanBlockers": [],
+    "visualPlanWarnings": []
+  },
+  "patchReceipts": [],
+  "releaseAllowed": false,
+  "blockers": [],
+  "status": "review-pass",
+  "glbSha256": "d493c2427d5d8f9e2fd5d345d8d7674168f67af994f6b957d464b755fbdf9f7b",
+  "repeatGlbSha256": "d493c2427d5d8f9e2fd5d345d8d7674168f67af994f6b957d464b755fbdf9f7b",
+  "byteDeterministic": true,
+  "validation": {
+    "status": "pass",
+    "validator": "Khronos glTF Validator",
+    "validatorVersion": "2.0.0-dev.3.10",
+    "errors": 0,
+    "warnings": 0,
+    "infos": 0,
+    "hints": 0,
+    "truncated": false,
+    "issueCodes": [],
+    "independentRead": {
+      "status": "pass",
+      "parser": "glTF Transform WebIO",
+      "nodes": 281,
+      "meshes": 280,
+      "materials": 280,
+      "skins": 0,
+      "animations": 0
+    }
+  },
+  "metrics": {
+    "parts": 280,
+    "triangles": 124348,
+    "vertices": 235315,
+    "bytes": 13028828
+  }
+}

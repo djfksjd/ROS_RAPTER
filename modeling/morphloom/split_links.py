@@ -1,7 +1,7 @@
 """Split a Morphloom Raptor GLB into URDF link-local visual meshes and render a posed preview.
 
 Usage:
-  Blender --background --python modeling/morphloom/split_links.py -- ASSET.glb URDF OUT_DIR [PREVIEW_PREFIX [HIP KNEE]]
+  Blender --background --python modeling/morphloom/split_links.py -- ASSET.glb URDF OUT_DIR [PREVIEW_PREFIX [HIP KNEE [ANKLE]]]
 
 Component ids are `<link>__<part>` authored at the URDF zero pose. Each link's parts are joined,
 moved into that link frame with the inverse zero-pose transform and exported as OUT_DIR/<link>.glb.
@@ -26,11 +26,12 @@ args = sys.argv[sys.argv.index('--')+1:]
 asset, urdf, out = Path(args[0]), Path(args[1]), Path(args[2])
 preview = args[3] if len(args) > 3 else None
 hip, knee = (float(args[4]), float(args[5])) if len(args) > 5 else (-.10, .50)
+ankle = float(args[6]) if len(args) > 6 else -(hip+knee)  # R-02: explicit ankle (toes mounted at an angle)
 out.mkdir(parents=True, exist_ok=True)
 model = Model(urdf.read_text())
 zero = model.fk({})
 pose = {f'{s}_{j}_joint': v for s in ('left', 'right')
-        for j, v in (('hip_pitch', hip), ('knee_pitch', knee), ('ankle_pitch', -(hip+knee)))}
+        for j, v in (('hip_pitch', hip), ('knee_pitch', knee), ('ankle_pitch', ankle))}
 posed = model.fk(pose)
 
 bpy.ops.wm.read_factory_settings(use_empty=True)
