@@ -1,0 +1,157 @@
+<mujoco model="raptor">
+  <compiler angle="radian"/>
+
+  <option timestep="0.001" integrator="implicitfast" cone="elliptic"/>
+
+  <worldbody>
+    <geom name="floor" size="0 0 0.05" type="plane"/>
+    <body name="base_root">
+      <joint name="floating_base" type="free"/>
+      <body name="base_link" pos="0 0 0.85">
+        <inertial pos="0 0 0" quat="0 0.707107 0 0.707107" mass="8" diaginertia="0.2923 0.2691 0.0843"/>
+        <geom size="0.3 0.14 0.11" type="box" conaffinity="0" rgba="0.35 0.37 0.4 1"/>
+        <site name="imu"/>
+        <body name="left_hip_roll_link" pos="0 0.18 -0.05">
+          <inertial pos="0 0 -0.06" mass="0.8" diaginertia="0.0016 0.0016 0.0013"/>
+          <joint name="left_hip_roll_joint" range="-0.5 0.5" actuatorfrcrange="-80 80" axis="1 0 0"/>
+          <geom size="0.06 0.05 0.06" pos="0 0 -0.06" type="box" conaffinity="0" rgba="0.15 0.16 0.18 1"/>
+          <body name="left_thigh_link" pos="0 0 -0.12">
+            <inertial pos="0 0 -0.13" mass="1.5" diaginertia="0.0097 0.0097 0.0025"/>
+            <joint name="left_hip_pitch_joint" range="-1.2 0.8" actuatorfrcrange="-100 100" axis="0 1 0"/>
+            <geom size="0.05 0.05 0.13" pos="0 0 -0.13" type="box" conaffinity="0" rgba="0.55 0.57 0.6 1"/>
+            <body name="left_shin_link" pos="0 0 -0.26">
+              <inertial pos="0 0 -0.15" mass="1.1" diaginertia="0.00891229 0.00891229 0.0013"/>
+              <joint name="left_knee_pitch_joint" range="0 2.2" actuatorfrcrange="-120 120" axis="0 1 0"/>
+              <geom size="0.0425 0.0425 0.15" pos="0 0 -0.15" type="box" conaffinity="0" rgba="0.42 0.44 0.47 1"/>
+              <body name="left_metatarsus_link" pos="0 0 -0.3">
+                <inertial pos="0.0411477 0 -0.112725" mass="0.15" diaginertia="0.000765 0.000765 9e-05"/>
+                <joint name="left_ankle_pitch_joint" range="-1 1" actuatorfrcrange="-80 80" axis="0 1 0"/>
+                <geom size="0.03 0.03 0.12" pos="0.0411477 0 -0.112725" quat="0.984727 0 -0.174108 0" type="box" conaffinity="0" rgba="0.42 0.44 0.47 1"/>
+                <body name="left_foot_link" pos="0.0822955 0 -0.225449">
+                  <inertial pos="-0.04 0 -0.0075" quat="0 0.707107 0 0.707107" mass="0.15" diaginertia="0.00040625 0.000296563 0.000140313"/>
+                  <joint name="left_ankle_roll_joint" range="-0.5 0.5" actuatorfrcrange="-60 60" armature="0.01" axis="1 0 0"/>
+                  <geom size="0.075 0.05 0.0175" pos="-0.04 0 -0.0075" type="box" conaffinity="0" rgba="0.08 0.09 0.1 1"/>
+                  <body name="left_toe_1_proximal_link" pos="0.025 0.03 -0.008" quat="0.978148 0 0 0.207912">
+                    <inertial pos="0.02975 0 0" quat="0.5 0.5 0.5 0.5" mass="0.05" diaginertia="2.52333e-05 2.32333e-05 7.63333e-06"/>
+                    <joint name="left_toe_1_proximal_joint" stiffness="8.4" range="-0.55 0.65" actuatorfrcrange="-5 5" damping="0.08" frictionloss="0.005" axis="0 1 0"/>
+                    <geom size="0.02975 0.013 0.017" pos="0.02975 0 0" type="box" conaffinity="0" priority="1" friction="0.8" rgba="0.035 0.035 0.04 1"/>
+                    <body name="left_toe_1_distal_link" pos="0.0595 0 0">
+                      <inertial pos="0.031875 0 0" quat="0.5 0.5 0.5 0.5" mass="0.05" diaginertia="2.82542e-05 2.62542e-05 7.63333e-06"/>
+                      <joint name="left_toe_1_distal_joint" stiffness="5.6" range="-0.55 0.65" actuatorfrcrange="-5 5" damping="0.08" frictionloss="0.005" axis="0 1 0"/>
+                      <geom size="0.031875 0.013 0.017" pos="0.031875 0 0" type="box" conaffinity="0" priority="1" friction="0.8" rgba="0.12 0.14 0.16 1"/>
+                    </body>
+                  </body>
+                  <body name="left_toe_2_proximal_link" pos="0.03 -0.008 -0.008">
+                    <inertial pos="0.0385 0 0" quat="0.5 0.5 0.5 0.5" mass="0.05" diaginertia="2.52333e-05 2.32333e-05 7.63333e-06"/>
+                    <joint name="left_toe_2_proximal_joint" stiffness="15.6" range="-0.55 0.65" actuatorfrcrange="-5 5" damping="0.08" frictionloss="0.005" axis="0 1 0"/>
+                    <geom size="0.0385 0.013 0.017" pos="0.0385 0 0" type="box" conaffinity="0" priority="1" friction="0.8" rgba="0.035 0.035 0.04 1"/>
+                    <body name="left_toe_2_distal_link" pos="0.077 0 0">
+                      <inertial pos="0.04125 0 0" quat="0.5 0.5 0.5 0.5" mass="0.05" diaginertia="2.82542e-05 2.62542e-05 7.63333e-06"/>
+                      <joint name="left_toe_2_distal_joint" stiffness="10.4" range="-0.55 0.65" actuatorfrcrange="-5 5" damping="0.08" frictionloss="0.005" axis="0 1 0"/>
+                      <geom size="0.04125 0.013 0.017" pos="0.04125 0 0" type="box" conaffinity="0" priority="1" friction="1.2" rgba="0.12 0.14 0.16 1"/>
+                    </body>
+                  </body>
+                  <body name="left_toe_3_proximal_link" pos="0.015 -0.035 0.01" quat="0.955336 0 -0.29552 0">
+                    <inertial pos="0.028 0 0" quat="0.5 0.5 0.5 0.5" mass="0.05" diaginertia="2.52333e-05 2.32333e-05 7.63333e-06"/>
+                    <joint name="left_toe_3_proximal_joint" stiffness="12" range="-0.3 0.3" actuatorfrcrange="-5 5" damping="0.08" frictionloss="0.005" axis="0 1 0"/>
+                    <geom size="0.028 0.013 0.017" pos="0.028 0 0" type="box" conaffinity="0" priority="1" friction="0.8" rgba="0.035 0.035 0.04 1"/>
+                    <body name="left_toe_3_distal_link" pos="0.056 0 0">
+                      <inertial pos="0.03 0 0" quat="0.5 0.5 0.5 0.5" mass="0.05" diaginertia="2.82542e-05 2.62542e-05 7.63333e-06"/>
+                      <joint name="left_toe_3_distal_joint" stiffness="8" range="-0.3 0.3" actuatorfrcrange="-5 5" damping="0.08" frictionloss="0.005" axis="0 1 0"/>
+                      <geom size="0.03 0.013 0.017" pos="0.03 0 0" type="box" conaffinity="0" priority="1" friction="0.8" rgba="0.12 0.14 0.16 1"/>
+                    </body>
+                  </body>
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+        <body name="right_hip_roll_link" pos="0 -0.18 -0.05">
+          <inertial pos="0 0 -0.06" mass="0.8" diaginertia="0.0016 0.0016 0.0013"/>
+          <joint name="right_hip_roll_joint" range="-0.5 0.5" actuatorfrcrange="-80 80" axis="-1 0 0"/>
+          <geom size="0.06 0.05 0.06" pos="0 0 -0.06" type="box" conaffinity="0" rgba="0.15 0.16 0.18 1"/>
+          <body name="right_thigh_link" pos="0 0 -0.12">
+            <inertial pos="0 0 -0.13" mass="1.5" diaginertia="0.0097 0.0097 0.0025"/>
+            <joint name="right_hip_pitch_joint" range="-1.2 0.8" actuatorfrcrange="-100 100" axis="0 1 0"/>
+            <geom size="0.05 0.05 0.13" pos="0 0 -0.13" type="box" conaffinity="0" rgba="0.55 0.57 0.6 1"/>
+            <body name="right_shin_link" pos="0 0 -0.26">
+              <inertial pos="0 0 -0.15" mass="1.1" diaginertia="0.00891229 0.00891229 0.0013"/>
+              <joint name="right_knee_pitch_joint" range="0 2.2" actuatorfrcrange="-120 120" axis="0 1 0"/>
+              <geom size="0.0425 0.0425 0.15" pos="0 0 -0.15" type="box" conaffinity="0" rgba="0.42 0.44 0.47 1"/>
+              <body name="right_metatarsus_link" pos="0 0 -0.3">
+                <inertial pos="0.0411477 0 -0.112725" mass="0.15" diaginertia="0.000765 0.000765 9e-05"/>
+                <joint name="right_ankle_pitch_joint" range="-1 1" actuatorfrcrange="-80 80" axis="0 1 0"/>
+                <geom size="0.03 0.03 0.12" pos="0.0411477 0 -0.112725" quat="0.984727 0 -0.174108 0" type="box" conaffinity="0" rgba="0.42 0.44 0.47 1"/>
+                <body name="right_foot_link" pos="0.0822955 0 -0.225449">
+                  <inertial pos="-0.04 0 -0.0075" quat="0 0.707107 0 0.707107" mass="0.15" diaginertia="0.00040625 0.000296563 0.000140313"/>
+                  <joint name="right_ankle_roll_joint" range="-0.5 0.5" actuatorfrcrange="-60 60" armature="0.01" axis="1 0 0"/>
+                  <geom size="0.075 0.05 0.0175" pos="-0.04 0 -0.0075" type="box" conaffinity="0" rgba="0.08 0.09 0.1 1"/>
+                  <body name="right_toe_1_proximal_link" pos="0.015 0.035 0.01" quat="0.955336 0 -0.29552 0">
+                    <inertial pos="0.028 0 0" quat="0.5 0.5 0.5 0.5" mass="0.05" diaginertia="2.52333e-05 2.32333e-05 7.63333e-06"/>
+                    <joint name="right_toe_1_proximal_joint" stiffness="12" range="-0.3 0.3" actuatorfrcrange="-5 5" damping="0.08" frictionloss="0.005" axis="0 1 0"/>
+                    <geom size="0.028 0.013 0.017" pos="0.028 0 0" type="box" conaffinity="0" priority="1" friction="0.8" rgba="0.035 0.035 0.04 1"/>
+                    <body name="right_toe_1_distal_link" pos="0.056 0 0">
+                      <inertial pos="0.03 0 0" quat="0.5 0.5 0.5 0.5" mass="0.05" diaginertia="2.82542e-05 2.62542e-05 7.63333e-06"/>
+                      <joint name="right_toe_1_distal_joint" stiffness="8" range="-0.3 0.3" actuatorfrcrange="-5 5" damping="0.08" frictionloss="0.005" axis="0 1 0"/>
+                      <geom size="0.03 0.013 0.017" pos="0.03 0 0" type="box" conaffinity="0" priority="1" friction="0.8" rgba="0.12 0.14 0.16 1"/>
+                    </body>
+                  </body>
+                  <body name="right_toe_2_proximal_link" pos="0.03 0.008 -0.008">
+                    <inertial pos="0.0385 0 0" quat="0.5 0.5 0.5 0.5" mass="0.05" diaginertia="2.52333e-05 2.32333e-05 7.63333e-06"/>
+                    <joint name="right_toe_2_proximal_joint" stiffness="15.6" range="-0.55 0.65" actuatorfrcrange="-5 5" damping="0.08" frictionloss="0.005" axis="0 1 0"/>
+                    <geom size="0.0385 0.013 0.017" pos="0.0385 0 0" type="box" conaffinity="0" priority="1" friction="0.8" rgba="0.035 0.035 0.04 1"/>
+                    <body name="right_toe_2_distal_link" pos="0.077 0 0">
+                      <inertial pos="0.04125 0 0" quat="0.5 0.5 0.5 0.5" mass="0.05" diaginertia="2.82542e-05 2.62542e-05 7.63333e-06"/>
+                      <joint name="right_toe_2_distal_joint" stiffness="10.4" range="-0.55 0.65" actuatorfrcrange="-5 5" damping="0.08" frictionloss="0.005" axis="0 1 0"/>
+                      <geom size="0.04125 0.013 0.017" pos="0.04125 0 0" type="box" conaffinity="0" priority="1" friction="1.2" rgba="0.12 0.14 0.16 1"/>
+                    </body>
+                  </body>
+                  <body name="right_toe_3_proximal_link" pos="0.025 -0.03 -0.008" quat="0.978148 0 0 -0.207912">
+                    <inertial pos="0.02975 0 0" quat="0.5 0.5 0.5 0.5" mass="0.05" diaginertia="2.52333e-05 2.32333e-05 7.63333e-06"/>
+                    <joint name="right_toe_3_proximal_joint" stiffness="8.4" range="-0.55 0.65" actuatorfrcrange="-5 5" damping="0.08" frictionloss="0.005" axis="0 1 0"/>
+                    <geom size="0.02975 0.013 0.017" pos="0.02975 0 0" type="box" conaffinity="0" priority="1" friction="0.8" rgba="0.035 0.035 0.04 1"/>
+                    <body name="right_toe_3_distal_link" pos="0.0595 0 0">
+                      <inertial pos="0.031875 0 0" quat="0.5 0.5 0.5 0.5" mass="0.05" diaginertia="2.82542e-05 2.62542e-05 7.63333e-06"/>
+                      <joint name="right_toe_3_distal_joint" stiffness="5.6" range="-0.55 0.65" actuatorfrcrange="-5 5" damping="0.08" frictionloss="0.005" axis="0 1 0"/>
+                      <geom size="0.031875 0.013 0.017" pos="0.031875 0 0" type="box" conaffinity="0" priority="1" friction="0.8" rgba="0.12 0.14 0.16 1"/>
+                    </body>
+                  </body>
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+        <body name="tail_yaw_link" pos="-0.3 0 0">
+          <inertial pos="-0.08 0 0" quat="0.5 0.5 0.5 0.5" mass="0.5" diaginertia="0.0014 0.0014 0.0007"/>
+          <joint name="tail_yaw_joint" range="-0.8 0.8" actuatorfrcrange="-50 50"/>
+          <geom size="0.08 0.045 0.045" pos="-0.08 0 0" type="box" conaffinity="0" rgba="0.18 0.19 0.21 1"/>
+          <body name="tail_link" pos="-0.16 0 0">
+            <inertial pos="-0.475 0 0" quat="0.5 0.5 0.5 0.5" mass="0.8" diaginertia="0.0604483 0.0604483 0.000563333"/>
+            <joint name="tail_pitch_joint" range="-0.6 0.6" actuatorfrcrange="-50 50" axis="0 1 0"/>
+            <geom size="0.475 0.0325 0.0325" pos="-0.475 0 0" type="box" conaffinity="0" rgba="0.35 0.37 0.4 1"/>
+          </body>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+
+  <actuator>
+    <general name="left_hip_roll_joint" joint="left_hip_roll_joint" ctrlrange="-2 2" ctrllimited="true" forcelimited="true" forcerange="-80 80" biastype="affine" gainprm="100" biasprm="0 0 -100"/>
+    <general name="left_hip_pitch_joint" joint="left_hip_pitch_joint" ctrlrange="-2.5 2.5" ctrllimited="true" forcelimited="true" forcerange="-100 100" biastype="affine" gainprm="100" biasprm="0 0 -100"/>
+    <general name="left_knee_pitch_joint" joint="left_knee_pitch_joint" ctrlrange="-3 3" ctrllimited="true" forcelimited="true" forcerange="-120 120" biastype="affine" gainprm="100" biasprm="0 0 -100"/>
+    <general name="left_ankle_pitch_joint" joint="left_ankle_pitch_joint" ctrlrange="-2.5 2.5" ctrllimited="true" forcelimited="true" forcerange="-80 80" biastype="affine" gainprm="100" biasprm="0 0 -100"/>
+    <general name="left_ankle_roll_joint" joint="left_ankle_roll_joint" ctrlrange="-2.5 2.5" ctrllimited="true" forcelimited="true" forcerange="-60 60" biastype="affine" gainprm="100" biasprm="0 0 -100"/>
+    <general name="right_hip_roll_joint" joint="right_hip_roll_joint" ctrlrange="-2 2" ctrllimited="true" forcelimited="true" forcerange="-80 80" biastype="affine" gainprm="100" biasprm="0 0 -100"/>
+    <general name="right_hip_pitch_joint" joint="right_hip_pitch_joint" ctrlrange="-2.5 2.5" ctrllimited="true" forcelimited="true" forcerange="-100 100" biastype="affine" gainprm="100" biasprm="0 0 -100"/>
+    <general name="right_knee_pitch_joint" joint="right_knee_pitch_joint" ctrlrange="-3 3" ctrllimited="true" forcelimited="true" forcerange="-120 120" biastype="affine" gainprm="100" biasprm="0 0 -100"/>
+    <general name="right_ankle_pitch_joint" joint="right_ankle_pitch_joint" ctrlrange="-2.5 2.5" ctrllimited="true" forcelimited="true" forcerange="-80 80" biastype="affine" gainprm="100" biasprm="0 0 -100"/>
+    <general name="right_ankle_roll_joint" joint="right_ankle_roll_joint" ctrlrange="-2.5 2.5" ctrllimited="true" forcelimited="true" forcerange="-60 60" biastype="affine" gainprm="100" biasprm="0 0 -100"/>
+    <general name="tail_yaw_joint" joint="tail_yaw_joint" ctrlrange="-2 2" ctrllimited="true" forcelimited="true" forcerange="-50 50" biastype="affine" gainprm="100" biasprm="0 0 -100"/>
+    <general name="tail_pitch_joint" joint="tail_pitch_joint" ctrlrange="-2 2" ctrllimited="true" forcelimited="true" forcerange="-50 50" biastype="affine" gainprm="100" biasprm="0 0 -100"/>
+  </actuator>
+
+  <sensor>
+    <framequat objtype="site" objname="imu" name="imu_quat"/>
+    <gyro site="imu" name="imu_gyro"/>
+  </sensor>
+</mujoco>

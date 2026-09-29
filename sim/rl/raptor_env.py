@@ -47,7 +47,7 @@ ACTUATORS = {'urdf': None,
 # weights: reward per second (multiplied by CONTROL_DT each step)
 WEIGHTS = dict(track_lin=2., track_yaw=1., lin_vel_z=-2., ang_vel_xy=-.05, orientation=-5.,
                height=-20., torque=-2e-5, action_rate=-.02, joint_acc=-2.5e-7, air_time=1.,
-               slip=-.2, collision=-5., joint_limit=-5., alive=.5)
+               slip=-.2, collision=-5., joint_limit=-5., alive=.5, tall=0.)
 
 
 class RaptorEnv(gym.Env):
@@ -306,6 +306,9 @@ class RaptorEnv(gym.Env):
         ground = tr.height_at(self.heights, bx, by)
         sag = self.h_nom-(bz-ground)
         terms['height'] = sag**2 if sag > 0 else 0.
+        # tall: rising more than 2 cm above the nominal (start) height; keeps a chosen crouch (off by default)
+        rise = -sag-.05
+        terms['tall'] = rise**2 if rise > 0 else 0.
         terms['torque'] = np.sum(torque**2)
         terms['action_rate'] = np.sum((action-self.last_action)**2)
         terms['joint_acc'] = np.sum(((qd-self.prev_qd)/CONTROL_DT)**2)
