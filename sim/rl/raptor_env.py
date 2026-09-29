@@ -38,6 +38,7 @@ SERVO_DT, SERVO_GAIN = .01, 30.  # gz_ros2_control update 100 Hz, gain 0.3 x 100
 # Velocity-actuator stiffness. kv 30 is the value compared against Gazebo in evidence 74; the model
 # default 100 makes the foot chatter and fall under 0.02 rad ankle-target noise (measured 2026-09-29).
 SERVO_KV = 30.
+DR2_ITEMS = ('ankle', 'noise', 'delay', 'toe', 'com', 'pulses', 'initvel')
 # Joint speed limits (rad/s) per actuator spec. 'r01a' is the evidence-75 recommendation for jumps and
 # running (hypothetical actuator, torque limits unchanged); results with it are not the current robot's.
 ACTUATORS = {'urdf': None,
@@ -54,7 +55,7 @@ class RaptorEnv(gym.Env):
 
     def __init__(self, terrain='flat', level=0., cmd_max=(.5, .2, .5), vel_scale=1., episode_s=20.,
                  randomize=True, seed=None, render_mode=None, model_path=None, servo_kv=SERVO_KV,
-                 actuator='urdf', dof=10, sole='flat', weights=None, zero_cmd=.1, jtc_horizon=0., kv_range=None, slew=None, dr=1):
+                 actuator='urdf', dof=10, sole='flat', weights=None, zero_cmd=.1, jtc_horizon=0., kv_range=None, slew=None, dr=1, dr_items=None):
         self.kinds = [terrain] if isinstance(terrain, str) else list(terrain)
         self.level, self.cmd_max, self.vel_scale = level, np.array(cmd_max, float), vel_scale
         self.servo_kv, self.actuator = servo_kv, actuator
@@ -68,6 +69,8 @@ class RaptorEnv(gym.Env):
         # dr 2 (Fable review, evidence 81): ankle-pitch stop margin, observation noise and 0-20 ms delay,
         # toe spring +-50%, CoM +-3 cm, random base force pulses, initial base velocity. dr 1 = earlier runs.
         self.dr = dr
+        # dr 2 items can be enabled one group at a time (Fable review): default all when dr 2
+        self.dr_items = set(dr_items) if dr_items else (set(DR2_ITEMS) if dr >= 2 else set())
         self.episode_steps, self.randomize, self.render_mode = int(episode_s/CONTROL_DT), randomize, render_mode
         self.model_path = str(model_path or MODELS[dof, sole])
         probe = mujoco.MjModel.from_xml_path(self.model_path)
@@ -112,7 +115,7 @@ class RaptorEnv(gym.Env):
         self.v_adr = np.array([m.jnt_dofadr[m.joint(n).id] for n in self.active])
         self.act = np.array([m.actuator(n).id for n in self.active])
         self.lo, self.hi = m.jnt_range[[m.joint(n).id for n in self.active]].T.copy()
-        if self.dr >= 2:  # keep ankle pitch targets 0.15 rad off the stops (DART stop overshoot, evidence 61)
+        if 'ankle' in self.dr_items:  # keep ankle pitch targets 0.15 rad off the stops (DART stop overshoot, evidence 61)
             for i, n in enumerate(self.active):
                 if 'ankle_pitch' in n:
                     self.lo[i], self.hi[i] = max(self.lo[i], -.55), min(self.hi[i], .55)
@@ -145,8 +148,9 @@ class RaptorEnv(gym.Env):
         m.body_mass[self.base] += self.rng.uniform(-1., 1.5)
         m.jnt_stiffness[self.toe_joints] = self.nominal_toe_k
         m.body_ipos[self.base] = self.nominal_ipos
-        if self.dr >= 2:
+        if 'toe' in self.dr_items:
             m.jnt_stiffness[self.toe_joints] = self.nominal_toe_k*self.rng.uniform(.5, 1.5)
+        if 'com' in self.dr_items:
             m.body_ipos[self.base] = self.nominal_ipos+np.r_[self.rng.uniform(-.03, .03, 2), 0.]
         m.geom_friction[sorted(self.ground), 0] = self.rng.uniform(.5, 1.25)
         m.actuator_forcerange[:] *= self.rng.uniform(.9, 1.1)
@@ -180,10 +184,11 @@ class RaptorEnv(gym.Env):
         self.push_at = self.rng.uniform(4., 10.)
         self.obs_buffer, self.obs_delay, self.pulse_until = deque(maxlen=3), 0, -1.
         d.xfrc_applied[:] = 0.
-        if self.dr >= 2 and self.randomize:
+        if 'delay' in self.dr_items and self.randomize:
             # 0 or 20 ms: 40 ms alone cut the flat-trained policy's survival from 10 s to ~3 s (evidence 81);
             # typical IMU/joint-state latency is 10-20 ms
             self.obs_delay = int(self.rng.integers(0, 2))
+        if 'initvel' in self.dr_items and self.randomize:
             d.qvel[:2] += self.rng.uniform(-.2, .2, 2)
         return self._observe(), {}
 
@@ -197,12 +202,13 @@ class RaptorEnv(gym.Env):
     def _observe(self):
         """Policy observation: the clean one (dr 1) or noisy and delayed by 0-1 control steps (dr 2)."""
         clean = self._obs()
-        if self.dr < 2 or not self.randomize:
+        if not self.randomize or not self.dr_items & {'noise', 'delay'}:
             return clean
         n = len(self.q0)
-        noise = np.concatenate([self.rng.normal(0, .0125, 3), self.rng.normal(0, .02, 3), np.zeros(3),
-                                self.rng.normal(0, .01, n), self.rng.normal(0, .015, n), np.zeros(n+2)])
-        self.obs_buffer.append((clean+noise).astype(np.float32))
+        if 'noise' in self.dr_items:
+            clean = clean+np.concatenate([self.rng.normal(0, .0125, 3), self.rng.normal(0, .02, 3), np.zeros(3),
+                                          self.rng.normal(0, .01, n), self.rng.normal(0, .015, n), np.zeros(n+2)])
+        self.obs_buffer.append(clean.astype(np.float32))
         return self.obs_buffer[max(0, len(self.obs_buffer)-1-self.obs_delay)]
 
     def _obs(self):
@@ -252,7 +258,7 @@ class RaptorEnv(gym.Env):
         m, d = self.model, self.data
         action = np.clip(np.asarray(action, float), -1, 1)
         target = np.clip(self.q0+self.scale*action, self.lo, self.hi)
-        if self.dr >= 2 and self.randomize:  # random horizontal force pulses on the body (~0.5 per s)
+        if 'pulses' in self.dr_items and self.randomize:  # random horizontal force pulses on the body (~0.5 per s)
             if d.time >= self.pulse_until:
                 d.xfrc_applied[self.base, :3] = 0.
                 if self.rng.random() < .01:

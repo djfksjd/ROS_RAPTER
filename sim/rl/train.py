@@ -54,11 +54,11 @@ class Curriculum(BaseCallback):
         return True
 
 
-def make(terrain, level, cmd, vel_scale, seed, actuator='urdf', dof=10, sole='flat', weights=None, zero_cmd=.1, jtc=0., kv_range=None, slew=None, dr=1):
+def make(terrain, level, cmd, vel_scale, seed, actuator='urdf', dof=10, sole='flat', weights=None, zero_cmd=.1, jtc=0., kv_range=None, slew=None, dr=1, dr_items=None):
     def thunk():
         return RaptorEnv(terrain=terrain, level=level, cmd_max=cmd, vel_scale=vel_scale, seed=seed, actuator=actuator,
                          dof=dof, sole=sole, weights=weights, zero_cmd=zero_cmd,
-                         jtc_horizon=jtc, kv_range=kv_range, slew=slew, dr=dr)
+                         jtc_horizon=jtc, kv_range=kv_range, slew=slew, dr=dr, dr_items=dr_items)
     return thunk
 
 
@@ -81,6 +81,7 @@ def main():
     p.add_argument('--kv-range', type=float, nargs=2, help='per-episode servo kv range, e.g. 20 60')
     p.add_argument('--slew', type=float, help='target rate limit as a fraction of each joint velocity limit')
     p.add_argument('--dr', type=int, choices=[1, 2], default=1, help='domain randomization set (2 = evidence 81)')
+    p.add_argument('--dr-items', nargs='+', help='subset of dr-2 groups: ankle noise delay toe com pulses initvel')
     p.add_argument('--init', help='model.zip to continue from (its vecnorm.pkl is loaded too)')
     p.add_argument('--seed', type=int, default=0)
     a = p.parse_args()
@@ -89,7 +90,7 @@ def main():
     (out/'args.json').write_text(json.dumps(vars(a), indent=1))
     torch.set_num_threads(1)
     env = VecMonitor(SubprocVecEnv([make(a.terrain, a.level, a.cmd, a.vel_scale, a.seed*100+i, a.actuator, a.dof, a.sole,
-                                          json.loads(a.weights), a.zero_cmd, a.jtc, a.kv_range, a.slew, a.dr) for i in range(a.envs)]))
+                                          json.loads(a.weights), a.zero_cmd, a.jtc, a.kv_range, a.slew, a.dr, a.dr_items) for i in range(a.envs)]))
     if a.init:
         env = VecNormalize.load(str(Path(a.init).with_name('vecnorm.pkl')), env)
         model = PPO.load(a.init, env=env, device='cpu')
