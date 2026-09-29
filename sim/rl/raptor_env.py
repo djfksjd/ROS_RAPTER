@@ -338,7 +338,8 @@ class RaptorEnv(gym.Env):
         reward = CONTROL_DT*sum(self.weights[k]*v for k, v in terms.items())
 
         tilt = np.arccos(np.clip(-grav[2], -1, 1))
-        fallen = body_hit or tilt > .8 or bz-ground < .5 or not np.isfinite(d.qpos).all()
+        # fall height: 0.5 m for the original bodies; 75 % of the nominal height for a lower design (R-02 torso ~0.58 m)
+        fallen = body_hit or tilt > .8 or bz-ground < min(.5, .75*self.h_nom) or not np.isfinite(d.qpos).all()
         if fallen:
             reward -= 10.
         self.last_action, self.prev_qd = action, qd.copy()
