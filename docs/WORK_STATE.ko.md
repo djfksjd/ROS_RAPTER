@@ -45,8 +45,9 @@ R-02 단계 A(evidence 83): 평지 0~0.6m/s 넘어짐 0, 보행 무게중심 0.5
 단계 B: 무작위화 넘어짐 31→15/48, 평지 회전 편향 악화. 사용자 목표 변경: 설계 기준 40km/h, 등급 T1(이상화 구동기)·T2(붐+외부 전원)·T3(자유, 사양만).
 모델링 정비(evidence 84): 목 제거·앞 센서 포드·마스트, 단일 원천(design_r02.py→YAML→raptor_r02.urdf.xacro→URDF→MuJoCo, Gazebo leg_design:=r02),
 morphloom 외형 25링크 GLB, 최종 모델 정책 r02C(평지 넘어짐 0, 오차 0.15~0.19).
-다음: docs/design/40kmh-spec.md(SLIP, 스프링 a/b/c, 질량 11.4/8/5kg, 상용 구동기 대조, 구조 하중, 꼬리 사양·피치 보정 0.65rad 계산)
-→ T1 달리기(가상 구동기 (c)·5kg, 꼬리 포함 행동, 꼬리 유리 교란 커리큘럼) → T2 붐 → 꼬리 활성/고정 회복률 비교.
+40km/h 사양 계산(docs/design/40kmh-spec.md, modeling/spec_40kmh.py): 3.12Hz·GRF 3.2BW·관절 20~21rad/s, 스프링 (c) 최대 전력 −54%,
+상용 구동기로 닫히는 행은 8kg+(c)뿐(구동기 5.8kg, 경계). 타조 고속 조사(~/Documents/Ostrich_Running_Mechanism_Research_20260929): 5m/s 이상 관절 실측 없음, 탄성은 MTP(98%), 꼬리는 요 우선.
+다음: T1 달리기(가상 구동기 (c)·5kg, 꼬리 포함 행동, 꼬리 유리 교란 커리큘럼) → T2 붐 → 꼬리 활성/고정 회복률 비교.
 
 ## 현재 상태 — 2026-09-29, 12축 강화학습
 
