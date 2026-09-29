@@ -33,6 +33,7 @@ def setup(context):
                   'leg_design': leg_design,
                   'ankle_roll': LaunchConfiguration('ankle_roll').perform(context),
                   'sole_shape': LaunchConfiguration('sole_shape').perform(context),
+                  'ankle_pitch_limit': LaunchConfiguration('ankle_pitch_limit').perform(context),
                   'crouch_hip_pitch': str(hip)}).toxml()
     spawn = Node(package='ros_gz_sim', executable='create', arguments=[
         '-world', 'raptor_world', '-topic', 'robot_description',
@@ -86,6 +87,7 @@ def generate_launch_description():
         DeclareLaunchArgument('leg_design', default_value='legacy'),
         DeclareLaunchArgument('ankle_roll', default_value='false'),
         DeclareLaunchArgument('sole_shape', default_value='flat'),
+        DeclareLaunchArgument('ankle_pitch_limit', default_value='0'),
         DeclareLaunchArgument('crouch_hip_pitch', default_value='-0.15'),
         OpaqueFunction(function=setup),
     ])
