@@ -153,6 +153,32 @@
    "electrical_power_w_cot1": 1237
   }
  ],
+ "springs": [
+  {
+   "speed_kmh": 5.8,
+   "mtp_k_nm_per_rad": 13.4,
+   "mtp_energy_j": 0.82,
+   "ankle_k_nm_per_rad": 44.8,
+   "ankle_energy_j": 2.02,
+   "ankle_motor_peak_nm": 13.4
+  },
+  {
+   "speed_kmh": 14.4,
+   "mtp_k_nm_per_rad": 20.3,
+   "mtp_energy_j": 1.24,
+   "ankle_k_nm_per_rad": 77.2,
+   "ankle_energy_j": 3.47,
+   "ankle_motor_peak_nm": 23.2
+  },
+  {
+   "speed_kmh": 40.0,
+   "mtp_k_nm_per_rad": 25.1,
+   "mtp_energy_j": 1.54,
+   "ankle_k_nm_per_rad": 108.3,
+   "ankle_energy_j": 4.88,
+   "ankle_motor_peak_nm": 32.5
+  }
+ ],
  "tail": {
   "swing_90deg_s": 0.3,
   "peak_speed_rad_s": 10.5,

@@ -246,9 +246,28 @@ def tail_actuator(p):
                 angular_momentum_n_m_s=round(I*2*th/T, 2))
 
 
+def springs(stages, mtp_defl=.35, ankle_share=.5, ankle_defl=.3):
+    """Passive spring sizing per speed stage (sizing rule, not an optimum):
+    - MTP (toe-base) spring: deflects mtp_defl rad at the stage's peak MTP torque (ostrich MTP excursion
+      70-80 deg in running; 98 % of its elastic work is at the MTP, Rubenson 2011).
+    - Ankle 'Achilles' spring in parallel with the motor: carries ankle_share of the peak ankle torque at
+      ankle_defl rad; the motor supplies the rest. Energy stored = 0.5 k theta^2."""
+    out = []
+    for st in stages:
+        if not st.get('reachable'):
+            continue
+        tm, ta = st['peak_torque_nm']['mtp'], st['peak_torque_nm']['ankle']
+        km, ka = tm/mtp_defl, ankle_share*ta/ankle_defl
+        out.append(dict(speed_kmh=st['speed_kmh'], mtp_k_nm_per_rad=round(km, 1), mtp_energy_j=round(.5*km*mtp_defl**2, 2),
+                        ankle_k_nm_per_rad=round(ka, 1), ankle_energy_j=round(.5*ka*ankle_defl**2, 2),
+                        ankle_motor_peak_nm=round(ta*(1 - ankle_share), 1)))
+    return out
+
+
 def design(p):
     s = stand(p)
-    return dict(params=asdict(p), stand=s, stages=[run_stage(p, v) for v in p.stages], tail=tail_actuator(p),
+    stages = [run_stage(p, v) for v in p.stages]
+    return dict(params=asdict(p), stand=s, stages=stages, springs=springs(stages), tail=tail_actuator(p),
                 battery_wh=round(p.battery*180), runtime_min_at_stage1=round(p.battery*180/(masses(p)[1]*G*p.stages[0])*60, 1))
 
 
