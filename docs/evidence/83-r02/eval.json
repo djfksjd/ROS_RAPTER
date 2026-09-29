@@ -154,5 +154,137 @@
    "max_tilt": 0.19,
    "mean_yaw_rate": 0.061
   }
+ ],
+ "r02B_flat_tracking": [
+  {
+   "terrain": "flat",
+   "level": 0.0,
+   "cmd_vx": 0.0,
+   "falls": 0,
+   "episodes": 3,
+   "mean_vx": -0.016,
+   "track_err": 0.161,
+   "distance_m": 0.06,
+   "max_tilt": 0.216,
+   "mean_yaw_rate": -0.144
+  },
+  {
+   "terrain": "flat",
+   "level": 0.0,
+   "cmd_vx": 0.2,
+   "falls": 0,
+   "episodes": 3,
+   "mean_vx": 0.186,
+   "track_err": 0.166,
+   "distance_m": 3.13,
+   "max_tilt": 0.217,
+   "mean_yaw_rate": -0.03
+  },
+  {
+   "terrain": "flat",
+   "level": 0.0,
+   "cmd_vx": 0.4,
+   "falls": 0,
+   "episodes": 3,
+   "mean_vx": 0.279,
+   "track_err": 0.228,
+   "distance_m": 1.91,
+   "max_tilt": 0.198,
+   "mean_yaw_rate": 0.117
+  },
+  {
+   "terrain": "flat",
+   "level": 0.0,
+   "cmd_vx": 0.6,
+   "falls": 0,
+   "episodes": 3,
+   "mean_vx": 0.473,
+   "track_err": 0.313,
+   "distance_m": 0.83,
+   "max_tilt": 0.22,
+   "mean_yaw_rate": 0.249
+  }
+ ],
+ "r02A_vs_B_ablation_13N": [
+  {
+   "model": "runs/r02A_flat/model.zip",
+   "case": "base",
+   "falls": 2,
+   "episodes": 48,
+   "mean_time_s": 19.9,
+   "pulse_force": 13.0,
+   "stochastic": false,
+   "com_shift": 0.03
+  },
+  {
+   "model": "runs/r02A_flat/model.zip",
+   "case": "b2",
+   "falls": 33,
+   "episodes": 48,
+   "mean_time_s": 9.4,
+   "pulse_force": 13.0,
+   "stochastic": false,
+   "com_shift": 0.03
+  },
+  {
+   "model": "runs/r02A_flat/model.zip",
+   "case": "pulses",
+   "falls": 3,
+   "episodes": 48,
+   "mean_time_s": 19.3,
+   "pulse_force": 13.0,
+   "stochastic": false,
+   "com_shift": 0.03
+  },
+  {
+   "model": "runs/r02A_flat/model.zip",
+   "case": "all_b3",
+   "falls": 31,
+   "episodes": 48,
+   "mean_time_s": 8.9,
+   "pulse_force": 13.0,
+   "stochastic": false,
+   "com_shift": 0.03
+  },
+  {
+   "model": "runs/r02B_flat/model.zip",
+   "case": "base",
+   "falls": 0,
+   "episodes": 48,
+   "mean_time_s": 20.0,
+   "pulse_force": 13.0,
+   "stochastic": false,
+   "com_shift": 0.03
+  },
+  {
+   "model": "runs/r02B_flat/model.zip",
+   "case": "b2",
+   "falls": 11,
+   "episodes": 48,
+   "mean_time_s": 17.5,
+   "pulse_force": 13.0,
+   "stochastic": false,
+   "com_shift": 0.03
+  },
+  {
+   "model": "runs/r02B_flat/model.zip",
+   "case": "pulses",
+   "falls": 0,
+   "episodes": 48,
+   "mean_time_s": 20.0,
+   "pulse_force": 13.0,
+   "stochastic": false,
+   "com_shift": 0.03
+  },
+  {
+   "model": "runs/r02B_flat/model.zip",
+   "case": "all_b3",
+   "falls": 15,
+   "episodes": 48,
+   "mean_time_s": 16.7,
+   "pulse_force": 13.0,
+   "stochastic": false,
+   "com_shift": 0.03
+  }
  ]
 }
