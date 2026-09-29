@@ -1,6 +1,6 @@
 """Deterministic evaluation of a RunEnv (T1) policy: running metrics, tail active vs locked, impulse recovery.
 
-Per command and episode: fall, mean speed, stride frequency, duty factor, flight fraction, peak GRF (BW) mean/std,
+Per command and episode: fall, mean speed, path length, heading drift (mean yaw rate), stride frequency, duty factor, flight fraction, peak GRF (BW) mean/std,
 positive mechanical power and cost of transport, tail joint speed RMS, whole-body angular momentum RMS about the
 CoM, tail-leg yaw momentum correlation (negative = the tail cancels the legs' yaw momentum). --impulses applies yaw
 torque impulses (N·m·s, world z) at --impulse-at s and reports the recovery time (yaw rate and tilt back under
@@ -31,7 +31,7 @@ def episode(model, venv, env, command, seconds, lock_tail=False, impulse=None, f
     obs = venv.normalize_obs(env._obs()[None])
     log = {k: [] for k in ('vx', 'tilt', 'yaw_rate', 'power', 'flight', 'loaded', 'L', 'L_tail', 'L_legs', 'tail_qd')}
     fell, applied, recovered_at, settle = False, False, None, 0
-    x0 = env.data.xpos[env.base][0]
+    path, prev = 0., env.data.xpos[env.base][:2].copy()
     for _ in range(int(seconds/.02)):
         if impulse and not applied and env.data.time >= impulse[2]:
             env.apply_impulse(impulse[0], impulse[1])
@@ -40,6 +40,7 @@ def episode(model, venv, env, command, seconds, lock_tail=False, impulse=None, f
         raw, _, term, trunc, info = env.step(action[0])
         obs = venv.normalize_obs(raw[None])
         w = env.body_velocity(env.base)[0]
+        pos = env.data.xpos[env.base][:2].copy(); path += float(np.linalg.norm(pos-prev)); prev = pos
         log['vx'].append(info['v_body'][0]); log['tilt'].append(info['tilt']); log['yaw_rate'].append(w[2])
         log['power'].append(info['power']); log['flight'].append(info['flight'])
         log['loaded'].append(sum(info['loaded'].values()))
@@ -61,7 +62,7 @@ def episode(model, venv, env, command, seconds, lock_tail=False, impulse=None, f
     corr = float(np.corrcoef(Lt[:, 2], Ll[:, 2])[0, 1]) if len(Lt) > 10 and Lt[:, 2].std() > 1e-6 and Ll[:, 2].std() > 1e-6 else 0.
     W = env.weight
     return {'fell': fell, 'time_s': round(n*.02, 2), 'mean_vx': round(float(vx.mean()), 2),
-            'distance_m': round(float(env.data.xpos[env.base][0]-x0), 1),
+            'path_m': round(path, 1), 'yaw_drift': round(float(np.mean(log['yaw_rate'][skip:] or [0])), 2),
             'stride_hz': round(len(td)/2/max((n-skip)*.02, 1e-3), 2),
             'duty': round(float(np.mean(np.array(log['loaded'][skip:] or [0]) > 0)), 2),
             'flight_frac': round(float(np.mean(log['flight'][skip:] or [0])), 2),
@@ -98,7 +99,7 @@ def main():
     p.add_argument('--out')
     a = p.parse_args()
     modes = ['active', 'locked'] if a.tail == 'both' else [a.tail]
-    keys = ('mean_vx', 'distance_m', 'stride_hz', 'duty', 'flight_frac', 'peak_grf_bw', 'peak_grf_sd', 'power_w', 'cot',
+    keys = ('mean_vx', 'path_m', 'yaw_drift', 'stride_hz', 'duty', 'flight_frac', 'peak_grf_bw', 'peak_grf_sd', 'power_w', 'cot',
             'tail_qd_rms', 'L_yz_rms', 'tail_leg_yaw_corr', 'max_tilt')
     rows = []
 
