@@ -41,8 +41,9 @@ class Params:
     transmission: float = .15     # per leg: belts/cables/pulleys/bearings to knee, ankle, ankle roll
     torso_frame: float = 1.0
     battery: float = .6           # ~108 Wh at 180 Wh/kg (UNVERIFIED cell choice)
-    compute_sensors: float = .5
-    head_neck: float = .45
+    compute: float = .30          # computer in the torso
+    mast_sensors: float = .20     # camera/lidar mast on top of the torso (target form, raptor-views)
+    sensor_pod: float = .45       # front sensor pod built into the torso front (no neck; forward counterweight)
     tube_density: float = .6      # kg/m of leg structure (carbon tube + joint housings)
     foot_toes: float = .10
     tail_struct: float = .25
@@ -55,7 +56,8 @@ class Params:
     toe4: float = .085
     cop_frac: float = .3
     torso_len: float = .40
-    head_x: float = .42
+    pod_len: float = .14          # sensor pod length ahead of the torso front
+    mast_z: float = .14           # mast sensor height above the torso centre
     tail_len: float = .90
     # --- postures
     hip_stand: float = .55        # crouched standing / walking hip height
@@ -99,7 +101,7 @@ def masses(p):
     act_leg = 4*p.act_big + p.act_small
     leg_struct = p.tube_density*leg_len(p) + p.foot_toes + p.transmission
     parts = {'leg actuators x2 (pelvis)': 2*act_leg, 'tail actuators': 2*p.act_small, 'torso frame': p.torso_frame,
-             'battery': p.battery, 'compute+sensors': p.compute_sensors, 'head+neck': p.head_neck,
+             'battery': p.battery, 'compute': p.compute, 'mast sensors': p.mast_sensors, 'front sensor pod': p.sensor_pod,
              'leg structure x2 (tubes, feet, transmission)': 2*leg_struct, 'tail structure': p.tail_struct,
              'tail tip': p.tail_tip}
     return parts, sum(parts.values())
@@ -110,8 +112,8 @@ def stand(p):
     parts, M = masses(p)
     tail_base = -p.torso_len/2
     zt = p.hip_stand + .03
-    body = [(parts['leg actuators x2 (pelvis)'] + p.torso_frame + p.battery + p.compute_sensors, 0., zt),
-            (p.head_neck, p.head_x, zt + .08), (2*p.act_small, tail_base, zt),
+    body = [(parts['leg actuators x2 (pelvis)'] + p.torso_frame + p.battery + p.compute, 0., zt),
+            (p.sensor_pod, p.torso_len/2 + p.pod_len/2, zt), (p.mast_sensors, .06, zt + p.mast_z), (2*p.act_small, tail_base, zt),
             (p.tail_struct, tail_base - p.tail_len/2, zt), (p.tail_tip, tail_base - p.tail_len, zt)]
     mtp_x = 0.
     for _ in range(50):
@@ -289,12 +291,102 @@ def sweep(base):
     return rows
 
 
+# ---------------------------------------------------------------------------------------------
+# Link table for the Xacro (single source): link-frame mass, CoM and diagonal inertia, joint limits
+# and foot/toe layout. Link frames are the URDF zero pose: legs straight down, joint axes as in the
+# 12-DOF model (hip roll x, pitch joints y, ankle roll x at the MTP, tail yaw z / pitch y).
+LIMITS = {'hip_roll': (-.5, .5), 'hip_pitch': (-1.6, .9), 'knee_pitch': (.2, 2.6), 'ankle_pitch': (-2.5, .2),
+          'ankle_roll': (-.5, .5), 'tail_yaw': (-.8, .8), 'tail_pitch': (-.8, .8)}
+TOES = {  # digit: (x, y_out, z, yaw_out_deg, pitch_up_rad, length, k_proximal, k_distal, range, tip_friction)
+    'III': (0., -.006, -.008, 0., 0., None, 30., 20., (-.6, .9), 1.2),
+    'IV': (0., .012, -.008, 24., 0., None, 20., 14., (-.6, .9), None),
+    'II': (-.01, -.02, .01, 0., .7, .06, 15., 10., (-.3, .3), None),
+}
+TOE_SEGMENT_MASS = .01
+PAD_RADIUS, PAD_POS = .018, (-.005, 0., -.002)
+
+
+def composite(parts):
+    """[(mass, (x, y, z), (ixx, iyy, izz) own)] -> mass, com, diagonal inertia about the com."""
+    m = sum(q[0] for q in parts)
+    c = np.sum([q[0]*np.array(q[1]) for q in parts], axis=0)/m
+    I = np.zeros(3)
+    for mi, r, own in parts:
+        d = np.array(r) - c
+        I += np.array(own) + mi*np.array([d[1]**2 + d[2]**2, d[0]**2 + d[2]**2, d[0]**2 + d[1]**2])
+    return m, c, I
+
+
+def box_i(m, x, y, z):
+    return (m*(y*y + z*z)/12, m*(x*x + z*z)/12, m*(x*x + y*y)/12)
+
+
+def rod_z(m, L, r=.02):
+    return (m*L*L/12 + m*r*r/4, m*L*L/12 + m*r*r/4, m*r*r/2)
+
+
+def link_table(p, joint_speed=3.):
+    s = stand(p)
+    hip0, knee0 = -np.radians(s['hip_pitch_deg']), np.radians(s['knee_flex_deg'])
+    tl = p.torso_len
+    base = composite([
+        (p.torso_frame, (0, 0, 0), box_i(p.torso_frame, tl, .16, .12)),
+        (p.battery, (-.02, 0, -.02), box_i(p.battery, .15, .07, .05)),
+        (p.compute, (.05, 0, .02), box_i(p.compute, .10, .08, .03)),
+        (p.mast_sensors, (.06, 0, p.mast_z), box_i(p.mast_sensors, .08, .08, .10)),
+        (p.sensor_pod, (tl/2 + p.pod_len/2, 0, 0), box_i(p.sensor_pod, p.pod_len, .12, .10)),
+        (p.act_big, (0, .06, -.02), (5e-4,)*3), (p.act_big, (0, -.06, -.02), (5e-4,)*3),   # hip roll actuators
+        (p.act_small, (-tl/2 + .03, 0, 0), (3e-4,)*3),                                    # tail yaw actuator
+    ])
+    hip_act = 3*p.act_big + p.act_small
+    lm = p.tube_density
+    tail_m = p.tail_struct + p.tail_tip
+    tail = composite([(p.tail_struct, (-p.tail_len/2, 0, 0), (1e-4, p.tail_struct*p.tail_len**2/12, p.tail_struct*p.tail_len**2/12)),
+                      (p.tail_tip, (-p.tail_len, 0, 0), (2e-4,)*3)])
+    L = lambda m, c, I: {'mass': round(float(m), 5), 'com': [round(float(v), 5) for v in c], 'inertia': [round(float(v), 7) for v in I]}
+    links = {
+        'base_link': L(*base),
+        'hip_roll_link': L(hip_act, (0, 0, 0), (2/5*hip_act*.06**2,)*3),
+        'thigh_link': L(lm*p.femur + p.transmission, (0, 0, -p.femur/2), rod_z(lm*p.femur + p.transmission, p.femur)),
+        'shin_link': L(lm*p.tibia, (0, 0, -p.tibia/2), rod_z(lm*p.tibia, p.tibia)),
+        'metatarsus_link': L(lm*p.meta, (0, 0, -p.meta/2), rod_z(lm*p.meta, p.meta)),
+        'foot_link': L(p.foot_toes - 6*TOE_SEGMENT_MASS, (0, 0, 0), (2e-5,)*3),
+        'tail_yaw_link': L(p.act_small, (-.02, 0, 0), (5e-4,)*3),
+        'tail_link': L(*tail),
+    }
+    toes = {}
+    for d, (x, y, z, yaw, up, length, kp, kd, rng, fr) in TOES.items():
+        length = length or (p.toe3 if d == 'III' else p.toe4)
+        toes[d] = dict(x=x, y_out=y, z=z, yaw_out_deg=yaw, pitch_up=up, length=length, k_proximal=kp, k_distal=kd,
+                       range=list(rng), tip_friction=fr)
+    big, small = 36., 17.
+    joints = {n: dict(lower=lo, upper=hi, velocity=joint_speed,
+                      effort=small if n == 'ankle_roll' else big) for n, (lo, hi) in LIMITS.items()}
+    return dict(generated_by='modeling/design_r02.py', total_mass=s['total_mass'],
+                nominal_pose={'hip_pitch': round(float(hip0), 4), 'knee_pitch': round(float(knee0), 4), 'ankle_pitch': round(float(-knee0), 4)},
+                foot_mount_pitch=round(float(-hip0), 4),   # toe frame pitched so the toes lie flat in the nominal pose
+                geometry=dict(femur=p.femur, tibia=p.tibia, meta=p.meta, hip_half_width=.10, hip_drop=.03, torso_len=tl,
+                              pod_len=p.pod_len, mast_z=p.mast_z, tail_len=p.tail_len, hip_stand=p.hip_stand),
+                links=links, joints=joints, toes=toes, toe_segment_mass=TOE_SEGMENT_MASS,
+                pad=dict(radius=PAD_RADIUS, pos=list(PAD_POS)),
+                achilles=dict(stiffness=77., preload=6.))   # DESIGN_R02 4.3 (14 km/h sizing); enabled by a Xacro arg
+
+
+def export(p, path):
+    """Write the design table as JSON (valid YAML) for xacro.load_yaml."""
+    with open(path, 'w') as f:
+        json.dump(link_table(p), f, indent=1)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--out')
     ap.add_argument('--sweep', action='store_true')
+    ap.add_argument('--export', help='write the Xacro design table (e.g. src/raptor_description/config/r02_design.yaml)')
     a = ap.parse_args()
     r = design(Params())
+    if a.export:
+        export(Params(), a.export)
     if a.sweep:
         r['sweep'] = sweep(Params())
     print(json.dumps(r, indent=1, ensure_ascii=False, default=float))

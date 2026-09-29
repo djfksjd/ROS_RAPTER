@@ -14,8 +14,16 @@ def setup(context):
     description = get_package_share_directory('raptor_description')
     hip = float(LaunchConfiguration('crouch_hip_pitch').perform(context))
     leg_design = LaunchConfiguration('leg_design').perform(context)
-    if leg_design not in ('legacy', 'digitigrade', 'digitigrade_low'):
-        raise ValueError('leg_design must be legacy, digitigrade or digitigrade_low')
+    if leg_design not in ('legacy', 'digitigrade', 'digitigrade_low', 'r02'):
+        raise ValueError('leg_design must be legacy, digitigrade, digitigrade_low or r02')
+    if leg_design == 'r02':  # separate Xacro generated from modeling/design_r02.py (DESIGN_R02.ko.md)
+        robot = xacro.process_file(os.path.join(description, 'urdf', 'raptor_r02.urdf.xacro'),
+            mappings={'test_fixture': LaunchConfiguration('test_fixture').perform(context),
+                      'detailed_visuals': LaunchConfiguration('detailed_visuals').perform(context),
+                      'sensors': LaunchConfiguration('sensors').perform(context),
+                      'crouched_start': LaunchConfiguration('crouched_start').perform(context),
+                      'achilles': LaunchConfiguration('achilles').perform(context)}).toxml()
+        return nodes(context, robot)
     # digitigrade_low stands with knee 1.65, so its level-sole crouch needs a much lower hip pitch.
     low, high = (-.85, -.75) if leg_design == 'digitigrade_low' else (-.25, .05)
     if not low <= hip <= high:
@@ -35,6 +43,11 @@ def setup(context):
                   'sole_shape': LaunchConfiguration('sole_shape').perform(context),
                   'ankle_pitch_limit': LaunchConfiguration('ankle_pitch_limit').perform(context),
                   'crouch_hip_pitch': str(hip)}).toxml()
+    return nodes(context, robot)
+
+
+def nodes(context, robot):
+    description = get_package_share_directory('raptor_description')
     spawn = Node(package='ros_gz_sim', executable='create', arguments=[
         '-world', 'raptor_world', '-topic', 'robot_description',
         '-name', 'raptor', '-z', LaunchConfiguration('spawn_z').perform(context),
@@ -89,5 +102,6 @@ def generate_launch_description():
         DeclareLaunchArgument('sole_shape', default_value='flat'),
         DeclareLaunchArgument('ankle_pitch_limit', default_value='0'),
         DeclareLaunchArgument('crouch_hip_pitch', default_value='-0.15'),
+        DeclareLaunchArgument('achilles', default_value='false'),
         OpaqueFunction(function=setup),
     ])

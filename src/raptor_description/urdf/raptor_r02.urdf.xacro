@@ -1,0 +1,268 @@
+<?xml version="1.0"?>
+<!--
+  Raptor R-02 (DESIGN_R02.ko.md): light, low, ostrich-proportioned legs, two-toe feet, front sensor pod,
+  sensor mast, tail with tip mass. Every number comes from config/r02_design.yaml, written by
+  modeling/design_r02.py (do not edit numbers here). Same joint names and ros2_control interfaces as the
+  12-DOF model, so controllers, sim/rl and the policy runner work unchanged. Simulation model, not rated hardware.
+-->
+<robot name="raptor" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:arg name="sensors" default="false"/>
+  <xacro:arg name="test_fixture" default="false"/>
+  <xacro:arg name="detailed_visuals" default="false"/>
+  <xacro:arg name="crouched_start" default="false"/>
+  <xacro:arg name="achilles" default="false"/>
+  <xacro:arg name="joint_speed" default="0"/>  <!-- rad/s; 0 = design table value -->
+
+  <xacro:property name="D" value="${xacro.load_yaml('$(find raptor_description)/config/r02_design.yaml')}"/>
+  <xacro:property name="Gm" value="${D['geometry']}"/>
+  <xacro:property name="P0" value="${D['nominal_pose']}"/>
+  <xacro:property name="speed_arg" value="${float('$(arg joint_speed)')}"/>
+  <xacro:property name="detailed" value="$(arg detailed_visuals)"/>
+
+  <material name="r02_ivory"><color rgba="0.84 0.82 0.77 1"/></material>
+  <material name="r02_graphite"><color rgba="0.12 0.13 0.15 1"/></material>
+  <material name="r02_titanium"><color rgba="0.55 0.58 0.61 1"/></material>
+  <material name="r02_accent"><color rgba="0.78 0.40 0.16 1"/></material>
+  <material name="r02_claw"><color rgba="0.20 0.21 0.23 1"/></material>
+
+  <xacro:macro name="inertial_of" params="name">
+    <xacro:property name="L" value="${D['links'][name]}"/>
+    <inertial><origin xyz="${L['com'][0]} ${L['com'][1]} ${L['com'][2]}"/><mass value="${L['mass']}"/>
+      <inertia ixx="${L['inertia'][0]}" ixy="0" ixz="0" iyy="${L['inertia'][1]}" iyz="0" izz="${L['inertia'][2]}"/></inertial>
+  </xacro:macro>
+  <xacro:macro name="limit_of" params="joint">
+    <xacro:property name="J" value="${D['joints'][joint]}"/>
+    <limit lower="${J['lower']}" upper="${J['upper']}" effort="${J['effort']}" velocity="${speed_arg if speed_arg > 0 else J['velocity']}"/>
+  </xacro:macro>
+  <xacro:macro name="mesh_visual" params="link">
+    <xacro:if value="${detailed}"><visual><origin rpy="${pi/2} 0 0"/><geometry><mesh filename="package://raptor_description/meshes/r02/${link}.glb"/></geometry></visual></xacro:if>
+  </xacro:macro>
+
+  <xacro:if value="$(arg test_fixture)">
+    <link name="world"/>
+    <joint name="test_fixture_joint" type="fixed"><parent link="world"/><child link="base_root"/><origin xyz="0 0 0.3"/></joint>
+  </xacro:if>
+
+  <!-- Dummy root link for KDL; the torso sits at the nominal standing hip height -->
+  <link name="base_root"/>
+  <joint name="base_root_joint" type="fixed"><parent link="base_root"/><child link="base_link"/>
+    <origin xyz="0 0 ${Gm['hip_stand'] + Gm['hip_drop']}"/></joint>
+
+  <!-- TORSO: frame, battery, computer, hip-roll and tail-yaw actuators, front sensor pod, sensor mast -->
+  <link name="base_link">
+    <xacro:mesh_visual link="base_link"/>
+    <xacro:unless value="${detailed}">
+      <visual><geometry><box size="${Gm['torso_len']} 0.16 0.12"/></geometry><material name="r02_ivory"/></visual>
+      <visual><origin xyz="${Gm['torso_len']/2 + Gm['pod_len']/2} 0 0"/><geometry><box size="${Gm['pod_len']} 0.12 0.10"/></geometry><material name="r02_ivory"/></visual>
+      <visual><origin xyz="${Gm['torso_len']/2 + Gm['pod_len'] - 0.005} 0 0" rpy="0 ${pi/2} 0"/><geometry><cylinder radius="0.03" length="0.012"/></geometry><material name="r02_graphite"/></visual>
+      <visual><origin xyz="0.06 0 ${Gm['mast_z']/2 + 0.03}"/><geometry><box size="0.08 0.08 ${Gm['mast_z']}"/></geometry><material name="r02_graphite"/></visual>
+      <visual><origin xyz="0.06 0 ${Gm['mast_z'] + 0.06}"/><geometry><cylinder radius="0.03" length="0.05"/></geometry><material name="r02_graphite"/></visual>
+    </xacro:unless>
+    <collision><geometry><box size="${Gm['torso_len']} 0.16 0.12"/></geometry></collision>
+    <collision><origin xyz="${Gm['torso_len']/2 + Gm['pod_len']/2} 0 0"/><geometry><box size="${Gm['pod_len']} 0.12 0.10"/></geometry></collision>
+    <xacro:inertial_of name="base_link"/>
+  </link>
+
+  <!-- TOE: proximal + distal passive spring segments (Gazebo springStiffness, mirrored in MuJoCo) -->
+  <xacro:macro name="toe_segment" params="side n part parent xyz rpy length k lower upper mu">
+    <xacro:property name="m" value="${D['toe_segment_mass']}"/>
+    <link name="${side}_toe_${n}_${part}_link">
+      <xacro:mesh_visual link="${side}_toe_${n}_${part}_link"/>
+      <xacro:unless value="${detailed}">
+        <visual><origin xyz="${length/2} 0 0"/><geometry><box size="${length} 0.024 0.024"/></geometry><material name="r02_graphite"/></visual>
+        <xacro:if value="${part == 'distal'}">
+          <visual><origin xyz="${length + 0.012} 0 -0.004" rpy="0 0.45 0"/><geometry><box size="0.03 0.012 0.014"/></geometry><material name="r02_claw"/></visual>
+        </xacro:if>
+      </xacro:unless>
+      <collision><origin xyz="${length/2} 0 0"/><geometry><box size="${length} 0.024 0.024"/></geometry></collision>
+      <inertial><origin xyz="${length/2} 0 0"/><mass value="${m}"/>
+        <inertia ixx="${m*0.01**2/2}" ixy="0" ixz="0" iyy="${m*length**2/12}" iyz="0" izz="${m*length**2/12}"/></inertial>
+    </link>
+    <joint name="${side}_toe_${n}_${part}_joint" type="revolute">
+      <parent link="${parent}"/><child link="${side}_toe_${n}_${part}_link"/>
+      <origin xyz="${xyz}" rpy="${rpy}"/><axis xyz="0 1 0"/>
+      <limit lower="${lower}" upper="${upper}" effort="5" velocity="10"/>
+      <dynamics damping="0.05" friction="0.005"/>
+    </joint>
+    <gazebo reference="${side}_toe_${n}_${part}_joint"><springReference>0</springReference><springStiffness>${k}</springStiffness></gazebo>
+    <gazebo reference="${side}_toe_${n}_${part}_link"><mu1>${mu}</mu1><mu2>${mu}</mu2></gazebo>
+  </xacro:macro>
+  <!-- digit: III main (toe_2), IV lateral outrigger, II raised medial sickle claw -->
+  <xacro:macro name="toe" params="side s n digit">
+    <xacro:property name="T" value="${D['toes'][digit]}"/>
+    <xacro:toe_segment side="${side}" n="${n}" part="proximal" parent="${side}_foot_link"
+      xyz="${T['x']} ${s*T['y_out']} ${T['z']}" rpy="0 ${-T['pitch_up']} ${radians(s*T['yaw_out_deg'])}"
+      length="${T['length']/2}" k="${T['k_proximal']}" lower="${T['range'][0]}" upper="${T['range'][1]}" mu="0.8"/>
+    <xacro:toe_segment side="${side}" n="${n}" part="distal" parent="${side}_toe_${n}_proximal_link"
+      xyz="${T['length']/2} 0 0" rpy="0 0 0" length="${T['length']/2}" k="${T['k_distal']}" lower="${T['range'][0]}" upper="${T['range'][1]}"
+      mu="${T['tip_friction'] if T['tip_friction'] else 0.8}"/>
+  </xacro:macro>
+
+  <!-- LEG: hip roll (actuator block for pitch/knee/ankle drives) -> femur -> tibia -> metatarsus -> foot at the MTP -->
+  <xacro:macro name="leg" params="side s">
+    <link name="${side}_hip_roll_link">
+      <xacro:mesh_visual link="${side}_hip_roll_link"/>
+      <xacro:unless value="${detailed}">
+        <visual><origin rpy="${pi/2} 0 0"/><geometry><cylinder radius="0.065" length="0.09"/></geometry><material name="r02_titanium"/></visual>
+        <visual><origin xyz="0 ${s*0.047} 0" rpy="${pi/2} 0 0"/><geometry><cylinder radius="0.045" length="0.006"/></geometry><material name="r02_accent"/></visual>
+      </xacro:unless>
+      <xacro:inertial_of name="hip_roll_link"/>
+    </link>
+    <joint name="${side}_hip_roll_joint" type="revolute">
+      <parent link="base_link"/><child link="${side}_hip_roll_link"/>
+      <origin xyz="0 ${s*Gm['hip_half_width']} ${-Gm['hip_drop']}"/><axis xyz="1 0 0"/><xacro:limit_of joint="hip_roll"/>
+    </joint>
+    <link name="${side}_thigh_link">
+      <xacro:mesh_visual link="${side}_thigh_link"/>
+      <xacro:unless value="${detailed}">
+        <visual><origin xyz="0 0 ${-Gm['femur']/2}"/><geometry><box size="0.04 0.04 ${Gm['femur']}"/></geometry><material name="r02_graphite"/></visual>
+      </xacro:unless>
+      <collision><origin xyz="0 0 ${-Gm['femur']/2}"/><geometry><box size="0.04 0.04 ${Gm['femur']}"/></geometry></collision>
+      <xacro:inertial_of name="thigh_link"/>
+    </link>
+    <joint name="${side}_hip_pitch_joint" type="revolute">
+      <parent link="${side}_hip_roll_link"/><child link="${side}_thigh_link"/><axis xyz="0 1 0"/><xacro:limit_of joint="hip_pitch"/>
+    </joint>
+    <link name="${side}_shin_link">
+      <xacro:mesh_visual link="${side}_shin_link"/>
+      <xacro:unless value="${detailed}">
+        <visual><origin xyz="0 0 ${-Gm['tibia']/2}"/><geometry><box size="0.036 0.036 ${Gm['tibia']}"/></geometry><material name="r02_titanium"/></visual>
+        <visual><origin rpy="${pi/2} 0 0"/><geometry><cylinder radius="0.03" length="0.05"/></geometry><material name="r02_graphite"/></visual>
+      </xacro:unless>
+      <collision><origin xyz="0 0 ${-Gm['tibia']/2}"/><geometry><box size="0.036 0.036 ${Gm['tibia']}"/></geometry></collision>
+      <xacro:inertial_of name="shin_link"/>
+    </link>
+    <joint name="${side}_knee_pitch_joint" type="revolute">
+      <parent link="${side}_thigh_link"/><child link="${side}_shin_link"/>
+      <origin xyz="0 0 ${-Gm['femur']}"/><axis xyz="0 1 0"/><xacro:limit_of joint="knee_pitch"/>
+    </joint>
+    <link name="${side}_metatarsus_link">
+      <xacro:mesh_visual link="${side}_metatarsus_link"/>
+      <xacro:unless value="${detailed}">
+        <visual><origin xyz="0 0 ${-Gm['meta']/2}"/><geometry><box size="0.03 0.03 ${Gm['meta']}"/></geometry><material name="r02_graphite"/></visual>
+        <visual><origin rpy="${pi/2} 0 0"/><geometry><cylinder radius="0.026" length="0.045"/></geometry><material name="r02_titanium"/></visual>
+      </xacro:unless>
+      <collision><origin xyz="0 0 ${-Gm['meta']/2}"/><geometry><box size="0.03 0.03 ${Gm['meta']}"/></geometry></collision>
+      <xacro:inertial_of name="metatarsus_link"/>
+    </link>
+    <joint name="${side}_ankle_pitch_joint" type="revolute">
+      <parent link="${side}_shin_link"/><child link="${side}_metatarsus_link"/>
+      <origin xyz="0 0 ${-Gm['tibia']}"/><axis xyz="0 1 0"/><xacro:limit_of joint="ankle_pitch"/>
+    </joint>
+    <xacro:if value="$(arg achilles)">  <!-- parallel 'Achilles' spring, preloaded in the nominal pose (DESIGN_R02 4.3) -->
+      <gazebo reference="${side}_ankle_pitch_joint">
+        <springReference>${P0['ankle_pitch'] + D['achilles']['preload']/D['achilles']['stiffness']}</springReference>
+        <springStiffness>${D['achilles']['stiffness']}</springStiffness>
+      </gazebo>
+    </xacro:if>
+    <!-- foot frame at the MTP, pitched by foot_mount_pitch so the toes lie flat in the nominal pose; the pad sphere is the
+         FIRST collision (contact sensor) -->
+    <link name="${side}_foot_link">
+      <xacro:mesh_visual link="${side}_foot_link"/>
+      <xacro:unless value="${detailed}">
+        <visual><origin xyz="${D['pad']['pos'][0]} 0 ${D['pad']['pos'][2]}"/><geometry><sphere radius="${D['pad']['radius']}"/></geometry><material name="r02_graphite"/></visual>
+      </xacro:unless>
+      <collision><origin xyz="${D['pad']['pos'][0]} 0 ${D['pad']['pos'][2]}"/><geometry><sphere radius="${D['pad']['radius']}"/></geometry></collision>
+      <xacro:inertial_of name="foot_link"/>
+    </link>
+    <joint name="${side}_ankle_roll_joint" type="revolute">
+      <parent link="${side}_metatarsus_link"/><child link="${side}_foot_link"/>
+      <origin xyz="0 0 ${-Gm['meta']}" rpy="0 ${D['foot_mount_pitch']} 0"/><axis xyz="1 0 0"/><xacro:limit_of joint="ankle_roll"/>
+    </joint>
+    <gazebo reference="${side}_foot_link"><mu1>0.8</mu1><mu2>0.8</mu2></gazebo>
+    <xacro:toe side="${side}" s="${s}" n="2" digit="III"/>
+    <xacro:toe side="${side}" s="${s}" n="${1 if s > 0 else 3}" digit="IV"/>
+    <xacro:toe side="${side}" s="${s}" n="${3 if s > 0 else 1}" digit="II"/>
+  </xacro:macro>
+  <xacro:leg side="left" s="1"/>
+  <xacro:leg side="right" s="-1"/>
+
+  <!-- TAIL: yaw link at the torso rear, pitch link carrying the tube and the tip mass -->
+  <link name="tail_yaw_link">
+    <xacro:mesh_visual link="tail_yaw_link"/>
+    <xacro:unless value="${detailed}"><visual><origin xyz="-0.02 0 0"/><geometry><box size="0.08 0.06 0.06"/></geometry><material name="r02_titanium"/></visual></xacro:unless>
+    <xacro:inertial_of name="tail_yaw_link"/>
+  </link>
+  <joint name="tail_yaw_joint" type="revolute">
+    <parent link="base_link"/><child link="tail_yaw_link"/><origin xyz="${-Gm['torso_len']/2} 0 0"/><axis xyz="0 0 1"/><xacro:limit_of joint="tail_yaw"/>
+  </joint>
+  <link name="tail_link">
+    <xacro:mesh_visual link="tail_link"/>
+    <xacro:unless value="${detailed}">
+      <visual><origin xyz="${-Gm['tail_len']/2} 0 0"/><geometry><box size="${Gm['tail_len']} 0.04 0.04"/></geometry><material name="r02_ivory"/></visual>
+      <visual><origin xyz="${-Gm['tail_len']} 0 0"/><geometry><box size="0.08 0.06 0.06"/></geometry><material name="r02_graphite"/></visual>
+    </xacro:unless>
+    <collision><origin xyz="${-Gm['tail_len']/2} 0 0"/><geometry><box size="${Gm['tail_len']} 0.04 0.04"/></geometry></collision>
+    <collision><origin xyz="${-Gm['tail_len']} 0 0"/><geometry><box size="0.08 0.06 0.06"/></geometry></collision>
+    <xacro:inertial_of name="tail_link"/>
+  </link>
+  <joint name="tail_pitch_joint" type="revolute">
+    <parent link="tail_yaw_link"/><child link="tail_link"/><origin xyz="-0.04 0 0"/><axis xyz="0 1 0"/><xacro:limit_of joint="tail_pitch"/>
+  </joint>
+
+  <!-- SENSORS (same topics as the 12-DOF model) -->
+  <xacro:if value="$(arg sensors)">
+    <gazebo reference="base_link">
+      <sensor name="body_imu" type="imu">
+        <always_on>true</always_on><update_rate>50</update_rate><topic>/raptor/imu</topic>
+        <imu><orientation_reference_frame><localization>ENU</localization></orientation_reference_frame></imu>
+      </sensor>
+      <sensor name="front_rgbd" type="rgbd_camera">
+        <pose>${Gm['torso_len']/2 + Gm['pod_len']} 0 0 0 0 0</pose>
+        <always_on>true</always_on><update_rate>5</update_rate><topic>/raptor/camera</topic>
+        <camera><horizontal_fov>1.05</horizontal_fov>
+          <image><width>320</width><height>240</height><format>R8G8B8</format></image>
+          <clip><near>0.05</near><far>20</far></clip><depth_camera><clip><near>0.05</near><far>20</far></clip></depth_camera>
+        </camera>
+      </sensor>
+    </gazebo>
+    <xacro:macro name="foot_contact" params="side">
+      <gazebo reference="${side}_foot_link">
+        <sensor name="${side}_foot_contact" type="contact">
+          <always_on>true</always_on><update_rate>50</update_rate><topic>/raptor/${side}_foot/contact</topic>
+          <contact><collision>${side}_foot_link_collision</collision><topic>/raptor/${side}_foot/contact</topic></contact>
+        </sensor>
+      </gazebo>
+    </xacro:macro>
+    <xacro:foot_contact side="left"/><xacro:foot_contact side="right"/>
+  </xacro:if>
+
+  <!-- ros2_control: 12 position-commanded joints, as controllers_ankle_roll.yaml expects -->
+  <xacro:macro name="ctrl_joint" params="name init:=none">
+    <joint name="${name}">
+      <command_interface name="position"/>
+      <state_interface name="position"><xacro:if value="$(arg crouched_start)"><xacro:if value="${init != 'none'}"><param name="initial_value">${init}</param></xacro:if></xacro:if></state_interface>
+      <state_interface name="velocity"/><state_interface name="effort"/>
+    </joint>
+  </xacro:macro>
+  <xacro:macro name="ctrl_leg" params="side">
+      <xacro:ctrl_joint name="${side}_hip_roll_joint"/>
+      <xacro:ctrl_joint name="${side}_hip_pitch_joint" init="${P0['hip_pitch']}"/>
+      <xacro:ctrl_joint name="${side}_knee_pitch_joint" init="${P0['knee_pitch']}"/>
+      <xacro:ctrl_joint name="${side}_ankle_pitch_joint" init="${P0['ankle_pitch']}"/>
+      <xacro:ctrl_joint name="${side}_ankle_roll_joint"/>
+    </xacro:macro>
+  <ros2_control name="GazeboSimSystem" type="system">
+    <hardware><plugin>gz_ros2_control/GazeboSimSystem</plugin></hardware>
+    <xacro:ctrl_leg side="left"/>
+    <xacro:ctrl_leg side="right"/>
+    <xacro:ctrl_joint name="tail_yaw_joint"/>
+    <xacro:ctrl_joint name="tail_pitch_joint"/>
+  </ros2_control>
+  <gazebo>
+    <plugin filename="libgz_ros2_control-system.so" name="gz_ros2_control::GazeboSimROS2ControlPlugin">
+      <parameters>$(find raptor_control)/config/controllers_ankle_roll.yaml</parameters>
+      <hold_joints>true</hold_joints>
+      <position_proportional_gain>0.3</position_proportional_gain>
+    </plugin>
+  </gazebo>
+  <gazebo><plugin filename="gz-sim-joint-state-publisher-system" name="gz::sim::systems::JointStatePublisher">
+    <topic>/raptor/passive_joint_states</topic><update_rate>50</update_rate>
+    <joint_name>left_toe_1_proximal_joint</joint_name><joint_name>left_toe_1_distal_joint</joint_name>
+    <joint_name>left_toe_2_proximal_joint</joint_name><joint_name>left_toe_2_distal_joint</joint_name>
+    <joint_name>left_toe_3_proximal_joint</joint_name><joint_name>left_toe_3_distal_joint</joint_name>
+    <joint_name>right_toe_1_proximal_joint</joint_name><joint_name>right_toe_1_distal_joint</joint_name>
+    <joint_name>right_toe_2_proximal_joint</joint_name><joint_name>right_toe_2_distal_joint</joint_name>
+    <joint_name>right_toe_3_proximal_joint</joint_name><joint_name>right_toe_3_distal_joint</joint_name>
+  </plugin></gazebo>
+</robot>

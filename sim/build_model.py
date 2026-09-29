@@ -2,7 +2,7 @@
 """Build a MuJoCo MJCF from the xacro-generated Raptor URDF without changing the robot contract.
 
 Kept from the URDF: links, masses, inertias, collision boxes, 10 (or 12 with ankle roll) active + 12 passive joints,
-limits, damping/friction. Mirrored from Gazebo tags/world: toe spring stiffness, toe mu 0.8,
+limits, damping/friction. Mirrored from Gazebo tags/world: spring stiffness and reference, per-link mu (toes 0.8),
 default ground mu 1, no self-collision, 1 ms step. Actuators emulate the gz_ros2_control
 position path as velocity servos (see raptor_servo.py); this is an approximation, not DART.
 """
@@ -29,9 +29,10 @@ def build(urdf_text):
     for mesh in root.iter('mesh'):  # collision meshes (e.g. rocker pad); visuals are discarded below
         mesh.set('filename', mesh.get('filename').replace('package://', f'{PACKAGES}/'))
     joints = {j.get('name'): j for j in root.findall('joint')}
-    springs = {g.get('reference'): float(g.find('springStiffness').text)
+    springs = {g.get('reference'): (float(g.find('springStiffness').text),
+                                    float(g.find('springReference').text) if g.find('springReference') is not None else 0.)
                for g in root.findall('gazebo') if g.find('springStiffness') is not None}
-    toe_links = {g.get('reference') for g in root.findall('gazebo') if g.find('mu1') is not None}
+    toe_links = {g.get('reference'): float(g.find('mu1').text) for g in root.findall('gazebo') if g.find('mu1') is not None}
     extension = ET.fromstring('<mujoco><compiler discardvisual="true" fusestatic="false" '
                               'balanceinertia="false" angle="radian"/></mujoco>')
     root.insert(0, extension)
@@ -56,11 +57,14 @@ def build(urdf_text):
             geom.condim = 4
             geom.friction = [1., .01, .0001]
         if geom.parent.name in toe_links:
-            geom.friction = [.8, .005, .0001]
+            geom.friction = [toe_links[geom.parent.name], .005, .0001]
             geom.priority = 1  # toe-ground uses toe mu, standing in for DART's min combination
-    for name, stiffness in springs.items():
+    for name, (stiffness, reference) in springs.items():
         joint = spec.joint(name)
-        joint.stiffness, joint.springref = [stiffness, 0., 0.], 0.
+        joint.stiffness, joint.springref = [stiffness, 0., 0.], reference
+        child = spec.body(joints[name].find('child').get('link'))
+        if child.mass < .02:  # very light passive segment (R-02 toes, 10 g): a small armature keeps the spring stable
+            joint.armature = 1e-4
     for name in [n for n in ACTIVE if n in joints]:  # ankle roll only when the URDF has it (12 DOF)
         if 'ankle_roll' in name:
             spec.joint(name).armature = ANKLE_ROLL_ARMATURE

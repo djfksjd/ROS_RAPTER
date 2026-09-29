@@ -1,0 +1,232 @@
+{
+ "generated_by": "modeling/design_r02.py",
+ "total_mass": 11.36,
+ "nominal_pose": {
+  "hip_pitch": -0.5271,
+  "knee_pitch": 1.8762,
+  "ankle_pitch": -1.8762
+ },
+ "foot_mount_pitch": 0.5271,
+ "geometry": {
+  "femur": 0.22,
+  "tibia": 0.38,
+  "meta": 0.32,
+  "hip_half_width": 0.1,
+  "hip_drop": 0.03,
+  "torso_len": 0.4,
+  "pod_len": 0.14,
+  "mast_z": 0.14,
+  "tail_len": 0.9,
+  "hip_stand": 0.55
+ },
+ "links": {
+  "base_link": {
+   "mass": 4.19,
+   "com": [
+    0.01635,
+    0.0,
+    -0.00067
+   ],
+   "inertia": [
+    0.0156123,
+    0.0684684,
+    0.0694541
+   ]
+  },
+  "hip_roll_link": {
+   "mass": 2.26,
+   "com": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "inertia": [
+    0.0032544,
+    0.0032544,
+    0.0032544
+   ]
+  },
+  "thigh_link": {
+   "mass": 0.282,
+   "com": [
+    0.0,
+    0.0,
+    -0.11
+   ],
+   "inertia": [
+    0.0011656,
+    0.0011656,
+    5.64e-05
+   ]
+  },
+  "shin_link": {
+   "mass": 0.228,
+   "com": [
+    0.0,
+    0.0,
+    -0.19
+   ],
+   "inertia": [
+    0.0027664,
+    0.0027664,
+    4.56e-05
+   ]
+  },
+  "metatarsus_link": {
+   "mass": 0.192,
+   "com": [
+    0.0,
+    0.0,
+    -0.16
+   ],
+   "inertia": [
+    0.0016576,
+    0.0016576,
+    3.84e-05
+   ]
+  },
+  "foot_link": {
+   "mass": 0.04,
+   "com": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "inertia": [
+    2e-05,
+    2e-05,
+    2e-05
+   ]
+  },
+  "tail_yaw_link": {
+   "mass": 0.4,
+   "com": [
+    -0.02,
+    0.0,
+    0.0
+   ],
+   "inertia": [
+    0.0005,
+    0.0005,
+    0.0005
+   ]
+  },
+  "tail_link": {
+   "mass": 0.65,
+   "com": [
+    -0.72692,
+    0.0,
+    0.0
+   ],
+   "inertia": [
+    0.0003,
+    0.0482288,
+    0.0482288
+   ]
+  }
+ },
+ "joints": {
+  "hip_roll": {
+   "lower": -0.5,
+   "upper": 0.5,
+   "velocity": 3.0,
+   "effort": 36.0
+  },
+  "hip_pitch": {
+   "lower": -1.6,
+   "upper": 0.9,
+   "velocity": 3.0,
+   "effort": 36.0
+  },
+  "knee_pitch": {
+   "lower": 0.2,
+   "upper": 2.6,
+   "velocity": 3.0,
+   "effort": 36.0
+  },
+  "ankle_pitch": {
+   "lower": -2.5,
+   "upper": 0.2,
+   "velocity": 3.0,
+   "effort": 36.0
+  },
+  "ankle_roll": {
+   "lower": -0.5,
+   "upper": 0.5,
+   "velocity": 3.0,
+   "effort": 17.0
+  },
+  "tail_yaw": {
+   "lower": -0.8,
+   "upper": 0.8,
+   "velocity": 3.0,
+   "effort": 36.0
+  },
+  "tail_pitch": {
+   "lower": -0.8,
+   "upper": 0.8,
+   "velocity": 3.0,
+   "effort": 36.0
+  }
+ },
+ "toes": {
+  "III": {
+   "x": 0.0,
+   "y_out": -0.006,
+   "z": -0.008,
+   "yaw_out_deg": 0.0,
+   "pitch_up": 0.0,
+   "length": 0.1,
+   "k_proximal": 30.0,
+   "k_distal": 20.0,
+   "range": [
+    -0.6,
+    0.9
+   ],
+   "tip_friction": 1.2
+  },
+  "IV": {
+   "x": 0.0,
+   "y_out": 0.012,
+   "z": -0.008,
+   "yaw_out_deg": 24.0,
+   "pitch_up": 0.0,
+   "length": 0.085,
+   "k_proximal": 20.0,
+   "k_distal": 14.0,
+   "range": [
+    -0.6,
+    0.9
+   ],
+   "tip_friction": null
+  },
+  "II": {
+   "x": -0.01,
+   "y_out": -0.02,
+   "z": 0.01,
+   "yaw_out_deg": 0.0,
+   "pitch_up": 0.7,
+   "length": 0.06,
+   "k_proximal": 15.0,
+   "k_distal": 10.0,
+   "range": [
+    -0.3,
+    0.3
+   ],
+   "tip_friction": null
+  }
+ },
+ "toe_segment_mass": 0.01,
+ "pad": {
+  "radius": 0.018,
+  "pos": [
+   -0.005,
+   0.0,
+   -0.002
+  ]
+ },
+ "achilles": {
+  "stiffness": 77.0,
+  "preload": 6.0
+ }
+}
