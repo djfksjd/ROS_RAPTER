@@ -82,7 +82,7 @@ def main():
     p.add_argument('--slew', type=float)
     p.add_argument('--dr', type=int, default=1)
     p.add_argument('--design', help='MJCF design variant (default: from --dof/--sole)')
-    p.add_argument('--crouch', type=float, nargs=2, metavar=('HIP', 'KNEE'), help='nominal leg pose used in training')
+    p.add_argument('--crouch', type=float, nargs='+', metavar='ANGLE', help='nominal leg pose used in training')
     p.add_argument('--video')
     p.add_argument('--out')
     a = p.parse_args()

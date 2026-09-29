@@ -41,7 +41,7 @@ def main():
     p.add_argument('--dof', type=int, default=12)
     p.add_argument('--sole', default='flat')
     p.add_argument('--design', help='MJCF design variant used in training (joint limits are exported)')
-    p.add_argument('--crouch', type=float, nargs=2, metavar=('HIP', 'KNEE'), help='nominal leg pose used in training')
+    p.add_argument('--crouch', type=float, nargs='+', metavar='ANGLE', help='nominal leg pose used in training')
     a = p.parse_args()
     export(a.model, a.out, a.dof, a.sole, a.design, a.crouch)
     print(f'wrote {a.out}')

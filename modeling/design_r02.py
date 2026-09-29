@@ -94,7 +94,9 @@ def points(p, hip, knee):
 
 
 def masses(p):
-    act_leg = p.act_small + 2*p.act_big + 2*p.act_small
+    # per leg: hip roll, hip pitch, knee, ankle pitch = big class (static single-leg ankle 19.6 N·m and
+    # the 14 km/h ankle 43 N·m exceed the small class); ankle roll = small class
+    act_leg = 4*p.act_big + p.act_small
     leg_struct = p.tube_density*leg_len(p) + p.foot_toes + p.transmission
     parts = {'leg actuators x2 (pelvis)': 2*act_leg, 'tail actuators': 2*p.act_small, 'torso frame': p.torso_frame,
              'battery': p.battery, 'compute+sensors': p.compute_sensors, 'head+neck': p.head_neck,

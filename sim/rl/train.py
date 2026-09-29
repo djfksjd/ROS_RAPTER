@@ -85,7 +85,7 @@ def main():
     p.add_argument('--design', help='MJCF design variant (default: from --dof/--sole)')
     p.add_argument('--pulse-force', type=float, default=40., help='N per horizontal axis for the dr-2 pulses group')
     p.add_argument('--com-shift', type=float, default=.03, help='m, torso CoM shift range for the dr-2 com group')
-    p.add_argument('--crouch', type=float, nargs=2, metavar=('HIP', 'KNEE'), help='nominal leg pose (ankle = -hip-knee)')
+    p.add_argument('--crouch', type=float, nargs='+', metavar='ANGLE', help='nominal leg pose: HIP KNEE (ankle = -hip-knee) or HIP KNEE ANKLE')
     p.add_argument('--dr-items', nargs='+', help='subset of dr-2 groups: ankle noise delay toe com pulses initvel')
     p.add_argument('--init', help='model.zip to continue from (its vecnorm.pkl is loaded too)')
     p.add_argument('--seed', type=int, default=0)

@@ -78,9 +78,13 @@ class RaptorEnv(gym.Env):
         probe = mujoco.MjModel.from_xml_path(self.model_path)
         names = [probe.actuator(i).name for i in range(probe.nu)]
         self.active = names
-        # crouch=(hip, knee): nominal level-sole leg pose (ankle = -hip-knee); default (-0.1, 0.5).
+        # crouch=(hip, knee): nominal level-sole leg pose (ankle = -hip-knee); default (-0.1, 0.5); or (hip, knee, ankle).
         # A lower pose also lowers h_nom, the height the reward holds the torso at.
-        pose = {**DEFAULT, **(crouch_pose(*crouch) if crouch else {})}
+        if crouch and len(crouch) == 3:  # (hip, knee, ankle) for a leg whose toes are mounted at an angle (R-02)
+            pose = {**DEFAULT, **{f'{s}_{j}_joint': v for s in ('left', 'right')
+                                  for j, v in zip(('hip_pitch', 'knee_pitch', 'ankle_pitch'), crouch)}}
+        else:
+            pose = {**DEFAULT, **(crouch_pose(*crouch) if crouch else {})}
         self.q0 = np.array([pose.get(n, 0.) for n in names])
         self.scale = np.array([SCALE[joint_type(n)] for n in names])
         n = len(names)

@@ -51,7 +51,7 @@ def main():
     p.add_argument('--episodes', type=int, default=12)
     p.add_argument('--design', help='MJCF design variant')
     p.add_argument('--pulse-force', type=float, default=40., help='N per horizontal axis (pulses group)')
-    p.add_argument('--crouch', type=float, nargs=2, metavar=('HIP', 'KNEE'), help='nominal leg pose used in training')
+    p.add_argument('--crouch', type=float, nargs='+', metavar='ANGLE', help='nominal leg pose used in training')
     p.add_argument('--com-shift', type=float, default=.03, help='m, torso CoM shift range (com group)')
     p.add_argument('--stochastic', action='store_true', help='sample actions as in training')
     p.add_argument('--procs', type=int, default=8)
