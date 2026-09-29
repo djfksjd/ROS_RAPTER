@@ -63,7 +63,7 @@ RUN_SPEED = 3.    # m/s command above which flight is rewarded
 DISTURB_ITEMS = ('pitch', 'yaw', 'trip', 'touchdown', 'push')
 
 # reward weights per second (x CONTROL_DT per step)
-WEIGHTS_RUN = dict(track_lin=3., progress=1., track_yaw=1., flight=1., air_time=1., grf=-1., cot=-.05, ang_mom=-.5,
+WEIGHTS_RUN = dict(track_lin=3., progress=1., track_yaw=1., flight=1., air_time=1., stand=-2., grf=-1., cot=-.05, ang_mom=-.5,
                    lin_vel_z=-.5, ang_vel_xy=-.05, orientation=-5., height=-20., torque=-1e-5, action_rate=-.02,
                    joint_acc=-2e-8, slip=-.2, collision=-5., joint_limit=-5., alive=.5)
 
@@ -380,6 +380,7 @@ class RunEnv(RaptorEnv):
         self.loaded = loaded_now
         flight = not any(loaded_now.values())
         terms['flight'] = float(flight and cx >= RUN_SPEED and v_body[0] > .5*cx)
+        terms['stand'] = float(flight) if cx < .05 else 0.  # hopping in place at a zero command (v1 defect)
         terms['air_time'] = air_reward/CONTROL_DT if moving else 0.
         terms['grf'] = grf
         terms['slip'] = slip

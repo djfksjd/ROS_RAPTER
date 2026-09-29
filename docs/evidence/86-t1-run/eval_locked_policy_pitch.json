@@ -1,0 +1,66 @@
+[
+ {
+  "tail": "locked",
+  "cmd_vx": 4.0,
+  "falls": 0,
+  "episodes": 3,
+  "mean_vx": 3.92,
+  "path_m": 37.1,
+  "yaw_drift": -0.03,
+  "stride_hz": 5.5,
+  "duty": 0.53,
+  "flight_frac": 0.47,
+  "peak_grf_bw": 1.97,
+  "peak_grf_sd": 1.04,
+  "power_w": 232.8,
+  "cot": 1.21,
+  "tail_qd_rms": 0.72,
+  "L_yz_rms": 0.18,
+  "tail_leg_yaw_corr": -0.85,
+  "max_tilt": 0.21
+ },
+ {
+  "tail": "locked",
+  "impulse_axis": "y",
+  "impulse_nms": 0.6,
+  "cmd_vx": 4.0,
+  "falls": 0,
+  "episodes": 3,
+  "recovered": 3,
+  "recovery_s": 0.02,
+  "max_tilt": 0.21
+ },
+ {
+  "tail": "locked",
+  "impulse_axis": "y",
+  "impulse_nms": 1.0,
+  "cmd_vx": 4.0,
+  "falls": 0,
+  "episodes": 3,
+  "recovered": 3,
+  "recovery_s": 0.02,
+  "max_tilt": 0.21
+ },
+ {
+  "tail": "locked",
+  "impulse_axis": "y",
+  "impulse_nms": 1.5,
+  "cmd_vx": 4.0,
+  "falls": 0,
+  "episodes": 3,
+  "recovered": 3,
+  "recovery_s": 0.02,
+  "max_tilt": 0.26
+ },
+ {
+  "tail": "locked",
+  "impulse_axis": "y",
+  "impulse_nms": 2.0,
+  "cmd_vx": 4.0,
+  "falls": 0,
+  "episodes": 3,
+  "recovered": 3,
+  "recovery_s": 0.26,
+  "max_tilt": 0.24
+ }
+]
