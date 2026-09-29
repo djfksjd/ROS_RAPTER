@@ -18,8 +18,8 @@ from evaluate import load  # noqa: E402
 from raptor_env import RaptorEnv  # noqa: E402
 
 
-def stop_test(model_path, dof=12, sole='flat', speed=.6, walk_s=8., stop_s=6.):
-    env = RaptorEnv('flat', dof=dof, sole=sole, randomize=False, seed=300)
+def stop_test(model_path, dof=12, sole='flat', speed=.6, walk_s=8., stop_s=6., jtc=0., slew=None):
+    env = RaptorEnv('flat', dof=dof, sole=sole, randomize=False, seed=300, jtc_horizon=jtc, slew=slew)
     model, venv = load(model_path, env)
     venv.reset()
     env.resample_steps = 0
@@ -58,8 +58,10 @@ def main():
     p.add_argument('--dof', type=int, default=12)
     p.add_argument('--sole', default='flat')
     p.add_argument('--speed', type=float, default=.6)
+    p.add_argument('--jtc', type=float, default=0.)
+    p.add_argument('--slew', type=float)
     a = p.parse_args()
-    print(json.dumps(stop_test(a.model, a.dof, a.sole, a.speed)))
+    print(json.dumps(stop_test(a.model, a.dof, a.sole, a.speed, jtc=a.jtc, slew=a.slew)))
 
 
 if __name__ == '__main__':
