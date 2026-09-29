@@ -55,7 +55,7 @@ class RaptorEnv(gym.Env):
 
     def __init__(self, terrain='flat', level=0., cmd_max=(.5, .2, .5), vel_scale=1., episode_s=20.,
                  randomize=True, seed=None, render_mode=None, model_path=None, servo_kv=SERVO_KV,
-                 actuator='urdf', dof=10, sole='flat', weights=None, zero_cmd=.1, jtc_horizon=0., kv_range=None, slew=None, dr=1, dr_items=None, pulse_force=40.):
+                 actuator='urdf', dof=10, sole='flat', weights=None, zero_cmd=.1, jtc_horizon=0., kv_range=None, slew=None, dr=1, dr_items=None, pulse_force=40., com_shift=.03):
         self.kinds = [terrain] if isinstance(terrain, str) else list(terrain)
         self.level, self.cmd_max, self.vel_scale = level, np.array(cmd_max, float), vel_scale
         self.servo_kv, self.actuator = servo_kv, actuator
@@ -67,6 +67,7 @@ class RaptorEnv(gym.Env):
         # rl_policy_node). Unlimited targets saturated the servos (Gazebo DART overshoot defect, evidence 61).
         self.slew = slew
         self.pulse_force = pulse_force  # N per horizontal axis for the dr-2 "pulses" group
+        self.com_shift = com_shift  # m, torso CoM shift range in x and y for the "com" group
         # dr 2 (Fable review, evidence 81): ankle-pitch stop margin, observation noise and 0-20 ms delay,
         # toe spring +-50%, CoM +-3 cm, random base force pulses, initial base velocity. dr 1 = earlier runs.
         self.dr = dr
@@ -152,7 +153,7 @@ class RaptorEnv(gym.Env):
         if 'toe' in self.dr_items:
             m.jnt_stiffness[self.toe_joints] = self.nominal_toe_k*self.rng.uniform(.5, 1.5)
         if 'com' in self.dr_items:
-            m.body_ipos[self.base] = self.nominal_ipos+np.r_[self.rng.uniform(-.03, .03, 2), 0.]
+            m.body_ipos[self.base] = self.nominal_ipos+np.r_[self.rng.uniform(-self.com_shift, self.com_shift, 2), 0.]
         m.geom_friction[sorted(self.ground), 0] = self.rng.uniform(.5, 1.25)
         m.actuator_forcerange[:] *= self.rng.uniform(.9, 1.1)
 

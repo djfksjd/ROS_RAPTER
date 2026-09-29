@@ -1,0 +1,232 @@
+{
+ "gate_all_b3_20N": [
+  {
+   "model": "runs/stageB3_flat/model.zip",
+   "case": "all_b3",
+   "falls": 11,
+   "episodes": 48,
+   "mean_time_s": 17.7,
+   "pulse_force": 20.0,
+   "stochastic": false
+  },
+  {
+   "model": "runs/stageB4_flat/model.zip",
+   "case": "all_b3",
+   "falls": 8,
+   "episodes": 48,
+   "mean_time_s": 18.1,
+   "pulse_force": 20.0,
+   "stochastic": false
+  }
+ ],
+ "gate_pulses_30N": [
+  {
+   "model": "runs/stageB3_flat/model.zip",
+   "case": "pulses",
+   "falls": 16,
+   "episodes": 48,
+   "mean_time_s": 17.1,
+   "pulse_force": 30.0,
+   "stochastic": false
+  },
+  {
+   "model": "runs/stageB4_flat/model.zip",
+   "case": "pulses",
+   "falls": 5,
+   "episodes": 48,
+   "mean_time_s": 18.6,
+   "pulse_force": 30.0,
+   "stochastic": false
+  }
+ ],
+ "gate_40N": [
+  {
+   "model": "runs/stageB3_flat/model.zip",
+   "case": "pulses",
+   "falls": 22,
+   "episodes": 48,
+   "mean_time_s": 14.9,
+   "pulse_force": 40.0,
+   "stochastic": false
+  },
+  {
+   "model": "runs/stageB3_flat/model.zip",
+   "case": "all_b3",
+   "falls": 21,
+   "episodes": 48,
+   "mean_time_s": 16.4,
+   "pulse_force": 40.0,
+   "stochastic": false
+  },
+  {
+   "model": "runs/stageB4_flat/model.zip",
+   "case": "pulses",
+   "falls": 18,
+   "episodes": 48,
+   "mean_time_s": 16.0,
+   "pulse_force": 40.0,
+   "stochastic": false
+  },
+  {
+   "model": "runs/stageB4_flat/model.zip",
+   "case": "all_b3",
+   "falls": 23,
+   "episodes": 48,
+   "mean_time_s": 14.2,
+   "pulse_force": 40.0,
+   "stochastic": false
+  }
+ ],
+ "flat_tracking": {
+  "stageA_flat": [
+   {
+    "terrain": "flat",
+    "level": 0.0,
+    "cmd_vx": 0.0,
+    "falls": 0,
+    "episodes": 3,
+    "mean_vx": 0.042,
+    "track_err": 0.107,
+    "distance_m": 0.53,
+    "max_tilt": 0.15,
+    "mean_yaw_rate": 0.027
+   },
+   {
+    "terrain": "flat",
+    "level": 0.0,
+    "cmd_vx": 0.2,
+    "falls": 0,
+    "episodes": 3,
+    "mean_vx": 0.31,
+    "track_err": 0.145,
+    "distance_m": 5.67,
+    "max_tilt": 0.173,
+    "mean_yaw_rate": 0.025
+   },
+   {
+    "terrain": "flat",
+    "level": 0.0,
+    "cmd_vx": 0.4,
+    "falls": 0,
+    "episodes": 3,
+    "mean_vx": 0.423,
+    "track_err": 0.131,
+    "distance_m": 8.09,
+    "max_tilt": 0.164,
+    "mean_yaw_rate": 0.003
+   },
+   {
+    "terrain": "flat",
+    "level": 0.0,
+    "cmd_vx": 0.6,
+    "falls": 0,
+    "episodes": 3,
+    "mean_vx": 0.431,
+    "track_err": 0.205,
+    "distance_m": 8.14,
+    "max_tilt": 0.124,
+    "mean_yaw_rate": 0.035
+   }
+  ],
+  "stageB3_flat": [
+   {
+    "terrain": "flat",
+    "level": 0.0,
+    "cmd_vx": 0.0,
+    "falls": 0,
+    "episodes": 3,
+    "mean_vx": -0.064,
+    "track_err": 0.198,
+    "distance_m": -1.15,
+    "max_tilt": 0.131,
+    "mean_yaw_rate": -0.207
+   },
+   {
+    "terrain": "flat",
+    "level": 0.0,
+    "cmd_vx": 0.2,
+    "falls": 0,
+    "episodes": 3,
+    "mean_vx": 0.09,
+    "track_err": 0.174,
+    "distance_m": 0.34,
+    "max_tilt": 0.132,
+    "mean_yaw_rate": -0.122
+   },
+   {
+    "terrain": "flat",
+    "level": 0.0,
+    "cmd_vx": 0.4,
+    "falls": 0,
+    "episodes": 3,
+    "mean_vx": 0.228,
+    "track_err": 0.21,
+    "distance_m": 1.78,
+    "max_tilt": 0.125,
+    "mean_yaw_rate": -0.109
+   },
+   {
+    "terrain": "flat",
+    "level": 0.0,
+    "cmd_vx": 0.6,
+    "falls": 0,
+    "episodes": 3,
+    "mean_vx": 0.437,
+    "track_err": 0.212,
+    "distance_m": 6.87,
+    "max_tilt": 0.154,
+    "mean_yaw_rate": -0.069
+   }
+  ],
+  "stageB4_flat": [
+   {
+    "terrain": "flat",
+    "level": 0.0,
+    "cmd_vx": 0.0,
+    "falls": 0,
+    "episodes": 3,
+    "mean_vx": -0.012,
+    "track_err": 0.156,
+    "distance_m": -1.59,
+    "max_tilt": 0.112,
+    "mean_yaw_rate": -0.098
+   },
+   {
+    "terrain": "flat",
+    "level": 0.0,
+    "cmd_vx": 0.2,
+    "falls": 0,
+    "episodes": 3,
+    "mean_vx": 0.146,
+    "track_err": 0.132,
+    "distance_m": 1.68,
+    "max_tilt": 0.115,
+    "mean_yaw_rate": -0.074
+   },
+   {
+    "terrain": "flat",
+    "level": 0.0,
+    "cmd_vx": 0.4,
+    "falls": 0,
+    "episodes": 3,
+    "mean_vx": 0.433,
+    "track_err": 0.112,
+    "distance_m": 6.28,
+    "max_tilt": 0.119,
+    "mean_yaw_rate": -0.064
+   },
+   {
+    "terrain": "flat",
+    "level": 0.0,
+    "cmd_vx": 0.6,
+    "falls": 0,
+    "episodes": 3,
+    "mean_vx": 0.61,
+    "track_err": 0.136,
+    "distance_m": 10.22,
+    "max_tilt": 0.164,
+    "mean_yaw_rate": -0.054
+   }
+  ]
+ }
+}

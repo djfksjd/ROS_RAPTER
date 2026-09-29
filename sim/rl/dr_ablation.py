@@ -31,7 +31,7 @@ def run(job):
     env = RaptorEnv('flat', dof=12, sole='flat', randomize=True, seed=seed, cmd_max=(.6, .2, .6), zero_cmd=.25,
                     jtc_horizon=.02, kv_range=(20., 80.), slew=.85, dr_items=CASES[case] or None, model_path=a['design'])
     env.dr_items = set(CASES[case])  # empty set = base randomization only
-    env.pulse_force = a['pulse_force']
+    env.pulse_force, env.com_shift = a['pulse_force'], a['com_shift']
     model, venv = load(policy, env)
     obs = venv.reset()
     steps = 0
@@ -51,11 +51,12 @@ def main():
     p.add_argument('--episodes', type=int, default=12)
     p.add_argument('--design', help='MJCF design variant')
     p.add_argument('--pulse-force', type=float, default=40., help='N per horizontal axis (pulses group)')
+    p.add_argument('--com-shift', type=float, default=.03, help='m, torso CoM shift range (com group)')
     p.add_argument('--stochastic', action='store_true', help='sample actions as in training')
     p.add_argument('--procs', type=int, default=8)
     p.add_argument('--out')
     a = p.parse_args()
-    jobs = [(m, c, 5000+e, {'design': a.design, 'pulse_force': a.pulse_force, 'stochastic': a.stochastic}) for m in a.models for c in a.cases for e in range(a.episodes)]
+    jobs = [(m, c, 5000+e, {'design': a.design, 'pulse_force': a.pulse_force, 'stochastic': a.stochastic, 'com_shift': a.com_shift}) for m in a.models for c in a.cases for e in range(a.episodes)]
     with Pool(a.procs) as pool:
         res = pool.map(run, jobs, chunksize=1)
     rows = []
@@ -63,7 +64,7 @@ def main():
         for c in a.cases:
             r = [x for x in res if x[0] == m and x[1] == c]
             row = {'model': m, 'case': c, 'falls': sum(x[2] for x in r), 'episodes': len(r),
-                   'mean_time_s': round(float(np.mean([x[3] for x in r])), 1), 'pulse_force': a.pulse_force, 'stochastic': a.stochastic}
+                   'mean_time_s': round(float(np.mean([x[3] for x in r])), 1), 'pulse_force': a.pulse_force, 'stochastic': a.stochastic, 'com_shift': a.com_shift}
             rows.append(row)
             print(json.dumps(row), flush=True)
     if a.out:
