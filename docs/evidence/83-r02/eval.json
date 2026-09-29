@@ -1,0 +1,158 @@
+{
+ "r02A_flat_tracking": [
+  {
+   "terrain": "flat",
+   "level": 0.0,
+   "cmd_vx": 0.0,
+   "falls": 0,
+   "episodes": 3,
+   "mean_vx": 0.064,
+   "track_err": 0.188,
+   "distance_m": 0.69,
+   "max_tilt": 0.265,
+   "mean_yaw_rate": -0.022
+  },
+  {
+   "terrain": "flat",
+   "level": 0.0,
+   "cmd_vx": 0.2,
+   "falls": 0,
+   "episodes": 3,
+   "mean_vx": 0.171,
+   "track_err": 0.16,
+   "distance_m": 2.72,
+   "max_tilt": 0.27,
+   "mean_yaw_rate": -0.05
+  },
+  {
+   "terrain": "flat",
+   "level": 0.0,
+   "cmd_vx": 0.4,
+   "falls": 0,
+   "episodes": 3,
+   "mean_vx": 0.337,
+   "track_err": 0.18,
+   "distance_m": 6.47,
+   "max_tilt": 0.267,
+   "mean_yaw_rate": -0.045
+  },
+  {
+   "terrain": "flat",
+   "level": 0.0,
+   "cmd_vx": 0.6,
+   "falls": 0,
+   "episodes": 3,
+   "mean_vx": 0.599,
+   "track_err": 0.218,
+   "distance_m": 11.21,
+   "max_tilt": 0.294,
+   "mean_yaw_rate": -0.037
+  }
+ ],
+ "r02A_base_pulses20": [
+  {
+   "model": "runs/r02A_flat/model.zip",
+   "case": "base",
+   "falls": 2,
+   "episodes": 48,
+   "mean_time_s": 19.9,
+   "pulse_force": 20.0,
+   "stochastic": false,
+   "com_shift": 0.03
+  },
+  {
+   "model": "runs/r02A_flat/model.zip",
+   "case": "pulses",
+   "falls": 15,
+   "episodes": 48,
+   "mean_time_s": 17.6,
+   "pulse_force": 20.0,
+   "stochastic": false,
+   "com_shift": 0.03
+  }
+ ],
+ "r02A_pulses13_mass_scaled": [
+  {
+   "model": "runs/r02A_flat/model.zip",
+   "case": "pulses",
+   "falls": 3,
+   "episodes": 48,
+   "mean_time_s": 19.3,
+   "pulse_force": 13.0,
+   "stochastic": false,
+   "com_shift": 0.03
+  }
+ ],
+ "lowA2_base_pulses20": [
+  {
+   "model": "runs/lowA2_flat/model.zip",
+   "case": "base",
+   "falls": 0,
+   "episodes": 48,
+   "mean_time_s": 20.0,
+   "pulse_force": 20.0,
+   "stochastic": false,
+   "com_shift": 0.03
+  },
+  {
+   "model": "runs/lowA2_flat/model.zip",
+   "case": "pulses",
+   "falls": 0,
+   "episodes": 48,
+   "mean_time_s": 20.0,
+   "pulse_force": 20.0,
+   "stochastic": false,
+   "com_shift": 0.03
+  }
+ ],
+ "lowA_tracking": [
+  {
+   "terrain": "flat",
+   "level": 0.0,
+   "cmd_vx": 0.0,
+   "falls": 0,
+   "episodes": 3,
+   "mean_vx": -0.089,
+   "track_err": 0.144,
+   "distance_m": -1.64,
+   "max_tilt": 0.182,
+   "mean_yaw_rate": 0.021
+  },
+  {
+   "terrain": "flat",
+   "level": 0.0,
+   "cmd_vx": 0.2,
+   "falls": 0,
+   "episodes": 3,
+   "mean_vx": 0.143,
+   "track_err": 0.14,
+   "distance_m": 2.02,
+   "max_tilt": 0.228,
+   "mean_yaw_rate": 0.078
+  },
+  {
+   "terrain": "flat",
+   "level": 0.0,
+   "cmd_vx": 0.4,
+   "falls": 0,
+   "episodes": 3,
+   "mean_vx": 0.421,
+   "track_err": 0.158,
+   "distance_m": 6.06,
+   "max_tilt": 0.2,
+   "mean_yaw_rate": 0.064
+  },
+  {
+   "terrain": "flat",
+   "level": 0.0,
+   "cmd_vx": 0.6,
+   "falls": 0,
+   "episodes": 3,
+   "mean_vx": 0.65,
+   "track_err": 0.129,
+   "distance_m": 10.85,
+   "max_tilt": 0.19,
+   "mean_yaw_rate": 0.061
+  }
+ ]
+}
