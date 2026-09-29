@@ -74,8 +74,10 @@ def nodes(context, robot):
                 '/raptor/camera/image@sensor_msgs/msg/Image[gz.msgs.Image',
                 '/raptor/camera/depth_image@sensor_msgs/msg/Image[gz.msgs.Image',
                 '/raptor/camera/camera_info@sensor_msgs/msg/CameraInfo[gz.msgs.CameraInfo']),
+        # R-02 always has passive toes; the other designs only with passive_toes:=true
         Node(package='ros_gz_bridge', executable='parameter_bridge',
-             condition=IfCondition(LaunchConfiguration('passive_toes')),
+             condition=IfCondition(str(LaunchConfiguration('passive_toes').perform(context) == 'true'
+                                       or LaunchConfiguration('leg_design').perform(context) == 'r02').lower()),
              arguments=['/raptor/passive_joint_states@sensor_msgs/msg/JointState[gz.msgs.Model'] + [
                  f'/raptor/{side}/toe_{digit}_{part}/contact@ros_gz_interfaces/msg/Contacts[gz.msgs.Contacts'
                  for side in ['left', 'right'] for digit in range(1, 4)
