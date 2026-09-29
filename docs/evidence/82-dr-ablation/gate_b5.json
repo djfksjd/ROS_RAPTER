@@ -1,0 +1,108 @@
+{
+ "b5_all_b3_20N_com1.5cm": [
+  {
+   "model": "runs/stageB4_flat/model.zip",
+   "case": "all_b3",
+   "falls": 5,
+   "episodes": 48,
+   "mean_time_s": 18.8,
+   "pulse_force": 20.0,
+   "stochastic": false,
+   "com_shift": 0.015
+  },
+  {
+   "model": "runs/stageB5_flat/model.zip",
+   "case": "all_b3",
+   "falls": 6,
+   "episodes": 48,
+   "mean_time_s": 18.6,
+   "pulse_force": 20.0,
+   "stochastic": false,
+   "com_shift": 0.015
+  }
+ ],
+ "b5_all_b3_20N_com3cm": [
+  {
+   "model": "runs/stageB4_flat/model.zip",
+   "case": "all_b3",
+   "falls": 8,
+   "episodes": 48,
+   "mean_time_s": 18.1,
+   "pulse_force": 20.0,
+   "stochastic": false,
+   "com_shift": 0.03
+  },
+  {
+   "model": "runs/stageB5_flat/model.zip",
+   "case": "all_b3",
+   "falls": 11,
+   "episodes": 48,
+   "mean_time_s": 17.8,
+   "pulse_force": 20.0,
+   "stochastic": false,
+   "com_shift": 0.03
+  }
+ ],
+ "b5_pulses_30N": [
+  {
+   "model": "runs/stageB5_flat/model.zip",
+   "case": "pulses",
+   "falls": 3,
+   "episodes": 48,
+   "mean_time_s": 19.2,
+   "pulse_force": 30.0,
+   "stochastic": false,
+   "com_shift": 0.03
+  }
+ ],
+ "b5_flat_tracking": [
+  {
+   "terrain": "flat",
+   "level": 0.0,
+   "cmd_vx": 0.0,
+   "falls": 0,
+   "episodes": 3,
+   "mean_vx": 0.067,
+   "track_err": 0.15,
+   "distance_m": 1.5,
+   "max_tilt": 0.136,
+   "mean_yaw_rate": -0.049
+  },
+  {
+   "terrain": "flat",
+   "level": 0.0,
+   "cmd_vx": 0.2,
+   "falls": 0,
+   "episodes": 3,
+   "mean_vx": 0.386,
+   "track_err": 0.207,
+   "distance_m": 4.71,
+   "max_tilt": 0.126,
+   "mean_yaw_rate": -0.081
+  },
+  {
+   "terrain": "flat",
+   "level": 0.0,
+   "cmd_vx": 0.4,
+   "falls": 0,
+   "episodes": 3,
+   "mean_vx": 0.54,
+   "track_err": 0.169,
+   "distance_m": 6.11,
+   "max_tilt": 0.125,
+   "mean_yaw_rate": -0.069
+  },
+  {
+   "terrain": "flat",
+   "level": 0.0,
+   "cmd_vx": 0.6,
+   "falls": 0,
+   "episodes": 3,
+   "mean_vx": 0.675,
+   "track_err": 0.12,
+   "distance_m": 11.22,
+   "max_tilt": 0.14,
+   "mean_yaw_rate": -0.059
+  }
+ ]
+}

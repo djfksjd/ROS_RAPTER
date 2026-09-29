@@ -1,0 +1,9 @@
+8 falls
+{'seed': 5007, 't': 7.06, 'since_pulse': 0.66, 'since_shove': -2.42, 'reason': 'tilt ', 'grav_xy_now': [0.4, -0.62], 'grav_xy_1s_ago': [-0.03, 0.01], 'cmd': [-0.05, -0.14, -0.38], 'kv': 75.0, 'delay': 1, 'com': [0.004, -0.027]}
+{'seed': 5025, 't': 15.04, 'since_pulse': 0.32, 'since_shove': 10.18, 'reason': 'tilt ', 'grav_xy_now': [0.04, -0.72], 'grav_xy_1s_ago': [-0.04, 0.02], 'cmd': [0.59, 0.03, -0.36], 'kv': 72.5, 'delay': 0, 'com': [0.004, -0.024]}
+{'seed': 5026, 't': 5.2, 'since_pulse': 0.74, 'since_shove': -4.66, 'reason': 'tilt ', 'grav_xy_now': [0.36, -0.64], 'grav_xy_1s_ago': [-0.03, -0.08], 'cmd': [0.4, -0.15, -0.37], 'kv': 59.2, 'delay': 1, 'com': [0.009, -0.024]}
+{'seed': 5028, 't': 4.4, 'since_pulse': 13.4, 'since_shove': 0.04, 'reason': 'tilt ', 'grav_xy_now': [0.21, -0.69], 'grav_xy_1s_ago': [0.04, -0.07], 'cmd': [0.03, 0.0, -0.31], 'kv': 68.3, 'delay': 0, 'com': [0.006, -0.019]}
+{'seed': 5031, 't': 11.98, 'since_pulse': 1.38, 'since_shove': 2.27, 'reason': 'tilt ', 'grav_xy_now': [-0.23, 0.71], 'grav_xy_1s_ago': [-0.09, -0.02], 'cmd': [0.48, -0.12, 0.55], 'kv': 41.8, 'delay': 1, 'com': [-0.025, 0.026]}
+{'seed': 5037, 't': 15.06, 'since_pulse': 0.3, 'since_shove': 9.6, 'reason': 'body_hit ', 'grav_xy_now': [-0.43, -0.42], 'grav_xy_1s_ago': [-0.14, 0.04], 'cmd': [0.0, 0.0, 0.0], 'kv': 75.6, 'delay': 0, 'com': [-0.009, 0.017]}
+{'seed': 5040, 't': 4.26, 'since_pulse': 0.62, 'since_shove': -3.65, 'reason': 'tilt ', 'grav_xy_now': [-0.21, 0.7], 'grav_xy_1s_ago': [0.02, 0.17], 'cmd': [0.22, -0.18, 0.59], 'kv': 25.8, 'delay': 1, 'com': [0.007, 0.017]}
+{'seed': 5047, 't': 7.88, 'since_pulse': 16.88, 'since_shove': 0.94, 'reason': 'tilt ', 'grav_xy_now': [0.3, -0.69], 'grav_xy_1s_ago': [0.02, -0.0], 'cmd': [0.0, 0.0, 0.0], 'kv': 24.2, 'delay': 0, 'com': [0.005, -0.029]}
