@@ -50,6 +50,11 @@ def build(urdf_text):
         if geom.name == 'floor':
             continue
         geom.contype, geom.conaffinity = 1, 0  # robot-ground only, like Gazebo self_collide=false
+        if geom.type == mujoco.mjtGeom.mjGEOM_MESH:  # rocker pad: near-point contact has no torsional
+            # friction under condim 3 and the robot spun in place (-0.2 rad/s, evidence 80); a rubber patch
+            # of ~1 cm radius gives torsional friction ~ radius x mu
+            geom.condim = 4
+            geom.friction = [1., .01, .0001]
         if geom.parent.name in toe_links:
             geom.friction = [.8, .005, .0001]
             geom.priority = 1  # toe-ground uses toe mu, standing in for DART's min combination

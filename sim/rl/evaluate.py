@@ -32,10 +32,13 @@ def episode(model, venv, env, command, seconds, frames=None):
     obs = venv.normalize_obs(env._obs()[None])
     speeds, errs, tilt, fell = [], [], 0., False
     x0 = env.data.xpos[env.base][0]
+    yaw = lambda: float(np.arctan2(env.data.xmat[env.base][3], env.data.xmat[env.base][0]))
+    yaw0, yaw_rates = yaw(), []
     for _ in range(int(seconds/.02)):
         action, _ = model.predict(obs, deterministic=True)
         raw, _, term, trunc, info = env.step(action[0])
         obs = venv.normalize_obs(raw[None])
+        yaw_rates.append(env.body_velocity(env.base)[0][2])
         speeds.append(info['v_body'][0]); errs.append(np.linalg.norm(info['v_body'][:2]-env.command[:2]))
         tilt = max(tilt, info['tilt'])
         if frames is not None:
@@ -45,7 +48,9 @@ def episode(model, venv, env, command, seconds, frames=None):
             break
     return {'fell': fell, 'time_s': round(len(speeds)*.02, 2), 'mean_vx': round(float(np.mean(speeds[50:] or [0])), 3),
             'track_err': round(float(np.mean(errs[50:] or [0])), 3),
-            'distance_m': round(float(env.data.xpos[env.base][0]-x0), 2), 'max_tilt': round(float(tilt), 3)}
+            'distance_m': round(float(env.data.xpos[env.base][0]-x0), 2), 'max_tilt': round(float(tilt), 3),
+            'mean_yaw_rate': round(float(np.mean(yaw_rates[50:] or [0])), 3),
+            'heading_change_rad': round(float(np.angle(np.exp(1j*(yaw()-yaw0)))), 2)}
 
 
 def write_mp4(path, frames, fps=50):
@@ -93,7 +98,8 @@ def main():
                        'episodes': len(eps), 'mean_vx': round(float(np.mean([e['mean_vx'] for e in eps])), 3),
                        'track_err': round(float(np.mean([e['track_err'] for e in eps])), 3),
                        'distance_m': round(float(np.mean([e['distance_m'] for e in eps])), 2),
-                       'max_tilt': max(e['max_tilt'] for e in eps)}
+                       'max_tilt': max(e['max_tilt'] for e in eps),
+                       'mean_yaw_rate': round(float(np.mean([e['mean_yaw_rate'] for e in eps])), 3)}
                 rows.append(row)
                 print(json.dumps(row), flush=True)
     if a.out:
