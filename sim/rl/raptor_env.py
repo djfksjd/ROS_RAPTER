@@ -19,10 +19,10 @@ import numpy as np
 
 SIM = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(SIM))
-from stand_check import crouch  # noqa: E402
+from stand_check import crouch as crouch_pose  # noqa: E402
 import terrain as tr  # noqa: E402
 
-DEFAULT = {**crouch(-.1, .5), 'left_hip_roll_joint': 0., 'right_hip_roll_joint': 0.,
+DEFAULT = {**crouch_pose(-.1, .5), 'left_hip_roll_joint': 0., 'right_hip_roll_joint': 0.,
            'tail_yaw_joint': 0., 'tail_pitch_joint': 0.}
 # rad per unit action, by joint type; the active joints are read from the model's actuators
 SCALE = {'hip_roll': .3, 'hip_pitch': .6, 'knee_pitch': .8, 'ankle_pitch': .5, 'ankle_roll': .3,
@@ -55,7 +55,7 @@ class RaptorEnv(gym.Env):
 
     def __init__(self, terrain='flat', level=0., cmd_max=(.5, .2, .5), vel_scale=1., episode_s=20.,
                  randomize=True, seed=None, render_mode=None, model_path=None, servo_kv=SERVO_KV,
-                 actuator='urdf', dof=10, sole='flat', weights=None, zero_cmd=.1, jtc_horizon=0., kv_range=None, slew=None, dr=1, dr_items=None, pulse_force=40., com_shift=.03):
+                 actuator='urdf', dof=10, sole='flat', weights=None, zero_cmd=.1, jtc_horizon=0., kv_range=None, slew=None, dr=1, dr_items=None, pulse_force=40., com_shift=.03, crouch=None):
         self.kinds = [terrain] if isinstance(terrain, str) else list(terrain)
         self.level, self.cmd_max, self.vel_scale = level, np.array(cmd_max, float), vel_scale
         self.servo_kv, self.actuator = servo_kv, actuator
@@ -78,7 +78,10 @@ class RaptorEnv(gym.Env):
         probe = mujoco.MjModel.from_xml_path(self.model_path)
         names = [probe.actuator(i).name for i in range(probe.nu)]
         self.active = names
-        self.q0 = np.array([DEFAULT.get(n, 0.) for n in names])
+        # crouch=(hip, knee): nominal level-sole leg pose (ankle = -hip-knee); default (-0.1, 0.5).
+        # A lower pose also lowers h_nom, the height the reward holds the torso at.
+        pose = {**DEFAULT, **(crouch_pose(*crouch) if crouch else {})}
+        self.q0 = np.array([pose.get(n, 0.) for n in names])
         self.scale = np.array([SCALE[joint_type(n)] for n in names])
         n = len(names)
         self.rng = np.random.default_rng(seed)

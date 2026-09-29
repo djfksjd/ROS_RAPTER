@@ -18,8 +18,8 @@ from raptor_env import CONTROL_DT, RaptorEnv  # noqa: E402
 CLOCK_HZ = 1.6  # raptor_env.step advances the phase by CONTROL_DT*1.6
 
 
-def export(model_path, out, dof=12, sole='flat'):
-    env = RaptorEnv(dof=dof, sole=sole, randomize=False)
+def export(model_path, out, dof=12, sole='flat', design=None, crouch=None):
+    env = RaptorEnv(dof=dof, sole=sole, randomize=False, model_path=design, crouch=crouch)
     env.reset()
     model = PPO.load(model_path, device='cpu')
     norm = VecNormalize.load(str(Path(model_path).with_name('vecnorm.pkl')), DummyVecEnv([lambda: env]))
@@ -40,8 +40,10 @@ def main():
     p.add_argument('out')
     p.add_argument('--dof', type=int, default=12)
     p.add_argument('--sole', default='flat')
+    p.add_argument('--design', help='MJCF design variant used in training (joint limits are exported)')
+    p.add_argument('--crouch', type=float, nargs=2, metavar=('HIP', 'KNEE'), help='nominal leg pose used in training')
     a = p.parse_args()
-    export(a.model, a.out, a.dof, a.sole)
+    export(a.model, a.out, a.dof, a.sole, a.design, a.crouch)
     print(f'wrote {a.out}')
 
 

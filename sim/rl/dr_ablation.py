@@ -29,7 +29,7 @@ CASES.update({f'b2_no_{g}': [x for x in CASES['b2'] if x != g] for g in CASES['b
 def run(job):
     policy, case, seed, a = job
     env = RaptorEnv('flat', dof=12, sole='flat', randomize=True, seed=seed, cmd_max=(.6, .2, .6), zero_cmd=.25,
-                    jtc_horizon=.02, kv_range=(20., 80.), slew=.85, dr_items=CASES[case] or None, model_path=a['design'])
+                    jtc_horizon=.02, kv_range=(20., 80.), slew=.85, dr_items=CASES[case] or None, model_path=a['design'], crouch=a['crouch'])
     env.dr_items = set(CASES[case])  # empty set = base randomization only
     env.pulse_force, env.com_shift = a['pulse_force'], a['com_shift']
     model, venv = load(policy, env)
@@ -51,12 +51,13 @@ def main():
     p.add_argument('--episodes', type=int, default=12)
     p.add_argument('--design', help='MJCF design variant')
     p.add_argument('--pulse-force', type=float, default=40., help='N per horizontal axis (pulses group)')
+    p.add_argument('--crouch', type=float, nargs=2, metavar=('HIP', 'KNEE'), help='nominal leg pose used in training')
     p.add_argument('--com-shift', type=float, default=.03, help='m, torso CoM shift range (com group)')
     p.add_argument('--stochastic', action='store_true', help='sample actions as in training')
     p.add_argument('--procs', type=int, default=8)
     p.add_argument('--out')
     a = p.parse_args()
-    jobs = [(m, c, 5000+e, {'design': a.design, 'pulse_force': a.pulse_force, 'stochastic': a.stochastic, 'com_shift': a.com_shift}) for m in a.models for c in a.cases for e in range(a.episodes)]
+    jobs = [(m, c, 5000+e, {'design': a.design, 'pulse_force': a.pulse_force, 'stochastic': a.stochastic, 'com_shift': a.com_shift, 'crouch': a.crouch}) for m in a.models for c in a.cases for e in range(a.episodes)]
     with Pool(a.procs) as pool:
         res = pool.map(run, jobs, chunksize=1)
     rows = []
