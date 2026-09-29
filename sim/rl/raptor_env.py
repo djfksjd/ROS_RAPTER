@@ -65,7 +65,7 @@ class RaptorEnv(gym.Env):
         # slew: streamed targets move at most slew*velocity-limit per control step (same limiter as
         # rl_policy_node). Unlimited targets saturated the servos (Gazebo DART overshoot defect, evidence 61).
         self.slew = slew
-        # dr 2 (Fable review, evidence 81): ankle-pitch stop margin, observation noise and 0-40 ms delay,
+        # dr 2 (Fable review, evidence 81): ankle-pitch stop margin, observation noise and 0-20 ms delay,
         # toe spring +-50%, CoM +-3 cm, random base force pulses, initial base velocity. dr 1 = earlier runs.
         self.dr = dr
         self.episode_steps, self.randomize, self.render_mode = int(episode_s/CONTROL_DT), randomize, render_mode
@@ -181,7 +181,9 @@ class RaptorEnv(gym.Env):
         self.obs_buffer, self.obs_delay, self.pulse_until = deque(maxlen=3), 0, -1.
         d.xfrc_applied[:] = 0.
         if self.dr >= 2 and self.randomize:
-            self.obs_delay = int(self.rng.integers(0, 3))  # 0, 20 or 40 ms
+            # 0 or 20 ms: 40 ms alone cut the flat-trained policy's survival from 10 s to ~3 s (evidence 81);
+            # typical IMU/joint-state latency is 10-20 ms
+            self.obs_delay = int(self.rng.integers(0, 2))
             d.qvel[:2] += self.rng.uniform(-.2, .2, 2)
         return self._observe(), {}
 
@@ -193,7 +195,7 @@ class RaptorEnv(gym.Env):
         return c
 
     def _observe(self):
-        """Policy observation: the clean one (dr 1) or noisy and delayed by 0-2 control steps (dr 2)."""
+        """Policy observation: the clean one (dr 1) or noisy and delayed by 0-1 control steps (dr 2)."""
         clean = self._obs()
         if self.dr < 2 or not self.randomize:
             return clean
