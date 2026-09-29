@@ -2,8 +2,8 @@
 
 ## 2026-09-29 저녁 R-02 (최신)
 
-R-02 재설계 모델 단계 A 완료(evidence 83, runs/r02A_flat). 재개: R-02 추가 학습·무작위화 단계 B, 이후 스프링·고속 구동기.
-실행 예: train.py --design ../raptor_r02.xml --crouch -0.538 1.88 -1.88 --weights '{"track_lin":4,"track_yaw":2,"tall":-300}'.
+R-02 모델링 정비 완료(evidence 84): 단일 원천 Xacro, 외형 메시, 최종 모델 정책 runs/r02C_flat. 재개: 40km/h 요구 사양서 → T1 → T2.
+모델 재생성: .venv-sim/bin/python modeling/build_r02.py. 실행 예: train.py --design ../raptor_r02.xml --crouch -0.5271 1.8762 -1.8762 --weights '{"track_lin":4,"track_yaw":2,"tall":-300}'.
 
 ## 2026-09-29 12축 RL 단계 B
 
