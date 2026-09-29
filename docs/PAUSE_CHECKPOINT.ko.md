@@ -1,5 +1,12 @@
 # 체크포인트
 
+## 2026-09-29 12축 RL 단계 B (최신)
+
+평평한 패드 12축 MuJoCo 정책. 단계 A → B1d(지연) → B2(잡음·발가락·무게중심) → B3(펄스·초기 속도) 학습 완료.
+evidence/82: 학습 넘어짐 급증은 확률적 행동 때문, 결정적 평가 주원인은 힘 펄스 40N. `sim/rl/dr_ablation.py`로 재현.
+진행/재개 지점: stageB4_flat(펄스 20N) 학습 결과를 evidence 82 §6 기준으로 평가 → 통과 시 단계 C(지형).
+학습 산출물은 `sim/rl/runs/`(Git 제외). Gazebo 실험 컨테이너는 정지 상태.
+
 ## 2026-09-28 외형 단계 (최신)
 
 디지티그레이드 다리 설계와 morphloom 외형 완료(review 초안). DIGITIGRADE_APPEARANCE.ko.md.

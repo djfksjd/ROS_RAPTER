@@ -32,8 +32,8 @@
   <xacro:property name="sole_shape" value="${dict(flat='flat', rocker='rocker')['$(arg sole_shape)']}"/>
   <xacro:if value="${ankle_roll and legacy}"><xacro:ERROR_ankle_roll_needs_a_digitigrade_leg_design/></xacro:if>
   <xacro:property name="hip_drop" value="${0.06 if low else 0.12}"/>
-  <!-- ankle_pitch_limit: optional override (rad). The 12-DOF flat-pad RL gait held the ankle at the -0.70 stop
-       42% of the time (evidence 82); the feasibility study recommended a wider range. 0 = design default. -->
+  <!-- ankle_pitch_limit: optional override (rad). 12-DOF flat-pad RL policies target past the -0.70 stop
+       12-37% of the time on flat ground (evidence 82); the feasibility study recommended a wider range. 0 = design default. -->
   <xacro:arg name="ankle_pitch_limit" default="0"/>
   <xacro:property name="ankle_limit" value="${float('$(arg ankle_pitch_limit)') if float('$(arg ankle_pitch_limit)') > 0 else (0.95 if low else 0.70)}"/>
   <xacro:property name="toe_splay" value="${0.35 if low else 0.12}"/>

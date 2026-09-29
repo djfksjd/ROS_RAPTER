@@ -55,7 +55,7 @@ class RaptorEnv(gym.Env):
 
     def __init__(self, terrain='flat', level=0., cmd_max=(.5, .2, .5), vel_scale=1., episode_s=20.,
                  randomize=True, seed=None, render_mode=None, model_path=None, servo_kv=SERVO_KV,
-                 actuator='urdf', dof=10, sole='flat', weights=None, zero_cmd=.1, jtc_horizon=0., kv_range=None, slew=None, dr=1, dr_items=None):
+                 actuator='urdf', dof=10, sole='flat', weights=None, zero_cmd=.1, jtc_horizon=0., kv_range=None, slew=None, dr=1, dr_items=None, pulse_force=40.):
         self.kinds = [terrain] if isinstance(terrain, str) else list(terrain)
         self.level, self.cmd_max, self.vel_scale = level, np.array(cmd_max, float), vel_scale
         self.servo_kv, self.actuator = servo_kv, actuator
@@ -66,6 +66,7 @@ class RaptorEnv(gym.Env):
         # slew: streamed targets move at most slew*velocity-limit per control step (same limiter as
         # rl_policy_node). Unlimited targets saturated the servos (Gazebo DART overshoot defect, evidence 61).
         self.slew = slew
+        self.pulse_force = pulse_force  # N per horizontal axis for the dr-2 "pulses" group
         # dr 2 (Fable review, evidence 81): ankle-pitch stop margin, observation noise and 0-20 ms delay,
         # toe spring +-50%, CoM +-3 cm, random base force pulses, initial base velocity. dr 1 = earlier runs.
         self.dr = dr
@@ -262,7 +263,7 @@ class RaptorEnv(gym.Env):
             if d.time >= self.pulse_until:
                 d.xfrc_applied[self.base, :3] = 0.
                 if self.rng.random() < .01:
-                    d.xfrc_applied[self.base, :2] = self.rng.uniform(-40., 40., 2)
+                    d.xfrc_applied[self.base, :2] = self.rng.uniform(-self.pulse_force, self.pulse_force, 2)
                     self.pulse_until = d.time+self.rng.uniform(.1, .3)
         if self.randomize and abs(d.time-self.push_at) < CONTROL_DT/2:  # one lateral/fore-aft shove
             d.qvel[:2] += self.rng.uniform(-.4, .4, 2)

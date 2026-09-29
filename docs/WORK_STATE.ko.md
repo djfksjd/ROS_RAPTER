@@ -12,19 +12,19 @@
 
 ## 불변 조건
 
-- 10 active DOF, 현재 선택형 passive toe 12개. 14축으로 회귀 금지.
+- 기본 10 active DOF, 사용자 결정(2026-09-29)으로 발목 roll 12 active DOF 변형(`ankle_roll:=true`). 선택형 passive toe 12개. 그 밖의 능동축 증가는 보고 후.
 - Ubuntu24.04/Jazzy/Harmonic, 기존 저장소 유지. 한 문제씩 최소 수정.
 - 시각 모델·동역학·제작 가능성 검증을 구분한다.
 - GitHub와 비공개 HF 백업, .env/토큰/빌드 산출물 제외. force push 금지.
 
-## 현재 기준
+## 초기 기준 (2026-09-27)
 
 - 브랜치 feature/reference-appearance, 시작 커밋 2533235.
 - ROS 빌드, URDF, active controllers 검증: evidence/35~37.
 - 참고 외형 1차 개선. 전시 자세는 물리 검증 전.
 - 평지와 제한된 8mm 단차/정렬된 5도 경사 정적 시험 통과. 보행 미완료.
 - Qwen/NanoJev STAND/STOP 연결 확인. 탐색/이동 mission 미완료.
-- MuJoCo/MJX/RL 아직 미설치·미실행.
+- (당시 기준) MuJoCo/MJX/RL 미설치. 이후 MuJoCo·RL 진행 — 아래 최신 상태 참조.
 
 ## 순서와 통과 조건
 
@@ -35,7 +35,19 @@
 5. AI: 허용 mission 연결, STOP 우선, 독립 명령 평가와 end-to-end 지연.
 6. 부품 제작 설계: 치수/하중/구동기 선택의 미정 사항을 명시. 이미지로 단정 금지.
 
-## 현재 상태 — 2026-09-28, 외형·디지티그레이드 다리 작업
+## 현재 상태 — 2026-09-29, 12축 강화학습 (최신)
+
+브랜치 feature/digitigrade-appearance. 상세 RL_LOCOMOTION.ko.md, evidence 75~82.
+75 구동기 검토(점프·달리기는 토크가 아니라 속도 한계), 77 발목 roll 12축, 78 10축 RL 무효(속도 보상 결함),
+79 12축 평지 RL 0~0.6m/s 추종·넘어짐 0/16(MuJoCo), 80 발바닥 비교 → 평평한 패드로 진행,
+81 Gazebo 이식 불합격(접촉 모델 차이) → MuJoCo를 동역학 기준, Gazebo는 ROS·STOP 경로 확인용.
+단계 A(서보 경로) → B(무작위화 묶음별) 진행. 82: 학습 로그 넘어짐 급증(0.43, 0.69)은 확률적 행동 때문(확률적 평가가 재현),
+결정적 평가로는 B2·B3가 더 강함. 남은 주원인은 힘 펄스 40N(한계 20~30N). B3 정책의 조합 넘어짐은 무게중심 이동과 관련.
+진행 중: stageB4_flat = B3에서 펄스 20N만 변경, 300만 스텝. 통과 기준은 evidence 82 §6(결정적 48회 넘어짐 ≤ 4/48 등).
+다음: B4 평가 → 통과 시 단계 C(지형), 불합격 시 표준편차/엔트로피 대조 실험 하나. ±1.0rad 발목 변형은 별도 비교로 미학습.
+UNI_AI gpt-6-sol을 분석·검토 보조로 사용(제안만, 실행·판정은 로컬 측정).
+
+## 현재 상태 — 2026-09-28, 외형·디지티그레이드 다리 작업 (이전)
 
 브랜치 feature/digitigrade-appearance. 상세 DIGITIGRADE_APPEARANCE.ko.md.
 leg_design:=digitigrade 추가(기본 legacy, 기존 결과 재현 가능). 10축 유지. morphloom 외형 23개 링크 GLB.

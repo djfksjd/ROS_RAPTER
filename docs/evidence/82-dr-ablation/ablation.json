@@ -1,0 +1,554 @@
+{
+ "per_group_40N_det": [
+  {
+   "model": "runs/stageA_flat/model.zip",
+   "case": "base",
+   "falls": 2,
+   "episodes": 24,
+   "mean_time_s": 19.2
+  },
+  {
+   "model": "runs/stageA_flat/model.zip",
+   "case": "delay",
+   "falls": 6,
+   "episodes": 24,
+   "mean_time_s": 16.9
+  },
+  {
+   "model": "runs/stageA_flat/model.zip",
+   "case": "noise",
+   "falls": 9,
+   "episodes": 24,
+   "mean_time_s": 17.0
+  },
+  {
+   "model": "runs/stageA_flat/model.zip",
+   "case": "toe",
+   "falls": 3,
+   "episodes": 24,
+   "mean_time_s": 18.8
+  },
+  {
+   "model": "runs/stageA_flat/model.zip",
+   "case": "com",
+   "falls": 3,
+   "episodes": 24,
+   "mean_time_s": 18.9
+  },
+  {
+   "model": "runs/stageA_flat/model.zip",
+   "case": "pulses",
+   "falls": 14,
+   "episodes": 24,
+   "mean_time_s": 13.6
+  },
+  {
+   "model": "runs/stageA_flat/model.zip",
+   "case": "initvel",
+   "falls": 0,
+   "episodes": 24,
+   "mean_time_s": 20.0
+  },
+  {
+   "model": "runs/stageA_flat/model.zip",
+   "case": "all_b3",
+   "falls": 24,
+   "episodes": 24,
+   "mean_time_s": 5.6
+  },
+  {
+   "model": "runs/stageB1d_flat/model.zip",
+   "case": "base",
+   "falls": 0,
+   "episodes": 24,
+   "mean_time_s": 20.0
+  },
+  {
+   "model": "runs/stageB1d_flat/model.zip",
+   "case": "delay",
+   "falls": 2,
+   "episodes": 24,
+   "mean_time_s": 19.3
+  },
+  {
+   "model": "runs/stageB1d_flat/model.zip",
+   "case": "noise",
+   "falls": 9,
+   "episodes": 24,
+   "mean_time_s": 15.8
+  },
+  {
+   "model": "runs/stageB1d_flat/model.zip",
+   "case": "toe",
+   "falls": 1,
+   "episodes": 24,
+   "mean_time_s": 19.5
+  },
+  {
+   "model": "runs/stageB1d_flat/model.zip",
+   "case": "com",
+   "falls": 3,
+   "episodes": 24,
+   "mean_time_s": 18.8
+  },
+  {
+   "model": "runs/stageB1d_flat/model.zip",
+   "case": "pulses",
+   "falls": 15,
+   "episodes": 24,
+   "mean_time_s": 13.8
+  },
+  {
+   "model": "runs/stageB1d_flat/model.zip",
+   "case": "initvel",
+   "falls": 2,
+   "episodes": 24,
+   "mean_time_s": 19.3
+  },
+  {
+   "model": "runs/stageB1d_flat/model.zip",
+   "case": "all_b3",
+   "falls": 22,
+   "episodes": 24,
+   "mean_time_s": 9.2
+  },
+  {
+   "model": "runs/stageB2_flat/model.zip",
+   "case": "base",
+   "falls": 0,
+   "episodes": 24,
+   "mean_time_s": 20.0
+  },
+  {
+   "model": "runs/stageB2_flat/model.zip",
+   "case": "delay",
+   "falls": 0,
+   "episodes": 24,
+   "mean_time_s": 20.0
+  },
+  {
+   "model": "runs/stageB2_flat/model.zip",
+   "case": "noise",
+   "falls": 0,
+   "episodes": 24,
+   "mean_time_s": 20.0
+  },
+  {
+   "model": "runs/stageB2_flat/model.zip",
+   "case": "toe",
+   "falls": 0,
+   "episodes": 24,
+   "mean_time_s": 20.0
+  },
+  {
+   "model": "runs/stageB2_flat/model.zip",
+   "case": "com",
+   "falls": 1,
+   "episodes": 24,
+   "mean_time_s": 20.0
+  },
+  {
+   "model": "runs/stageB2_flat/model.zip",
+   "case": "pulses",
+   "falls": 9,
+   "episodes": 24,
+   "mean_time_s": 16.3
+  },
+  {
+   "model": "runs/stageB2_flat/model.zip",
+   "case": "initvel",
+   "falls": 0,
+   "episodes": 24,
+   "mean_time_s": 20.0
+  },
+  {
+   "model": "runs/stageB2_flat/model.zip",
+   "case": "all_b3",
+   "falls": 11,
+   "episodes": 24,
+   "mean_time_s": 15.8
+  },
+  {
+   "model": "runs/stageB3_flat/model.zip",
+   "case": "base",
+   "falls": 0,
+   "episodes": 24,
+   "mean_time_s": 20.0
+  },
+  {
+   "model": "runs/stageB3_flat/model.zip",
+   "case": "delay",
+   "falls": 0,
+   "episodes": 24,
+   "mean_time_s": 20.0
+  },
+  {
+   "model": "runs/stageB3_flat/model.zip",
+   "case": "noise",
+   "falls": 1,
+   "episodes": 24,
+   "mean_time_s": 19.5
+  },
+  {
+   "model": "runs/stageB3_flat/model.zip",
+   "case": "toe",
+   "falls": 3,
+   "episodes": 24,
+   "mean_time_s": 18.6
+  },
+  {
+   "model": "runs/stageB3_flat/model.zip",
+   "case": "com",
+   "falls": 1,
+   "episodes": 24,
+   "mean_time_s": 19.9
+  },
+  {
+   "model": "runs/stageB3_flat/model.zip",
+   "case": "pulses",
+   "falls": 11,
+   "episodes": 24,
+   "mean_time_s": 15.3
+  },
+  {
+   "model": "runs/stageB3_flat/model.zip",
+   "case": "initvel",
+   "falls": 0,
+   "episodes": 24,
+   "mean_time_s": 20.0
+  },
+  {
+   "model": "runs/stageB3_flat/model.zip",
+   "case": "all_b3",
+   "falls": 10,
+   "episodes": 24,
+   "mean_time_s": 16.5
+  }
+ ],
+ "pulse_sweep_det": [
+  {
+   "model": "runs/stageB1d_flat/model.zip",
+   "case": "pulses",
+   "falls": 3,
+   "episodes": 24,
+   "mean_time_s": 18.6,
+   "pulse_force": 10.0
+  },
+  {
+   "model": "runs/stageB1d_flat/model.zip",
+   "case": "all_b3",
+   "falls": 13,
+   "episodes": 24,
+   "mean_time_s": 15.1,
+   "pulse_force": 10.0
+  },
+  {
+   "model": "runs/stageB2_flat/model.zip",
+   "case": "pulses",
+   "falls": 0,
+   "episodes": 24,
+   "mean_time_s": 20.0,
+   "pulse_force": 10.0
+  },
+  {
+   "model": "runs/stageB2_flat/model.zip",
+   "case": "all_b3",
+   "falls": 5,
+   "episodes": 24,
+   "mean_time_s": 18.6,
+   "pulse_force": 10.0
+  },
+  {
+   "model": "runs/stageB3_flat/model.zip",
+   "case": "pulses",
+   "falls": 1,
+   "episodes": 24,
+   "mean_time_s": 19.9,
+   "pulse_force": 10.0
+  },
+  {
+   "model": "runs/stageB3_flat/model.zip",
+   "case": "all_b3",
+   "falls": 4,
+   "episodes": 24,
+   "mean_time_s": 18.6,
+   "pulse_force": 10.0
+  },
+  {
+   "model": "runs/stageB1d_flat/model.zip",
+   "case": "pulses",
+   "falls": 3,
+   "episodes": 24,
+   "mean_time_s": 18.8,
+   "pulse_force": 20.0,
+   "stochastic": false
+  },
+  {
+   "model": "runs/stageB1d_flat/model.zip",
+   "case": "all_b3",
+   "falls": 16,
+   "episodes": 24,
+   "mean_time_s": 13.6,
+   "pulse_force": 20.0,
+   "stochastic": false
+  },
+  {
+   "model": "runs/stageB2_flat/model.zip",
+   "case": "pulses",
+   "falls": 2,
+   "episodes": 24,
+   "mean_time_s": 19.0,
+   "pulse_force": 20.0,
+   "stochastic": false
+  },
+  {
+   "model": "runs/stageB2_flat/model.zip",
+   "case": "all_b3",
+   "falls": 4,
+   "episodes": 24,
+   "mean_time_s": 18.7,
+   "pulse_force": 20.0,
+   "stochastic": false
+  },
+  {
+   "model": "runs/stageB3_flat/model.zip",
+   "case": "pulses",
+   "falls": 1,
+   "episodes": 24,
+   "mean_time_s": 19.9,
+   "pulse_force": 20.0,
+   "stochastic": false
+  },
+  {
+   "model": "runs/stageB3_flat/model.zip",
+   "case": "all_b3",
+   "falls": 5,
+   "episodes": 24,
+   "mean_time_s": 17.8,
+   "pulse_force": 20.0,
+   "stochastic": false
+  },
+  {
+   "model": "runs/stageB1d_flat/model.zip",
+   "case": "pulses",
+   "falls": 7,
+   "episodes": 24,
+   "mean_time_s": 16.7,
+   "pulse_force": 30.0,
+   "stochastic": false
+  },
+  {
+   "model": "runs/stageB1d_flat/model.zip",
+   "case": "all_b3",
+   "falls": 20,
+   "episodes": 24,
+   "mean_time_s": 10.1,
+   "pulse_force": 30.0,
+   "stochastic": false
+  },
+  {
+   "model": "runs/stageB2_flat/model.zip",
+   "case": "pulses",
+   "falls": 5,
+   "episodes": 24,
+   "mean_time_s": 17.2,
+   "pulse_force": 30.0,
+   "stochastic": false
+  },
+  {
+   "model": "runs/stageB2_flat/model.zip",
+   "case": "all_b3",
+   "falls": 8,
+   "episodes": 24,
+   "mean_time_s": 17.6,
+   "pulse_force": 30.0,
+   "stochastic": false
+  },
+  {
+   "model": "runs/stageB3_flat/model.zip",
+   "case": "pulses",
+   "falls": 7,
+   "episodes": 24,
+   "mean_time_s": 16.7,
+   "pulse_force": 30.0,
+   "stochastic": false
+  },
+  {
+   "model": "runs/stageB3_flat/model.zip",
+   "case": "all_b3",
+   "falls": 7,
+   "episodes": 24,
+   "mean_time_s": 17.6,
+   "pulse_force": 30.0,
+   "stochastic": false
+  }
+ ],
+ "stochastic_48": [
+  {
+   "model": "runs/stageB2_flat/model.zip",
+   "case": "base",
+   "falls": 1,
+   "episodes": 48,
+   "mean_time_s": 19.9,
+   "pulse_force": 40.0,
+   "stochastic": true
+  },
+  {
+   "model": "runs/stageB2_flat/model.zip",
+   "case": "b2",
+   "falls": 20,
+   "episodes": 48,
+   "mean_time_s": 15.6,
+   "pulse_force": 40.0,
+   "stochastic": true
+  },
+  {
+   "model": "runs/stageB2_flat/model.zip",
+   "case": "all_b3",
+   "falls": 43,
+   "episodes": 48,
+   "mean_time_s": 8.5,
+   "pulse_force": 40.0,
+   "stochastic": true
+  },
+  {
+   "model": "runs/stageB3_flat/model.zip",
+   "case": "base",
+   "falls": 3,
+   "episodes": 48,
+   "mean_time_s": 19.2,
+   "pulse_force": 40.0,
+   "stochastic": true
+  },
+  {
+   "model": "runs/stageB3_flat/model.zip",
+   "case": "b2",
+   "falls": 12,
+   "episodes": 48,
+   "mean_time_s": 17.5,
+   "pulse_force": 40.0,
+   "stochastic": true
+  },
+  {
+   "model": "runs/stageB3_flat/model.zip",
+   "case": "all_b3",
+   "falls": 33,
+   "episodes": 48,
+   "mean_time_s": 12.8,
+   "pulse_force": 40.0,
+   "stochastic": true
+  }
+ ],
+ "b2_det_48": [
+  {
+   "model": "runs/stageB2_flat/model.zip",
+   "case": "b2",
+   "falls": 7,
+   "episodes": 48,
+   "mean_time_s": 18.4,
+   "pulse_force": 40.0,
+   "stochastic": false
+  },
+  {
+   "model": "runs/stageB3_flat/model.zip",
+   "case": "b2",
+   "falls": 9,
+   "episodes": 48,
+   "mean_time_s": 18.6,
+   "pulse_force": 40.0,
+   "stochastic": false
+  }
+ ],
+ "b2_leave_one_out_det_48": [
+  {
+   "model": "runs/stageB2_flat/model.zip",
+   "case": "b2",
+   "falls": 7,
+   "episodes": 48,
+   "mean_time_s": 18.4,
+   "pulse_force": 40.0,
+   "stochastic": false
+  },
+  {
+   "model": "runs/stageB2_flat/model.zip",
+   "case": "b2_no_delay",
+   "falls": 5,
+   "episodes": 48,
+   "mean_time_s": 19.0,
+   "pulse_force": 40.0,
+   "stochastic": false
+  },
+  {
+   "model": "runs/stageB2_flat/model.zip",
+   "case": "b2_no_noise",
+   "falls": 4,
+   "episodes": 48,
+   "mean_time_s": 19.1,
+   "pulse_force": 40.0,
+   "stochastic": false
+  },
+  {
+   "model": "runs/stageB2_flat/model.zip",
+   "case": "b2_no_toe",
+   "falls": 11,
+   "episodes": 48,
+   "mean_time_s": 18.1,
+   "pulse_force": 40.0,
+   "stochastic": false
+  },
+  {
+   "model": "runs/stageB2_flat/model.zip",
+   "case": "b2_no_com",
+   "falls": 6,
+   "episodes": 48,
+   "mean_time_s": 18.9,
+   "pulse_force": 40.0,
+   "stochastic": false
+  },
+  {
+   "model": "runs/stageB3_flat/model.zip",
+   "case": "b2",
+   "falls": 9,
+   "episodes": 48,
+   "mean_time_s": 18.6,
+   "pulse_force": 40.0,
+   "stochastic": false
+  },
+  {
+   "model": "runs/stageB3_flat/model.zip",
+   "case": "b2_no_delay",
+   "falls": 9,
+   "episodes": 48,
+   "mean_time_s": 18.1,
+   "pulse_force": 40.0,
+   "stochastic": false
+  },
+  {
+   "model": "runs/stageB3_flat/model.zip",
+   "case": "b2_no_noise",
+   "falls": 8,
+   "episodes": 48,
+   "mean_time_s": 18.0,
+   "pulse_force": 40.0,
+   "stochastic": false
+  },
+  {
+   "model": "runs/stageB3_flat/model.zip",
+   "case": "b2_no_toe",
+   "falls": 8,
+   "episodes": 48,
+   "mean_time_s": 18.6,
+   "pulse_force": 40.0,
+   "stochastic": false
+  },
+  {
+   "model": "runs/stageB3_flat/model.zip",
+   "case": "b2_no_com",
+   "falls": 1,
+   "episodes": 48,
+   "mean_time_s": 19.8,
+   "pulse_force": 40.0,
+   "stochastic": false
+  }
+ ]
+}
