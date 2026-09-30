@@ -151,7 +151,30 @@ Gazebo는 `leg_design:=r02`로 같은 Xacro를 씁니다. 설계 계산은 UNI_A
 | 빠른 방향전환 | 요 명령 2.5 rad/s(2 s에 270°)까지 2~6 m/s 주행 중 27/27 무전도·명령의 90~97 % 회전(v3·v4). 단 회전 중 감속하고, 이 정책들은 직진 최고 속도가 2.65 m/s로 떨어짐(속도·회전 양립 정책은 다음 단계) |
 | 일어나기 | 별도 환경(`recover_env.py`)으로 학습 중. 1차는 성공 0(힘은 충분, 보상 국소 최적), 2차 진행 중 |
 
+<div align="center">
+<img src="docs/assets/t1/run-6mps-stride.png" width="100%" alt="T1 정책이 6 m/s로 달리는 한 보폭: 0.04 s 간격 6장, 두 발이 모두 뜬 비행 구간이 보임" /><br>
+<b>6 m/s 한 보폭</b> · 0.04 s 간격 6장, 비행 구간 포함 (보폭 4.3 Hz, 비행 비율 0.59). 영상에서 잘라낸 실제 프레임.
+</div>
+
+<div align="center">
+<img src="docs/assets/t1/speed-vs-command.png" width="49%" alt="명령 속도 대 실제 속도: v2 꼬리 활성은 8 m/s 명령에서 7.3, 11.1에서 전도; 꼬리 잠금·꼬리 고정 학습은 8 m/s에서 전도; v4는 2.65 m/s 상한" />
+<img src="docs/assets/t1/impulse-tolerance.png" width="49%" alt="4 m/s 주행 중 요·피치 임펄스에서 살아남은 에피소드 수: 꼬리 활성이 요 1.5·피치 2.0 N·m·s까지, 꼬리 잠금은 한 단계 아래" /><br>
+<b>왼쪽</b> 명령 대 실제 속도(×는 전도) · <b>오른쪽</b> 임펄스 내성, 같은 정책의 꼬리 활성/잠금. 평가 JSON에서 그린 차트.
+</div>
+
+<div align="center">
+<img src="docs/assets/t1/yaw-impulse-active-vs-locked.png" width="60%" alt="4 m/s 주행 중 요 임펄스 1.5 N·m·s: 왼쪽 꼬리 활성은 0.98 s 만에 회복, 오른쪽 꼬리 잠금은 넘어짐. 0.25 s 간격 6단" /><br>
+<b>요 임펄스 1.5 N·m·s, 같은 v2 정책</b> · 왼쪽 꼬리 활성(0.98 s 회복), 오른쪽 꼬리 잠금(전도). 0.25 s 간격. <a href="docs/evidence/86-t1-run/t1_v2_yaw_impulse_1p5_active_vs_locked.mp4">MP4</a>
+</div>
+
+<div align="center">
+<img src="docs/assets/t1/turn-6mps-2p5rads.png" width="100%" alt="v4 정책이 6 m/s 주행 중 2.5 rad/s 회전 명령을 2 s 받아 270° 도는 장면, 0.5 s 간격 6장" /><br>
+<img src="docs/assets/t1/turn-tracking.png" width="60%" alt="명령 회전각 대 실제 회전각: v4는 2·4·6 m/s에서 명령의 90~97 %, v2는 10~40 %" /><br>
+<b>빠른 방향전환</b> · 위: v4, 6 m/s 주행 중 2.5 rad/s × 2 s(0.5 s 간격). 아래: 명령 대 실제 회전각, 표시된 모든 경우 전도 없음. <a href="docs/evidence/86-t1-run/t1_v4_turn_6mps.mp4">MP4</a>
+</div>
+
 설계 발견: (c) 발목 스프링은 달리기 착지각에 정지각이 있어 정지 자세에서 20 N·m 예압 → 사양서 8 N·m로는 서지 못해 T1 발목을 22 N·m로 두었습니다(사양서 §9 갱신).
+차트·프레임은 `sim/rl/plot_t1.py`와 ffmpeg로 평가 결과에서 만든 것이며 모두 MuJoCo T1 결과입니다.
 [증거 86](docs/evidence/86-t1-run/README.md) · [환경·보상](docs/RL_LOCOMOTION.ko.md) · [사양서](docs/design/40kmh-spec.md)
 
 ## 강화학습 보행 · 12축 (MuJoCo)

@@ -186,7 +186,7 @@ v3는 요 벌점이 속도 보상을 압도해 "멈춰서 도는" 정책이 되�
 
 **임펄스 (4 m/s):** v3 꼬리 활성 요 2.0·피치 3.0 N·m·s 견딤(잠금: 요 2.0 견딤, 피치 3.0 전도). v4 꼬리 활성 요 1.5(2.0 전도)·피치 3.0 견딤(잠금: 요 2.0 전도·피치 3.0 전도).
 
-영상: `t1_v3_run_4mps.mp4`(v3, 4 m/s + 2.5 rad/s 회전), `t1_v4_turn_6mps.mp4`(v4, 6 m/s + 2.5 rad/s 회전). 원자료 `eval_v3_*.json`, `eval_v4_*.json`.
+영상: `t1_v3_run_4mps.mp4`(v3, 4 m/s + 2.5 rad/s 회전), `t1_v4_turn_6mps.mp4`(v4, 6 m/s + 2.5 rad/s 회전), `t1_v2_yaw_impulse_1p5_active_vs_locked.mp4`(v2, 요 임펄스 1.5 N·m·s 꼬리 활성/잠금 나란히: 활성 0.98 s 회복, 잠금 전도). 원자료 `eval_v3_*.json`, `eval_v4_*.json`. 차트·프레임: `docs/assets/t1/` (`sim/rl/plot_t1.py`).
 
 ## 7. 넘어진 뒤 스스로 일어나기 (`sim/rl/recover_env.py`, 진행 중)
 
