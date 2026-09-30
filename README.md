@@ -212,6 +212,13 @@ R-02 구동기 등급으로는 40 km/h가 닫히지 않아 요구 사양을 계�
 ### T1 달리기 · 가상 구동기 (MuJoCo)
 
 <div align="center">
+<img src="docs/assets/video/r02-glb-run-6mps.gif" width="80%" alt="R-02 목표 외형(센서 포드, 마스트, 골반 드럼, 두 발가락, 16마디 꼬리)이 T1 정책 v6e로 6 m/s 명령에 달리는 장면" /><br>
+<b>R-02 외형으로 본 실제 정책 실행</b> · v6e, 6 m/s 명령. MuJoCo 결정적 실행의 링크별 자세를 기록해 Blender에서 외형 메시에 그대로 입혔습니다(동작을 손으로 만들지 않음, 정책 sha 2b6d1ea0).
+<a href="docs/evidence/86-t1-run/t1_v6e_run_6mps_glb.mp4">MP4</a> · 같은 정책의 물리 형상 영상: <a href="docs/evidence/86-t1-run/t1_v6e_run_6mps.mp4">MP4</a><br>
+<img src="docs/assets/t1/run-v6e-glb-strip.png" width="100%" alt="외형 렌더 0.2 s 간격 8장: 좌우 교대 착지와 유각 중 접힌 발목" />
+</div>
+
+<div align="center">
 <img src="docs/assets/video/mujoco-t1-run-v6e-6mps.gif" width="49%" alt="v6e 정책: 교대 달리기 + 유각 중 발목을 크게 접는 타조형 관절 굽힘, 6 m/s 명령" />
 <img src="docs/assets/video/mujoco-t1-run-6mps.gif" width="49%" alt="v2 정책: 두 발이 함께 내려앉는 바운드 걸음, 6 m/s 명령" /><br>
 <b>왼쪽 · 현재(v6e)</b> 교대 걸음 + 유각 발목 접힘 60~62°, 클러치 발목 스프링 · <a href="docs/evidence/86-t1-run/t1_v6e_run_6mps.mp4">MP4</a> &nbsp;|&nbsp; <b>오른쪽 · 이전 바운드(v2)</b> 좌우 위상 0.85, 4.3 Hz · <a href="docs/evidence/86-t1-run/t1_v2_run_6mps.mp4">MP4</a> · 중간 단계 교대 걸음 v5b: <a href="docs/evidence/86-t1-run/t1_v5b_run_6mps.mp4">MP4</a>
@@ -414,6 +421,7 @@ ROS 실행·응답 확인·STOP 사용법은 [로컬 개발 가이드](docs/loca
 | [작업 상태](docs/WORK_STATE.ko.md) | 세대별 진행 기록과 다음 한 단계 |
 | [강화학습 보행](docs/RL_LOCOMOTION.ko.md) | 학습 환경·보상·지형·단계 |
 | [40 km/h 요구 사양서](docs/design/40kmh-spec.md) | SLIP·관절·스프링·구동기·꼬리 계산과 상용 구동기 대조 |
+| [동작 카탈로그](docs/design/motion-catalogue.md) | 동작별 통과 기준·현재 판정·외형 확정 전 동결 항목 (Codex 검토) |
 | [T1 달리기 증거 86](docs/evidence/86-t1-run/README.md) | 가상 구동기 달리기·꼬리 활성/고정·임펄스·방향전환·일어나기 |
 | [MuJoCo/MJX 로드맵](docs/MUJOCO_MJX_ROADMAP.ko.md) | 후속 학습 계획 — 아직 미실행 |
 | [검증 자료 전체](docs/evidence/README.md) | 원본 로그·측정값·스크린샷 |

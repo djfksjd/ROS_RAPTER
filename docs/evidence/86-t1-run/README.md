@@ -352,3 +352,15 @@ v6e 추적(`sim/rl` 스텝 로그): 이륙 직후 발목이 **143°(행동 범�
 | 순서: 8 kg 재평가 → 1:1 연동 시험 → MTP (d) 계산 → R-03 → T2 붐 → Gazebo 축소 → AI 제한 시연 → 일어나기 보류 | 동의 | WORK_STATE 반영 |
 
 학습 진행: `run_t1_v8c`(v8 이어서, 결정적 평가 커리큘럼)와 `run_t1_couple`(말 다리 연동, 처음부터)을 병렬(각 환경 5개)로 학습 중. 결과는 다음 갱신.
+
+## 12. 외형 우선 순서 (사용자 제안) — Codex 검토와 렌더 경로 (2026-09-30)
+
+사용자 제안: "우선 로봇 외형 및 가능한 동작들 시뮬레이션부터, 외형 완료 후 AI". Codex `gpt-6.1-sol`(저장소 읽기 전용) 검토 `review_codex_order.md`:
+**조건부 찬성** — 외형을 최종 확정하기 전에 목표 속도·축 구성·무릎-발목 연동·클러치·R-03을 먼저 동결해야 재작업이 없음. 동작 카탈로그와 통과 기준, 7단계 순서는
+[docs/design/motion-catalogue.md](../../design/motion-catalogue.md)에 정리했습니다.
+
+Codex가 짚은 파이프라인 불일치(확인함): README 영상이 외형 메시가 아니라 충돌 형상이었고(`build_model.py`가 visual 제거), T1의 스프링·클러치·연동·질량 축소는 `run_env.py`에만 있어 Gazebo 설정과 다릅니다.
+
+**렌더 경로 구현:** `sim/rl/record_rollout.py`(결정적 정책 실행의 링크별 세계 자세 + 정책·정규화·모델 sha256 기록) → `modeling/render_rollout.py`(Blender, R-02 GLB 25개에 그대로 적용).
+첫 결과: v6e 6 m/s 8 s, `rollout_v6e_6mps.npz`(정책 sha 2b6d1ea05f28ab35, vecnorm fc2f8df1d27e375d, 모델 8e5a82dac7cc58d4), `t1_v6e_run_6mps_glb.mp4`, `docs/assets/t1/run-v6e-glb-strip.png`.
+외형은 모델링 당시(12축, 상시 아킬레스)의 것이며 클러치·연동 기구는 아직 외형에 없습니다.

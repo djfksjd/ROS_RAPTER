@@ -1,0 +1,17 @@
+You are a senior robotics reviewer collaborating on the "Raptor" project in this repository (read-only access; you may open files). Do not run training or modify files. Answer in Korean, concise, numbered, with a clear verdict.
+
+Read first: AGENTS.md, docs/WORK_STATE.ko.md, docs/DESIGN_R02.ko.md, docs/evidence/84-r02-model/README.md (appearance pipeline: design_r02.py -> YAML -> Xacro -> URDF -> MuJoCo/Gazebo; morphloom visual meshes, 25 link GLBs), docs/evidence/86-t1-run/README.md (§8-§11), docs/design/40kmh-spec.md §6-1, docs/evidence/86-t1-run/review_codex_direction.md (your earlier review).
+
+USER PROPOSAL (2026-09-30): "First finish the robot's appearance and simulate the motions it can do; after the appearance is complete, then run the AI/VLM part (local VLM benchmark: RoboBrain 2.0-3B, Moondream, SmolVLM2 via MLX; Laya command head)."
+
+CURRENT FACTS:
+- Appearance: R-02 visual meshes exist (target form from the user's reference images: no neck, front sensor pod, mast, pelvis drum actuators, clawed two-toe feet, 16-segment tail). They were built for the 12-axis R-02 with independent ankle motors and an always-engaged Achilles spring.
+- Design decisions since then: ankle spring must be clutched (stance only) — mechanism not yet in the model/appearance; knee-ankle 1:1 horse-style coupling being tested (run_t1_couple, ankle motors removed, 10 active axes) — result pending; whole-robot budget says commercial QDD hardware closes only ~4-6 m/s at ~11 kg with coupling and fewer axes; R-03 hip/CoM relocation (0.3-0.4 m) would be needed for ostrich stance posture; user has not yet chosen the hardware target speed.
+- Motions verified in T1 MuJoCo so far: standing (policy, not passive), alternating run 2-6.8 m/s, turning at 6 m/s, pitch/yaw impulse recovery, tail yaw cancellation; not achieved: 11.1 m/s, get-up after a fall (0/50), terrain (only earlier 12-axis walking policies saw rough/stairs), jumping (never trained), walking gait at low speed in R-02 (earlier R-02 walk policy exists at 0.4 m/s with the original actuator).
+- Two trainings running now: run_t1_v8c (eval curriculum, reached 6.1 m/s command) and run_t1_couple.
+
+QUESTIONS:
+1. Is "appearance first, then AI" the right order? What exactly should "appearance complete" mean now, given the open mechanical decisions (coupling, clutch, R-03, target speed)? Which decisions must be frozen before finalising the visual model to avoid rework, and which appearance work is safe to do now?
+2. Define the motion catalogue to simulate ("가능한 동작들") with a pass criterion for each (e.g. stand, walk slow, run, turn, stop from speed, disturbance recovery, crouch/sit, jump, step up/down, get-up), marking which are realistic for this design now, which need new training, and which should be declared out of scope.
+3. How should the appearance and the simulation stay consistent (single source: design table -> Xacro -> URDF -> MuJoCo; visual vs collision; rendering the trained policies with the GLB meshes for README evidence)? Any concrete risks in the current pipeline you see in the files?
+4. Give an ordered plan (5-8 steps) from now until the AI/VLM stage, with a one-line deliverable per step.
