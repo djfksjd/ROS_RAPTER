@@ -63,7 +63,12 @@ RUN_SPEED = 3.    # m/s command above which flight is rewarded
 DISTURB_ITEMS = ('pitch', 'yaw', 'trip', 'touchdown', 'push')
 
 # reward weights per second (x CONTROL_DT per step)
-WEIGHTS_RUN = dict(track_lin=3., progress=1., track_yaw=1., yaw_err=0., flight=1., air_time=1., stand=-2., grf=-1., cot=-.05, ang_mom=-.5,
+# gait: clock-conditioned contact schedule (Siekmann 2021 style): left stance while phase in [0, d), right while in
+# [0.5, 0.5+d), d = GAIT_DUTY at running speed. Added 2026-09-30 after the v2/v4 policies converged to a bound
+# (left/right touchdown phase 0.85, 4.4 Hz vs the 2.4 Hz clock) - reviews: evidence 86 review_*.md. flight/air_time
+# rewards are off by default since they favoured the bound (both reviews); the schedule already implies flight.
+GAIT_DUTY, GAIT_EDGE = .28, .03
+WEIGHTS_RUN = dict(track_lin=3., progress=1., track_yaw=1., yaw_err=0., flight=0., air_time=0., gait=-3., stand=-2., grf=-1., cot=-.05, ang_mom=-.5,
                    lin_vel_z=-.5, ang_vel_xy=-.05, orientation=-5., height=-20., torque=-1e-5, action_rate=-.02,
                    joint_acc=-2e-8, slip=-.2, collision=-5., joint_limit=-5., alive=.5)
 
@@ -208,7 +213,7 @@ class RunEnv(RaptorEnv):
         self.stance_peak = {'left': 0., 'right': 0.}
         self.touchdowns, self.peaks = [], []
         self.command = self._sample_command()
-        self.phase = 0.
+        self.phase = float(self.rng.random()) if self.randomize else 0.
         self.push_at = self.rng.uniform(3., 8.)
         self.events = []
         d.xfrc_applied[:] = 0.
@@ -251,6 +256,20 @@ class RunEnv(RaptorEnv):
         self.model.actuator_forcerange[self.act, 0] = lo
         self.model.actuator_forcerange[self.act, 1] = hi
         return lo, hi
+
+    def gait_schedule(self, cx=None):
+        """Expected stance (0..1, smooth edges) for left and right from the stride clock; duty shrinks from 0.6 at
+        0.5 m/s to GAIT_DUTY at 3 m/s and above. None below 0.5 m/s (standing is handled by the `stand` term)."""
+        cx = self.command[0] if cx is None else cx
+        if cx < .5:
+            return None
+        d = float(np.clip(.6-.128*(cx-.5), GAIT_DUTY, .6))
+        out = {}
+        for side, off in (('left', 0.), ('right', .5)):
+            centre = off+d/2
+            dist = abs(((self.phase-centre+.5) % 1.)-.5)
+            out[side] = float(np.clip((d/2+GAIT_EDGE-dist)/(2*GAIT_EDGE), 0., 1.))
+        return out
 
     # --- disturbances --------------------------------------------------------------------------
     def apply_impulse(self, axis, impulse, duration=.04, body=None):
@@ -381,6 +400,8 @@ class RunEnv(RaptorEnv):
         self.loaded = loaded_now
         flight = not any(loaded_now.values())
         terms['flight'] = float(flight and cx >= RUN_SPEED and v_body[0] > .5*cx)
+        sched = self.gait_schedule()
+        terms['gait'] = sum((min(feet[s_]/(.2*W), 1.)-sched[s_])**2 for s_ in feet) if sched else 0.
         terms['stand'] = float(flight) if cx < .05 else 0.  # hopping in place at a zero command (v1 defect)
         terms['air_time'] = air_reward/CONTROL_DT if moving else 0.
         terms['grf'] = grf
@@ -403,5 +424,5 @@ class RunEnv(RaptorEnv):
         info = {'terms': terms, 'tilt': tilt, 'v_body': v_body, 'command': self.command.copy(), 'kind': 'flat',
                 'x': d.xpos[self.base][0], 'power': power, 'grf': {s: feet[s]/W for s in feet}, 'flight': flight,
                 'loaded': loaded_now, 'L': L, 'L_tail': L_tail, 'L_legs': L_legs,
-                'tail_qd': d.qvel[self.v_adr][self.tail_idx].copy()}
+                'tail_qd': d.qvel[self.v_adr][self.tail_idx].copy(), 'phase': self.phase}
         return self._observe(), float(reward), bool(fallen), bool(truncated), info

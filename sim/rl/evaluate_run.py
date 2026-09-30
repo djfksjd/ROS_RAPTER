@@ -31,7 +31,7 @@ def episode(model, venv, env, command, seconds, lock_tail=False, impulse=None, f
     env.resample_steps = 0
     env.lock_tail = lock_tail or env.tail == 'locked'
     obs = venv.normalize_obs(env._obs()[None])
-    log = {k: [] for k in ('vx', 'tilt', 'yaw_rate', 'power', 'flight', 'loaded', 'L', 'L_tail', 'L_legs', 'tail_qd')}
+    log = {k: [] for k in ('vx', 'tilt', 'yaw_rate', 'power', 'flight', 'loaded', 'left', 'right', 'L', 'L_tail', 'L_legs', 'tail_qd')}
     fell, applied, recovered_at, settle = False, False, None, 0
     base_w, base_tilt = [], []
     yaw = lambda: float(np.arctan2(env.data.xmat[env.base][3], env.data.xmat[env.base][0]))
@@ -66,6 +66,7 @@ def episode(model, venv, env, command, seconds, lock_tail=False, impulse=None, f
         log['vx'].append(info['v_body'][0]); log['tilt'].append(info['tilt']); log['yaw_rate'].append(w[2])
         log['power'].append(info['power']); log['flight'].append(info['flight'])
         log['loaded'].append(sum(info['loaded'].values()))
+        log['left'].append(bool(info['loaded']['left'])); log['right'].append(bool(info['loaded']['right']))
         for k in ('L', 'L_tail', 'L_legs', 'tail_qd'):
             log[k].append(info[k])
         if impulse and not applied:
@@ -86,14 +87,42 @@ def episode(model, venv, env, command, seconds, lock_tail=False, impulse=None, f
             break
     n = len(log['vx']); skip = min(50, n//2)
     vx = np.array(log['vx'][skip:] or [0.]); power = np.array(log['power'][skip:] or [0.])
-    td = [t for t, _ in env.touchdowns if t > skip*.02]
+    # touchdowns from debounced per-foot contact: a stance counts only if it lasts >= 3 control steps (60 ms);
+    # brief flight-phase touches otherwise inflate the stride count and scramble the phase metric
+    def stances(flags):
+        out, i = [], skip
+        while i < n:
+            if flags[i]:
+                j = i
+                while j < n and flags[j]:
+                    j += 1
+                if j-i >= 3:
+                    out.append(i*.02)
+                i = j
+            else:
+                i += 1
+        return out
+    tl, tr = stances(log['left']), stances(log['right'])
+    td = sorted(tl+tr)
+    # gait symmetry: phase of each right touchdown after the preceding left one, in left-stride units
+    # (0.5 = alternating run, ~0 or ~1 = bound); per-leg duty = fraction of time each foot is loaded
+    lr = []
+    if len(tl) > 2:
+        T_l = float(np.mean(np.diff(tl)))
+        for t in tr:
+            prev = [x for x in tl if x <= t]
+            if prev:
+                lr.append(((t-prev[-1])/T_l) % 1.)
+    lr_phase = float(np.mean(lr)) if lr else None
+    leg_duty = float(np.mean(np.array(log['loaded'][skip:] or [0])))/2 if n > skip else 0.
     L = np.array(log['L'][skip:] or [[0, 0, 0]]); Lt = np.array(log['L_tail'][skip:] or [[0, 0, 0]]); Ll = np.array(log['L_legs'][skip:] or [[0, 0, 0]])
     corr = float(np.corrcoef(Lt[:, 2], Ll[:, 2])[0, 1]) if len(Lt) > 10 and Lt[:, 2].std() > 1e-6 and Ll[:, 2].std() > 1e-6 else 0.
     W = env.weight
     return {'fell': fell, 'time_s': round(n*.02, 2), 'mean_vx': round(float(vx.mean()), 2),
             'path_m': round(path, 1), 'yaw_drift': round(float(np.mean(log['yaw_rate'][skip:] or [0])), 2),
-            'stride_hz': round(len(td)/2/max((n-skip)*.02, 1e-3), 2),
+            'stride_hz': round(len(tl)/max((n-skip)*.02, 1e-3), 2),
             'duty': round(float(np.mean(np.array(log['loaded'][skip:] or [0]) > 0)), 2),
+            'leg_duty': round(leg_duty, 2), 'lr_phase': round(lr_phase, 2) if lr_phase is not None else None,
             'flight_frac': round(float(np.mean(log['flight'][skip:] or [0])), 2),
             'peak_grf_bw': round(float(np.mean(env.peaks)), 2) if env.peaks else 0.,
             'peak_grf_sd': round(float(np.std(env.peaks)), 2) if env.peaks else 0.,
@@ -110,7 +139,11 @@ def episode(model, venv, env, command, seconds, lock_tail=False, impulse=None, f
 
 
 def mean_row(eps, keys):
-    return {k: round(float(np.mean([e[k] for e in eps])), 2) for k in keys}
+    out = {}
+    for k in keys:  # None (e.g. lr_phase when an episode fell before two strides) is skipped
+        vals = [e[k] for e in eps if e[k] is not None]
+        out[k] = round(float(np.mean(vals)), 2) if vals else None
+    return out
 
 
 def main():
@@ -135,7 +168,7 @@ def main():
     p.add_argument('--out')
     a = p.parse_args()
     modes = ['active', 'locked'] if a.tail == 'both' else [a.tail]
-    keys = ('mean_vx', 'path_m', 'yaw_drift', 'stride_hz', 'duty', 'flight_frac', 'peak_grf_bw', 'peak_grf_sd', 'power_w', 'cot',
+    keys = ('mean_vx', 'path_m', 'yaw_drift', 'stride_hz', 'duty', 'leg_duty', 'lr_phase', 'flight_frac', 'peak_grf_bw', 'peak_grf_sd', 'power_w', 'cot',
             'tail_qd_rms', 'L_yz_rms', 'tail_leg_yaw_corr', 'max_tilt')
     rows = []
 

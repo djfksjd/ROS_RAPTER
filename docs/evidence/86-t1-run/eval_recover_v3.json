@@ -1,0 +1,37 @@
+[
+ {
+  "mode": "easy",
+  "success": 0,
+  "episodes": 10,
+  "time_s": null,
+  "max_height_m": 0.469
+ },
+ {
+  "mode": "side",
+  "success": 0,
+  "episodes": 10,
+  "time_s": null,
+  "max_height_m": 0.155
+ },
+ {
+  "mode": "back",
+  "success": 0,
+  "episodes": 10,
+  "time_s": null,
+  "max_height_m": 0.263
+ },
+ {
+  "mode": "front",
+  "success": 0,
+  "episodes": 10,
+  "time_s": null,
+  "max_height_m": 0.261
+ },
+ {
+  "mode": "random",
+  "success": 0,
+  "episodes": 10,
+  "time_s": null,
+  "max_height_m": 0.271
+ }
+]

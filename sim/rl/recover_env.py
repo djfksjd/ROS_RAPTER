@@ -19,12 +19,14 @@ FALL_MODES = ('side', 'back', 'front', 'random')
 # 'easy' starts: dropped almost upright (tilt 0.3-0.9 rad) so the last part of getting up is learned first
 # (reference-state initialisation). recover_t1_v1 (level rewards only, fallen starts only) plateaued at 0 successes
 # after 4M steps while random joint sequences reached 0.5-1.0 m torso height, so the reward now pays progress.
-WEIGHTS_RECOVER = dict(height=2., upright=2., d_height=5., d_upright=5., standing=5., feet=1., torque=-1e-5,
-                       action_rate=-.02, joint_limit=-2., ang_vel=-.02)
+WEIGHTS_RECOVER = dict(height=2., upright=2., d_height=0., d_upright=0., standing=5., feet=2., airborne=-3., torque=-1e-5,
+                       action_rate=-.05, joint_limit=-2., ang_vel=-.1)
+# recover_t1_v2 (rate rewards d_height/d_upright=5) learned to bounce and flip (torso up to 1.2 m, feet rarely loaded,
+# 0/50 successes): the height term now counts only while a foot is loaded and any fully airborne step is penalised.
 
 
 class RecoverEnv(RunEnv):
-    def __init__(self, fall_modes=FALL_MODES, easy_frac=.4, episode_s=6., stand_hold_s=1., weights=None, **kw):
+    def __init__(self, fall_modes=FALL_MODES, easy_frac=.6, episode_s=6., stand_hold_s=1., weights=None, **kw):
         kw.setdefault('cmd_max', (0., 0., 0.))
         kw.setdefault('init_speed', False)
         kw.setdefault('obs_vel', False)
@@ -97,8 +99,10 @@ class RecoverEnv(RunEnv):
         h, up = float(np.clip(bz/self.h_stand, 0, 1)), (1-grav[2])/2
         if self.prev_h is None:
             self.prev_h, self.prev_up = h, up
-        terms = {'height': h, 'upright': up,  # upright: 1 upright, 0 upside down
-                 'd_height': (h-self.prev_h)/CONTROL_DT, 'd_upright': (up-self.prev_up)/CONTROL_DT,
+        feet_any = any(feet[s_] > .15*self.weight for s_ in feet)
+        airborne = d.ncon == 0
+        terms = {'height': h*float(feet_any), 'upright': up,  # upright: 1 upright, 0 upside down; height only on the feet
+                 'd_height': (h-self.prev_h)/CONTROL_DT, 'd_upright': (up-self.prev_up)/CONTROL_DT, 'airborne': float(airborne),
                  'standing': float(standing), 'feet': float(standing and all(feet[s] > .15*self.weight for s in feet)),
                  'torque': torque_sq/20, 'action_rate': float(np.sum((action-self.last_action)**2)),
                  'ang_vel': float(np.sum(d.qvel[3:6]**2))}

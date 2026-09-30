@@ -21,7 +21,7 @@ def rows(name):
 def speed_chart():
     fig, ax = plt.subplots(figsize=(6.4, 3.2), dpi=150)
     series = [('v2 tail active', 'eval_yaw.json', 'active', 'C0', 'o-'), ('v2 tail locked (same policy)', 'eval_yaw.json', 'locked', 'C0', 'o--'),
-              ('tail-locked policy', 'eval_locked_policy.json', 'locked', 'C3', 's--'), ('v4 (turn-capable)', 'eval_v4_yaw_turn.json', 'active', 'C2', '^-')]
+              ('tail-locked policy', 'eval_locked_policy.json', 'locked', 'C3', 's--'), ('v4 (turn-capable)', 'eval_v4_yaw_turn.json', 'active', 'C2', '^-'), ('v5b alternating gait', 'eval_v5b_alt.json', 'active', 'C1', 'D-')]
     for label, f, tail, c, st in series:
         r = [x for x in rows(f) if 'impulse_nms' not in x and 'turn_cmd_rad_s' not in x and x['tail'] == tail]
         cmd = [x['cmd_vx'] for x in r]; v = [x['mean_vx'] if x['falls'] == 0 else float('nan') for x in r]
@@ -66,7 +66,26 @@ def turn_chart():
     fig.tight_layout(); fig.savefig(OUT/'turn-tracking.png'); plt.close(fig)
 
 
+def gait_chart():
+    fig, axes = plt.subplots(1, 2, figsize=(6.4, 2.8), dpi=150)
+    for f, label, c, mk in (('eval_yaw.json', 'v2 (bound)', 'C0', 'o'), ('eval_v5b_alt.json', 'v5b (clock schedule)', 'C1', 'D')):
+        r = [x for x in rows(f) if 'impulse_nms' not in x and 'turn_cmd_rad_s' not in x and x['tail'] == 'active' and x['falls'] == 0 and x['cmd_vx'] > 0]
+        v = [x['mean_vx'] for x in r]
+        if 'lr_phase' in r[0]:
+            axes[0].plot(v, [x['lr_phase'] for x in r], mk+'-', color=c, label=label)
+        axes[1].plot(v, [x['stride_hz'] for x in r], mk+'-', color=c, label=label)
+    axes[0].axhline(.5, color='grey', ls=':', lw=.8); axes[0].text(.3, .52, 'alternating (0.5)', fontsize=7, color='grey')
+    axes[0].axhline(.85, color='grey', ls=':', lw=.8); axes[0].text(.3, .87, 'bound (v2 measured 0.85)', fontsize=7, color='grey')
+    axes[0].set_ylim(0, 1); axes[0].set_xlabel('body speed (m/s)'); axes[0].set_ylabel('right touchdown phase after left (stride)')
+    vv = [0, 8]; axes[1].plot(vv, [1.6+.14*x for x in vv], ':', color='grey', lw=.8, label='stride clock 1.6+0.14v')
+    axes[1].set_xlabel('body speed (m/s)'); axes[1].set_ylabel('stride frequency (Hz)'); axes[1].set_ylim(0, 6)
+    for ax in axes:
+        ax.grid(alpha=.3); ax.legend(fontsize=6)
+    fig.suptitle('Gait symmetry and stride rate: bound (v2) vs clock-scheduled alternating run (v5b), T1 MuJoCo', fontsize=8)
+    fig.tight_layout(); fig.savefig(OUT/'gait-phase.png'); plt.close(fig)
+
+
 if __name__ == '__main__':
     OUT.mkdir(parents=True, exist_ok=True)
-    speed_chart(); impulse_chart(); turn_chart()
+    speed_chart(); impulse_chart(); turn_chart(); gait_chart()
     print('wrote', sorted(p.name for p in OUT.glob('*.png')))
