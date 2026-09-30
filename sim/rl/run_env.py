@@ -102,7 +102,7 @@ class RunEnv(RaptorEnv):
     def __init__(self, mass=5., springs='c', actuator=None, tail='active', level=0., cmd_max=(3., .2, .5),
                  episode_s=10., randomize=True, seed=None, render_mode=None, model_path=None, weights=None,
                  zero_cmd=.1, top_cmd=.3, disturb_items=None, grf_cap=4., init_speed=True, obs_vel=True, ankle_clutch=False,
-                 kin=None, yaw_impulse=None, couple_ankle=False):
+                 kin=None, yaw_impulse=None, couple_ankle=False, track_sigma_frac=.15):
         self.mass, self.spring_set, self.tail = float(mass), springs, tail
         self.spec_t1 = {**ACTUATOR_T1, **(actuator or {})}
         self.level, self.cmd_max = float(level), np.array(cmd_max, float)
@@ -133,6 +133,9 @@ class RunEnv(RaptorEnv):
         # so the knee motor drives both. Active DOF 12 -> 10. Knee limits become 28 N·m / 27 rad/s / 308 W
         # (spec full_budget: coupled requirement 21.7 N·m / 237 W at 5 kg, x1.3 margin as in §9).
         self.couple_ankle = couple_ankle
+        # speed-tracking width sigma = max(0.3, frac * command). With 0.15 the exp term vanished once the speed error
+        # grew at high commands and v8c slowed from 6.4 to 3.1 m/s at an 8.1 m/s command without falling (2026-10-01).
+        self.track_sigma_frac = track_sigma_frac
         self.tail_idx = np.array([i for i, n in enumerate(self.active) if n.startswith('tail')])
         self.leg_idx = np.array([i for i, n in enumerate(self.active) if not n.startswith('tail')])
         self.policy_idx = self.leg_idx if tail == 'locked' else np.arange(len(self.active))
@@ -474,7 +477,7 @@ class RunEnv(RaptorEnv):
         W = self.weight
         L, L_tail, L_legs = self.angular_momentum()
         terms = {}
-        sigma = max(.3, .15*abs(cx))
+        sigma = max(.3, self.track_sigma_frac*abs(cx))
         terms['track_lin'] = np.exp(-np.sum((self.command[:2]-v_body[:2])**2)/sigma**2)
         terms['progress'] = np.clip(v_body[0], -1., cx)/max(cx, 1.)
         terms['track_yaw'] = np.exp(-(self.command[2]-w[2])**2/.2)

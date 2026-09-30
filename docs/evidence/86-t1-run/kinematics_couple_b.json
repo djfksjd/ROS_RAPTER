@@ -1,0 +1,81 @@
+{
+ "ostrich": {
+  "ankle_stance_deg": 168,
+  "ankle_swing_min_deg": 45,
+  "ankle_lock_transition_deg": 115,
+  "hip_range_3p3mps_deg": 12.7,
+  "note": "Schaller 2009 [16]: 60 km/h video, swing flexion to 45 deg, stance 168 deg, rapid flexion at toe-off, full extension before touchdown; Rubenson 2007/2011 [4,5]: ankle nearly static in stance, hip flexion range 12.7 deg at 3.3 m/s, femur near horizontal; Daley & Biewener 2006 [20], Blum 2014 [11]: swing-leg retraction at a constant rate before touchdown"
+ },
+ "6.0": {
+  "left": {
+   "stance": {
+    "femur_deg": 7.9,
+    "knee_deg": 110.1,
+    "ankle_deg": 101.1,
+    "ankle_excursion_deg": 21.5
+   },
+   "swing": {
+    "femur_deg": 9.2,
+    "knee_deg": 86.8,
+    "ankle_min_deg": 47.9,
+    "late_swing_hip_rate_rad_s": -0.22,
+    "retracting_fraction": 0.36
+   },
+   "hip_range_deg": 71.7,
+   "n_strides": 15
+  },
+  "right": {
+   "stance": {
+    "femur_deg": 5.7,
+    "knee_deg": 111.2,
+    "ankle_deg": 102.0,
+    "ankle_excursion_deg": 16.9
+   },
+   "swing": {
+    "femur_deg": 16.0,
+    "knee_deg": 91.9,
+    "ankle_min_deg": 63.7,
+    "late_swing_hip_rate_rad_s": -0.24,
+    "retracting_fraction": 0.31
+   },
+   "hip_range_deg": 83.3,
+   "n_strides": 14
+  }
+ },
+ "11.1": {
+  "left": {
+   "stance": {
+    "femur_deg": 7.9,
+    "knee_deg": 108.5,
+    "ankle_deg": 99.4,
+    "ankle_excursion_deg": 19.5
+   },
+   "swing": {
+    "femur_deg": 9.9,
+    "knee_deg": 86.2,
+    "ankle_min_deg": 52.4,
+    "late_swing_hip_rate_rad_s": 0.55,
+    "retracting_fraction": 0.44
+   },
+   "hip_range_deg": 82.8,
+   "n_strides": 19
+  },
+  "right": {
+   "stance": {
+    "femur_deg": 1.9,
+    "knee_deg": 110.3,
+    "ankle_deg": 101.3,
+    "ankle_excursion_deg": 12.4
+   },
+   "swing": {
+    "femur_deg": 17.1,
+    "knee_deg": 85.6,
+    "ankle_min_deg": 55.5,
+    "late_swing_hip_rate_rad_s": 0.95,
+    "retracting_fraction": 0.72
+   },
+   "hip_range_deg": 83.8,
+   "n_strides": 19
+  }
+ }
+}

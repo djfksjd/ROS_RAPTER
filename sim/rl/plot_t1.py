@@ -21,7 +21,7 @@ def rows(name):
 def speed_chart():
     fig, ax = plt.subplots(figsize=(6.4, 3.2), dpi=150)
     series = [('v2 tail active', 'eval_yaw.json', 'active', 'C0', 'o-'), ('v2 tail locked (same policy)', 'eval_yaw.json', 'locked', 'C0', 'o--'),
-              ('tail-locked policy', 'eval_locked_policy.json', 'locked', 'C3', 's--'), ('v4 (turn-capable)', 'eval_v4_yaw_turn.json', 'active', 'C2', '^-'), ('v5b alternating gait', 'eval_v5b_alt.json', 'active', 'C1', 'D-')]
+              ('tail-locked policy', 'eval_locked_policy.json', 'locked', 'C3', 's--'), ('v4 (turn-capable)', 'eval_v4_yaw_turn.json', 'active', 'C2', '^-'), ('v5b alternating gait', 'eval_v5b_alt.json', 'active', 'C1', 'D-'), ('v8d (current best)', 'eval_v8d.json', 'active', 'C4', 'P-')]
     for label, f, tail, c, st in series:
         r = [x for x in rows(f) if 'impulse_nms' not in x and 'turn_cmd_rad_s' not in x and x['tail'] == tail]
         cmd = [x['cmd_vx'] for x in r]; v = [x['mean_vx'] if x['falls'] == 0 else float('nan') for x in r]
