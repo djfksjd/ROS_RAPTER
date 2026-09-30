@@ -35,7 +35,7 @@ def episode(model, venv, env, command, seconds, lock_tail=False, impulse=None, f
     fell, applied, recovered_at, settle = False, False, None, 0
     base_w, base_tilt = [], []
     yaw = lambda: float(np.arctan2(env.data.xmat[env.base][3], env.data.xmat[env.base][0]))
-    turn_log = {'yaw0': None, 'yaw1': None, 'min_vx': None, 'max_tilt': 0.}
+    turn_log = {'yaw0': None, 'yaw1': None, 'min_vx': None, 'max_tilt': 0., 'acc': 0., 'prev': None}
     path, prev = 0., env.data.xpos[env.base][:2].copy()
     for _ in range(int(seconds/.02)):
         if impulse and not applied and env.data.time >= impulse[2]:
@@ -51,6 +51,11 @@ def episode(model, venv, env, command, seconds, lock_tail=False, impulse=None, f
                 turn_log['yaw1'] = yaw()
         action, _ = model.predict(obs, deterministic=True)
         raw, _, term, trunc, info = env.step(action[0])
+        if turn and turn_log['yaw0'] is not None and turn_log['yaw1'] is None:  # unwrapped heading change
+            y = yaw()
+            if turn_log['prev'] is not None:
+                turn_log['acc'] += float(np.angle(np.exp(1j*(y-turn_log['prev']))))
+            turn_log['prev'] = y
         if turn and turn[1] <= env.data.time < turn[1]+turn[2]+1.:
             v = info['v_body'][0]
             turn_log['min_vx'] = v if turn_log['min_vx'] is None else min(turn_log['min_vx'], v)
@@ -99,8 +104,7 @@ def episode(model, venv, env, command, seconds, lock_tail=False, impulse=None, f
             'tail_leg_yaw_corr': round(corr, 2),
             'max_tilt': round(float(max(log['tilt'])), 2),
             'recovery_s': recovered_at, 'impulse': impulse[1] if impulse else None,
-            'turn_rad': round(float(np.angle(np.exp(1j*(turn_log['yaw1']-turn_log['yaw0'])))), 2)
-            if turn and turn_log['yaw1'] is not None else None,
+            'turn_rad': round(turn_log['acc'], 2) if turn and turn_log['yaw1'] is not None else None,
             'turn_min_vx': round(float(turn_log['min_vx']), 2) if turn and turn_log['min_vx'] is not None else None,
             'turn_max_tilt': round(float(turn_log['max_tilt']), 2) if turn else None}
 

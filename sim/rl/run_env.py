@@ -63,7 +63,7 @@ RUN_SPEED = 3.    # m/s command above which flight is rewarded
 DISTURB_ITEMS = ('pitch', 'yaw', 'trip', 'touchdown', 'push')
 
 # reward weights per second (x CONTROL_DT per step)
-WEIGHTS_RUN = dict(track_lin=3., progress=1., track_yaw=1., flight=1., air_time=1., stand=-2., grf=-1., cot=-.05, ang_mom=-.5,
+WEIGHTS_RUN = dict(track_lin=3., progress=1., track_yaw=1., yaw_err=0., flight=1., air_time=1., stand=-2., grf=-1., cot=-.05, ang_mom=-.5,
                    lin_vel_z=-.5, ang_vel_xy=-.05, orientation=-5., height=-20., torque=-1e-5, action_rate=-.02,
                    joint_acc=-2e-8, slip=-.2, collision=-5., joint_limit=-5., alive=.5)
 
@@ -343,6 +343,7 @@ class RunEnv(RaptorEnv):
         terms['track_lin'] = np.exp(-np.sum((self.command[:2]-v_body[:2])**2)/sigma**2)
         terms['progress'] = np.clip(v_body[0], -1., cx)/max(cx, 1.)
         terms['track_yaw'] = np.exp(-(self.command[2]-w[2])**2/.2)
+        terms['yaw_err'] = abs(self.command[2]-w[2])  # linear term: gradient for large turn commands (off by default)
         terms['lin_vel_z'] = v_body[2]**2
         terms['ang_vel_xy'] = np.sum(w[:2]**2)
         terms['orientation'] = np.sum(grav[:2]**2)

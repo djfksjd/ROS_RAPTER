@@ -19,19 +19,21 @@ from stable_baselines3 import PPO  # noqa: E402
 from stable_baselines3.common.logger import configure  # noqa: E402
 from stable_baselines3.common.vec_env import SubprocVecEnv, VecMonitor, VecNormalize  # noqa: E402
 
+from recover_env import RecoverEnv  # noqa: E402
 from run_env import RunEnv  # noqa: E402
 from train import Curriculum  # noqa: E402
 
 
-def make(kw, seed):
+def make(kw, seed, cls=RunEnv):
     def thunk():
-        return RunEnv(seed=seed, **kw)
+        return cls(seed=seed, **kw)
     return thunk
 
 
 def main():
     p = argparse.ArgumentParser()
     p.add_argument('--name', required=True)
+    p.add_argument('--env', choices=['run', 'recover'], default='run', help='recover = get-up task (recover_env.py)')
     p.add_argument('--steps', type=float, default=20e6)
     p.add_argument('--envs', type=int, default=8)
     p.add_argument('--mass', type=float, default=5.)
@@ -56,8 +58,10 @@ def main():
     kw = dict(mass=a.mass, springs=a.springs, tail=a.tail, level=a.level, cmd_max=a.cmd, episode_s=a.episode_s,
               weights=json.loads(a.weights), zero_cmd=a.zero_cmd, top_cmd=a.top_cmd, disturb_items=a.disturb_items,
               obs_vel=not a.no_obs_vel, init_speed=not a.no_init_speed)
+    if a.env == 'recover':
+        kw = dict(mass=a.mass, springs=a.springs, tail=a.tail, episode_s=a.episode_s, weights=json.loads(a.weights))
     torch.set_num_threads(1)
-    env = VecMonitor(SubprocVecEnv([make(kw, a.seed*100+i) for i in range(a.envs)]))
+    env = VecMonitor(SubprocVecEnv([make(kw, a.seed*100+i, RecoverEnv if a.env == 'recover' else RunEnv) for i in range(a.envs)]))
     if a.init:
         env = VecNormalize.load(str(Path(a.init).with_name('vecnorm.pkl')), env)
         model = PPO.load(a.init, env=env, device='cpu')
@@ -69,7 +73,7 @@ def main():
                                        activation_fn=torch.nn.ELU, log_std_init=-2.),
                     seed=a.seed, verbose=0)
     model.set_logger(configure(str(out), ['csv']))
-    cb = Curriculum(out/'curriculum.jsonl', a.level, a.cmd, a.cmd_final)
+    cb = Curriculum(out/'curriculum.jsonl', a.level, a.cmd, a.cmd_final) if a.env == 'run' else None
     chunk, done = 1_000_000, 0
     while done < a.steps:
         n = int(min(chunk, a.steps-done))
@@ -77,7 +81,7 @@ def main():
         done += n
         model.save(out/'model.zip')
         env.save(str(out/'vecnorm.pkl'))
-        print(json.dumps({'steps': model.num_timesteps, 'level': round(cb.level, 2), 'cmd': cb.cmd.round(3).tolist()}), flush=True)
+        print(json.dumps({'steps': model.num_timesteps, **({'level': round(cb.level, 2), 'cmd': cb.cmd.round(3).tolist()} if cb else {})}), flush=True)
     env.close()
 
 
