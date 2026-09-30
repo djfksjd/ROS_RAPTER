@@ -114,6 +114,9 @@ def main():
     p.add_argument('--kin', default='{}', help='JSON overrides of run_env.KIN, e.g. {"fold": [65, 15, 0.1, 0.45]}')
     p.add_argument('--eval-curriculum', action='store_true', help='advance on deterministic evaluation (speed first, then level)')
     p.add_argument('--track-sigma-frac', type=float, default=.15, help='speed-tracking width as a fraction of the command')
+    p.add_argument('--springs-override', help='JSON {joint: [k, q0, mode, engaged]} replacing the spring set (spring_refit.py)')
+    p.add_argument('--arch8-override', help='JSON {joint: [class, gear]} for the arch8 motors')
+    p.add_argument('--arch8', action='store_true', help='8-axis hybrid: four-bar knee, coupled ankle, locked ankle roll, class motor curves')
     p.add_argument('--couple-ankle', action='store_true', help='horse-style knee-ankle coupling, ankle pitch motors removed')
     p.add_argument('--yaw-impulse', type=float, nargs=3, metavar=('RATE', 'LO', 'HI'), help='training yaw impulses independent of the level')
     p.add_argument('--init', help='model.zip to continue from (its vecnorm.pkl is loaded too)')
@@ -126,7 +129,9 @@ def main():
               weights=json.loads(a.weights), zero_cmd=a.zero_cmd, top_cmd=a.top_cmd, disturb_items=a.disturb_items,
               obs_vel=not a.no_obs_vel, init_speed=not a.no_init_speed, ankle_clutch=a.ankle_clutch,
               kin=json.loads(a.kin), yaw_impulse=a.yaw_impulse, couple_ankle=a.couple_ankle,
-              track_sigma_frac=a.track_sigma_frac)
+              track_sigma_frac=a.track_sigma_frac, arch8=a.arch8,
+              springs_override=json.loads(a.springs_override) if a.springs_override else None,
+              arch8_override=json.loads(a.arch8_override) if a.arch8_override else None)
     if a.env == 'recover':
         kw = dict(mass=a.mass, springs=a.springs, tail=a.tail, episode_s=a.episode_s, weights=json.loads(a.weights))
     torch.set_num_threads(1)

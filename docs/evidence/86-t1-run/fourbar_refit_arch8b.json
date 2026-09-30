@@ -1,0 +1,54 @@
+{
+ "policy": "run_arch8b",
+ "current": {
+  "geometry": {
+   "a": 0.083,
+   "b": 0.194,
+   "c": 0.102,
+   "beta_deg": 69.0,
+   "branch": 1.0
+  },
+  "knee": {
+   "util": 2.15,
+   "rms_ratio": 1.43,
+   "peak_nm": 103.1,
+   "peak_w_rad_s": 16.8,
+   "fits": false
+  },
+  "hip": {
+   "util": 1.36,
+   "rms_ratio": 0.98,
+   "peak_nm": 65.1,
+   "peak_w_rad_s": 13.2,
+   "fits": false
+  }
+ },
+ "refit": {
+  "geometry": {
+   "a": 0.09,
+   "b": 0.243,
+   "c": 0.119,
+   "beta_deg": 94,
+   "branch": -1.0,
+   "N_range": [
+    1.24,
+    19.97
+   ],
+   "min_transmission_deg": 38
+  },
+  "knee": {
+   "util": 1.86,
+   "rms_ratio": 1.29,
+   "peak_nm": 89.2,
+   "peak_w_rad_s": 17.4,
+   "fits": false
+  },
+  "hip": {
+   "util": 1.36,
+   "rms_ratio": 0.98,
+   "peak_nm": 65.1,
+   "peak_w_rad_s": 13.2,
+   "fits": false
+  }
+ }
+}

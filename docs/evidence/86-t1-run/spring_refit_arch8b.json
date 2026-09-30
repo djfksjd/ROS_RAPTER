@@ -1,0 +1,58 @@
+{
+ "knee": {
+  "fixed_rest": {
+   "before": {
+    "rms": 33.0,
+    "peak": 104.2
+   },
+   "after": {
+    "rms": 13.548,
+    "peak": 104.026,
+    "k": 170.0,
+    "q0": 0.956,
+    "mode": "bi",
+    "engaged": "stance"
+   }
+  },
+  "touchdown_clutch": {
+   "before": {
+    "rms": 33.0,
+    "peak": 104.2
+   },
+   "after": {
+    "rms": 28.369,
+    "peak": 100.987,
+    "k": 400.0,
+    "mode": "uni+"
+   }
+  }
+ },
+ "hip": {
+  "fixed_rest": {
+   "before": {
+    "rms": 18.9,
+    "peak": 65.1
+   },
+   "after": {
+    "rms": 13.787,
+    "peak": 58.875,
+    "k": 30.0,
+    "q0": -1.065,
+    "mode": "bi",
+    "engaged": "stance"
+   }
+  },
+  "touchdown_clutch": {
+   "before": {
+    "rms": 18.9,
+    "peak": 65.1
+   },
+   "after": {
+    "rms": 15.678,
+    "peak": 50.39,
+    "k": 60.0,
+    "mode": "bi"
+   }
+  }
+ }
+}

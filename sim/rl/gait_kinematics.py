@@ -30,8 +30,8 @@ OSTRICH = {'ankle_stance_deg': 168, 'ankle_swing_min_deg': 45, 'ankle_lock_trans
            'swing-leg retraction at a constant rate before touchdown'}
 
 
-def rollout(model_path, cmd, seconds=8., seed=1000, clutch=False, couple=False):
-    env = RunEnv(randomize=False, seed=seed, ankle_clutch=clutch, couple_ankle=couple)
+def rollout(model_path, cmd, seconds=8., seed=1000, clutch=False, couple=False, arch8=False, mass=5.):
+    env = RunEnv(randomize=False, seed=seed, ankle_clutch=clutch, couple_ankle=couple, arch8=arch8, mass=mass)
     model, venv = load(model_path, env)
     obs = venv.reset()
     env.command = np.array([cmd, 0., 0.]); env.resample_steps = 0
@@ -129,10 +129,12 @@ def main():
     p.add_argument('--out'); p.add_argument('--plot')
     p.add_argument('--ankle-clutch', action='store_true')
     p.add_argument('--couple-ankle', action='store_true')
+    p.add_argument('--arch8', action='store_true')
+    p.add_argument('--mass', type=float, default=5.)
     a = p.parse_args()
     out = {'ostrich': OSTRICH}
     for c in a.cmd:
-        rec = rollout(a.model, c, clutch=a.ankle_clutch, couple=a.couple_ankle)
+        rec = rollout(a.model, c, clutch=a.ankle_clutch, couple=a.couple_ankle, arch8=a.arch8, mass=a.mass)
         out[str(c)] = analyse(rec)
         print(c, json.dumps(out[str(c)]), flush=True)
         if a.plot and c == a.cmd[-1]:
