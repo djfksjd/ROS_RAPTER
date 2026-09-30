@@ -102,6 +102,24 @@ class RunEnvTest(unittest.TestCase):
         np.testing.assert_allclose(L, L_tail, atol=1e-6)
         np.testing.assert_allclose(L_legs, 0., atol=1e-6)
 
+    def test_ankle_clutch_lets_the_swing_foot_fold(self):
+        """Unclutched, the Achilles spring stops an airborne ankle near 88 deg (motor 22 N·m); clutched it folds."""
+        from run_env import RunEnv
+        reached = {}
+        for clutch in (False, True):
+            env = RunEnv(randomize=False, seed=0, ankle_clutch=clutch)
+            env.reset()
+            env.data.qpos[2] += 1.
+            mujoco.mj_forward(env.model, env.data)
+            env.model.opt.gravity[:] = 0
+            env.loaded = {'left': False, 'right': False}
+            a = np.zeros(12); a[env.ix['left_ankle_pitch_joint']] = -1.
+            for _ in range(25):
+                env.step(a)
+            reached[clutch] = 180+np.degrees(env.data.qpos[env.q_adr[env.ix['left_ankle_pitch_joint']]])
+        self.assertGreater(reached[False], 80.)
+        self.assertLess(reached[True], 50.)
+
     def test_yaw_impulse_spins_the_body(self):
         env = self.env
         env.reset()

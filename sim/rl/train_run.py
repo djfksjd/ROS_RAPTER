@@ -49,6 +49,7 @@ def main():
     p.add_argument('--disturb-items', nargs='+', help='subset of pitch yaw trip touchdown push')
     p.add_argument('--no-obs-vel', action='store_true', help='drop the body velocity from the observation')
     p.add_argument('--no-init-speed', action='store_true')
+    p.add_argument('--ankle-clutch', action='store_true', help='ankle spring engaged only while that foot is loaded')
     p.add_argument('--init', help='model.zip to continue from (its vecnorm.pkl is loaded too)')
     p.add_argument('--seed', type=int, default=0)
     a = p.parse_args()
@@ -57,7 +58,7 @@ def main():
     (out/'args.json').write_text(json.dumps(vars(a), indent=1))
     kw = dict(mass=a.mass, springs=a.springs, tail=a.tail, level=a.level, cmd_max=a.cmd, episode_s=a.episode_s,
               weights=json.loads(a.weights), zero_cmd=a.zero_cmd, top_cmd=a.top_cmd, disturb_items=a.disturb_items,
-              obs_vel=not a.no_obs_vel, init_speed=not a.no_init_speed)
+              obs_vel=not a.no_obs_vel, init_speed=not a.no_init_speed, ankle_clutch=a.ankle_clutch)
     if a.env == 'recover':
         kw = dict(mass=a.mass, springs=a.springs, tail=a.tail, episode_s=a.episode_s, weights=json.loads(a.weights))
     torch.set_num_threads(1)

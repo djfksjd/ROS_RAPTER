@@ -68,7 +68,20 @@ DISTURB_ITEMS = ('pitch', 'yaw', 'trip', 'touchdown', 'push')
 # (left/right touchdown phase 0.85, 4.4 Hz vs the 2.4 Hz clock) - reviews: evidence 86 review_*.md. flight/air_time
 # rewards are off by default since they favoured the bound (both reviews); the schedule already implies flight.
 GAIT_DUTY, GAIT_EDGE = .28, .03
+# joint flexion (ostrich rules scaled to R-02, evidence 86 §9; reviews review_*_kinematics.md): per leg, on the leg's
+# clock phase. Swing progress s = (phi - d)/(1 - d). fold: intertarsal ~65 deg at s 0.30-0.60 (ostrich 45 deg);
+# extend: ~135 deg at s 0.80-0.98 before touchdown (ostrich 168 deg not imposed: CoM lies behind the hip); both paid
+# only while the foot is actually unloaded. static: stance ankle within 12 deg of its touchdown angle over the middle
+# 15-85 % of the stance window (no contact there counts as a full violation). retract: world thigh angular velocity
+# ~+1.7 rad/s (backward) at s 0.75-0.95. All off by default (weight 0).
+# leg_sym: left/right symmetry over time. Each leg's hip, knee and ankle angle and its fold/extend/retract scores are
+# low-pass filtered (tau 0.6 s, > 1 stride); for a symmetric gait the filtered values match because the legs only differ
+# by half a stride. Penalty = sum of squared left-right differences (angles in rad, scores x2). Added after v6c folded
+# the left ankle to 52 deg while the right stayed at 90 deg (the per-leg shaping terms are averaged over the legs).
+SYM_TAU = .6
+KIN = dict(fold=(65., 15., .30, .60), extend=(135., 12., .80, .98), static_tol=12., static_scale=10., retract=(1.7, .8, .75, .95))
 WEIGHTS_RUN = dict(track_lin=3., progress=1., track_yaw=1., yaw_err=0., flight=0., air_time=0., gait=-3., stand=-2., grf=-1., cot=-.05, ang_mom=-.5,
+                   fold=0., extend=0., ankle_static=0., retract=0., leg_sym=0.,
                    lin_vel_z=-.5, ang_vel_xy=-.05, orientation=-5., height=-20., torque=-1e-5, action_rate=-.02,
                    joint_acc=-2e-8, slip=-.2, collision=-5., joint_limit=-5., alive=.5)
 
@@ -88,7 +101,7 @@ class RunEnv(RaptorEnv):
 
     def __init__(self, mass=5., springs='c', actuator=None, tail='active', level=0., cmd_max=(3., .2, .5),
                  episode_s=10., randomize=True, seed=None, render_mode=None, model_path=None, weights=None,
-                 zero_cmd=.1, top_cmd=.3, disturb_items=None, grf_cap=4., init_speed=True, obs_vel=True):
+                 zero_cmd=.1, top_cmd=.3, disturb_items=None, grf_cap=4., init_speed=True, obs_vel=True, ankle_clutch=False):
         self.mass, self.spring_set, self.tail = float(mass), springs, tail
         self.spec_t1 = {**ACTUATOR_T1, **(actuator or {})}
         self.level, self.cmd_max = float(level), np.array(cmd_max, float)
@@ -96,6 +109,11 @@ class RunEnv(RaptorEnv):
         self.zero_cmd, self.top_cmd = zero_cmd, top_cmd
         self.disturb_items = set(disturb_items) if disturb_items is not None else set(DISTURB_ITEMS)
         self.grf_cap, self.init_speed, self.obs_vel = grf_cap, init_speed, obs_vel
+        # ankle_clutch: the ankle spring is engaged only while that foot is loaded (read each 20 ms control step), like the
+        # ostrich intertarsal engage-disengage ligament and the BirdBot clutch. Without it the unilateral Achilles spring
+        # resists swing flexion: holding a 65 deg intertarsal angle needs 45 N·m against a 22 N·m ankle motor (measured
+        # 2026-09-30, v6a policy saturated 46 % at 87 deg). Energy stored at release is lost (a real clutch dissipates it).
+        self.ankle_clutch = ankle_clutch
         self.episode_steps, self.randomize, self.render_mode = int(episode_s/CONTROL_DT), randomize, render_mode
         self.model_path = str(model_path or R02_MODEL)
         self.kinds, self.kind, self.dr_items, self.slew, self.jtc_horizon = ['flat'], 'flat', set(), None, 0.
@@ -147,6 +165,7 @@ class RunEnv(RaptorEnv):
         m.body_mass[1:] *= ratio
         m.body_inertia[1:] *= ratio
         self.act = np.array([m.actuator(n).id for n in self.active])
+        self.ix = {n: i for i, n in enumerate(self.active)}
         self.q_adr = np.array([m.jnt_qposadr[m.joint(n).id] for n in self.active])
         self.v_adr = np.array([m.jnt_dofadr[m.joint(n).id] for n in self.active])
         self.lo, self.hi = m.jnt_range[[m.joint(n).id for n in self.active]].T.copy()
@@ -174,6 +193,9 @@ class RunEnv(RaptorEnv):
         self.nominal_mass = m.body_mass.copy()
         self.nominal_friction = m.geom_friction.copy()
         self.weight = 9.81*float(m.body_subtreemass[self.root])
+        self.ankle_spring = {s_: m.tendon(f'spring_{s_}_ankle_pitch').id for s_ in ('left', 'right')
+                             if f'spring_{s_}_ankle_pitch' in [m.tendon(i).name for i in range(m.ntendon)]}
+        self.ankle_k = {s_: float(m.tendon_stiffness[t]) for s_, t in self.ankle_spring.items()}
 
     def _randomize(self):
         m = self.model
@@ -212,6 +234,9 @@ class RunEnv(RaptorEnv):
         self.loaded = {'left': True, 'right': True}
         self.stance_peak = {'left': 0., 'right': 0.}
         self.touchdowns, self.peaks = [], []
+        self.ankle_td = {'left': None, 'right': None}
+        self.sym_ema = None
+        self.leg_scores = {side: dict(fold=0., extend=0., retract=0.) for side in ('left', 'right')}
         self.command = self._sample_command()
         self.phase = float(self.rng.random()) if self.randomize else 0.
         self.push_at = self.rng.uniform(3., 8.)
@@ -257,13 +282,72 @@ class RunEnv(RaptorEnv):
         self.model.actuator_forcerange[self.act, 1] = hi
         return lo, hi
 
+    @staticmethod
+    def _window(x, a, b, edge=.03):
+        """1 inside [a, b], raised-cosine ramps of width `edge` outside, 0 beyond."""
+        if x < a-edge or x > b+edge:
+            return 0.
+        if x < a:
+            return .5-.5*np.cos(np.pi*(x-a+edge)/edge)
+        if x > b:
+            return .5+.5*np.cos(np.pi*(x-b)/edge)
+        return 1.
+
+    def gait_duty(self, cx=None):
+        cx = self.command[0] if cx is None else cx
+        return float(np.clip(.6-.128*(cx-.5), GAIT_DUTY, .6))
+
+    def kinematics_terms(self, loaded, w_pitch):
+        """Joint-flexion shaping terms (see KIN), averaged over the two legs; zeros below 0.5 m/s."""
+        out = dict(fold=0., extend=0., ankle_static=0., retract=0.)
+        self.leg_scores = {side: dict(fold=0., extend=0., retract=0.) for side in ('left', 'right')}
+        if self.command[0] < .5:
+            return out
+        d = self.gait_duty()
+        q, qd = self.data.qpos[self.q_adr], self.data.qvel[self.v_adr]
+        for side, off in (('left', 0.), ('right', .5)):
+            ph = (self.phase-off) % 1.
+            a = 180.+np.degrees(q[self.ix[f'{side}_ankle_pitch_joint']])
+            if ph < d:
+                w = self._window(ph/d, .15, .85)
+                if w > 0:
+                    if loaded[side] and self.ankle_td.get(side) is not None:
+                        e = max(0., abs(a-self.ankle_td[side])-KIN['static_tol'])/KIN['static_scale']
+                        out['ankle_static'] += w*min(1., e*e)
+                    else:
+                        out['ankle_static'] += w
+            else:
+                s_ = (ph-d)/(1.-d)
+                sc = self.leg_scores[side]
+                if not loaded[side]:
+                    t, sig, lo, hi = KIN['fold']; sc['fold'] = self._window(s_, lo, hi)*np.exp(-(a-t)**2/(2*sig*sig))
+                    t, sig, lo, hi = KIN['extend']; sc['extend'] = self._window(s_, lo, hi)*np.exp(-(a-t)**2/(2*sig*sig))
+                t, sig, lo, hi = KIN['retract']
+                om = qd[self.ix[f'{side}_hip_pitch_joint']]+w_pitch  # world thigh rate, + = backward
+                sc['retract'] = self._window(s_, lo, hi)*np.exp(-(om-t)**2/(2*sig*sig))
+                for k_, v_ in sc.items():
+                    out[k_] += v_
+        return {k: v/2 for k, v in out.items()}
+
+    def leg_symmetry(self):
+        """Update the low-pass filtered per-leg angles/scores and return the squared left-right difference."""
+        q = self.data.qpos[self.q_adr]
+        al = CONTROL_DT/SYM_TAU
+        val = {side: np.array([q[self.ix[f'{side}_{j}_joint']] for j in ('hip_pitch', 'knee_pitch', 'ankle_pitch')]
+                              + [2*self.leg_scores[side][k] for k in ('fold', 'extend', 'retract')]) for side in ('left', 'right')}
+        if self.sym_ema is None:
+            self.sym_ema = {k: v.copy() for k, v in val.items()}
+        for side in val:
+            self.sym_ema[side] += al*(val[side]-self.sym_ema[side])
+        return float(np.sum((self.sym_ema['left']-self.sym_ema['right'])**2))
+
     def gait_schedule(self, cx=None):
         """Expected stance (0..1, smooth edges) for left and right from the stride clock; duty shrinks from 0.6 at
         0.5 m/s to GAIT_DUTY at 3 m/s and above. None below 0.5 m/s (standing is handled by the `stand` term)."""
         cx = self.command[0] if cx is None else cx
         if cx < .5:
             return None
-        d = float(np.clip(.6-.128*(cx-.5), GAIT_DUTY, .6))
+        d = self.gait_duty(cx)
         out = {}
         for side, off in (('left', 0.), ('right', .5)):
             centre = off+d/2
@@ -335,6 +419,9 @@ class RunEnv(RaptorEnv):
                 d.qvel[:2] += self.rng.uniform(-.4, .4, 2)*(1.+self.level)
         self._apply_events()
         d.ctrl[self.act] = target
+        if self.ankle_clutch:
+            for s_, t in self.ankle_spring.items():
+                m.tendon_stiffness[t] = self.ankle_k[s_] if self.loaded[s_] else 0.
         n_sub = int(round(CONTROL_DT/PHYSICS_DT))
         power, torque_sq = 0., 0.
         for _ in range(n_sub):
@@ -386,6 +473,7 @@ class RunEnv(RaptorEnv):
                 self.stance_peak[s] = max(self.stance_peak[s], f)
                 if not self.loaded[s]:  # touchdown
                     self.touchdowns.append((d.time, s))
+                    self.ankle_td[s] = 180.+np.degrees(d.qpos[self.q_adr[self.ix[f'{s}_ankle_pitch_joint']]])
                     if self.randomize and self.level > 0 and 'touchdown' in self.disturb_items and self.rng.random() < .3:
                         self.apply_impulse('y', self.level*(self.mass/5.)*self.rng.uniform(0., .3)*self.rng.choice([-1, 1]), .02)
                     if self.air[s] > 0 and moving:
@@ -402,6 +490,8 @@ class RunEnv(RaptorEnv):
         terms['flight'] = float(flight and cx >= RUN_SPEED and v_body[0] > .5*cx)
         sched = self.gait_schedule()
         terms['gait'] = sum((min(feet[s_]/(.2*W), 1.)-sched[s_])**2 for s_ in feet) if sched else 0.
+        terms.update(self.kinematics_terms(loaded_now, w[1]))
+        terms['leg_sym'] = self.leg_symmetry() if self.command[0] >= .5 else 0.
         terms['stand'] = float(flight) if cx < .05 else 0.  # hopping in place at a zero command (v1 defect)
         terms['air_time'] = air_reward/CONTROL_DT if moving else 0.
         terms['grf'] = grf
