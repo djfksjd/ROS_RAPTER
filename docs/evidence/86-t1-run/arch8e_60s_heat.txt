@@ -1,0 +1,7 @@
+60 s runs, motors start cold; steady heat = mean (tau/tau_cont)^2 over the last 40 s (independent of the thermal time constant); 1 = continuous rating
+cmd   3.0: speed 3.13 m/s over 40 s, steady heat {'hip_roll': 0.65, 'hip_pitch': 0.58, 'knee_pitch': 0.75, 'tail_yaw': 0.04, 'tail_pitch': 0.59}, max 0.75 -> SUSTAINABLE
+cmd   4.0: speed 3.90 m/s over 40 s, steady heat {'hip_roll': 0.7, 'hip_pitch': 0.77, 'knee_pitch': 0.78, 'tail_yaw': 0.05, 'tail_pitch': 0.66}, max 0.78 -> SUSTAINABLE
+cmd   5.0: speed 4.55 m/s over 40 s, steady heat {'hip_roll': 0.71, 'hip_pitch': 0.91, 'knee_pitch': 0.67, 'tail_yaw': 0.06, 'tail_pitch': 0.61}, max 0.91 -> SUSTAINABLE
+cmd   6.0: speed 5.13 m/s over 40 s, steady heat {'hip_roll': 0.77, 'hip_pitch': 1.01, 'knee_pitch': 0.68, 'tail_yaw': 0.07, 'tail_pitch': 0.57}, max 1.01 -> over by x1.01
+cmd   8.0: speed 5.91 m/s over 40 s, steady heat {'hip_roll': 0.75, 'hip_pitch': 1.18, 'knee_pitch': 0.7, 'tail_yaw': 0.09, 'tail_pitch': 0.56}, max 1.18 -> over by x1.18
+cmd  11.1: speed 4.84 m/s over 40 s, steady heat {'hip_roll': 0.6, 'hip_pitch': 1.18, 'knee_pitch': 0.98, 'tail_yaw': 0.04, 'tail_pitch': 0.68}, max 1.18 -> over by x1.18
