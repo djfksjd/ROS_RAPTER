@@ -5,8 +5,8 @@ Anatomical angles from the MJCF joint coordinates (R-02: hip + = thigh back, kne
   knee included angle                   = 180 - knee (deg)
   intertarsal (ankle) included angle    = 180 + ankle (deg); 180 = straight
 Per foot, stance = debounced loaded phases (>= 60 ms). Reported per phase: mean/min/max of each angle, the ankle
-excursion during stance, the ankle's minimum included angle in swing, and the hip angular velocity over the last
-25 % of swing (> 0 = the leg retracts before touchdown, the ostrich 'constant retraction' rule).
+excursion during stance, the ankle's minimum included angle in swing, and the world thigh angular velocity (hip rate + torso
+pitch rate) over the last 25 % of swing (> 0 = the leg retracts before touchdown, the ostrich 'constant retraction' rule).
 Usage: .venv-sim/bin/python sim/rl/gait_kinematics.py sim/rl/runs/<name>/model.zip --cmd 6 [--out k.json --plot k.png]
 """
 import argparse
@@ -30,8 +30,8 @@ OSTRICH = {'ankle_stance_deg': 168, 'ankle_swing_min_deg': 45, 'ankle_lock_trans
            'swing-leg retraction at a constant rate before touchdown'}
 
 
-def rollout(model_path, cmd, seconds=8., seed=1000, clutch=False):
-    env = RunEnv(randomize=False, seed=seed, ankle_clutch=clutch)
+def rollout(model_path, cmd, seconds=8., seed=1000, clutch=False, couple=False):
+    env = RunEnv(randomize=False, seed=seed, ankle_clutch=clutch, couple_ankle=couple)
     model, venv = load(model_path, env)
     obs = venv.reset()
     env.command = np.array([cmd, 0., 0.]); env.resample_steps = 0
@@ -44,7 +44,8 @@ def rollout(model_path, cmd, seconds=8., seed=1000, clutch=False):
         obs = venv.normalize_obs(raw[None])
         q, qd = env.data.qpos[env.q_adr], env.data.qvel[env.v_adr]
         rec.append({s: dict(hip=q[idx[f'{s}_hip_pitch_joint']], knee=q[idx[f'{s}_knee_pitch_joint']],
-                            ankle=q[idx[f'{s}_ankle_pitch_joint']], hipd=qd[idx[f'{s}_hip_pitch_joint']],
+                            ankle=q[idx[f'{s}_ankle_pitch_joint']],
+                            hipd=qd[idx[f'{s}_hip_pitch_joint']]+env.body_velocity(env.base)[0][1],  # world thigh rate
                             loaded=bool(info['loaded'][s])) for s in ('left', 'right')})
         if term:
             break
@@ -127,10 +128,11 @@ def main():
     p.add_argument('--cmd', type=float, nargs='+', default=[4., 6.])
     p.add_argument('--out'); p.add_argument('--plot')
     p.add_argument('--ankle-clutch', action='store_true')
+    p.add_argument('--couple-ankle', action='store_true')
     a = p.parse_args()
     out = {'ostrich': OSTRICH}
     for c in a.cmd:
-        rec = rollout(a.model, c, clutch=a.ankle_clutch)
+        rec = rollout(a.model, c, clutch=a.ankle_clutch, couple=a.couple_ankle)
         out[str(c)] = analyse(rec)
         print(c, json.dumps(out[str(c)]), flush=True)
         if a.plot and c == a.cmd[-1]:

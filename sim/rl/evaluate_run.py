@@ -165,6 +165,7 @@ def main():
     p.add_argument('--turn-cmd', type=float, nargs='+', default=[4.], help='forward speeds for the turn test')
     p.add_argument('--no-obs-vel', action='store_true')
     p.add_argument('--ankle-clutch', action='store_true')
+    p.add_argument('--couple-ankle', action='store_true')
     p.add_argument('--video')
     p.add_argument('--out')
     a = p.parse_args()
@@ -176,7 +177,7 @@ def main():
     def new_env(seed, render=False):
         # a policy trained with --tail locked has 10 actions; 'both' evaluates a tail-active policy with the tail held
         return RunEnv(mass=a.mass, springs=a.springs, randomize=False, seed=seed, obs_vel=not a.no_obs_vel,
-                      tail='locked' if a.tail == 'locked' else 'active', ankle_clutch=a.ankle_clutch, render_mode='rgb_array' if render else None)
+                      tail='locked' if a.tail == 'locked' else 'active', ankle_clutch=a.ankle_clutch, couple_ankle=a.couple_ankle, render_mode='rgb_array' if render else None)
     for mode in modes:
         for vx in a.commands:
             eps = []

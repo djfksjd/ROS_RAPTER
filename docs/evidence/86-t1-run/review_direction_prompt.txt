@@ -1,0 +1,20 @@
+You are a senior robotics reviewer collaborating on the "Raptor" project in this repository (read-only access; you may open files).
+Read first: AGENTS.md, docs/WORK_STATE.ko.md, docs/design/40kmh-spec.md (§0, §6, §9), docs/evidence/86-t1-run/README.md (§8-§10), sim/rl/run_env.py.
+Do not run training or modify files. Answer in Korean, concise, numbered, with a clear verdict per item.
+
+PROJECT GOAL (user): ostrich/raptor-like biped, 40 km/h (11.1 m/s) running with tail balance; later autonomous exploration via natural-language commands (AI picks allowed actions only, STOP first). University graduation project, single Mac M5 (10 CPU cores, no CUDA), MuJoCo + SB3 PPO on CPU, ROS 2 Jazzy/Gazebo in Docker. Reports must separate verified results from assumptions; results are tiered T1 (virtual actuator sim) / T2 (boom + external power) / T3 (free).
+
+CURRENT STATE (all T1 virtual actuator, flat ground, MuJoCo, 5 kg scaled R-02 with springs (c), clutched ankle spring):
+- Best reference policy v6e: alternating ostrich-like run 6.8 m/s without falls, swing intertarsal fold 60-62 deg (ostrich 45), both legs retract before touchdown, turns at 6 m/s, yaw impulse tolerance 1.0 N·m·s (falls at 1.5), 11.1 m/s falls. Tail locked -> falls at 8 m/s.
+- v7 experiments (fine-tuning chain from a bound gait): deeper fold and yaw-impulse robustness traded off.
+- v8 (from scratch with the full reward set) running now: at 8M steps fold 44/47 deg, survives 1.5 N·m·s yaw impulse, alternating 0.50, BUT pre-touchdown retraction lost (0 % / 58 %), and the curriculum has been stuck at 4.0 m/s / disturbance level 0.5 since 7M because the stochastic training fall rate stays 0.26-0.30 (> 0.20 threshold). 11M of 30M done.
+- Get-up after a fall: 3 attempts, 0/50 success -> recorded as failure; suspected hip/ankle roll range +-0.5 rad and passively unstable stance.
+- Design findings: CoM 0.066 m behind hip -> ostrich stance posture (subhorizontal femur, 168 deg intertarsal) unreachable, needs ~0.3-0.4 m hip-CoM relative shift (R-03 candidate). Always-engaged Achilles spring blocks swing fold (45 N·m needed vs 22 N·m motor) -> clutch required. Learned stance ankle (120-140 deg) does not engage the ankle spring (rest 110 deg). Commercial actuators close only at 8 kg + springs (c) (actuators 5.8 kg of 8 kg, borderline); 11.36 kg does not close.
+- New proposal: horse-style knee-ankle coupling (reciprocal apparatus): one knee motor drives the ankle via tendon; spec loads show with springs (c) the coupled knee motor needs 49.2 N·m / 538 W at 11.36 kg (= knee alone torque; separate knee+ankle 394+154 W) -> removes the ankle pitch motor (active DOF 12 -> 10), ~1 kg saved and moved proximal. Cost: 1:1 coupling cannot give the independent 60 deg swing fold; a cam (non-linear coupling) might.
+- Other open items: MTP main spring (case d, uncomputed; toe springs store ~5 J vs ~15 J needed), passive standing lock, T2 boom tests, Gazebo port (earlier sim2sim failed), AI stack (Laya local command head + Gemini Robotics-ER 2 free tier as VLM planner + local VLM fallback).
+
+QUESTIONS:
+1. Is the overall direction sound for a graduation project with this compute (keep pushing T1 RL toward 11.1 m/s vs consolidate design/hardware tiers)? What is the single most important next milestone?
+2. v8 curriculum stall at 4.0 m/s with 0.26-0.30 stochastic fall rate: what is the correct fix (e.g. evaluate advancement on deterministic/greedy rollouts, lower entropy/log_std, separate thresholds for speed vs disturbance, speed-only curriculum) and should v8 be kept running or restarted? Also how to recover the lost pre-touchdown retraction.
+3. Horse knee-ankle coupling: worth testing now in simulation (as an option via a joint equality constraint, ankle motor removed), 1:1 first or cam first? Any flaw in computing the coupled requirement as (tau_knee - tau_ankle) with dq_ankle = -dq_knee?
+4. Order the remaining items (coupling test, MTP spring (d), 8 kg re-evaluation with commercial actuators, R-03 hip/CoM redesign, get-up, T2 boom, Gazebo port, AI stack integration) with a one-line reason each, flagging anything that is a dead end or mis-scoped.

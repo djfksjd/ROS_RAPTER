@@ -102,7 +102,7 @@ class RunEnv(RaptorEnv):
     def __init__(self, mass=5., springs='c', actuator=None, tail='active', level=0., cmd_max=(3., .2, .5),
                  episode_s=10., randomize=True, seed=None, render_mode=None, model_path=None, weights=None,
                  zero_cmd=.1, top_cmd=.3, disturb_items=None, grf_cap=4., init_speed=True, obs_vel=True, ankle_clutch=False,
-                 kin=None, yaw_impulse=None):
+                 kin=None, yaw_impulse=None, couple_ankle=False):
         self.mass, self.spring_set, self.tail = float(mass), springs, tail
         self.spec_t1 = {**ACTUATOR_T1, **(actuator or {})}
         self.level, self.cmd_max = float(level), np.array(cmd_max, float)
@@ -128,11 +128,24 @@ class RunEnv(RaptorEnv):
         pose = nominal_pose()
         self.q0 = np.array([pose.get(n, 0.) for n in self.active])
         self.scale = np.array([SCALE_RUN[joint_type(n)] for n in self.active])
+        # couple_ankle: horse-style reciprocal apparatus. Each ankle pitch joint follows its knee 1:1 through a joint
+        # equality (ankle = c - knee, c from the nominal pose); the ankle pitch motor is removed (no action, zero force),
+        # so the knee motor drives both. Active DOF 12 -> 10. Knee limits become 28 N·m / 27 rad/s / 308 W
+        # (spec full_budget: coupled requirement 21.7 N·m / 237 W at 5 kg, x1.3 margin as in §9).
+        self.couple_ankle = couple_ankle
         self.tail_idx = np.array([i for i, n in enumerate(self.active) if n.startswith('tail')])
         self.leg_idx = np.array([i for i, n in enumerate(self.active) if not n.startswith('tail')])
         self.policy_idx = self.leg_idx if tail == 'locked' else np.arange(len(self.active))
+        if couple_ankle:
+            self.policy_idx = np.array([i for i in self.policy_idx if 'ankle_pitch' not in self.active[i]])
         self.lock_tail = tail == 'locked'
         spec = np.array([self.spec_t1[joint_type(n)] for n in self.active])
+        if couple_ankle:
+            for i, n in enumerate(self.active):
+                if 'ankle_pitch' in n:
+                    spec[i] = (0., 27., 0.)
+                elif 'knee' in n:
+                    spec[i] = (28., 27., 308.)
         self.tau_nom, self.v_max, self.p_max = spec[:, 0].copy(), spec[:, 1].copy(), spec[:, 2].copy()
         self.tau_max = self.tau_nom.copy()
         self.kp = self.tau_nom/KP_ERR
@@ -163,6 +176,13 @@ class RunEnv(RaptorEnv):
             for g in spec.geoms:
                 if g.parent.name == 'world':
                     g.material = 'grid'
+        if self.couple_ankle:
+            for side in ('left', 'right'):
+                c = self.q0[self.active.index(f'{side}_ankle_pitch_joint')]+self.q0[self.active.index(f'{side}_knee_pitch_joint')]
+                eq = spec.add_equality(type=mujoco.mjtEq.mjEQ_JOINT, name1=f'{side}_ankle_pitch_joint', name2=f'{side}_knee_pitch_joint',
+                                       data=[c, -1.]+[0.]*9)
+                eq.solref = [.004, 1.]          # stiff tendon linkage (default 0.02 s let the ankle lag 0.5 rad)
+                eq.solimp = [.99, .999, .001, .5, 2.]
         m = spec.compile()
         m.opt.timestep = PHYSICS_DT
         # uniform mass scaling, geometry fixed (spec §5): masses and inertias. The R-02 toe springs are kept: scaled
@@ -330,7 +350,8 @@ class RunEnv(RaptorEnv):
                     t, sig, lo, hi = self.kin['extend']; sc['extend'] = self._window(s_, lo, hi)*np.exp(-(a-t)**2/(2*sig*sig))
                 t, sig, lo, hi = self.kin['retract']
                 om = qd[self.ix[f'{side}_hip_pitch_joint']]+w_pitch  # world thigh rate, + = backward
-                sc['retract'] = self._window(s_, lo, hi)*np.exp(-(om-t)**2/(2*sig*sig))
+                # only while the foot is actually in the air (Codex review: the evaluator measures real swing)
+                sc['retract'] = self._window(s_, lo, hi)*np.exp(-(om-t)**2/(2*sig*sig)) if not loaded[side] else 0.
                 for k_, v_ in sc.items():
                     out[k_] += v_
         return {k: v/2 for k, v in out.items()}

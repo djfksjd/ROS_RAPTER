@@ -1,0 +1,1330 @@
+[
+ {
+  "v": 4.0,
+  "duty": 0.4,
+  "stride_hz": 1.95,
+  "grf_bw": 2.79,
+  "budget": [
+   {
+    "mass_kg": 11.36,
+    "needs": {
+     "hip": {
+      "torque_nm": 17.6,
+      "speed_rad_s": 7.7,
+      "power_w": 96.0,
+      "rms_nm": 7.1
+     },
+     "knee": {
+      "torque_nm": 17.7,
+      "speed_rad_s": 10.5,
+      "power_w": 85.0,
+      "rms_nm": 9.1
+     },
+     "ankle": {
+      "torque_nm": 14.1,
+      "speed_rad_s": 10.5,
+      "power_w": 52.0,
+      "rms_nm": 6.8
+     },
+     "knee+ankle": {
+      "torque_nm": 25.4,
+      "speed_rad_s": 10.5,
+      "power_w": 134.0,
+      "rms_nm": 13.1
+     },
+     "hip_roll": {
+      "torque_nm": 31.1,
+      "speed_rad_s": 5.0,
+      "power_w": 155.5,
+      "rms_nm": 14.0
+     },
+     "ankle_roll": {
+      "torque_nm": 6.2,
+      "speed_rad_s": 5.0,
+      "power_w": 31.1,
+      "rms_nm": 2.8
+     },
+     "tail": {
+      "torque_nm": 36.0,
+      "speed_rad_s": 12.0,
+      "power_w": 400.0,
+      "rms_nm": 10.8
+     }
+    },
+    "configs": {
+     "12 axes independent (current T1/R-02 model)": {
+      "classes": {
+       "hip_roll": "B",
+       "hip": "A",
+       "knee": "B",
+       "ankle": "A",
+       "ankle_roll": "A",
+       "tail": "B"
+      },
+      "n_actuators": 12,
+      "actuator_mass_kg": 8.76,
+      "fraction_of_total": 0.77
+     },
+     "10 axes (AGENTS base: no ankle roll)": {
+      "classes": {
+       "hip_roll": "B",
+       "hip": "A",
+       "knee": "B",
+       "ankle": "A",
+       "tail": "B"
+      },
+      "n_actuators": 10,
+      "actuator_mass_kg": 7.76,
+      "fraction_of_total": 0.68
+     },
+     "10 axes = 12 with knee-ankle coupling": {
+      "classes": {
+       "hip_roll": "B",
+       "hip": "A",
+       "knee+ankle": "B",
+       "ankle_roll": "A",
+       "tail": "B"
+      },
+      "n_actuators": 10,
+      "actuator_mass_kg": 7.76,
+      "fraction_of_total": 0.68
+     },
+     "8 axes = 10 with knee-ankle coupling": {
+      "classes": {
+       "hip_roll": "B",
+       "hip": "A",
+       "knee+ankle": "B",
+       "tail": "B"
+      },
+      "n_actuators": 8,
+      "actuator_mass_kg": 6.76,
+      "fraction_of_total": 0.6
+     },
+     "7 axes = 8 with a single tail axis": {
+      "classes": {
+       "hip_roll": "B",
+       "hip": "A",
+       "knee+ankle": "B",
+       "tail": "B"
+      },
+      "n_actuators": 7,
+      "actuator_mass_kg": 5.8,
+      "fraction_of_total": 0.51
+     }
+    }
+   },
+   {
+    "mass_kg": 8.0,
+    "needs": {
+     "hip": {
+      "torque_nm": 12.4,
+      "speed_rad_s": 7.7,
+      "power_w": 67.6,
+      "rms_nm": 5.0
+     },
+     "knee": {
+      "torque_nm": 12.5,
+      "speed_rad_s": 10.5,
+      "power_w": 59.9,
+      "rms_nm": 6.4
+     },
+     "ankle": {
+      "torque_nm": 9.9,
+      "speed_rad_s": 10.5,
+      "power_w": 36.6,
+      "rms_nm": 4.8
+     },
+     "knee+ankle": {
+      "torque_nm": 17.9,
+      "speed_rad_s": 10.5,
+      "power_w": 94.4,
+      "rms_nm": 9.2
+     },
+     "hip_roll": {
+      "torque_nm": 21.9,
+      "speed_rad_s": 5.0,
+      "power_w": 109.5,
+      "rms_nm": 9.9
+     },
+     "ankle_roll": {
+      "torque_nm": 4.4,
+      "speed_rad_s": 5.0,
+      "power_w": 21.9,
+      "rms_nm": 2.0
+     },
+     "tail": {
+      "torque_nm": 25.4,
+      "speed_rad_s": 12.0,
+      "power_w": 281.7,
+      "rms_nm": 7.6
+     }
+    },
+    "configs": {
+     "12 axes independent (current T1/R-02 model)": {
+      "classes": {
+       "hip_roll": "B",
+       "hip": "A",
+       "knee": "A",
+       "ankle": "A",
+       "ankle_roll": "A",
+       "tail": "B"
+      },
+      "n_actuators": 12,
+      "actuator_mass_kg": 7.84,
+      "fraction_of_total": 0.98
+     },
+     "10 axes (AGENTS base: no ankle roll)": {
+      "classes": {
+       "hip_roll": "B",
+       "hip": "A",
+       "knee": "A",
+       "ankle": "A",
+       "tail": "B"
+      },
+      "n_actuators": 10,
+      "actuator_mass_kg": 6.84,
+      "fraction_of_total": 0.85
+     },
+     "10 axes = 12 with knee-ankle coupling": {
+      "classes": {
+       "hip_roll": "B",
+       "hip": "A",
+       "knee+ankle": "B",
+       "ankle_roll": "A",
+       "tail": "B"
+      },
+      "n_actuators": 10,
+      "actuator_mass_kg": 7.76,
+      "fraction_of_total": 0.97
+     },
+     "8 axes = 10 with knee-ankle coupling": {
+      "classes": {
+       "hip_roll": "B",
+       "hip": "A",
+       "knee+ankle": "B",
+       "tail": "B"
+      },
+      "n_actuators": 8,
+      "actuator_mass_kg": 6.76,
+      "fraction_of_total": 0.84
+     },
+     "7 axes = 8 with a single tail axis": {
+      "classes": {
+       "hip_roll": "B",
+       "hip": "A",
+       "knee+ankle": "B",
+       "tail": "B"
+      },
+      "n_actuators": 7,
+      "actuator_mass_kg": 5.8,
+      "fraction_of_total": 0.72
+     }
+    }
+   },
+   {
+    "mass_kg": 6.0,
+    "needs": {
+     "hip": {
+      "torque_nm": 9.3,
+      "speed_rad_s": 7.7,
+      "power_w": 50.7,
+      "rms_nm": 3.8
+     },
+     "knee": {
+      "torque_nm": 9.3,
+      "speed_rad_s": 10.5,
+      "power_w": 44.9,
+      "rms_nm": 4.8
+     },
+     "ankle": {
+      "torque_nm": 7.4,
+      "speed_rad_s": 10.5,
+      "power_w": 27.5,
+      "rms_nm": 3.6
+     },
+     "knee+ankle": {
+      "torque_nm": 13.4,
+      "speed_rad_s": 10.5,
+      "power_w": 70.8,
+      "rms_nm": 6.9
+     },
+     "hip_roll": {
+      "torque_nm": 16.4,
+      "speed_rad_s": 5.0,
+      "power_w": 82.1,
+      "rms_nm": 7.4
+     },
+     "ankle_roll": {
+      "torque_nm": 3.3,
+      "speed_rad_s": 5.0,
+      "power_w": 16.4,
+      "rms_nm": 1.5
+     },
+     "tail": {
+      "torque_nm": 19.0,
+      "speed_rad_s": 12.0,
+      "power_w": 211.3,
+      "rms_nm": 5.7
+     }
+    },
+    "configs": {
+     "12 axes independent (current T1/R-02 model)": {
+      "classes": {
+       "hip_roll": "A",
+       "hip": "A",
+       "knee": "A",
+       "ankle": "A",
+       "ankle_roll": "A",
+       "tail": "A"
+      },
+      "n_actuators": 12,
+      "actuator_mass_kg": 6.0,
+      "fraction_of_total": 1.0
+     },
+     "10 axes (AGENTS base: no ankle roll)": {
+      "classes": {
+       "hip_roll": "A",
+       "hip": "A",
+       "knee": "A",
+       "ankle": "A",
+       "tail": "A"
+      },
+      "n_actuators": 10,
+      "actuator_mass_kg": 5.0,
+      "fraction_of_total": 0.83
+     },
+     "10 axes = 12 with knee-ankle coupling": {
+      "classes": {
+       "hip_roll": "A",
+       "hip": "A",
+       "knee+ankle": "A",
+       "ankle_roll": "A",
+       "tail": "A"
+      },
+      "n_actuators": 10,
+      "actuator_mass_kg": 5.0,
+      "fraction_of_total": 0.83
+     },
+     "8 axes = 10 with knee-ankle coupling": {
+      "classes": {
+       "hip_roll": "A",
+       "hip": "A",
+       "knee+ankle": "A",
+       "tail": "A"
+      },
+      "n_actuators": 8,
+      "actuator_mass_kg": 4.0,
+      "fraction_of_total": 0.67
+     },
+     "7 axes = 8 with a single tail axis": {
+      "classes": {
+       "hip_roll": "A",
+       "hip": "A",
+       "knee+ankle": "A",
+       "tail": "A"
+      },
+      "n_actuators": 7,
+      "actuator_mass_kg": 3.5,
+      "fraction_of_total": 0.58
+     }
+    }
+   }
+  ]
+ },
+ {
+  "v": 6.0,
+  "duty": 0.34,
+  "stride_hz": 2.3,
+  "grf_bw": 2.89,
+  "budget": [
+   {
+    "mass_kg": 11.36,
+    "needs": {
+     "hip": {
+      "torque_nm": 29.2,
+      "speed_rad_s": 11.7,
+      "power_w": 210.0,
+      "rms_nm": 11.5
+     },
+     "knee": {
+      "torque_nm": 24.3,
+      "speed_rad_s": 14.7,
+      "power_w": 161.0,
+      "rms_nm": 12.9
+     },
+     "ankle": {
+      "torque_nm": 15.8,
+      "speed_rad_s": 14.7,
+      "power_w": 70.0,
+      "rms_nm": 8.0
+     },
+     "knee+ankle": {
+      "torque_nm": 37.9,
+      "speed_rad_s": 14.7,
+      "power_w": 227.0,
+      "rms_nm": 19.8
+     },
+     "hip_roll": {
+      "torque_nm": 32.2,
+      "speed_rad_s": 5.0,
+      "power_w": 161.0,
+      "rms_nm": 14.5
+     },
+     "ankle_roll": {
+      "torque_nm": 6.4,
+      "speed_rad_s": 5.0,
+      "power_w": 32.2,
+      "rms_nm": 2.9
+     },
+     "tail": {
+      "torque_nm": 36.0,
+      "speed_rad_s": 12.0,
+      "power_w": 400.0,
+      "rms_nm": 10.8
+     }
+    },
+    "configs": {
+     "12 axes independent (current T1/R-02 model)": {
+      "classes": {
+       "hip_roll": "B",
+       "hip": "B",
+       "knee": "B",
+       "ankle": "A",
+       "ankle_roll": "A",
+       "tail": "B"
+      },
+      "n_actuators": 12,
+      "actuator_mass_kg": 9.68,
+      "fraction_of_total": 0.85
+     },
+     "10 axes (AGENTS base: no ankle roll)": {
+      "classes": {
+       "hip_roll": "B",
+       "hip": "B",
+       "knee": "B",
+       "ankle": "A",
+       "tail": "B"
+      },
+      "n_actuators": 10,
+      "actuator_mass_kg": 8.68,
+      "fraction_of_total": 0.76
+     },
+     "10 axes = 12 with knee-ankle coupling": {
+      "classes": {
+       "hip_roll": "B",
+       "hip": "B",
+       "knee+ankle": "C",
+       "ankle_roll": "A",
+       "tail": "B"
+      },
+      "n_actuators": 10,
+      "actuator_mass_kg": 9.6,
+      "fraction_of_total": 0.85
+     },
+     "8 axes = 10 with knee-ankle coupling": {
+      "classes": {
+       "hip_roll": "B",
+       "hip": "B",
+       "knee+ankle": "C",
+       "tail": "B"
+      },
+      "n_actuators": 8,
+      "actuator_mass_kg": 8.6,
+      "fraction_of_total": 0.76
+     },
+     "7 axes = 8 with a single tail axis": {
+      "classes": {
+       "hip_roll": "B",
+       "hip": "B",
+       "knee+ankle": "C",
+       "tail": "B"
+      },
+      "n_actuators": 7,
+      "actuator_mass_kg": 7.64,
+      "fraction_of_total": 0.67
+     }
+    }
+   },
+   {
+    "mass_kg": 8.0,
+    "needs": {
+     "hip": {
+      "torque_nm": 20.6,
+      "speed_rad_s": 11.7,
+      "power_w": 147.9,
+      "rms_nm": 8.1
+     },
+     "knee": {
+      "torque_nm": 17.1,
+      "speed_rad_s": 14.7,
+      "power_w": 113.4,
+      "rms_nm": 9.1
+     },
+     "ankle": {
+      "torque_nm": 11.1,
+      "speed_rad_s": 14.7,
+      "power_w": 49.3,
+      "rms_nm": 5.6
+     },
+     "knee+ankle": {
+      "torque_nm": 26.7,
+      "speed_rad_s": 14.7,
+      "power_w": 159.9,
+      "rms_nm": 13.9
+     },
+     "hip_roll": {
+      "torque_nm": 22.7,
+      "speed_rad_s": 5.0,
+      "power_w": 113.4,
+      "rms_nm": 10.2
+     },
+     "ankle_roll": {
+      "torque_nm": 4.5,
+      "speed_rad_s": 5.0,
+      "power_w": 22.7,
+      "rms_nm": 2.0
+     },
+     "tail": {
+      "torque_nm": 25.4,
+      "speed_rad_s": 12.0,
+      "power_w": 281.7,
+      "rms_nm": 7.6
+     }
+    },
+    "configs": {
+     "12 axes independent (current T1/R-02 model)": {
+      "classes": {
+       "hip_roll": "B",
+       "hip": "A",
+       "knee": "B",
+       "ankle": "A",
+       "ankle_roll": "A",
+       "tail": "B"
+      },
+      "n_actuators": 12,
+      "actuator_mass_kg": 8.76,
+      "fraction_of_total": 1.09
+     },
+     "10 axes (AGENTS base: no ankle roll)": {
+      "classes": {
+       "hip_roll": "B",
+       "hip": "A",
+       "knee": "B",
+       "ankle": "A",
+       "tail": "B"
+      },
+      "n_actuators": 10,
+      "actuator_mass_kg": 7.76,
+      "fraction_of_total": 0.97
+     },
+     "10 axes = 12 with knee-ankle coupling": {
+      "classes": {
+       "hip_roll": "B",
+       "hip": "A",
+       "knee+ankle": "B",
+       "ankle_roll": "A",
+       "tail": "B"
+      },
+      "n_actuators": 10,
+      "actuator_mass_kg": 7.76,
+      "fraction_of_total": 0.97
+     },
+     "8 axes = 10 with knee-ankle coupling": {
+      "classes": {
+       "hip_roll": "B",
+       "hip": "A",
+       "knee+ankle": "B",
+       "tail": "B"
+      },
+      "n_actuators": 8,
+      "actuator_mass_kg": 6.76,
+      "fraction_of_total": 0.84
+     },
+     "7 axes = 8 with a single tail axis": {
+      "classes": {
+       "hip_roll": "B",
+       "hip": "A",
+       "knee+ankle": "B",
+       "tail": "B"
+      },
+      "n_actuators": 7,
+      "actuator_mass_kg": 5.8,
+      "fraction_of_total": 0.72
+     }
+    }
+   },
+   {
+    "mass_kg": 6.0,
+    "needs": {
+     "hip": {
+      "torque_nm": 15.4,
+      "speed_rad_s": 11.7,
+      "power_w": 110.9,
+      "rms_nm": 6.1
+     },
+     "knee": {
+      "torque_nm": 12.8,
+      "speed_rad_s": 14.7,
+      "power_w": 85.0,
+      "rms_nm": 6.8
+     },
+     "ankle": {
+      "torque_nm": 8.3,
+      "speed_rad_s": 14.7,
+      "power_w": 37.0,
+      "rms_nm": 4.2
+     },
+     "knee+ankle": {
+      "torque_nm": 20.0,
+      "speed_rad_s": 14.7,
+      "power_w": 119.9,
+      "rms_nm": 10.5
+     },
+     "hip_roll": {
+      "torque_nm": 17.0,
+      "speed_rad_s": 5.0,
+      "power_w": 85.0,
+      "rms_nm": 7.7
+     },
+     "ankle_roll": {
+      "torque_nm": 3.4,
+      "speed_rad_s": 5.0,
+      "power_w": 17.0,
+      "rms_nm": 1.5
+     },
+     "tail": {
+      "torque_nm": 19.0,
+      "speed_rad_s": 12.0,
+      "power_w": 211.3,
+      "rms_nm": 5.7
+     }
+    },
+    "configs": {
+     "12 axes independent (current T1/R-02 model)": {
+      "classes": {
+       "hip_roll": "A",
+       "hip": "A",
+       "knee": "A",
+       "ankle": "A",
+       "ankle_roll": "A",
+       "tail": "A"
+      },
+      "n_actuators": 12,
+      "actuator_mass_kg": 6.0,
+      "fraction_of_total": 1.0
+     },
+     "10 axes (AGENTS base: no ankle roll)": {
+      "classes": {
+       "hip_roll": "A",
+       "hip": "A",
+       "knee": "A",
+       "ankle": "A",
+       "tail": "A"
+      },
+      "n_actuators": 10,
+      "actuator_mass_kg": 5.0,
+      "fraction_of_total": 0.83
+     },
+     "10 axes = 12 with knee-ankle coupling": {
+      "classes": {
+       "hip_roll": "A",
+       "hip": "A",
+       "knee+ankle": "B",
+       "ankle_roll": "A",
+       "tail": "A"
+      },
+      "n_actuators": 10,
+      "actuator_mass_kg": 5.92,
+      "fraction_of_total": 0.99
+     },
+     "8 axes = 10 with knee-ankle coupling": {
+      "classes": {
+       "hip_roll": "A",
+       "hip": "A",
+       "knee+ankle": "B",
+       "tail": "A"
+      },
+      "n_actuators": 8,
+      "actuator_mass_kg": 4.92,
+      "fraction_of_total": 0.82
+     },
+     "7 axes = 8 with a single tail axis": {
+      "classes": {
+       "hip_roll": "A",
+       "hip": "A",
+       "knee+ankle": "B",
+       "tail": "A"
+      },
+      "n_actuators": 7,
+      "actuator_mass_kg": 4.42,
+      "fraction_of_total": 0.74
+     }
+    }
+   }
+  ]
+ },
+ {
+  "v": 8.0,
+  "duty": 0.29,
+  "stride_hz": 2.57,
+  "grf_bw": 2.85,
+  "budget": [
+   {
+    "mass_kg": 11.36,
+    "needs": {
+     "hip": {
+      "torque_nm": 52.3,
+      "speed_rad_s": 15.2,
+      "power_w": 340.0,
+      "rms_nm": 20.6
+     },
+     "knee": {
+      "torque_nm": 34.2,
+      "speed_rad_s": 17.5,
+      "power_w": 240.0,
+      "rms_nm": 18.9
+     },
+     "ankle": {
+      "torque_nm": 12.0,
+      "speed_rad_s": 17.5,
+      "power_w": 94.0,
+      "rms_nm": 4.2
+     },
+     "knee+ankle": {
+      "torque_nm": 34.2,
+      "speed_rad_s": 17.5,
+      "power_w": 329.0,
+      "rms_nm": 20.4
+     },
+     "hip_roll": {
+      "torque_nm": 31.8,
+      "speed_rad_s": 5.0,
+      "power_w": 159.0,
+      "rms_nm": 14.3
+     },
+     "ankle_roll": {
+      "torque_nm": 6.4,
+      "speed_rad_s": 5.0,
+      "power_w": 31.8,
+      "rms_nm": 2.9
+     },
+     "tail": {
+      "torque_nm": 36.0,
+      "speed_rad_s": 12.0,
+      "power_w": 400.0,
+      "rms_nm": 10.8
+     }
+    },
+    "configs": {
+     "12 axes independent (current T1/R-02 model)": {
+      "classes": {
+       "hip_roll": "B",
+       "hip": "C",
+       "knee": "B",
+       "ankle": "A",
+       "ankle_roll": "A",
+       "tail": "B"
+      },
+      "n_actuators": 12,
+      "actuator_mass_kg": 10.6,
+      "fraction_of_total": 0.93
+     },
+     "10 axes (AGENTS base: no ankle roll)": {
+      "classes": {
+       "hip_roll": "B",
+       "hip": "C",
+       "knee": "B",
+       "ankle": "A",
+       "tail": "B"
+      },
+      "n_actuators": 10,
+      "actuator_mass_kg": 9.6,
+      "fraction_of_total": 0.85
+     },
+     "10 axes = 12 with knee-ankle coupling": {
+      "classes": {
+       "hip_roll": "B",
+       "hip": "C",
+       "knee+ankle": "C",
+       "ankle_roll": "A",
+       "tail": "B"
+      },
+      "n_actuators": 10,
+      "actuator_mass_kg": 10.52,
+      "fraction_of_total": 0.93
+     },
+     "8 axes = 10 with knee-ankle coupling": {
+      "classes": {
+       "hip_roll": "B",
+       "hip": "C",
+       "knee+ankle": "C",
+       "tail": "B"
+      },
+      "n_actuators": 8,
+      "actuator_mass_kg": 9.52,
+      "fraction_of_total": 0.84
+     },
+     "7 axes = 8 with a single tail axis": {
+      "classes": {
+       "hip_roll": "B",
+       "hip": "C",
+       "knee+ankle": "C",
+       "tail": "B"
+      },
+      "n_actuators": 7,
+      "actuator_mass_kg": 8.56,
+      "fraction_of_total": 0.75
+     }
+    }
+   },
+   {
+    "mass_kg": 8.0,
+    "needs": {
+     "hip": {
+      "torque_nm": 36.8,
+      "speed_rad_s": 15.2,
+      "power_w": 239.4,
+      "rms_nm": 14.5
+     },
+     "knee": {
+      "torque_nm": 24.1,
+      "speed_rad_s": 17.5,
+      "power_w": 169.0,
+      "rms_nm": 13.3
+     },
+     "ankle": {
+      "torque_nm": 8.5,
+      "speed_rad_s": 17.5,
+      "power_w": 66.2,
+      "rms_nm": 3.0
+     },
+     "knee+ankle": {
+      "torque_nm": 24.1,
+      "speed_rad_s": 17.5,
+      "power_w": 231.7,
+      "rms_nm": 14.4
+     },
+     "hip_roll": {
+      "torque_nm": 22.4,
+      "speed_rad_s": 5.0,
+      "power_w": 112.0,
+      "rms_nm": 10.1
+     },
+     "ankle_roll": {
+      "torque_nm": 4.5,
+      "speed_rad_s": 5.0,
+      "power_w": 22.4,
+      "rms_nm": 2.0
+     },
+     "tail": {
+      "torque_nm": 25.4,
+      "speed_rad_s": 12.0,
+      "power_w": 281.7,
+      "rms_nm": 7.6
+     }
+    },
+    "configs": {
+     "12 axes independent (current T1/R-02 model)": {
+      "classes": {
+       "hip_roll": "B",
+       "hip": "B",
+       "knee": "B",
+       "ankle": "A",
+       "ankle_roll": "A",
+       "tail": "B"
+      },
+      "n_actuators": 12,
+      "actuator_mass_kg": 9.68,
+      "fraction_of_total": 1.21
+     },
+     "10 axes (AGENTS base: no ankle roll)": {
+      "classes": {
+       "hip_roll": "B",
+       "hip": "B",
+       "knee": "B",
+       "ankle": "A",
+       "tail": "B"
+      },
+      "n_actuators": 10,
+      "actuator_mass_kg": 8.68,
+      "fraction_of_total": 1.08
+     },
+     "10 axes = 12 with knee-ankle coupling": {
+      "classes": {
+       "hip_roll": "B",
+       "hip": "B",
+       "knee+ankle": "B",
+       "ankle_roll": "A",
+       "tail": "B"
+      },
+      "n_actuators": 10,
+      "actuator_mass_kg": 8.68,
+      "fraction_of_total": 1.08
+     },
+     "8 axes = 10 with knee-ankle coupling": {
+      "classes": {
+       "hip_roll": "B",
+       "hip": "B",
+       "knee+ankle": "B",
+       "tail": "B"
+      },
+      "n_actuators": 8,
+      "actuator_mass_kg": 7.68,
+      "fraction_of_total": 0.96
+     },
+     "7 axes = 8 with a single tail axis": {
+      "classes": {
+       "hip_roll": "B",
+       "hip": "B",
+       "knee+ankle": "B",
+       "tail": "B"
+      },
+      "n_actuators": 7,
+      "actuator_mass_kg": 6.72,
+      "fraction_of_total": 0.84
+     }
+    }
+   },
+   {
+    "mass_kg": 6.0,
+    "needs": {
+     "hip": {
+      "torque_nm": 27.6,
+      "speed_rad_s": 15.2,
+      "power_w": 179.6,
+      "rms_nm": 10.9
+     },
+     "knee": {
+      "torque_nm": 18.1,
+      "speed_rad_s": 17.5,
+      "power_w": 126.8,
+      "rms_nm": 10.0
+     },
+     "ankle": {
+      "torque_nm": 6.3,
+      "speed_rad_s": 17.5,
+      "power_w": 49.6,
+      "rms_nm": 2.2
+     },
+     "knee+ankle": {
+      "torque_nm": 18.1,
+      "speed_rad_s": 17.5,
+      "power_w": 173.8,
+      "rms_nm": 10.8
+     },
+     "hip_roll": {
+      "torque_nm": 16.8,
+      "speed_rad_s": 5.0,
+      "power_w": 84.0,
+      "rms_nm": 7.6
+     },
+     "ankle_roll": {
+      "torque_nm": 3.4,
+      "speed_rad_s": 5.0,
+      "power_w": 16.8,
+      "rms_nm": 1.5
+     },
+     "tail": {
+      "torque_nm": 19.0,
+      "speed_rad_s": 12.0,
+      "power_w": 211.3,
+      "rms_nm": 5.7
+     }
+    },
+    "configs": {
+     "12 axes independent (current T1/R-02 model)": {
+      "classes": {
+       "hip_roll": "A",
+       "hip": "B",
+       "knee": "B",
+       "ankle": "A",
+       "ankle_roll": "A",
+       "tail": "A"
+      },
+      "n_actuators": 12,
+      "actuator_mass_kg": 7.84,
+      "fraction_of_total": 1.31
+     },
+     "10 axes (AGENTS base: no ankle roll)": {
+      "classes": {
+       "hip_roll": "A",
+       "hip": "B",
+       "knee": "B",
+       "ankle": "A",
+       "tail": "A"
+      },
+      "n_actuators": 10,
+      "actuator_mass_kg": 6.84,
+      "fraction_of_total": 1.14
+     },
+     "10 axes = 12 with knee-ankle coupling": {
+      "classes": {
+       "hip_roll": "A",
+       "hip": "B",
+       "knee+ankle": "B",
+       "ankle_roll": "A",
+       "tail": "A"
+      },
+      "n_actuators": 10,
+      "actuator_mass_kg": 6.84,
+      "fraction_of_total": 1.14
+     },
+     "8 axes = 10 with knee-ankle coupling": {
+      "classes": {
+       "hip_roll": "A",
+       "hip": "B",
+       "knee+ankle": "B",
+       "tail": "A"
+      },
+      "n_actuators": 8,
+      "actuator_mass_kg": 5.84,
+      "fraction_of_total": 0.97
+     },
+     "7 axes = 8 with a single tail axis": {
+      "classes": {
+       "hip_roll": "A",
+       "hip": "B",
+       "knee+ankle": "B",
+       "tail": "A"
+      },
+      "n_actuators": 7,
+      "actuator_mass_kg": 5.34,
+      "fraction_of_total": 0.89
+     }
+    }
+   }
+  ]
+ },
+ {
+  "v": 11.1,
+  "duty": 0.25,
+  "stride_hz": 3.12,
+  "grf_bw": 3.23,
+  "budget": [
+   {
+    "mass_kg": 11.36,
+    "needs": {
+     "hip": {
+      "torque_nm": 60.2,
+      "speed_rad_s": 20.6,
+      "power_w": 614.0,
+      "rms_nm": 27.5
+     },
+     "knee": {
+      "torque_nm": 49.2,
+      "speed_rad_s": 21.1,
+      "power_w": 394.0,
+      "rms_nm": 29.0
+     },
+     "ankle": {
+      "torque_nm": 13.2,
+      "speed_rad_s": 21.1,
+      "power_w": 154.0,
+      "rms_nm": 4.5
+     },
+     "knee+ankle": {
+      "torque_nm": 49.2,
+      "speed_rad_s": 21.1,
+      "power_w": 538.0,
+      "rms_nm": 30.4
+     },
+     "hip_roll": {
+      "torque_nm": 36.0,
+      "speed_rad_s": 5.0,
+      "power_w": 180.0,
+      "rms_nm": 16.2
+     },
+     "ankle_roll": {
+      "torque_nm": 7.2,
+      "speed_rad_s": 5.0,
+      "power_w": 36.0,
+      "rms_nm": 3.2
+     },
+     "tail": {
+      "torque_nm": 36.0,
+      "speed_rad_s": 12.0,
+      "power_w": 400.0,
+      "rms_nm": 10.8
+     }
+    },
+    "configs": {
+     "12 axes independent (current T1/R-02 model)": {
+      "classes": {
+       "hip_roll": "B",
+       "hip": "C",
+       "knee": null,
+       "ankle": "A",
+       "ankle_roll": "A",
+       "tail": "B"
+      },
+      "n_actuators": 12,
+      "actuator_mass_kg": null,
+      "fraction_of_total": null
+     },
+     "10 axes (AGENTS base: no ankle roll)": {
+      "classes": {
+       "hip_roll": "B",
+       "hip": "C",
+       "knee": null,
+       "ankle": "A",
+       "tail": "B"
+      },
+      "n_actuators": 10,
+      "actuator_mass_kg": null,
+      "fraction_of_total": null
+     },
+     "10 axes = 12 with knee-ankle coupling": {
+      "classes": {
+       "hip_roll": "B",
+       "hip": "C",
+       "knee+ankle": null,
+       "ankle_roll": "A",
+       "tail": "B"
+      },
+      "n_actuators": 10,
+      "actuator_mass_kg": null,
+      "fraction_of_total": null
+     },
+     "8 axes = 10 with knee-ankle coupling": {
+      "classes": {
+       "hip_roll": "B",
+       "hip": "C",
+       "knee+ankle": null,
+       "tail": "B"
+      },
+      "n_actuators": 8,
+      "actuator_mass_kg": null,
+      "fraction_of_total": null
+     },
+     "7 axes = 8 with a single tail axis": {
+      "classes": {
+       "hip_roll": "B",
+       "hip": "C",
+       "knee+ankle": null,
+       "tail": "B"
+      },
+      "n_actuators": 7,
+      "actuator_mass_kg": null,
+      "fraction_of_total": null
+     }
+    }
+   },
+   {
+    "mass_kg": 8.0,
+    "needs": {
+     "hip": {
+      "torque_nm": 42.4,
+      "speed_rad_s": 20.6,
+      "power_w": 432.4,
+      "rms_nm": 19.4
+     },
+     "knee": {
+      "torque_nm": 34.6,
+      "speed_rad_s": 21.1,
+      "power_w": 277.5,
+      "rms_nm": 20.4
+     },
+     "ankle": {
+      "torque_nm": 9.3,
+      "speed_rad_s": 21.1,
+      "power_w": 108.5,
+      "rms_nm": 3.2
+     },
+     "knee+ankle": {
+      "torque_nm": 34.6,
+      "speed_rad_s": 21.1,
+      "power_w": 378.9,
+      "rms_nm": 21.4
+     },
+     "hip_roll": {
+      "torque_nm": 25.4,
+      "speed_rad_s": 5.0,
+      "power_w": 126.8,
+      "rms_nm": 11.4
+     },
+     "ankle_roll": {
+      "torque_nm": 5.1,
+      "speed_rad_s": 5.0,
+      "power_w": 25.4,
+      "rms_nm": 2.3
+     },
+     "tail": {
+      "torque_nm": 25.4,
+      "speed_rad_s": 12.0,
+      "power_w": 281.7,
+      "rms_nm": 7.6
+     }
+    },
+    "configs": {
+     "12 axes independent (current T1/R-02 model)": {
+      "classes": {
+       "hip_roll": "B",
+       "hip": "C",
+       "knee": null,
+       "ankle": "A",
+       "ankle_roll": "A",
+       "tail": "B"
+      },
+      "n_actuators": 12,
+      "actuator_mass_kg": null,
+      "fraction_of_total": null
+     },
+     "10 axes (AGENTS base: no ankle roll)": {
+      "classes": {
+       "hip_roll": "B",
+       "hip": "C",
+       "knee": null,
+       "ankle": "A",
+       "tail": "B"
+      },
+      "n_actuators": 10,
+      "actuator_mass_kg": null,
+      "fraction_of_total": null
+     },
+     "10 axes = 12 with knee-ankle coupling": {
+      "classes": {
+       "hip_roll": "B",
+       "hip": "C",
+       "knee+ankle": null,
+       "ankle_roll": "A",
+       "tail": "B"
+      },
+      "n_actuators": 10,
+      "actuator_mass_kg": null,
+      "fraction_of_total": null
+     },
+     "8 axes = 10 with knee-ankle coupling": {
+      "classes": {
+       "hip_roll": "B",
+       "hip": "C",
+       "knee+ankle": null,
+       "tail": "B"
+      },
+      "n_actuators": 8,
+      "actuator_mass_kg": null,
+      "fraction_of_total": null
+     },
+     "7 axes = 8 with a single tail axis": {
+      "classes": {
+       "hip_roll": "B",
+       "hip": "C",
+       "knee+ankle": null,
+       "tail": "B"
+      },
+      "n_actuators": 7,
+      "actuator_mass_kg": null,
+      "fraction_of_total": null
+     }
+    }
+   },
+   {
+    "mass_kg": 6.0,
+    "needs": {
+     "hip": {
+      "torque_nm": 31.8,
+      "speed_rad_s": 20.6,
+      "power_w": 324.3,
+      "rms_nm": 14.5
+     },
+     "knee": {
+      "torque_nm": 26.0,
+      "speed_rad_s": 21.1,
+      "power_w": 208.1,
+      "rms_nm": 15.3
+     },
+     "ankle": {
+      "torque_nm": 7.0,
+      "speed_rad_s": 21.1,
+      "power_w": 81.3,
+      "rms_nm": 2.4
+     },
+     "knee+ankle": {
+      "torque_nm": 26.0,
+      "speed_rad_s": 21.1,
+      "power_w": 284.2,
+      "rms_nm": 16.1
+     },
+     "hip_roll": {
+      "torque_nm": 19.0,
+      "speed_rad_s": 5.0,
+      "power_w": 95.1,
+      "rms_nm": 8.6
+     },
+     "ankle_roll": {
+      "torque_nm": 3.8,
+      "speed_rad_s": 5.0,
+      "power_w": 19.0,
+      "rms_nm": 1.7
+     },
+     "tail": {
+      "torque_nm": 19.0,
+      "speed_rad_s": 12.0,
+      "power_w": 211.3,
+      "rms_nm": 5.7
+     }
+    },
+    "configs": {
+     "12 axes independent (current T1/R-02 model)": {
+      "classes": {
+       "hip_roll": "A",
+       "hip": "B",
+       "knee": "B",
+       "ankle": "A",
+       "ankle_roll": "A",
+       "tail": "A"
+      },
+      "n_actuators": 12,
+      "actuator_mass_kg": 7.84,
+      "fraction_of_total": 1.31
+     },
+     "10 axes (AGENTS base: no ankle roll)": {
+      "classes": {
+       "hip_roll": "A",
+       "hip": "B",
+       "knee": "B",
+       "ankle": "A",
+       "tail": "A"
+      },
+      "n_actuators": 10,
+      "actuator_mass_kg": 6.84,
+      "fraction_of_total": 1.14
+     },
+     "10 axes = 12 with knee-ankle coupling": {
+      "classes": {
+       "hip_roll": "A",
+       "hip": "B",
+       "knee+ankle": "B",
+       "ankle_roll": "A",
+       "tail": "A"
+      },
+      "n_actuators": 10,
+      "actuator_mass_kg": 6.84,
+      "fraction_of_total": 1.14
+     },
+     "8 axes = 10 with knee-ankle coupling": {
+      "classes": {
+       "hip_roll": "A",
+       "hip": "B",
+       "knee+ankle": "B",
+       "tail": "A"
+      },
+      "n_actuators": 8,
+      "actuator_mass_kg": 5.84,
+      "fraction_of_total": 0.97
+     },
+     "7 axes = 8 with a single tail axis": {
+      "classes": {
+       "hip_roll": "A",
+       "hip": "B",
+       "knee+ankle": "B",
+       "tail": "A"
+      },
+      "n_actuators": 7,
+      "actuator_mass_kg": 5.34,
+      "fraction_of_total": 0.89
+     }
+    }
+   }
+  ]
+ }
+]

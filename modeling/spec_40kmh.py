@@ -381,6 +381,64 @@ def actuator_match(reqs):
     return out
 
 
+# ------------------------------------------------------------------ full actuator budget (all axes)
+HIP_Y, FOOT_COP_Y = .10, .02   # m: hip joint lateral offset (R-02 left/right hip roll links at +-0.1 m), assumed lateral
+                               # COP offset under the foot; roll loads are quasi-static estimates (no lateral dynamics solved)
+RATED_FRACTION = .4            # assumed continuous (rated) torque = 40 % of peak for the QDD classes (catalogue ratios ~0.35-0.45)
+
+
+def rms(x):
+    return float(np.sqrt(np.mean(np.square(x))))
+
+
+def full_budget(p, g, S, Lo, cases, masses=(11.36, 8., 5.)):
+    """Actuator mass for whole-robot configurations (every active axis), per total mass, springs (c).
+    Pitch joints from the stride loads (peak torque/speed/power and RMS torque for heat); hip roll = peak GRF x HIP_Y,
+    ankle roll = peak GRF x FOOT_COP_Y (both at an assumed 5 rad/s); tail axes = spec §8 36 N·m / 12 rad/s / 400 W at
+    11.36 kg, scaled with mass. Coupled knee = one motor driving knee + ankle through a 1:1 tendon (horse reciprocal
+    apparatus), torque tau_knee - tau_ankle at the same instant, springs (c) on both."""
+    T = Lo['J']['T']
+    def spr(j, q):
+        sp = cases['c_ankle_knee_hip'][j]['spring']; k, q0, mode = sp['k_nm_per_rad'], sp['q0_rad'], sp['mode']
+        d = q - q0
+        d = np.maximum(d, 0) if mode == 'uni+' else np.minimum(d, 0) if mode == 'uni-' else d
+        return k*d
+    tau = {j: Lo['tau'][j] + spr(j, Lo['ang'][j]) for j in ('hip', 'knee', 'ankle')}
+    vel = {j: Lo['vel'][j] for j in ('hip', 'knee', 'ankle')}
+    tau['knee+ankle'], vel['knee+ankle'] = tau['knee'] - tau['ankle'], vel['knee']
+    base = {j: dict(stats(tau[j], vel[j], T), rms_torque_nm=round(rms(tau[j]), 1)) for j in tau}
+    configs = {  # per side axes, plus tail axes
+        '12 axes independent (current T1/R-02 model)': (['hip_roll', 'hip', 'knee', 'ankle', 'ankle_roll'], 2),
+        '10 axes (AGENTS base: no ankle roll)': (['hip_roll', 'hip', 'knee', 'ankle'], 2),
+        '10 axes = 12 with knee-ankle coupling': (['hip_roll', 'hip', 'knee+ankle', 'ankle_roll'], 2),
+        '8 axes = 10 with knee-ankle coupling': (['hip_roll', 'hip', 'knee+ankle'], 2),
+        '7 axes = 8 with a single tail axis': (['hip_roll', 'hip', 'knee+ankle'], 1),
+    }
+    out = []
+    for M in masses:
+        sc = M/S['mass_kg']
+        need = {j: dict(torque_nm=b['peak_torque_nm']*sc, speed_rad_s=b['peak_speed_rad_s'], power_w=b['peak_power_w']*sc,
+                        rms_nm=b['rms_torque_nm']*sc) for j, b in base.items()}
+        F = S['peak_grf_n']*sc
+        need['hip_roll'] = dict(torque_nm=F*HIP_Y, speed_rad_s=5., power_w=F*HIP_Y*5., rms_nm=F*HIP_Y*.45)
+        need['ankle_roll'] = dict(torque_nm=F*FOOT_COP_Y, speed_rad_s=5., power_w=F*FOOT_COP_Y*5., rms_nm=F*FOOT_COP_Y*.45)
+        need['tail'] = dict(torque_nm=36.*M/11.36, speed_rad_s=12., power_w=400.*M/11.36, rms_nm=36.*M/11.36*.3)
+        pick = {}
+        for j, r in need.items():
+            fits = [c for c in CLASSES if r['torque_nm'] <= c[1] and r['speed_rad_s'] <= c[2] and r['power_w'] <= c[3]
+                    and r['rms_nm'] <= RATED_FRACTION*c[1]]
+            pick[j] = (fits[0][0][0], fits[0][4]) if fits else (None, None)
+        rows = {}
+        for name, (axes, n_tail) in configs.items():
+            parts = [(a, pick[a]) for a in axes]*2 + [('tail', pick['tail'])]*n_tail
+            ok = all(c is not None for _, (c, _) in parts)
+            mass = round(sum(m for _, (_, m) in parts), 2) if ok else None
+            rows[name] = dict(classes={a: pick[a][0] for a in axes} | {'tail': pick['tail'][0]}, n_actuators=len(parts),
+                              actuator_mass_kg=mass, fraction_of_total=round(mass/M, 2) if ok else None)
+        out.append(dict(mass_kg=M, needs={j: {k: round(v, 1) for k, v in r.items()} for j, r in need.items()}, configs=rows))
+    return out
+
+
 # ------------------------------------------------------------------ design-point scan
 def solve(p, g):
     """SLIP + joint loads; the take-off leg length is lowered until the swing (radial overshoot of the
