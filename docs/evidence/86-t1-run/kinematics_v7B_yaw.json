@@ -1,0 +1,45 @@
+{
+ "ostrich": {
+  "ankle_stance_deg": 168,
+  "ankle_swing_min_deg": 45,
+  "ankle_lock_transition_deg": 115,
+  "hip_range_3p3mps_deg": 12.7,
+  "note": "Schaller 2009 [16]: 60 km/h video, swing flexion to 45 deg, stance 168 deg, rapid flexion at toe-off, full extension before touchdown; Rubenson 2007/2011 [4,5]: ankle nearly static in stance, hip flexion range 12.7 deg at 3.3 m/s, femur near horizontal; Daley & Biewener 2006 [20], Blum 2014 [11]: swing-leg retraction at a constant rate before touchdown"
+ },
+ "6.0": {
+  "left": {
+   "stance": {
+    "femur_deg": 9.4,
+    "knee_deg": 117.4,
+    "ankle_deg": 124.4,
+    "ankle_excursion_deg": 18.2
+   },
+   "swing": {
+    "femur_deg": 13.3,
+    "knee_deg": 94.6,
+    "ankle_min_deg": 78.8,
+    "late_swing_hip_rate_rad_s": 3.27,
+    "retracting_fraction": 1.0
+   },
+   "hip_range_deg": 79.4,
+   "n_strides": 15
+  },
+  "right": {
+   "stance": {
+    "femur_deg": 7.3,
+    "knee_deg": 122.5,
+    "ankle_deg": 118.3,
+    "ankle_excursion_deg": 11.5
+   },
+   "swing": {
+    "femur_deg": 10.7,
+    "knee_deg": 86.4,
+    "ankle_min_deg": 76.5,
+    "late_swing_hip_rate_rad_s": 1.89,
+    "retracting_fraction": 1.0
+   },
+   "hip_range_deg": 64.0,
+   "n_strides": 14
+  }
+ }
+}

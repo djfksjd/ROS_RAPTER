@@ -101,7 +101,8 @@ class RunEnv(RaptorEnv):
 
     def __init__(self, mass=5., springs='c', actuator=None, tail='active', level=0., cmd_max=(3., .2, .5),
                  episode_s=10., randomize=True, seed=None, render_mode=None, model_path=None, weights=None,
-                 zero_cmd=.1, top_cmd=.3, disturb_items=None, grf_cap=4., init_speed=True, obs_vel=True, ankle_clutch=False):
+                 zero_cmd=.1, top_cmd=.3, disturb_items=None, grf_cap=4., init_speed=True, obs_vel=True, ankle_clutch=False,
+                 kin=None, yaw_impulse=None):
         self.mass, self.spring_set, self.tail = float(mass), springs, tail
         self.spec_t1 = {**ACTUATOR_T1, **(actuator or {})}
         self.level, self.cmd_max = float(level), np.array(cmd_max, float)
@@ -114,6 +115,11 @@ class RunEnv(RaptorEnv):
         # resists swing flexion: holding a 65 deg intertarsal angle needs 45 N·m against a 22 N·m ankle motor (measured
         # 2026-09-30, v6a policy saturated 46 % at 87 deg). Energy stored at release is lost (a real clutch dissipates it).
         self.ankle_clutch = ankle_clutch
+        # kin: overrides of the KIN windows/targets (v7 moved the fold right after toe-off, evidence 86 §10)
+        self.kin = {**KIN, **{k: tuple(v) if isinstance(v, list) else v for k, v in (kin or {}).items()}}
+        # yaw_impulse: (rate per s, lo, hi) N·m·s at 5 kg, applied during training independently of the curriculum level.
+        # The level-scaled yaw impulses stayed below 0.12 N·m·s (level stuck near 0.3) while evaluation uses 1.0-1.5.
+        self.yaw_impulse = yaw_impulse
         self.episode_steps, self.randomize, self.render_mode = int(episode_s/CONTROL_DT), randomize, render_mode
         self.model_path = str(model_path or R02_MODEL)
         self.kinds, self.kind, self.dr_items, self.slew, self.jtc_horizon = ['flat'], 'flat', set(), None, 0.
@@ -312,7 +318,7 @@ class RunEnv(RaptorEnv):
                 w = self._window(ph/d, .15, .85)
                 if w > 0:
                     if loaded[side] and self.ankle_td.get(side) is not None:
-                        e = max(0., abs(a-self.ankle_td[side])-KIN['static_tol'])/KIN['static_scale']
+                        e = max(0., abs(a-self.ankle_td[side])-self.kin['static_tol'])/self.kin['static_scale']
                         out['ankle_static'] += w*min(1., e*e)
                     else:
                         out['ankle_static'] += w
@@ -320,9 +326,9 @@ class RunEnv(RaptorEnv):
                 s_ = (ph-d)/(1.-d)
                 sc = self.leg_scores[side]
                 if not loaded[side]:
-                    t, sig, lo, hi = KIN['fold']; sc['fold'] = self._window(s_, lo, hi)*np.exp(-(a-t)**2/(2*sig*sig))
-                    t, sig, lo, hi = KIN['extend']; sc['extend'] = self._window(s_, lo, hi)*np.exp(-(a-t)**2/(2*sig*sig))
-                t, sig, lo, hi = KIN['retract']
+                    t, sig, lo, hi = self.kin['fold']; sc['fold'] = self._window(s_, lo, hi)*np.exp(-(a-t)**2/(2*sig*sig))
+                    t, sig, lo, hi = self.kin['extend']; sc['extend'] = self._window(s_, lo, hi)*np.exp(-(a-t)**2/(2*sig*sig))
+                t, sig, lo, hi = self.kin['retract']
                 om = qd[self.ix[f'{side}_hip_pitch_joint']]+w_pitch  # world thigh rate, + = backward
                 sc['retract'] = self._window(s_, lo, hi)*np.exp(-(om-t)**2/(2*sig*sig))
                 for k_, v_ in sc.items():
@@ -374,6 +380,8 @@ class RunEnv(RaptorEnv):
 
     def _disturb(self, feet_loaded):
         d, L, s = self.data, self.level, self.mass/5.
+        if self.yaw_impulse and self.rng.random() < self.yaw_impulse[0]*CONTROL_DT:
+            self.apply_impulse('z', s*self.rng.uniform(*self.yaw_impulse[1:])*self.rng.choice([-1, 1]))
         if L <= 0:
             return
         if 'pitch' in self.disturb_items and self.rng.random() < .3*CONTROL_DT:

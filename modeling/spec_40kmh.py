@@ -227,6 +227,35 @@ def spring_search(q, qd, tau, T):
     return best
 
 
+def clutched_ankle(p, g: Gait, S, Lo=None, swing_fold_rad=None):
+    """Ankle spring engaged only in stance (clutch, BirdBot / ostrich engage-disengage ligament; evidence 86 §9).
+    Same (k, q0) search as case (b) but the spring torque is zero in swing. Also reports the torque needed to hold a
+    swing fold of `swing_fold_rad` (intertarsal included angle) against an always-engaged spring vs the clutched one."""
+    Lo = Lo or joint_loads(p, g, S)
+    T, n_st = Lo['J']['T'], Lo['J']['n_st']
+    tau, q, qd = Lo['tau']['ankle'], Lo['ang']['ankle'], Lo['vel']['ankle']
+    stance = np.arange(len(q)) < n_st
+    best = (float(np.abs(tau*qd).max()), 0., 0.)
+    tau_pk = np.abs(tau).max()
+    for k in np.linspace(5, 400, 80):
+        for q0 in np.linspace(q.min() - .3, q.max() + .3, 61):
+            tm = tau + k*np.minimum(q - q0, 0)*stance
+            if np.abs(tm).max() > tau_pk + 1e-9:
+                continue
+            ppk = float(np.abs(tm*qd).max())
+            if ppk < best[0]:
+                best = (ppk, float(k), float(q0))
+    _, k, q0 = best
+    tm = tau + k*np.minimum(q - q0, 0)*stance
+    out = dict(**stats(tm, qd, T), spring=dict(k_nm_per_rad=round(k, 1), q0_rad=round(q0, 3), mode='uni- clutched (stance only)'))
+    tb = tau + k*np.minimum(q - q0, 0)
+    out['same_spring_unclutched'] = stats(tb, qd, T)
+    if swing_fold_rad is not None:  # static holding torque in swing at a fold angle (relative ankle coordinate: -knee convention)
+        a = -(np.pi - swing_fold_rad)  # joint angle for that included angle, spec convention ang['ankle'] = -knee
+        out['swing_fold_hold_torque_nm'] = dict(included_deg=round(float(np.degrees(swing_fold_rad))), unclutched=round(float(abs(k*min(a - q0, 0))), 1), clutched=0.)
+    return out
+
+
 def stats(tau, qd, T):
     P = tau*qd
     return dict(peak_torque_nm=round(float(np.abs(tau).max()), 1), peak_speed_rad_s=round(float(np.abs(qd).max()), 1),
@@ -399,8 +428,9 @@ def compute(p=None, g=None):
     light = {j: stats(Lol['tau'][j], Lol['vel'][j], Lol['J']['T']) for j in ('hip', 'knee', 'ankle')}
     light['mass_kg'] = Sl['mass_kg']
     light['I_leg_about_hip'] = Lol['I_leg']
+    clutch = clutched_ankle(p, g, S, swing_fold_rad=np.radians(65.))
     S = {k: v for k, v in S.items() if not k.startswith('_')}
-    return dict(gait=vars(g), scan=scan(p), slip=S, distal_light_leg=light, joints_11p36kg=cases, mass_scenarios=rows, actuators=act, tail=tl, structure=st,
+    return dict(clutched_ankle_11p36kg=clutch, gait=vars(g), scan=scan(p), slip=S, distal_light_leg=light, joints_11p36kg=cases, mass_scenarios=rows, actuators=act, tail=tl, structure=st,
                 inertia=dict(I_leg_about_hip=Lo['I_leg'], I_shank_about_knee=Lo['I_shank']))
 
 
