@@ -2,18 +2,18 @@
 
 # RAPTOR
 
-### 자연어 명령을 이해하는 10축 지상 탐사 로봇
+### 자연어 명령을 이해하는 랩터형 지상 탐사 로봇 · 달리기 40 km/h를 향한 설계 변천
 
 **Human command → Qwen / NanoJev → ROS 2 → Raptor**
 
-![ROS 2 Jazzy](https://img.shields.io/badge/ROS_2-Jazzy-22314E?style=flat-square) ![Gazebo Harmonic](https://img.shields.io/badge/Gazebo-Harmonic-E87935?style=flat-square) ![10 Active DOF](https://img.shields.io/badge/Active_DOF-10-397D68?style=flat-square) ![Simulation research](https://img.shields.io/badge/Stage-Simulation_Research-64748B?style=flat-square)
+![ROS 2 Jazzy](https://img.shields.io/badge/ROS_2-Jazzy-22314E?style=flat-square) ![Gazebo Harmonic](https://img.shields.io/badge/Gazebo-Harmonic-E87935?style=flat-square) ![Active DOF](https://img.shields.io/badge/Active_DOF-10_→_12-397D68?style=flat-square) ![R-02](https://img.shields.io/badge/Design-R--02_11.4kg-8B5E3C?style=flat-square) ![Simulation research](https://img.shields.io/badge/Stage-Simulation_Research-64748B?style=flat-square)
 
 <img src="docs/assets/raptor-target-concept.png" width="100%" alt="목표 콘셉트: 흰색 장갑과 노출된 기계 구조, 굽힌 두 다리, 발가락과 긴 분절 꼬리를 가진 탐사 랩터" />
 
 **목표 외형 · AI 생성 콘셉트**<br>
 실제 제작품이나 Gazebo 실행 화면이 아닙니다. 이미지의 관절·부품 표현은 확정 설계가 아닙니다.
 
-[현재 구현](#현재-구현) · [T1 달리기](#t1-달리기--가상-구동기-mujoco) · [시스템 구조](#시스템-구조) · [로컬 실행](#로컬-실행) · [개발 순서](#개발-순서) · [오픈소스 조사](#보행-오픈소스-조사) · [문서와 증거](#문서와-증거)
+[설계 변천](#설계-변천-한눈에) · [1세대 10축](#1세대--10축-legacy-2026-09-27) · [2세대 12축·강화학습](#2세대--12축-발목-roll--강화학습-보행-2026-09-29) · [3세대 R-02](#3세대--r-02-전면-재설계-2026-09-29) · [현재 T1 달리기](#현재--40-kmh-사양과-t1-달리기-2026-09-30) · [AI 명령 이해](#명령-이해--ai와-안전-게이트) · [로컬 실행](#로컬-실행) · [개발 순서](#개발-순서) · [문서와 증거](#문서와-증거)
 
 </div>
 
@@ -26,14 +26,27 @@
 핵심은 **빠르고 정확한 명령 이해와 사람의 통제**입니다. AI가 작전을 자율 결정하거나 모터 명령을 직접 만들지 않습니다. `STOP`은 모델 추론을 거치지 않고 우선 처리합니다.
 
 > **최근 체크포인트 · 2026-09-30**<br>
-> 40 km/h 요구 사양서([docs/design/40kmh-spec.md](docs/design/40kmh-spec.md))를 SLIP·관절·스프링·구동기·꼬리 계산기로 작성했고, **T1 가상 구동기 달리기 환경**(5 kg R-02 + 스프링 (c), 토크·속도·전력 클램프, 꼬리 행동)에서 강화학습으로 **평지 6.6 m/s(24 km/h) 무전도**, 꼬리 활성이 요·피치 임펄스를 더 견딤, 2.5 rad/s 방향전환 무전도(단 속도·회전을 동시에 하는 정책은 아직 없음)까지 측정했습니다. 40 km/h는 미달성이며 모두 가상 구동기 결과입니다. [T1 달리기 보기](#t1-달리기--가상-구동기-mujoco)<br>
-> 이전 · 목표(40km/h 달리기·꼬리 균형)에 맞춰 **수학적 전면 재설계 R-02**(11.4kg, 타조 비율 다리, 두 발가락, 앞 센서 포드)를 만들었습니다. 설계 → Xacro → URDF → MuJoCo·Gazebo가 한 원천이고, 목표 형태의 외형 메시와 MuJoCo 평지 보행까지 완료했습니다. [R-02 보기](#재설계-r-02--가볍고-낮은-타조형-랩터)<br>
-> 이전 기록 ·<br>
-> 제자리 교대 지지(2.5Hz 좌우 흔들기 + 작은 보폭)가 Gazebo 60초에서 **5/5 · 거울 보행 3/3 · 꼬리 켬 4/4** 생존했습니다.<br>
-> 완료 기준 중 **디딘 발 옆힘 비(Gazebo)와 착지 발바닥 각도(MuJoCo)는 미달**이며, 발목 roll 없는 구조의 절충으로 결정 대기 중입니다.<br>
-> MuJoCo 12축 강화학습 평지 보행은 됩니다. **Gazebo 보행, 지형 대응, 탐색 mission은 아직 미완료**입니다. 목표(40km/h·꼬리 균형)에 맞춰 R-02로 전면 재설계 중입니다([개발 순서](#개발-순서)). [보행 진행](#보행-진행--흔들목마-모델) · [작업 상태](docs/WORK_STATE.ko.md)
+> 40 km/h 요구 사양서([docs/design/40kmh-spec.md](docs/design/40kmh-spec.md))를 SLIP·관절·스프링·구동기·꼬리 계산기로 작성했고, **T1 가상 구동기 달리기 환경**(5 kg R-02 + 스프링 (c), 토크·속도·전력 클램프, 꼬리 행동)에서 강화학습으로 **평지 6.6 m/s(24 km/h) 무전도**, 꼬리 활성이 요·피치 임펄스를 더 견딤, 2.5 rad/s 방향전환 무전도(단 속도·회전을 동시에 하는 정책은 아직 없음)까지 측정했습니다. 40 km/h는 미달성이며 모두 가상 구동기 결과입니다. [현재 단계 보기](#현재--40-kmh-사양과-t1-달리기-2026-09-30)<br>
+> 이전 · 목표(40km/h 달리기·꼬리 균형)에 맞춰 **수학적 전면 재설계 R-02**(11.4kg, 타조 비율 다리, 두 발가락, 앞 센서 포드)를 만들었습니다. 설계 → Xacro → URDF → MuJoCo·Gazebo가 한 원천이고, 목표 형태의 외형 메시와 MuJoCo 평지 보행까지 완료했습니다. [3세대 R-02 보기](#3세대--r-02-전면-재설계-2026-09-29)<br>
+> 아직 안 된 것 · 40 km/h 달성, 속도와 방향전환을 동시에 하는 정책, 넘어진 뒤 일어나기, Gazebo 달리기 이식, 지형, 탐색 mission. 자세한 상태는 [작업 상태](docs/WORK_STATE.ko.md), 순서는 [개발 순서](#개발-순서).
 
-## 현재 구현
+## 설계 변천 한눈에
+
+설계는 한 번에 바꾸지 않고 한 세대씩 시뮬레이션으로 검증하며 옮겨 왔습니다. 아래 순서가 이 문서의 순서입니다.
+
+| 시기 | 세대 | 무엇을 바꿨나 | 실제 확인된 것 | 남은 문제 → 다음 세대의 이유 |
+|---|---|---|---|---|
+| ~2026-09-27 | **1세대 · 10축 legacy** (17.3 kg) | ROS 2 Jazzy/Gazebo, 다리 4축×2 + 꼬리 2축, 선택형 수동 발가락 | 정적 지지, Qwen/NanoJev STAND/STOP, 제자리 교대 지지 60 s 5/5 | 손으로 짠 보폭은 Gazebo 불합격, 옆힘 비 미달 |
+| 2026-09-28 | 디지티그레이드 다리·외형 | `leg_design:=digitigrade`, 낮은 자세 변형, 꼬리 0.95 m | MuJoCo 기립·흔들기 9/9, Gazebo 정지 기립 | 전진 보행 실패 → 강화학습으로 전환 |
+| 2026-09-29 | **2세대 · 12축 발목 roll + 강화학습** | 발목 roll 추가(사용자 결정), MuJoCo PPO | 평지 0~0.6 m/s 넘어짐 0/16 | 옆 교란·지형 취약, Gazebo 이식 실패(접촉 모델), 꼬리 미사용 |
+| 2026-09-29 | **3세대 · R-02 전면 재설계** (11.4 kg) | 수식 설계: 타조 비율 다리, 두 발가락, 앞 센서 포드, 단일 원천 Xacro | 평지 보행 넘어짐 0, 목표 형태 외형 메시 | 현재 구동기로 40 km/h 불가 → 사양서 |
+| 2026-09-30 | **현재 · 40 km/h 사양 + T1 달리기** | 사양서(SLIP·스프링·구동기·꼬리), T1 가상 구동기 환경(5 kg + 스프링 (c)) | 6.6 m/s 무전도, 2.5 rad/s 회전 무전도, 꼬리가 임펄스 내성을 높임 | 40 km/h 미달, 속도·회전 양립 정책, 일어나기 학습 중 |
+
+## 1세대 · 10축 legacy (~2026-09-27)
+
+ROS 2 Jazzy / Gazebo Harmonic에서 시작한 첫 모델입니다. 17.3 kg, 다리 4축×2 + 꼬리 2축 = 10 능동축, 선택형 수동 발가락 12관절. 이 세대에서 확인한 것과 실패한 것이 이후 재설계의 근거입니다.
+
+### 1세대 구현 결과
 
 <table>
 <tr>
@@ -62,36 +75,93 @@
 
 정적 시험과 제자리 교대 지지는 제한된 조건의 결과입니다. 발이 지면에 닿거나 궤적 추종이 끝난 것만으로 보행 성공을 판정하지 않습니다. 실패 기록도 [원본 그대로](docs/evidence/README.md) 보존합니다.
 
-## 시스템 구조
+### 능동축 구성 (10축 기본, 12축 변형)
 
-```mermaid
-flowchart LR
-    A[운영자 자연어] --> B{명령 이해}
-    B --> C[Qwen3-0.6B / Ollama]
-    B --> D[NanoJev / Decision Head]
-    C --> E[허용 행동 · Safety Gate]
-    D --> E
-    S[운영자 STOP] --> E
-    E --> F[ROS 2 Mission]
-    F --> G[ros2_control]
-    G --> H[10축 Raptor / Gazebo]
-    H --> I[IMU · 관절 · 접촉 피드백]
+**2026-09-29 사용자 결정으로 발목 roll(다리당 1축)을 추가한 12축 변형을 만들었습니다.** `ankle_roll:=true`로 켜며, 기존 10축 실험은 그대로 재현됩니다. 옆 경사 정지 한계가 10°(10축)에서 20°(12축)로 늘었습니다. [증거 77](docs/evidence/77-ankle-roll/README.md)
+
+| 구성 | 능동 관절 | 축 수 |
+|---|---|---:|
+| 왼쪽 다리 | Hip Roll · Hip Pitch · Knee Pitch · Ankle Pitch | 4 |
+| 오른쪽 다리 | Hip Roll · Hip Pitch · Knee Pitch · Ankle Pitch | 4 |
+| 꼬리 기부 | Tail Yaw · Tail Pitch | 2 |
+| **합계** | **능동 구동축** | **10** |
+| 12축 변형 | 왼쪽·오른쪽 Ankle Roll 추가 | **12** |
+
+**발가락:** 선택형 모델은 각 발 3개 발가락 × 2개 수동 관절, 총 12개입니다. 추가 모터는 없습니다.<br>
+**꼬리:** 기부 2축이 능동 구동되며, 현재 뒤쪽 마디는 고정 시각 메시입니다. 수동 유연 동역학은 향후 과제입니다. 꼬리는 균형을 보조하며 완전한 균형 제어를 보장하지 않습니다.
+
+<details>
+<summary>실제 능동 joint 이름 보기</summary>
+
+```text
+left_hip_roll_joint       right_hip_roll_joint
+left_hip_pitch_joint      right_hip_pitch_joint
+left_knee_pitch_joint     right_knee_pitch_joint
+left_ankle_pitch_joint    right_ankle_pitch_joint
+tail_yaw_joint            tail_pitch_joint
 ```
 
-- **Qwen:** 문장을 구조화된 행동 ID로 변환합니다.
-- **NanoJev:** 후보 행동의 확률을 계산하는 decision model입니다. 고정 backbone과 Raptor 명령용 head를 사용합니다.
-- **Safety Gate:** 허용 목록·요청 유효성·STOP latch를 확인합니다. 미검증 이동/탐색 명령은 거부합니다.
-- **현재 동작:** `STAND`, `PAUSE`, `RESUME`, `STOP`. `RESUME`은 이전 궤적을 자동 재개하지 않습니다. `STOP`은 시뮬레이션 위치 유지이며 실물 전원 차단이 아닙니다.
+치수·축·제한·질량의 기준은 [실제 Xacro](src/raptor_description/urdf/raptor.urdf.xacro)입니다. 참고 이미지와 생성 이미지는 제작 가능한 CAD 설계의 근거가 아닙니다.
 
-`“동쪽 능선부터 찾아봐” → SEARCH_EAST`는 명령 이해의 목표 예시입니다. 실제 동쪽 수색 mission은 아직 활성화하지 않았습니다.
+</details>
 
-## 목표 형태 R-01
+### 제자리 교대 지지 · 흔들목마 모델 (전진 보행 실패의 기록)
+
+<div align="center">
+<img src="docs/assets/video/gazebo-alternating-support.gif" width="480" alt="Gazebo에서 기본 교대 지지 보행을 실시간 속도로 재생한 장면" /><br>
+<b>실제 Gazebo 실행 · 실시간 속도로 재생</b> · 2.5Hz 제자리 교대 지지 24초, 넘어짐 없음 (최대 기울기 0.093rad)<br>
+전진 보행이 아닙니다. <a href="docs/assets/video/gazebo-alternating-support.mp4">MP4 원본</a> · <a href="docs/evidence/74-rocking/video-run.json.gz">실행 로그</a>
+</div>
+
+발목 roll이 없는 다리에서 hip roll은 다리를 기울이지 않고 **몸통을 굴립니다**. 그래서 디딘 발 패드 바깥 모서리를 축으로 넘어졌다 돌아오는 흔들목마(Housner rocking block)로 좌우 흔들림을 모델링했습니다.
+
+| 모델 값 | 식 | 값 |
+|---|---|---|
+| 무게중심 높이 · 피벗까지 각 | h, α = atan(d/h), d = 패드 바깥 모서리 0.23m | 0.758m · 0.295rad |
+| 고유 속도 | p = √(g/R), R = 0.792m | 3.52/s |
+| 흔들림 반주기 | T½ = (2/p)·acosh(1/(1−θ/α)) | Gazebo 자유 흔들림과 −5~+7% 일치 |
+
+- **저주파 흔들림의 정체:** 명령 시계의 3걸음 부조화(f/3). 2.5Hz에서 예측 진폭 0.085m, Gazebo 측정 0.084m.
+- **넘어짐의 원인:** 정상 상태가 아니라 보폭이 1초 만에 들어가는 **시작 구간**. 진폭 3초 · 보폭 2초 raised-cosine 램프로 해결했습니다.
+
+| 완료 기준 | 결과 | 판정 |
+|---|---|---|
+| Gazebo 60초 생존 (기본 · 거울 · 꼬리 켬) | 5/5 · 3/3 · 4/4 | 충족 |
+| 0.3~1.6Hz 무게중심 진폭 ≤ 0.03m | Gazebo ≤ 0.009 · MuJoCo kv30 ≤ 0.024 | 충족 |
+| 걸음당 성장률 ≤ 1.0 | 0.994~1.004 | 경계 |
+| 착지 발바닥 각도 ≤ 0.02rad | Gazebo 0.015 · MuJoCo kv30 0.032~0.041 | MuJoCo 미달 |
+| 디딘 발 Fy/Fz p90 ≤ 0.4 | Gazebo 0.405~0.422 · MuJoCo 0.28 | Gazebo 미달 |
+
+발 간격을 좁히면 옆힘 비는 0.36~0.39로 들어오지만 착지 각도가 0.05rad로 커집니다. 발목 roll 없이 두 기준을 동시에 맞추는 방법은 찾지 못했습니다. 이것은 **제자리 교대 지지의 결과이며 전진 보행 성공이 아닙니다.** [진단 72](docs/evidence/72-diagnosis/README.md) · [측방 73](docs/evidence/73-lateral/README.md) · [흔들목마 74](docs/evidence/74-rocking/README.md)
+
+## 2세대 · 12축 발목 roll + 강화학습 보행 (2026-09-29)
+
+손으로 짠 보폭이 Gazebo에서 불합격한 뒤(증거 69) 전진 보행을 강화학습으로 전환했습니다. 발목 roll을 더한 12축 변형(사용자 결정)을 MuJoCo에서 PPO로 학습했습니다.
+
+### MuJoCo 평지 보행 결과
+
+<div align="center">
+<img src="docs/assets/video/mujoco-rl-walk12.gif" width="400" alt="MuJoCo에서 12축 강화학습 정책이 0.4m/s 명령으로 평지를 걷는 장면" /><br>
+<b>MuJoCo 평지 · 실시간 속도</b> · 발목 roll 포함 12축, 0.4m/s 명령. <a href="docs/evidence/79-rl-walk12/walk12_flat_0.4mps.mp4">MP4</a>
+</div>
+
+| 명령 | 넘어짐 (20초 × 4) | 실제 속도 |
+|---|---|---|
+| 0 / 0.2 / 0.4 / 0.6 m/s | 0 / 0 / 0 / 0 | −0.06 / 0.12 / 0.29 / 0.47 m/s |
+
+평지에서 명령 속도를 따라 넘어지지 않고 걷습니다. 명령보다 0.1m/s 안팎 느리고, 학습하지 않은 요철·계단·단상에서는 막히거나 넘어집니다. 다음 단계는 지형 커리큘럼입니다. MuJoCo 결과이며 Gazebo·실물 보행은 아직 검증하지 않았습니다. [증거 79](docs/evidence/79-rl-walk12/README.md) · [보상·환경](docs/RL_LOCOMOTION.ko.md)
+
+## 3세대 · R-02 전면 재설계 (2026-09-29)
+
+목표(40 km/h 달리기·꼬리 균형)와 2세대의 한계(옆 교란·꼬리 미사용·무게중심 0.76 m)를 놓고 치수를 수식으로 다시 설계했습니다. 아래 R-01은 사용자가 제시한 최종 목표 형태이고, R-02는 그 방향으로 간 첫 실제 모델입니다.
+
+### 목표 형태 R-01 (사용자 콘셉트)
 
 <img src="docs/assets/raptor-r01-target-concept.png" width="100%" alt="사용자가 제시한 최종 목표 R-01 콘셉트" />
 
-**최종 목표 형태 · AI 생성 콘셉트.** 수평 몸통과 긴 꼬리로 무게중심을 낮추고 걷기·달리기·점프·등반을 목표로 합니다. 표기된 사양(40km/h, 20+ DOF)은 검증값이 아닙니다. 현재 모델은 무게중심이 0.73~0.76m로 높고 뒤쪽 여유가 2.8cm뿐이라, 한 번에 바꾸지 않고 한 변수씩 시뮬레이션으로 검증하며 옮겨 갑니다. [현재 대비 차이와 순서](docs/DESIGN_R01.ko.md)
+**최종 목표 형태 · AI 생성 콘셉트.** 수평 몸통과 긴 꼬리로 무게중심을 낮추고 걷기·달리기·점프·등반을 목표로 합니다. 표기된 사양(40km/h, 20+ DOF)은 검증값이 아닙니다. 당시(1·2세대) 모델은 무게중심이 0.73~0.76m로 높고 뒤쪽 여유가 2.8cm뿐이었기 때문에 한 번에 바꾸지 않고 한 변수씩 검증해 R-02로 옮겼습니다. [당시 차이와 순서](docs/DESIGN_R01.ko.md)
 
-## 재설계 R-02 · 가볍고 낮은 타조형 랩터
+### R-02 · 가볍고 낮은 타조형 랩터
 
 <div align="center">
 <img src="docs/assets/r02-render.jpg" width="100%" alt="R-02 외형 렌더: 몸통 앞 센서 포드와 마스트, 골반 드럼 구동기, 타조 비율 다리, 발톱 달린 두 발가락, 16마디 꼬리" /><br>
@@ -135,7 +205,11 @@ Gazebo는 `leg_design:=r02`로 같은 Xacro를 씁니다. 설계 계산은 UNI_A
 
 [설계 문서](docs/DESIGN_R02.ko.md) · [증거 83](docs/evidence/83-r02/README.md) · [증거 84](docs/evidence/84-r02-model/README.md)
 
-## T1 달리기 · 가상 구동기 (MuJoCo)
+## 현재 · 40 km/h 사양과 T1 달리기 (2026-09-30)
+
+R-02 구동기 등급으로는 40 km/h가 닫히지 않아 요구 사양을 계산한 뒤, 사양서의 T1 가상 구동기로 달리기·꼬리·방향전환·일어나기를 강화학습으로 검증하고 있습니다.
+
+### T1 달리기 · 가상 구동기 (MuJoCo)
 
 <div align="center">
 <img src="docs/assets/video/mujoco-t1-run-6mps.gif" width="400" alt="T1 가상 구동기 R-02(5 kg)가 MuJoCo 평지를 6 m/s 명령으로 달리는 장면" /><br>
@@ -177,79 +251,32 @@ Gazebo는 `leg_design:=r02`로 같은 Xacro를 씁니다. 설계 계산은 UNI_A
 차트·프레임은 `sim/rl/plot_t1.py`와 ffmpeg로 평가 결과에서 만든 것이며 모두 MuJoCo T1 결과입니다.
 [증거 86](docs/evidence/86-t1-run/README.md) · [환경·보상](docs/RL_LOCOMOTION.ko.md) · [사양서](docs/design/40kmh-spec.md)
 
-## 강화학습 보행 · 12축 (MuJoCo)
+## 명령 이해 · AI와 안전 게이트
 
-<div align="center">
-<img src="docs/assets/video/mujoco-rl-walk12.gif" width="400" alt="MuJoCo에서 12축 강화학습 정책이 0.4m/s 명령으로 평지를 걷는 장면" /><br>
-<b>MuJoCo 평지 · 실시간 속도</b> · 발목 roll 포함 12축, 0.4m/s 명령. <a href="docs/evidence/79-rl-walk12/walk12_flat_0.4mps.mp4">MP4</a>
-</div>
+### 시스템 구조
 
-| 명령 | 넘어짐 (20초 × 4) | 실제 속도 |
-|---|---|---|
-| 0 / 0.2 / 0.4 / 0.6 m/s | 0 / 0 / 0 / 0 | −0.06 / 0.12 / 0.29 / 0.47 m/s |
-
-평지에서 명령 속도를 따라 넘어지지 않고 걷습니다. 명령보다 0.1m/s 안팎 느리고, 학습하지 않은 요철·계단·단상에서는 막히거나 넘어집니다. 다음 단계는 지형 커리큘럼입니다. MuJoCo 결과이며 Gazebo·실물 보행은 아직 검증하지 않았습니다. [증거 79](docs/evidence/79-rl-walk12/README.md) · [보상·환경](docs/RL_LOCOMOTION.ko.md)
-
-## 보행 진행 · 흔들목마 모델
-
-<div align="center">
-<img src="docs/assets/video/gazebo-alternating-support.gif" width="480" alt="Gazebo에서 기본 교대 지지 보행을 실시간 속도로 재생한 장면" /><br>
-<b>실제 Gazebo 실행 · 실시간 속도로 재생</b> · 2.5Hz 제자리 교대 지지 24초, 넘어짐 없음 (최대 기울기 0.093rad)<br>
-전진 보행이 아닙니다. <a href="docs/assets/video/gazebo-alternating-support.mp4">MP4 원본</a> · <a href="docs/evidence/74-rocking/video-run.json.gz">실행 로그</a>
-</div>
-
-발목 roll이 없는 다리에서 hip roll은 다리를 기울이지 않고 **몸통을 굴립니다**. 그래서 디딘 발 패드 바깥 모서리를 축으로 넘어졌다 돌아오는 흔들목마(Housner rocking block)로 좌우 흔들림을 모델링했습니다.
-
-| 모델 값 | 식 | 값 |
-|---|---|---|
-| 무게중심 높이 · 피벗까지 각 | h, α = atan(d/h), d = 패드 바깥 모서리 0.23m | 0.758m · 0.295rad |
-| 고유 속도 | p = √(g/R), R = 0.792m | 3.52/s |
-| 흔들림 반주기 | T½ = (2/p)·acosh(1/(1−θ/α)) | Gazebo 자유 흔들림과 −5~+7% 일치 |
-
-- **저주파 흔들림의 정체:** 명령 시계의 3걸음 부조화(f/3). 2.5Hz에서 예측 진폭 0.085m, Gazebo 측정 0.084m.
-- **넘어짐의 원인:** 정상 상태가 아니라 보폭이 1초 만에 들어가는 **시작 구간**. 진폭 3초 · 보폭 2초 raised-cosine 램프로 해결했습니다.
-
-| 완료 기준 | 결과 | 판정 |
-|---|---|---|
-| Gazebo 60초 생존 (기본 · 거울 · 꼬리 켬) | 5/5 · 3/3 · 4/4 | 충족 |
-| 0.3~1.6Hz 무게중심 진폭 ≤ 0.03m | Gazebo ≤ 0.009 · MuJoCo kv30 ≤ 0.024 | 충족 |
-| 걸음당 성장률 ≤ 1.0 | 0.994~1.004 | 경계 |
-| 착지 발바닥 각도 ≤ 0.02rad | Gazebo 0.015 · MuJoCo kv30 0.032~0.041 | MuJoCo 미달 |
-| 디딘 발 Fy/Fz p90 ≤ 0.4 | Gazebo 0.405~0.422 · MuJoCo 0.28 | Gazebo 미달 |
-
-발 간격을 좁히면 옆힘 비는 0.36~0.39로 들어오지만 착지 각도가 0.05rad로 커집니다. 발목 roll 없이 두 기준을 동시에 맞추는 방법은 찾지 못했습니다. 이것은 **제자리 교대 지지의 결과이며 전진 보행 성공이 아닙니다.** [진단 72](docs/evidence/72-diagnosis/README.md) · [측방 73](docs/evidence/73-lateral/README.md) · [흔들목마 74](docs/evidence/74-rocking/README.md)
-
-## 10 Active DOF · 발목 roll 12축 변형
-
-**2026-09-29 사용자 결정으로 발목 roll(다리당 1축)을 추가한 12축 변형을 만들었습니다.** `ankle_roll:=true`로 켜며, 기존 10축 실험은 그대로 재현됩니다. 옆 경사 정지 한계가 10°(10축)에서 20°(12축)로 늘었습니다. [증거 77](docs/evidence/77-ankle-roll/README.md)
-
-| 구성 | 능동 관절 | 축 수 |
-|---|---|---:|
-| 왼쪽 다리 | Hip Roll · Hip Pitch · Knee Pitch · Ankle Pitch | 4 |
-| 오른쪽 다리 | Hip Roll · Hip Pitch · Knee Pitch · Ankle Pitch | 4 |
-| 꼬리 기부 | Tail Yaw · Tail Pitch | 2 |
-| **합계** | **능동 구동축** | **10** |
-| 12축 변형 | 왼쪽·오른쪽 Ankle Roll 추가 | **12** |
-
-**발가락:** 선택형 모델은 각 발 3개 발가락 × 2개 수동 관절, 총 12개입니다. 추가 모터는 없습니다.<br>
-**꼬리:** 기부 2축이 능동 구동되며, 현재 뒤쪽 마디는 고정 시각 메시입니다. 수동 유연 동역학은 향후 과제입니다. 꼬리는 균형을 보조하며 완전한 균형 제어를 보장하지 않습니다.
-
-<details>
-<summary>실제 능동 joint 이름 보기</summary>
-
-```text
-left_hip_roll_joint       right_hip_roll_joint
-left_hip_pitch_joint      right_hip_pitch_joint
-left_knee_pitch_joint     right_knee_pitch_joint
-left_ankle_pitch_joint    right_ankle_pitch_joint
-tail_yaw_joint            tail_pitch_joint
+```mermaid
+flowchart LR
+    A[운영자 자연어] --> B{명령 이해}
+    B --> C[Qwen3-0.6B / Ollama]
+    B --> D[NanoJev / Decision Head]
+    C --> E[허용 행동 · Safety Gate]
+    D --> E
+    S[운영자 STOP] --> E
+    E --> F[ROS 2 Mission]
+    F --> G[ros2_control]
+    G --> H[Raptor 10·12축 / Gazebo · MuJoCo]
+    H --> I[IMU · 관절 · 접촉 피드백]
 ```
 
-치수·축·제한·질량의 기준은 [실제 Xacro](src/raptor_description/urdf/raptor.urdf.xacro)입니다. 참고 이미지와 생성 이미지는 제작 가능한 CAD 설계의 근거가 아닙니다.
+- **Qwen:** 문장을 구조화된 행동 ID로 변환합니다.
+- **NanoJev:** 후보 행동의 확률을 계산하는 decision model입니다. 고정 backbone과 Raptor 명령용 head를 사용합니다.
+- **Safety Gate:** 허용 목록·요청 유효성·STOP latch를 확인합니다. 미검증 이동/탐색 명령은 거부합니다.
+- **현재 동작:** `STAND`, `PAUSE`, `RESUME`, `STOP`. `RESUME`은 이전 궤적을 자동 재개하지 않습니다. `STOP`은 시뮬레이션 위치 유지이며 실물 전원 차단이 아닙니다.
 
-</details>
+`“동쪽 능선부터 찾아봐” → SEARCH_EAST`는 명령 이해의 목표 예시입니다. 실제 동쪽 수색 mission은 아직 활성화하지 않았습니다.
 
-## Qwen × NanoJev · Laya 후보
+### Qwen × NanoJev · Laya 후보
 
 38개 명령 평가셋에서 측정한 **로컬 호출부터 출력 파싱까지의 지연**입니다.
 
@@ -263,7 +290,7 @@ tail_yaw_joint            tail_pitch_joint
 
 작은 평가셋이며 첫 요청 비용이 포함됩니다. 정밀도·런타임이 달라 모델 구조의 우열이나 일반 성능으로 해석할 수 없습니다. 로봇 실행 지연과 원격 네트워크 지연을 포함한 값도 아닙니다. [평가 조건과 원본 결과](docs/PROJECT_REPORT.ko.md#qwen과-nanojev-비교)
 
-## UNI_AI API로 개발 작업
+### UNI_AI API로 개발 작업
 
 다른 환경에서 저장소를 받은 뒤 `.env.example`을 참고해 로컬 `.env`의 **`UNI_AI`**에
 Gateway API 키를 넣고, 저장소를 연 작업 에이전트에게 **“API로 작업 진행해”**라고 요청합니다.
@@ -325,7 +352,9 @@ ROS 실행·응답 확인·STOP 사용법은 [로컬 개발 가이드](docs/loca
   - [x] 서보 경로·무작위화 견고성 단계 A·B — 기준(넘어짐 ≤ 4/48)은 미달, 8/48 ([82](docs/evidence/82-dr-ablation/README.md))
   - [x] 낮은 자세(깊은 웅크림 + 발목 ±1.0rad): 보행 무게중심 0.74 → 0.66m ([83](docs/evidence/83-r02/README.md))
   - [x] 수학적 전면 재설계 R-02 모델링(11.4kg, 타조 비율 다리, 두 발가락, 앞 센서 포드, 단일 원천 Xacro, 외형 메시) — [설계](docs/DESIGN_R02.ko.md) · [84](docs/evidence/84-r02-model/README.md)
-  - [ ] **다음:** 40km/h 요구 사양서 → T1 이상화 구동기 달리기 → T2 붐 조건
+  - [x] 40km/h 요구 사양서(SLIP·스프링·구동기·꼬리) — [사양서](docs/design/40kmh-spec.md)
+  - [x] T1 가상 구동기 달리기: 6.6m/s 무전도, 꼬리 임펄스 내성, 2.5rad/s 방향전환 — [86](docs/evidence/86-t1-run/README.md)
+  - [ ] **다음:** 속도·회전 양립 정책 → 일어나기 정책(학습 중) → 넘어짐→일어나기→재주행 연결 → 8kg+(c) 재평가·(b) 비교 → T2 붐 조건
   - [ ] Gazebo 보행 재검증 — 첫 이식 시도 불합격([81](docs/evidence/81-sim2sim/README.md)), Gazebo는 현재 ROS·STOP 경로 확인용
 - [ ] 단차·경사·불규칙 지형 성능 평가 — 강화학습 단계 C(지형 커리큘럼)로 진행 예정
 - [ ] 수동 분절 꼬리의 실제 유연 동역학 — 사용자 결정으로 동결
@@ -333,11 +362,11 @@ ROS 실행·응답 확인·STOP 사용법은 [로컬 개발 가이드](docs/loca
 - [ ] 탐색/복귀 mission 연결과 독립 명령 평가
 - [ ] 제작용 부품·구동기·하중·간섭 검증 — 발목 ±1.0rad 가동 범위 반영 필요
 
-실제 진행 순서는 원래 목록과 다릅니다. 전진 보행을 강화학습으로 해결하기 위해 MuJoCo 학습을 지형·꼬리보다 먼저 진행하고 있습니다(2026-09-29).
+실제 진행 순서는 원래 목록과 다릅니다. 전진 보행과 달리기를 강화학습으로 해결하기 위해 MuJoCo 학습을 지형·Gazebo 이식보다 먼저 진행하고 있습니다(2026-09-30).
 
 ## 보행 오픈소스 조사
 
-**조사일: 2026-09-27 · 원문과 코드 정적 검토 완료 · 로컬 보행 재현 및 Raptor 적용은 미실행.**
+**조사일: 2026-09-27(1세대 시점) · 원문과 코드 정적 검토 완료 · 로컬 보행 재현 및 Raptor 적용은 미실행.** 이후 보행은 자체 MuJoCo 강화학습으로 진행했고, 아래 내용은 조사 당시 기준입니다.
 
 보행 제어를 처음부터 모두 작성하는 부담을 줄이기 위해 공개 모델·정책·궤적 생성기를 비교했습니다. 우선 후보는 **Open Duck의 원본 보행 기준선**과 **PlaCo의 발 위치·무게중심 기반 궤적 생성**입니다. [상세 조사와 25개 출처](docs/OPEN_SOURCE_LOCOMOTION_RESEARCH.ko.md)
 
@@ -369,7 +398,9 @@ ROS 실행·응답 확인·STOP 사용법은 [로컬 개발 가이드](docs/loca
 | [발가락 강성 비교](docs/TOE_STIFFNESS_EXPERIMENT.ko.md) | 한 변수 실험과 실패 결과 |
 | [흔들목마 보행 증거 74](docs/evidence/74-rocking/README.md) | 예측 대 측정, 긴 램프 보행, 완료 기준 표 |
 | [Laya 검토](docs/LAYA_REVIEW.ko.md) | NanoJev 대체 후보 실측 비교와 오답 |
-| [목표 형태 R-01](docs/DESIGN_R01.ko.md) | 목표 콘셉트와 현재 모델의 수치 차이, 순차 개선 순서 |
+| [목표 형태 R-01](docs/DESIGN_R01.ko.md) | 목표 콘셉트와 1·2세대 모델의 수치 차이, 순차 개선 순서 |
+| [R-02 설계](docs/DESIGN_R02.ko.md) | 수식 설계표, 다리 비율, 발가락·스프링, 단일 원천 경로 |
+| [작업 상태](docs/WORK_STATE.ko.md) | 세대별 진행 기록과 다음 한 단계 |
 | [강화학습 보행](docs/RL_LOCOMOTION.ko.md) | 학습 환경·보상·지형·단계 |
 | [40 km/h 요구 사양서](docs/design/40kmh-spec.md) | SLIP·관절·스프링·구동기·꼬리 계산과 상용 구동기 대조 |
 | [T1 달리기 증거 86](docs/evidence/86-t1-run/README.md) | 가상 구동기 달리기·꼬리 활성/고정·임펄스·방향전환·일어나기 |
