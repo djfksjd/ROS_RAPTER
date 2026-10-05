@@ -22,3 +22,7 @@ their original metadata/licenses where supplied. The NanoJev model card did not
 declare a model license at inspection; the upstream code MIT license must not be
 assumed to license every checkpoint asset. The upstream code license is retained in the
 source archive and `vendor/NanoJev/LICENSE` after restoration.
+
+The Raptor project itself is licensed under PolyForm Noncommercial 1.0.0 (`LICENSE`).
+That license does not apply to the third-party code, models or weights listed above;
+each keeps its own original license.

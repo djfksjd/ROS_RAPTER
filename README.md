@@ -6,7 +6,7 @@
 
 **Human command → Qwen / NanoJev → ROS 2 → Raptor**
 
-![ROS 2 Jazzy](https://img.shields.io/badge/ROS_2-Jazzy-22314E?style=flat-square) ![Gazebo Harmonic](https://img.shields.io/badge/Gazebo-Harmonic-E87935?style=flat-square) ![Active DOF](https://img.shields.io/badge/Active_DOF-10_→_12-397D68?style=flat-square) ![R-02](https://img.shields.io/badge/Design-R--02_11.4kg-8B5E3C?style=flat-square) ![Simulation research](https://img.shields.io/badge/Stage-Simulation_Research-64748B?style=flat-square)
+![ROS 2 Jazzy](https://img.shields.io/badge/ROS_2-Jazzy-22314E?style=flat-square) ![Gazebo Harmonic](https://img.shields.io/badge/Gazebo-Harmonic-E87935?style=flat-square) ![Active DOF](https://img.shields.io/badge/Active_DOF-10_→_12-397D68?style=flat-square) ![R-02](https://img.shields.io/badge/Design-R--02_11.4kg-8B5E3C?style=flat-square) ![Simulation research](https://img.shields.io/badge/Stage-Simulation_Research-64748B?style=flat-square) [![License: PolyForm Noncommercial](https://img.shields.io/badge/License-PolyForm_Noncommercial_1.0.0-B91C1C?style=flat-square)](LICENSE)
 
 <img src="docs/assets/raptor-target-concept.png" width="100%" alt="목표 콘셉트: 흰색 장갑과 노출된 기계 구조, 굽힌 두 다리, 발가락과 긴 분절 꼬리를 가진 탐사 랩터" />
 
@@ -448,6 +448,17 @@ GitHub에는 소스·모델링 원본·메시·작은 task head·검증 자료�
 이전 PC의 controller 초기화 대기 현상은 로컬에서 재현되지 않았습니다. 과거 기록은 Git 이력에 보존하며 현재 상태는 실제 코드와 최근 검증 로그를 기준으로 합니다.
 
 </details>
+
+## 라이선스
+
+이 저장소는 **오픈소스가 아닙니다.** 소스는 공개(source-available)되어 있지만 [PolyForm Noncommercial License 1.0.0](LICENSE)을 따릅니다.
+
+| 허용 | 금지 |
+|---|---|
+| 개인 학습·연구·실험·취미, 교육기관·공공 연구기관·비영리 단체의 사용 | **모든 상업적 이용**: 판매, 유료 서비스, 제품·사업에 포함, 영리 목적의 개조·재배포 |
+| 비상업 목적의 수정·재배포(라이선스 전문과 `Required Notice` 줄을 함께 제공) | 하위 라이선스 부여·양도 |
+
+상업적 이용을 원하면 저장소 소유자에게 별도 허가를 받아야 합니다. 저장소에 포함되거나 참조하는 외부 코드·모델(NanoJev, Qwen, Laya, Ollama 등)은 각자의 원래 라이선스를 따릅니다([외부 코드·모델 출처](docs/THIRD_PARTY.md)).
 
 ---
 
