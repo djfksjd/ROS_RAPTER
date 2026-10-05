@@ -1,5 +1,5 @@
 leg_design:=digitigrade_low + Morphloom --style reference, 2026-09-28. User request: match the Tripo reference views
-(/Users/danny/Downloads/raptor-views, user-supplied Tripo Studio renders; used for proportion/style only, not in the repo).
+(a local folder outside the repo, user-supplied Tripo Studio renders; used for proportion/style only, not in the repo).
 Reference measured on its orthographic side view (inspect_reference.py): tail ~1.6x nose-to-tail-root body length,
   hip height ~0.57x body length, shin nearly horizontal (extreme crouch), tail rising toward the tip, splayed talons,
   silver armour on a dark frame, chrome tail bands.
