@@ -3,6 +3,10 @@ build/
 install/
 log/
 
+# Local scratch and render output (previously only in .git/info/exclude)
+tmp/
+output/
+
 # Python cache
 __pycache__/
 *.pyc
