@@ -1,0 +1,10 @@
+{
+  "pages": 7,
+  "rendered_all_pages": true,
+  "visual_review": "all-pages contact sheet plus page4/5 full size; no clipping or missing Korean glyphs",
+  "text_and_horizontal_bounds_checked": true,
+  "basis_commit": "2ce9621ae310e7529e26f439a64ef521d53ebe7e",
+  "sha256": "a71737f596fd02ebc6b07c678c43de963e48748586fea9268bcada26a4e01dea",
+  "goal_status": "paused",
+  "robot_experiments_resumed": false
+}
