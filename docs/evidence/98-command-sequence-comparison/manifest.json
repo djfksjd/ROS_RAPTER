@@ -1,0 +1,23 @@
+{
+  "status": "completed_not_adopted; roll target-range diagnosis completed in evidence99",
+  "files": {
+    "docs/evidence/98-command-sequence-comparison/motion.jsonl": "80b330de506086c8a97de0262d27eb0fee0105cc89a9ac65156e178eb395b919",
+    "docs/evidence/98-command-sequence-comparison/summary.json": "1d2cbaf57d3601ce9b2d8dc0397d611fdad711f110e9d19e41683a58ac0ed89a",
+    "docs/evidence/98-command-sequence-comparison/final.control.eval.jsonl": "d2becb7ce33ce9e2b85adb65d328960e93fb2baab26c52ad4eaab112aa079238",
+    "docs/evidence/98-command-sequence-comparison/final.catalogue.eval.jsonl": "a1728aa937961ec3869df05cf3c7f336310ba5f70b013f992ac3abd88cde3445",
+    "docs/evidence/98-command-sequence-comparison/README.md": "f73ce2a0edb15a4ffcddf05db2f5a915ef5f6513a7864171b59a5b81cf3cd055",
+    "docs/evidence/98-command-sequence-comparison/final.control.heat.jsonl": "ebb7a20ce71598abe3f9c20c7824539fdecebadf782f91f7fc60148af3c8db3e",
+    "docs/evidence/98-command-sequence-comparison/final.catalogue.heat.jsonl": "29837b6d350d344a8e4042010bf80e553113289c755ddb2afbc2c610ce3eaaf7",
+    "docs/evidence/98-command-sequence-comparison/mid.catalogue.eval.jsonl": "53d87a99a9c7d98b8aa9b87132690b4ad25ed839318f97206268a6fcaf3e3565",
+    "docs/evidence/98-command-sequence-comparison/mid.control.eval.jsonl": "e071302a21f99bc492ab66fc16be205db6d17e1f9c6d47f5fdd651a554c5b070",
+    "sim/rl/roll_range_probe.py": "c9b7a50500a6ad24e99021a9c3c2905379fb7212c53a2f189958d187e7c6088a",
+    "sim/rl/runs/seq_compare_control_20261009/model.zip": "d791473c63bbf638f9d3a7fb8837bd80f8fb8f8b43dd32dfd279322c8e37a530",
+    "sim/rl/runs/seq_compare_control_20261009/vecnorm.pkl": "02230edad8bfcf968df83755d05b5aa74ad0e0a34d612623c0ae1239f8299adc",
+    "sim/rl/runs/seq_compare_control_20261009/args.json": "8404c851c0432f9f3e856c91110db4265fc2901e9c1f5769192d5468cda6a909",
+    "sim/rl/runs/seq_compare_control_20261009/completion.json": "4fc93883fc2ebf1822f597bd0251b36d6c30540cb9bf7c8288b6b56d21547b10",
+    "sim/rl/runs/seq_compare_catalogue_20261009/model.zip": "c1db8d368e1da93c30a9fc7e5eb585b6b360000e9be434da659348af9db5f1ee",
+    "sim/rl/runs/seq_compare_catalogue_20261009/vecnorm.pkl": "646d42f51f72fca71eb25ecdb928c49a029afb79cbbd9b0edc7ca6f32f405c89",
+    "sim/rl/runs/seq_compare_catalogue_20261009/args.json": "391ebbb5e19df06af819ba75392c7c576e8b91e561eb78571790c765afc89e58",
+    "sim/rl/runs/seq_compare_catalogue_20261009/completion.json": "4fc93883fc2ebf1822f597bd0251b36d6c30540cb9bf7c8288b6b56d21547b10"
+  }
+}

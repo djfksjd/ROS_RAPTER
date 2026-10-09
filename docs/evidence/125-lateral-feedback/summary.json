@@ -1,0 +1,16 @@
+{
+  "0.0": {
+    "trials": 10,
+    "falls": 0,
+    "angle_pass": 8,
+    "min_speed_pass": 0,
+    "joint_pass": 0
+  },
+  "0.5": {
+    "trials": 10,
+    "falls": 0,
+    "angle_pass": 8,
+    "min_speed_pass": 0,
+    "joint_pass": 0
+  }
+}

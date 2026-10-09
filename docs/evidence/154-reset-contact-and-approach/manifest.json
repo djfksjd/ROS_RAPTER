@@ -1,0 +1,23 @@
+{
+  "sha256": {
+    "summary.json": "e4b40a5bdf46f52ce1ae8b01b9b68f78d8844636c7218a1aee6352382481dfd0",
+    "history-sensitive.jsonl": "b0b9b79c895f97080de143dd8990ad0ad1d31b8a5626516446e728d025f08497",
+    "fresh.py": "77aa674f4b422b4e53a01d6b7bdefbd09ce787595b6c56b092e3f3341f08b3b5",
+    "contact-gated-approach.log": "794586d996d517a92d46d83be386a7cc8a2f0e760995207af1329881b0d2cf32",
+    "reference-approach.log": "d20f8a5b888c13d43ec6d7374a16fc5784b17696ae2952ace65261f2047041c3",
+    "contact-initialized.log": "6b3ffbf091b47c460040b37759c6c0e49f14d67ef0202d83c5874864256e453d",
+    "contact-gated-approach.py": "51b1010719a95c138838e096a6a48a01544e47be4fcb8969e4e705d2a8da58e1",
+    "contact-gated-approach.jsonl": "628c7b25bcfa29796f811b3d17c6d538b8bda844af930745d25867ee3293cf13",
+    "contact-initialized.py": "b769de2119b4630ba051fc8529d57e6cbcea57dbcd37a5698bb0f95f93c3cde7",
+    "README.md": "536a0fc9fa71e496200c6dee1cbe22e3392ff3c57d0057a9b12b54559334e522",
+    "history-sensitive.log": "a4ef4175e7794d6b76625fba8d30e179a272957483efffc3f92cdbd07a0bb8b5",
+    "history-sensitive.py": "06b724699498c6508e8ab4e3a5b36b02ef6dd1db912e27f4a4fb601e431bc68c",
+    "fresh.jsonl": "0a0eae397c17b26af3ee1cb201d43a6f926dc6e557f250f2c9a54786ad77c70b",
+    "fresh.log": "a4ef4175e7794d6b76625fba8d30e179a272957483efffc3f92cdbd07a0bb8b5",
+    "reference-approach.jsonl": "1f9cbe37799e4e1fc7d3761c88eff613d0f330f4a4ce0d8182f9d6c7447f3e93",
+    "reference-approach.py": "0f1d701a17e2ee5182c8d45fdeee345eb90302a809fff74ebe2f8ac1d5169075",
+    "contact-initialized.jsonl": "2e6652c50af649983fbaa116d5655a1b603110206c6eb6a9eb6b2d8264624731"
+  },
+  "source_model": "kl005_lr3e5_update64k_20261009",
+  "scope": "simulation startup/contact diagnostic; all original-start comparisons failed"
+}

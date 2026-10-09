@@ -1,0 +1,12 @@
+{
+  "status": "completed_all_phase_freezes_failed_not_adopted",
+  "exit": 0,
+  "conditions": 5,
+  "files": {
+    "summary.json": "b1d5c7570ee924378eca3c1c7c4a65ae0eee4f1cafb9666f24ade6575da95678",
+    "probe.log": "ce02218638687ae626b264c28a851b2802801f9854b46bb5976bcc3f169baad7",
+    "README.md": "d0f6003c379906cc6c8e53a0da89c2a6623319c52691555436b78dad7807b99f",
+    "probe.py": "5be0f1e5ca991952f4c4566b626185e1a0f177f4ec364ff8149871f681d8377e",
+    "raw.jsonl": "4ad705ecb57f159fd26619cad426460f987bea8ce659fc402aabbc1b7f2d56fb"
+  }
+}

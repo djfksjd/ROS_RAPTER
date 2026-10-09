@@ -1,0 +1,22 @@
+{
+  "status": "completed_not_adopted; follow-up sequence comparison completed in evidence98",
+  "files": {
+    "docs/evidence/97-symmetric-learning-evaluation/summary.json": "6aae45995e0fdd3a5558057f79720fbf96a8c4c34e1c0fa79f7c3aed8899a8a5",
+    "docs/evidence/97-symmetric-learning-evaluation/final.motion.jsonl": "3c2f69e090e90c9795341862310c3971c35ba243b17460606898253046f09050",
+    "docs/evidence/97-symmetric-learning-evaluation/mid.heat.jsonl": "858bdf5e0b523166ff30902d28a296cbc93bd1f013bac7a4bb0e2f9fe3a3f390",
+    "docs/evidence/97-symmetric-learning-evaluation/final.eval.jsonl": "799675dbc46e14fc970aab936c8aba62698a2fc6c94b55b86daf7e5eefef25c5",
+    "docs/evidence/97-symmetric-learning-evaluation/README.md": "8d27d2ec91da3ca48fc812f9b0ddc2c00544fe1aefc708beb9a5cbed1db72609",
+    "docs/evidence/97-symmetric-learning-evaluation/raptor-sequence-tests-ai.txt": "df17a7fd7468985ed393c045ee3664fbd52fe13c67cbf28518fabed6e42b4188",
+    "docs/evidence/97-symmetric-learning-evaluation/mid.eval.jsonl": "e90a69a24e1a2641a85a214d6c88c46ed8caca792a6a905ba061e40687dfd39c",
+    "docs/evidence/97-symmetric-learning-evaluation/final.heat.jsonl": "64353cf90d109dfd29333e516fbb8b3245937aadcdde02f45b6e14eb32279bb0",
+    "docs/evidence/97-symmetric-learning-evaluation/raptor-sequence-tests-sim.txt": "732a40d4956916c1251c45d76b342f162940bf9eb6bf7b9d000a4939435d944f",
+    "sim/rl/runs/sym_train_pilot_20261009/model.zip": "41414b9af1ede4c847ad7328eaead45583f2c85427378609cd4870f39a11c114",
+    "sim/rl/runs/sym_train_pilot_20261009/vecnorm.pkl": "74ddbabbbb7b9177e99d3fb7327a7d8adb9dbc6f364899440b77bf0a8fab3ead",
+    "sim/rl/runs/sym_train_mid250k_20261009/model.zip": "68b46f0fdcdd21a34c5e3e34b24002fdcebd2e4de1f5830780f61bfa992c688f",
+    "sim/rl/runs/sym_train_mid250k_20261009/vecnorm.pkl": "08abc5b4dc78a893cddc41cd162bc90970c6b896b261a68d29f2857b345cb501",
+    "sim/rl/command_sequence.py": "c68e686433080c3e1163bb0567b8a0abdf588d5078b556c6e85d9f83036965be",
+    "sim/rl/train_symmetric.py": "69f1b6c001e5ec022073b6c89cd1d2ac16f1224ab9b40e69c686714bc4aedfd3",
+    "sim/rl/evaluate_run.py": "d121a9814678ab01405b2c2327323a66d2753e73352287d190ef7621186dceaf",
+    "docs/evidence/97-symmetric-learning-evaluation/sequence-initialization.json": "f3e6f0ad9a488a9eb8181235db758fddcd73176f3a846b00bfb81ca1686394df"
+  }
+}

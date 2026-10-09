@@ -1,0 +1,26 @@
+[
+  {
+    "variant": "control",
+    "source_tensors": 24,
+    "exact_same_shape_tensors": 24,
+    "changed_keys": [],
+    "old_input_weight_columns_exact": true,
+    "new_columns_zero": true
+  },
+  {
+    "variant": "contact",
+    "source_tensors": 24,
+    "exact_same_shape_tensors": 17,
+    "changed_keys": [
+      "reflection_mean",
+      "reflection_std",
+      "reflection_sign",
+      "reflection_offset",
+      "reflection_index",
+      "mlp_extractor.policy_net.0.weight",
+      "mlp_extractor.value_net.0.weight"
+    ],
+    "old_input_weight_columns_exact": true,
+    "new_columns_zero": true
+  }
+]

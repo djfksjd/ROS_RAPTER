@@ -1,0 +1,75 @@
+{
+  "date": "2026-10-09",
+  "scope": "공개 채널 목록 전수 선별과 랩터 적용 분석",
+  "normal_videos": 79,
+  "shorts": 42,
+  "caption_downloads": 43,
+  "detailed_video_notes": 51,
+  "priority_counts": {
+    "B": 21,
+    "A": 9,
+    "D": 46,
+    "C": 45
+  },
+  "providers": [
+    "yt-dlp public metadata",
+    "YouTube public automatic Korean captions",
+    "web search/open",
+    "local PDF/code"
+  ],
+  "limitations": [
+    "공개 일반 영상·Shorts 탭 기준; 비공개·삭제·유료 강의 내용 제외",
+    "43편 전체 자동 자막 검토 완료. 전편 영상·음성 연속 완시청 0편; 나머지 78개는 메타데이터 수준.",
+    "일부 공식 게시물은 검색 본문만 확인; 확인 수준 명시",
+    "deep-research reference files missing in installed skill; SKILL.md workflow followed"
+  ],
+  "repo_head": "948137f",
+  "repo_mutations": true,
+  "robot_experiments_resumed": true,
+  "ongoing_full_review": {
+    "requested": "2026-10-09",
+    "inventoried": 121,
+    "transcripts_acquired": 43,
+    "full_transcripts_read": 43,
+    "videos_fully_watched": 0,
+    "coverage": "full-review-coverage.jsonl",
+    "goal_status": "paused",
+    "access_failures": [
+      "caption HTTP429",
+      "video HTTP403"
+    ],
+    "remaining_acquired_transcripts": 0
+  },
+  "ongoing_development": {
+    "robot_experiments_resumed": true,
+    "scope": "active goal / evidence87–163",
+    "baseline_replaced": false
+  },
+  "latest_development_evidence": "docs/evidence/163-knee-vertical-support/README.md",
+  "latest_development_status": "163 knee pulse48 sign reverses near unloading;support42 no new stand successes;next hip/knee/tail coupled response",
+  "goal_status": "paused",
+  "latest_research_supplement": "research-refresh.ko.md",
+  "registry_counts": {
+    "sources": 258,
+    "evidence": 188,
+    "claims": 188
+  },
+  "latest_research_refresh": {
+    "new_sources": [
+      "paper:anymal-recovery-1901.07517",
+      "paper:op3-soccer-2304.13653v2",
+      "paper:anybipe-2409.08904",
+      "code:anybipe-readme",
+      "code:bimo-pinned-20261009",
+      "thesis:clutched-pea-metu-96080",
+      "paper:torso-passive-stabilizer-2012",
+      "code:ok-robot-readme",
+      "project:ok-robot-analysis"
+    ],
+    "caption_retries": 3,
+    "caption_acquired": 0,
+    "full_audiovisual_reviews": 0,
+    "goal_status": "active"
+  },
+  "latest_pause_checkpoint": "docs/checkpoints/2026-10-09-pause/README.md"
+}

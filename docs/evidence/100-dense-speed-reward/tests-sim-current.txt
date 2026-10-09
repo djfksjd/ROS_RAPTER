@@ -1,0 +1,50 @@
+test_large_braking_errors_remain_distinct (tests.test_dense_speed_reward.DenseSpeedRewardTest.test_large_braking_errors_remain_distinct) ... ok
+test_optional_penalty_preserves_physics_and_default_reward (tests.test_dense_speed_reward.DenseSpeedRewardTest.test_optional_penalty_preserves_physics_and_default_reward) ... ok
+test_actuator_forces_stay_within_the_spec_during_rollouts (tests.test_run_env.RunEnvTest.test_actuator_forces_stay_within_the_spec_during_rollouts) ... ok
+test_angular_momentum_parts (tests.test_run_env.RunEnvTest.test_angular_momentum_parts) ... ok
+test_ankle_clutch_lets_the_swing_foot_fold (tests.test_run_env.RunEnvTest.test_ankle_clutch_lets_the_swing_foot_fold)
+Unclutched, the Achilles spring stops an airborne ankle near 88 deg (motor 22 N·m); clutched it folds. ... ok
+test_balanced_start_and_body_contact_termination (tests.test_run_env.RunEnvTest.test_balanced_start_and_body_contact_termination) ... ok
+test_evaluation_starts_differ_by_init_seed (tests.test_run_env.RunEnvTest.test_evaluation_starts_differ_by_init_seed)
+Deterministic evaluation episodes with different init_seed start from different states; None keeps the ... ok
+test_force_range_follows_speed_and_power (tests.test_run_env.RunEnvTest.test_force_range_follows_speed_and_power) ... ok
+test_spaces_mass_and_springs (tests.test_run_env.RunEnvTest.test_spaces_mass_and_springs) ... ok
+test_structure_variants_contract (tests.test_run_env.RunEnvTest.test_structure_variants_contract)
+Equal-condition structure comparison (2026-10-01): arch8 / arch12 with explicit part masses and the same motor ... ok
+test_tail_lock_removes_the_tail_from_the_policy (tests.test_run_env.RunEnvTest.test_tail_lock_removes_the_tail_from_the_policy) ... ok
+test_unilateral_springs_have_a_dead_band (tests.test_run_env.RunEnvTest.test_unilateral_springs_have_a_dead_band) ... ok
+test_yaw_impulse_spins_the_body (tests.test_run_env.RunEnvTest.test_yaw_impulse_spins_the_body) ... ok
+test_control_retains_random_commands_and_matched_horizon (tests.test_command_sequence.CommandSequenceTest.test_control_retains_random_commands_and_matched_horizon) ... ok
+test_reset_true_stand_and_returned_observation_current_command (tests.test_command_sequence.CommandSequenceTest.test_reset_true_stand_and_returned_observation_current_command) ... ok
+test_turn_and_stop_boundaries_and_actual_zero_commands (tests.test_command_sequence.CommandSequenceTest.test_turn_and_stop_boundaries_and_actual_zero_commands) ... ok
+test_actor_gradients_and_save_reload (tests.test_symmetric_policy.SymmetricPolicyTest.test_actor_gradients_and_save_reload) ... ok
+test_mean_and_noise_equivariance_and_probability_consistency (tests.test_symmetric_policy.SymmetricPolicyTest.test_mean_and_noise_equivariance_and_probability_consistency) ... ok
+test_exact_turn_interval_and_known_tracking_error (tests.test_roll_range_probe.RangeSummaryTest.test_exact_turn_interval_and_known_tracking_error) ... ok
+test_no_turn_samples_are_missing_measurement_not_zero_saturation (tests.test_roll_range_probe.RangeSummaryTest.test_no_turn_samples_are_missing_measurement_not_zero_saturation) ... ok
+test_command_timing_and_first_increment (tests.test_turn_evaluation.TurnEvaluationTest.test_command_timing_and_first_increment) ... ok
+test_fall_before_turn_completion_fails (tests.test_turn_evaluation.TurnEvaluationTest.test_fall_before_turn_completion_fails) ... ok
+test_raw_values_determine_boundary_for_both_directions (tests.test_turn_evaluation.TurnEvaluationTest.test_raw_values_determine_boundary_for_both_directions) ... ok
+test_turn_completed_at_last_evaluation_step_is_retained (tests.test_turn_evaluation.TurnEvaluationTest.test_turn_completed_at_last_evaluation_step_is_retained) ... ok
+test_turn_speed_interval_excludes_before_and_after_turn (tests.test_turn_evaluation.TurnEvaluationTest.test_turn_speed_interval_excludes_before_and_after_turn) ... ok
+test_complete_stages_pass_and_incomplete_trial_fails (tests.test_motion_transition.MotionTransitionTest.test_complete_stages_pass_and_incomplete_trial_fails) ... ok
+test_initial_drift_or_non_alternating_walk_fail (tests.test_motion_transition.MotionTransitionTest.test_initial_drift_or_non_alternating_walk_fail) ... ok
+test_lateral_motion_and_slow_stop_start_fail (tests.test_motion_transition.MotionTransitionTest.test_lateral_motion_and_slow_stop_start_fail) ... ok
+test_stand_origin_and_flight (tests.test_motion_transition.MotionTransitionTest.test_stand_origin_and_flight) ... ok
+test_averaged_policy_equivariance_with_asymmetric_normalization (tests.test_mirror_probe.ReflectionTest.test_averaged_policy_equivariance_with_asymmetric_normalization) ... ok
+test_invalid_mappings_and_dimensions_rejected (tests.test_mirror_probe.ReflectionTest.test_invalid_mappings_and_dimensions_rejected) ... ok
+test_involution_and_input_preservation (tests.test_mirror_probe.ReflectionTest.test_involution_and_input_preservation) ... ok
+test_vectors_clock_and_absolute_joint_positions (tests.test_mirror_probe.ReflectionTest.test_vectors_clock_and_absolute_joint_positions) ... ok
+test_force_and_yaw_moment_balance (tests.test_contact_wrench.ContactWrenchTest.test_force_and_yaw_moment_balance) ... ok
+test_opposite_contact_participant_sign (tests.test_contact_wrench.ContactWrenchTest.test_opposite_contact_participant_sign) ... ok
+test_invalid_scale_rejected (tests.test_symmetric_rollout.RawAdapterTest.test_invalid_scale_rejected) ... ok
+test_scale_changes_only_internal_raw_yaw_and_preserves_external_state (tests.test_symmetric_rollout.RawAdapterTest.test_scale_changes_only_internal_raw_yaw_and_preserves_external_state) ... ok
+test_correction_bound_preserves_feedforward_neighborhood (tests.test_yaw_feedback.YawFeedbackTest.test_correction_bound_preserves_feedforward_neighborhood) ... ok
+test_correction_sign_filter_and_clamp (tests.test_yaw_feedback.YawFeedbackTest.test_correction_sign_filter_and_clamp) ... ok
+test_disabled_and_zero_command_preserve_feedforward (tests.test_yaw_feedback.YawFeedbackTest.test_disabled_and_zero_command_preserve_feedforward) ... ok
+test_heading_rate_with_banked_and_pitched_body (tests.test_yaw_feedback.YawFeedbackTest.test_heading_rate_with_banked_and_pitched_body) ... ok
+test_nonfinite_and_invalid_values_rejected (tests.test_yaw_feedback.YawFeedbackTest.test_nonfinite_and_invalid_values_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 42 tests in 4.411s
+
+OK

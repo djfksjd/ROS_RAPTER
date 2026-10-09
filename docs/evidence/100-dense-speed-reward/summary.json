@@ -1,0 +1,32 @@
+{
+  "control": {
+    "initial_steps": 11337728,
+    "final_steps": 11841536,
+    "eval_trials": 30,
+    "eval_falls": 0,
+    "turn_trials": 20,
+    "turn_pass": 0,
+    "heat_trials": 6,
+    "heat_falls": 0,
+    "heat_pass": 6,
+    "tracked_heat_pass": 3,
+    "motion_trials": 4,
+    "motion_falls": 0,
+    "motion_pass": 0
+  },
+  "penalty": {
+    "initial_steps": 11337728,
+    "final_steps": 11841536,
+    "eval_trials": 30,
+    "eval_falls": 0,
+    "turn_trials": 20,
+    "turn_pass": 0,
+    "heat_trials": 6,
+    "heat_falls": 0,
+    "heat_pass": 6,
+    "tracked_heat_pass": 3,
+    "motion_trials": 4,
+    "motion_falls": 0,
+    "motion_pass": 0
+  }
+}

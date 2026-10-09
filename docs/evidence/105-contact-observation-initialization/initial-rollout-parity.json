@@ -1,0 +1,65 @@
+[
+  {
+    "yaw": -1.0,
+    "seed": 47001,
+    "samples": 500,
+    "exact": [
+      true,
+      true
+    ],
+    "max_action_difference": [
+      0.0,
+      0.0
+    ],
+    "max_qpos_vector_difference": [
+      0.0,
+      0.0
+    ],
+    "max_qvel_vector_difference": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "yaw": 0.0,
+    "seed": 47001,
+    "samples": 500,
+    "exact": [
+      true,
+      true
+    ],
+    "max_action_difference": [
+      0.0,
+      0.0
+    ],
+    "max_qpos_vector_difference": [
+      0.0,
+      0.0
+    ],
+    "max_qvel_vector_difference": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "yaw": 1.0,
+    "seed": 47001,
+    "samples": 500,
+    "exact": [
+      true,
+      true
+    ],
+    "max_action_difference": [
+      0.0,
+      0.0
+    ],
+    "max_qpos_vector_difference": [
+      0.0,
+      0.0
+    ],
+    "max_qvel_vector_difference": [
+      0.0,
+      0.0
+    ]
+  }
+]

@@ -1,0 +1,7 @@
+Using Python 3.14.7 environment at: .venv-sim
+Resolved 1 package in 131ms
+Downloading scipy (19.5MiB)
+ Downloaded scipy
+Prepared 1 package in 1.74s
+Installed 1 package in 20ms
+ + scipy==1.18.1

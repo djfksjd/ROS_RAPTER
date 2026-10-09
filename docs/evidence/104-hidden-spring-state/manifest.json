@@ -1,0 +1,11 @@
+{
+  "status": "synthetic_diagnostic_completed_observation_candidate_not_implemented",
+  "files": {
+    "docs/evidence/104-hidden-spring-state/summary.json": "e5229420106909e0d26337fecc365cbf30c58846177b96b008d2c51c6acb8745",
+    "docs/evidence/104-hidden-spring-state/tests-all.txt": "d2d10fa17ee567d64334539c87a4c2acc8375e1fc8860f03ba2fc506a105521a",
+    "docs/evidence/104-hidden-spring-state/tests-sim.txt": "7380339ba8b7dcc81c822b63cca4596f4f91d41fef6d78873afdbe51873cec20",
+    "docs/evidence/104-hidden-spring-state/counterfactual.jsonl": "68ac44a4d0a25990c9a32a97590741a81c5b651d5d9e8b65cd2c0bb99b76f5a5",
+    "docs/evidence/104-hidden-spring-state/README.md": "7858d8bdce1d4e41a7fb904d30ee1ea4c0bade7c3fdea3cfe1cce32d4ee33de8",
+    "sim/rl/spring_state_probe.py": "0d88aaec87a025dacbf9461bc9f91df41e028ba83c2ba609845f5623af0f4f52"
+  }
+}

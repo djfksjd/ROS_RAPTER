@@ -1,0 +1,18 @@
+{
+  "trials": 30,
+  "turn_trials": 20,
+  "angle_pass": 0,
+  "min_speed_pass": 0,
+  "falls": 0,
+  "completion": {
+    "initial_steps": 10330112,
+    "final_steps": 10395648,
+    "initialize_only": false
+  },
+  "hashes": {
+    "model.zip": "6b1678768a68e4645da570ff68f7259317a1dfa8f96bccb99ff4b85319ce5322",
+    "vecnorm.pkl": "a6c08328f07ce9a73eb66f4193f8ef10d6b6486d5c058262171b9fec2dd7d886",
+    "args.json": "7b030637192b33db23f703756c80f1af10010a8f6274715fdcada9a20eb3a6e6",
+    "progress.csv": "009a30875b32046ae0a734ce121a5c9c878e470b88cb13fb3697980a66ab189b"
+  }
+}

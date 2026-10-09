@@ -1,0 +1,10 @@
+{
+  "files": {
+    "sim/rl/evaluate_run.py": "d8e11978d8b57d0c740c5e81cee335ce7ba0a49633670011a8bebc05a590989f",
+    "tests/test_turn_evaluation.py": "a7421c7af58b8f8ea5da65a7533d2cfe0bd8c6852f0f752c690edf000c94f59a"
+  },
+  "baseline_scope": "10s evaluation; final-step completion fix does not change this already complete turn window",
+  "old_results": "retained in evidence87/88; do not mix with v2 gates",
+  "adopted": false,
+  "post_evaluation_changes": "positive duration/episode and contained turn interval validation; default10s gate unchanged"
+}

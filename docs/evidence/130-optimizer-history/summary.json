@@ -1,0 +1,22 @@
+{
+  "trials": 30,
+  "turn_trials": 20,
+  "angle_pass": 4,
+  "min_speed_pass": 0,
+  "falls": 1,
+  "failed_falls": [
+    {
+      "seed": 67001,
+      "command": [
+        4.0,
+        0.0,
+        0.0
+      ],
+      "turn": [
+        -1.0,
+        4.0,
+        2.0
+      ]
+    }
+  ]
+}

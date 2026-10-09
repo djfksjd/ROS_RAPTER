@@ -1,0 +1,38 @@
+[
+  {
+    "seed": 22001,
+    "initial_base_speed_overridden": false,
+    "seconds": 0.7800000000000006,
+    "fell": true,
+    "max_displacement_from_first_record_m": 0.4976772499827744,
+    "max_tilt_rad": 0.8173165767834428,
+    "flight_samples": 2
+  },
+  {
+    "seed": 22002,
+    "initial_base_speed_overridden": false,
+    "seconds": 1.1199999999999875,
+    "fell": true,
+    "max_displacement_from_first_record_m": 0.48745078397469643,
+    "max_tilt_rad": 0.825398192869798,
+    "flight_samples": 2
+  },
+  {
+    "seed": 22001,
+    "initial_base_speed_overridden": true,
+    "seconds": 1.2199999999999764,
+    "fell": true,
+    "max_displacement_from_first_record_m": 0.48890683360697906,
+    "max_tilt_rad": 0.8415683535808103,
+    "flight_samples": 2
+  },
+  {
+    "seed": 22002,
+    "initial_base_speed_overridden": true,
+    "seconds": 1.2199999999999764,
+    "fell": true,
+    "max_displacement_from_first_record_m": 0.4751229744008488,
+    "max_tilt_rad": 0.8013475639831001,
+    "flight_samples": 2
+  }
+]

@@ -1,0 +1,16 @@
+{
+  "files": {
+    "sim/rl/evaluate_run.py": "d8e11978d8b57d0c740c5e81cee335ce7ba0a49633670011a8bebc05a590989f",
+    "sim/rl/runs/turn_curr_control7_20261009/model.zip": "e8ece37e35f4a9a5dff47f8e734608799a1181aba3b13119798d012991b7e785",
+    "sim/rl/runs/turn_curr_control7_20261009/vecnorm.pkl": "ad737f406b1b4bfe8b44abbdac6bef308209dfd380b523614570c8591f6ae6b6",
+    "sim/rl/runs/turn_curr_control7_20261009/args.json": "7770c0ffec4ad2c6d3b212c31b7bb987693950132c18afc9dfc619874c4b0a8a",
+    "sim/rl/runs/turn_curr_focus4_20261009/model.zip": "45f9623ad2231805102b123eaee778a83e03b5de033bd51bb2a384974898f4f9",
+    "sim/rl/runs/turn_curr_focus4_20261009/vecnorm.pkl": "cce5ea296137dfb94fcd30682fec0699d1f5e29ca2e8faa74ea712473b9b3759",
+    "sim/rl/runs/turn_curr_focus4_20261009/args.json": "92364a99c9f48b0a927427aa25e9b8d71962ae1a4acc3b9bbdbc581f72a5b07a"
+  },
+  "training_seed": 0,
+  "steps_added_each": 503808,
+  "adopted": false,
+  "conditions_changed": "forward command bound7 versus4 only",
+  "evaluations": "per-start unrounded gate, 60s heat seeds10001-10003"
+}

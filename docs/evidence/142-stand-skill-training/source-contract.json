@@ -1,0 +1,11 @@
+{
+  "source": "sim/rl/runs/kl005_lr3e5_update64k_20261009",
+  "active_dof": 8,
+  "obs_size": 46,
+  "physical_arrays_and20_steps_exact": true,
+  "source_hashes": {
+    "model.zip": "98d7b6a9fac4c621e53da392cc7d273cee27acb5a9489431161fedb2dcd7450a",
+    "vecnorm.pkl": "5bf8bb8f542313b9a7895ff2cbd3ffcb76194ac309c1ecc92585d4db983f6a79",
+    "args.json": "da2144f1047bf1f5707cef16251dcbabe90dad35c0a68582b613e9d6cd15771f"
+  }
+}

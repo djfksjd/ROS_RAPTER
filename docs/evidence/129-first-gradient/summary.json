@@ -1,0 +1,50 @@
+[
+  {
+    "mode": "v2",
+    "samples": 4096,
+    "policy_gradient_actor_norm": 5.47127811138295,
+    "entropy_gradient_actor_norm": 0.008485281365677494,
+    "value_gradient_actor_norm": 0.0,
+    "total_gradient_norm": 5.512514440524514,
+    "global_clip_multiplier": 0.18140538757472402,
+    "old_adam_actor_momentum_norm": 0.17424569212775082,
+    "cosine_old_momentum_current_actor_gradient": -0.01779194903934394,
+    "log_probability_replay_max_error": 6.526019884489642e-06,
+    "optimizer_updates": 0,
+    "actor_parameter_names": [
+      "log_std",
+      "mlp_extractor.policy_net.0.weight",
+      "mlp_extractor.policy_net.0.bias",
+      "mlp_extractor.policy_net.2.weight",
+      "mlp_extractor.policy_net.2.bias",
+      "mlp_extractor.policy_net.4.weight",
+      "mlp_extractor.policy_net.4.bias",
+      "action_net.weight",
+      "action_net.bias"
+    ]
+  },
+  {
+    "mode": "catalogue",
+    "samples": 4096,
+    "policy_gradient_actor_norm": 5.225419035378488,
+    "entropy_gradient_actor_norm": 0.008485281365677494,
+    "value_gradient_actor_norm": 0.0,
+    "total_gradient_norm": 5.475390356731759,
+    "global_clip_multiplier": 0.18263534692740144,
+    "old_adam_actor_momentum_norm": 0.17424569212775082,
+    "cosine_old_momentum_current_actor_gradient": 0.005848022104055473,
+    "log_probability_replay_max_error": 7.063697815112846e-06,
+    "optimizer_updates": 0,
+    "actor_parameter_names": [
+      "log_std",
+      "mlp_extractor.policy_net.0.weight",
+      "mlp_extractor.policy_net.0.bias",
+      "mlp_extractor.policy_net.2.weight",
+      "mlp_extractor.policy_net.2.bias",
+      "mlp_extractor.policy_net.4.weight",
+      "mlp_extractor.policy_net.4.bias",
+      "action_net.weight",
+      "action_net.bias"
+    ]
+  }
+]

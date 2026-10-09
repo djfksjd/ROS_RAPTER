@@ -1,0 +1,77 @@
+from pathlib import Path
+import sys,json,time
+import numpy as np
+sys.path.insert(0,str(Path('sim/rl').resolve()))
+from local_stand_model import LocalStandModel
+from contact_wrench import contact_wrench
+from stand_observer import StandObserverController
+from motion_transition import stand_gate
+from servo_target_limit import limit_servo_action
+from run_env import motor_available,MOTOR_CLASSES,LINK_ETA,joint_type
+source=Path('sim/rl/runs/kl005_lr3e5_update64k_20261009')
+candidate=next(x for x in map(json.loads,Path('docs/evidence/148-static-equilibrium/margin-search.jsonl').read_text().splitlines()) if x['start_knee']==1.1)
+design=np.load('docs/evidence/153-stand-observer/observer_design.npz')
+paths=[('observer_reset_at_entry',Path('sim/rl/runs/screen_logs/stand_shooting_peak_powell_20261009/initial_parameters.npy'))]
+K=np.load('sim/rl/runs/screen_logs/local_equilibrium_linearization/lqr_design.npz')['K']
+with Path('sim/rl/runs/screen_logs/stand_nonlinear_measurement_pair.diagnostic.jsonl').open('x') as log:
+ for cap_time in [1.6]:
+  for name,path in paths:
+   parameters=np.load(path).reshape(4,5)
+   for seed in [83002,86013]:
+    plant=LocalStandModel(source,candidate);plant.set_stand_current_limit(.995 if cap_time==0. else None);e=plant.env;m=e.model;e.init_seed=seed;e.reset();e.command=np.zeros(3);e.resample_steps=0;obs=e._obs();controller=StandObserverController(design);rows=[];entered=False;entry_time=None
+    predictor=LocalStandModel(source,candidate);T=np.array(design['T']);prediction_fallbacks=[];prediction_wall_seconds=0.;predicted_observation=None
+    pi=e.policy_idx;lower=np.maximum(-1.,(e.lo[e.policy_idx]-e.q0[e.policy_idx])/e.scale[e.policy_idx]);upper=np.minimum(1.,(e.hi[e.policy_idx]-e.q0[e.policy_idx])/e.scale[e.policy_idx])
+    try:
+     for step in range(3000):
+      if cap_time is not None and cap_time>0. and step==round(cap_time/.02):plant.set_stand_current_limit(.995);predictor.set_stand_current_limit(.995)
+      _,_,contacts=contact_wrench(m,e.data,e.root);loads=np.zeros(2)
+      for c in contacts:
+       body=m.body(c['body']).name
+       if any(x in body for x in ['foot','toe','metatarsus']):
+        for i,side in enumerate(['left','right']):
+         if body.startswith(side):loads[i]+=max(0.,c['force_world_N'][2])
+      ready=bool(step>=30) # Reproduce the offline planner fixed-time handoff; not an operating gate.
+      if not entered and ready:
+       entered=True;entry_time=step*.02
+       if name=='observer_reset_at_entry':controller.reset();predicted_observation=controller.reference.copy()
+      corrected_observation=obs.copy()
+      if entered and predicted_observation is not None:
+       # Equivalent innovation: actual sensor measurement minus internal nonlinear prediction.
+       ix=controller.indices
+       corrected_observation=corrected_observation.astype(float)
+       corrected_observation[ix]+=controller.reference[ix]+controller.C@controller.prior-predicted_observation[ix]
+      proposed=controller.act(corrected_observation)
+      if entered:
+       action=np.clip(plant.u-K@plant.state() if name=='full_state_at_entry' else proposed,lower,upper)
+      else:
+       common,spread,hp,knee,tail=[np.interp(step*.02,[0.,.2,.4,.6],parameters[:,j]) for j in range(5)]
+       action=np.clip([common+spread,hp,knee,common-spread,hp,knee,0.,tail],lower,upper)
+      infeasible=np.zeros(8,dtype=bool)
+      if entered:
+       observed_q=e.q0+obs[12:24];observed_qd=obs[24:36]/.05;tl=[];th=[]
+       for j in e.policy_idx:
+        cls,g=e.arch8_map[joint_type(e.active[j])]
+        gear=float(np.interp(observed_q[j],*e.knee_ratio)) if g=='fourbar' else g
+        drive=gear*LINK_ETA*float(motor_available(cls,gear*observed_qd[j]));brake=gear*LINK_ETA*MOTOR_CLASSES[cls][0]
+        low,high=(-brake,drive) if observed_qd[j]>=0 else (-drive,brake)
+        if step>=80:
+         cap=.995*gear*LINK_ETA*e.motor_cont[j];low=max(low,-cap);high=min(high,cap)
+        tl.append(low);th.append(high)
+       action,infeasible=limit_servo_action(action,q=observed_q[pi],qd=observed_qd[pi],q0=e.q0[pi],scale=e.scale[pi],kp=e.kp[pi],kd=e.kd[pi],torque_lower=tl,torque_upper=th,action_lower=lower,action_upper=upper)
+      controller.prior+=controller.B@(action-proposed)
+      if entered:
+       start_prediction=time.perf_counter()
+       try:
+        predicted=predictor.transition(T@controller.posterior,action-controller.u_reference)
+        controller.prior=T.T@predicted
+        predicted_observation=predictor.env._obs().copy()
+       except ValueError as error:
+        prediction_fallbacks.append(dict(step=step,message=str(error)));predicted_observation=None
+       prediction_wall_seconds+=time.perf_counter()-start_prediction
+      before=e.data.xpos[e.base][:2].copy();obs,_,fell,_,info=e.step(action)
+      rows.append(dict(t=(step+1)*.02,before_position_xy=before.tolist(),position_xy=e.data.xpos[e.base][:2].tolist(),tilt=float(info['tilt']),flight=bool(info['flight']),speed_xy=float(np.linalg.norm(info['v_body'][:2])),heat=e.heat_inst.tolist(),height=float(e.data.xpos[e.base][2]),action=action.tolist(),pre_foot_load_N=loads.tolist(),entered=entered,infeasible_target=infeasible.tolist()))
+      if fell:break
+     load=float(np.max(np.mean([r['heat'] for r in rows[-2000:]],axis=0)[e.motor_cont<1e8])) if len(rows)>=3000 else None;gate=stand_gate(rows)
+     r=dict(prediction_fallbacks=prediction_fallbacks,prediction_wall_seconds=prediction_wall_seconds,online_hidden_truth_used=False,candidate=name,trajectory=path.name,continuous_cap_start_seconds=cap_time,seed=seed,seconds=rows[-1]['t'],fell=bool(fell),entry_time=entry_time,gate=gate,max_load_last40=load,original_start_stand_pass=bool(len(rows)==3000 and not fell and gate['pass_gate'] and load<=1.),catalogue_pass=False,contact_gate_uses_simulator_force=False,fixed_time_handoff_diagnostic=True,full_state_control_after_entry=(name=='full_state_at_entry'),rows=rows)
+     log.write(json.dumps(r,allow_nan=False)+'\n');log.flush();print({k:v for k,v in r.items() if k not in ['rows','prediction_fallbacks']},flush=True)
+    finally:predictor.close();plant.close()

@@ -1,0 +1,42 @@
+[
+  {
+    "seed": 83001,
+    "seconds": 0.78,
+    "catalogue_pass": false,
+    "max_displacement_m": 0.12404859651680268,
+    "max_tilt_rad": 0.7619466599772358,
+    "flight_samples": 28,
+    "heat_window_seconds": 0.78,
+    "nonfoot_contacts": []
+  },
+  {
+    "seed": 83002,
+    "seconds": 0.88,
+    "catalogue_pass": false,
+    "max_displacement_m": 0.3295918651315837,
+    "max_tilt_rad": 0.8409396856526603,
+    "flight_samples": 19,
+    "heat_window_seconds": 0.88,
+    "nonfoot_contacts": []
+  },
+  {
+    "seed": 83003,
+    "seconds": 0.9400000000000001,
+    "catalogue_pass": false,
+    "max_displacement_m": 0.3694056146707748,
+    "max_tilt_rad": 0.7567793410608135,
+    "flight_samples": 21,
+    "heat_window_seconds": 0.9400000000000001,
+    "nonfoot_contacts": []
+  },
+  {
+    "seed": 83004,
+    "seconds": 0.76,
+    "catalogue_pass": false,
+    "max_displacement_m": 0.45120521593999363,
+    "max_tilt_rad": 0.7106606980198558,
+    "flight_samples": 23,
+    "heat_window_seconds": 0.76,
+    "nonfoot_contacts": []
+  }
+]

@@ -1,0 +1,24 @@
+test_default_zero_and_penalty_physics_parity_for_signed_commands (tests.test_lateral_speed_reward.LateralRewardTest.test_default_zero_and_penalty_physics_parity_for_signed_commands) ... ok
+test_large_braking_errors_remain_distinct (tests.test_dense_speed_reward.DenseSpeedRewardTest.test_large_braking_errors_remain_distinct) ... ok
+test_optional_penalty_preserves_physics_and_default_reward (tests.test_dense_speed_reward.DenseSpeedRewardTest.test_optional_penalty_preserves_physics_and_default_reward) ... ok
+test_actuator_forces_stay_within_the_spec_during_rollouts (tests.test_run_env.RunEnvTest.test_actuator_forces_stay_within_the_spec_during_rollouts) ... ok
+test_angular_momentum_parts (tests.test_run_env.RunEnvTest.test_angular_momentum_parts) ... ok
+test_ankle_clutch_lets_the_swing_foot_fold (tests.test_run_env.RunEnvTest.test_ankle_clutch_lets_the_swing_foot_fold)
+Unclutched, the Achilles spring stops an airborne ankle near 88 deg (motor 22 N·m); clutched it folds. ... ok
+test_balanced_start_and_body_contact_termination (tests.test_run_env.RunEnvTest.test_balanced_start_and_body_contact_termination) ... ok
+test_evaluation_starts_differ_by_init_seed (tests.test_run_env.RunEnvTest.test_evaluation_starts_differ_by_init_seed)
+Deterministic evaluation episodes with different init_seed start from different states; None keeps the ... ok
+test_force_range_follows_speed_and_power (tests.test_run_env.RunEnvTest.test_force_range_follows_speed_and_power) ... ok
+test_spaces_mass_and_springs (tests.test_run_env.RunEnvTest.test_spaces_mass_and_springs) ... ok
+test_structure_variants_contract (tests.test_run_env.RunEnvTest.test_structure_variants_contract)
+Equal-condition structure comparison (2026-10-01): arch8 / arch12 with explicit part masses and the same motor ... ok
+test_tail_lock_removes_the_tail_from_the_policy (tests.test_run_env.RunEnvTest.test_tail_lock_removes_the_tail_from_the_policy) ... ok
+test_unilateral_springs_have_a_dead_band (tests.test_run_env.RunEnvTest.test_unilateral_springs_have_a_dead_band) ... ok
+test_yaw_impulse_spins_the_body (tests.test_run_env.RunEnvTest.test_yaw_impulse_spins_the_body) ... ok
+test_actor_gradients_and_save_reload (tests.test_symmetric_policy.SymmetricPolicyTest.test_actor_gradients_and_save_reload) ... ok
+test_mean_and_noise_equivariance_and_probability_consistency (tests.test_symmetric_policy.SymmetricPolicyTest.test_mean_and_noise_equivariance_and_probability_consistency) ... ok
+
+----------------------------------------------------------------------
+Ran 16 tests in 0.943s
+
+OK

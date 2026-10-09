@@ -1,0 +1,704 @@
+{
+  "control": {
+    "eval_trials": 30,
+    "eval_falls": 0,
+    "turn_pass": 0,
+    "heat": [
+      {
+        "cmd": 4.0,
+        "init_seed": 62001,
+        "fell": false,
+        "t_s": 60.0,
+        "speed_last40_mps": 3.9675810667439926,
+        "burst3s_mps": 3.9831891370725683,
+        "steady_heat": {
+          "hip_roll": 0.75,
+          "hip_pitch": 0.22,
+          "knee_pitch": 0.76,
+          "tail_yaw": 0.03,
+          "tail_pitch": 0.68
+        },
+        "max_heat": 0.7642523919461387,
+        "steady_heat_20hz": {
+          "hip_roll": 0.7,
+          "hip_pitch": 0.14,
+          "knee_pitch": 0.66,
+          "tail_yaw": 0.02,
+          "tail_pitch": 0.53
+        },
+        "max_heat_20hz": 0.6960447182181977,
+        "mass_kg": 11.29,
+        "sustainable": true,
+        "sustainable_20hz": true,
+        "tracked": true,
+        "reached_40kmh": false,
+        "speed_pass_10pct": true
+      },
+      {
+        "cmd": 4.0,
+        "init_seed": 62002,
+        "fell": false,
+        "t_s": 60.0,
+        "speed_last40_mps": 3.9646349044440794,
+        "burst3s_mps": 3.984855529457878,
+        "steady_heat": {
+          "hip_roll": 0.75,
+          "hip_pitch": 0.21,
+          "knee_pitch": 0.75,
+          "tail_yaw": 0.03,
+          "tail_pitch": 0.68
+        },
+        "max_heat": 0.7534287195783905,
+        "steady_heat_20hz": {
+          "hip_roll": 0.69,
+          "hip_pitch": 0.14,
+          "knee_pitch": 0.65,
+          "tail_yaw": 0.02,
+          "tail_pitch": 0.53
+        },
+        "max_heat_20hz": 0.6943636252629454,
+        "mass_kg": 11.29,
+        "sustainable": true,
+        "sustainable_20hz": true,
+        "tracked": true,
+        "reached_40kmh": false,
+        "speed_pass_10pct": true
+      },
+      {
+        "cmd": 4.0,
+        "init_seed": 62003,
+        "fell": false,
+        "t_s": 60.0,
+        "speed_last40_mps": 3.9698540004699416,
+        "burst3s_mps": 3.986229410025585,
+        "steady_heat": {
+          "hip_roll": 0.74,
+          "hip_pitch": 0.22,
+          "knee_pitch": 0.76,
+          "tail_yaw": 0.03,
+          "tail_pitch": 0.67
+        },
+        "max_heat": 0.7568100788832756,
+        "steady_heat_20hz": {
+          "hip_roll": 0.69,
+          "hip_pitch": 0.14,
+          "knee_pitch": 0.65,
+          "tail_yaw": 0.02,
+          "tail_pitch": 0.53
+        },
+        "max_heat_20hz": 0.691051962437777,
+        "mass_kg": 11.29,
+        "sustainable": true,
+        "sustainable_20hz": true,
+        "tracked": true,
+        "reached_40kmh": false,
+        "speed_pass_10pct": true
+      },
+      {
+        "cmd": 7.0,
+        "init_seed": 62001,
+        "fell": false,
+        "t_s": 60.0,
+        "speed_last40_mps": 5.79964251941318,
+        "burst3s_mps": 5.810391063335759,
+        "steady_heat": {
+          "hip_roll": 0.75,
+          "hip_pitch": 0.27,
+          "knee_pitch": 0.79,
+          "tail_yaw": 0.03,
+          "tail_pitch": 0.6
+        },
+        "max_heat": 0.78824702852879,
+        "steady_heat_20hz": {
+          "hip_roll": 0.67,
+          "hip_pitch": 0.18,
+          "knee_pitch": 0.66,
+          "tail_yaw": 0.03,
+          "tail_pitch": 0.44
+        },
+        "max_heat_20hz": 0.6716398704023016,
+        "mass_kg": 11.29,
+        "sustainable": true,
+        "sustainable_20hz": true,
+        "tracked": false,
+        "reached_40kmh": false,
+        "speed_pass_10pct": false
+      },
+      {
+        "cmd": 7.0,
+        "init_seed": 62002,
+        "fell": false,
+        "t_s": 60.0,
+        "speed_last40_mps": 5.802015228966378,
+        "burst3s_mps": 5.812914187297038,
+        "steady_heat": {
+          "hip_roll": 0.75,
+          "hip_pitch": 0.27,
+          "knee_pitch": 0.79,
+          "tail_yaw": 0.03,
+          "tail_pitch": 0.6
+        },
+        "max_heat": 0.7938505386972963,
+        "steady_heat_20hz": {
+          "hip_roll": 0.67,
+          "hip_pitch": 0.18,
+          "knee_pitch": 0.66,
+          "tail_yaw": 0.03,
+          "tail_pitch": 0.44
+        },
+        "max_heat_20hz": 0.6744289158426573,
+        "mass_kg": 11.29,
+        "sustainable": true,
+        "sustainable_20hz": true,
+        "tracked": false,
+        "reached_40kmh": false,
+        "speed_pass_10pct": false
+      },
+      {
+        "cmd": 7.0,
+        "init_seed": 62003,
+        "fell": false,
+        "t_s": 60.0,
+        "speed_last40_mps": 5.802357945925693,
+        "burst3s_mps": 5.8107593227012,
+        "steady_heat": {
+          "hip_roll": 0.75,
+          "hip_pitch": 0.27,
+          "knee_pitch": 0.79,
+          "tail_yaw": 0.03,
+          "tail_pitch": 0.6
+        },
+        "max_heat": 0.7912985737603893,
+        "steady_heat_20hz": {
+          "hip_roll": 0.68,
+          "hip_pitch": 0.18,
+          "knee_pitch": 0.66,
+          "tail_yaw": 0.03,
+          "tail_pitch": 0.44
+        },
+        "max_heat_20hz": 0.6756079114798171,
+        "mass_kg": 11.29,
+        "sustainable": true,
+        "sustainable_20hz": true,
+        "tracked": false,
+        "reached_40kmh": false,
+        "speed_pass_10pct": false
+      }
+    ],
+    "motion": [
+      {
+        "seed": 63001,
+        "mode": "stand",
+        "fell": false,
+        "summary": {
+          "completed": true,
+          "pass_gate": false,
+          "stand": {
+            "pass_gate": false,
+            "samples": 3000,
+            "max_displacement_m": 1.4411752707115366,
+            "max_tilt_rad": 0.17908314884459722,
+            "flight_samples": 59
+          }
+        }
+      },
+      {
+        "seed": 63002,
+        "mode": "stand",
+        "fell": false,
+        "summary": {
+          "completed": true,
+          "pass_gate": false,
+          "stand": {
+            "pass_gate": false,
+            "samples": 3000,
+            "max_displacement_m": 1.1926254598817712,
+            "max_tilt_rad": 0.1851694071186982,
+            "flight_samples": 54
+          }
+        }
+      },
+      {
+        "seed": 63001,
+        "mode": "transition",
+        "fell": false,
+        "summary": {
+          "completed": true,
+          "pass_gate": false,
+          "cycles": [
+            {
+              "cycle": 0,
+              "run_speed_mps": 3.9520866344319803,
+              "initial_stand": {
+                "pass_gate": false,
+                "samples": 250,
+                "max_displacement_m": 0.9338740931212236,
+                "max_tilt_rad": 0.17908314884459722,
+                "flight_samples": 15
+              },
+              "initial_stand_pass": false,
+              "walk_speed_mps": 0.3317864608771775,
+              "walk_pass": true,
+              "stop_start_speed_mps": 4.015600481649939,
+              "stop_time_s": 10.14,
+              "distance_after_stop_m": 4.902484138769805,
+              "hold_complete": true,
+              "stand_after_stop": {
+                "pass_gate": false,
+                "samples": 501,
+                "max_displacement_m": 0.8635866457665441,
+                "max_tilt_rad": 0.1861904110283876,
+                "flight_samples": 11
+              },
+              "stop_pass": false,
+              "run_pass": true
+            },
+            {
+              "cycle": 1,
+              "run_speed_mps": 3.959815124620748,
+              "initial_stand": {
+                "pass_gate": false,
+                "samples": 250,
+                "max_displacement_m": 0.04503182876382876,
+                "max_tilt_rad": 0.17424901243794877,
+                "flight_samples": 4
+              },
+              "initial_stand_pass": false,
+              "walk_speed_mps": 0.33046345016705275,
+              "walk_pass": true,
+              "stop_start_speed_mps": 3.9718115090931456,
+              "stop_time_s": 10.719999999999999,
+              "distance_after_stop_m": 4.827082735535486,
+              "hold_complete": true,
+              "stand_after_stop": {
+                "pass_gate": false,
+                "samples": 501,
+                "max_displacement_m": 0.8379581940598394,
+                "max_tilt_rad": 0.18338064856043765,
+                "flight_samples": 10
+              },
+              "stop_pass": false,
+              "run_pass": true
+            }
+          ]
+        }
+      },
+      {
+        "seed": 63002,
+        "mode": "transition",
+        "fell": false,
+        "summary": {
+          "completed": true,
+          "pass_gate": false,
+          "cycles": [
+            {
+              "cycle": 0,
+              "run_speed_mps": 3.953682636418947,
+              "initial_stand": {
+                "pass_gate": false,
+                "samples": 250,
+                "max_displacement_m": 0.7527059380431734,
+                "max_tilt_rad": 0.1851694071186982,
+                "flight_samples": 10
+              },
+              "initial_stand_pass": false,
+              "walk_speed_mps": 0.33218656796963714,
+              "walk_pass": true,
+              "stop_start_speed_mps": 3.9516494225098016,
+              "stop_time_s": 10.54,
+              "distance_after_stop_m": 5.033193148440571,
+              "hold_complete": true,
+              "stand_after_stop": {
+                "pass_gate": false,
+                "samples": 501,
+                "max_displacement_m": 0.8723227355433972,
+                "max_tilt_rad": 0.18381880880867066,
+                "flight_samples": 10
+              },
+              "stop_pass": false,
+              "run_pass": true
+            },
+            {
+              "cycle": 1,
+              "run_speed_mps": 3.9499257315040097,
+              "initial_stand": {
+                "pass_gate": false,
+                "samples": 250,
+                "max_displacement_m": 0.041494996655545784,
+                "max_tilt_rad": 0.17483104023759655,
+                "flight_samples": 4
+              },
+              "initial_stand_pass": false,
+              "walk_speed_mps": 0.3256361312031125,
+              "walk_pass": true,
+              "stop_start_speed_mps": 4.031806825930831,
+              "stop_time_s": 10.799999999999997,
+              "distance_after_stop_m": 5.2328558994028,
+              "hold_complete": true,
+              "stand_after_stop": {
+                "pass_gate": false,
+                "samples": 501,
+                "max_displacement_m": 0.9296841459613713,
+                "max_tilt_rad": 0.18610714560745872,
+                "flight_samples": 10
+              },
+              "stop_pass": false,
+              "run_pass": true
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "candidate": {
+    "eval_trials": 30,
+    "eval_falls": 1,
+    "turn_pass": 0,
+    "heat": [
+      {
+        "cmd": 4.0,
+        "init_seed": 62001,
+        "fell": false,
+        "t_s": 60.0,
+        "speed_last40_mps": 3.7912059928988047,
+        "burst3s_mps": 3.807426279127087,
+        "steady_heat": {
+          "hip_roll": 0.64,
+          "hip_pitch": 0.19,
+          "knee_pitch": 0.8,
+          "tail_yaw": 0.03,
+          "tail_pitch": 0.99
+        },
+        "max_heat": 0.9859036249302187,
+        "steady_heat_20hz": {
+          "hip_roll": 0.59,
+          "hip_pitch": 0.13,
+          "knee_pitch": 0.67,
+          "tail_yaw": 0.03,
+          "tail_pitch": 0.8
+        },
+        "max_heat_20hz": 0.8048457212018364,
+        "mass_kg": 11.29,
+        "sustainable": true,
+        "sustainable_20hz": true,
+        "tracked": true,
+        "reached_40kmh": false,
+        "speed_pass_10pct": true
+      },
+      {
+        "cmd": 4.0,
+        "init_seed": 62002,
+        "fell": false,
+        "t_s": 60.0,
+        "speed_last40_mps": 3.788719293916589,
+        "burst3s_mps": 3.8065665378359954,
+        "steady_heat": {
+          "hip_roll": 0.63,
+          "hip_pitch": 0.18,
+          "knee_pitch": 0.8,
+          "tail_yaw": 0.03,
+          "tail_pitch": 0.98
+        },
+        "max_heat": 0.9809476283714962,
+        "steady_heat_20hz": {
+          "hip_roll": 0.59,
+          "hip_pitch": 0.12,
+          "knee_pitch": 0.67,
+          "tail_yaw": 0.03,
+          "tail_pitch": 0.8
+        },
+        "max_heat_20hz": 0.8027509344828958,
+        "mass_kg": 11.29,
+        "sustainable": true,
+        "sustainable_20hz": true,
+        "tracked": true,
+        "reached_40kmh": false,
+        "speed_pass_10pct": true
+      },
+      {
+        "cmd": 4.0,
+        "init_seed": 62003,
+        "fell": false,
+        "t_s": 60.0,
+        "speed_last40_mps": 3.7854012712762466,
+        "burst3s_mps": 3.8002113537052997,
+        "steady_heat": {
+          "hip_roll": 0.63,
+          "hip_pitch": 0.18,
+          "knee_pitch": 0.8,
+          "tail_yaw": 0.03,
+          "tail_pitch": 0.99
+        },
+        "max_heat": 0.9860767025445479,
+        "steady_heat_20hz": {
+          "hip_roll": 0.59,
+          "hip_pitch": 0.12,
+          "knee_pitch": 0.67,
+          "tail_yaw": 0.03,
+          "tail_pitch": 0.81
+        },
+        "max_heat_20hz": 0.8073992341389523,
+        "mass_kg": 11.29,
+        "sustainable": true,
+        "sustainable_20hz": true,
+        "tracked": true,
+        "reached_40kmh": false,
+        "speed_pass_10pct": true
+      },
+      {
+        "cmd": 7.0,
+        "init_seed": 62001,
+        "fell": false,
+        "t_s": 60.0,
+        "speed_last40_mps": 5.780807622824054,
+        "burst3s_mps": 5.8074189638218305,
+        "steady_heat": {
+          "hip_roll": 0.75,
+          "hip_pitch": 0.22,
+          "knee_pitch": 0.87,
+          "tail_yaw": 0.03,
+          "tail_pitch": 0.81
+        },
+        "max_heat": 0.8664310399937238,
+        "steady_heat_20hz": {
+          "hip_roll": 0.68,
+          "hip_pitch": 0.16,
+          "knee_pitch": 0.69,
+          "tail_yaw": 0.03,
+          "tail_pitch": 0.66
+        },
+        "max_heat_20hz": 0.6922130854283912,
+        "mass_kg": 11.29,
+        "sustainable": true,
+        "sustainable_20hz": true,
+        "tracked": false,
+        "reached_40kmh": false,
+        "speed_pass_10pct": false
+      },
+      {
+        "cmd": 7.0,
+        "init_seed": 62002,
+        "fell": false,
+        "t_s": 60.0,
+        "speed_last40_mps": 5.7863809128803165,
+        "burst3s_mps": 5.824671409336393,
+        "steady_heat": {
+          "hip_roll": 0.76,
+          "hip_pitch": 0.22,
+          "knee_pitch": 0.87,
+          "tail_yaw": 0.04,
+          "tail_pitch": 0.82
+        },
+        "max_heat": 0.8748003381645311,
+        "steady_heat_20hz": {
+          "hip_roll": 0.68,
+          "hip_pitch": 0.16,
+          "knee_pitch": 0.7,
+          "tail_yaw": 0.03,
+          "tail_pitch": 0.66
+        },
+        "max_heat_20hz": 0.6985462759737859,
+        "mass_kg": 11.29,
+        "sustainable": true,
+        "sustainable_20hz": true,
+        "tracked": false,
+        "reached_40kmh": false,
+        "speed_pass_10pct": false
+      },
+      {
+        "cmd": 7.0,
+        "init_seed": 62003,
+        "fell": false,
+        "t_s": 60.0,
+        "speed_last40_mps": 5.779870947682801,
+        "burst3s_mps": 5.8178505678962065,
+        "steady_heat": {
+          "hip_roll": 0.76,
+          "hip_pitch": 0.22,
+          "knee_pitch": 0.87,
+          "tail_yaw": 0.03,
+          "tail_pitch": 0.82
+        },
+        "max_heat": 0.8729874215082943,
+        "steady_heat_20hz": {
+          "hip_roll": 0.68,
+          "hip_pitch": 0.16,
+          "knee_pitch": 0.7,
+          "tail_yaw": 0.03,
+          "tail_pitch": 0.66
+        },
+        "max_heat_20hz": 0.697634761885181,
+        "mass_kg": 11.29,
+        "sustainable": true,
+        "sustainable_20hz": true,
+        "tracked": false,
+        "reached_40kmh": false,
+        "speed_pass_10pct": false
+      }
+    ],
+    "motion": [
+      {
+        "seed": 63001,
+        "mode": "stand",
+        "fell": false,
+        "summary": {
+          "completed": true,
+          "pass_gate": false,
+          "stand": {
+            "pass_gate": false,
+            "samples": 3000,
+            "max_displacement_m": 17.75042279731989,
+            "max_tilt_rad": 0.2935207423691037,
+            "flight_samples": 148
+          }
+        }
+      },
+      {
+        "seed": 63002,
+        "mode": "stand",
+        "fell": false,
+        "summary": {
+          "completed": true,
+          "pass_gate": false,
+          "stand": {
+            "pass_gate": false,
+            "samples": 3000,
+            "max_displacement_m": 17.400450725646333,
+            "max_tilt_rad": 0.29422165978376386,
+            "flight_samples": 126
+          }
+        }
+      },
+      {
+        "seed": 63001,
+        "mode": "transition",
+        "fell": false,
+        "summary": {
+          "completed": true,
+          "pass_gate": false,
+          "cycles": [
+            {
+              "cycle": 0,
+              "run_speed_mps": 3.6634660783847903,
+              "initial_stand": {
+                "pass_gate": false,
+                "samples": 250,
+                "max_displacement_m": 2.0228806724603507,
+                "max_tilt_rad": 0.2935207423691037,
+                "flight_samples": 16
+              },
+              "initial_stand_pass": false,
+              "walk_speed_mps": 0.470848557777706,
+              "walk_pass": true,
+              "stop_start_speed_mps": 3.8499713279894805,
+              "stop_time_s": null,
+              "distance_after_stop_m": 6.9454511447897,
+              "hold_complete": true,
+              "stand_after_stop": {
+                "pass_gate": false,
+                "samples": 501,
+                "max_displacement_m": 3.0470373713744285,
+                "max_tilt_rad": 0.2884737616967493,
+                "flight_samples": 20
+              },
+              "stop_pass": false,
+              "run_pass": true
+            },
+            {
+              "cycle": 1,
+              "run_speed_mps": 3.700847598534449,
+              "initial_stand": {
+                "pass_gate": false,
+                "samples": 250,
+                "max_displacement_m": 1.4200009276801253,
+                "max_tilt_rad": 0.2884014318476781,
+                "flight_samples": 10
+              },
+              "initial_stand_pass": false,
+              "walk_speed_mps": 0.4716887991936169,
+              "walk_pass": true,
+              "stop_start_speed_mps": 3.8189674366883626,
+              "stop_time_s": null,
+              "distance_after_stop_m": 6.958564055420597,
+              "hold_complete": true,
+              "stand_after_stop": {
+                "pass_gate": false,
+                "samples": 501,
+                "max_displacement_m": 3.059433000886131,
+                "max_tilt_rad": 0.28912588976519016,
+                "flight_samples": 22
+              },
+              "stop_pass": false,
+              "run_pass": true
+            }
+          ]
+        }
+      },
+      {
+        "seed": 63002,
+        "mode": "transition",
+        "fell": false,
+        "summary": {
+          "completed": true,
+          "pass_gate": false,
+          "cycles": [
+            {
+              "cycle": 0,
+              "run_speed_mps": 3.668136302033904,
+              "initial_stand": {
+                "pass_gate": false,
+                "samples": 250,
+                "max_displacement_m": 1.7821555997307441,
+                "max_tilt_rad": 0.29422165978376386,
+                "flight_samples": 16
+              },
+              "initial_stand_pass": false,
+              "walk_speed_mps": 0.4695398431209571,
+              "walk_pass": true,
+              "stop_start_speed_mps": 3.773216916791323,
+              "stop_time_s": null,
+              "distance_after_stop_m": 7.084188427925056,
+              "hold_complete": true,
+              "stand_after_stop": {
+                "pass_gate": false,
+                "samples": 501,
+                "max_displacement_m": 3.0605788059421535,
+                "max_tilt_rad": 0.2888632989409648,
+                "flight_samples": 25
+              },
+              "stop_pass": false,
+              "run_pass": true
+            },
+            {
+              "cycle": 1,
+              "run_speed_mps": 3.673542374672302,
+              "initial_stand": {
+                "pass_gate": false,
+                "samples": 250,
+                "max_displacement_m": 1.4203354172351736,
+                "max_tilt_rad": 0.28874039588705946,
+                "flight_samples": 12
+              },
+              "initial_stand_pass": false,
+              "walk_speed_mps": 0.46929407412097235,
+              "walk_pass": true,
+              "stop_start_speed_mps": 3.828935267774288,
+              "stop_time_s": null,
+              "distance_after_stop_m": 6.935230947034308,
+              "hold_complete": true,
+              "stand_after_stop": {
+                "pass_gate": false,
+                "samples": 501,
+                "max_displacement_m": 3.049600324319862,
+                "max_tilt_rad": 0.28931000803812335,
+                "flight_samples": 24
+              },
+              "stop_pass": false,
+              "run_pass": true
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

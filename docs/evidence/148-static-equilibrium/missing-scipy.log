@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/tmp/raptor_static_equilibrium.py", line 5, in <module>
+    from scipy.optimize import least_squares
+ModuleNotFoundError: No module named 'scipy'

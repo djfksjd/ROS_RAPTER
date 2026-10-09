@@ -1,0 +1,54 @@
+{
+  "status": "completed_not_adopted",
+  "sessions": {
+    "control": 33454,
+    "penalty": 7940
+  },
+  "files": {
+    "docs/evidence/100-dense-speed-reward/tests-current.txt": "e054070f3e38afc095b004a64dd5cc22a5e899442ffc673ac11cbd0905df2497",
+    "docs/evidence/100-dense-speed-reward/README.md": "0cf5687db2b959545e9cd0903f3da385eed55990b2058a7909c9bc64a88b7af7",
+    "docs/evidence/100-dense-speed-reward/tests-sim-current.txt": "8855b6c02d48ae9dd91b668e1a2b1d628fb5a9baa8ccacea6b9c4663014d10c0",
+    "sim/rl/run_env.py": "3829929f307ac6cf2e5783c363894c7130069c5a9e3ed06b1dc44c3705ec2b7c",
+    "sim/rl/train_symmetric.py": "808d5950f15ebb7e13f09e64473a277b303b66bed8200505aed3001dd2f1bdd5",
+    "tests/test_dense_speed_reward.py": "7673cff2c22cf645a136931955aa499f654f0172bc0b98ecf4745ee07f0eaf91",
+    "docs/evidence/100-dense-speed-reward/initialization.json": "94c91dcca2852668e4576cae90ac2de19461b3bf6094235900b39d63cafe3e2a",
+    "docs/evidence/100-dense-speed-reward/final_eval.py": "96ea08e602dcddb2213615451567696774e05cc63fa7afcf483a9a50beccaaff",
+    "docs/evidence/100-dense-speed-reward/mid.motion.jsonl": "18d905e20964f342be715b860b4db9aa5c9ba2597fa3d140df932daecc76dc49",
+    "docs/evidence/100-dense-speed-reward/mid.control.eval.json": "4ea34ac0bbf6a9abba954b382e21dafa7ef9242b8e254847b2a13ad8f2e5c5c9",
+    "docs/evidence/100-dense-speed-reward/mid.penalty.diagnosis.jsonl": "95a3e9978f5b37b695ccb02bec80204354c793bc8886e7d275c9d98ed0417a1b",
+    "docs/evidence/100-dense-speed-reward/mid.penalty.eval.jsonl": "eb35e46f6fe2d6564391a3d0d49a773dbed0f1585fe60456209e5cb8913b6b66",
+    "docs/evidence/100-dense-speed-reward/mid.penalty.eval.json": "7dd1a0dbb5e727a7883d308e6ba4ca4ef42ec43b28803dd9e00189c7618fa7f4",
+    "docs/evidence/100-dense-speed-reward/mid.control.eval.jsonl": "996f7763b4b683b391af4037be27bec8e81d3b227c352e489dbee864bac20a6f",
+    "docs/evidence/100-dense-speed-reward/validation.py": "a855e76cf199749d5a75d6244c0a7e30a53e540f8a37cf05ae0e63c2f94cf325",
+    "sim/rl/runs/dense_speed_control_20261009/model.zip": "3e85a9f52892eaad0453c2ff50b44de8a36bd3c74165882f026d2f30e0d17169",
+    "sim/rl/runs/dense_speed_control_20261009/vecnorm.pkl": "f2cf7006e5baa0b0aa9bb2d1bc661ac39174544d519ca214bcb14c19fda7d296",
+    "sim/rl/runs/dense_speed_control_20261009/args.json": "d3e61d329bb025a27eb551244454b3b7cc6cb5f838eee5dd500b215175aaeae0",
+    "sim/rl/runs/dense_speed_control_20261009/completion.json": "be20bf0c0239495fe11ba414b7ad8dd96a2072d89128f2396e5ab58235542b0f",
+    "sim/rl/runs/dense_speed_penalty_20261009/model.zip": "c93a6f0008d6b3a230d8f7d965bc2bc963e45df89fe411a958cd65a028e04c37",
+    "sim/rl/runs/dense_speed_penalty_20261009/vecnorm.pkl": "91bc030541f75b5aaff3ec1b568eead27fe7cc27db1e356f95762af7c35b29d5",
+    "sim/rl/runs/dense_speed_penalty_20261009/args.json": "d93a34cd47932af4764ce10972c874c1271eb40c888ed4631fbb5d55612124b8",
+    "sim/rl/runs/dense_speed_penalty_20261009/completion.json": "be20bf0c0239495fe11ba414b7ad8dd96a2072d89128f2396e5ab58235542b0f",
+    "docs/evidence/100-dense-speed-reward/summary.json": "60882c82e7791898931f4c650979a8b10984e134cbfa2c74a0e2b3fd1ad232a5",
+    "docs/evidence/100-dense-speed-reward/final.control.eval.jsonl": "728978f6fd60b14885c9ca9050c64bf53cc8d3103c7579bb6e86ceac6041d6d1",
+    "docs/evidence/100-dense-speed-reward/final.control.motion.jsonl": "bab1491941e4f44e4d908bc0cfc108b5331ce8257b35a65c6ca173be6c28ba8a",
+    "docs/evidence/100-dense-speed-reward/final.penalty.eval.jsonl": "c34525cd6e970604ad9dbfcfc2ce074cfcb8e1c955f47ef349939cfaa0ef9f63",
+    "docs/evidence/100-dense-speed-reward/final.control.heat.jsonl": "41addcdbb7e68e7c1b4ba2812beabb1c8e67d7e72e0a4ec105e2d3713a1ff32c",
+    "docs/evidence/100-dense-speed-reward/final.penalty.motion.jsonl": "c272b4173695b62d7578d1e95681f717162489051acfb8bf8b0739751b305889",
+    "docs/evidence/100-dense-speed-reward/final.penalty.heat.jsonl": "8e5eebcead6a215dcf7b0f509d8ff677c4ec2cd0207af946b3c8f3c370ad2b52"
+  },
+  "midpoint_sessions": {
+    "control_evaluation": "completed exit0",
+    "penalty_evaluation": "completed exit0",
+    "penalty_diagnosis": "completed exit0",
+    "motion": "completed exit0"
+  },
+  "training_terminal_exit": {
+    "control": 0,
+    "penalty": 0
+  },
+  "validation_terminal_exit": {
+    "control": 0,
+    "penalty": 0
+  },
+  "source_changed_after_run": "train_symmetric.py: evidence101 optional turn-exploration flag; source-code/ copies preserve training implementation"
+}

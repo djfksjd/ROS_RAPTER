@@ -1,0 +1,29 @@
+{
+  "sha256": {
+    "encoder-projection.log": "e0cb97d25b0022ca89c03e2c69b4ff38cf3c40f1363750e6665be7f44457d1e0",
+    "full-state.jsonl": "837ca2b909373dc232819edfe0606f87993989bb1fdde91ce721cb3d776d3ad3",
+    "full-state-contacts.log": "1676a92c08c0f61f5149b02bad1cb73b9971ca1e0c1899ec2016859a4347ce37",
+    "summary.json": "0b5ef3a21da8d5763e6e53e63249bb125b3ab7aa91e85a3116a9b9ed3ccc8a43",
+    "encoder-projection.jsonl": "61365087821c0466e1eb6dcaae2cd63900c2fcab32aa1a0a1fe5f13f746de964",
+    "prior-development.py": "d74d1e7f43ea9850a962d2e6877db3991f86bb769e11e49647eb1d13210b514d",
+    "full-state.log": "1676a92c08c0f61f5149b02bad1cb73b9971ca1e0c1899ec2016859a4347ce37",
+    "README.md": "91fa684e51174f37e98d4135da54869b3f11ac510fe433a9681490c42bc0d665",
+    "measurement-development.log": "cc44ae41ae569d6ea796e83255796cdeb023ce24b80b22478b55c15afe0a1703",
+    "measurement-pair.py": "f179d11878081eed7bee3ce86b1763b6cbcb74a473c4645f309e6c2848a3002d",
+    "full-state-contacts.py": "1486783ba4bf0a11d4eb29a683d05d5407b5e06e2266eb55b4f829ddf11e6332",
+    "prior-development.jsonl": "d70184c74d446bfddd344e9362551cbf39b5823c888d6a276dbd7b5996f02ef4",
+    "full-state.py": "c9b97cecc799078f4a4c89817241b710de870fdbc7b23f84aa032101e070af74",
+    "measurement-development.py": "c754618dbb122cfb1e10b5f9305806e4073f4a1471983f2c540cfaf0bc4aaa75",
+    "measurement-development.jsonl": "2e68a430c5a9ab80451fb777b4c143f6f4fd052b78c6fed30e79922ac2195aaf",
+    "measurement-pair.log": "2998651c10960a3461b1f7b1da65e252b2e9c7b1a74c4766456ad7290b5c0e57",
+    "prior-pair.log": "5ac6d8a2db2d3a4c7843215293423aa87bbc2bad759be47b9713676bec3eb80e",
+    "full-state-contacts.jsonl": "bbd59e08af1f9859cc123cbb01cd8d95070ee8fd000da4904fd70c135a14c770",
+    "prior-pair.py": "cb66f16f5b850304e7fc158866171343ca9ae149c7bc581783399c9273ba3ccb",
+    "prior-pair.jsonl": "362bcb151782e3a4ae80822b919339726ac4c31ada360f9c710d11f32cbf965b",
+    "prior-development.log": "dc89b3109097da3a815ea9eb008141ffa50735f44340d049004fce3bed98d8f3",
+    "measurement-pair.jsonl": "aa78f507fe637f7ad8df0e4ebbf6fd9d5ed8f0e968c2c13ce33daca08ab0c697",
+    "encoder-projection.py": "1f95ad722bd404f10c0b29720ffce9726059d4dceb1fc6cd474764346f359ea5"
+  },
+  "goal_status": "active",
+  "catalogue_pass": false
+}

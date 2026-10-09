@@ -1,0 +1,11 @@
+{
+  "nfev": 258,
+  "status": 0,
+  "message": "Optimization terminated successfully.",
+  "objective_calls": 259,
+  "seconds": 41.32985749992076,
+  "initial_cost": 4901.238208411143,
+  "final_cost": 10150.618197900507,
+  "best_cost": 569.2185747757062,
+  "catalogue_pass": false
+}

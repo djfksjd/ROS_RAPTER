@@ -1,0 +1,54 @@
+{
+  "turn_curr_control7_20261009": {
+    "steps_added": 503808,
+    "eval_falls": 0,
+    "turn_passes": 0,
+    "turn_cases": 20,
+    "heat_summary": [
+      {
+        "cmd": 4,
+        "n": 3,
+        "falls": 0,
+        "heat_pass": 3,
+        "tracking_pass": 3,
+        "min_speed_last40_mps": 3.9469990974885176,
+        "max_heat": 0.849733904247796
+      },
+      {
+        "cmd": 7,
+        "n": 3,
+        "falls": 0,
+        "heat_pass": 0,
+        "tracking_pass": 3,
+        "min_speed_last40_mps": 6.480159223906921,
+        "max_heat": 1.1384739157097818
+      }
+    ]
+  },
+  "turn_curr_focus4_20261009": {
+    "steps_added": 503808,
+    "eval_falls": 1,
+    "turn_passes": 0,
+    "turn_cases": 20,
+    "heat_summary": [
+      {
+        "cmd": 4,
+        "n": 3,
+        "falls": 0,
+        "heat_pass": 3,
+        "tracking_pass": 3,
+        "min_speed_last40_mps": 4.081006812014676,
+        "max_heat": 0.857858914382218
+      },
+      {
+        "cmd": 7,
+        "n": 3,
+        "falls": 0,
+        "heat_pass": 0,
+        "tracking_pass": 1,
+        "min_speed_last40_mps": 6.291827580902925,
+        "max_heat": 1.138017759597064
+      }
+    ]
+  }
+}

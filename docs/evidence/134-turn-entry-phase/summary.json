@@ -1,0 +1,45 @@
+{
+  "by_start": [
+    {
+      "start_s": 4,
+      "trials": 8,
+      "angle_pass": 8,
+      "speed_pass": 6,
+      "joint_pass": 6,
+      "falls": 0
+    },
+    {
+      "start_s": 4.12,
+      "trials": 8,
+      "angle_pass": 8,
+      "speed_pass": 4,
+      "joint_pass": 4,
+      "falls": 0
+    },
+    {
+      "start_s": 4.24,
+      "trials": 8,
+      "angle_pass": 8,
+      "speed_pass": 5,
+      "joint_pass": 5,
+      "falls": 0
+    },
+    {
+      "start_s": 4.36,
+      "trials": 8,
+      "angle_pass": 8,
+      "speed_pass": 5,
+      "joint_pass": 5,
+      "falls": 0
+    },
+    {
+      "start_s": 4.48,
+      "trials": 8,
+      "angle_pass": 8,
+      "speed_pass": 4,
+      "joint_pass": 4,
+      "falls": 0
+    }
+  ],
+  "baseline_132_exact_parity": true
+}

@@ -1,0 +1,30 @@
+{
+  "status": "completed_not_adopted",
+  "files": {
+    "docs/evidence/95-yaw-feedback/raptor-feedback-final2-ai.txt": "241e0e828796a0c904f233c8560510427040d5055b3914d74fd2476487bfc3b1",
+    "docs/evidence/95-yaw-feedback/summary.json": "5b79abbc48240104615ec4bff84d46c12b00f88ea1416020bf2798034d2ed75e",
+    "docs/evidence/95-yaw-feedback/raptor-yaw-feedback-final-sim.txt": "86d01979ae4b34af4ce8fc3eb54e55503e86126d2190cdd2c9f6854ca06264ab",
+    "docs/evidence/95-yaw-feedback/motion-summary.json": "4b3d3f538e421652e62715e9f519c1ea95b6f6a4f38b9b4d4116ada7c4a6f4bb",
+    "docs/evidence/95-yaw-feedback/yaw_heading_bounded_pilot_20261009.jsonl": "5df7e3b90db24253b0ffbd917cd6eacf529e276cd71a2e08953640394e7eab04",
+    "docs/evidence/95-yaw-feedback/raptor-yaw-contact-control.log": "253c05ad7c7f5935b389cfe662cb02a2e7833c4a7a01f27a1953101a99fd6399",
+    "docs/evidence/95-yaw-feedback/raptor-feedback-final2-sim.txt": "55cf021c8f19d20c87608b4f1a81e2a7547b38ce0f1afe366ad9a12c0a2fb2d4",
+    "docs/evidence/95-yaw-feedback/raptor-yaw-contact.log": "253c05ad7c7f5935b389cfe662cb02a2e7833c4a7a01f27a1953101a99fd6399",
+    "docs/evidence/95-yaw-feedback/README.md": "987f04dbf8093bfb0e4c9beaf1dda4242e36ae3d0b7b8151d9269e712eeed1c2",
+    "docs/evidence/95-yaw-feedback/yaw_feedback0_trace_20261009.jsonl": "a3cb940ae1d00116642d63d42a8722d92751ede5ab2a053e3ab1cd2da1aeae82",
+    "docs/evidence/95-yaw-feedback/contact-summary.json": "df5ee9b1cbf91e7ff9bbb1cbe20ceefb401860e03728d7339fc737d53867a1cb",
+    "docs/evidence/95-yaw-feedback/yaw_feedback4_bounded_pilot_20261009.jsonl": "db81185753dd92d6e82a3396b715cff77b08a810a856e3cb52cb5aeede1de64e",
+    "docs/evidence/95-yaw-feedback/yaw_feedback4_pilot_20261009.jsonl": "36af5a91a276354ff940a2934d560f24e34eeb7c4201f46e19841c496e93c09e",
+    "docs/evidence/95-yaw-feedback/raptor-yaw-feedback-final-ai.txt": "b2adc06f2cb44820565c0a233c0469716ba9983811b519d45500c2742cc66ed1"
+  },
+  "large_raw_files": {
+    "sim/rl/runs/screen_logs/yaw_failed_contact_v2_20261009.jsonl": "aef00a920ffce9c3245a81cf9aa8d466937715334443ab40e983687e2a2bd56d",
+    "sim/rl/runs/screen_logs/yaw_failed_contact_control_v2_20261009.jsonl": "8e2e4483495f1416ab57d68fe5706ff3f11806726f4a52bb2a306af106fc64ef",
+    "sim/rl/runs/screen_logs/symmetric_motion_20261009.jsonl": "66bff8bfd506c516cf0f63f78b3df6719d5e7e834e6ad7ed41d4d95fd2b484da"
+  },
+  "code": {
+    "sim/rl/yaw_feedback.py": "5e755eb9abb2c033a97db51426604cbbcbb0fdba59eb7dde52aeb15e3ba83735",
+    "sim/rl/symmetric_rollout.py": "48ad6fa70e20f3bbf969c90c2a66f7a7526d5a627b78c9cdeb0488865c18fb7d",
+    "sim/rl/turn_wrench_probe.py": "8d5fd9a359cbd51bb976289723fe354600dcc086130b31b904a69664966c253f",
+    "sim/rl/motion_transition.py": "841c1385928ccb253476d1c23b7511069fd32df2883e7cc7783a16c084ea2f90"
+  }
+}

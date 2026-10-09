@@ -1,0 +1,9 @@
+{
+  "qpos_max_diff": 0.0,
+  "qvel_max_diff": 0.0,
+  "control_max_diff": 0.0,
+  "calibration_pair": [
+    "wrench_copy_calibration_v2_20261009.jsonl",
+    "wrench_uninstrumented_20261009.jsonl"
+  ]
+}

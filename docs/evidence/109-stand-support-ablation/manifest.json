@@ -1,0 +1,22 @@
+{
+  "status": "training_completed_final_evaluation_in110",
+  "sessions": {
+    "control": 95374,
+    "penalty": 52740
+  },
+  "source": "sim/rl/runs/seq_compare_catalogue_20261009",
+  "files": {
+    "suite.log": "df639fed8a22e3a68658a5af46831e6b37dc35f5f4d3fb77108f5386dc104028",
+    "penalty.args.json": "d528a273d5eea5c005554be13f95801ef88d77ca6c873109c2103ee386bdb1a9",
+    "README.md": "516a463d111b9dd391a61ecb77ecd17f87cbca245252a4db3378b42e10db275d",
+    "control.args.json": "feaaa7e647670d88e620d01a79885cb28fed2ab951c3a96ebe54ace685ca3889",
+    "initialization.json": "dbd2f3e39d7c47e66f55ee6105ee92ed2478458b8b5938de076054a9392b15f0",
+    "focused-initial-failure.log": "597dd7a63f08408cd4e537697817a05e221d739ad1204e0e472ab6f79d91de8a",
+    "focused.log": "8246c92a722517978f62a96a3bb8b58b8ae7a8f1d0b713b551b8462d4502d0bf"
+  },
+  "code_hashes": {
+    "sim/rl/run_env.py": "18251296a080050adeff25325a57222463b508cc8fda64b2354d2f599e0f488c",
+    "sim/rl/train_symmetric.py": "df20e010d4b86e14eb13d1b73fc445f09aa0f8068c3fa0dfa359c3bee9fc7732",
+    "tests/test_stand_support_reward.py": "4e6144050197af7bc4d37f3b678cbb885fbe0db9cc189613fba14e973794c2d0"
+  }
+}

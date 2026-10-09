@@ -1,0 +1,19 @@
+{
+  "sha256": {
+    "adaptive-probe.log": "9df5114d55ff7aec712fc8e87a184f9d5933b6aa5d965dab57cb85b29353c1ad",
+    "summary.json": "84f210dcf7639d2b61298e0244da622f6b02bedaea133ad52ff6d9e1f58c3f83",
+    "adaptive-probe.py": "928bda35b59bd104a26df5bfaa86d923f35f689b4999f3a3ecdcb56166efb012",
+    "focused-tests.log": "abcce90822a0e299a8bde758d87e110716cd30a946e59cfbc26a3ee97c3e2e10",
+    "braking_approach.py": "01a8e7f871cc31b0d39c8ff123e43a510de2ced31c97bf5b29c3065ab7ba2bcd",
+    "feedback-probe.log": "2581863f4f66628e3ba02850e9698cc2a5b30ceaf8e16d63443e8dcb0d6a1f04",
+    "initial-invalid-gain.log": "9ef9fe97226537c3506bdbadbf7b2379688e16388ff2df56b3d1251eefef6ad0",
+    "README.md": "13007e1f36624ff0356b4b0a102ded37d14e2af5d652676c6b711e0263bab680",
+    "feedback-probe.py": "76adc3268e3af63ac15d990dc478536dd2164562c036579307ad4c39cfca9393",
+    "feedback-probe.jsonl": "c47aa35ed9e237578694812dbb94503ab5878b5d7f8046ffb8a5a88bfc9e2b15",
+    "adaptive-probe.jsonl": "0c2133d3bfb5ea401231be062615ea2c3145a81bfeb63a5d0aed18f2d1f25ac8",
+    "whole-tests.log": "9ee3d5a5daad4d5e00b22961f9c9156ea125670831b31b05d24480fb1cf767cd",
+    "test_braking_approach.py": "47616fc1e55c65c41a4371cacd4771c32a6b6943e3a2ad78fbc6ffd3e21e8991"
+  },
+  "goal_status": "active",
+  "catalogue_pass": false
+}

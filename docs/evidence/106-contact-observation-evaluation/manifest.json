@@ -1,0 +1,35 @@
+{
+  "status": "final_training_and_validation_completed_not_adopted",
+  "midpoint_exit": {
+    "control_eval": 0,
+    "contact_eval": 0,
+    "motion": 0
+  },
+  "files": {
+    "docs/evidence/106-contact-observation-evaluation/mid.motion.jsonl": "2bae9a81aa532f9d8ad4566b3042d6c068b314899bba4d3c0d973b6c6d593b50",
+    "docs/evidence/106-contact-observation-evaluation/mid.control.eval.json": "821d85dec062fac5d908949bfcb194cb1849afe7122f079d4d22c0dcfa6cb7c3",
+    "docs/evidence/106-contact-observation-evaluation/final.control.eval.jsonl": "063b71fca08f770821a2bf477d15fb27b27d6135b5d68873124e2382df2f190a",
+    "docs/evidence/106-contact-observation-evaluation/control.completion.json": "be20bf0c0239495fe11ba414b7ad8dd96a2072d89128f2396e5ab58235542b0f",
+    "docs/evidence/106-contact-observation-evaluation/contact_obs_final.contact.motion.log": "d0e10849a6313b599f2ba85381d9f4b5d4e27f45611716a0ebf9fc81648e6e7f",
+    "docs/evidence/106-contact-observation-evaluation/final.contact.heat.jsonl": "3e0b722350c380bed2009d2198cc31189d4e6e40514ff0e2c72869f77b8997d8",
+    "docs/evidence/106-contact-observation-evaluation/final.control.motion.jsonl": "c675b0ecb17ce16fbbfe3c632bdf04d8de11c1c2a578c5a58e1cbd75283311d2",
+    "docs/evidence/106-contact-observation-evaluation/final.contact.motion.jsonl": "b8c937491cd76cefec2672b1e9aad290f732dc1f6ec3566e0ff2a39a2c50fa96",
+    "docs/evidence/106-contact-observation-evaluation/mid.contact.eval.jsonl": "52adfc8c247dc21f69588cf95ecef5105725da0bd1e2ce85e0c3bee8c5168181",
+    "docs/evidence/106-contact-observation-evaluation/contact_obs_final.control.eval.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "docs/evidence/106-contact-observation-evaluation/final-summary.json": "183d71ec7ef15d6f39d52c5bdeb6da699e0e7df0e29427f7437982c4fdd513df",
+    "docs/evidence/106-contact-observation-evaluation/contact_obs_final.contact.eval.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "docs/evidence/106-contact-observation-evaluation/README.md": "56959013fca7a3784b389b34fe33264f91e52c1f34bf569a179b707cf3952b6c",
+    "docs/evidence/106-contact-observation-evaluation/final.control.heat.jsonl": "3f111578a0908c689a5d6915037a36409ba4d7a55af025baee00988dbce98cb0",
+    "docs/evidence/106-contact-observation-evaluation/contact_obs_final.control.motion.log": "3ffae03178e22d54a5bbc29414911f5ee525e67ef9026f68ea64374ee0da0e8d",
+    "docs/evidence/106-contact-observation-evaluation/mid.contact.eval.json": "90f2b3fc7358916e42b1d6d37958657a05618f567e3c7ee3d750eca9e0f13484",
+    "docs/evidence/106-contact-observation-evaluation/final.contact.eval.jsonl": "4d9b9fc92cfe4a39ad2cc7e0b9f21416b8055a205c3513a06164d0832d359aa8",
+    "docs/evidence/106-contact-observation-evaluation/raptor_contact_validation.py": "85770265c802d5605adb9e03e0c35cf0828184e923ddbfc0b318f3692b1f12e7",
+    "docs/evidence/106-contact-observation-evaluation/mid.control.eval.jsonl": "4c6f666df6a9d3eebb66637998f7329c35d5c54ca500663222f0411053d3734f",
+    "docs/evidence/106-contact-observation-evaluation/raptor_dense_final_eval.py": "96ea08e602dcddb2213615451567696774e05cc63fa7afcf483a9a50beccaaff",
+    "docs/evidence/106-contact-observation-evaluation/contact.completion.json": "be20bf0c0239495fe11ba414b7ad8dd96a2072d89128f2396e5ab58235542b0f"
+  },
+  "final_validation_exit": {
+    "control": 0,
+    "contact": 0
+  }
+}

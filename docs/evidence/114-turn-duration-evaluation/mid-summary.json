@@ -1,0 +1,178 @@
+{
+  "control": {
+    "eval_trials": 12,
+    "eval_falls": 0,
+    "turn_pass": 0,
+    "motion": [
+      {
+        "seed": 65001,
+        "mode": "stand",
+        "fell": false,
+        "summary": {
+          "completed": true,
+          "pass_gate": false,
+          "stand": {
+            "pass_gate": false,
+            "samples": 3000,
+            "max_displacement_m": 8.891722708736125,
+            "max_tilt_rad": 0.18669554096835275,
+            "flight_samples": 9
+          }
+        }
+      },
+      {
+        "seed": 65001,
+        "mode": "transition",
+        "fell": false,
+        "summary": {
+          "completed": true,
+          "pass_gate": false,
+          "cycles": [
+            {
+              "cycle": 0,
+              "run_speed_mps": 3.708743155813993,
+              "initial_stand": {
+                "pass_gate": false,
+                "samples": 250,
+                "max_displacement_m": 0.8571334727994009,
+                "max_tilt_rad": 0.18669554096835275,
+                "flight_samples": 9
+              },
+              "initial_stand_pass": false,
+              "walk_speed_mps": 0.278792511883338,
+              "walk_pass": false,
+              "stop_start_speed_mps": 3.7233296027442964,
+              "stop_time_s": null,
+              "distance_after_stop_m": 4.179776721933889,
+              "hold_complete": true,
+              "stand_after_stop": {
+                "pass_gate": false,
+                "samples": 501,
+                "max_displacement_m": 0.5916988838846879,
+                "max_tilt_rad": 0.19129116065734145,
+                "flight_samples": 2
+              },
+              "stop_pass": false,
+              "run_pass": true
+            },
+            {
+              "cycle": 1,
+              "run_speed_mps": 3.6190642368091925,
+              "initial_stand": {
+                "pass_gate": false,
+                "samples": 250,
+                "max_displacement_m": 0.6892714863803227,
+                "max_tilt_rad": 0.1735088932626703,
+                "flight_samples": 0
+              },
+              "initial_stand_pass": false,
+              "walk_speed_mps": 0.24350340618100574,
+              "walk_pass": false,
+              "stop_start_speed_mps": 3.77486004344879,
+              "stop_time_s": null,
+              "distance_after_stop_m": 4.166860809706574,
+              "hold_complete": true,
+              "stand_after_stop": {
+                "pass_gate": false,
+                "samples": 501,
+                "max_displacement_m": 0.6100559444665135,
+                "max_tilt_rad": 0.19388648594288874,
+                "flight_samples": 2
+              },
+              "stop_pass": false,
+              "run_pass": true
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "candidate": {
+    "eval_trials": 12,
+    "eval_falls": 0,
+    "turn_pass": 0,
+    "motion": [
+      {
+        "seed": 65001,
+        "mode": "stand",
+        "fell": false,
+        "summary": {
+          "completed": true,
+          "pass_gate": false,
+          "stand": {
+            "pass_gate": false,
+            "samples": 3000,
+            "max_displacement_m": 7.744092393809521,
+            "max_tilt_rad": 0.22821171153145933,
+            "flight_samples": 148
+          }
+        }
+      },
+      {
+        "seed": 65001,
+        "mode": "transition",
+        "fell": false,
+        "summary": {
+          "completed": true,
+          "pass_gate": false,
+          "cycles": [
+            {
+              "cycle": 0,
+              "run_speed_mps": 3.75778186402606,
+              "initial_stand": {
+                "pass_gate": false,
+                "samples": 250,
+                "max_displacement_m": 0.8434129899871066,
+                "max_tilt_rad": 0.22809535401336029,
+                "flight_samples": 16
+              },
+              "initial_stand_pass": false,
+              "walk_speed_mps": 0.13856933501168658,
+              "walk_pass": false,
+              "stop_start_speed_mps": 3.78089051166774,
+              "stop_time_s": null,
+              "distance_after_stop_m": 3.6537006460249817,
+              "hold_complete": true,
+              "stand_after_stop": {
+                "pass_gate": false,
+                "samples": 501,
+                "max_displacement_m": 0.7276001560760583,
+                "max_tilt_rad": 0.22822557755947778,
+                "flight_samples": 21
+              },
+              "stop_pass": false,
+              "run_pass": true
+            },
+            {
+              "cycle": 1,
+              "run_speed_mps": 3.745380362283156,
+              "initial_stand": {
+                "pass_gate": false,
+                "samples": 250,
+                "max_displacement_m": 0.7055553543676159,
+                "max_tilt_rad": 0.21613087515284748,
+                "flight_samples": 10
+              },
+              "initial_stand_pass": false,
+              "walk_speed_mps": 0.12815897703133436,
+              "walk_pass": false,
+              "stop_start_speed_mps": 3.874150383091426,
+              "stop_time_s": null,
+              "distance_after_stop_m": 3.405093690694394,
+              "hold_complete": true,
+              "stand_after_stop": {
+                "pass_gate": false,
+                "samples": 501,
+                "max_displacement_m": 0.7587098118000071,
+                "max_tilt_rad": 0.22874363157209504,
+                "flight_samples": 20
+              },
+              "stop_pass": false,
+              "run_pass": true
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

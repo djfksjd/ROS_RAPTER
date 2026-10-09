@@ -1,0 +1,21 @@
+{
+  "configurations": [
+    {
+      "phase_compensation": false,
+      "trials": 20,
+      "angle_pass": 20,
+      "speed_pass": 11,
+      "joint_pass": 11,
+      "falls": 0
+    },
+    {
+      "phase_compensation": true,
+      "trials": 20,
+      "angle_pass": 20,
+      "speed_pass": 11,
+      "joint_pass": 11,
+      "falls": 0
+    }
+  ],
+  "baseline143_exact": true
+}

@@ -1,0 +1,18 @@
+{
+  "files": {
+    "sim/rl/runs/screen_logs/motion_baseline_v2_20261009.jsonl": "f3b5a873abaec7aefc1fe7346a38d3099e5235ef236d7909c17d40c9ecb2b6f8",
+    "sim/rl/motion_transition.py": "2414a11f859634b5213241882e76b40a0302c922f46cdfe8d5891811d2cfbcd4",
+    "tests/test_motion_transition.py": "24df0707ff1e799c774e627f32ec4b812946e303988b78915bddb0728f3620fa"
+  },
+  "cases": 8,
+  "screening_only": true,
+  "seed_values": [
+    12001,
+    12002
+  ],
+  "catalogue_common_requirement": "20 starts per motion; not met by this screening",
+  "full_transitions_each": "two34s cycles; 68s",
+  "contact_observation_period_seconds": 0.02,
+  "old_motion_baseline_jsonl": "initial diagnostic, before gate expansion; preserve separately",
+  "adopted": false
+}

@@ -1,0 +1,28 @@
+{
+  "pulse_stored_trials": 48,
+  "pulse_no_change_exact_replays": 16,
+  "support_development_trials": 42,
+  "all42_prefix_first10_common_raw_fields_exact": true,
+  "actions_finite_and_bounded": true,
+  "failed_trial_steady_load_null": true,
+  "summary": {
+    "support_only": {
+      "stand_pass": 1,
+      "prefix_pass": 5,
+      "passing_seeds": [
+        83002
+      ]
+    },
+    "paired_pitch_support": {
+      "stand_pass": 0,
+      "prefix_pass": 1,
+      "passing_seeds": []
+    }
+  },
+  "serialization_failure_preserved": true,
+  "serialization_failure_simulations_not_independent_evidence": 48,
+  "candidate_adopted": false,
+  "independent_holdout": false,
+  "goal_status": "active",
+  "runtime_handles": []
+}

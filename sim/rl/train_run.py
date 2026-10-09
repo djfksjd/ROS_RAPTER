@@ -91,6 +91,20 @@ def make(kw, seed, cls=RunEnv):
     return thunk
 
 
+def env_kwargs(a):
+    """RunEnv keyword arguments from a train_run argument dict (also args.json of a finished run; keys added later default)."""
+    g = a.get
+    return dict(mass=a['mass'], springs=a['springs'], tail=a['tail'], level=a['level'], cmd_max=a['cmd'], episode_s=a['episode_s'],
+                weights=json.loads(a['weights']), zero_cmd=a['zero_cmd'], top_cmd=a['top_cmd'], disturb_items=a['disturb_items'],
+                obs_vel=not a['no_obs_vel'], init_speed=not a['no_init_speed'], ankle_clutch=a['ankle_clutch'],
+                kin=json.loads(g('kin') or '{}'), yaw_impulse=g('yaw_impulse'), couple_ankle=g('couple_ankle', False),
+                track_sigma_frac=g('track_sigma_frac', .15), arch8=g('arch8', False),
+                springs_override=json.loads(a['springs_override']) if g('springs_override') else None,
+                arch8_override=json.loads(a['arch8_override']) if g('arch8_override') else None,
+                arch12=g('arch12', False), real_mass=g('real_mass', False), hip_back=g('hip_back', 0.), nominal=g('nominal'),
+                target_ramp=g('target_ramp', False),obs_contact=g('obs_contact',False))
+
+
 def main():
     p = argparse.ArgumentParser()
     p.add_argument('--name', required=True)
@@ -113,25 +127,28 @@ def main():
     p.add_argument('--ankle-clutch', action='store_true', help='ankle spring engaged only while that foot is loaded')
     p.add_argument('--kin', default='{}', help='JSON overrides of run_env.KIN, e.g. {"fold": [65, 15, 0.1, 0.45]}')
     p.add_argument('--eval-curriculum', action='store_true', help='advance on deterministic evaluation (speed first, then level)')
+    p.add_argument('--fixed-curriculum', action='store_true', help='hold the supplied level and command range fixed for controlled ablations')
     p.add_argument('--track-sigma-frac', type=float, default=.15, help='speed-tracking width as a fraction of the command')
     p.add_argument('--springs-override', help='JSON {joint: [k, q0, mode, engaged]} replacing the spring set (spring_refit.py)')
     p.add_argument('--arch8-override', help='JSON {joint: [class, gear]} for the arch8 motors')
     p.add_argument('--arch8', action='store_true', help='8-axis hybrid: four-bar knee, coupled ankle, locked ankle roll, class motor curves')
     p.add_argument('--couple-ankle', action='store_true', help='horse-style knee-ankle coupling, ankle pitch motors removed')
+    p.add_argument('--arch12', action='store_true', help='12-axis leg with the arch8 motor classes (+ankle pitch B 1.5:1, ankle roll A)')
+    p.add_argument('--real-mass', action='store_true', help='explicit part masses (run_env.real_masses); --mass is ignored')
+    p.add_argument('--hip-back', type=float, default=0., help='R-03: hip mount moved rearward along the torso (m)')
+    p.add_argument('--target-ramp', action='store_true', help='interpolate each PD target over the 20 ms control step')
+    p.add_argument('--nominal', type=float, nargs=3, metavar=('HIP', 'KNEE', 'ANKLE'), help='nominal pose (nominal_scan.py)')
     p.add_argument('--yaw-impulse', type=float, nargs=3, metavar=('RATE', 'LO', 'HI'), help='training yaw impulses independent of the level')
     p.add_argument('--init', help='model.zip to continue from (its vecnorm.pkl is loaded too)')
+    p.add_argument('--resume-action-std', type=float, help='optional Gaussian exploration std reset for a resumed PPO policy; actor mean is preserved')
     p.add_argument('--seed', type=int, default=0)
     a = p.parse_args()
+    if a.resume_action_std is not None and (not a.init or not np.isfinite(a.resume_action_std) or a.resume_action_std <= 0):
+        p.error('resume-action-std requires --init and a finite positive value')
     out = HERE/'runs'/a.name
     out.mkdir(parents=True, exist_ok=True)
     (out/'args.json').write_text(json.dumps(vars(a), indent=1))
-    kw = dict(mass=a.mass, springs=a.springs, tail=a.tail, level=a.level, cmd_max=a.cmd, episode_s=a.episode_s,
-              weights=json.loads(a.weights), zero_cmd=a.zero_cmd, top_cmd=a.top_cmd, disturb_items=a.disturb_items,
-              obs_vel=not a.no_obs_vel, init_speed=not a.no_init_speed, ankle_clutch=a.ankle_clutch,
-              kin=json.loads(a.kin), yaw_impulse=a.yaw_impulse, couple_ankle=a.couple_ankle,
-              track_sigma_frac=a.track_sigma_frac, arch8=a.arch8,
-              springs_override=json.loads(a.springs_override) if a.springs_override else None,
-              arch8_override=json.loads(a.arch8_override) if a.arch8_override else None)
+    kw = env_kwargs(vars(a))
     if a.env == 'recover':
         kw = dict(mass=a.mass, springs=a.springs, tail=a.tail, episode_s=a.episode_s, weights=json.loads(a.weights))
     torch.set_num_threads(1)
@@ -139,6 +156,9 @@ def main():
     if a.init:
         env = VecNormalize.load(str(Path(a.init).with_name('vecnorm.pkl')), env)
         model = PPO.load(a.init, env=env, device='cpu')
+        if a.resume_action_std is not None:
+            with torch.no_grad():
+                model.policy.log_std.fill_(float(np.log(a.resume_action_std)))
     else:
         env = VecNormalize(env, norm_obs=True, norm_reward=True, clip_obs=10., gamma=.99)
         model = PPO('MlpPolicy', env, n_steps=1024, batch_size=4096, n_epochs=5, learning_rate=3e-4,
@@ -147,7 +167,12 @@ def main():
                                        activation_fn=torch.nn.ELU, log_std_init=-2.),
                     seed=a.seed, verbose=0)
     model.set_logger(configure(str(out), ['csv']))
-    if a.env == 'run' and a.eval_curriculum:
+    (out/'initial-policy.json').write_text(json.dumps(dict(
+        steps=model.num_timesteps, action_std=model.policy.log_std.detach().exp().cpu().numpy().tolist(),
+        resume_action_std=a.resume_action_std), indent=2))
+    if a.fixed_curriculum:
+        cb = None
+    elif a.env == 'run' and a.eval_curriculum:
         cb = EvalCurriculum(out/'curriculum.jsonl', {k: v for k, v in kw.items() if k not in ('level', 'cmd_max')}, a.level, a.cmd, a.cmd_final)
     else:
         cb = Curriculum(out/'curriculum.jsonl', a.level, a.cmd, a.cmd_final) if a.env == 'run' else None

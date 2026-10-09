@@ -1,0 +1,22 @@
+{
+  "0.0": {
+    "trials": 10,
+    "turn_trials": 8,
+    "falls": 0,
+    "angle_pass": 8,
+    "min_speed_pass": 3,
+    "joint_pass": 3,
+    "correction_min": 0.8,
+    "correction_max": 0.8
+  },
+  "1.2": {
+    "trials": 10,
+    "turn_trials": 8,
+    "falls": 0,
+    "angle_pass": 8,
+    "min_speed_pass": 4,
+    "joint_pass": 4,
+    "correction_min": 0.5587797164916992,
+    "correction_max": 1.5
+  }
+}

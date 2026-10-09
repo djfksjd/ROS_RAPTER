@@ -1,0 +1,171 @@
+{
+  "telemetry_exact": true,
+  "force_timestamp": "before physics integration, state_time minus1ms",
+  "state_timestamp": "after physics integration",
+  "pair": [
+    {
+      "seed": 83002,
+      "initial_vx": 0.00597327570444478,
+      "seconds": 60.0,
+      "pass_stand": true,
+      "first15BW_times": [
+        0.007,
+        0.007
+      ],
+      "impulse_first200ms_Ns": [
+        10.864851649268967,
+        14.95544600852441
+      ],
+      "contact_moment_integral_first200ms_Nms": [
+        -0.005246424654748335,
+        0.21431295193305022,
+        -0.19429356062984238
+      ],
+      "peak_vertical_BW_first200ms": 2.2645474557252476,
+      "motor_names": [
+        "left_hip_roll_joint",
+        "left_hip_pitch_joint",
+        "left_knee_pitch_joint",
+        "right_hip_roll_joint",
+        "right_hip_pitch_joint",
+        "right_knee_pitch_joint",
+        "tail_yaw_joint",
+        "tail_pitch_joint"
+      ],
+      "saturation_fractions": {
+        "0.00-0.02": [
+          0.0,
+          0.0,
+          0.9,
+          0.0,
+          0.0,
+          0.9,
+          0.0,
+          0.0
+        ],
+        "0.58-0.60": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "0.60-0.62": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "0.62-0.64": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "handoff_normalized_action_change": [
+        0.05678432480571615,
+        0.02695412653116344,
+        0.013843047309604117,
+        -0.06687090035364024,
+        0.013310577877632887,
+        0.008677311541076815,
+        0.0022069038956186865,
+        -0.09089522105908837
+      ]
+    },
+    {
+      "seed": 86013,
+      "initial_vx": 0.0017330918607575962,
+      "seconds": 0.7000000000000001,
+      "pass_stand": false,
+      "first15BW_times": [
+        0.008,
+        0.007
+      ],
+      "impulse_first200ms_Ns": [
+        9.493123422005343,
+        16.24000608974253
+      ],
+      "contact_moment_integral_first200ms_Nms": [
+        -0.027060719802675697,
+        0.23517335002983497,
+        0.12044216117912106
+      ],
+      "peak_vertical_BW_first200ms": 2.4300015506249144,
+      "motor_names": [
+        "left_hip_roll_joint",
+        "left_hip_pitch_joint",
+        "left_knee_pitch_joint",
+        "right_hip_roll_joint",
+        "right_hip_pitch_joint",
+        "right_knee_pitch_joint",
+        "tail_yaw_joint",
+        "tail_pitch_joint"
+      ],
+      "saturation_fractions": {
+        "0.00-0.02": [
+          0.0,
+          0.0,
+          0.9,
+          0.0,
+          0.0,
+          0.9,
+          0.0,
+          0.0
+        ],
+        "0.58-0.60": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "0.60-0.62": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.75
+        ],
+        "0.62-0.64": [
+          0.9,
+          0.0,
+          0.0,
+          0.95,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      },
+      "handoff_normalized_action_change": [
+        -0.2884609978019145,
+        -0.09163610628650017,
+        -0.05317981016569512,
+        0.27881748317215826,
+        -0.09830153023409886,
+        -0.055242214737323936,
+        0.0008131551370026933,
+        0.4372264677022073
+      ]
+    }
+  ]
+}

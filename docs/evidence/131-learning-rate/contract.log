@@ -1,0 +1,5 @@
+invalid rejected 0
+invalid rejected -1
+invalid rejected nan
+invalid rejected inf
+24 tensors and100 predictions equal; saved rate, lr_schedule and actual optimizer LR update verified

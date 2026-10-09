@@ -1,0 +1,95 @@
+[
+  {
+    "yaw": -1.0,
+    "seed": 52001,
+    "fell": false,
+    "shadow_control_parity_exact": true,
+    "turn_samples": 100,
+    "max_action_difference": 0.04105178639292717,
+    "mean_max_action_difference": 0.02418805655092001,
+    "observed_loaded_states": [
+      [
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0
+      ],
+      [
+        1.0,
+        0.0
+      ],
+      [
+        1.0,
+        1.0
+      ]
+    ],
+    "weights": {
+      "mlp_extractor.policy_net.0.weight": 0.04947161674499512,
+      "mlp_extractor.value_net.0.weight": 0.0320860892534256
+    }
+  },
+  {
+    "yaw": 0.0,
+    "seed": 52001,
+    "fell": false,
+    "shadow_control_parity_exact": true,
+    "turn_samples": 100,
+    "max_action_difference": 0.049665674567222595,
+    "mean_max_action_difference": 0.029807107374072075,
+    "observed_loaded_states": [
+      [
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0
+      ],
+      [
+        1.0,
+        0.0
+      ],
+      [
+        1.0,
+        1.0
+      ]
+    ],
+    "weights": {
+      "mlp_extractor.policy_net.0.weight": 0.04947161674499512,
+      "mlp_extractor.value_net.0.weight": 0.0320860892534256
+    }
+  },
+  {
+    "yaw": 1.0,
+    "seed": 52001,
+    "fell": false,
+    "shadow_control_parity_exact": true,
+    "turn_samples": 100,
+    "max_action_difference": 0.045253850519657135,
+    "mean_max_action_difference": 0.02414839640725404,
+    "observed_loaded_states": [
+      [
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0
+      ],
+      [
+        1.0,
+        0.0
+      ],
+      [
+        1.0,
+        1.0
+      ]
+    ],
+    "weights": {
+      "mlp_extractor.policy_net.0.weight": 0.04947161674499512,
+      "mlp_extractor.value_net.0.weight": 0.0320860892534256
+    }
+  }
+]

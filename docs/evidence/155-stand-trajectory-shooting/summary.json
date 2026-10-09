@@ -1,0 +1,118 @@
+{
+  "replay_candidates": {
+    "absolute_best": {
+      "pass": 0,
+      "durations": [
+        1.28,
+        1.08,
+        1.04,
+        1.26
+      ]
+    },
+    "absolute_final": {
+      "pass": 0,
+      "durations": [
+        0.72,
+        1.1,
+        1.04,
+        1.22
+      ]
+    },
+    "absolute_initial": {
+      "pass": 0,
+      "durations": [
+        0.92,
+        0.8,
+        0.86,
+        0.76
+      ]
+    },
+    "relative_best": {
+      "pass": 0,
+      "durations": [
+        1.04,
+        0.86,
+        0.98,
+        0.86
+      ]
+    }
+  },
+  "handoff": {
+    "full_state_at_entry": {
+      "pass": 0,
+      "durations": [
+        1.2,
+        1.1,
+        1.04,
+        1.22
+      ]
+    },
+    "observer_reset_at_entry": {
+      "pass": 0,
+      "durations": [
+        1.06,
+        1.1,
+        1.04,
+        1.22
+      ]
+    }
+  },
+  "catalogue_pass": false,
+  "handoff_pre_entry_rows_exact": true,
+  "relative": {
+    "nfev": 13,
+    "status": 3,
+    "message": "`xtol` termination condition is satisfied.",
+    "objective_calls": 94,
+    "seconds": 5.805952040944248,
+    "initial_cost": 65.2213802315442,
+    "final_cost": 32.57950063299434,
+    "best_cost": 32.46201051274196,
+    "catalogue_pass": false
+  },
+  "absolute": {
+    "nfev": 16,
+    "status": 3,
+    "message": "`xtol` termination condition is satisfied.",
+    "objective_calls": 377,
+    "seconds": 22.114988334011286,
+    "initial_cost": 65.2213802315442,
+    "final_cost": 20.57911963531528,
+    "best_cost": 20.488339503661933,
+    "catalogue_pass": false
+  },
+  "posthold": {
+    "nfev": 8,
+    "status": 3,
+    "message": "`xtol` termination condition is satisfied.",
+    "objective_calls": 169,
+    "seconds": 33.861485542031005,
+    "initial_cost": 1089.0933655613603,
+    "final_cost": 747.1900782599743,
+    "best_cost": 34.12278648675218,
+    "catalogue_pass": false
+  },
+  "posthold_replay": {
+    "full_state_at_entry": {
+      "pass": 0,
+      "durations": [
+        2.42,
+        0.7000000000000001,
+        0.66,
+        0.68
+      ]
+    },
+    "observer_reset_at_entry": {
+      "pass": 0,
+      "durations": [
+        1.1400000000000001,
+        0.76,
+        0.68,
+        0.74
+      ]
+    }
+  },
+  "posthold_planned80_steps_replayed_exact": true,
+  "objective_calls_total": 640,
+  "original_start_replays_total": 32
+}

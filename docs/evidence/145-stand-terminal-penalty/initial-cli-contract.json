@@ -1,0 +1,25 @@
+{
+  "invalid_cli": [
+    {
+      "input": "0",
+      "exit_code": 2
+    },
+    {
+      "input": "-1",
+      "exit_code": 2
+    },
+    {
+      "input": "nan",
+      "exit_code": 2
+    },
+    {
+      "input": "inf",
+      "exit_code": 2
+    }
+  ],
+  "initial_policy_tensors_exact": 13,
+  "optimizer_state_counts": [
+    0,
+    0
+  ]
+}

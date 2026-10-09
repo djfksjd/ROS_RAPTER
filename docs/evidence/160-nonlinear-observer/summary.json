@@ -1,0 +1,129 @@
+{
+  "modes": {
+    "prior": {
+      "trials": 21,
+      "passed_seeds": [
+        83002
+      ],
+      "fallback_counts": {
+        "83002": 0,
+        "86001": 1,
+        "86002": 0,
+        "86003": 0,
+        "86004": 1,
+        "86005": 1,
+        "86006": 1,
+        "86007": 1,
+        "86008": 1,
+        "86009": 1,
+        "86010": 1,
+        "86011": 0,
+        "86012": 0,
+        "86013": 3,
+        "86014": 1,
+        "86015": 0,
+        "86016": 0,
+        "86017": 1,
+        "86018": 2,
+        "86019": 1,
+        "86020": 0
+      },
+      "online_hidden_truth_used": false,
+      "pre_entry30rows_exact": true
+    },
+    "measurement": {
+      "trials": 21,
+      "passed_seeds": [
+        83002
+      ],
+      "fallback_counts": {
+        "83002": 0,
+        "86001": 2,
+        "86002": 0,
+        "86003": 0,
+        "86004": 1,
+        "86005": 1,
+        "86006": 1,
+        "86007": 1,
+        "86008": 1,
+        "86009": 1,
+        "86010": 1,
+        "86011": 0,
+        "86012": 0,
+        "86013": 3,
+        "86014": 1,
+        "86015": 0,
+        "86016": 0,
+        "86017": 1,
+        "86018": 2,
+        "86019": 1,
+        "86020": 0
+      },
+      "online_hidden_truth_used": false,
+      "pre_entry30rows_exact": true
+    }
+  },
+  "catalogue_pass": false,
+  "offline_reference_only": true,
+  "projection": [
+    {
+      "seed": 83002,
+      "seconds": 60.0,
+      "original_start_stand_pass": true,
+      "max_known_projection_error": 1.1939966865981453e-16
+    },
+    {
+      "seed": 86013,
+      "seconds": 0.88,
+      "original_start_stand_pass": false,
+      "max_known_projection_error": 1.6633963011272817e-15
+    }
+  ],
+  "full_state_diagnostic": [
+    {
+      "seed": 83002,
+      "seconds": 2.64,
+      "original_start_stand_pass": false,
+      "gate": {
+        "pass_gate": false,
+        "samples": 132,
+        "max_displacement_m": 0.032768052786503486,
+        "max_tilt_rad": 0.197625293721989,
+        "flight_samples": 5
+      }
+    },
+    {
+      "seed": 86013,
+      "seconds": 0.86,
+      "original_start_stand_pass": false,
+      "gate": {
+        "pass_gate": false,
+        "samples": 43,
+        "max_displacement_m": 0.10591944473601807,
+        "max_tilt_rad": 0.8127961394818225,
+        "flight_samples": 3
+      }
+    }
+  ],
+  "terminal_nonfoot_contacts": {
+    "83002": [
+      {
+        "body_name": "tail_link",
+        "force_world_N": [
+          -14.091162904182662,
+          0.2369727457719178,
+          43.89765631391428
+        ]
+      },
+      {
+        "body_name": "tail_link",
+        "force_world_N": [
+          -10.645948946779946,
+          0.20715152488821933,
+          52.28051015998539
+        ]
+      }
+    ],
+    "86013": []
+  }
+}

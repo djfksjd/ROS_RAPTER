@@ -1,0 +1,25 @@
+You are reviewing the experiment design for the Raptor digitigrade biped (MuJoCo T1 = virtual-actuator simulation, PPO SB3).
+Answer in Korean, concise, numbered. Point out flaws in the design; do not invent results.
+
+USER DECISIONS (2026-10-01)
+1. 8-axis vs 12-axis must be decided by EQUAL-CONDITION SIMULATION, not by a budget calculation. User asked whether "12-axis is faster" meant speed or design: it was speed measured only with idealized virtual actuators (12-axis v8d 9.08 m/s, 10-axis coupled 8.28 m/s at 5 kg, no motor curves/heat); the "12-axis cannot be built" verdict came only from a static budget calculation.
+2. Target stays 40 km/h (11.1 m/s); if it is not reachable, go only as far as real hardware allows.
+3. R-03: move the hip rearward. Reference animal is the RAPTOR (dromaeosaur), ostrich only a hint. Simulation confirmation mandatory.
+4. Every step must rest on real evidence (sim/test), not assumption.
+
+FACTS (code/sim)
+- Motor classes (peak N·m, no-load rad/s, peak W, kg): A 22/40/500/0.5, B 48/33/900/0.96, C 120/21/1400/1.42. Envelope: full torque to w0/2 then linear to 0, power cap, link efficiency 0.9, braking to peak. Heat = low-pass(3 s) of (tau_motor / (0.4 peak))^2, reward penalises sum(max(0, heat-1)).
+- arch8 (8 active: per leg hip pitch B x1.5 belt, knee B on upper femur via four-bar (ratio 1.0-2.05), ankle pitch coupled 1:1 to knee (parallelogram), ankle roll locked, hip roll A x1.7; tail yaw/pitch B). Knee latch spring 170 N·m/rad at 11.36 kg, rest 0.956 rad, latches late swing, releases at lift-off. Distal-light leg.
+- arch8e result (trained in a 5-stage chain, 23M steps final stage, at 11.36 kg): 60 s runs, no falls; sustained ~4.5-5.1 m/s within heat limits (hip pitch heat 0.91 at 5 m/s command, 1.01 at 6, 1.18 at >=8). Bottleneck hip pitch motor.
+- MASS CORRECTION: the design table sums to 11.36 kg with generic 0.62/0.40 kg motors. With the real classes and distal-light leg: arch8 = 4.26 kg non-actuator + 6.76 kg motors = 11.02 kg (arch8e was trained 0.34 kg heavy). A 12-axis build with the same classes (hip roll A x1.7, hip pitch B x1.5, knee B four-bar, ankle pitch B, ankle roll A, tail 2xB) = 4.26 + 9.68 = 13.94 kg.
+- R-03 geometry study (static): moving the hip 0.2 m rearward along the torso (tail root stays at the torso rear, i.e. tail starts near the hip as in theropods) puts the whole-body CoM 0.12 m ahead of the hip (R-02: 0.05 m behind). Femur must lean ~20 deg forward with the R-02 segments (femur 0.22, tibia 0.38, metatarsus 0.32).
+
+PROPOSED EXPERIMENT
+E1 arch8 at 11.02 kg; E2 arch12-real at 13.94 kg (ankle pitch B and ankle roll A motors assumed thigh-mounted with cable/linkage drive, favourable to 12-axis; ankle pitch gear 1.5; same latch knee spring; ankle spring clutched to stance as in the earlier 12-axis runs); E3 arch8 + R-03 hip back 0.2 m, 11.02 kg.
+All three: from scratch, identical rewards/curriculum (arch8e final weights, eval curriculum to 11.1 m/s), same total steps (~30M), 2 seeds each, then the same 60 s heat test at commands 3/4/5/6/8/11.1 m/s plus a yaw-impulse and a turn test. Decision metric: highest command whose 60 s run has no fall, speed >= 90 % of command, and every motor's steady heat <= 1.0 ("sustained speed"); secondary: 3 s burst speed, falls under impulse, turn tracking, total mass.
+
+QUESTIONS
+1. Is this a fair comparison? What would bias it toward one design (e.g. chained vs from-scratch training, spring tuned for arch8 only, motor placement assumptions)?
+2. For E3, what exactly should change in the model for a raptor-like hip-rear layout (which masses move, tail root position, nominal leg pose, foot under CoM)? Is 0.2 m right, or test 0.1/0.2/0.3?
+3. Minimum number of seeds/steps to make the decision credible within a few hours of CPU (10 cores)?
+4. Anything else that must be measured before freezing the structure?

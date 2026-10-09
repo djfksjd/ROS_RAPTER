@@ -1,0 +1,5 @@
+invalid value rejected: 0
+invalid value rejected: -1
+invalid value rejected: nan
+invalid value rejected: inf
+default None / .005 serialization verified; initial policy tensors equal: 24

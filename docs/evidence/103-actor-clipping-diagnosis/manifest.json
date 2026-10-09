@@ -1,0 +1,12 @@
+{
+  "status": "hypothesis_not_observed_no_policy_change",
+  "files": {
+    "docs/evidence/103-actor-clipping-diagnosis/summary.json": "962fd093b8e15ce4ed97532041292c1e40d94596494a0b43f1e37d26a3395c4b",
+    "docs/evidence/103-actor-clipping-diagnosis/tests-all.txt": "b37849ec564aab7982aafc96d7c4d9738f8e67f01c6fd0d59e2259244525248c",
+    "docs/evidence/103-actor-clipping-diagnosis/tests-sim.txt": "9d1f03cc71d98748cd44506208e3225a2135829b022437488a031aaef6eb366b",
+    "docs/evidence/103-actor-clipping-diagnosis/README.md": "0f93d541cb63c70a0edfe96a95cd93eaf590bb75dfac58a63b5c67d4c2a19370",
+    "sim/rl/runs/screen_logs/actor_clip.catalogue_20261009.jsonl": "f1e30aba312f062c6c106cf1246868e368222c0414b37b8185d86b4df5d2027f",
+    "sim/rl/actor_clip_probe.py": "83a247f8502f9f428ae354d963c38f3517482db663161319c3bd67ac77d111ea",
+    "tests/test_actor_clip_probe.py": "008dc2fe6227f99ec963cd89a57361d9bf62f90d816074f3ae4d2cbade211228"
+  }
+}

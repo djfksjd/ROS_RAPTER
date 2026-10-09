@@ -1,0 +1,16 @@
+[
+  {
+    "scale": 0.3,
+    "trials": 18,
+    "falls": 0,
+    "turn_pass": 0,
+    "turn_trials": 12
+  },
+  {
+    "scale": 0.45,
+    "trials": 18,
+    "falls": 18,
+    "turn_pass": 0,
+    "turn_trials": 12
+  }
+]

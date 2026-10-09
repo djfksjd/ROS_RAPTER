@@ -1,0 +1,87 @@
+{
+  "full_closed_spectral_radius": 0.9999999996215095,
+  "largest_full_closed_eigenvalues": [
+    {
+      "real": 0.9999999996215095,
+      "imag": 0.0,
+      "magnitude": 0.9999999996215095
+    },
+    {
+      "real": 0.9999999966992347,
+      "imag": 0.0,
+      "magnitude": 0.9999999966992347
+    },
+    {
+      "real": 0.9999999922163643,
+      "imag": 0.0,
+      "magnitude": 0.9999999922163643
+    },
+    {
+      "real": 0.9910022512918485,
+      "imag": 0.0,
+      "magnitude": 0.9910022512918485
+    },
+    {
+      "real": 0.9655117165988516,
+      "imag": 0.0,
+      "magnitude": 0.9655117165988516
+    },
+    {
+      "real": 0.9474429167489551,
+      "imag": 0.0,
+      "magnitude": 0.9474429167489551
+    }
+  ],
+  "one_step_prediction": [
+    {
+      "size": 1e-06,
+      "seed": 86001,
+      "relative_raw_state_prediction_error": 0.0006732182736262907
+    },
+    {
+      "size": 1e-06,
+      "seed": 86002,
+      "relative_raw_state_prediction_error": 0.0011129217954081842
+    },
+    {
+      "size": 1e-06,
+      "seed": 86003,
+      "relative_raw_state_prediction_error": 0.0006271876337883247
+    },
+    {
+      "size": 1e-06,
+      "seed": 86004,
+      "relative_raw_state_prediction_error": 0.00109600409961673
+    },
+    {
+      "size": 1e-06,
+      "seed": 86005,
+      "relative_raw_state_prediction_error": 0.0012902942510742486
+    },
+    {
+      "size": 0.0001,
+      "seed": 86001,
+      "relative_raw_state_prediction_error": 0.18731903573959055
+    },
+    {
+      "size": 0.0001,
+      "seed": 86002,
+      "relative_raw_state_prediction_error": 0.059096866192062183
+    },
+    {
+      "size": 0.0001,
+      "seed": 86003,
+      "relative_raw_state_prediction_error": 0.06531664464075905
+    },
+    {
+      "size": 0.0001,
+      "seed": 86004,
+      "relative_raw_state_prediction_error": 0.10167985325663076
+    },
+    {
+      "size": 0.0001,
+      "seed": 86005,
+      "relative_raw_state_prediction_error": 0.07326883510305021
+    }
+  ]
+}

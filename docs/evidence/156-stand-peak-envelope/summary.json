@@ -1,0 +1,534 @@
+{
+  "development_replays": 40,
+  "development_passes": 1,
+  "winner": {
+    "candidate": "observer_reset_at_entry",
+    "trajectory": "initial_parameters.npy",
+    "continuous_cap_start_seconds": 1.6,
+    "seed": 83002,
+    "seconds": 60.0,
+    "fell": false,
+    "entry_time": 0.6,
+    "gate": {
+      "pass_gate": true,
+      "samples": 3000,
+      "max_displacement_m": 0.03241789815914667,
+      "max_tilt_rad": 0.07606456434189424,
+      "flight_samples": 0
+    },
+    "max_load_last40": 0.902498318200042,
+    "original_start_stand_pass": true,
+    "catalogue_pass": false,
+    "contact_gate_uses_simulator_force": false,
+    "fixed_time_handoff_diagnostic": true,
+    "full_state_control_after_entry": false
+  },
+  "winner3000_rows_repeat_exact": true,
+  "independent_trials": 20,
+  "independent_passes": 0,
+  "independent_falls": 20,
+  "baseline8_rows_exact": true,
+  "delayed_cap_not_reached8_and_matches_uncapped": true,
+  "optimizer": {
+    "nfev": 258,
+    "status": 0,
+    "message": "Optimization terminated successfully.",
+    "objective_calls": 259,
+    "seconds": 41.32985749992076,
+    "initial_cost": 4901.238208411143,
+    "final_cost": 10150.618197900507,
+    "best_cost": 569.2185747757062,
+    "catalogue_pass": false
+  },
+  "catalogue_pass": false,
+  "results": [
+    {
+      "candidate": "observer_reset_at_entry",
+      "trajectory": null,
+      "continuous_cap_start_seconds": 0.0,
+      "seed": 83001,
+      "seconds": 1.1400000000000001,
+      "original_start_stand_pass": false
+    },
+    {
+      "candidate": "observer_reset_at_entry",
+      "trajectory": null,
+      "continuous_cap_start_seconds": 0.0,
+      "seed": 83002,
+      "seconds": 0.76,
+      "original_start_stand_pass": false
+    },
+    {
+      "candidate": "observer_reset_at_entry",
+      "trajectory": null,
+      "continuous_cap_start_seconds": 0.0,
+      "seed": 83003,
+      "seconds": 0.68,
+      "original_start_stand_pass": false
+    },
+    {
+      "candidate": "observer_reset_at_entry",
+      "trajectory": null,
+      "continuous_cap_start_seconds": 0.0,
+      "seed": 83004,
+      "seconds": 0.74,
+      "original_start_stand_pass": false
+    },
+    {
+      "candidate": "full_state_at_entry",
+      "trajectory": null,
+      "continuous_cap_start_seconds": 0.0,
+      "seed": 83001,
+      "seconds": 2.42,
+      "original_start_stand_pass": false
+    },
+    {
+      "candidate": "full_state_at_entry",
+      "trajectory": null,
+      "continuous_cap_start_seconds": 0.0,
+      "seed": 83002,
+      "seconds": 0.7000000000000001,
+      "original_start_stand_pass": false
+    },
+    {
+      "candidate": "full_state_at_entry",
+      "trajectory": null,
+      "continuous_cap_start_seconds": 0.0,
+      "seed": 83003,
+      "seconds": 0.66,
+      "original_start_stand_pass": false
+    },
+    {
+      "candidate": "full_state_at_entry",
+      "trajectory": null,
+      "continuous_cap_start_seconds": 0.0,
+      "seed": 83004,
+      "seconds": 0.68,
+      "original_start_stand_pass": false
+    },
+    {
+      "candidate": "observer_reset_at_entry",
+      "trajectory": null,
+      "continuous_cap_start_seconds": 1.6,
+      "seed": 83001,
+      "seconds": 0.76,
+      "original_start_stand_pass": false
+    },
+    {
+      "candidate": "observer_reset_at_entry",
+      "trajectory": null,
+      "continuous_cap_start_seconds": 1.6,
+      "seed": 83002,
+      "seconds": 0.8200000000000001,
+      "original_start_stand_pass": false
+    },
+    {
+      "candidate": "observer_reset_at_entry",
+      "trajectory": null,
+      "continuous_cap_start_seconds": 1.6,
+      "seed": 83003,
+      "seconds": 1.04,
+      "original_start_stand_pass": false
+    },
+    {
+      "candidate": "observer_reset_at_entry",
+      "trajectory": null,
+      "continuous_cap_start_seconds": 1.6,
+      "seed": 83004,
+      "seconds": 0.74,
+      "original_start_stand_pass": false
+    },
+    {
+      "candidate": "full_state_at_entry",
+      "trajectory": null,
+      "continuous_cap_start_seconds": 1.6,
+      "seed": 83001,
+      "seconds": 0.74,
+      "original_start_stand_pass": false
+    },
+    {
+      "candidate": "full_state_at_entry",
+      "trajectory": null,
+      "continuous_cap_start_seconds": 1.6,
+      "seed": 83002,
+      "seconds": 1.1400000000000001,
+      "original_start_stand_pass": false
+    },
+    {
+      "candidate": "full_state_at_entry",
+      "trajectory": null,
+      "continuous_cap_start_seconds": 1.6,
+      "seed": 83003,
+      "seconds": 1.3,
+      "original_start_stand_pass": false
+    },
+    {
+      "candidate": "full_state_at_entry",
+      "trajectory": null,
+      "continuous_cap_start_seconds": 1.6,
+      "seed": 83004,
+      "seconds": 1.22,
+      "original_start_stand_pass": false
+    },
+    {
+      "candidate": "observer_reset_at_entry",
+      "trajectory": null,
+      "continuous_cap_start_seconds": null,
+      "seed": 83001,
+      "seconds": 0.76,
+      "original_start_stand_pass": false
+    },
+    {
+      "candidate": "observer_reset_at_entry",
+      "trajectory": null,
+      "continuous_cap_start_seconds": null,
+      "seed": 83002,
+      "seconds": 0.8200000000000001,
+      "original_start_stand_pass": false
+    },
+    {
+      "candidate": "observer_reset_at_entry",
+      "trajectory": null,
+      "continuous_cap_start_seconds": null,
+      "seed": 83003,
+      "seconds": 1.04,
+      "original_start_stand_pass": false
+    },
+    {
+      "candidate": "observer_reset_at_entry",
+      "trajectory": null,
+      "continuous_cap_start_seconds": null,
+      "seed": 83004,
+      "seconds": 0.74,
+      "original_start_stand_pass": false
+    },
+    {
+      "candidate": "full_state_at_entry",
+      "trajectory": null,
+      "continuous_cap_start_seconds": null,
+      "seed": 83001,
+      "seconds": 0.74,
+      "original_start_stand_pass": false
+    },
+    {
+      "candidate": "full_state_at_entry",
+      "trajectory": null,
+      "continuous_cap_start_seconds": null,
+      "seed": 83002,
+      "seconds": 1.1400000000000001,
+      "original_start_stand_pass": false
+    },
+    {
+      "candidate": "full_state_at_entry",
+      "trajectory": null,
+      "continuous_cap_start_seconds": null,
+      "seed": 83003,
+      "seconds": 1.3,
+      "original_start_stand_pass": false
+    },
+    {
+      "candidate": "full_state_at_entry",
+      "trajectory": null,
+      "continuous_cap_start_seconds": null,
+      "seed": 83004,
+      "seconds": 1.22,
+      "original_start_stand_pass": false
+    },
+    {
+      "candidate": "observer_reset_at_entry",
+      "trajectory": "initial_parameters.npy",
+      "continuous_cap_start_seconds": 1.6,
+      "seed": 83001,
+      "seconds": 0.8200000000000001,
+      "original_start_stand_pass": false
+    },
+    {
+      "candidate": "observer_reset_at_entry",
+      "trajectory": "initial_parameters.npy",
+      "continuous_cap_start_seconds": 1.6,
+      "seed": 83002,
+      "seconds": 60.0,
+      "original_start_stand_pass": true
+    },
+    {
+      "candidate": "observer_reset_at_entry",
+      "trajectory": "initial_parameters.npy",
+      "continuous_cap_start_seconds": 1.6,
+      "seed": 83003,
+      "seconds": 0.68,
+      "original_start_stand_pass": false
+    },
+    {
+      "candidate": "observer_reset_at_entry",
+      "trajectory": "initial_parameters.npy",
+      "continuous_cap_start_seconds": 1.6,
+      "seed": 83004,
+      "seconds": 0.66,
+      "original_start_stand_pass": false
+    },
+    {
+      "candidate": "full_state_at_entry",
+      "trajectory": "initial_parameters.npy",
+      "continuous_cap_start_seconds": 1.6,
+      "seed": 83001,
+      "seconds": 0.9,
+      "original_start_stand_pass": false
+    },
+    {
+      "candidate": "full_state_at_entry",
+      "trajectory": "initial_parameters.npy",
+      "continuous_cap_start_seconds": 1.6,
+      "seed": 83002,
+      "seconds": 2.7600000000000002,
+      "original_start_stand_pass": false
+    },
+    {
+      "candidate": "full_state_at_entry",
+      "trajectory": "initial_parameters.npy",
+      "continuous_cap_start_seconds": 1.6,
+      "seed": 83003,
+      "seconds": 0.68,
+      "original_start_stand_pass": false
+    },
+    {
+      "candidate": "full_state_at_entry",
+      "trajectory": "initial_parameters.npy",
+      "continuous_cap_start_seconds": 1.6,
+      "seed": 83004,
+      "seconds": 0.66,
+      "original_start_stand_pass": false
+    },
+    {
+      "candidate": "observer_reset_at_entry",
+      "trajectory": "best_parameters.npy",
+      "continuous_cap_start_seconds": 1.6,
+      "seed": 83001,
+      "seconds": 1.02,
+      "original_start_stand_pass": false
+    },
+    {
+      "candidate": "observer_reset_at_entry",
+      "trajectory": "best_parameters.npy",
+      "continuous_cap_start_seconds": 1.6,
+      "seed": 83002,
+      "seconds": 1.04,
+      "original_start_stand_pass": false
+    },
+    {
+      "candidate": "observer_reset_at_entry",
+      "trajectory": "best_parameters.npy",
+      "continuous_cap_start_seconds": 1.6,
+      "seed": 83003,
+      "seconds": 0.92,
+      "original_start_stand_pass": false
+    },
+    {
+      "candidate": "observer_reset_at_entry",
+      "trajectory": "best_parameters.npy",
+      "continuous_cap_start_seconds": 1.6,
+      "seed": 83004,
+      "seconds": 0.8200000000000001,
+      "original_start_stand_pass": false
+    },
+    {
+      "candidate": "full_state_at_entry",
+      "trajectory": "best_parameters.npy",
+      "continuous_cap_start_seconds": 1.6,
+      "seed": 83001,
+      "seconds": 1.6400000000000001,
+      "original_start_stand_pass": false
+    },
+    {
+      "candidate": "full_state_at_entry",
+      "trajectory": "best_parameters.npy",
+      "continuous_cap_start_seconds": 1.6,
+      "seed": 83002,
+      "seconds": 0.8,
+      "original_start_stand_pass": false
+    },
+    {
+      "candidate": "full_state_at_entry",
+      "trajectory": "best_parameters.npy",
+      "continuous_cap_start_seconds": 1.6,
+      "seed": 83003,
+      "seconds": 0.9400000000000001,
+      "original_start_stand_pass": false
+    },
+    {
+      "candidate": "full_state_at_entry",
+      "trajectory": "best_parameters.npy",
+      "continuous_cap_start_seconds": 1.6,
+      "seed": 83004,
+      "seconds": 0.68,
+      "original_start_stand_pass": false
+    },
+    {
+      "candidate": "observer_reset_at_entry",
+      "trajectory": "initial_parameters.npy",
+      "continuous_cap_start_seconds": 1.6,
+      "seed": 83002,
+      "seconds": 60.0,
+      "original_start_stand_pass": true
+    },
+    {
+      "candidate": "observer_reset_at_entry",
+      "trajectory": "initial_parameters.npy",
+      "continuous_cap_start_seconds": 1.6,
+      "seed": 86001,
+      "seconds": 0.8200000000000001,
+      "original_start_stand_pass": false
+    },
+    {
+      "candidate": "observer_reset_at_entry",
+      "trajectory": "initial_parameters.npy",
+      "continuous_cap_start_seconds": 1.6,
+      "seed": 86002,
+      "seconds": 0.64,
+      "original_start_stand_pass": false
+    },
+    {
+      "candidate": "observer_reset_at_entry",
+      "trajectory": "initial_parameters.npy",
+      "continuous_cap_start_seconds": 1.6,
+      "seed": 86003,
+      "seconds": 0.66,
+      "original_start_stand_pass": false
+    },
+    {
+      "candidate": "observer_reset_at_entry",
+      "trajectory": "initial_parameters.npy",
+      "continuous_cap_start_seconds": 1.6,
+      "seed": 86004,
+      "seconds": 0.64,
+      "original_start_stand_pass": false
+    },
+    {
+      "candidate": "observer_reset_at_entry",
+      "trajectory": "initial_parameters.npy",
+      "continuous_cap_start_seconds": 1.6,
+      "seed": 86005,
+      "seconds": 0.66,
+      "original_start_stand_pass": false
+    },
+    {
+      "candidate": "observer_reset_at_entry",
+      "trajectory": "initial_parameters.npy",
+      "continuous_cap_start_seconds": 1.6,
+      "seed": 86006,
+      "seconds": 0.66,
+      "original_start_stand_pass": false
+    },
+    {
+      "candidate": "observer_reset_at_entry",
+      "trajectory": "initial_parameters.npy",
+      "continuous_cap_start_seconds": 1.6,
+      "seed": 86007,
+      "seconds": 0.64,
+      "original_start_stand_pass": false
+    },
+    {
+      "candidate": "observer_reset_at_entry",
+      "trajectory": "initial_parameters.npy",
+      "continuous_cap_start_seconds": 1.6,
+      "seed": 86008,
+      "seconds": 0.68,
+      "original_start_stand_pass": false
+    },
+    {
+      "candidate": "observer_reset_at_entry",
+      "trajectory": "initial_parameters.npy",
+      "continuous_cap_start_seconds": 1.6,
+      "seed": 86009,
+      "seconds": 0.66,
+      "original_start_stand_pass": false
+    },
+    {
+      "candidate": "observer_reset_at_entry",
+      "trajectory": "initial_parameters.npy",
+      "continuous_cap_start_seconds": 1.6,
+      "seed": 86010,
+      "seconds": 0.66,
+      "original_start_stand_pass": false
+    },
+    {
+      "candidate": "observer_reset_at_entry",
+      "trajectory": "initial_parameters.npy",
+      "continuous_cap_start_seconds": 1.6,
+      "seed": 86011,
+      "seconds": 0.64,
+      "original_start_stand_pass": false
+    },
+    {
+      "candidate": "observer_reset_at_entry",
+      "trajectory": "initial_parameters.npy",
+      "continuous_cap_start_seconds": 1.6,
+      "seed": 86012,
+      "seconds": 0.64,
+      "original_start_stand_pass": false
+    },
+    {
+      "candidate": "observer_reset_at_entry",
+      "trajectory": "initial_parameters.npy",
+      "continuous_cap_start_seconds": 1.6,
+      "seed": 86013,
+      "seconds": 0.7000000000000001,
+      "original_start_stand_pass": false
+    },
+    {
+      "candidate": "observer_reset_at_entry",
+      "trajectory": "initial_parameters.npy",
+      "continuous_cap_start_seconds": 1.6,
+      "seed": 86014,
+      "seconds": 0.66,
+      "original_start_stand_pass": false
+    },
+    {
+      "candidate": "observer_reset_at_entry",
+      "trajectory": "initial_parameters.npy",
+      "continuous_cap_start_seconds": 1.6,
+      "seed": 86015,
+      "seconds": 0.64,
+      "original_start_stand_pass": false
+    },
+    {
+      "candidate": "observer_reset_at_entry",
+      "trajectory": "initial_parameters.npy",
+      "continuous_cap_start_seconds": 1.6,
+      "seed": 86016,
+      "seconds": 0.64,
+      "original_start_stand_pass": false
+    },
+    {
+      "candidate": "observer_reset_at_entry",
+      "trajectory": "initial_parameters.npy",
+      "continuous_cap_start_seconds": 1.6,
+      "seed": 86017,
+      "seconds": 0.66,
+      "original_start_stand_pass": false
+    },
+    {
+      "candidate": "observer_reset_at_entry",
+      "trajectory": "initial_parameters.npy",
+      "continuous_cap_start_seconds": 1.6,
+      "seed": 86018,
+      "seconds": 1.76,
+      "original_start_stand_pass": false
+    },
+    {
+      "candidate": "observer_reset_at_entry",
+      "trajectory": "initial_parameters.npy",
+      "continuous_cap_start_seconds": 1.6,
+      "seed": 86019,
+      "seconds": 0.66,
+      "original_start_stand_pass": false
+    },
+    {
+      "candidate": "observer_reset_at_entry",
+      "trajectory": "initial_parameters.npy",
+      "continuous_cap_start_seconds": 1.6,
+      "seed": 86020,
+      "seconds": 0.64,
+      "original_start_stand_pass": false
+    }
+  ]
+}

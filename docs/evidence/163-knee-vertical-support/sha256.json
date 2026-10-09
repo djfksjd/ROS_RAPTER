@@ -1,0 +1,50 @@
+[
+  {
+    "file": "knee-response.json",
+    "source": "sim/rl/runs/screen_logs/knee_vertical_response.json",
+    "sha256": "2576bb1dec6df0bda5ef6f511b963579508b55fbbdf259d1830133ca9c46ecf2",
+    "uncompressed_sha256": "2576bb1dec6df0bda5ef6f511b963579508b55fbbdf259d1830133ca9c46ecf2"
+  },
+  {
+    "file": "support-capture.jsonl.gz",
+    "source": "sim/rl/runs/screen_logs/stand_knee_support_capture.diagnostic.jsonl",
+    "sha256": "049db2f46b67bff5eaaf0fba52a0a49428d50e648e4c072a0091eb6cb9fffc51",
+    "uncompressed_sha256": "2ac02481ce13c7df7534f6d54934f2b4a4f9d0cd2769d3d67706449a28a7cc01"
+  },
+  {
+    "file": "knee-response.py",
+    "source": "/tmp/raptor_knee_vertical_response.py",
+    "sha256": "72cfc4951ae87a97429521738567778a892d500f42b550fc6c5ca06068362122",
+    "uncompressed_sha256": "72cfc4951ae87a97429521738567778a892d500f42b550fc6c5ca06068362122"
+  },
+  {
+    "file": "support-capture.py",
+    "source": "/tmp/raptor_stand_knee_support_capture.py",
+    "sha256": "3454972ac5fb8e38586fc5959c9fb9fd590991e168641b7a64c7c3f85c79d677",
+    "uncompressed_sha256": "3454972ac5fb8e38586fc5959c9fb9fd590991e168641b7a64c7c3f85c79d677"
+  },
+  {
+    "file": "serialization-failed.py",
+    "source": "/tmp/raptor_knee_vertical_response_serialization_failed.py",
+    "sha256": "e1b42c7d268160e80d084f7f5c45bd56919f936174c1e43df7d886ed94ccb303",
+    "uncompressed_sha256": "e1b42c7d268160e80d084f7f5c45bd56919f936174c1e43df7d886ed94ccb303"
+  },
+  {
+    "file": "serialization-failure.log",
+    "source": "/tmp/raptor-knee-vertical-response.log",
+    "sha256": "51468cb96e8ba5b91d5b5cbaaaefdfe577f8a24b9ca907d8577bc47ccd414617",
+    "uncompressed_sha256": "51468cb96e8ba5b91d5b5cbaaaefdfe577f8a24b9ca907d8577bc47ccd414617"
+  },
+  {
+    "file": "knee-response-fixed.log",
+    "source": "/tmp/raptor-knee-vertical-response-fixed.log",
+    "sha256": "fd122ea1ce76072ddeea5243c4214fcd8e95872e4090cfe05cb6247d9eb83885",
+    "uncompressed_sha256": "fd122ea1ce76072ddeea5243c4214fcd8e95872e4090cfe05cb6247d9eb83885"
+  },
+  {
+    "file": "support-capture.log",
+    "source": "/tmp/raptor-stand-knee-support-capture.log",
+    "sha256": "4c08c923da9ad46f4ebe5c75ba5955984f2e247dd55f2b062f8d259ed473e654",
+    "uncompressed_sha256": "4c08c923da9ad46f4ebe5c75ba5955984f2e247dd55f2b062f8d259ed473e654"
+  }
+]

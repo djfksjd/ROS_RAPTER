@@ -1,0 +1,45 @@
+{
+  "results": [
+    {
+      "knee_design_stiffness": 170.0,
+      "seed": 22001,
+      "seconds": 0.72,
+      "fell": true,
+      "pass_gate": false,
+      "first_0p2s_max_motor_mean_heat": 6.196233940986024,
+      "first_0p2s_end_tilt_rad": 0.16864519840185402,
+      "max_displacement_m": 0.4599554305017767
+    },
+    {
+      "knee_design_stiffness": 170.0,
+      "seed": 22002,
+      "seconds": 0.78,
+      "fell": true,
+      "pass_gate": false,
+      "first_0p2s_max_motor_mean_heat": 6.197364890753271,
+      "first_0p2s_end_tilt_rad": 0.08000537277201852,
+      "max_displacement_m": 0.18096453228162104
+    },
+    {
+      "knee_design_stiffness": 0.0,
+      "seed": 22001,
+      "seconds": 0.78,
+      "fell": true,
+      "pass_gate": false,
+      "first_0p2s_max_motor_mean_heat": 1.9645484825299508,
+      "first_0p2s_end_tilt_rad": 0.0597546723284938,
+      "max_displacement_m": 0.5070673231858578
+    },
+    {
+      "knee_design_stiffness": 0.0,
+      "seed": 22002,
+      "seconds": 1.12,
+      "fell": true,
+      "pass_gate": false,
+      "first_0p2s_max_motor_mean_heat": 1.4922302104036524,
+      "first_0p2s_end_tilt_rad": 0.008008974961536531,
+      "max_displacement_m": 0.49591386680828375
+    }
+  ],
+  "baseline_96_exact_row_parity": true
+}

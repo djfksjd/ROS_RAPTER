@@ -1,0 +1,46 @@
+{
+  "control": {
+    "tensors": 24,
+    "source_tensor_parity_exact": true,
+    "weights": {
+      "track_lin": 5,
+      "progress": 3,
+      "track_yaw": 16,
+      "yaw_err": -1,
+      "stand": -5,
+      "gait": -8,
+      "fold": 0.35,
+      "extend": 0.3,
+      "ankle_static": -0.2,
+      "retract": 0.7,
+      "leg_sym": -6,
+      "heat": -1,
+      "stand_support": 0.0
+    },
+    "steps": 500000,
+    "seed": 0,
+    "obs_contact": false
+  },
+  "penalty": {
+    "tensors": 24,
+    "source_tensor_parity_exact": true,
+    "weights": {
+      "track_lin": 5,
+      "progress": 3,
+      "track_yaw": 16,
+      "yaw_err": -1,
+      "stand": -5,
+      "gait": -8,
+      "fold": 0.35,
+      "extend": 0.3,
+      "ankle_static": -0.2,
+      "retract": 0.7,
+      "leg_sym": -6,
+      "heat": -1,
+      "stand_support": -5.0
+    },
+    "steps": 500000,
+    "seed": 0,
+    "obs_contact": false
+  }
+}

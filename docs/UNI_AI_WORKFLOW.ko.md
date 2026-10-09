@@ -275,3 +275,20 @@ seed-2-0-lite-260428
 deepseek-v4-pro
 deepseek-v4-flash
 ```
+
+## 2026-10-03 Gateway 재연결
+
+공식 https://docs.mindlogic.ai/agent-setup/prompt.md, llms.txt, AGENTS.md, openapi.json 확인. 기존 .env UNI_AI 키 그대로, 명시적 User-Agent/Accept + x-api-key로 /models/ HTTP200. 기본헤더 bearer/x-api-key403 후 정상헤더 성공이며 키 오류로 단정하지 않는다. gpt-6-sol chat completion HTTP200(4214tokens), Codex용 /responses/도 Bearer+문서의 명시적헤더로 HTTP200(15tokens), 실제 OK 텍스트를 확인했다. 키·인증 본문·원본 사진 외부 전송 없음.
+
+이 Mac ~/.codex/config.toml에 선택적 profiles.uni_ai/model_providers.factchat 추가: 기본 설정 불변, model gpt-6-sol, 공식 base_url, env_key UNI_AI, wire_api responses. 백업은 사용자 .codex 내부이며 키를 설정파일/쉘프로필에 복사하지 않았다. python3 scripts/uni_ai_codex.py 로 별도 Codex CLI를 시작하면 .env를 shell평가 없이 읽어 자식 프로세스에만 전달한다. --help 로 launcher 동작을 검증했으며 실제 Codex 대화 생성은 별도 실행이다. 현재 호스트 대화가 Gateway로 전환됐거나 호스트 과금이0이라고 주장하지 않는다.
+
+### 2026-10-03 사용자 연결 요청 재확인
+
+공식 설정 문서와 llms.txt → AGENTS.md → openapi.json을 다시 확인했다.
+기존 선택적 Codex `uni_ai` 프로필과 안전한 launcher를 유지했다.
+현재 `/models/` HTTP 200, 모델 ID 127개; `gpt-6-sol`, `gpt-6-luna`,
+`gpt-6-astra`가 목록에 있다. `gpt-6-sol` `/responses/` HTTP 200,
+상태 completed, 응답 `API connection verified.`, input 12 / output 8 /
+total 20 tokens. launcher `--help`도 exit 0. 전체 모델의 호출 성공을 의미하지 않는다.
+키는 출력하거나 설정파일·셸 프로필에 복사하지 않았다. 현재 호스트 대화 모델은
+전환되지 않았다. 연결 확인 요청으로 로봇 실험을 재개하거나 GitHub에 push하지 않았다.

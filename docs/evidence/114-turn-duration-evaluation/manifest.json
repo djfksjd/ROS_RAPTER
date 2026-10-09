@@ -1,0 +1,64 @@
+{
+  "status": "final_validation_completed_candidate_rejected",
+  "sessions": {
+    "control_eval": 4470,
+    "candidate_eval": 54563,
+    "control_motion": 74991,
+    "candidate_motion": 39594
+  },
+  "training_sessions": {
+    "control": 52713,
+    "candidate": 45690
+  },
+  "files": {
+    "final.candidate.motion.jsonl": "6d928829d0f89eb6d39c7eef8c127920932b9878b7994b77da91e98b72a64aac",
+    "final.control.eval.jsonl": "2118f6261f9d11292271b5047f048d36b2b847689f71f6fde8105c3eb4169f1c",
+    "control.completion.json": "be20bf0c0239495fe11ba414b7ad8dd96a2072d89128f2396e5ab58235542b0f",
+    "final_validation.py": "5224687cd4f8cd1a8c4c4b69d260ec326e7328cefe91df188a7801d444e24f63",
+    "mid.candidate.motion.jsonl": "adb64bc727d2dadb0a71d204b43b7d7f657257fc56eb1f8ff6b4cf21464d4d19",
+    "final.control.motion.jsonl": "c5afc2a68c9dee58ce84a26dd6207e486fd81ab57f0099ab468a36fe6ec19829",
+    "mid.candidate.eval.jsonl": "c7364062a46049f446fd759f3c2233c11a60e3815b01e3f60fdd8d013a37a5c0",
+    "final-summary.json": "338509b45d83dca507a897f9cc5454d15b767e6de227cab4a03294023efe555b",
+    "mid-summary.json": "b1e95cb5095f902281e4b25a4e18a76f4c4044bf3ec7d3d1479f7ed1d0f08fe5",
+    "final.candidate.heat.jsonl": "df856bc5d36a2bc36780567f9b8b17144d26d44182d05213058793be477c246d",
+    "README.md": "f672bef0e7753e2ff0baef163bb56f0d64b24453a09748a9eba68962cc8d37a8",
+    "final.control.heat.jsonl": "b5cd29d39ba5263fe9b0344ee5b342d845e96f9bcdc39fae4cd7d3a0720ca48c",
+    "turn_eval.py": "96ea08e602dcddb2213615451567696774e05cc63fa7afcf483a9a50beccaaff",
+    "mid.control.motion.jsonl": "368f87c2c90e2a5f56ea61b1875a3d3cc7c1b7be33b717927f6d4b866f0a27a6",
+    "candidate.completion.json": "be20bf0c0239495fe11ba414b7ad8dd96a2072d89128f2396e5ab58235542b0f",
+    "mid.control.eval.jsonl": "94ebc559b07fc82502fbca231de16953a14b12b7d9e7c1a02c982dd9b584092d",
+    "final.candidate.eval.jsonl": "d571c761b23dd312bd86fda5ce5247c3153c4bd4aafaf410092eca1092190964"
+  },
+  "midpoint_exit": {
+    "control_eval": 0,
+    "candidate_eval": 0,
+    "control_motion": 0,
+    "candidate_motion": 0
+  },
+  "training_exit": {
+    "control": 0,
+    "candidate": 0
+  },
+  "model_hashes": {
+    "control": {
+      "model.zip": "cba466b1014c786f173e30532648d9ca0405d3bbf4e4c009b89972bcf654d4e4",
+      "vecnorm.pkl": "f2cf7006e5baa0b0aa9bb2d1bc661ac39174544d519ca214bcb14c19fda7d296",
+      "args.json": "aad9ec5f768c9adccd105934d7c696fba0e18a3768d3f50d988c087252bb5cb8",
+      "completion.json": "be20bf0c0239495fe11ba414b7ad8dd96a2072d89128f2396e5ab58235542b0f"
+    },
+    "candidate": {
+      "model.zip": "83c6dc4c0a14104daa5fcbdde46bcb3d028ffae0feedcea81bfda0c6c778ba74",
+      "vecnorm.pkl": "aa7f3940f571f042746d24b9a451ed0a82d471e4d525fe9744fc389cf7aaf6fe",
+      "args.json": "326c6978300d22e47182cc8e77880c6d5c2915e971ad23bf873c90ea3face384",
+      "completion.json": "be20bf0c0239495fe11ba414b7ad8dd96a2072d89128f2396e5ab58235542b0f"
+    }
+  },
+  "final_validation_sessions": {
+    "control": 78445,
+    "candidate": 39828
+  },
+  "final_validation_exit": {
+    "control": 0,
+    "candidate": 0
+  }
+}

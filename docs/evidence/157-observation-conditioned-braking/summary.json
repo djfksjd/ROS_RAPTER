@@ -1,0 +1,50 @@
+{
+  "modes": {
+    "fixed": {
+      "trials": 21,
+      "passed_seeds": [
+        83002
+      ],
+      "nofall_seeds": [
+        83002
+      ],
+      "max_seconds": 60.0
+    },
+    "observed_individual": {
+      "trials": 21,
+      "passed_seeds": [],
+      "nofall_seeds": [],
+      "max_seconds": 0.8200000000000001
+    },
+    "observed_symmetric": {
+      "trials": 21,
+      "passed_seeds": [],
+      "nofall_seeds": [],
+      "max_seconds": 0.8200000000000001
+    },
+    "pose_feedback": {
+      "trials": 21,
+      "passed_seeds": [],
+      "nofall_seeds": [],
+      "max_seconds": 1.04
+    },
+    "pose_velocity_feedback": {
+      "trials": 21,
+      "passed_seeds": [],
+      "nofall_seeds": [],
+      "max_seconds": 0.98
+    }
+  },
+  "fixed21_shared_rawfields_exact": true,
+  "focused_tests": 29,
+  "whole_tests": 150,
+  "whole_passed": 73,
+  "whole_skipped": 77,
+  "catalogue_pass": false,
+  "next_contact_pair": {
+    "pass_seed": 83002,
+    "pass_initial_vx": 0.00597327570444478,
+    "failed_seed": 86013,
+    "failed_initial_vx": 0.0017330918607575962
+  }
+}

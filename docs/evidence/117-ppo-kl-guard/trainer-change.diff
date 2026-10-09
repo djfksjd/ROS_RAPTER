@@ -1,0 +1,37 @@
+--- sim/rl/runs/update64k_diagnostic_20261009/source-code/train_symmetric.py	2026-10-09 06:50:44
++++ sim/rl/train_symmetric.py	2026-10-09 06:57:08
+@@ -45,6 +45,8 @@
+     p.add_argument('--lin-error-weight',type=float,default=None)
+     p.add_argument('--stand-support-weight',type=float,default=None)
+     p.add_argument('--turn-exploration-std',type=float,default=None)
++    p.add_argument('--target-kl',type=float,default=None,
++                   help='Stop remaining PPO epochs after excessive measured KL; default disables this guard')
+     p.add_argument('--yaw-scale',type=float,default=6.4);p.add_argument('--initialize-only',action='store_true')
+     a=p.parse_args();source=Path(a.source).resolve();out=HERE/'runs'/a.name
+     if a.steps<=0 or not 0<a.yaw_scale<=8:p.error('positive steps and yaw scale within (0,8] required')
+@@ -59,6 +61,8 @@
+         p.error('stand support weight must be finite and nonpositive')
+     if a.turn_exploration_std is not None and (not math.isfinite(a.turn_exploration_std) or a.turn_exploration_std<=0):
+         p.error('turn exploration std must be finite and positive')
++    if a.target_kl is not None and (not math.isfinite(a.target_kl) or a.target_kl<=0):
++        p.error('target KL must be finite and positive')
+     torch.set_num_threads(1)
+     args=json.loads((source/'args.json').read_text())
+     if a.lin_error_weight is not None:
+@@ -85,7 +89,7 @@
+     norm.norm_obs=False;norm.training=True;norm.norm_reward=True
+     model=PPO(SymmetricPolicy,norm,n_steps=1024,batch_size=4096,n_epochs=5,learning_rate=3e-4,
+               gamma=.99,gae_lambda=.95,clip_range=.2,ent_coef=.003,max_grad_norm=1.,
+-              device='cpu',policy_kwargs=kwargs,seed=a.seed,verbose=0)
++              device='cpu',policy_kwargs=kwargs,seed=a.seed,verbose=0,target_kl=a.target_kl)
+     missing,unexpected=model.policy.load_state_dict(old.policy.state_dict(),strict=False)
+     if unexpected or any(not n.startswith('reflection_') for n in missing):
+         raise RuntimeError(f'unexpected initialization mismatch: {missing}, {unexpected}')
+@@ -98,6 +102,7 @@
+                 fixed_input_normalization=True,command_sequence=a.command_sequence,sequence_control=a.sequence_control,episode_s=kw["episode_s"])
+     args.update(turn_exploration_std=a.turn_exploration_std,turn_exploration_slots=exploration_slots)
+     args['sequence_turn_seconds']=a.sequence_turn_seconds
++    args['target_kl']=a.target_kl
+     code_dir=out/'source-code';code_dir.mkdir()
+     for filename in ['train_symmetric.py','symmetric_policy.py','command_sequence.py','run_env.py','train_run.py','raptor_env.py','mirror_probe.py']:
+         (code_dir/filename).write_bytes((HERE/filename).read_bytes())

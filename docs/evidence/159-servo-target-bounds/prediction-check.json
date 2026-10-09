@@ -1,0 +1,74 @@
+[
+  {
+    "seed": 83002,
+    "start_seconds": 0.58,
+    "state_change_norm": 0.11283084524231239,
+    "linear_error_norm": 0.3769920903219009,
+    "nonlinear_error_norm": 7.491751733669093e-07,
+    "linear_relative_to_change": 3.341214802674598,
+    "nonlinear_relative_to_change": 6.639808216964088e-06,
+    "nonlinear_region_error": null,
+    "online_true_state_used": false,
+    "offline_initial_truth_used": true
+  },
+  {
+    "seed": 83002,
+    "start_seconds": 0.6,
+    "state_change_norm": 0.8835709196070238,
+    "linear_error_norm": 0.3572347173042368,
+    "nonlinear_error_norm": 2.046173952967918e-06,
+    "linear_relative_to_change": 0.40430791618076356,
+    "nonlinear_relative_to_change": 2.315800472335568e-06,
+    "nonlinear_region_error": null,
+    "online_true_state_used": false,
+    "offline_initial_truth_used": true
+  },
+  {
+    "seed": 83002,
+    "start_seconds": 0.62,
+    "state_change_norm": 0.7480274377100725,
+    "linear_error_norm": 0.41852985678601945,
+    "nonlinear_error_norm": 1.2993077724535552e-05,
+    "linear_relative_to_change": 0.5595113704214646,
+    "nonlinear_relative_to_change": 1.7369787616763238e-05,
+    "nonlinear_region_error": null,
+    "online_true_state_used": false,
+    "offline_initial_truth_used": true
+  },
+  {
+    "seed": 86013,
+    "start_seconds": 0.58,
+    "state_change_norm": 0.2081474130868013,
+    "linear_error_norm": 0.3800836936129274,
+    "nonlinear_error_norm": 8.7808858729191e-09,
+    "linear_relative_to_change": 1.8260313110613846,
+    "nonlinear_relative_to_change": 4.218589961172042e-08,
+    "nonlinear_region_error": null,
+    "online_true_state_used": false,
+    "offline_initial_truth_used": true
+  },
+  {
+    "seed": 86013,
+    "start_seconds": 0.6,
+    "state_change_norm": 5.408500550956004,
+    "linear_error_norm": 5.255142557878559,
+    "nonlinear_error_norm": 4.036682105968189e-06,
+    "linear_relative_to_change": 0.9716450074040692,
+    "nonlinear_relative_to_change": 7.463588231038762e-07,
+    "nonlinear_region_error": null,
+    "online_true_state_used": false,
+    "offline_initial_truth_used": true
+  },
+  {
+    "seed": 86013,
+    "start_seconds": 0.62,
+    "state_change_norm": 12.364335956500693,
+    "linear_error_norm": 16.635365126459337,
+    "nonlinear_error_norm": 1.4750524909450259e-08,
+    "linear_relative_to_change": 1.3454313426119016,
+    "nonlinear_relative_to_change": 1.1929896568116947e-09,
+    "nonlinear_region_error": null,
+    "online_true_state_used": false,
+    "offline_initial_truth_used": true
+  }
+]

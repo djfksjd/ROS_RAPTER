@@ -1,0 +1,49 @@
+{
+  "all": {
+    "samples": 4096,
+    "value_mean": 2.4371337890625,
+    "gae_return_mean": 2.4678053855895996,
+    "advantage_mean": 0.030671413987874985,
+    "standardized_positive_fraction": 0.5966796875,
+    "yaw_error_mean": 0.6788655519485474,
+    "vx_mean": 3.6187286376953125,
+    "abs_vy_mean": 0.5106607675552368
+  },
+  "zero_command": {
+    "samples": 263,
+    "value_mean": 0.756422758102417,
+    "gae_return_mean": 0.6966959834098816,
+    "advantage_mean": -0.059726644307374954,
+    "standardized_positive_fraction": 0.5855513307984791,
+    "yaw_error_mean": 0.71966153383255,
+    "vx_mean": 1.3686383962631226,
+    "abs_vy_mean": 0.35797056555747986
+  },
+  "moving_turn": {
+    "samples": 1285,
+    "value_mean": 2.1146838665008545,
+    "gae_return_mean": 2.1152291297912598,
+    "advantage_mean": 0.0005453458288684487,
+    "standardized_positive_fraction": 0.49571984435797667,
+    "yaw_error_mean": 0.6687574982643127,
+    "vx_mean": 4.796290874481201,
+    "abs_vy_mean": 0.8678355813026428
+  },
+  "moving_near_straight": {
+    "samples": 250,
+    "value_mean": 2.9432852268218994,
+    "gae_return_mean": 3.182117223739624,
+    "advantage_mean": 0.23883236944675446,
+    "standardized_positive_fraction": 0.82,
+    "yaw_error_mean": 0.6448662877082825,
+    "vx_mean": 5.554934501647949,
+    "abs_vy_mean": 0.3891681730747223
+  },
+  "target_speed_turn": {
+    "samples": 0
+  },
+  "reward_units": "VecNormalize training normalized rewards and GAE returns; not raw evaluation reward or full Monte Carlo return",
+  "critic_explained_variance_vs_gae": 0.7905283570289612,
+  "total_samples": 4096,
+  "optimizer_updates": 0
+}

@@ -1,0 +1,24 @@
+{
+  "sha256": {
+    "summary.json": "5832afc478a48ad83a8607efb393d3295e8370fe0f0880b49dd20e888637e1f9",
+    "servo_target_limit.py": "9b72f47ab8f733b0a555181b1513da7140e8c696ceb46c69fb9f4d43c5e1a11a",
+    "prediction-check.json": "1eb97320ea720f76702f3b10f61948885fa409bca057f0282af84f983f5e4d14",
+    "prediction-check.log": "1eb97320ea720f76702f3b10f61948885fa409bca057f0282af84f983f5e4d14",
+    "pair.jsonl": "65dce3c6aa27173c4ae53fd66d5030b61ed843825ae9ffd88243c87e11b38b51",
+    "focused-tests.log": "e1d8b81761c94e39db974b3014cc76e2082cbe3b08351a2a3a9418823ac51241",
+    "telemetry.py": "329f90423d167069624068533717ce5107d61e23604db56b5b7b38661e3e2156",
+    "development.py": "8f6d599659b93ce1cd8d1e8fb429ecbb6e9e70fcad823249597ce6b3729f921d",
+    "development.log": "a19375cd34bccf5ee9afaf5bea7a1d3f2c46f78af6cd6b5bc564e948ed348e80",
+    "README.md": "a8aea885e9552186ccf32e1c58b543d9764dd0832cb2732f4ffefbeded3f3139",
+    "prediction-check.py": "3d0a75063ece3bef50945fc04d21ad5018c3da42df098f45f376de0dbba3c44e",
+    "development.jsonl": "e528fcef35366fc25a232ed295f4aa8ee6d32d2db944f33253d701623de89b75",
+    "telemetry.log": "d4ada4cbb4c00f5a0b21600cc03a01074e833bcc9170a7fe1c9056b206ff96fc",
+    "pair.log": "d4ada4cbb4c00f5a0b21600cc03a01074e833bcc9170a7fe1c9056b206ff96fc",
+    "test_servo_target_limit.py": "36081bd008b2b79b7cd492ca96a59ea4ad25fda525c5e8dc2242911d928af941",
+    "whole-tests.log": "432ee8d6fbd2231f92adeb1a3636fa38f60a96a98eda2506e1eff6c4ae747449",
+    "telemetry.jsonl": "a62e54c2239fad7b60581e0392cccbe30c983e5879084c23d9928efb947c61d8",
+    "pair.py": "28e9809d31acffa887ea3e94ece601c12d4a2f6d7c2c1c063a86cbfd5c349b01"
+  },
+  "goal_status": "active",
+  "catalogue_pass": false
+}

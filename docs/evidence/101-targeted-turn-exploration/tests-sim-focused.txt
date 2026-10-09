@@ -1,0 +1,11 @@
+test_invalid_noise_or_action_topology_is_rejected (tests.test_turn_exploration.TurnExplorationTest.test_invalid_noise_or_action_topology_is_rejected) ... ok
+test_only_turn_axes_change_and_pair_variances_match (tests.test_turn_exploration.TurnExplorationTest.test_only_turn_axes_change_and_pair_variances_match) ... ok
+test_actor_gradients_and_save_reload (tests.test_symmetric_policy.SymmetricPolicyTest.test_actor_gradients_and_save_reload) ... ok
+test_mean_and_noise_equivariance_and_probability_consistency (tests.test_symmetric_policy.SymmetricPolicyTest.test_mean_and_noise_equivariance_and_probability_consistency) ... ok
+test_large_braking_errors_remain_distinct (tests.test_dense_speed_reward.DenseSpeedRewardTest.test_large_braking_errors_remain_distinct) ... ok
+test_optional_penalty_preserves_physics_and_default_reward (tests.test_dense_speed_reward.DenseSpeedRewardTest.test_optional_penalty_preserves_physics_and_default_reward) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.737s
+
+OK

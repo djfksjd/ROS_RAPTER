@@ -183,3 +183,8 @@ For API-assisted development after cloning on another machine, follow
 Set `UNI_AI` in the ignored local `.env`; preserve existing `HF_TOKEN` entries.
 This development gateway does not replace the robot's Qwen/NanoJev mission pipeline
 and does not automatically resume paused experiments.
+
+
+### 2026-10-09 정적 평형 연구 도구
+
+역동역학 자세 검색에 `.venv-sim`의 SciPy 1.18.1을 사용했다. 설치 명령은 `uv pip install --python .venv-sim/bin/python --index-url https://pypi.org/simple --no-deps --only-binary=:all: scipy==1.18.1`이다. 기본 보행 학습에 새로 요구되는 의존성은 아니며, 검색 코드와 패키지 버전은 `docs/evidence/148-static-equilibrium/`에 보존한다.

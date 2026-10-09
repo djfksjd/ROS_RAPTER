@@ -1,0 +1,60 @@
+[
+  {
+    "file": "tail-response.json",
+    "source": "sim/rl/runs/screen_logs/tail_paired_response_probe.json",
+    "sha256": "4c0604024a41d32031df79d2db1b5cb18cf75cb649fafa293cc45e4be1f7d4bc",
+    "uncompressed_sha256": "4c0604024a41d32031df79d2db1b5cb18cf75cb649fafa293cc45e4be1f7d4bc"
+  },
+  {
+    "file": "body-point-identity.json",
+    "source": "sim/rl/runs/screen_logs/body_point_velocity_identity.json",
+    "sha256": "adefec02f50db18c049f6caf53571f3bd83603bff3fd5e480289bdc14bd91bc3",
+    "uncompressed_sha256": "adefec02f50db18c049f6caf53571f3bd83603bff3fd5e480289bdc14bd91bc3"
+  },
+  {
+    "file": "early-capture.jsonl.gz",
+    "source": "sim/rl/runs/screen_logs/stand_early_capture.diagnostic.jsonl",
+    "sha256": "1ab1ae9b73e78d940230e6e660f7bffe29b0dc9cff91833ec0f23a5c8cc28db0",
+    "uncompressed_sha256": "6c52ecbd619366830f5fbb32886894002e188cd99d0df6edfb005dde10e0e0d0"
+  },
+  {
+    "file": "pitch-only.jsonl.gz",
+    "source": "sim/rl/runs/screen_logs/stand_early_capture_pitch_only.diagnostic.jsonl",
+    "sha256": "8e11e22ffb3448486e787602d87cec96d8f123bc7275b507480b6d14d89f2055",
+    "uncompressed_sha256": "5e3fa33dba0961bfbdbe1b1451fc4bd8ef10face9e0e8898a00cac1602838d1a"
+  },
+  {
+    "file": "raptor_tail_response_probe.py",
+    "sha256": "84c21cbedde85b200e8c52dff0f88b47acf70d2f49657fc1dc705db4f8eaeb32"
+  },
+  {
+    "file": "raptor_tail_paired_response_probe.py",
+    "sha256": "dd962f036204297a274688ebdad4ab12c3d0f2922eb375d62e2fb2da59bc32e7"
+  },
+  {
+    "file": "raptor_stand_early_capture.py",
+    "sha256": "8a9839f48d043b9d6a9479d14f1f257c67c954329cb0d4e7090a145b92f3e5f8"
+  },
+  {
+    "file": "raptor_stand_early_capture_pitch_only.py",
+    "sha256": "96ec190fcb47b22a631f4d6b20ecece3bf60bd6d387538fd9d6718a3aee58539"
+  },
+  {
+    "file": "contact-pair.jsonl.gz",
+    "source": "sim/rl/runs/screen_logs/stand_early_capture_contact_pair.diagnostic.jsonl",
+    "sha256": "6413755bd5b0e0fade3aae9bb64ea268e4a09abe416dfdb498816bdd8d60cc5e",
+    "uncompressed_sha256": "53c3d12940dfa82f03ba5bc84f029b975948dd771e433e5a5e6dcdccf6911cca"
+  },
+  {
+    "file": "contact-summary.json",
+    "source": "sim/rl/runs/screen_logs/early_capture_contact_summary.json",
+    "sha256": "019f4caef13fcfa5412f1fd028f706ea31d7feb26403b8c35048d79b232499d4",
+    "uncompressed_sha256": "019f4caef13fcfa5412f1fd028f706ea31d7feb26403b8c35048d79b232499d4"
+  },
+  {
+    "file": "raptor_stand_early_capture_contact_pair.py",
+    "source": "/tmp/raptor_stand_early_capture_contact_pair.py",
+    "sha256": "0e7da0c461b557e30f013cb40a54ce2b3c059ddc483e53db7b92039549e701ef",
+    "uncompressed_sha256": "0e7da0c461b557e30f013cb40a54ce2b3c059ddc483e53db7b92039549e701ef"
+  }
+]

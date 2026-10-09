@@ -1,0 +1,4 @@
+{'mode': 'contact_gated_approach', 'telemetry': True, 'seed': 83001, 'local_entry_time': 0.32, 'seconds': 0.44, 'fell': True, 'catalogue_pass': False}
+{'mode': 'contact_gated_approach', 'telemetry': True, 'seed': 83002, 'local_entry_time': None, 'seconds': 0.8, 'fell': True, 'catalogue_pass': False}
+{'mode': 'contact_gated_approach', 'telemetry': True, 'seed': 83003, 'local_entry_time': None, 'seconds': 0.86, 'fell': True, 'catalogue_pass': False}
+{'mode': 'contact_gated_approach', 'telemetry': True, 'seed': 83004, 'local_entry_time': None, 'seconds': 0.76, 'fell': True, 'catalogue_pass': False}

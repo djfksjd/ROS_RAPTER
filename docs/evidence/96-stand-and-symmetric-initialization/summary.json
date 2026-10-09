@@ -1,0 +1,21 @@
+{
+  "constant_pose_trials": 25,
+  "pose_falls": 25,
+  "pose_passes": 0,
+  "pose_seconds": 10,
+  "pose_seed": 22001,
+  "physical_model_changed": false,
+  "initial_equivalence": {
+    "cases": 800,
+    "max_mean_action_difference": 0.0,
+    "max_value_difference": 0.0,
+    "fell": false,
+    "initial_seed": 23001,
+    "stochastic_std_pairing": true,
+    "no_learning_yet": true
+  },
+  "learner_name": "sym_train_pilot_20261009",
+  "requested_additional_steps": 500000,
+  "learner_status": "completed_not_adopted",
+  "actual_additional_steps": 503808
+}

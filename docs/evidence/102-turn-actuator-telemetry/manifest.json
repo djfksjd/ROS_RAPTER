@@ -1,0 +1,17 @@
+{
+  "status": "diagnosis_completed_no_model_adoption",
+  "files": {
+    "sim/rl/runs/screen_logs/actuator_turn.avg_v2_20261009.jsonl": "6492d3357eda4ea7ae32bf8a6491886c51cb7e47746a0503b26b13e161df660d",
+    "sim/rl/runs/screen_logs/actuator_straight.avg_20261009.jsonl": "135a7fdbbc1860066bee65632bcc6dea654e0a304fd2ff0a7a6a02364fac68d6",
+    "sim/rl/runs/screen_logs/actuator_turn.catalogue_v2_20261009.jsonl": "803493a22f8d87806bba4924a42c5e94bebcdae5b82e5c69ed2cfc4da7d78052",
+    "sim/rl/runs/screen_logs/actuator_straight.catalogue_20261009.jsonl": "0b5f171aaa02c4f881a1ee0ba24fd41a07facf15cc18a4b65cd0f0a837e8696b",
+    "docs/evidence/102-turn-actuator-telemetry/summary.json": "3c914ca314cd601fc90279882d43454faa6948609b9016784ef2d12d48db2229",
+    "docs/evidence/102-turn-actuator-telemetry/tests-all.txt": "53780c6af2d97aca4b272e65f80475807e14916223d32511a632c5bd68921f5e",
+    "docs/evidence/102-turn-actuator-telemetry/tests-sim.txt": "7b7fde5653241c6f0d40ccbece4cfacd8b0c32a9bbadee49d46a88630cf1803e",
+    "docs/evidence/102-turn-actuator-telemetry/README.md": "81d4ba3691b06416e1e66d63549ce76cf4c0af94f1059e7ed6ddb75e8db571e9",
+    "docs/evidence/102-turn-actuator-telemetry/failed-avg.txt": "2fcac7200cf2c5566ff694a43c207fee50557df546464e4fba0086139c030449",
+    "docs/evidence/102-turn-actuator-telemetry/failed-catalogue.txt": "2fcac7200cf2c5566ff694a43c207fee50557df546464e4fba0086139c030449",
+    "sim/rl/actuator_turn_probe.py": "7c101b1a92df59b736386edd8e8dede536cd6369fcb889047b76dd8546a9de0a",
+    "tests/test_actuator_turn_probe.py": "08b7c088d37455c8caa338abb3cc5e312b5010414c317015b5442b9b5e30dcc3"
+  }
+}

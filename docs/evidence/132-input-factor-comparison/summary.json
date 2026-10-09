@@ -1,0 +1,47 @@
+{
+  "configurations": [
+    {
+      "yaw_factor": 1,
+      "speed_feedback": false,
+      "trials": 10,
+      "turn_trials": 8,
+      "angle_pass": 5,
+      "speed_pass": 4,
+      "joint_pass": 2,
+      "falls": 0
+    },
+    {
+      "yaw_factor": 1.1,
+      "speed_feedback": false,
+      "trials": 10,
+      "turn_trials": 8,
+      "angle_pass": 8,
+      "speed_pass": 4,
+      "joint_pass": 4,
+      "falls": 0
+    },
+    {
+      "yaw_factor": 1,
+      "speed_feedback": true,
+      "trials": 10,
+      "turn_trials": 8,
+      "angle_pass": 3,
+      "speed_pass": 7,
+      "joint_pass": 2,
+      "falls": 0
+    },
+    {
+      "yaw_factor": 1.1,
+      "speed_feedback": true,
+      "trials": 10,
+      "turn_trials": 8,
+      "angle_pass": 8,
+      "speed_pass": 6,
+      "joint_pass": 6,
+      "falls": 0
+    }
+  ],
+  "straight_result_parity": true,
+  "training": false,
+  "adopted": false
+}

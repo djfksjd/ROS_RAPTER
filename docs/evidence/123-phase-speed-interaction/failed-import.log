@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/tmp/raptor_turn_phase_feedback.py", line 34, in <module>
+    result=episode(Adapter(model,1.2),norm,env,[4.,0.,0.],10.,turn=(yaw,4.,2.) if yaw is not None else None)
+  File "/Users/danny/개발 모음 폴더/raptor/sim/rl/evaluate_run.py", line 57, in episode
+    action, _ = model.predict(obs, deterministic=True)
+                ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/raptor_turn_phase_feedback.py", line 19, in predict
+    x=np.array(obs,copy=True);assert x.shape[1]==46 and np.isfinite(x).all()
+      ^^
+NameError: name 'np' is not defined
