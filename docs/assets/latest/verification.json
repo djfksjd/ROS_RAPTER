@@ -1,0 +1,141 @@
+{
+  "source_checkpoint": "a6de8c7a59b758b3ae2c85331ac7bea9fb9c9291",
+  "goal_status": "paused",
+  "mode": "existing trajectory/evaluation visualization; no new learning or acceptance trials",
+  "stand_replays": [
+    {
+      "seed": 83002,
+      "rows_exact": 3000,
+      "frames": 376,
+      "stored_pass": true,
+      "speedup": 4
+    },
+    {
+      "seed": 86013,
+      "rows_exact": 45,
+      "frames": 45,
+      "stored_pass": false,
+      "speedup": 0.5
+    }
+  ],
+  "turn_replay": {
+    "seed": 67001,
+    "yaw": 1.0,
+    "seconds": 10,
+    "exact_original_result": true,
+    "angle_pass": true,
+    "min_interval_vx": 3.609198495440916,
+    "max_interval_vx": 4.225861314037576,
+    "frames": 250
+  },
+  "assets": {
+    "knee-response.png": {
+      "bytes": 76177,
+      "sha256": "c34f6512c7f1627650c0ce1a6d0e4f0b3cada1abf5acad6092252c3be859bfeb"
+    },
+    "run-turn-4mps.mp4": {
+      "bytes": 232117,
+      "sha256": "13398cc1132f586cd3d04f253673b6449dfdc1f37d73ea7242842ef2c6c7ecb9"
+    },
+    "stand-86013.mp4": {
+      "bytes": 39624,
+      "sha256": "04dd61a4164246663c0e0167f537d39ccee340fc9cb514dcfc889893c158f2e2"
+    },
+    "run-turn-preview.gif": {
+      "bytes": 490375,
+      "sha256": "7e53930ab668cac84f5eabbc16f9b820dbdd62c8ce0928303663f66c938287f2"
+    },
+    "stand-83002-snapshot.png": {
+      "bytes": 16794,
+      "sha256": "d347e8b88bd20a831d45578c378547f54cfaaf9a81740a0afd57cc9cc891314e"
+    },
+    "stand-83002.mp4": {
+      "bytes": 86301,
+      "sha256": "852c3bd46e032ad6d32f65defc10aa91da6195caed80d579b3704b660b40dc1f"
+    },
+    "run-turn-snapshot.png": {
+      "bytes": 16331,
+      "sha256": "6cd85d73b85ce0de9e3221c6106831fa06e5ca3d5d788b14a7b001c8abe5727a"
+    },
+    "turn-gates.png": {
+      "bytes": 41937,
+      "sha256": "9d50e80513eb032360d6be97354eb9779ac8c4307c19e632165a5ea82f4b914a"
+    },
+    "stand-preview.gif": {
+      "bytes": 232006,
+      "sha256": "5bd8f1a02234b6d7d01e9355858d458de331de762e8fa74e42f20334df10e56b"
+    },
+    "stand-86013-snapshot.png": {
+      "bytes": 16992,
+      "sha256": "eac95be5fbc2c4b8636e4ec79956d016823f87a9e4d41257060d2f304122a894"
+    },
+    "stand-success-failure.png": {
+      "bytes": 64260,
+      "sha256": "1d14de518b73b6f16e6cb5bf8d60e46bcb33301de37093ce5b74bbe84f47036b"
+    }
+  },
+  "render_only_setup_correction": "RunEnv initializes model lazily; visual settings now applied after reset on first render; first failed rendering log retained locally",
+  "video_metadata": {
+    "run-turn-4mps.mp4": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "width": 640,
+          "height": 560,
+          "r_frame_rate": "25/1",
+          "nb_frames": "250"
+        }
+      ],
+      "format": {
+        "duration": "10.000000"
+      }
+    },
+    "stand-86013.mp4": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "width": 640,
+          "height": 560,
+          "r_frame_rate": "25/1",
+          "nb_frames": "45"
+        }
+      ],
+      "format": {
+        "duration": "1.800000"
+      }
+    },
+    "stand-83002.mp4": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "width": 640,
+          "height": 560,
+          "r_frame_rate": "25/1",
+          "nb_frames": "376"
+        }
+      ],
+      "format": {
+        "duration": "15.040000"
+      }
+    }
+  },
+  "source_hashes": {
+    "docs/evidence/143-turn-yaw-input-filter/raw.jsonl": "4de05e618e7a95ac9914a84dc412392e01ae00d0d99e45c32e9277800d713154",
+    "docs/evidence/143-turn-yaw-input-filter/summary.json": "a32c76d02542fc268f02c258e64261eb65e3eddd5f1108cc84d474aebb2cdbd4",
+    "docs/evidence/163-knee-vertical-support/support-capture.jsonl.gz": "049db2f46b67bff5eaaf0fba52a0a49428d50e648e4c072a0091eb6cb9fffc51",
+    "docs/evidence/163-knee-vertical-support/knee-response.json": "2576bb1dec6df0bda5ef6f511b963579508b55fbbdf259d1830133ca9c46ecf2",
+    "docs/evidence/148-static-equilibrium/margin-search.jsonl": "4da3b202cd579d6bca10abcafbf992dfa8360197d14c5dfbf14772a580c98db0",
+    "sim/rl/runs/kl005_lr3e5_update64k_20261009/model.zip": "98d7b6a9fac4c621e53da392cc7d273cee27acb5a9489431161fedb2dcd7450a",
+    "sim/rl/runs/kl005_lr3e5_update64k_20261009/vecnorm.pkl": "5bf8bb8f542313b9a7895ff2cbd3ffcb76194ac309c1ecc92585d4db983f6a79"
+  },
+  "visual_review": "three clips start/middle/end frames decoded and inspected; all three charts and screenshots inspected",
+  "asset_counts": {
+    "mp4": 3,
+    "gif": 2,
+    "graphs_png": 3,
+    "screenshots_png": 3
+  }
+}
