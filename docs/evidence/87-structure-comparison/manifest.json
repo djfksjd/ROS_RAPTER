@@ -1,0 +1,44 @@
+{
+  "date": "2026-10-09",
+  "kind": "T1 structure screening; single training seed 0",
+  "commands": [
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    9.5,
+    10,
+    10.5,
+    11.2
+  ],
+  "starts": [
+    101,
+    102,
+    103
+  ],
+  "seconds": 60,
+  "robust_episodes": 5,
+  "threads": 1,
+  "files": {
+    "sim/rl/compare_structures.py": "340c609ae55f455516b81e03244a37b60cc11a2755c82e4c5e8894c9793b0385",
+    "sim/rl/heat_test.py": "aa0adaa0585d0adc0a3a05491888785b9c4b05decdf9755d6d174e3860b84e0d",
+    "sim/rl/evaluate_run.py": "7e7ac51a6c40680abb2e87b7a0fbb9fb0fd8043a707f683a3a6bb2111acf2197",
+    "sim/rl/run_env.py": "57e312f34ae7a7dff1b3730aa9b940339f18fcb3b40bbc57762c12bb1e029a64",
+    "sim/rl/train_run.py": "274680b06ab04cfad86a72800a9937d45c8e64a6ad353db5f467fb3352909809",
+    "sim/rl/runs/scr_a8_h0/model.zip": "ffa6239a3dce6ac7ef8ba2ef2de874ff15d60a0b4ac2e8f372fb1c63839a0c6b",
+    "sim/rl/runs/scr_a8_h0/vecnorm.pkl": "f4143f8040b6a98e1b723aca8e27657c07618360ccf6113d3b13c53c3920a92b",
+    "sim/rl/runs/scr_a8_h0/args.json": "ae51b550e08f091350546d12be3ac96cc708f520f01150573ff9588349b0ed60",
+    "sim/rl/runs/scr_a8_h2/model.zip": "43c87cae9ca3b2c672092f6d424a78c7326380342904b635a2428c06920233ec",
+    "sim/rl/runs/scr_a8_h2/vecnorm.pkl": "1a7326ae6949b8e5aa2a880f72b23509adf3c102abcee43a57062b720809f112",
+    "sim/rl/runs/scr_a8_h2/args.json": "010cbcd0f1fa92121a930570e265cd02b1b93ef0e4c951ba633c18b4c9ee2c80",
+    "sim/rl/runs/scr_a12_h0/model.zip": "47267ef3de47b266cf8730670137ee2c559756dd2ea78a6188111c2ed8e49b28",
+    "sim/rl/runs/scr_a12_h0/vecnorm.pkl": "413d414841fb3b2d2b9fc807f94b4ab6af589ae25f1bb10271deecdd19e02c98",
+    "sim/rl/runs/scr_a12_h0/args.json": "2c41ed2112e64abe249cc4c46aec22f05b0dbac59330075ba83da89bb5e5a8d7",
+    "sim/rl/runs/scr_a12_h2/model.zip": "b12063e01522a0fbb7ba502cd2b11344b95ce42e6e37694ad09cbe67d9a29b0e",
+    "sim/rl/runs/scr_a12_h2/vecnorm.pkl": "5651bf7f9b88f6d65612462167fdb3a4e596225b4b9f6cb0b276467e4b133863",
+    "sim/rl/runs/scr_a12_h2/args.json": "7c9aa1271ea7056a0149c9b4588e39f3f8a1adaeb9e2df02d38b8f61505018c1"
+  }
+}

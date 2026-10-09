@@ -1,0 +1,28 @@
+{
+  "initial_tensors": 24,
+  "initial_parity_exact": true,
+  "delta_after_update": {
+    "log_std": 0.0011048316955566406,
+    "reflection_mean": 0.0,
+    "reflection_std": 0.0,
+    "reflection_sign": 0.0,
+    "reflection_offset": 0.0,
+    "reflection_action_sign": 0.0,
+    "mlp_extractor.policy_net.0.weight": 0.0021043047308921814,
+    "mlp_extractor.policy_net.0.bias": 0.0005878843367099762,
+    "mlp_extractor.policy_net.2.weight": 0.0017262250185012817,
+    "mlp_extractor.policy_net.2.bias": 0.0007861144840717316,
+    "mlp_extractor.policy_net.4.weight": 0.0019004587084054947,
+    "mlp_extractor.policy_net.4.bias": 0.0005329139530658722,
+    "mlp_extractor.value_net.0.weight": 0.004178643226623535,
+    "mlp_extractor.value_net.0.bias": 0.0017178095877170563,
+    "mlp_extractor.value_net.2.weight": 0.004731178283691406,
+    "mlp_extractor.value_net.2.bias": 0.002554386854171753,
+    "mlp_extractor.value_net.4.weight": 0.0035625118762254715,
+    "mlp_extractor.value_net.4.bias": 0.0015760045498609543,
+    "action_net.weight": 0.0008753752335906029,
+    "action_net.bias": 0.0002908073365688324,
+    "value_net.weight": 0.002090267837047577,
+    "value_net.bias": 0.00014557689428329468
+  }
+}

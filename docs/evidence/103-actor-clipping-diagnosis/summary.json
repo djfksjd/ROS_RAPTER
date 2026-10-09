@@ -1,0 +1,152 @@
+[
+  {
+    "run": "sim/rl/runs/seq_compare_catalogue_20261009",
+    "yaw": -1.0,
+    "seed": 45001,
+    "fell": false,
+    "turn_samples": 100,
+    "summary": [
+      {
+        "joint": "left_hip_roll_joint",
+        "both_clipped_fraction": 0.0,
+        "opposite_clipped_fraction": 0.0
+      },
+      {
+        "joint": "left_hip_pitch_joint",
+        "both_clipped_fraction": 0.0,
+        "opposite_clipped_fraction": 0.0
+      },
+      {
+        "joint": "left_knee_pitch_joint",
+        "both_clipped_fraction": 0.0,
+        "opposite_clipped_fraction": 0.0
+      },
+      {
+        "joint": "right_hip_roll_joint",
+        "both_clipped_fraction": 0.0,
+        "opposite_clipped_fraction": 0.0
+      },
+      {
+        "joint": "right_hip_pitch_joint",
+        "both_clipped_fraction": 0.0,
+        "opposite_clipped_fraction": 0.0
+      },
+      {
+        "joint": "right_knee_pitch_joint",
+        "both_clipped_fraction": 0.0,
+        "opposite_clipped_fraction": 0.0
+      },
+      {
+        "joint": "tail_yaw_joint",
+        "both_clipped_fraction": 0.0,
+        "opposite_clipped_fraction": 0.0
+      },
+      {
+        "joint": "tail_pitch_joint",
+        "both_clipped_fraction": 0.0,
+        "opposite_clipped_fraction": 0.0
+      }
+    ],
+    "control_parity_exact": true
+  },
+  {
+    "run": "sim/rl/runs/seq_compare_catalogue_20261009",
+    "yaw": 0.0,
+    "seed": 45001,
+    "fell": false,
+    "turn_samples": 100,
+    "summary": [
+      {
+        "joint": "left_hip_roll_joint",
+        "both_clipped_fraction": 0.0,
+        "opposite_clipped_fraction": 0.0
+      },
+      {
+        "joint": "left_hip_pitch_joint",
+        "both_clipped_fraction": 0.0,
+        "opposite_clipped_fraction": 0.0
+      },
+      {
+        "joint": "left_knee_pitch_joint",
+        "both_clipped_fraction": 0.0,
+        "opposite_clipped_fraction": 0.0
+      },
+      {
+        "joint": "right_hip_roll_joint",
+        "both_clipped_fraction": 0.0,
+        "opposite_clipped_fraction": 0.0
+      },
+      {
+        "joint": "right_hip_pitch_joint",
+        "both_clipped_fraction": 0.0,
+        "opposite_clipped_fraction": 0.0
+      },
+      {
+        "joint": "right_knee_pitch_joint",
+        "both_clipped_fraction": 0.0,
+        "opposite_clipped_fraction": 0.0
+      },
+      {
+        "joint": "tail_yaw_joint",
+        "both_clipped_fraction": 0.0,
+        "opposite_clipped_fraction": 0.0
+      },
+      {
+        "joint": "tail_pitch_joint",
+        "both_clipped_fraction": 0.0,
+        "opposite_clipped_fraction": 0.0
+      }
+    ],
+    "control_parity_exact": true
+  },
+  {
+    "run": "sim/rl/runs/seq_compare_catalogue_20261009",
+    "yaw": 1.0,
+    "seed": 45001,
+    "fell": false,
+    "turn_samples": 100,
+    "summary": [
+      {
+        "joint": "left_hip_roll_joint",
+        "both_clipped_fraction": 0.0,
+        "opposite_clipped_fraction": 0.0
+      },
+      {
+        "joint": "left_hip_pitch_joint",
+        "both_clipped_fraction": 0.0,
+        "opposite_clipped_fraction": 0.0
+      },
+      {
+        "joint": "left_knee_pitch_joint",
+        "both_clipped_fraction": 0.0,
+        "opposite_clipped_fraction": 0.0
+      },
+      {
+        "joint": "right_hip_roll_joint",
+        "both_clipped_fraction": 0.0,
+        "opposite_clipped_fraction": 0.0
+      },
+      {
+        "joint": "right_hip_pitch_joint",
+        "both_clipped_fraction": 0.0,
+        "opposite_clipped_fraction": 0.0
+      },
+      {
+        "joint": "right_knee_pitch_joint",
+        "both_clipped_fraction": 0.0,
+        "opposite_clipped_fraction": 0.0
+      },
+      {
+        "joint": "tail_yaw_joint",
+        "both_clipped_fraction": 0.0,
+        "opposite_clipped_fraction": 0.0
+      },
+      {
+        "joint": "tail_pitch_joint",
+        "both_clipped_fraction": 0.0,
+        "opposite_clipped_fraction": 0.0
+      }
+    ],
+    "control_parity_exact": true
+  }
+]

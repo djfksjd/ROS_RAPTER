@@ -1,0 +1,32 @@
+{
+  "status": "completed_not_adopted",
+  "training_seed": 0,
+  "additional_steps_each": 503808,
+  "final_steps": 10833920,
+  "evaluation_protocol": "evidence90 corrected command timing / raw angle",
+  "heat_initial_seeds": [
+    13001,
+    13002,
+    13003
+  ],
+  "heat_is_temperature": false,
+  "files": {
+    "docs/evidence/93-turn-exploration/control.args.json": "35fb319a45184d893f6f39478cca1e170c5a06e8fefd7100dc886c74318efa48",
+    "docs/evidence/93-turn-exploration/control.eval.details.jsonl": "4d994a8fb294874b159e1f3e573c3537344a67dc575ca95cfe51933cc2ad490e",
+    "docs/evidence/93-turn-exploration/control.eval.json": "30c1451511a42b9555395da20bc0d4474d5ab0e966529ab397b22c896b78ab22",
+    "docs/evidence/93-turn-exploration/control.heat.jsonl": "423a8b11a5fcbde43e89a4fa4989c2049abb0436cadc5cbeff8f5c3a5bb1e827",
+    "docs/evidence/93-turn-exploration/control.initial-policy.json": "38ab184624b5f9f22be2a0c3ddd2a151e0f85958ae4f6e1562da6d2bc10360b9",
+    "docs/evidence/93-turn-exploration/control.process.json": "111c01f0eb3fa95093df9ea329ad593d4d1223abe13c983d9606b2e04478b342",
+    "docs/evidence/93-turn-exploration/std25.args.json": "c99a7e82b29ee38626431bb16235476a6755d402e815351c707148bbcfe974d1",
+    "docs/evidence/93-turn-exploration/std25.eval.details.jsonl": "5fdc02345fbad3383beeec7d8fb9dec457d508d9e980dfc7a75516f83154da1d",
+    "docs/evidence/93-turn-exploration/std25.eval.json": "5cbf16cdc33e01d83bc826dd3f3d38a5fa098848dc546d37ecfb6c08a0e4bce1",
+    "docs/evidence/93-turn-exploration/std25.heat.jsonl": "b697ab447fe51583fb2cbac37e679326f156a2e2954938dbea9af6930da29f3e",
+    "docs/evidence/93-turn-exploration/std25.initial-policy.json": "8ead5df9dd933f3836a6fa42e744a3b30bdf1c5ddcbe9039c4d67de8e6b552d7",
+    "docs/evidence/93-turn-exploration/std25.process.json": "3d4c44284c551dac1003995ea144166a4f09d0c4c9ac1a97f3c7f46d15e3b3f9",
+    "docs/evidence/93-turn-exploration/summary.json": "17719371ab368cf4773b411f52a63a47ae9eb73d45e309d15ba1a0767216dc20",
+    "sim/rl/runs/turn_explore_control_20261009/model.zip": "6cae2d02e117f8dafc75761ef8e7d6be8acebd4ec7699be422f29e6a713279be",
+    "sim/rl/runs/turn_explore_std25_20261009/model.zip": "ca77a8e19ac4ecbad8d3e912e20cb37a201a3bcb4f5634163edcb51dbc39afaa",
+    "sim/rl/runs/turn_curr_control7_20261009/model.zip": "e8ece37e35f4a9a5dff47f8e734608799a1181aba3b13119798d012991b7e785",
+    "docs/evidence/93-turn-exploration/control-reproducibility.json": "1fe82ca28587defc6a23fd629dbcb4327d8595a5922c6554d355a7cdbccf7549"
+  }
+}

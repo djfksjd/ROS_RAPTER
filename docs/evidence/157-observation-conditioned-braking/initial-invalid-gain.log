@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/tmp/raptor_adaptive_braking_probe.py", line 23, in <module>
+    approach=BrakingApproach(obs,q0=e.q0,kp=e.kp,scale=e.scale,policy_indices=pi,spring_stiffness=stiffness,spring_rest=rest,reference_action=plant.u,lower=lower,upper=upper,symmetric_pairs=[(1,4),(2,5)] if mode=='observed_symmetric' else [])
+  File "/Users/danny/개발 모음 폴더/raptor/sim/rl/braking_approach.py", line 33, in __init__
+    raise ValueError('zero commands and valid mechanical/action bounds required')
+ValueError: zero commands and valid mechanical/action bounds required

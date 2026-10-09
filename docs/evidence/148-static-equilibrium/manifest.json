@@ -1,0 +1,16 @@
+{
+  "source_hashes": {
+    "args.json": "da2144f1047bf1f5707cef16251dcbabe90dad35c0a68582b613e9d6cd15771f",
+    "model.zip": "98d7b6a9fac4c621e53da392cc7d273cee27acb5a9489431161fedb2dcd7450a",
+    "vecnorm.pkl": "5bf8bb8f542313b9a7895ff2cbd3ffcb76194ac309c1ecc92585d4db983f6a79"
+  },
+  "python": "3.14.7 (main, Aug  5 2026, 10:29:49) [Clang 21.0.0 (clang-2100.1.1.101)]",
+  "packages": {
+    "numpy": "2.3.5",
+    "scipy": "1.18.1",
+    "mujoco": "3.14.0",
+    "torch": "2.14.0"
+  },
+  "adopted": false,
+  "goal_status": "active"
+}

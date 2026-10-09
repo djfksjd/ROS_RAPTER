@@ -1,0 +1,12 @@
+[
+  {
+    "run": "dense_speed_control_20261009",
+    "identical_initialized_tensors": 24,
+    "exact": true
+  },
+  {
+    "run": "dense_speed_penalty_20261009",
+    "identical_initialized_tensors": 24,
+    "exact": true
+  }
+]

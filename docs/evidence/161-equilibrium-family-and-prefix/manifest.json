@@ -1,0 +1,30 @@
+{
+  "sha256": {
+    "summary.json": "95723a04ddc4bc14a965739a04e7803fd9769d0925b31095d7c24df6fdb68e16",
+    "effort-R1.npz": "d022231b920278c58dcf744f49402d6e8a5ba47b666ea9f61ea419e51a6a5563",
+    "handoff.py": "1ad7f337defab5a2754965807edd79724b5a0ca579ced181298af1e96b031027",
+    "equilibrium-search.py": "a440bed2b00133f5e053101d5b1839660746de1eeb3103c363a797f2822559db",
+    "handoff.log": "1185d6fc54eedb5ed45e2481e841209ece3c8984a2e49a38cab6c84e5d5b1a6c",
+    "effort-R1.jsonl": "f27eafdaf9aa3044cf06dc6c451dfc37666904605cb45f73ecccb3e5eea0d85b",
+    "equilibrium-search.jsonl": "352d6648f381fa6e43141342857ca15c6846ff0c23ac1f15063228c4b6ab077f",
+    "design.py": "90028f32a5e262d9fa89dacbf9b7e6fbe554def2c25e6e7d02562e442d0b5323",
+    "README.md": "0760721dce37a5dfcd87e6802993be0e32f84ce443d12079d882b841e0561805",
+    "effort-R1.py": "11bcba1edee6e0faf0dc0db4bdf869383ba8b57dd0c568539b892fa2a9f97c08",
+    "equilibrium-search.log": "57045aa780783fc57425d1322a3801d69b5e387a88da5b90c4262028edf5003f",
+    "handoff.jsonl": "6a8948968fb5dbd3af7fe27758671efc6592a8edd3bc27b1184937ecdf896039",
+    "design.log": "339edfe33514c35671f73df407fcbcd382184ec4b9edc5349fc4162488f929a7",
+    "prefix-gates.json": "bfcb82313c57dcf231329d0a52cc8caa3cc68bcfef37ff2d6b2e304e7be3852f",
+    "effort-R1.log": "88bde34e0942e2c4d00b6093698a3d7c2dca10713bfc8be37530d5473591e0ed",
+    "designs/0/design.npz": "99b7400fb235cb18c19e4392769d8f844e521148ebb3091051159e47438db6d6",
+    "designs/0/near-screen.jsonl": "6cc09db5e515dd6560511e494310ae70148f6ea90ed300bb3bb464f3d0931d02",
+    "designs/0/design.json": "4e6333f2265d07a3ae66029bb12bba9e53064033ca9aa6f0c7e7567d870d3556",
+    "designs/1/design.npz": "0ebf69cfa744a1b52a1abaaabdc41500f7659442e7443cecc08b698935995b44",
+    "designs/1/near-screen.jsonl": "83ea76999c10dc17667abb3ed6fc8092296e0703ef13e87bb82b60de3162c38e",
+    "designs/1/design.json": "076bcaa2cee681eddc5fafa9e24cc4500b7614c33898000529642f3152b69ef2",
+    "designs/2/design.npz": "4a8bc3b0660085dc036425b643e0b09a70088de2c809a8210f1c693297a9b7c1",
+    "designs/2/near-screen.jsonl": "7cc4b4a9a6945218ed6b5feb375ea2059be514a947021efd6346bdfc49d03184",
+    "designs/2/design.json": "2b7ad6e9f8f90a0656d9e88ca6d8e20abd80532885e3efe260a6fda7191f5af2"
+  },
+  "goal_status": "active",
+  "catalogue_pass": false
+}

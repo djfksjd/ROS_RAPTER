@@ -1,0 +1,61 @@
+{
+  "name": "turn_duration2_control_20261009",
+  "env": "run",
+  "steps": 500000,
+  "envs": 4,
+  "mass": 5.0,
+  "springs": "c",
+  "tail": "active",
+  "level": 0.0,
+  "cmd": [
+    7.0,
+    0.3,
+    1.0
+  ],
+  "cmd_final": [
+    7.0,
+    0.3,
+    1.0
+  ],
+  "weights": "{\"track_lin\": 5, \"progress\": 3, \"track_yaw\": 16, \"yaw_err\": -1, \"stand\": -5, \"gait\": -8, \"fold\": 0.35, \"extend\": 0.3, \"ankle_static\": -0.2, \"retract\": 0.7, \"leg_sym\": -6, \"heat\": -1}",
+  "zero_cmd": 0.15,
+  "top_cmd": 0.3,
+  "episode_s": 22.0,
+  "disturb_items": null,
+  "no_obs_vel": false,
+  "no_init_speed": false,
+  "ankle_clutch": true,
+  "kin": "{}",
+  "eval_curriculum": true,
+  "fixed_curriculum": true,
+  "track_sigma_frac": 0.3,
+  "springs_override": "{\"knee_pitch\": [170, 0.956, \"bi\", \"latch\"]}",
+  "arch8_override": "{\"hip_pitch\": [\"B\", 1.5]}",
+  "arch8": true,
+  "couple_ankle": false,
+  "arch12": false,
+  "real_mass": true,
+  "hip_back": 0.2,
+  "target_ramp": true,
+  "nominal": [
+    -0.5273,
+    1.5,
+    -1.4997
+  ],
+  "yaw_impulse": [
+    0.15,
+    0.2,
+    1.0
+  ],
+  "init": "/Users/danny/\u1100\u1162\u1107\u1161\u11af \u1106\u1169\u110b\u1173\u11b7 \u1111\u1169\u11af\u1103\u1165/raptor/sim/rl/runs/seq_compare_catalogue_20261009/model.zip",
+  "seed": 0,
+  "symmetry_policy": true,
+  "symmetry_yaw_scale": 6.4,
+  "raw_policy_observation": true,
+  "fixed_input_normalization": true,
+  "command_sequence": true,
+  "sequence_control": false,
+  "turn_exploration_std": null,
+  "turn_exploration_slots": [],
+  "sequence_turn_seconds": 2.0
+}

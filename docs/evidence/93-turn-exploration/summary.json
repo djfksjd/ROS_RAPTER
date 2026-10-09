@@ -1,0 +1,50 @@
+{
+  "control": {
+    "short_trials": 30,
+    "falls": 0,
+    "turn_trials": 20,
+    "turn_passes": 0,
+    "heat_by_command": {
+      "4.0": {
+        "trials": 3,
+        "falls": 0,
+        "heat_passes": 3,
+        "tracking_passes": 3,
+        "min_speed": 3.94577871225269,
+        "max_heat": 0.8513553765187244
+      },
+      "7.0": {
+        "trials": 3,
+        "falls": 0,
+        "heat_passes": 0,
+        "tracking_passes": 3,
+        "min_speed": 6.468572075153851,
+        "max_heat": 1.1419037362004696
+      }
+    }
+  },
+  "std25": {
+    "short_trials": 30,
+    "falls": 11,
+    "turn_trials": 20,
+    "turn_passes": 0,
+    "heat_by_command": {
+      "4.0": {
+        "trials": 3,
+        "falls": 0,
+        "heat_passes": 0,
+        "tracking_passes": 0,
+        "min_speed": 1.2827221040078016,
+        "max_heat": 5.585021948448638
+      },
+      "7.0": {
+        "trials": 3,
+        "falls": 0,
+        "heat_passes": 0,
+        "tracking_passes": 0,
+        "min_speed": 2.3948085353062405,
+        "max_heat": 5.502532506528198
+      }
+    }
+  }
+}

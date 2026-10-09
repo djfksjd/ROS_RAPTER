@@ -1,0 +1,23 @@
+{
+  "changed_tensors": [
+    "log_std"
+  ],
+  "changed_log_std_slots": [
+    0,
+    3,
+    6
+  ],
+  "other_tensors_identical": 23,
+  "deterministic_mean_probe_samples": 16,
+  "max_action_difference": 0.0,
+  "init_noise_values": [
+    0.25,
+    0.05981738492846489,
+    0.0755515843629837,
+    0.25,
+    0.06191091984510422,
+    0.07679272443056107,
+    0.25,
+    0.0797540545463562
+  ]
+}

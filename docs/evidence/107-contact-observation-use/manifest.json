@@ -1,0 +1,10 @@
+{
+  "status": "completed_diagnostic_not_task_success",
+  "exit": 0,
+  "files": {
+    "summary.json": "a3db104dcd41f17d610a9439cf2c65e76ae31c9d73330005360f4e9ff6a21b30",
+    "probe.jsonl": "828cca642288ac44e8f961fcff9f5fd8085643397414e82f2470221d857b35d9",
+    "README.md": "c2e42cdadad71b8e59ee61b90d1d0e49242facd8ebeee48b8a5e0dd7c2cbc0e3",
+    "probe.py": "e535481fe0a235daf18dcf360277857d9a0a5919ec4fb0c2c4b158a5b9c301a5"
+  }
+}

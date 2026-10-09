@@ -1,0 +1,51 @@
+test_correction_bound_preserves_feedforward_neighborhood (tests.test_yaw_feedback.YawFeedbackTest.test_correction_bound_preserves_feedforward_neighborhood) ... ok
+test_correction_sign_filter_and_clamp (tests.test_yaw_feedback.YawFeedbackTest.test_correction_sign_filter_and_clamp) ... ok
+test_disabled_and_zero_command_preserve_feedforward (tests.test_yaw_feedback.YawFeedbackTest.test_disabled_and_zero_command_preserve_feedforward) ... ok
+test_heading_rate_with_banked_and_pitched_body (tests.test_yaw_feedback.YawFeedbackTest.test_heading_rate_with_banked_and_pitched_body) ... ok
+test_nonfinite_and_invalid_values_rejected (tests.test_yaw_feedback.YawFeedbackTest.test_nonfinite_and_invalid_values_rejected) ... ok
+test_invalid_scale_rejected (tests.test_symmetric_rollout.RawAdapterTest.test_invalid_scale_rejected) ... ok
+test_scale_changes_only_internal_raw_yaw_and_preserves_external_state (tests.test_symmetric_rollout.RawAdapterTest.test_scale_changes_only_internal_raw_yaw_and_preserves_external_state) ... ok
+test_averaged_policy_equivariance_with_asymmetric_normalization (tests.test_mirror_probe.ReflectionTest.test_averaged_policy_equivariance_with_asymmetric_normalization) ... ok
+test_invalid_mappings_and_dimensions_rejected (tests.test_mirror_probe.ReflectionTest.test_invalid_mappings_and_dimensions_rejected) ... ok
+test_involution_and_input_preservation (tests.test_mirror_probe.ReflectionTest.test_involution_and_input_preservation) ... ok
+test_vectors_clock_and_absolute_joint_positions (tests.test_mirror_probe.ReflectionTest.test_vectors_clock_and_absolute_joint_positions) ... ok
+test_command_timing_and_first_increment (tests.test_turn_evaluation.TurnEvaluationTest.test_command_timing_and_first_increment) ... ok
+test_fall_before_turn_completion_fails (tests.test_turn_evaluation.TurnEvaluationTest.test_fall_before_turn_completion_fails) ... ok
+test_raw_values_determine_boundary_for_both_directions (tests.test_turn_evaluation.TurnEvaluationTest.test_raw_values_determine_boundary_for_both_directions) ... ok
+test_turn_completed_at_last_evaluation_step_is_retained (tests.test_turn_evaluation.TurnEvaluationTest.test_turn_completed_at_last_evaluation_step_is_retained) ... ok
+test_complete_stages_pass_and_incomplete_trial_fails (tests.test_motion_transition.MotionTransitionTest.test_complete_stages_pass_and_incomplete_trial_fails) ... ok
+test_initial_drift_or_non_alternating_walk_fail (tests.test_motion_transition.MotionTransitionTest.test_initial_drift_or_non_alternating_walk_fail) ... ok
+test_lateral_motion_and_slow_stop_start_fail (tests.test_motion_transition.MotionTransitionTest.test_lateral_motion_and_slow_stop_start_fail) ... ok
+test_stand_origin_and_flight (tests.test_motion_transition.MotionTransitionTest.test_stand_origin_and_flight) ... ok
+test_force_and_yaw_moment_balance (tests.test_contact_wrench.ContactWrenchTest.test_force_and_yaw_moment_balance) ... ok
+test_opposite_contact_participant_sign (tests.test_contact_wrench.ContactWrenchTest.test_opposite_contact_participant_sign) ... ok
+test_actuator_forces_stay_within_the_spec_during_rollouts (tests.test_run_env.RunEnvTest.test_actuator_forces_stay_within_the_spec_during_rollouts) ... ok
+test_angular_momentum_parts (tests.test_run_env.RunEnvTest.test_angular_momentum_parts) ... ok
+test_ankle_clutch_lets_the_swing_foot_fold (tests.test_run_env.RunEnvTest.test_ankle_clutch_lets_the_swing_foot_fold)
+Unclutched, the Achilles spring stops an airborne ankle near 88 deg (motor 22 N·m); clutched it folds. ... ok
+test_balanced_start_and_body_contact_termination (tests.test_run_env.RunEnvTest.test_balanced_start_and_body_contact_termination) ... ok
+test_evaluation_starts_differ_by_init_seed (tests.test_run_env.RunEnvTest.test_evaluation_starts_differ_by_init_seed)
+Deterministic evaluation episodes with different init_seed start from different states; None keeps the ... ok
+test_force_range_follows_speed_and_power (tests.test_run_env.RunEnvTest.test_force_range_follows_speed_and_power) ... ok
+test_spaces_mass_and_springs (tests.test_run_env.RunEnvTest.test_spaces_mass_and_springs) ... ok
+test_structure_variants_contract (tests.test_run_env.RunEnvTest.test_structure_variants_contract)
+Equal-condition structure comparison (2026-10-01): arch8 / arch12 with explicit part masses and the same motor ... ok
+test_tail_lock_removes_the_tail_from_the_policy (tests.test_run_env.RunEnvTest.test_tail_lock_removes_the_tail_from_the_policy) ... ok
+test_unilateral_springs_have_a_dead_band (tests.test_run_env.RunEnvTest.test_unilateral_springs_have_a_dead_band) ... ok
+test_yaw_impulse_spins_the_body (tests.test_run_env.RunEnvTest.test_yaw_impulse_spins_the_body) ... ok
+test_40kmh_uses_exact_actual_speed_threshold (tests.test_structure_comparison.StructureComparisonTest.test_40kmh_uses_exact_actual_speed_threshold) ... ok
+test_complete_evaluations_are_preserved (tests.test_structure_comparison.StructureComparisonTest.test_complete_evaluations_are_preserved) ... {"run": "run", "robust": "yaw", "rows": [{"episodes": 5, "falls": 0}, {"episodes": 5, "falls": 0, "impulse_nms": 0.5}, {"episodes": 5, "falls": 0, "impulse_nms": 1.0}, {"episodes": 5, "falls": 0, "impulse_nms": 1.5}]}
+{"run": "run", "robust": "pitch", "rows": [{"episodes": 5, "falls": 0}, {"episodes": 5, "falls": 0, "impulse_nms": 1.0}, {"episodes": 5, "falls": 0, "impulse_nms": 2.0}]}
+{"run": "run", "robust": "turn", "rows": [{"episodes": 5, "falls": 0}, {"episodes": 5, "falls": 0, "turn_cmd_rad_s": 0.5}, {"episodes": 5, "falls": 0, "turn_cmd_rad_s": 1.0}, {"episodes": 5, "falls": 0, "turn_cmd_rad_s": 1.5}]}
+ok
+test_display_rounding_cannot_override_failed_heat_verdict (tests.test_structure_comparison.StructureComparisonTest.test_display_rounding_cannot_override_failed_heat_verdict) ... ok
+test_duplicate_cases_do_not_replace_missing_conditions (tests.test_structure_comparison.StructureComparisonTest.test_duplicate_cases_do_not_replace_missing_conditions) ... ok
+test_every_start_must_pass_and_speed_uses_slowest_start (tests.test_structure_comparison.StructureComparisonTest.test_every_start_must_pass_and_speed_uses_slowest_start) ... ok
+test_failed_subprocess_is_not_a_missing_display_cell (tests.test_structure_comparison.StructureComparisonTest.test_failed_subprocess_is_not_a_missing_display_cell) ... ok
+test_fall_disqualifies_even_a_true_heat_flag (tests.test_structure_comparison.StructureComparisonTest.test_fall_disqualifies_even_a_true_heat_flag) ... ok
+test_missing_cases_fail_even_when_exit_status_is_zero (tests.test_structure_comparison.StructureComparisonTest.test_missing_cases_fail_even_when_exit_status_is_zero) ... ok
+
+----------------------------------------------------------------------
+Ran 40 tests in 0.280s
+
+OK

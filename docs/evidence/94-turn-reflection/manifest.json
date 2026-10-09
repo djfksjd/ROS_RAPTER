@@ -1,0 +1,22 @@
+{
+  "files": {
+    "docs/evidence/94-turn-reflection/summary.json": "4c8b23fed1e0d19cde566b32591e20d6b70c22cb1a89b08d57b0b966a541c108",
+    "docs/evidence/94-turn-reflection/symmetric_scale64_heat_20261009.jsonl": "71a98bc70e8bb356d44b6e350ebd1d1e71a00f3aed42b1060b5cf4cc204b8a11",
+    "docs/evidence/94-turn-reflection/symmetric_scale6_20261009.jsonl": "57eb80c79085213bc3c6c978f34240fd470caebc6c17eddee776a810da6682c5",
+    "docs/evidence/94-turn-reflection/symmetric_rollout_20261009.jsonl": "54efefd1dc18a2e0018c48e79248a02817d8f18571b96eba99d0a5e76e68d147",
+    "docs/evidence/94-turn-reflection/heat-parity.json": "ea27ad0418cf1faaf2f08daa9d024a5216ea873be798049d8d9f5969400df934",
+    "docs/evidence/94-turn-reflection/mirror_probe_20261009.jsonl": "1b1fec8d212a0a6eb0ce3a1d8dde604d14e6419c37b837c5a470d4abc2f7a409",
+    "docs/evidence/94-turn-reflection/README.md": "330893f63736b65c013fe1d2afc4ccc9eb0b1c7e0242c8ad633b29898d197138",
+    "docs/evidence/94-turn-reflection/symmetric_scale64_confirm_20261009.jsonl": "bad4121bea479ff8700a111368a44e5f90765627baf3f1368d8e0317bc863da0",
+    "docs/evidence/94-turn-reflection/raptor-mirror-tests-sim.txt": "2cc072c355988fde76ed0fb86139eec2a7f2b2c18588b8d3809ddb21dd9cbb1c",
+    "docs/evidence/94-turn-reflection/tests-sim-final.txt": "a4ad8d7b4bae29103ae4581121f1c5276ab0522e11e9fd3a1c039a2668ad610d",
+    "docs/evidence/94-turn-reflection/raptor-mirror-tests-ai.txt": "a5fe9cf40df2430efa93680e0acc28a2d6cf95ea1253419c0e43f6272664fb17",
+    "sim/rl/mirror_probe.py": "d77fb924457f11c8474e9e11b2e0ae3f36d7c6d62973e28019c9772f251241d3",
+    "sim/rl/symmetric_rollout.py": "a0b2218abc918ffe139924f45dbbddd7806a23ab673ca326df3ca4f66bfe47c5",
+    "tests/test_mirror_probe.py": "e51ef1bc4de85912a890b417a2e913a2551ca7095758dbf70714b74281cdde78",
+    "tests/test_symmetric_rollout.py": "b69b57cb46d070bbbf2fec16a721ead7366ea50fecaea04be2f14faa407d17b3",
+    "docs/evidence/94-turn-reflection/tests-ai-final.txt": "fe30d7ab7cd8c2c0aaa1a42021aa86a4086f86b7aa0ff8a4c907480163c02c39"
+  },
+  "source": "https://arxiv.org/html/2403.17320v3",
+  "status": "completed_not_adopted"
+}

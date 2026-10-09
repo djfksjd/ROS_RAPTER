@@ -1,0 +1,122 @@
+[
+  {
+    "rest_angle": 0.956,
+    "seed": 22001,
+    "feedback": false,
+    "fell": true,
+    "seconds": 0.72,
+    "stand_gate": {
+      "pass_gate": false,
+      "samples": 36,
+      "max_displacement_m": 0.4599554305017767,
+      "max_tilt_rad": 0.8122052041346041,
+      "flight_samples": 11
+    },
+    "baseline_135_or138_exact_heat_tilt": true
+  },
+  {
+    "rest_angle": 0.956,
+    "seed": 22002,
+    "feedback": false,
+    "fell": true,
+    "seconds": 0.78,
+    "stand_gate": {
+      "pass_gate": false,
+      "samples": 39,
+      "max_displacement_m": 0.18096453228162104,
+      "max_tilt_rad": 0.8614541708075526,
+      "flight_samples": 19
+    },
+    "baseline_135_or138_exact_heat_tilt": true
+  },
+  {
+    "rest_angle": 0.956,
+    "seed": 22001,
+    "feedback": true,
+    "fell": true,
+    "seconds": 0.74,
+    "stand_gate": {
+      "pass_gate": false,
+      "samples": 37,
+      "max_displacement_m": 0.4622132909973624,
+      "max_tilt_rad": 0.7075226102360976,
+      "flight_samples": 22
+    },
+    "baseline_135_or138_exact_heat_tilt": false
+  },
+  {
+    "rest_angle": 0.956,
+    "seed": 22002,
+    "feedback": true,
+    "fell": true,
+    "seconds": 0.96,
+    "stand_gate": {
+      "pass_gate": false,
+      "samples": 48,
+      "max_displacement_m": 0.5017279019792786,
+      "max_tilt_rad": 0.8256159384582572,
+      "flight_samples": 30
+    },
+    "baseline_135_or138_exact_heat_tilt": false
+  },
+  {
+    "rest_angle": 1.5,
+    "seed": 22001,
+    "feedback": false,
+    "fell": true,
+    "seconds": 0.78,
+    "stand_gate": {
+      "pass_gate": false,
+      "samples": 39,
+      "max_displacement_m": 0.504658047845488,
+      "max_tilt_rad": 0.8173165767834428,
+      "flight_samples": 2
+    },
+    "baseline_135_or138_exact_heat_tilt": true
+  },
+  {
+    "rest_angle": 1.5,
+    "seed": 22002,
+    "feedback": false,
+    "fell": true,
+    "seconds": 1.12,
+    "stand_gate": {
+      "pass_gate": false,
+      "samples": 56,
+      "max_displacement_m": 0.48840133897030763,
+      "max_tilt_rad": 0.825398192869798,
+      "flight_samples": 2
+    },
+    "baseline_135_or138_exact_heat_tilt": true
+  },
+  {
+    "rest_angle": 1.5,
+    "seed": 22001,
+    "feedback": true,
+    "fell": true,
+    "seconds": 0.8,
+    "stand_gate": {
+      "pass_gate": false,
+      "samples": 40,
+      "max_displacement_m": 0.5488897313412966,
+      "max_tilt_rad": 0.7059933999316345,
+      "flight_samples": 6
+    },
+    "baseline_135_or138_exact_heat_tilt": false
+  },
+  {
+    "rest_angle": 1.5,
+    "seed": 22002,
+    "feedback": true,
+    "fell": true,
+    "seconds": 1.16,
+    "stand_gate": {
+      "pass_gate": false,
+      "samples": 58,
+      "max_displacement_m": 0.5364980317622078,
+      "max_tilt_rad": 0.7266185849896537,
+      "flight_samples": 7
+    },
+    "baseline_135_or138_exact_heat_tilt": false
+  }
+]

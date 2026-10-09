@@ -1,0 +1,22 @@
+[
+  {
+    "seed": 22001,
+    "axis": "pitch",
+    "response_body_angular_velocity_per_rad": -19.00769820884438
+  },
+  {
+    "seed": 22001,
+    "axis": "roll",
+    "response_body_angular_velocity_per_rad": -24.002564137555513
+  },
+  {
+    "seed": 22002,
+    "axis": "pitch",
+    "response_body_angular_velocity_per_rad": -19.161122524303984
+  },
+  {
+    "seed": 22002,
+    "axis": "roll",
+    "response_body_angular_velocity_per_rad": -23.36556202324227
+  }
+]

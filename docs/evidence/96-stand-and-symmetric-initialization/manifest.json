@@ -1,0 +1,24 @@
+{
+  "status": "completed_not_adopted",
+  "files": {
+    "docs/evidence/96-stand-and-symmetric-initialization/summary.json": "25e2efb5532c022bea4713ae903cce2bf85e6f419937d035955b9c669c9325e2",
+    "docs/evidence/96-stand-and-symmetric-initialization/raptor-symmetric-policy-tests-ai.txt": "5971c730e1660a629ec7aaa453f6dd5a876878242cde9f674dc88e03cff4e5ff",
+    "docs/evidence/96-stand-and-symmetric-initialization/raptor-symmetric-policy-tests-sim.txt": "793947e4025cee35fc73794974b6f90c201796fa5145546123918db5c131d26b",
+    "docs/evidence/96-stand-and-symmetric-initialization/initial-initial-equivalence.json": "f6369b10fe84d11177d915adf28c82ea5a2817cd268dbe6788c57ecaef8c220c",
+    "docs/evidence/96-stand-and-symmetric-initialization/initial-completion.json": "c1a22592457fb7cf10d1a27300392afddb386e1232a78aaffa9a8d65669929b8",
+    "docs/evidence/96-stand-and-symmetric-initialization/README.md": "4c4ee56c365c5c63b309f02a37473b7cb3c0c79ebc4f084773e01491f37692f0",
+    "docs/evidence/96-stand-and-symmetric-initialization/pose-hold.jsonl": "928acb16b951faf7d664999bdeed7fc02b6402e5694e86017a7d20d6e7d929c6",
+    "docs/evidence/96-stand-and-symmetric-initialization/initial-args.json": "3210e1bb843883411fbd5648501a7a0359c5737f21a7acdda1a71ef342c37548",
+    "docs/evidence/96-stand-and-symmetric-initialization/initial-reflection-config.json": "e97eb675d213134d01a3e5df7e7249cb77a908a4bd21ae8b2974ff2df4b9821f",
+    "sim/rl/pose_hold.py": "56c146793898a67e7f465dfa1827093424041fb243c8e016bc26f97ebefd0765",
+    "sim/rl/symmetric_policy.py": "66d49f49370463499defb3a033f1eec867ba8245493ed249cde87ee13ad68581",
+    "sim/rl/train_symmetric.py": "50bfedc640599d7fd36f103220a5f0b76a32d2789d66a4cdf641ac3aba7580e0",
+    "tests/test_symmetric_policy.py": "659a09f70ea77cbf430d60cca8af2ded7f742d740b0a04cd965d32ebd34e92c1",
+    "sim/rl/runs/sym_init_20261009/model.zip": "f2d34d273499ad8d962b6e2c0bfa1338b83205fbd1c5f8f17148881193396f6c",
+    "sim/rl/runs/sym_init_20261009/vecnorm.pkl": "d5db03c71d9af7288b3db56df0ab42f3e457e54cee8fff665d4df8f87bdf1895",
+    "docs/evidence/96-stand-and-symmetric-initialization/training-progress.json": "caa1eeb46523ab40dc59f9e39cae9cb255f89f88e998d2c98ec7854afc38c166"
+  },
+  "source_changed_after_run": [
+    "sim/rl/train_symmetric.py"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "near_pose_trials": 20,
+  "near_pose_pass": 20,
+  "near_pose_falls": 0,
+  "max_displacement_m": 0.02255970598051862,
+  "max_tilt_rad": 0.07685220124032922,
+  "max_virtual_load_last40": 0.9900250001096105,
+  "original_start_trials": 4,
+  "original_start_pass": 0,
+  "original_start_falls": 4,
+  "full_simulator_state_feedback": true,
+  "operating_candidate_adopted": false
+}

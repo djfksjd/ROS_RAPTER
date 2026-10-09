@@ -1,0 +1,19 @@
+from pathlib import Path
+import sys,json
+sys.path.insert(0,str(Path('sim/rl').resolve()))
+from stand_env import StandEnv
+from evaluate_stand import trial
+original=StandEnv.step
+trace=[]
+def recorded(self,action):
+ r=original(self,action)
+ trace.append(dict(reward=r[1],terms=r[4]['stand_terms'],action=action.tolist(),displacement_m=r[4]['stand_displacement_m']))
+ return r
+StandEnv.step=recorded
+try:
+ p=Path('sim/rl/runs/screen_logs/stand_skill_final.eval.jsonl')
+ with p.open('x') as f:
+  for seed in [83001,83002,83003,83004]:
+   trace=[];r=trial('sim/rl/runs/stand_skill_pilot_20261009',seed,60.);r['reward_trace']=trace;r['total_raw_reward']=sum(x['reward'] for x in trace)
+   f.write(json.dumps(r,allow_nan=False)+'\n');f.flush();print({k:v for k,v in r.items() if k not in ['rows','hashes','reward_trace']},flush=True)
+finally:StandEnv.step=original

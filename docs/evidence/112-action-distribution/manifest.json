@@ -1,0 +1,12 @@
+{
+  "status": "completed_diagnostic_not_task_success",
+  "exit": 0,
+  "files": {
+    "summary.json": "b73fc68382578b2a05ffbb8d0409f9425ab9642581e86bdb4b7788b786222e9f",
+    "probe.log": "67ff95bbe133fce27a8c5d5a7fce4de641bfffb9508511a7f1b21092099b021b",
+    "training-coverage.json": "9453f7689e14355a939b227cf0f2d94b70293ad71ccc11014cabdd123b641c84",
+    "README.md": "3f82a2f379209c6af55935161e1207855d8dfc0565feb8b403e5842ade716782",
+    "probe.py": "2865cc72e0ab2733f3a92ffdb85727c7700ee14af4b6de0df18504dfc0f3870d",
+    "raw.jsonl": "5a9f8f065af61d94c0a509edff7c26706c3166796149eaafad1ba09b9ca7d83c"
+  }
+}

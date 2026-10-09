@@ -1,0 +1,23 @@
+{
+  "near_pose_pass": 20,
+  "near_pose_trials": 20,
+  "max_displacement_m": 0.002521246877383908,
+  "max_tilt_rad": 0.0791143604429135,
+  "max_load_last40": 0.9024984833753117,
+  "original_start_pass": 0,
+  "original_start_trials": 4,
+  "original_start_durations": [
+    0.8200000000000001,
+    0.78,
+    0.8200000000000001,
+    0.64
+  ],
+  "catalogue_pass": false,
+  "hardware_validated": false,
+  "runtime_uses_passive_ground_truth": false,
+  "runtime_uses_simulator_body_velocity_observation": true,
+  "focused_tests": 25,
+  "whole_tests": 146,
+  "whole_pass": 69,
+  "whole_skipped": 77
+}

@@ -1,0 +1,6 @@
+/tmp/raptor_stand_support_probe.py:37: DeprecationWarning: Arrays of 2-dimensional vectors are deprecated. Use arrays of 3-dimensional vectors instead. (deprecated in NumPy 2.0)
+  a,b=np.array(a),np.array(b);v=b-a;margins.append(float(np.cross(v,com[:2]-a)/np.linalg.norm(v)))
+170 22001 720 True
+170 22002 780 True
+0 22001 780 True
+0 22002 1120 True

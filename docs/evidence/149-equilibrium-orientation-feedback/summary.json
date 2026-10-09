@@ -1,0 +1,110 @@
+[
+  {
+    "controller": "equilibrium_plus_hip_orientation_PD",
+    "candidate_start_knee": 1.25,
+    "initial_state_kind": "equilibrium_exact",
+    "seed": null,
+    "seconds": 6.54,
+    "fell": true,
+    "gate": {
+      "pass_gate": false,
+      "samples": 327,
+      "max_displacement_m": 0.6412967671398434,
+      "max_tilt_rad": 0.8166825172017214,
+      "flight_samples": 4
+    },
+    "max_load_average": 0.9067256934348727,
+    "catalogue_pass": false,
+    "original_nominal_start_tested": false
+  },
+  {
+    "controller": "equilibrium_plus_hip_orientation_PD",
+    "candidate_start_knee": 1.25,
+    "initial_state_kind": "equilibrium_microperturbed",
+    "seed": 84001,
+    "seconds": 1.8800000000000001,
+    "fell": true,
+    "gate": {
+      "pass_gate": false,
+      "samples": 94,
+      "max_displacement_m": 0.636308976908674,
+      "max_tilt_rad": 0.8226639569447752,
+      "flight_samples": 3
+    },
+    "max_load_average": 0.9331489614022872,
+    "catalogue_pass": false,
+    "original_nominal_start_tested": false
+  },
+  {
+    "controller": "equilibrium_plus_hip_orientation_PD",
+    "candidate_start_knee": 1.25,
+    "initial_state_kind": "equilibrium_microperturbed",
+    "seed": 84002,
+    "seconds": 2.52,
+    "fell": true,
+    "gate": {
+      "pass_gate": false,
+      "samples": 126,
+      "max_displacement_m": 0.5892479491339911,
+      "max_tilt_rad": 0.7959713228195306,
+      "flight_samples": 4
+    },
+    "max_load_average": 0.9738981214320384,
+    "catalogue_pass": false,
+    "original_nominal_start_tested": false
+  },
+  {
+    "controller": "equilibrium_plus_hip_orientation_PD",
+    "candidate_start_knee": 1.1,
+    "initial_state_kind": "equilibrium_exact",
+    "seed": null,
+    "seconds": 6.4,
+    "fell": true,
+    "gate": {
+      "pass_gate": false,
+      "samples": 320,
+      "max_displacement_m": 0.6302681066744815,
+      "max_tilt_rad": 0.8020060055755188,
+      "flight_samples": 4
+    },
+    "max_load_average": 0.9060120103182545,
+    "catalogue_pass": false,
+    "original_nominal_start_tested": false
+  },
+  {
+    "controller": "equilibrium_plus_hip_orientation_PD",
+    "candidate_start_knee": 1.1,
+    "initial_state_kind": "equilibrium_microperturbed",
+    "seed": 84001,
+    "seconds": 1.8800000000000001,
+    "fell": true,
+    "gate": {
+      "pass_gate": false,
+      "samples": 94,
+      "max_displacement_m": 0.635989981098097,
+      "max_tilt_rad": 0.8281229075444774,
+      "flight_samples": 3
+    },
+    "max_load_average": 0.9328904474141338,
+    "catalogue_pass": false,
+    "original_nominal_start_tested": false
+  },
+  {
+    "controller": "equilibrium_plus_hip_orientation_PD",
+    "candidate_start_knee": 1.1,
+    "initial_state_kind": "equilibrium_microperturbed",
+    "seed": 84002,
+    "seconds": 2.52,
+    "fell": true,
+    "gate": {
+      "pass_gate": false,
+      "samples": 126,
+      "max_displacement_m": 0.5862723407834397,
+      "max_tilt_rad": 0.8006013245052895,
+      "flight_samples": 4
+    },
+    "max_load_average": 0.9389756614267717,
+    "catalogue_pass": false,
+    "original_nominal_start_tested": false
+  }
+]

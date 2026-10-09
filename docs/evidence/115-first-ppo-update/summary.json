@@ -1,0 +1,18 @@
+{
+  "before": {
+    "trials": 12,
+    "turn_trials": 8,
+    "turn_pass": 8,
+    "falls": 0,
+    "turn_min_vx": 2.649537932113811,
+    "turn_min_speed_pass": 4
+  },
+  "after": {
+    "trials": 12,
+    "turn_trials": 8,
+    "turn_pass": 8,
+    "falls": 0,
+    "turn_min_vx": 2.7278216688656864,
+    "turn_min_speed_pass": 3
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "sha256": {
+    "analysis.log": "28775fd2e9b37547384da7f9ddf267828aa6379a919f3ee6c2a5f065fa2dbefa",
+    "contact-pair.py": "e4db3607c075eae1ac5851c670090d990c01bfa5d90ed64164892d324f5c4d18",
+    "summary.json": "8a6f6a78a65c1049be8ee3078d7730307609feb1b54fdf55b34160883a1070b5",
+    "blend.py": "789bbfd1d86c7e86ad5f196a330ef0eb7b005330b1b58eee7d94315388359a2d",
+    "analysis.py": "49578374c167ca825ca274de67fd45bd403af76b62d3f0fba89464cb3518fb94",
+    "blend.jsonl": "8cfec00499ad617882fd9b6aeb1ac19d7c92b21b84e5ff642895a4f2dd2a1d4f",
+    "blend.log": "970911e3ff31a3809c657a23cc56f051c84e182ca850f62fa460d2c6934b63d2",
+    "README.md": "42659ef706ef61d267d754b4cf234854463586dcce2176ced3999f9784c551b6",
+    "contact-summary.json": "28775fd2e9b37547384da7f9ddf267828aa6379a919f3ee6c2a5f065fa2dbefa",
+    "observer-history.log": "d162a6926a5b987d2744f5d496b6a4e349ef9f11af493a1a5c9a54ae0d483cbf",
+    "contact-pair.jsonl": "9fcbdb24e2209f33b58fa329fbae10c35807555171c4b115ea75be9ce6b565f3",
+    "observer-history.py": "936fd19110e22f6c3d2d9185e1a84078409a505eebca7bd800e53f7b69b57c36",
+    "contact-pair.log": "9d90be15a0e776a91e8d3054ead324851e6c6222485597fd4edd5457f3305d81",
+    "observer-history.jsonl": "c95cdb4bea12ae570ebecf8d44d68af04faba90b56d7ebad510464bcd9d0c2ff"
+  },
+  "goal_status": "active",
+  "catalogue_pass": false
+}

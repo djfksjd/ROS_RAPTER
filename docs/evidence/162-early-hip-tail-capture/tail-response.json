@@ -1,0 +1,242 @@
+[
+  {
+    "seed": 83002,
+    "time": 0.02,
+    "mode": "baseline",
+    "root_pitch_rate": -0.3712037369454428,
+    "root_forward_velocity": 0.145992416550185,
+    "body_point_forward_velocity": -0.06910162227871455,
+    "region_error": null,
+    "offline_true_state_initialized": true
+  },
+  {
+    "seed": 83002,
+    "time": 0.02,
+    "mode": "tail_plus",
+    "root_pitch_rate": -0.5081561284119476,
+    "root_forward_velocity": 0.21784830664579186,
+    "body_point_forward_velocity": -0.07694261247194684,
+    "region_error": null,
+    "offline_true_state_initialized": true
+  },
+  {
+    "seed": 83002,
+    "time": 0.02,
+    "mode": "tail_minus",
+    "root_pitch_rate": -0.23675043347744615,
+    "root_forward_velocity": 0.07551964542722646,
+    "body_point_forward_velocity": -0.06132076504158328,
+    "region_error": null,
+    "offline_true_state_initialized": true
+  },
+  {
+    "seed": 83002,
+    "time": 0.02,
+    "mode": "hip_plus",
+    "root_pitch_rate": -0.873334213301411,
+    "root_forward_velocity": 0.45057174013758106,
+    "body_point_forward_velocity": -0.05825419820048372,
+    "region_error": null,
+    "offline_true_state_initialized": true
+  },
+  {
+    "seed": 83002,
+    "time": 0.02,
+    "mode": "hip_minus",
+    "root_pitch_rate": 0.12142060127489515,
+    "root_forward_velocity": -0.15352504410862608,
+    "body_point_forward_velocity": -0.0795812118782759,
+    "region_error": null,
+    "offline_true_state_initialized": true
+  },
+  {
+    "seed": 83002,
+    "time": 0.02,
+    "mode": "paired_brake",
+    "root_pitch_rate": -0.40147013772425283,
+    "root_forward_velocity": 0.1214461217326488,
+    "body_point_forward_velocity": -0.10941651923602563,
+    "region_error": null,
+    "offline_true_state_initialized": true
+  },
+  {
+    "seed": 83002,
+    "time": 0.1,
+    "mode": "baseline",
+    "root_pitch_rate": 0.10213374368432564,
+    "root_forward_velocity": 0.013164597840993338,
+    "body_point_forward_velocity": 0.06395517290884772,
+    "region_error": null,
+    "offline_true_state_initialized": true
+  },
+  {
+    "seed": 83002,
+    "time": 0.1,
+    "mode": "tail_plus",
+    "root_pitch_rate": -0.03267637367033459,
+    "root_forward_velocity": 0.08355134774321904,
+    "body_point_forward_velocity": 0.056748013403346356,
+    "region_error": null,
+    "offline_true_state_initialized": true
+  },
+  {
+    "seed": 83002,
+    "time": 0.1,
+    "mode": "tail_minus",
+    "root_pitch_rate": 0.2331278771157771,
+    "root_forward_velocity": -0.05496937178890563,
+    "body_point_forward_velocity": 0.07122222505804322,
+    "region_error": null,
+    "offline_true_state_initialized": true
+  },
+  {
+    "seed": 83002,
+    "time": 0.1,
+    "mode": "hip_plus",
+    "root_pitch_rate": -0.3979757824785829,
+    "root_forward_velocity": 0.3161194522521176,
+    "body_point_forward_velocity": 0.07778542321306262,
+    "region_error": null,
+    "offline_true_state_initialized": true
+  },
+  {
+    "seed": 83002,
+    "time": 0.1,
+    "mode": "hip_minus",
+    "root_pitch_rate": 0.6044674806636279,
+    "root_forward_velocity": -0.2918363884584008,
+    "body_point_forward_velocity": 0.05023057339486631,
+    "region_error": null,
+    "offline_true_state_initialized": true
+  },
+  {
+    "seed": 83002,
+    "time": 0.1,
+    "mode": "paired_brake",
+    "root_pitch_rate": 0.11634575442387236,
+    "root_forward_velocity": -0.037362851297452766,
+    "body_point_forward_velocity": 0.022907266601987025,
+    "region_error": null,
+    "offline_true_state_initialized": true
+  },
+  {
+    "seed": 86013,
+    "time": 0.02,
+    "mode": "baseline",
+    "root_pitch_rate": -0.009178576933393258,
+    "root_forward_velocity": -0.08712253202613748,
+    "body_point_forward_velocity": -0.0833761446616633,
+    "region_error": null,
+    "offline_true_state_initialized": true
+  },
+  {
+    "seed": 86013,
+    "time": 0.02,
+    "mode": "tail_plus",
+    "root_pitch_rate": -0.15511361796054016,
+    "root_forward_velocity": -0.00965129964564364,
+    "body_point_forward_velocity": -0.09121521962302526,
+    "region_error": null,
+    "offline_true_state_initialized": true
+  },
+  {
+    "seed": 86013,
+    "time": 0.02,
+    "mode": "tail_minus",
+    "root_pitch_rate": 0.16487329761251107,
+    "root_forward_velocity": -0.18045363892236113,
+    "body_point_forward_velocity": -0.07482081645982226,
+    "region_error": null,
+    "offline_true_state_initialized": true
+  },
+  {
+    "seed": 86013,
+    "time": 0.02,
+    "mode": "hip_plus",
+    "root_pitch_rate": -0.5126140770262183,
+    "root_forward_velocity": 0.22005603172078664,
+    "body_point_forward_velocity": -0.07356249891628286,
+    "region_error": null,
+    "offline_true_state_initialized": true
+  },
+  {
+    "seed": 86013,
+    "time": 0.02,
+    "mode": "hip_minus",
+    "root_pitch_rate": 0.5048019640180498,
+    "root_forward_velocity": -0.40058362300039774,
+    "body_point_forward_velocity": -0.09252062225807961,
+    "region_error": null,
+    "offline_true_state_initialized": true
+  },
+  {
+    "seed": 86013,
+    "time": 0.02,
+    "mode": "paired_brake",
+    "root_pitch_rate": -0.1341100194361009,
+    "root_forward_velocity": -0.05678878012594416,
+    "body_point_forward_velocity": -0.12307973214526081,
+    "region_error": null,
+    "offline_true_state_initialized": true
+  },
+  {
+    "seed": 86013,
+    "time": 0.1,
+    "mode": "baseline",
+    "root_pitch_rate": 0.11618150787655916,
+    "root_forward_velocity": 0.03001376727372403,
+    "body_point_forward_velocity": 0.06966948481906013,
+    "region_error": null,
+    "offline_true_state_initialized": true
+  },
+  {
+    "seed": 86013,
+    "time": 0.1,
+    "mode": "tail_plus",
+    "root_pitch_rate": -0.011938143133310607,
+    "root_forward_velocity": 0.09701099846527271,
+    "body_point_forward_velocity": 0.062452946177152066,
+    "region_error": null,
+    "offline_true_state_initialized": true
+  },
+  {
+    "seed": 86013,
+    "time": 0.1,
+    "mode": "tail_minus",
+    "root_pitch_rate": 0.2443102550547806,
+    "root_forward_velocity": -0.03703348103432586,
+    "body_point_forward_velocity": 0.07686510236510814,
+    "region_error": null,
+    "offline_true_state_initialized": true
+  },
+  {
+    "seed": 86013,
+    "time": 0.1,
+    "mode": "hip_plus",
+    "root_pitch_rate": -0.3800111223058021,
+    "root_forward_velocity": 0.33408877768780226,
+    "body_point_forward_velocity": 0.08353181285999864,
+    "region_error": null,
+    "offline_true_state_initialized": true
+  },
+  {
+    "seed": 86013,
+    "time": 0.1,
+    "mode": "hip_minus",
+    "root_pitch_rate": 0.6126251051742285,
+    "root_forward_velocity": -0.27461516666280167,
+    "body_point_forward_velocity": 0.05613868712199016,
+    "region_error": null,
+    "offline_true_state_initialized": true
+  },
+  {
+    "seed": 86013,
+    "time": 0.1,
+    "mode": "paired_brake",
+    "root_pitch_rate": 0.13144487892208834,
+    "root_forward_velocity": -0.022682334101144598,
+    "body_point_forward_velocity": 0.02891987316241127,
+    "region_error": null,
+    "offline_true_state_initialized": true
+  }
+]

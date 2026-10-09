@@ -1,0 +1,18 @@
+[
+  {
+    "tau_seconds": 0.0,
+    "trials": 20,
+    "angle_pass": 20,
+    "speed_pass": 11,
+    "joint_pass": 11,
+    "falls": 0
+  },
+  {
+    "tau_seconds": 0.1,
+    "trials": 20,
+    "angle_pass": 16,
+    "speed_pass": 12,
+    "joint_pass": 10,
+    "falls": 0
+  }
+]

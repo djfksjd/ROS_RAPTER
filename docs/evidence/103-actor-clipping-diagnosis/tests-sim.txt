@@ -1,0 +1,13 @@
+test_opposite_clipping_and_output_derivatives (tests.test_actor_clip_probe.ActorClipProbeTest.test_opposite_clipping_and_output_derivatives) ... ok
+test_mirrored_torque_and_bounds_preserve_utilization (tests.test_actuator_turn_probe.ActuatorTurnProbeTest.test_mirrored_torque_and_bounds_preserve_utilization) ... ok
+test_reset_dependent_actuators_and_readonly_trajectory (tests.test_actuator_turn_probe.ActuatorTurnProbeTest.test_reset_dependent_actuators_and_readonly_trajectory) ... ok
+test_sign_specific_bounds_and_zero_capacity (tests.test_actuator_turn_probe.ActuatorTurnProbeTest.test_sign_specific_bounds_and_zero_capacity) ... ok
+test_invalid_noise_or_action_topology_is_rejected (tests.test_turn_exploration.TurnExplorationTest.test_invalid_noise_or_action_topology_is_rejected) ... ok
+test_only_turn_axes_change_and_pair_variances_match (tests.test_turn_exploration.TurnExplorationTest.test_only_turn_axes_change_and_pair_variances_match) ... ok
+test_actor_gradients_and_save_reload (tests.test_symmetric_policy.SymmetricPolicyTest.test_actor_gradients_and_save_reload) ... ok
+test_mean_and_noise_equivariance_and_probability_consistency (tests.test_symmetric_policy.SymmetricPolicyTest.test_mean_and_noise_equivariance_and_probability_consistency) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.763s
+
+OK

@@ -1,0 +1,7 @@
+test_large_braking_errors_remain_distinct (tests.test_dense_speed_reward.DenseSpeedRewardTest.test_large_braking_errors_remain_distinct) ... ok
+test_optional_penalty_preserves_physics_and_default_reward (tests.test_dense_speed_reward.DenseSpeedRewardTest.test_optional_penalty_preserves_physics_and_default_reward) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.059s
+
+OK

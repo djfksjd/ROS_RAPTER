@@ -1,0 +1,11 @@
+{
+  "status": "completed_not_adopted",
+  "files": {
+    "docs/evidence/99-roll-target-range/summary.json": "6c68311666ec3561db14de9f3e294f31039ed2aaf40c6c6d5a8de23bb1723554",
+    "docs/evidence/99-roll-target-range/roll_range_corrected_20261009.jsonl": "0115f276f75251faba9a1d8a62125f325abbad2699c363056b4270a469806552",
+    "docs/evidence/99-roll-target-range/README.md": "42645f3e18f3adb280be4ed811e8316d5bd507742961200d99370253265a87f6",
+    "docs/evidence/99-roll-target-range/roll_range_20261009.jsonl": "9b1ad139ac28077291aca9982c2f98037b1b3feeaa157e3527a9e1b404c31e45",
+    "sim/rl/roll_range_probe.py": "47d8a5841c6110335b13839070630997a7295d3e3ca2a450be4ad9234f6e3e55",
+    "tests/test_roll_range_probe.py": "ae860ed430281e5d15e0004eed61375376b383f6ccbf1a4096a6e573954e5acd"
+  }
+}

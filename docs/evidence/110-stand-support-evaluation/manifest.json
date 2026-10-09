@@ -1,0 +1,60 @@
+{
+  "status": "final_validation_completed_rejected",
+  "sessions": {
+    "control_eval": 11085,
+    "penalty_eval": 87552,
+    "control_motion": 57903,
+    "penalty_motion": 87717
+  },
+  "files": {
+    "mid.penalty.motion.jsonl": "accd670ba5b72190ec577fe0eef44c3578f29f0805130de214a2bba96d27284b",
+    "final.control.eval.jsonl": "8efd0054fa6054f4fc033ccbd36a43a69d922707983b3046fbfdbc2b69a2d872",
+    "control.completion.json": "be20bf0c0239495fe11ba414b7ad8dd96a2072d89128f2396e5ab58235542b0f",
+    "final_validation.py": "fd81f25cd795fb5e410275ee55e2da31dfc288a6bbdb7808e84cec35097b991a",
+    "final.control.motion.jsonl": "4aac51c2aa03fe1a6635efb457d1b0a49a6b0200d5aaf0536775978cba6ea79c",
+    "final-summary.json": "0d0e4f27cd8d3e68c1b4edd193a8d1681a1034881559b8e08b15962ca8813b8f",
+    "final.penalty.eval.jsonl": "b0d7caba9baf42e192cabdddaa6f712ad43b96b9e8907706f2f193098e965c16",
+    "mid-summary.json": "5eefca9737c894726a674026ad38a9e61819c97db954df3ee634bfff2c34a0aa",
+    "README.md": "139db73d9a5653fd36d856a913b94b24cea0212874a4d0535630848b45955fa2",
+    "final.control.heat.jsonl": "2fd8512b83115a402dd85a5abfc968af32c7231513a646ce9b6e3642c6ff8223",
+    "final.penalty.motion.jsonl": "aa890f8403986ebfe72988111e2cfa249ae02a0b824762e3d543f28b2785e15e",
+    "turn_eval.py": "96ea08e602dcddb2213615451567696774e05cc63fa7afcf483a9a50beccaaff",
+    "mid.penalty.eval.jsonl": "aae93f93aa1020d01b4284ce61f716d2d7dfd41681e648489fbfd535ac538f35",
+    "mid.control.motion.jsonl": "f9d40e015eb6410503ef5db8e97f6cc22d5ef158a1585eb7a87227e8e21b6449",
+    "mid.control.eval.jsonl": "688571f3416d008630d923a8e4fed71fe0b65eb333cf7a25236ae900c0be3be5",
+    "penalty.completion.json": "be20bf0c0239495fe11ba414b7ad8dd96a2072d89128f2396e5ab58235542b0f",
+    "final.penalty.heat.jsonl": "0fc8237c8891403806b1b0a67baa7e513d44b27178e5b9fd595f3dd1d3763f67"
+  },
+  "midpoint_exit": {
+    "control_eval": 0,
+    "penalty_eval": 0,
+    "control_motion": 0,
+    "penalty_motion": 0
+  },
+  "training_exit": {
+    "control": 0,
+    "penalty": 0
+  },
+  "final_validation_sessions": {
+    "control": 83145,
+    "penalty": 45318
+  },
+  "model_hashes": {
+    "control": {
+      "model.zip": "cff909c2d8b24853b9203500479eaa9086f7c1315c391d36cff49156bfc7e73b",
+      "vecnorm.pkl": "f2cf7006e5baa0b0aa9bb2d1bc661ac39174544d519ca214bcb14c19fda7d296",
+      "args.json": "feaaa7e647670d88e620d01a79885cb28fed2ab951c3a96ebe54ace685ca3889",
+      "completion.json": "be20bf0c0239495fe11ba414b7ad8dd96a2072d89128f2396e5ab58235542b0f"
+    },
+    "penalty": {
+      "model.zip": "c6f6e958005a050fbcdbad7a2e4c2cf51b6ece4f362cb1e21ea81e74075f7ded",
+      "vecnorm.pkl": "a18def4c1a1c8a435782573ba4b606cd32b0c948834df337ef84cfb76316d98d",
+      "args.json": "d528a273d5eea5c005554be13f95801ef88d77ca6c873109c2103ee386bdb1a9",
+      "completion.json": "be20bf0c0239495fe11ba414b7ad8dd96a2072d89128f2396e5ab58235542b0f"
+    }
+  },
+  "final_validation_exit": {
+    "control": 0,
+    "penalty": 0
+  }
+}

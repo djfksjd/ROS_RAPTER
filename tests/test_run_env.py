@@ -127,6 +127,45 @@ class RunEnvTest(unittest.TestCase):
         env.step(np.zeros(12)); env.step(np.zeros(12))
         self.assertGreater(abs(env.body_velocity(env.base)[0][2]), .5)
 
+    def test_structure_variants_contract(self):
+        """Equal-condition structure comparison (2026-10-01): arch8 / arch12 with explicit part masses and the same motor
+        classes, and the R-03 hip mount moved rearward with the torso payload and tail root fixed."""
+        from run_env import MOTOR_CLASSES, LINK_ETA, RunEnv
+        e8 = RunEnv(arch8=True, real_mass=True, randomize=False, seed=0); e8.reset()
+        e12 = RunEnv(arch12=True, real_mass=True, randomize=False, seed=0); e12.reset()
+        self.assertEqual(e8.action_space.shape, (8,))
+        self.assertEqual(e12.action_space.shape, (12,))
+        self.assertAlmostEqual(e8.model.body_subtreemass[e8.root], 11.29, delta=.02)
+        self.assertAlmostEqual(e12.model.body_subtreemass[e12.root], 14.45, delta=.02)
+        self.assertAlmostEqual(e12.mass, float(e12.model.body_mass.sum()), delta=1e-6)
+        # 12-axis ankle pitch: class B through 1.5:1 at rest -> 48 x 1.5 x 0.9 = 64.8 N·m, and its torque heats a motor
+        i = e12.active.index('left_ankle_pitch_joint')
+        lo, hi = e12._clamp()
+        self.assertAlmostEqual(hi[i], MOTOR_CLASSES['B'][0]*1.5*LINK_ETA, delta=.5)
+        self.assertLess(e12.motor_cont[i], 1e8)
+        self.assertGreater(e8.motor_cont[e8.active.index('left_ankle_pitch_joint')], 1e8)  # coupled, no motor
+        for _ in range(10):
+            e12.step(np.zeros(12))
+        self.assertGreater(e12.heat[i], 0.)
+        # R-03: hips 0.2 m further back on the torso, tail root unchanged
+        eb = RunEnv(arch8=True, real_mass=True, hip_back=.2, randomize=False, seed=0); eb.reset()
+        hip = lambda env: env.model.body_pos[env.model.body('left_hip_roll_link').id][0]
+        tail = lambda env: env.model.body_pos[env.model.body('tail_yaw_link').id][0]
+        self.assertAlmostEqual(hip(eb)-hip(e8), -.2, places=6)
+        self.assertAlmostEqual(tail(eb), tail(e8), places=6)
+
+    def test_evaluation_starts_differ_by_init_seed(self):
+        """Deterministic evaluation episodes with different init_seed start from different states; None keeps the
+        nominal start (before 2026-10-01 every evaluation episode started identically)."""
+        from run_env import RunEnv
+        def start(seed):
+            env = RunEnv(randomize=False, seed=0); env.init_seed = seed; env.reset()
+            return env.data.qpos.copy(), env.phase
+        (a, pa), (b, pb), (c, _), (d, _) = start(1), start(2), start(None), start(None)
+        self.assertFalse(np.allclose(a, b))
+        self.assertNotEqual(pa, pb)
+        self.assertTrue(np.allclose(c, d))
+
 
 if __name__ == '__main__':
     unittest.main()

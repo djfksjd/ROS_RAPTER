@@ -1,0 +1,93 @@
+{
+  "calibration_qpos_max_diff": 0.0,
+  "calibration_qvel_max_diff": 0.0,
+  "control_trace_exact_match": true,
+  "cases": [
+    {
+      "seed": 17025,
+      "fell": false,
+      "residual_Nms": -0.001808789312735537,
+      "windows": [
+        {
+          "start": 4,
+          "end": 4.5,
+          "moment_mean_Nm": -1.9245444693026679,
+          "moment_rms_Nm": 6.045526348551048,
+          "mean_vx": 4.0905650423037425,
+          "max_tilt": 0.37879425901709257,
+          "physics_samples": 500
+        },
+        {
+          "start": 4.5,
+          "end": 5,
+          "moment_mean_Nm": 0.2646895565007579,
+          "moment_rms_Nm": 5.771683879496548,
+          "mean_vx": 3.780626653744357,
+          "max_tilt": 0.36127047587469785,
+          "physics_samples": 500
+        },
+        {
+          "start": 5,
+          "end": 5.5,
+          "moment_mean_Nm": -0.0928287975943652,
+          "moment_rms_Nm": 3.8671269413664424,
+          "mean_vx": 3.4519969623301265,
+          "max_tilt": 0.36688572407928344,
+          "physics_samples": 500
+        },
+        {
+          "start": 5.5,
+          "end": 6,
+          "moment_mean_Nm": 0.10021629353286515,
+          "moment_rms_Nm": 3.9751410156961913,
+          "mean_vx": 3.2452754125531555,
+          "max_tilt": 0.3923853880916245,
+          "physics_samples": 500
+        }
+      ]
+    },
+    {
+      "seed": 17026,
+      "fell": false,
+      "residual_Nms": -0.0023551603702053336,
+      "windows": [
+        {
+          "start": 4,
+          "end": 4.5,
+          "moment_mean_Nm": -1.0701114282152069,
+          "moment_rms_Nm": 5.108772964928682,
+          "mean_vx": 4.012174432949056,
+          "max_tilt": 0.3963616483458001,
+          "physics_samples": 500
+        },
+        {
+          "start": 4.5,
+          "end": 5,
+          "moment_mean_Nm": -0.6270450321350974,
+          "moment_rms_Nm": 5.544131154367447,
+          "mean_vx": 3.7408280758143553,
+          "max_tilt": 0.4016553022347128,
+          "physics_samples": 500
+        },
+        {
+          "start": 5,
+          "end": 5.5,
+          "moment_mean_Nm": -0.008618051307983479,
+          "moment_rms_Nm": 4.243852281354862,
+          "mean_vx": 3.4129898416751403,
+          "max_tilt": 0.3514601379372889,
+          "physics_samples": 500
+        },
+        {
+          "start": 5.5,
+          "end": 6,
+          "moment_mean_Nm": 0.07261040962925654,
+          "moment_rms_Nm": 3.7509536603769544,
+          "mean_vx": 3.230000855348746,
+          "max_tilt": 0.36480474269044344,
+          "physics_samples": 500
+        }
+      ]
+    }
+  ]
+}

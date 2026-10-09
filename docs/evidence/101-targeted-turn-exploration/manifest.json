@@ -1,0 +1,28 @@
+{
+  "status": "completed_not_adopted",
+  "files": {
+    "docs/evidence/101-targeted-turn-exploration/tests-sim-focused.txt": "f4f8233c63133da33edb100204ea9b3f8492079526a56d5255e7b853a068a110",
+    "docs/evidence/101-targeted-turn-exploration/tests-all.txt": "23f7ee53fd97e8df8934e472dde730aef265b4cb4acdd46695f07814bc4a07f0",
+    "docs/evidence/101-targeted-turn-exploration/README.md": "f4e7b1b75b33b5f666e132cf40b2d240ee42e5f69c795ee98c8a3505d0ba6979",
+    "sim/rl/train_symmetric.py": "4574cf2a9721fbd7905af00eb8b2e12e2aeaaa096b2e09637d287c380c4d27dd",
+    "tests/test_turn_exploration.py": "1a7a06e7c9c6d36ae100207ed6860fd0c333957d55e6d0b5624f2f683deb053d",
+    "docs/evidence/101-targeted-turn-exploration/initialization.json": "d70538bef02a797fb0e617169676df481bdc5bd4e5538708e55a8c0b8dfa3b13",
+    "docs/evidence/101-targeted-turn-exploration/final_eval.py": "96ea08e602dcddb2213615451567696774e05cc63fa7afcf483a9a50beccaaff",
+    "docs/evidence/101-targeted-turn-exploration/mid.eval.json": "528f078a23afc6c0fbdb7cf6fa5a4cb1d1324f760c4c880fa6aed1d682f1cd4f",
+    "docs/evidence/101-targeted-turn-exploration/mid.eval.jsonl": "10eee9c55ab50090fbe76d63d4faa66add22bd801ea5a53773e98ce2ed1ea387",
+    "docs/evidence/101-targeted-turn-exploration/validation.py": "afa40d9d5ca2dc930f884fbf88612f92b8c0d728b039e7d912d0c45ef86f049d",
+    "docs/evidence/101-targeted-turn-exploration/summary.json": "48c685dac4d4e96486434e61864b63167bbe2455b0db9bf1aeac117a4a36ee20",
+    "docs/evidence/101-targeted-turn-exploration/final.control.eval.jsonl": "774118455413346ab74e353088e99808ad96a9172f2d8b3c8dc99cd1210efb8b",
+    "docs/evidence/101-targeted-turn-exploration/final.trial.heat.jsonl": "a85f24bd85c90d06ac4d70762999188398e3960ebb3d4a17a57d3dbf3b61b97f",
+    "docs/evidence/101-targeted-turn-exploration/final.control.motion.jsonl": "6fdb69551c2e9e442f23bc7676dec1d375a3e8cf71b9448d437fd7e8789262b1",
+    "docs/evidence/101-targeted-turn-exploration/final.trial.motion.jsonl": "d78e6449857ae94f3d0c2830ee1ee4d56356115375c715c415465291de3cba25",
+    "docs/evidence/101-targeted-turn-exploration/final.control.heat.jsonl": "7a8c772000d31711470f039444a01f8030566bcf451040b076371c48391ae820",
+    "docs/evidence/101-targeted-turn-exploration/final.trial.eval.jsonl": "c7fad4eead41c0397749244691477dc4b2c8c794b0b6b09434972cb1a8415702"
+  },
+  "session_id": 31887,
+  "training_terminal_exit": 0,
+  "validation_exit": {
+    "control": 0,
+    "trial": 0
+  }
+}

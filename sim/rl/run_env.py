@@ -93,6 +93,54 @@ LINK_ETA = .9
 # max(0, heat - 1): zero while every motor stays within its continuous rating. Added 2026-10-01 after the arch8 policy ran
 # its knee motor at the torque limit 63 % of the time (RMS 2.2x the continuous rating).
 HEAT_TAU = 3.
+LP20 = PHYSICS_DT/(PHYSICS_DT + 1/(2*np.pi*20.))  # 20 Hz first-order low-pass per physics step (heat_lp)
+# arch12: the 12-axis leg with the same motor classes (equal-condition comparison, 2026-10-01): arch8 plus an ankle pitch
+# motor (class B, 1.5:1 cable drive) and an ankle roll motor (class A, direct), both mounted on the pelvis next to the
+# hip (most favourable placement: no distal motor mass), ankle not coupled to the knee.
+ARCH12_EXTRA = {'ankle_pitch': ('B', 1.5), 'ankle_roll': ('A', 1.)}
+# real_mass: explicit part masses instead of uniform scaling of the 11.36 kg design table (2026-10-01; arch8e had been
+# trained at 11.36 kg although its real build is 11.02 kg). Payload from design_r02.masses (torso frame 1.0, battery
+# 0.6, compute 0.3, mast 0.2, pod 0.45 kg) on the torso; pelvis motors on the hip-roll link (they move with the hip
+# mount); knee motor on the upper femur; distal-light leg; both tail motors on the tail-yaw link; tail structure and
+# tip as R-02. Drive hardware (ASSUMED): arch8 parallelogram ankle rod 0.08 kg on the shin; arch12 cable drives for the
+# two pelvis-mounted ankle motors 0.1 kg on the thigh + 0.1 kg on the shin per leg.
+PAYLOAD_KG = 2.55
+MOTOR_KG = {'A': .5, 'B': .96, 'C': 1.42}
+
+
+def real_masses(m, arch12):
+    """Set the explicit part masses (see PAYLOAD_KG) on an R-02 MjModel at the design scale; returns the total."""
+    def set_mass(b, new):
+        f = new/m.body_mass[b]
+        m.body_mass[b] = new; m.body_inertia[b] *= f
+    def add_mass(b, dm, at, r=.03):
+        """Add a part of mass dm at `at` (on the link's z axis), own inertia dm*r^2 (r ~ motor/part radius). The body
+        inertia is about the NEW centre of mass: both the old body and the part are moved by the parallel-axis theorem
+        (until 2026-10-01 the part's offset from the link origin was used and the old body was not moved: shin pitch
+        inertia ~2.8x too large; UNI_AI gpt-6-sol review)."""
+        mt, ct, at = m.body_mass[b], m.body_ipos[b].copy(), np.asarray(at, float)
+        c = (mt*ct + dm*at)/(mt+dm)
+        perp = lambda d: np.array([d[1]**2 + d[2]**2, d[0]**2 + d[2]**2, d[0]**2 + d[1]**2])
+        m.body_inertia[b] += mt*perp(ct-c) + dm*perp(at-c) + dm*r*r
+        m.body_ipos[b] = c
+        m.body_mass[b] = mt+dm
+    set_mass(m.body('base_link').id, PAYLOAD_KG)
+    for b in range(m.nbody):
+        nm = m.body(b).name
+        f = .58 if ('shin' in nm or 'metatarsus' in nm) else .6 if ('foot' in nm or 'toe' in nm) else None
+        if f is not None:
+            m.body_mass[b] *= f; m.body_inertia[b] *= f
+    pelvis = MOTOR_KG['A'] + MOTOR_KG['B'] + ((MOTOR_KG['B'] + MOTOR_KG['A']) if arch12 else 0.)
+    for side in ('left', 'right'):
+        set_mass(m.body(f'{side}_hip_roll_link').id, pelvis)
+        add_mass(m.body(f'{side}_thigh_link').id, MOTOR_KG['B'], (0., 0., -.03))
+        if arch12:
+            add_mass(m.body(f'{side}_thigh_link').id, .1, (0., 0., -.11))
+            add_mass(m.body(f'{side}_shin_link').id, .1, (0., 0., -.19))
+        else:
+            add_mass(m.body(f'{side}_shin_link').id, .08, (0., 0., -.19))
+    set_mass(m.body('tail_yaw_link').id, 2*MOTOR_KG['B'])
+    return float(m.body_mass.sum())
 
 
 def motor_available(cls, w):
@@ -124,14 +172,27 @@ class RunEnv(RaptorEnv):
                  episode_s=10., randomize=True, seed=None, render_mode=None, model_path=None, weights=None,
                  zero_cmd=.1, top_cmd=.3, disturb_items=None, grf_cap=4., init_speed=True, obs_vel=True, ankle_clutch=False,
                  kin=None, yaw_impulse=None, couple_ankle=False, track_sigma_frac=.15, arch8=False,
-                 springs_override=None, arch8_override=None):
+                 springs_override=None, arch8_override=None, arch12=False, real_mass=False, hip_back=0., nominal=None,
+                 target_ramp=False, obs_contact=False):
         self.mass, self.spring_set, self.tail = float(mass), springs, tail
+        # hip_back (m): R-03, the hip mount (pelvis, hip motors, legs) moved rearward along the torso; the torso payload
+        # and the tail root stay where they are (raptor layout: pelvis at the rear of the trunk, tail root behind it).
+        # nominal: (hip, knee, ankle) action-offset pose replacing NOMINAL_T1 (nominal_scan.py, same rule per variant).
+        self.arch12, self.real_mass, self.hip_back = arch12, real_mass, float(hip_back)
+        # target_ramp: each new PD target is interpolated linearly over the 20 ms control step instead of stepping. With the
+        # step, the stiff servo (saturates at 0.1 rad error) spiked at every new action: arch8e hip pitch mean |tau| 37.5 N·m
+        # in the first 3 ms of each step vs 14-17 N·m after, 88 % of its torque power above 20 Hz, so the heat measure was
+        # dominated by the control discretisation, not the structure (2026-10-01). Real drives interpolate targets too.
+        self.target_ramp = target_ramp
+        if arch12:
+            arch8 = True
         self.spec_t1 = {**ACTUATOR_T1, **(actuator or {})}
         self.level, self.cmd_max = float(level), np.array(cmd_max, float)
         self.weights = {**WEIGHTS_RUN, **(weights or {})}
         self.zero_cmd, self.top_cmd = zero_cmd, top_cmd
         self.disturb_items = set(disturb_items) if disturb_items is not None else set(DISTURB_ITEMS)
         self.grf_cap, self.init_speed, self.obs_vel = grf_cap, init_speed, obs_vel
+        self.obs_contact = bool(obs_contact)
         # ankle_clutch: the ankle spring is engaged only while that foot is loaded (read each 20 ms control step), like the
         # ostrich intertarsal engage-disengage ligament and the BirdBot clutch. Without it the unilateral Achilles spring
         # resists swing flexion: holding a 65 deg intertarsal angle needs 45 N·m against a 22 N·m ankle motor (measured
@@ -147,7 +208,9 @@ class RunEnv(RaptorEnv):
         self.kinds, self.kind, self.dr_items, self.slew, self.jtc_horizon = ['flat'], 'flat', set(), None, 0.
         probe = mujoco.MjModel.from_xml_path(self.model_path)
         self.active = [probe.actuator(i).name for i in range(probe.nu)]
-        pose = nominal_pose()
+        pose = nominal_pose(tuple(nominal) if nominal is not None else NOMINAL_T1)
+        if real_mass:
+            self.mass = real_masses(probe, arch12)
         self.q0 = np.array([pose.get(n, 0.) for n in self.active])
         self.scale = np.array([SCALE_RUN[joint_type(n)] for n in self.active])
         # couple_ankle: horse-style reciprocal apparatus. Each ankle pitch joint follows its knee 1:1 through a joint
@@ -156,11 +219,11 @@ class RunEnv(RaptorEnv):
         # (spec full_budget: coupled requirement 21.7 N·m / 237 W at 5 kg, x1.3 margin as in §9).
         self.arch8 = arch8
         # arch8_override: {joint type: [class, gear]} replacing ARCH8 entries (e.g. hip_pitch B with a 1.5:1 belt)
-        self.arch8_map = {**ARCH8, **{k: tuple(v) for k, v in (arch8_override or {}).items()}}
+        self.arch8_map = {**ARCH8, **(ARCH12_EXTRA if arch12 else {}), **{k: tuple(v) for k, v in (arch8_override or {}).items()}}
         # springs_override: {joint type: [k (N·m/rad at the 11.36 kg design mass), q0, mode, engaged]}, engaged 'always',
         # 'stance' (clutch: only while that foot is loaded) or 'swing'. Replaces SPRINGS[springs] (spring_refit.py).
         self.springs_override = springs_override
-        if arch8:
+        if arch8 and not arch12:
             couple_ankle = True
         self.couple_ankle = couple_ankle
         # speed-tracking width sigma = max(0.3, frac * command). With 0.15 the exp term vanished once the speed error
@@ -171,7 +234,7 @@ class RunEnv(RaptorEnv):
         self.policy_idx = self.leg_idx if tail == 'locked' else np.arange(len(self.active))
         if couple_ankle:
             self.policy_idx = np.array([i for i in self.policy_idx if 'ankle_pitch' not in self.active[i]])
-        if arch8:
+        if arch8 and not arch12:
             self.policy_idx = np.array([i for i in self.policy_idx if 'ankle_roll' not in self.active[i]])
         self.lock_tail = tail == 'locked'
         spec = np.array([self.spec_t1[joint_type(n)] for n in self.active])
@@ -184,7 +247,7 @@ class RunEnv(RaptorEnv):
         if arch8:
             for i, n in enumerate(self.active):
                 jt = joint_type(n)
-                if jt in ('ankle_pitch', 'ankle_roll'):
+                if jt not in self.arch8_map:
                     spec[i] = (0., 99., 0.)
                 else:
                     cls, g = self.arch8_map[jt]
@@ -196,7 +259,7 @@ class RunEnv(RaptorEnv):
         self.kd = self.kp/KD_POLE
         n, na = len(self.active), len(self.policy_idx)
         self.rng = np.random.default_rng(seed)
-        self.observation_space = gym.spaces.Box(-np.inf, np.inf, (11+3*(self.obs_vel)+2*n+na,), np.float32)
+        self.observation_space = gym.spaces.Box(-np.inf, np.inf, (11+3*(self.obs_vel)+2*n+na+2*self.obs_contact,), np.float32)
         self.action_space = gym.spaces.Box(-1., 1., (na,), np.float32)
         self.resample_steps = 250
         self.model = self.renderer = None
@@ -206,6 +269,9 @@ class RunEnv(RaptorEnv):
         spec = mujoco.MjSpec.from_file(self.model_path)
         self.heights = tr.add_terrain(spec, 'flat', 0., self.rng)
         ratio = self.mass/DESIGN_MASS
+        for side in ('left', 'right') if self.hip_back else ():
+            b = spec.body(f'{side}_hip_roll_link')
+            b.pos = [b.pos[0]-self.hip_back, b.pos[1], b.pos[2]]
         sp = ({j: tuple(v) for j, v in self.springs_override.items()} if self.springs_override
               else {j: (*v, 'stance' if (j == 'ankle_pitch' and self.ankle_clutch) else 'always') for j, v in SPRINGS[self.spring_set].items()})
         self.spring_engage = {}
@@ -231,7 +297,7 @@ class RunEnv(RaptorEnv):
                                        data=[c, -1.]+[0.]*9)
                 eq.solref = [.004, 1.]          # stiff tendon linkage (default 0.02 s let the ankle lag 0.5 rad)
                 eq.solimp = [.99, .999, .001, .5, 2.]
-        if self.arch8:
+        if self.arch8 and not self.arch12:
             for side in ('left', 'right'):
                 eq = spec.add_equality(type=mujoco.mjtEq.mjEQ_JOINT, name1=f'{side}_ankle_roll_joint', data=[0.]*11)
                 eq.solref = [.004, 1.]
@@ -240,9 +306,12 @@ class RunEnv(RaptorEnv):
         # uniform mass scaling, geometry fixed (spec §5): masses and inertias. The R-02 toe springs are kept: scaled
         # with mass they fall below the W*h (5 kg x 0.71 m = 34 N·m/rad) a passive stand on the toes needs, and the
         # robot topples forward in ~3 s (measured 2026-09-29).
-        m.body_mass[1:] *= ratio
-        m.body_inertia[1:] *= ratio
-        if self.arch8:  # distal-light leg (spec: tube 0.6 -> 0.35 kg/m, foot 0.10 -> 0.06 kg) and knee motor on the upper femur
+        if self.real_mass:
+            real_masses(m, self.arch12)
+        else:
+            m.body_mass[1:] *= ratio
+            m.body_inertia[1:] *= ratio
+        if self.arch8 and not self.real_mass:  # distal-light leg (spec: tube 0.6 -> 0.35 kg/m, foot 0.10 -> 0.06 kg) and knee motor on the upper femur
             base = m.body('base_link').id
             for b in range(m.nbody):
                 nm = m.body(b).name
@@ -258,6 +327,7 @@ class RunEnv(RaptorEnv):
                 m.body_ipos[t] = (mt*ct + mk*pm)/(mt+mk)
                 m.body_inertia[t] += mk*np.array([.03**2, .03**2, 0.]) + .0005
                 m.body_mass[t] = mt+mk; m.body_mass[base] -= mk
+        if self.arch8:
             sys.path.insert(0, str(ROOT/'modeling'))
             from knee_linkage_study import fourbar_N
             qq = np.linspace(.1, 2.7, 300)
@@ -265,15 +335,18 @@ class RunEnv(RaptorEnv):
             _, N, _trans, ok = fourbar_N(qq, fb['a'], fb['b'], fb['c'], np.radians(fb['beta_deg']), fb['branch'])
             N = np.where(ok, np.abs(N), 1.)
             self.knee_ratio = (qq, np.clip(N, .5, 5.))
-            ms = []
+            # joint torque -> motor torque / continuous torque: gear x link efficiency x 0.4 peak. The four-bar knee uses its
+            # ratio at the current knee angle each physics step (until 2026-10-01 a mean ratio 1.4 was used; Codex review).
+            gear, cont = [], []
             for n in self.active:
                 jt = joint_type(n)
                 if jt in self.arch8_map:
                     cls, g = self.arch8_map[jt]
-                    ms.append((1.4 if g == 'fourbar' else g)*LINK_ETA*.4*MOTOR_CLASSES[cls][0])
+                    gear.append(1. if g == 'fourbar' else g); cont.append(.4*MOTOR_CLASSES[cls][0])
                 else:
-                    ms.append(1e9)
-            self.motor_scale = np.array(ms)  # knee uses its mean four-bar ratio 1.4 (joint torque -> motor torque)
+                    gear.append(1.); cont.append(1e9)
+            self.gear_const, self.motor_cont = np.array(gear), np.array(cont)
+            self.fourbar_idx = np.array([i for i, n in enumerate(self.active) if self.arch8_map.get(joint_type(n), (0, 0))[1] == 'fourbar'], int)
         self.act = np.array([m.actuator(n).id for n in self.active])
         self.ix = {n: i for i, n in enumerate(self.active)}
         self.q_adr = np.array([m.jnt_qposadr[m.joint(n).id] for n in self.active])
@@ -332,13 +405,19 @@ class RunEnv(RaptorEnv):
         mujoco.mj_resetData(m, d)
         mujoco.mj_setConst(m, d)
         self.weight = 9.81*float(m.body_subtreemass[self.root])
-        d.qpos[self.q_adr] = self.q0+(self.rng.normal(0, .02, len(self.q0)) if self.randomize else 0)
+        # init_seed (evaluation only, randomize off): a seeded small perturbation of the start so that repeated evaluation
+        # episodes are distinct trials. Until 2026-10-01 every deterministic evaluation episode started from the identical
+        # state, so "n episodes" were n copies of one trial.
+        init_rng = np.random.default_rng(self.init_seed) if (not self.randomize and getattr(self, 'init_seed', None) is not None) else None
+        d.qpos[self.q_adr] = self.q0+(self.rng.normal(0, .02, len(self.q0)) if self.randomize else
+                                      init_rng.normal(0, .03, len(self.q0)) if init_rng is not None else 0)
         mujoco.mj_forward(m, d)
         lowest = min(d.geom_xpos[g][2]-.02 for s in self.foot_geoms for g in self.foot_geoms[s])
         d.qpos[2] += -lowest+.005
         mujoco.mj_forward(m, d)
         self.h_nom = d.xpos[self.base][2]-.03
         d.ctrl[self.act] = d.qpos[self.q_adr]
+        self.ctrl_prev = d.qpos[self.q_adr].copy()
         self.steps, self.last_action, self.prev_qd = 0, np.zeros(len(self.policy_idx)), d.qvel[self.v_adr].copy()
         self.air = {'left': 0., 'right': 0.}
         self.loaded = {'left': True, 'right': True}
@@ -348,15 +427,18 @@ class RunEnv(RaptorEnv):
         self.spring_was_on = {}
         self.stance_seen = {}
         self.heat = (self.rng.uniform(0., .8, len(self.q0)) if self.randomize else np.zeros(len(self.q0)))
+        self.tau_lp = np.zeros(len(self.q0))
         self.sym_ema = None
         self.leg_scores = {side: dict(fold=0., extend=0., retract=0.) for side in ('left', 'right')}
         self.command = self._sample_command()
-        self.phase = float(self.rng.random()) if self.randomize else 0.
+        self.phase = float(self.rng.random()) if self.randomize else float(init_rng.random()) if init_rng is not None else 0.
         self.push_at = self.rng.uniform(3., 8.)
         self.events = []
         d.xfrc_applied[:] = 0.
         if self.randomize and self.init_speed:
             d.qvel[0] += self.rng.uniform(0., .3*self.command[0])
+        if init_rng is not None:
+            d.qvel[0] += init_rng.uniform(0., .5)
         return self._observe(), {}
 
     def _sample_command(self):
@@ -381,6 +463,8 @@ class RunEnv(RaptorEnv):
             parts.append(self.body_velocity(self.base)[1]*.1)
         parts += [d.qpos[self.q_adr]-self.q0, d.qvel[self.v_adr]*.05, self.last_action,
                   [np.sin(2*np.pi*self.phase), np.cos(2*np.pi*self.phase)]]
+        if self.obs_contact:
+            parts.append([float(self.loaded['left']),float(self.loaded['right'])])
         return np.concatenate(parts).astype(np.float32)
 
     # --- virtual actuator ----------------------------------------------------------------------
@@ -558,6 +642,8 @@ class RunEnv(RaptorEnv):
             if 'push' in self.disturb_items and abs(d.time-self.push_at) < CONTROL_DT/2:
                 d.qvel[:2] += self.rng.uniform(-.4, .4, 2)*(1.+self.level)
         self._apply_events()
+        start = self.ctrl_prev if self.target_ramp else target
+        self.ctrl_prev = target.copy()
         d.ctrl[self.act] = target
         for (s_, joint), (engaged, k_) in self.spring_engage.items():
             if engaged == 'latch':
@@ -593,18 +679,30 @@ class RunEnv(RaptorEnv):
                 m.tendon_stiffness[t] = k_ if on else 0.
         n_sub = int(round(CONTROL_DT/PHYSICS_DT))
         power, torque_sq = 0., 0.
-        heat_sq = np.zeros(len(self.act))
-        for _ in range(n_sub):
+        heat_sq, heat_lp_sq = np.zeros(len(self.act)), np.zeros(len(self.act))
+        for k_sub in range(n_sub):
+            if self.target_ramp:
+                d.ctrl[self.act] = start+(k_sub+1)/n_sub*(target-start)
             self._clamp()
             mujoco.mj_step(m, d)
             tau, qd = d.actuator_force[self.act], d.qvel[self.v_adr]
             power += np.sum(np.clip(tau*qd, 0, None))
             torque_sq += np.sum(tau**2)
             if self.arch8:
-                heat_sq += (tau/self.motor_scale)**2
+                g = self.gear_const.copy()
+                g[self.fourbar_idx] = np.interp(d.qpos[self.q_adr[self.fourbar_idx]], *self.knee_ratio)
+                tm = tau/(g*LINK_ETA*self.motor_cont)
+                heat_sq += tm**2
+                # reporting only: the same ratio after a 20 Hz first-order low-pass. ~35 % of the 1 ms knee torque power
+                # of arch8e lies above 50 Hz (servo ringing, impacts; stride ~3 Hz) that a real current loop and
+                # transmission compliance would partly filter, so heat_lp is the lower bound and heat the upper.
+                self.tau_lp += LP20*(tm - self.tau_lp)
+                heat_lp_sq += self.tau_lp**2
         power, torque_sq = power/n_sub, torque_sq/n_sub
         if self.arch8:
-            self.heat += CONTROL_DT/HEAT_TAU*(heat_sq/n_sub - self.heat)
+            self.heat_inst = heat_sq/n_sub  # (motor torque / continuous torque)^2 this control step (heat_test.py)
+            self.heat_lp_inst = heat_lp_sq/n_sub
+            self.heat += CONTROL_DT/HEAT_TAU*(self.heat_inst - self.heat)
         self.steps += 1
         cx = self.command[0]
         self.phase = (self.phase+CONTROL_DT*(1.6+.14*abs(cx))) % 1.
@@ -621,6 +719,12 @@ class RunEnv(RaptorEnv):
         terms = {}
         sigma = max(.3, self.track_sigma_frac*abs(cx))
         terms['track_lin'] = np.exp(-np.sum((self.command[:2]-v_body[:2])**2)/sigma**2)
+        if 'lin_err' in self.weights:
+            # Optional dense penalty, including the large-error braking interval.
+            # Absent by default: preserve the original reward terms and sums.
+            terms['lin_err'] = float(np.linalg.norm(self.command[:2]-v_body[:2]))
+        if 'lateral_err' in self.weights:
+            terms['lateral_err'] = float(abs(self.command[1]-v_body[1]))
         terms['progress'] = np.clip(v_body[0], -1., cx)/max(cx, 1.)
         terms['track_yaw'] = np.exp(-(self.command[2]-w[2])**2/.2)
         terms['yaw_err'] = abs(self.command[2]-w[2])  # linear term: gradient for large turn commands (off by default)
@@ -668,6 +772,11 @@ class RunEnv(RaptorEnv):
         terms['leg_sym'] = self.leg_symmetry() if self.command[0] >= .5 else 0.
         terms['heat'] = float(np.sum(np.clip(self.heat-1., 0., None))) if self.arch8 else 0.
         terms['stand'] = float(flight) if cx < .05 else 0.  # hopping in place at a zero command (v1 defect)
+        if 'stand_support' in self.weights:
+            # Optional double-support objective, only for a fully zero command.
+            # In-place turning and lateral motion retain their original rewards.
+            terms['stand_support'] = (sum(not v for v in loaded_now.values())/len(loaded_now)
+                                      if np.all(self.command == 0.) else 0.)
         terms['air_time'] = air_reward/CONTROL_DT if moving else 0.
         terms['grf'] = grf
         terms['slip'] = slip

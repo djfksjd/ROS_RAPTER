@@ -1,0 +1,17 @@
+{
+  "trials": 20,
+  "sixty_seconds_completed": 20,
+  "falls": 0,
+  "geometry_gate": 20,
+  "near_pose_full_pass": 17,
+  "max_displacement_m": 0.008370604140011735,
+  "max_tilt_rad": 0.0754833902657332,
+  "max_virtual_load": 1.0549454256458801,
+  "failed_seeds": [
+    85001,
+    85003,
+    85008
+  ],
+  "original_nominal_start_tested": false,
+  "full_simulator_state_feedback": true
+}

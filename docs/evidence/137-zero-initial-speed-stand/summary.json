@@ -1,0 +1,42 @@
+[
+  {
+    "knee_design_stiffness": 170,
+    "seed": 22001,
+    "original_initial_vx": 0.3796380928862183,
+    "seconds": 0.7800000000000006,
+    "fell": true,
+    "max_displacement_from_first_record_m": 0.1699806871923454,
+    "max_tilt_rad": 0.8292569088045173,
+    "flight_samples": 21
+  },
+  {
+    "knee_design_stiffness": 170,
+    "seed": 22002,
+    "original_initial_vx": 0.0632040273006867,
+    "seconds": 0.8200000000000006,
+    "fell": true,
+    "max_displacement_from_first_record_m": 0.23721846671208555,
+    "max_tilt_rad": 0.8286586231395988,
+    "flight_samples": 20
+  },
+  {
+    "knee_design_stiffness": 0,
+    "seed": 22001,
+    "original_initial_vx": 0.3796380928862183,
+    "seconds": 1.1999999999999786,
+    "fell": true,
+    "max_displacement_from_first_record_m": 0.4765162732864825,
+    "max_tilt_rad": 0.809700776702734,
+    "flight_samples": 2
+  },
+  {
+    "knee_design_stiffness": 0,
+    "seed": 22002,
+    "original_initial_vx": 0.0632040273006867,
+    "seconds": 1.2199999999999764,
+    "fell": true,
+    "max_displacement_from_first_record_m": 0.4846760208307674,
+    "max_tilt_rad": 0.8267357958770669,
+    "flight_samples": 2
+  }
+]

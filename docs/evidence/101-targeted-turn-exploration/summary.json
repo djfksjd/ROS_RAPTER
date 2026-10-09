@@ -1,0 +1,24 @@
+{
+  "control": {
+    "eval_trials": 30,
+    "falls": 0,
+    "turn_pass": 0,
+    "heat_trials": 6,
+    "heat_pass": 6,
+    "heat_max": 0.7929185245518755,
+    "motion_trials": 4,
+    "motion_falls": 0,
+    "motion_pass": 0
+  },
+  "trial": {
+    "eval_trials": 30,
+    "falls": 0,
+    "turn_pass": 0,
+    "heat_trials": 6,
+    "heat_pass": 0,
+    "heat_max": 5.716147896067982,
+    "motion_trials": 4,
+    "motion_falls": 0,
+    "motion_pass": 0
+  }
+}

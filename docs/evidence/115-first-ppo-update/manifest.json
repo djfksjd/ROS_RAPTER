@@ -1,0 +1,18 @@
+{
+  "status": "first_update_diagnostic_completed_no_immediate_angle_regression",
+  "training_exit": 0,
+  "evaluation_exit": {
+    "before": 0,
+    "after": 0
+  },
+  "files": {
+    "summary.json": "493bce5e83baaee2a97f2cacbe890a195ccb1a1d0c19ce439c440f8dce24768a",
+    "args.json": "3766ee972bdff3493e0b96dc0e262a1d2e60296f5d5586b121e7d8831ac1cc06",
+    "README.md": "9e4df60da747c6dae0cb618ee6e500c1ef10879cefb394193b89f2e83264df41",
+    "parameter-delta.json": "311827572f299c65ca54573e1615ae0440af78045b3911378f5b3681205ba6b4",
+    "after.eval.jsonl": "ce5cf930208054ba688f2238583a52cfe11876ad4cc43834722bfa1e1d97cc92",
+    "before.eval.jsonl": "00b63a2b466cb0cc0d95058c17762d6bd6f2a58c463bc1c9a829ffc559ddc8a6",
+    "progress.csv": "0196cfe284700e87d96155e1b7b9e150569aff58a00eaa15f07cf6f3b9c434ea",
+    "completion.json": "05661f0b273421cedb6a179c6db626f9e0e1a2205977781c0e313943133d2b69"
+  }
+}

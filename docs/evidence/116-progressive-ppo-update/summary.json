@@ -1,0 +1,48 @@
+{
+  "16k": {
+    "trials": 12,
+    "fall_count": 0,
+    "angle_pass_count": 6,
+    "turn_trials": 8,
+    "min_speed_pass_count": 0,
+    "evaluation_seeds": [
+      66001,
+      66002
+    ],
+    "completion": {
+      "initial_steps": 10330112,
+      "final_steps": 10346496,
+      "initialize_only": false
+    },
+    "hashes": {
+      "model.zip": "b45d10643b7e693e4dc003eb22840b0e19d51f59fe06be5fa0bd9a887e1f5600",
+      "model_initialized.zip": "c04c4cba45ad7dd9daa6cd052f6535aae3d240727c863b265bdbe430bcb2a84c",
+      "vecnorm.pkl": "08857f4cede8bb742ee9e9634ca6d3cdbeb96497f165253ba859a9c364dfea82",
+      "args.json": "0b77d18e38b0f93fde46b39263807450b5ea98eaa16f5e2ab6e4c188a68be737",
+      "progress.csv": "077df18bce16e4ce5e7735e449e17cdcdadc5268f920790e73d9549f34109583"
+    }
+  },
+  "64k": {
+    "trials": 12,
+    "fall_count": 0,
+    "angle_pass_count": 0,
+    "turn_trials": 8,
+    "min_speed_pass_count": 3,
+    "evaluation_seeds": [
+      66001,
+      66002
+    ],
+    "completion": {
+      "initial_steps": 10330112,
+      "final_steps": 10395648,
+      "initialize_only": false
+    },
+    "hashes": {
+      "model.zip": "af79e940c3174de25e883677b08ecee3ef0b63ae4486782621a1206c1ab1ca79",
+      "model_initialized.zip": "c0a803c74f77942def7fc3864eabdc21a9331839fd5fd07ab79015a828f64d91",
+      "vecnorm.pkl": "043b37d56243a486155993c5b3b861b66d3038839e732129bdb57dcacd9012dc",
+      "args.json": "658295bdb3bd85ad43f797eaea4a03729421bb247b08868ac18ee5de6d03874f",
+      "progress.csv": "2361605b20e086a312cc53ba55aaf3dcf07f4c79ab92a2875b46be1709a7c935"
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "initial_policy_tensors_identical": true,
+  "tensor_count": 24,
+  "source_steps": 10833920,
+  "control_pid": 20838,
+  "catalogue_pid": 20858,
+  "control_session": 78650,
+  "catalogue_session": 54685,
+  "runs": [
+    "seq_compare_control_20261009",
+    "seq_compare_catalogue_20261009"
+  ]
+}

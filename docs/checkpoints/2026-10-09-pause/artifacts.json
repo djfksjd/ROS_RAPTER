@@ -1,0 +1,86 @@
+[
+  {
+    "restore_path": "sim/rl/runs/scr_a8_h2/model.zip",
+    "artifact": "artifacts/sim/rl/runs/scr_a8_h2/model.zip",
+    "gzip": false,
+    "sha256": "43c87cae9ca3b2c672092f6d424a78c7326380342904b635a2428c06920233ec",
+    "bytes": 1330228
+  },
+  {
+    "restore_path": "sim/rl/runs/scr_a8_h2/vecnorm.pkl",
+    "artifact": "artifacts/sim/rl/runs/scr_a8_h2/vecnorm.pkl",
+    "gzip": false,
+    "sha256": "1a7326ae6949b8e5aa2a880f72b23509adf3c102abcee43a57062b720809f112",
+    "bytes": 4534
+  },
+  {
+    "restore_path": "sim/rl/runs/scr_a8_h2/args.json",
+    "artifact": "artifacts/sim/rl/runs/scr_a8_h2/args.json",
+    "gzip": false,
+    "sha256": "010cbcd0f1fa92121a930570e265cd02b1b93ef0e4c951ba633c18b4c9ee2c80",
+    "bytes": 1010
+  },
+  {
+    "restore_path": "sim/rl/runs/kl005_lr3e5_update64k_20261009/model.zip",
+    "artifact": "artifacts/sim/rl/runs/kl005_lr3e5_update64k_20261009/model.zip",
+    "gzip": false,
+    "sha256": "98d7b6a9fac4c621e53da392cc7d273cee27acb5a9489431161fedb2dcd7450a",
+    "bytes": 1339464
+  },
+  {
+    "restore_path": "sim/rl/runs/kl005_lr3e5_update64k_20261009/vecnorm.pkl",
+    "artifact": "artifacts/sim/rl/runs/kl005_lr3e5_update64k_20261009/vecnorm.pkl",
+    "gzip": false,
+    "sha256": "5bf8bb8f542313b9a7895ff2cbd3ffcb76194ac309c1ecc92585d4db983f6a79",
+    "bytes": 3800
+  },
+  {
+    "restore_path": "sim/rl/runs/kl005_lr3e5_update64k_20261009/args.json",
+    "artifact": "artifacts/sim/rl/runs/kl005_lr3e5_update64k_20261009/args.json",
+    "gzip": false,
+    "sha256": "da2144f1047bf1f5707cef16251dcbabe90dad35c0a68582b613e9d6cd15771f",
+    "bytes": 1623
+  },
+  {
+    "restore_path": "sim/rl/runs/kl005_lr3e5_update64k_20261009/reflection-config.json",
+    "artifact": "artifacts/sim/rl/runs/kl005_lr3e5_update64k_20261009/reflection-config.json",
+    "gzip": false,
+    "sha256": "e97eb675d213134d01a3e5df7e7249cb77a908a4bd21ae8b2974ff2df4b9821f",
+    "bytes": 3883
+  },
+  {
+    "restore_path": "sim/rl/runs/screen_logs/local_equilibrium_linearization/lqr_design.npz",
+    "artifact": "artifacts/sim/rl/runs/screen_logs/local_equilibrium_linearization/lqr_design.npz",
+    "gzip": false,
+    "sha256": "bf579adba479f8b74dd4e49712546d9a939a97f2079e1c19683560966461f5a1",
+    "bytes": 112208
+  },
+  {
+    "restore_path": "sim/rl/runs/screen_logs/stand_shooting_peak_powell_20261009/initial_parameters.npy",
+    "artifact": "artifacts/sim/rl/runs/screen_logs/stand_shooting_peak_powell_20261009/initial_parameters.npy",
+    "gzip": false,
+    "sha256": "b7aebd0c6b0c80a795199a5721e8ac9f8e7ed542678b2881ba937a01e93c0a79",
+    "bytes": 288
+  },
+  {
+    "restore_path": "sim/rl/runs/screen_logs/stand_early_capture.diagnostic.jsonl",
+    "artifact": "artifacts/sim/rl/runs/screen_logs/stand_early_capture.diagnostic.jsonl.gz",
+    "gzip": true,
+    "sha256": "6c52ecbd619366830f5fbb32886894002e188cd99d0df6edfb005dde10e0e0d0",
+    "bytes": 4741171
+  },
+  {
+    "restore_path": "sim/rl/runs/screen_logs/stand_early_capture_pitch_only.diagnostic.jsonl",
+    "artifact": "artifacts/sim/rl/runs/screen_logs/stand_early_capture_pitch_only.diagnostic.jsonl.gz",
+    "gzip": true,
+    "sha256": "5e3fa33dba0961bfbdbe1b1451fc4bd8ef10face9e0e8898a00cac1602838d1a",
+    "bytes": 4046605
+  },
+  {
+    "restore_path": "sim/rl/runs/screen_logs/stand_knee_support_capture.diagnostic.jsonl",
+    "artifact": "artifacts/sim/rl/runs/screen_logs/stand_knee_support_capture.diagnostic.jsonl.gz",
+    "gzip": true,
+    "sha256": "2ac02481ce13c7df7534f6d54934f2b4a4f9d0cd2769d3d67706449a28a7cc01",
+    "bytes": 4196956
+  }
+]

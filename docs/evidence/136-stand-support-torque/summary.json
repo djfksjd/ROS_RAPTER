@@ -1,0 +1,66 @@
+[
+  {
+    "knee_design_stiffness": 170,
+    "seed": 22001,
+    "samples": 720,
+    "exact_control_parity": true,
+    "baseline135_heat_tilt_exact": true,
+    "first_0p2s_knee_bound_fraction": {
+      "left_knee_pitch_joint": 0.99,
+      "right_knee_pitch_joint": 0.865
+    },
+    "q_error_at_0p199s": {
+      "left_knee_pitch_joint": -0.19722643630928238,
+      "right_knee_pitch_joint": -0.17824896771305232
+    },
+    "contact_center_margin_at_0p199s": -0.02098411985299397
+  },
+  {
+    "knee_design_stiffness": 170,
+    "seed": 22002,
+    "samples": 780,
+    "exact_control_parity": true,
+    "baseline135_heat_tilt_exact": true,
+    "first_0p2s_knee_bound_fraction": {
+      "left_knee_pitch_joint": 0.99,
+      "right_knee_pitch_joint": 0.9
+    },
+    "q_error_at_0p199s": {
+      "left_knee_pitch_joint": -0.18327528734285958,
+      "right_knee_pitch_joint": -0.0870256187882259
+    },
+    "contact_center_margin_at_0p199s": -0.05589096326223197
+  },
+  {
+    "knee_design_stiffness": 0,
+    "seed": 22001,
+    "samples": 780,
+    "exact_control_parity": true,
+    "baseline135_heat_tilt_exact": true,
+    "first_0p2s_knee_bound_fraction": {
+      "left_knee_pitch_joint": 0.0,
+      "right_knee_pitch_joint": 0.05
+    },
+    "q_error_at_0p199s": {
+      "left_knee_pitch_joint": 0.01571019151405717,
+      "right_knee_pitch_joint": 0.026799561563689123
+    },
+    "contact_center_margin_at_0p199s": 0.013003005749476876
+  },
+  {
+    "knee_design_stiffness": 0,
+    "seed": 22002,
+    "samples": 1120,
+    "exact_control_parity": true,
+    "baseline135_heat_tilt_exact": true,
+    "first_0p2s_knee_bound_fraction": {
+      "left_knee_pitch_joint": 0.0,
+      "right_knee_pitch_joint": 0.0
+    },
+    "q_error_at_0p199s": {
+      "left_knee_pitch_joint": 0.022179705226564206,
+      "right_knee_pitch_joint": 0.019216781504723945
+    },
+    "contact_center_margin_at_0p199s": 0.003594843111116093
+  }
+]

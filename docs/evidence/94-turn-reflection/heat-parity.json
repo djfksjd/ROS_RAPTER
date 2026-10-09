@@ -1,0 +1,12 @@
+{
+  "max_heat": {
+    "existing_harness": 0.8608484815799229,
+    "new_harness": 0.8608484815799206,
+    "absolute_difference": 2.3314683517128287e-15
+  },
+  "speed_last40_mps": {
+    "existing_harness": 4.043605328174845,
+    "new_harness": 4.043605328174845,
+    "absolute_difference": 0.0
+  }
+}

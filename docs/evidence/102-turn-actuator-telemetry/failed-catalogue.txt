@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/Users/danny/개발 모음 폴더/raptor/sim/rl/actuator_turn_probe.py", line 83, in <module>
+    if __name__=='__main__':main()
+                            ~~~~^^
+  File "/Users/danny/개발 모음 폴더/raptor/sim/rl/actuator_turn_probe.py", line 77, in main
+    plain=probe(a.run,yaw,a.seed,False,a.yaw_scale);measured=probe(a.run,yaw,a.seed,True,a.yaw_scale)
+  File "/Users/danny/개발 모음 폴더/raptor/sim/rl/actuator_turn_probe.py", line 26, in probe
+    ids=env.act[env.policy_idx];qadr=env.q_adr[env.policy_idx];vadr=env.v_adr[env.policy_idx]
+        ^^^^^^^
+AttributeError: 'RunEnv' object has no attribute 'act'

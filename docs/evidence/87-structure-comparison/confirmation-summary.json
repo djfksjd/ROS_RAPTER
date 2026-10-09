@@ -1,0 +1,46 @@
+{
+  "scr_a8_h0": {
+    "6.0": {
+      "n": 30,
+      "falls": 0,
+      "heat_passes": 29,
+      "speed_min": 5.150633732700559,
+      "speed_max": 5.2164917302720335,
+      "heat_max": 1.0035236209362888,
+      "reached_40kmh": 0,
+      "hottest_at_worst_start": "knee_pitch"
+    },
+    "11.2": {
+      "n": 30,
+      "falls": 3,
+      "heat_passes": 0,
+      "speed_min": 0.3674845734355412,
+      "speed_max": 8.141919230616654,
+      "heat_max": 3.8764791318336904,
+      "reached_40kmh": 0,
+      "hottest_at_worst_start": "tail_pitch"
+    }
+  },
+  "scr_a8_h2": {
+    "7.0": {
+      "n": 30,
+      "falls": 0,
+      "heat_passes": 30,
+      "speed_min": 6.1668582000760015,
+      "speed_max": 6.1940236683252845,
+      "heat_max": 0.963862579574811,
+      "reached_40kmh": 0,
+      "hottest_at_worst_start": "hip_roll"
+    },
+    "11.2": {
+      "n": 30,
+      "falls": 2,
+      "heat_passes": 0,
+      "speed_min": 0.20294491073529275,
+      "speed_max": 9.176603528873576,
+      "heat_max": 3.249998475340501,
+      "reached_40kmh": 0,
+      "hottest_at_worst_start": "knee_pitch"
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "nfev": 8,
+  "status": 3,
+  "message": "`xtol` termination condition is satisfied.",
+  "objective_calls": 169,
+  "seconds": 33.861485542031005,
+  "initial_cost": 1089.0933655613603,
+  "final_cost": 747.1900782599743,
+  "best_cost": 34.12278648675218,
+  "catalogue_pass": false
+}

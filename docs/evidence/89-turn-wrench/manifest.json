@@ -1,0 +1,15 @@
+{
+  "files": {
+    "sim/rl/contact_wrench.py": "6473eec865119a34cf21e3f60520ae92650488e7674a17e181789bb499525a78",
+    "sim/rl/turn_wrench_probe.py": "d96648638ba0f2a936e31dbe4a666d3dfaaef8ee7d98c0e5cd0a6ede1b239545",
+    "tests/test_contact_wrench.py": "d653c5a29831ba61719cc1ca6cd2d208e7bbf70c01591be01da374197232f57e",
+    "sim/rl/runs/screen_logs/scr_a8_h2.wrench_v2.jsonl": "98526d34d335d135f058eb6b398d516049b2a309ab02a51bfb46db2098d6d329",
+    "sim/rl/runs/screen_logs/turn_pilot_yaw16_20261009.wrench_v2.jsonl": "d0f8f74e840951476ab0fa7de90225ddca18b5c25c84a735afe2d517dc2dd331"
+  },
+  "cases": 12,
+  "first_instrumentation_rejected": "updated live position-derived fields changed rollout",
+  "second_attempt_failed": "RunEnv model lazily created only at reset",
+  "valid_version": "copy data after reset, no modification of live data",
+  "adopted_policy": false,
+  "post_run_change": "added root validation only; physics calculation unchanged; calibration tests rerun; later diagnostic command-window boundary rounded to12 digits, old trace preserved"
+}

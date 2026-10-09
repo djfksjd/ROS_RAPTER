@@ -1,0 +1,106 @@
+[
+  {
+    "run": "scr_a8_h2",
+    "yaw_cmd": -1.0,
+    "seed": 7001,
+    "fell": false,
+    "actual_seconds": 26.000000000008793,
+    "late_window_seconds": [
+      19,
+      24
+    ],
+    "late_yaw_rate_rad_s": -0.1756207056213196,
+    "late_vx_mps": 4.0644761855114755
+  },
+  {
+    "run": "scr_a8_h2",
+    "yaw_cmd": -1.0,
+    "seed": 7002,
+    "fell": false,
+    "actual_seconds": 26.000000000008793,
+    "late_window_seconds": [
+      19,
+      24
+    ],
+    "late_yaw_rate_rad_s": -0.17548756632668586,
+    "late_vx_mps": 4.072343745015991
+  },
+  {
+    "run": "scr_a8_h2",
+    "yaw_cmd": 1.0,
+    "seed": 7001,
+    "fell": false,
+    "actual_seconds": 26.000000000008793,
+    "late_window_seconds": [
+      19,
+      24
+    ],
+    "late_yaw_rate_rad_s": -0.018576775259694457,
+    "late_vx_mps": 3.980004214370857
+  },
+  {
+    "run": "scr_a8_h2",
+    "yaw_cmd": 1.0,
+    "seed": 7002,
+    "fell": false,
+    "actual_seconds": 26.000000000008793,
+    "late_window_seconds": [
+      19,
+      24
+    ],
+    "late_yaw_rate_rad_s": -0.013484890540566792,
+    "late_vx_mps": 4.00840760495764
+  },
+  {
+    "run": "turn_pilot_yaw16_20261009",
+    "yaw_cmd": -1.0,
+    "seed": 7001,
+    "fell": false,
+    "actual_seconds": 26.000000000008793,
+    "late_window_seconds": [
+      19,
+      24
+    ],
+    "late_yaw_rate_rad_s": -0.24574502298754605,
+    "late_vx_mps": 3.918600247479958
+  },
+  {
+    "run": "turn_pilot_yaw16_20261009",
+    "yaw_cmd": -1.0,
+    "seed": 7002,
+    "fell": false,
+    "actual_seconds": 26.000000000008793,
+    "late_window_seconds": [
+      19,
+      24
+    ],
+    "late_yaw_rate_rad_s": -0.2503482056935169,
+    "late_vx_mps": 3.9169529269947216
+  },
+  {
+    "run": "turn_pilot_yaw16_20261009",
+    "yaw_cmd": 1.0,
+    "seed": 7001,
+    "fell": false,
+    "actual_seconds": 26.000000000008793,
+    "late_window_seconds": [
+      19,
+      24
+    ],
+    "late_yaw_rate_rad_s": 0.051970208431612125,
+    "late_vx_mps": 4.066397256833073
+  },
+  {
+    "run": "turn_pilot_yaw16_20261009",
+    "yaw_cmd": 1.0,
+    "seed": 7002,
+    "fell": false,
+    "actual_seconds": 26.000000000008793,
+    "late_window_seconds": [
+      19,
+      24
+    ],
+    "late_yaw_rate_rad_s": 0.05794573111383838,
+    "late_vx_mps": 4.0644870399689355
+  }
+]

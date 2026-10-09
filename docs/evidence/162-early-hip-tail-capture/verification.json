@@ -1,0 +1,50 @@
+{
+  "baseline21_exact_common_raw_fields": true,
+  "body_point_jacobian_identity_max_error_mps": 4.163336342344337e-17,
+  "trials": 105,
+  "summary": {
+    "fixed_baseline": {
+      "trials": 21,
+      "stand_60s_pass": 1,
+      "prefix_gate_pass": 5,
+      "passing_seeds": [
+        83002
+      ]
+    },
+    "tail_pose": {
+      "trials": 21,
+      "stand_60s_pass": 0,
+      "prefix_gate_pass": 1,
+      "passing_seeds": []
+    },
+    "paired_brake": {
+      "trials": 21,
+      "stand_60s_pass": 0,
+      "prefix_gate_pass": 1,
+      "passing_seeds": []
+    },
+    "tail_pitch_only": {
+      "trials": 21,
+      "stand_60s_pass": 1,
+      "prefix_gate_pass": 3,
+      "passing_seeds": [
+        83002
+      ]
+    },
+    "paired_pitch_only": {
+      "trials": 21,
+      "stand_60s_pass": 0,
+      "prefix_gate_pass": 1,
+      "passing_seeds": []
+    }
+  },
+  "all_actions_finite_within_normalized_bounds": true,
+  "failed_trial_steady_load_null": true,
+  "independent_holdout": false,
+  "goal_status": "active",
+  "candidate_adopted": false,
+  "contact_telemetry_replays": 4,
+  "telemetry_on_off_exact_rows": true,
+  "pd_torque_clipped_matches_actual_max_error_Nm": 1.5987211554602254e-13,
+  "active_runtime_handles": []
+}

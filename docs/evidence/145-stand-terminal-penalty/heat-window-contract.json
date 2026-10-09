@@ -1,0 +1,6 @@
+{
+  "default_model_rows_exact": true,
+  "heat_window_seconds": 1.5,
+  "steady_window_completed": false,
+  "catalogue_pass": false
+}

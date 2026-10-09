@@ -1,0 +1,4 @@
+{'call': 25, 'cost': 33.09904718429147, 'best': 33.09904718429147}
+{'call': 50, 'cost': 32.5852652442481, 'best': 32.5852652442481}
+{'call': 75, 'cost': 37.904058702289305, 'best': 32.468211913003785}
+{'nfev': 13, 'status': 3, 'message': '`xtol` termination condition is satisfied.', 'objective_calls': 94, 'seconds': 5.805952040944248, 'initial_cost': 65.2213802315442, 'final_cost': 32.57950063299434, 'best_cost': 32.46201051274196, 'catalogue_pass': False}

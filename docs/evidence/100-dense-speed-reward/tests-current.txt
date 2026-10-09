@@ -1,0 +1,137 @@
+test_control_retains_random_commands_and_matched_horizon (test_command_sequence.CommandSequenceTest.test_control_retains_random_commands_and_matched_horizon) ... skipped 'simulator dependencies unavailable'
+test_reset_true_stand_and_returned_observation_current_command (test_command_sequence.CommandSequenceTest.test_reset_true_stand_and_returned_observation_current_command) ... skipped 'simulator dependencies unavailable'
+test_turn_and_stop_boundaries_and_actual_zero_commands (test_command_sequence.CommandSequenceTest.test_turn_and_stop_boundaries_and_actual_zero_commands) ... skipped 'simulator dependencies unavailable'
+test_force_and_yaw_moment_balance (test_contact_wrench.ContactWrenchTest.test_force_and_yaw_moment_balance) ... skipped 'mujoco unavailable'
+test_opposite_contact_participant_sign (test_contact_wrench.ContactWrenchTest.test_opposite_contact_participant_sign) ... skipped 'mujoco unavailable'
+test_large_braking_errors_remain_distinct (test_dense_speed_reward.DenseSpeedRewardTest.test_large_braking_errors_remain_distinct) ... skipped 'simulator stack unavailable'
+test_optional_penalty_preserves_physics_and_default_reward (test_dense_speed_reward.DenseSpeedRewardTest.test_optional_penalty_preserves_physics_and_default_reward) ... skipped 'simulator stack unavailable'
+test_delay_holds_the_goal_back (test_jtc_servo.JTCLikeServoTest.test_delay_holds_the_goal_back) ... skipped 'mujoco not installed'
+test_goal_reached_after_horizon_not_before (test_jtc_servo.JTCLikeServoTest.test_goal_reached_after_horizon_not_before) ... skipped 'mujoco not installed'
+test_stop_holds_read_positions (test_jtc_servo.JTCLikeServoTest.test_stop_holds_read_positions) ... skipped 'mujoco not installed'
+test_targets_are_sampled_not_continuous (test_jtc_servo.JTCLikeServoTest.test_targets_are_sampled_not_continuous) ... skipped 'mujoco not installed'
+test_duplicate_timestamps_do_not_break_the_hold_length (test_lateral_events.StepEventsTest.test_duplicate_timestamps_do_not_break_the_hold_length) ... ok
+test_event_after_data_and_unsettled_start (test_lateral_events.StepEventsTest.test_event_after_data_and_unsettled_start) ... ok
+test_liftoff_and_touchdown (test_lateral_events.StepEventsTest.test_liftoff_and_touchdown) ... ok
+test_transitions_hysteresis (test_lateral_events.StepEventsTest.test_transitions_hysteresis) ... ok
+test_averaged_policy_equivariance_with_asymmetric_normalization (test_mirror_probe.ReflectionTest.test_averaged_policy_equivariance_with_asymmetric_normalization) ... ok
+test_invalid_mappings_and_dimensions_rejected (test_mirror_probe.ReflectionTest.test_invalid_mappings_and_dimensions_rejected) ... ok
+test_involution_and_input_preservation (test_mirror_probe.ReflectionTest.test_involution_and_input_preservation) ... ok
+test_vectors_clock_and_absolute_joint_positions (test_mirror_probe.ReflectionTest.test_vectors_clock_and_absolute_joint_positions) ... ok
+test_failure_latches (test_motion_guard.TiltTests.test_failure_latches) ... ok
+test_invalid_and_missing_and_stale (test_motion_guard.TiltTests.test_invalid_and_missing_and_stale) ... ok
+test_yaw_does_not_count_as_gravity_tilt (test_motion_guard.TiltTests.test_yaw_does_not_count_as_gravity_tilt) ... ok
+test_complete_stages_pass_and_incomplete_trial_fails (test_motion_transition.MotionTransitionTest.test_complete_stages_pass_and_incomplete_trial_fails) ... skipped 'simulator dependencies unavailable'
+test_initial_drift_or_non_alternating_walk_fail (test_motion_transition.MotionTransitionTest.test_initial_drift_or_non_alternating_walk_fail) ... skipped 'simulator dependencies unavailable'
+test_lateral_motion_and_slow_stop_start_fail (test_motion_transition.MotionTransitionTest.test_lateral_motion_and_slow_stop_start_fail) ... skipped 'simulator dependencies unavailable'
+test_stand_origin_and_flight (test_motion_transition.MotionTransitionTest.test_stand_origin_and_flight) ... skipped 'simulator dependencies unavailable'
+test_mass_matches_design (test_r02_model.R02ModelTest.test_mass_matches_design) ... skipped 'mujoco not installed'
+test_same_active_interface_as_12_dof (test_r02_model.R02ModelTest.test_same_active_interface_as_12_dof) ... skipped 'mujoco not installed'
+test_toe_springs_and_achilles (test_r02_model.R02ModelTest.test_toe_springs_and_achilles) ... skipped 'mujoco not installed'
+test_toes_flat_and_com_over_toes (test_r02_model.R02ModelTest.test_toes_flat_and_com_over_toes) ... skipped 'mujoco not installed'
+test_yaml_is_current (test_r02_model.R02ModelTest.test_yaml_is_current) ... skipped 'mujoco not installed'
+test_starts_fallen_and_survives_body_contact (test_recover_env.RecoverEnvTest.test_starts_fallen_and_survives_body_contact) ... skipped 'mujoco not installed'
+test_success_when_held_standing (test_recover_env.RecoverEnvTest.test_success_when_held_standing) ... skipped 'mujoco not installed'
+test_amplitude_limits (test_rhythm.TestRollPhaseOscillator.test_amplitude_limits) ... ok
+test_correction_limit (test_rhythm.TestRollPhaseOscillator.test_correction_limit) ... ok
+test_open_loop (test_rhythm.TestRollPhaseOscillator.test_open_loop) ... ok
+test_phase_lock (test_rhythm.TestRollPhaseOscillator.test_phase_lock) ... ok
+test_wrap (test_rhythm.TestRollPhaseOscillator.test_wrap) ... ok
+test_ankle_roll_does_not_chatter (test_rl_env.RaptorEnvTest.test_ankle_roll_does_not_chatter)
+Light pad on a force-limited velocity servo chattered at +-90 rad/s before the roll armature. ... skipped 'mujoco/gymnasium not installed'
+test_base_velocity_is_the_torso_velocity_in_its_frame (test_rl_env.RaptorEnvTest.test_base_velocity_is_the_torso_velocity_in_its_frame)
+Tracking must use the torso's velocity, not the free-joint origin 0.85 m below base_link. ... skipped 'mujoco/gymnasium not installed'
+test_body_contact_ends_episode (test_rl_env.RaptorEnvTest.test_body_contact_ends_episode) ... skipped 'mujoco/gymnasium not installed'
+test_metatarsus_counts_as_foot_with_ankle_roll (test_rl_env.RaptorEnvTest.test_metatarsus_counts_as_foot_with_ankle_roll)
+With ankle roll the metatarsus is its own link; touching the ground with it is not a fall. ... skipped 'mujoco/gymnasium not installed'
+test_spaces_and_actuators (test_rl_env.RaptorEnvTest.test_spaces_and_actuators) ... skipped 'mujoco/gymnasium not installed'
+test_targets_stay_inside_joint_ranges (test_rl_env.RaptorEnvTest.test_targets_stay_inside_joint_ranges) ... skipped 'mujoco/gymnasium not installed'
+test_terrain_surface_matches_height_grid (test_rl_env.RaptorEnvTest.test_terrain_surface_matches_height_grid) ... skipped 'mujoco/gymnasium not installed'
+test_runner_matches_sb3_and_env_observation (test_rl_policy_runner.PolicyRunnerTest.test_runner_matches_sb3_and_env_observation) ... skipped 'needs .venv-sim and a local trained run'
+test_abduction_ramps_in_on_both_hip_rolls (test_rock_law.RockLawTest.test_abduction_ramps_in_on_both_hip_rolls) ... ok
+test_antipump_stance_only_mirrored_and_clamped (test_rock_law.RockLawTest.test_antipump_stance_only_mirrored_and_clamped) ... ok
+test_before_start_is_the_crouch (test_rock_law.RockLawTest.test_before_start_is_the_crouch) ... ok
+test_contact_events_debounce_and_hysteresis (test_rock_law.RockLawTest.test_contact_events_debounce_and_hysteresis) ... ok
+test_cosine_ramp_and_longer_stride_ramp (test_rock_law.RockLawTest.test_cosine_ramp_and_longer_stride_ramp) ... ok
+test_external_cycle_matches_time_clock (test_rock_law.RockLawTest.test_external_cycle_matches_time_clock) ... ok
+test_frequency_profile_replay (test_rock_law.RockLawTest.test_frequency_profile_replay) ... ok
+test_gait_phase_from_left_touchdowns (test_rock_law.RockLawTest.test_gait_phase_from_left_touchdowns) ... ok
+test_hip_rolls_mirror (test_rock_law.RockLawTest.test_hip_rolls_mirror) ... ok
+test_mirror_swaps_sides (test_rock_law.RockLawTest.test_mirror_swaps_sides) ... ok
+test_pitch_feedback_is_clipped (test_rock_law.RockLawTest.test_pitch_feedback_is_clipped) ... ok
+test_pll_ignores_bounces_and_waits_for_ramp_end (test_rock_law.RockLawTest.test_pll_ignores_bounces_and_waits_for_ramp_end) ... ok
+test_pll_speeds_up_when_touchdown_comes_early_and_clamps (test_rock_law.RockLawTest.test_pll_speeds_up_when_touchdown_comes_early_and_clamps) ... ok
+test_pll_v3_accepts_last_of_burst_and_learns_nominal (test_rock_law.RockLawTest.test_pll_v3_accepts_last_of_burst_and_learns_nominal) ... ok
+test_slew_limiter_limits_and_decays (test_rock_law.RockLawTest.test_slew_limiter_limits_and_decays) ... ok
+test_step_roll_profile_is_rate_limited (test_rock_law.RockLawTest.test_step_roll_profile_is_rate_limited) ... ok
+test_stride_matches_rock_probe_and_keeps_sole_level (test_rock_law.RockLawTest.test_stride_matches_rock_probe_and_keeps_sole_level) ... ok
+test_tail_sync_filter_and_slew_limit (test_rock_law.RockLawTest.test_tail_sync_filter_and_slew_limit) ... ok
+test_tail_sync_sign_and_unknown_phase (test_rock_law.RockLawTest.test_tail_sync_sign_and_unknown_phase) ... ok
+test_tail_targets_signs_and_limits (test_rock_law.RockLawTest.test_tail_targets_signs_and_limits) ... ok
+test_window_max_bridges_zero_force_frames (test_rock_law.RockLawTest.test_window_max_bridges_zero_force_frames) ... ok
+test_band_amplitude_of_a_sine (test_roll_metrics.MetricTest.test_band_amplitude_of_a_sine) ... ok
+test_growth_needs_two_cycles (test_roll_metrics.MetricTest.test_growth_needs_two_cycles) ... ok
+test_growth_of_a_steady_oscillation_is_one (test_roll_metrics.MetricTest.test_growth_of_a_steady_oscillation_is_one) ... ok
+test_single_support_median (test_roll_metrics.MetricTest.test_single_support_median) ... ok
+test_exact_turn_interval_and_known_tracking_error (test_roll_range_probe.RangeSummaryTest.test_exact_turn_interval_and_known_tracking_error) ... skipped 'simulator dependencies unavailable'
+test_no_turn_samples_are_missing_measurement_not_zero_saturation (test_roll_range_probe.RangeSummaryTest.test_no_turn_samples_are_missing_measurement_not_zero_saturation) ... skipped 'simulator dependencies unavailable'
+test_actuator_forces_stay_within_the_spec_during_rollouts (test_run_env.RunEnvTest.test_actuator_forces_stay_within_the_spec_during_rollouts) ... skipped 'mujoco/gymnasium not installed'
+test_angular_momentum_parts (test_run_env.RunEnvTest.test_angular_momentum_parts) ... skipped 'mujoco/gymnasium not installed'
+test_ankle_clutch_lets_the_swing_foot_fold (test_run_env.RunEnvTest.test_ankle_clutch_lets_the_swing_foot_fold)
+Unclutched, the Achilles spring stops an airborne ankle near 88 deg (motor 22 N·m); clutched it folds. ... skipped 'mujoco/gymnasium not installed'
+test_balanced_start_and_body_contact_termination (test_run_env.RunEnvTest.test_balanced_start_and_body_contact_termination) ... skipped 'mujoco/gymnasium not installed'
+test_evaluation_starts_differ_by_init_seed (test_run_env.RunEnvTest.test_evaluation_starts_differ_by_init_seed)
+Deterministic evaluation episodes with different init_seed start from different states; None keeps the ... skipped 'mujoco/gymnasium not installed'
+test_force_range_follows_speed_and_power (test_run_env.RunEnvTest.test_force_range_follows_speed_and_power) ... skipped 'mujoco/gymnasium not installed'
+test_spaces_mass_and_springs (test_run_env.RunEnvTest.test_spaces_mass_and_springs) ... skipped 'mujoco/gymnasium not installed'
+test_structure_variants_contract (test_run_env.RunEnvTest.test_structure_variants_contract)
+Equal-condition structure comparison (2026-10-01): arch8 / arch12 with explicit part masses and the same motor ... skipped 'mujoco/gymnasium not installed'
+test_tail_lock_removes_the_tail_from_the_policy (test_run_env.RunEnvTest.test_tail_lock_removes_the_tail_from_the_policy) ... skipped 'mujoco/gymnasium not installed'
+test_unilateral_springs_have_a_dead_band (test_run_env.RunEnvTest.test_unilateral_springs_have_a_dead_band) ... skipped 'mujoco/gymnasium not installed'
+test_yaw_impulse_spins_the_body (test_run_env.RunEnvTest.test_yaw_impulse_spins_the_body) ... skipped 'mujoco/gymnasium not installed'
+test_invalid_joint_feedback (test_safety.SafetyTests.test_invalid_joint_feedback) ... ok
+test_invalid_text (test_safety.SafetyTests.test_invalid_text) ... ok
+test_model_cannot_inject_motor_values_or_code (test_safety.SafetyTests.test_model_cannot_inject_motor_values_or_code) ... ok
+test_passive_feedback_does_not_replace_active_joints (test_safety.SafetyTests.test_passive_feedback_does_not_replace_active_joints) ... ok
+test_pause_requires_explicit_resume (test_safety.SafetyTests.test_pause_requires_explicit_resume) ... ok
+test_stop_latches_and_cannot_be_resumed (test_safety.SafetyTests.test_stop_latches_and_cannot_be_resumed) ... ok
+test_unverified_navigation_is_rejected (test_safety.SafetyTests.test_unverified_navigation_is_rejected) ... ok
+test_twelve_actuators_same_mass_and_com (test_sim_contract.AnkleRollContractTest.test_twelve_actuators_same_mass_and_com) ... skipped 'mujoco not installed'
+test_same_actuators_and_mass (test_sim_contract.RockerSoleContractTest.test_same_actuators_and_mass) ... skipped 'mujoco not installed'
+test_exactly_ten_actuators_on_active_joints (test_sim_contract.SimContractTest.test_exactly_ten_actuators_on_active_joints) ... skipped 'mujoco not installed'
+test_joints_axes_limits_and_passive_springs (test_sim_contract.SimContractTest.test_joints_axes_limits_and_passive_springs) ... skipped 'mujoco not installed'
+test_mass_and_zero_pose_com (test_sim_contract.SimContractTest.test_mass_and_zero_pose_com) ... skipped 'mujoco not installed'
+test_chatter_does_not_split_stances (test_step_metrics.StepMetricsTests.test_chatter_does_not_split_stances) ... ok
+test_initial_unloaded_shorter_than_hold_is_not_touchdown (test_step_metrics.StepMetricsTests.test_initial_unloaded_shorter_than_hold_is_not_touchdown) ... ok
+test_short_spikes_do_not_create_touchdowns (test_step_metrics.StepMetricsTests.test_short_spikes_do_not_create_touchdowns) ... ok
+test_slip_and_summary (test_step_metrics.StepMetricsTests.test_slip_and_summary) ... ok
+test_touchdowns_and_steps (test_step_metrics.StepMetricsTests.test_touchdowns_and_steps) ... ok
+test_40kmh_uses_exact_actual_speed_threshold (test_structure_comparison.StructureComparisonTest.test_40kmh_uses_exact_actual_speed_threshold) ... ok
+test_complete_evaluations_are_preserved (test_structure_comparison.StructureComparisonTest.test_complete_evaluations_are_preserved) ... {"run": "run", "robust": "yaw", "rows": [{"episodes": 5, "falls": 0}, {"episodes": 5, "falls": 0, "impulse_nms": 0.5}, {"episodes": 5, "falls": 0, "impulse_nms": 1.0}, {"episodes": 5, "falls": 0, "impulse_nms": 1.5}]}
+{"run": "run", "robust": "pitch", "rows": [{"episodes": 5, "falls": 0}, {"episodes": 5, "falls": 0, "impulse_nms": 1.0}, {"episodes": 5, "falls": 0, "impulse_nms": 2.0}]}
+{"run": "run", "robust": "turn", "rows": [{"episodes": 5, "falls": 0}, {"episodes": 5, "falls": 0, "turn_cmd_rad_s": 0.5}, {"episodes": 5, "falls": 0, "turn_cmd_rad_s": 1.0}, {"episodes": 5, "falls": 0, "turn_cmd_rad_s": 1.5}]}
+ok
+test_display_rounding_cannot_override_failed_heat_verdict (test_structure_comparison.StructureComparisonTest.test_display_rounding_cannot_override_failed_heat_verdict) ... ok
+test_duplicate_cases_do_not_replace_missing_conditions (test_structure_comparison.StructureComparisonTest.test_duplicate_cases_do_not_replace_missing_conditions) ... ok
+test_every_start_must_pass_and_speed_uses_slowest_start (test_structure_comparison.StructureComparisonTest.test_every_start_must_pass_and_speed_uses_slowest_start) ... ok
+test_failed_subprocess_is_not_a_missing_display_cell (test_structure_comparison.StructureComparisonTest.test_failed_subprocess_is_not_a_missing_display_cell) ... ok
+test_fall_disqualifies_even_a_true_heat_flag (test_structure_comparison.StructureComparisonTest.test_fall_disqualifies_even_a_true_heat_flag) ... ok
+test_missing_cases_fail_even_when_exit_status_is_zero (test_structure_comparison.StructureComparisonTest.test_missing_cases_fail_even_when_exit_status_is_zero) ... ok
+test_actor_gradients_and_save_reload (test_symmetric_policy.SymmetricPolicyTest.test_actor_gradients_and_save_reload) ... skipped 'simulator dependencies unavailable'
+test_mean_and_noise_equivariance_and_probability_consistency (test_symmetric_policy.SymmetricPolicyTest.test_mean_and_noise_equivariance_and_probability_consistency) ... skipped 'simulator dependencies unavailable'
+test_invalid_scale_rejected (test_symmetric_rollout.RawAdapterTest.test_invalid_scale_rejected) ... skipped 'simulator dependencies unavailable'
+test_scale_changes_only_internal_raw_yaw_and_preserves_external_state (test_symmetric_rollout.RawAdapterTest.test_scale_changes_only_internal_raw_yaw_and_preserves_external_state) ... skipped 'simulator dependencies unavailable'
+test_command_timing_and_first_increment (test_turn_evaluation.TurnEvaluationTest.test_command_timing_and_first_increment) ... skipped 'simulator dependencies unavailable'
+test_fall_before_turn_completion_fails (test_turn_evaluation.TurnEvaluationTest.test_fall_before_turn_completion_fails) ... skipped 'simulator dependencies unavailable'
+test_raw_values_determine_boundary_for_both_directions (test_turn_evaluation.TurnEvaluationTest.test_raw_values_determine_boundary_for_both_directions) ... skipped 'simulator dependencies unavailable'
+test_turn_completed_at_last_evaluation_step_is_retained (test_turn_evaluation.TurnEvaluationTest.test_turn_completed_at_last_evaluation_step_is_retained) ... skipped 'simulator dependencies unavailable'
+test_turn_speed_interval_excludes_before_and_after_turn (test_turn_evaluation.TurnEvaluationTest.test_turn_speed_interval_excludes_before_and_after_turn) ... skipped 'simulator dependencies unavailable'
+test_correction_bound_preserves_feedforward_neighborhood (test_yaw_feedback.YawFeedbackTest.test_correction_bound_preserves_feedforward_neighborhood) ... ok
+test_correction_sign_filter_and_clamp (test_yaw_feedback.YawFeedbackTest.test_correction_sign_filter_and_clamp) ... ok
+test_disabled_and_zero_command_preserve_feedforward (test_yaw_feedback.YawFeedbackTest.test_disabled_and_zero_command_preserve_feedforward) ... ok
+test_heading_rate_with_banked_and_pitched_body (test_yaw_feedback.YawFeedbackTest.test_heading_rate_with_banked_and_pitched_body) ... ok
+test_nonfinite_and_invalid_values_rejected (test_yaw_feedback.YawFeedbackTest.test_nonfinite_and_invalid_values_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 123 tests in 0.138s
+
+OK (skipped=57)

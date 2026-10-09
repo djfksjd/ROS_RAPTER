@@ -1,0 +1,12 @@
+{
+  "status": "completed_diagnostic_next_optional_support_term_not_implemented",
+  "exit": 0,
+  "rollouts": 4,
+  "steps_per_rollout": 2150,
+  "files": {
+    "summary.json": "2be4989a5fafdbe6847af0aef6356a4174ae8a2dfde460322a63ccaf3e9c8916",
+    "README.md": "470fbaf00ce3cf8eef447e177580cee852ab306fefe3701495da8e5477420c02",
+    "probe.py": "dad645b10bf3b5ae73f3310602e0cad715fd1cc6ba8a98c81f6ae1b9b46930c9",
+    "raw.jsonl": "3aacd99ccaa70db0d1378f59ad869a0579e6f282af9a05b855f95c60d004ed7b"
+  }
+}

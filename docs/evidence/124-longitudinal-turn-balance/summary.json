@@ -1,0 +1,212 @@
+[
+  {
+    "yaw": -1.0,
+    "seed": 71001,
+    "mass": 11.291199999999998,
+    "fell": false,
+    "summary": {
+      "contact_longitudinal_impulse_Ns": 0.7662907638503449,
+      "contact_lateral_impulse_Ns": -55.8960479966199,
+      "forward_momentum_delta_Ns": -7.823597985017784,
+      "rotation_projection_Ns": -8.582921666046616,
+      "total_world_balance_residual_Ns": [
+        0.011744931901823234,
+        0.01715678836620965,
+        -0.004936860163986999
+      ],
+      "joints": [
+        {
+          "name": "left_hip_roll_joint",
+          "near_bound_fraction": 0.049,
+          "max_utilization": 1.0
+        },
+        {
+          "name": "left_hip_pitch_joint",
+          "near_bound_fraction": 0.016,
+          "max_utilization": 1.0
+        },
+        {
+          "name": "left_knee_pitch_joint",
+          "near_bound_fraction": 0.0815,
+          "max_utilization": 1.0
+        },
+        {
+          "name": "right_hip_roll_joint",
+          "near_bound_fraction": 0.0675,
+          "max_utilization": 1.0
+        },
+        {
+          "name": "right_hip_pitch_joint",
+          "near_bound_fraction": 0.0,
+          "max_utilization": 0.6310890646027776
+        },
+        {
+          "name": "right_knee_pitch_joint",
+          "near_bound_fraction": 0.0825,
+          "max_utilization": 1.0
+        },
+        {
+          "name": "tail_yaw_joint",
+          "near_bound_fraction": 0.0,
+          "max_utilization": 0.34018477320321
+        },
+        {
+          "name": "tail_pitch_joint",
+          "near_bound_fraction": 0.006,
+          "max_utilization": 1.0
+        }
+      ]
+    },
+    "com_horizontal_speed_start": 3.7698450836460506,
+    "com_horizontal_speed_end": 3.2744506392752295,
+    "com_forward_end": 3.075798665150244,
+    "com_lateral_end": 1.1231605230375297,
+    "slip_angle_end_deg": 20.06020225921419,
+    "work": {
+      "longitudinal_com_work_J": 2.485341619220412,
+      "lateral_com_work_J": -22.172283918963224,
+      "delta_com_horizontal_kinetic_J": -19.7014783540191
+    },
+    "work_balance_error_J": -0.01453605427628446
+  },
+  {
+    "yaw": 0.0,
+    "seed": 71001,
+    "mass": 11.291199999999998,
+    "fell": false,
+    "summary": {
+      "contact_longitudinal_impulse_Ns": -0.1586880465891284,
+      "contact_lateral_impulse_Ns": 0.6309407917064985,
+      "forward_momentum_delta_Ns": -0.11306894531576006,
+      "rotation_projection_Ns": 0.04107867989985092,
+      "total_world_balance_residual_Ns": [
+        0.004389189302124885,
+        0.0006500248374687672,
+        -0.02083829073222121
+      ],
+      "joints": [
+        {
+          "name": "left_hip_roll_joint",
+          "near_bound_fraction": 0.0555,
+          "max_utilization": 1.0
+        },
+        {
+          "name": "left_hip_pitch_joint",
+          "near_bound_fraction": 0.0,
+          "max_utilization": 0.6865416398026698
+        },
+        {
+          "name": "left_knee_pitch_joint",
+          "near_bound_fraction": 0.0925,
+          "max_utilization": 1.0
+        },
+        {
+          "name": "right_hip_roll_joint",
+          "near_bound_fraction": 0.0455,
+          "max_utilization": 1.0
+        },
+        {
+          "name": "right_hip_pitch_joint",
+          "near_bound_fraction": 0.0,
+          "max_utilization": 0.8254585392137297
+        },
+        {
+          "name": "right_knee_pitch_joint",
+          "near_bound_fraction": 0.074,
+          "max_utilization": 1.0
+        },
+        {
+          "name": "tail_yaw_joint",
+          "near_bound_fraction": 0.0,
+          "max_utilization": 0.140464796782646
+        },
+        {
+          "name": "tail_pitch_joint",
+          "near_bound_fraction": 0.0,
+          "max_utilization": 0.44249773962582883
+        }
+      ]
+    },
+    "com_horizontal_speed_start": 3.7698450836460506,
+    "com_horizontal_speed_end": 3.7589863149705054,
+    "com_forward_end": 3.7586781677453645,
+    "com_lateral_end": 0.04813052513621186,
+    "slip_angle_end_deg": 0.7336422859784459,
+    "work": {
+      "longitudinal_com_work_J": -0.6013706190805691,
+      "lateral_com_work_J": 0.12244966110220577,
+      "delta_com_horizontal_kinetic_J": -0.4615494709447258
+    },
+    "work_balance_error_J": 0.017371487033637514
+  },
+  {
+    "yaw": 1.0,
+    "seed": 71001,
+    "mass": 11.291199999999998,
+    "fell": false,
+    "summary": {
+      "contact_longitudinal_impulse_Ns": 3.6503343233931815,
+      "contact_lateral_impulse_Ns": 65.31914868969308,
+      "forward_momentum_delta_Ns": -7.006408524638601,
+      "rotation_projection_Ns": -10.657888370920137,
+      "total_world_balance_residual_Ns": [
+        0.0008683318165559652,
+        -0.011179165302417606,
+        -0.0033391898870765192
+      ],
+      "joints": [
+        {
+          "name": "left_hip_roll_joint",
+          "near_bound_fraction": 0.0905,
+          "max_utilization": 1.0
+        },
+        {
+          "name": "left_hip_pitch_joint",
+          "near_bound_fraction": 0.0,
+          "max_utilization": 0.7740007518637709
+        },
+        {
+          "name": "left_knee_pitch_joint",
+          "near_bound_fraction": 0.142,
+          "max_utilization": 1.0
+        },
+        {
+          "name": "right_hip_roll_joint",
+          "near_bound_fraction": 0.072,
+          "max_utilization": 1.0
+        },
+        {
+          "name": "right_hip_pitch_joint",
+          "near_bound_fraction": 0.013,
+          "max_utilization": 1.0
+        },
+        {
+          "name": "right_knee_pitch_joint",
+          "near_bound_fraction": 0.064,
+          "max_utilization": 1.0
+        },
+        {
+          "name": "tail_yaw_joint",
+          "near_bound_fraction": 0.0,
+          "max_utilization": 0.2962234258963035
+        },
+        {
+          "name": "tail_pitch_joint",
+          "near_bound_fraction": 0.0,
+          "max_utilization": 0.5358325930475881
+        }
+      ]
+    },
+    "com_horizontal_speed_start": 3.7698450836460506,
+    "com_horizontal_speed_end": 3.2318231764292644,
+    "com_forward_end": 3.1481726785747854,
+    "com_lateral_end": -0.7305407788622061,
+    "slip_angle_end_deg": -13.064395744625612,
+    "work": {
+      "longitudinal_com_work_J": 12.206855969292311,
+      "lateral_com_work_J": -33.477680686922845,
+      "delta_com_horizontal_kinetic_J": -21.267262623056688
+    },
+    "work_balance_error_J": 0.0035620945738443766
+  }
+]

@@ -1,0 +1,33 @@
+{
+  "equal_arrays": {
+    "body_mass": true,
+    "body_inertia": true,
+    "body_pos": true,
+    "jnt_pos": true,
+    "jnt_axis": true,
+    "jnt_range": true,
+    "geom_size": true,
+    "geom_pos": true,
+    "geom_friction": true,
+    "actuator_gainprm": true,
+    "actuator_biasprm": true,
+    "actuator_ctrlrange": true,
+    "tendon_lengthspring": true,
+    "qpos": true,
+    "qvel": true,
+    "ctrl": true
+  },
+  "changed_stiffness": [
+    {
+      "name": "spring_left_knee_pitch",
+      "control": 168.97042253521127,
+      "disabled": 0.0
+    },
+    {
+      "name": "spring_right_knee_pitch",
+      "control": 168.97042253521127,
+      "disabled": 0.0
+    }
+  ],
+  "previous_assertion_failure": "expected unscaled170; actual stiffness168.97042253521127 after existing mass scaling"
+}

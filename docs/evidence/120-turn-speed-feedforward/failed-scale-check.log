@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/tmp/raptor_turn_speed_feedforward.py", line 26, in <module>
+    result=episode(Adapter(model,offset),norm,env,[4.,0.,0.],10.,turn=(yaw,4.,2.) if yaw is not None else None)
+  File "/Users/danny/개발 모음 폴더/raptor/sim/rl/evaluate_run.py", line 57, in episode
+    action, _ = model.predict(obs, deterministic=True)
+                ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/raptor_turn_speed_feedforward.py", line 15, in predict
+    assert np.all(obs[mask,6]==4.)
+           ~~~~~~^^^^^^^^^^^^^^^^^
+AssertionError

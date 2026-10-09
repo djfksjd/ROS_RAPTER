@@ -1,0 +1,17 @@
+{
+  "pid": 89696,
+  "session_id": 14690,
+  "initial_steps": 10330112,
+  "latest_logged_steps": 10596352,
+  "additional_logged_steps": 266240,
+  "target_additional_steps": 500000,
+  "completion_file_exists": false,
+  "log_iterations": 65,
+  "current_training_metrics": {
+    "time/fps": "1075",
+    "rollout/ep_len_mean": "652.87",
+    "rollout/ep_rew_mean": "93.30781555175781",
+    "train/std": "0.08064188063144684"
+  },
+  "not_an_evaluation": true
+}

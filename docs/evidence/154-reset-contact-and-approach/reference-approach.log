@@ -1,0 +1,4 @@
+{'mode': 'reference_approach', 'telemetry': True, 'seed': 83001, 'local_entry_time': 0.16, 'seconds': 0.64, 'fell': True, 'catalogue_pass': False}
+{'mode': 'reference_approach', 'telemetry': True, 'seed': 83002, 'local_entry_time': 0.14, 'seconds': 0.78, 'fell': True, 'catalogue_pass': False}
+{'mode': 'reference_approach', 'telemetry': True, 'seed': 83003, 'local_entry_time': 0.16, 'seconds': 0.4, 'fell': True, 'catalogue_pass': False}
+{'mode': 'reference_approach', 'telemetry': True, 'seed': 83004, 'local_entry_time': 0.14, 'seconds': 0.74, 'fell': True, 'catalogue_pass': False}

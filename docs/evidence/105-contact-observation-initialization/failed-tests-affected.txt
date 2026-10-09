@@ -1,0 +1,49 @@
+test_flags_append_without_changing_physics_or_old_features (tests.test_contact_observation.ContactObservationTest.test_flags_append_without_changing_physics_or_old_features) ... ok
+test_policy_adam_transfer_gradients_and_saved_restore (tests.test_contact_observation.ContactObservationTest.test_policy_adam_transfer_gradients_and_saved_restore) ... ok
+test_reflection_swaps_flags_without_flipping_their_sign (tests.test_contact_observation.ContactObservationTest.test_reflection_swaps_flags_without_flipping_their_sign) ... ok
+test_actuator_forces_stay_within_the_spec_during_rollouts (tests.test_run_env.RunEnvTest.test_actuator_forces_stay_within_the_spec_during_rollouts) ... ok
+test_angular_momentum_parts (tests.test_run_env.RunEnvTest.test_angular_momentum_parts) ... ok
+test_ankle_clutch_lets_the_swing_foot_fold (tests.test_run_env.RunEnvTest.test_ankle_clutch_lets_the_swing_foot_fold)
+Unclutched, the Achilles spring stops an airborne ankle near 88 deg (motor 22 N·m); clutched it folds. ... ok
+test_balanced_start_and_body_contact_termination (tests.test_run_env.RunEnvTest.test_balanced_start_and_body_contact_termination) ... ok
+test_evaluation_starts_differ_by_init_seed (tests.test_run_env.RunEnvTest.test_evaluation_starts_differ_by_init_seed)
+Deterministic evaluation episodes with different init_seed start from different states; None keeps the ... ok
+test_force_range_follows_speed_and_power (tests.test_run_env.RunEnvTest.test_force_range_follows_speed_and_power) ... ok
+test_spaces_mass_and_springs (tests.test_run_env.RunEnvTest.test_spaces_mass_and_springs) ... ok
+test_structure_variants_contract (tests.test_run_env.RunEnvTest.test_structure_variants_contract)
+Equal-condition structure comparison (2026-10-01): arch8 / arch12 with explicit part masses and the same motor ... ok
+test_tail_lock_removes_the_tail_from_the_policy (tests.test_run_env.RunEnvTest.test_tail_lock_removes_the_tail_from_the_policy) ... ok
+test_unilateral_springs_have_a_dead_band (tests.test_run_env.RunEnvTest.test_unilateral_springs_have_a_dead_band) ... ok
+test_yaw_impulse_spins_the_body (tests.test_run_env.RunEnvTest.test_yaw_impulse_spins_the_body) ... ok
+test_control_retains_random_commands_and_matched_horizon (tests.test_command_sequence.CommandSequenceTest.test_control_retains_random_commands_and_matched_horizon) ... ok
+test_reset_true_stand_and_returned_observation_current_command (tests.test_command_sequence.CommandSequenceTest.test_reset_true_stand_and_returned_observation_current_command) ... ok
+test_turn_and_stop_boundaries_and_actual_zero_commands (tests.test_command_sequence.CommandSequenceTest.test_turn_and_stop_boundaries_and_actual_zero_commands) ... ok
+test_actor_gradients_and_save_reload (tests.test_symmetric_policy.SymmetricPolicyTest.test_actor_gradients_and_save_reload) ... ok
+test_mean_and_noise_equivariance_and_probability_consistency (tests.test_symmetric_policy.SymmetricPolicyTest.test_mean_and_noise_equivariance_and_probability_consistency) ... ok
+test_averaged_policy_equivariance_with_asymmetric_normalization (tests.test_mirror_probe.ReflectionTest.test_averaged_policy_equivariance_with_asymmetric_normalization) ... ok
+test_invalid_mappings_and_dimensions_rejected (tests.test_mirror_probe.ReflectionTest.test_invalid_mappings_and_dimensions_rejected) ... ok
+test_involution_and_input_preservation (tests.test_mirror_probe.ReflectionTest.test_involution_and_input_preservation) ... ok
+test_vectors_clock_and_absolute_joint_positions (tests.test_mirror_probe.ReflectionTest.test_vectors_clock_and_absolute_joint_positions) ... ok
+test_invalid_scale_rejected (tests.test_symmetric_rollout.RawAdapterTest.test_invalid_scale_rejected) ... ok
+test_scale_changes_only_internal_raw_yaw_and_preserves_external_state (tests.test_symmetric_rollout.RawAdapterTest.test_scale_changes_only_internal_raw_yaw_and_preserves_external_state) ... ERROR
+test_command_timing_and_first_increment (tests.test_turn_evaluation.TurnEvaluationTest.test_command_timing_and_first_increment) ... ok
+test_fall_before_turn_completion_fails (tests.test_turn_evaluation.TurnEvaluationTest.test_fall_before_turn_completion_fails) ... ok
+test_raw_values_determine_boundary_for_both_directions (tests.test_turn_evaluation.TurnEvaluationTest.test_raw_values_determine_boundary_for_both_directions) ... ok
+test_turn_completed_at_last_evaluation_step_is_retained (tests.test_turn_evaluation.TurnEvaluationTest.test_turn_completed_at_last_evaluation_step_is_retained) ... ok
+test_turn_speed_interval_excludes_before_and_after_turn (tests.test_turn_evaluation.TurnEvaluationTest.test_turn_speed_interval_excludes_before_and_after_turn) ... ok
+
+======================================================================
+ERROR: test_scale_changes_only_internal_raw_yaw_and_preserves_external_state (tests.test_symmetric_rollout.RawAdapterTest.test_scale_changes_only_internal_raw_yaw_and_preserves_external_state)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/danny/개발 모음 폴더/raptor/tests/test_symmetric_rollout.py", line 25, in test_scale_changes_only_internal_raw_yaw_and_preserves_external_state
+    adapter=RawPolicyAdapter(None,None,env,6.)
+  File "/Users/danny/개발 모음 폴더/raptor/sim/rl/symmetric_rollout.py", line 28, in __init__
+    self.reflection = ObservationReflection(env.active, env.policy_idx, env.q0, env.obs_vel,env.obs_contact)
+                                                                                            ^^^^^^^^^^^^^^^
+AttributeError: 'Env' object has no attribute 'obs_contact'
+
+----------------------------------------------------------------------
+Ran 30 tests in 0.797s
+
+FAILED (errors=1)

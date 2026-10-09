@@ -1,0 +1,12 @@
+{
+  "process_handle": 68223,
+  "status": "confirmed_running",
+  "latest_logged_steps": 139264,
+  "adopted": false,
+  "goal_status": "active",
+  "code_hashes": {
+    "stand_env.py": "9d91e40b2fea754b21fecd7660bb27e116ab41f481cc928a0486b686e63a8d37",
+    "train_stand.py": "8f456e3229b8859f83827adb4bac5434a7fc951e2c5c6d87b0deb0b321a6f7be",
+    "evaluate_stand.py": "d83a72c5c1403f85f2f159160a92162340ed18fe85d3989c415bf96ee88cacf7"
+  }
+}

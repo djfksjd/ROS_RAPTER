@@ -1,0 +1,37 @@
+{
+  "status": "initialization_verified_controlled_training_started",
+  "files": {
+    "docs/evidence/105-contact-observation-initialization/README.md": "3a4c5c146a43a63a3226a1848623a853aa07471285fddc5da6e5eab9d6afee6b",
+    "docs/evidence/105-contact-observation-initialization/initial-rollout-parity.json": "2ebc033883d8376dc68d71df0eeffe1a8795b0606a7f4970b20b2d849a6e5f47",
+    "docs/evidence/105-contact-observation-initialization/initial_rollout_parity.py": "5b9e38c0a1c3d04176cf39060a01f3c3b3c36d9cf0d41a8672a44424524fbc6e",
+    "docs/evidence/105-contact-observation-initialization/failed-tests-affected.txt": "fead8bf937d573ef27d45906c634240154c16f55426f6e68af72312128250dae",
+    "sim/rl/train_contact_observation.py": "32c56b9211e01b2c98933007d7a2eff1d44382057c48193996e5544727bbb110",
+    "sim/rl/run_env.py": "dfbcbbeb3a95c45536ca87e92a29979fd9d5012020013752f6672a3f44ab8a7a",
+    "sim/rl/train_run.py": "5eecd952387873dc56bdf31c9a0bd2c885d578a8d715646faa7c357b3c4cf58b",
+    "sim/rl/mirror_probe.py": "39adfd96e29a255dc49940190a9f0fc0eb22b948821bae8431f6b75cfb5757c1",
+    "sim/rl/symmetric_policy.py": "eb155748083fec27081a86bb6a579cd596a2689b264f907399aea6162313e54e",
+    "sim/rl/symmetric_rollout.py": "df89a737fd4b1ea2307547395af0aba3f6b6c094a9e34cf0680da7369b13cf9d",
+    "tests/test_contact_observation.py": "e82dc4002f96105a73e7783eb2b458f8258b648ffb7a72850be593fd51606117",
+    "sim/rl/runs/contact_obs_init_control_20261009/model.zip": "47fe971ba609b86a3a69f714e3abe8d657dc4b5b5f44414ff58c74ad04947ff2",
+    "sim/rl/runs/contact_obs_init_control_20261009/vecnorm.pkl": "f17a35f9ca8ef2232210e66655bbac584e4d7b1163f79d9ceaecfcd7149e31d5",
+    "sim/rl/runs/contact_obs_init_control_20261009/args.json": "f181ddf8c614cc191bf099d78fc588c2539d4267f911bbf468e214a25dd567bb",
+    "sim/rl/runs/contact_obs_init_control_20261009/completion.json": "06e9a8d1beffe1f8d20cef275fd8bc32a4a99b4b6ab7e28da8227b648f4d4cb5",
+    "sim/rl/runs/contact_obs_init_contact_20261009/model.zip": "0119b1d367a3d2442c43651168138f030cbd106ee81c5d297c24aa7b2ba23830",
+    "sim/rl/runs/contact_obs_init_contact_20261009/vecnorm.pkl": "94996951bbadbd0868a3c03595df338864e7314313919b6f6943b97e4cdd7497",
+    "sim/rl/runs/contact_obs_init_contact_20261009/args.json": "ae340a5a0e272c0ce78aac38370c640f3dd266260a52cbe79181c63909c86a7e",
+    "sim/rl/runs/contact_obs_init_contact_20261009/completion.json": "06e9a8d1beffe1f8d20cef275fd8bc32a4a99b4b6ab7e28da8227b648f4d4cb5",
+    "docs/evidence/105-contact-observation-initialization/tests-all.txt": "fce9246df4d5a3c1bd573cbffc57208b5ae1ef9c9b3bee05ca67c8cc80c0dc1d",
+    "docs/evidence/105-contact-observation-initialization/tests-sim-affected.txt": "2a0f4950c25b4b6d2044a0aecaeae6743b717036fc23c346ca6b615222a7c18e",
+    "docs/evidence/105-contact-observation-initialization/parameter-transfer.json": "95554cf3b2a973f8fcfdd308275288efb80eb8f7e1b772a31da2411d8106bff9"
+  },
+  "sessions": {
+    "control": 27940,
+    "contact": 59931
+  },
+  "midpoint_sessions": {
+    "control_eval": 16974,
+    "contact_eval": 51195,
+    "motion": 50228
+  },
+  "midpoint_step": 11587728
+}

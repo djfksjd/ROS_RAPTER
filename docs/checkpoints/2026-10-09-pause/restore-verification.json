@@ -1,0 +1,9 @@
+{
+  "isolated_empty_root_restore": true,
+  "outputs": [
+    "Verified 12 artifacts; missing 12 applied False",
+    "Verified 12 artifacts; missing 12 applied True",
+    "Verified 12 artifacts; missing 0 applied False"
+  ],
+  "existing_local_artifacts_unchanged": true
+}

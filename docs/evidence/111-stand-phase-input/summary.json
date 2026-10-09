@@ -1,0 +1,97 @@
+[
+  {
+    "run": "sim/rl/runs/stand_support_control_20261009",
+    "seed": 59001,
+    "fixed_observation_phase": null,
+    "physical_phase_unmodified": true,
+    "fell": false,
+    "summary": {
+      "completed": true,
+      "pass_gate": false,
+      "stand": {
+        "pass_gate": false,
+        "samples": 3000,
+        "max_displacement_m": 1.1561090741454796,
+        "max_tilt_rad": 0.1896236679862623,
+        "flight_samples": 60
+      }
+    },
+    "seconds": 60.0
+  },
+  {
+    "run": "sim/rl/runs/stand_support_control_20261009",
+    "seed": 59001,
+    "fixed_observation_phase": 0.0,
+    "physical_phase_unmodified": true,
+    "fell": true,
+    "summary": {
+      "completed": false,
+      "pass_gate": false,
+      "stand": {
+        "pass_gate": false,
+        "samples": 46,
+        "max_displacement_m": 0.8057024709137619,
+        "max_tilt_rad": 0.5974603258533993,
+        "flight_samples": 5
+      }
+    },
+    "seconds": 0.92
+  },
+  {
+    "run": "sim/rl/runs/stand_support_control_20261009",
+    "seed": 59001,
+    "fixed_observation_phase": 0.25,
+    "physical_phase_unmodified": true,
+    "fell": true,
+    "summary": {
+      "completed": false,
+      "pass_gate": false,
+      "stand": {
+        "pass_gate": false,
+        "samples": 52,
+        "max_displacement_m": 0.8023225839272767,
+        "max_tilt_rad": 0.8331105123847979,
+        "flight_samples": 4
+      }
+    },
+    "seconds": 1.04
+  },
+  {
+    "run": "sim/rl/runs/stand_support_control_20261009",
+    "seed": 59001,
+    "fixed_observation_phase": 0.5,
+    "physical_phase_unmodified": true,
+    "fell": true,
+    "summary": {
+      "completed": false,
+      "pass_gate": false,
+      "stand": {
+        "pass_gate": false,
+        "samples": 45,
+        "max_displacement_m": 0.8007131583158472,
+        "max_tilt_rad": 0.6091282569273743,
+        "flight_samples": 2
+      }
+    },
+    "seconds": 0.9
+  },
+  {
+    "run": "sim/rl/runs/stand_support_control_20261009",
+    "seed": 59001,
+    "fixed_observation_phase": 0.75,
+    "physical_phase_unmodified": true,
+    "fell": true,
+    "summary": {
+      "completed": false,
+      "pass_gate": false,
+      "stand": {
+        "pass_gate": false,
+        "samples": 53,
+        "max_displacement_m": 0.7964759925824347,
+        "max_tilt_rad": 0.8351904416480795,
+        "flight_samples": 7
+      }
+    },
+    "seconds": 1.06
+  }
+]

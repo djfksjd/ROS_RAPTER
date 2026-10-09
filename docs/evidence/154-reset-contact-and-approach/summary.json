@@ -1,0 +1,327 @@
+{
+  "telemetry_off_on_exact": true,
+  "original_all_actions_match_153": true,
+  "original_trials": 4,
+  "original_falls": 4,
+  "dependent_projection_falls": 4,
+  "contact_initialized_falls": 4,
+  "reference_approach_falls": 4,
+  "catalogue_pass": false,
+  "rows": [
+    {
+      "mode": "original",
+      "seed": 83001,
+      "seconds": 0.8200000000000001,
+      "initial_max_equality_residual_rad": 0.054517870443361094,
+      "initial_knee_passive_torque_Nm": [
+        -77.48681834445044,
+        -83.70894664842106
+      ],
+      "initial_vx": 0.06280517530155683,
+      "peak_ground_force_BW_first200ms": 4.629854228934437,
+      "first_step_knee_passive_torque_Nm": [
+        -77.48681834445044,
+        -83.70894664842106
+      ],
+      "local_entry_time": null
+    },
+    {
+      "mode": "original",
+      "seed": 83002,
+      "seconds": 0.78,
+      "initial_max_equality_residual_rad": 0.01908905194743927,
+      "initial_knee_passive_torque_Nm": [
+        -85.91849017846293,
+        -85.98382484874205
+      ],
+      "initial_vx": 0.00597327570444478,
+      "peak_ground_force_BW_first200ms": 5.001753178568485,
+      "first_step_knee_passive_torque_Nm": [
+        -85.91849017846293,
+        -85.98382484874205
+      ],
+      "local_entry_time": null
+    },
+    {
+      "mode": "original",
+      "seed": 83003,
+      "seconds": 0.8200000000000001,
+      "initial_max_equality_residual_rad": 0.04156726520886944,
+      "initial_knee_passive_torque_Nm": [
+        -93.37025457980774,
+        -85.48605047239644
+      ],
+      "initial_vx": 0.0750586313929637,
+      "peak_ground_force_BW_first200ms": 5.224802458470715,
+      "first_step_knee_passive_torque_Nm": [
+        -93.37025457980774,
+        -85.48605047239644
+      ],
+      "local_entry_time": null
+    },
+    {
+      "mode": "original",
+      "seed": 83004,
+      "seconds": 0.64,
+      "initial_max_equality_residual_rad": 0.036744623557133815,
+      "initial_knee_passive_torque_Nm": [
+        -89.1865273310848,
+        -87.88204802179575
+      ],
+      "initial_vx": 0.2503575866401893,
+      "peak_ground_force_BW_first200ms": 5.18639748428355,
+      "first_step_knee_passive_torque_Nm": [
+        -89.1865273310848,
+        -87.88204802179575
+      ],
+      "local_entry_time": null
+    },
+    {
+      "mode": "dependent_projected",
+      "seed": 83001,
+      "seconds": 0.6,
+      "initial_max_equality_residual_rad": 0.0,
+      "initial_knee_passive_torque_Nm": [
+        -77.48681834445044,
+        -83.70894664842106
+      ],
+      "initial_vx": 0.06280517530155683,
+      "peak_ground_force_BW_first200ms": 4.773004360219254,
+      "first_step_knee_passive_torque_Nm": [
+        -77.48681834445044,
+        -83.70894664842106
+      ],
+      "local_entry_time": null
+    },
+    {
+      "mode": "dependent_projected",
+      "seed": 83002,
+      "seconds": 0.78,
+      "initial_max_equality_residual_rad": 0.0,
+      "initial_knee_passive_torque_Nm": [
+        -85.91849017846293,
+        -85.98382484874205
+      ],
+      "initial_vx": 0.00597327570444478,
+      "peak_ground_force_BW_first200ms": 4.937022472274784,
+      "first_step_knee_passive_torque_Nm": [
+        -85.91849017846293,
+        -85.98382484874205
+      ],
+      "local_entry_time": null
+    },
+    {
+      "mode": "dependent_projected",
+      "seed": 83003,
+      "seconds": 0.92,
+      "initial_max_equality_residual_rad": 0.0,
+      "initial_knee_passive_torque_Nm": [
+        -93.37025457980774,
+        -85.48605047239644
+      ],
+      "initial_vx": 0.0750586313929637,
+      "peak_ground_force_BW_first200ms": 5.083830473812526,
+      "first_step_knee_passive_torque_Nm": [
+        -93.37025457980774,
+        -85.48605047239644
+      ],
+      "local_entry_time": null
+    },
+    {
+      "mode": "dependent_projected",
+      "seed": 83004,
+      "seconds": 1.02,
+      "initial_max_equality_residual_rad": 0.0,
+      "initial_knee_passive_torque_Nm": [
+        -89.1865273310848,
+        -87.88204802179575
+      ],
+      "initial_vx": 0.2503575866401893,
+      "peak_ground_force_BW_first200ms": 5.47748199351946,
+      "first_step_knee_passive_torque_Nm": [
+        -89.1865273310848,
+        -87.88204802179575
+      ],
+      "local_entry_time": null
+    },
+    {
+      "mode": "contact_initialized",
+      "seed": 83001,
+      "seconds": 0.56,
+      "initial_max_equality_residual_rad": 0.054517870443361094,
+      "initial_knee_passive_torque_Nm": [
+        0.0,
+        0.0
+      ],
+      "initial_vx": 0.06280517530155683,
+      "peak_ground_force_BW_first200ms": 6.170355142492209,
+      "first_step_knee_passive_torque_Nm": [
+        0.0,
+        0.0
+      ],
+      "local_entry_time": null
+    },
+    {
+      "mode": "contact_initialized",
+      "seed": 83002,
+      "seconds": 1.28,
+      "initial_max_equality_residual_rad": 0.01908905194743927,
+      "initial_knee_passive_torque_Nm": [
+        0.0,
+        0.0
+      ],
+      "initial_vx": 0.00597327570444478,
+      "peak_ground_force_BW_first200ms": 6.527553961843701,
+      "first_step_knee_passive_torque_Nm": [
+        0.0,
+        0.0
+      ],
+      "local_entry_time": null
+    },
+    {
+      "mode": "contact_initialized",
+      "seed": 83003,
+      "seconds": 0.66,
+      "initial_max_equality_residual_rad": 0.04156726520886944,
+      "initial_knee_passive_torque_Nm": [
+        0.0,
+        0.0
+      ],
+      "initial_vx": 0.0750586313929637,
+      "peak_ground_force_BW_first200ms": 6.136186567397373,
+      "first_step_knee_passive_torque_Nm": [
+        0.0,
+        0.0
+      ],
+      "local_entry_time": null
+    },
+    {
+      "mode": "contact_initialized",
+      "seed": 83004,
+      "seconds": 0.56,
+      "initial_max_equality_residual_rad": 0.036744623557133815,
+      "initial_knee_passive_torque_Nm": [
+        0.0,
+        0.0
+      ],
+      "initial_vx": 0.2503575866401893,
+      "peak_ground_force_BW_first200ms": 6.594058780791014,
+      "first_step_knee_passive_torque_Nm": [
+        0.0,
+        0.0
+      ],
+      "local_entry_time": null
+    },
+    {
+      "mode": "reference_approach",
+      "seed": 83001,
+      "seconds": 0.64,
+      "initial_max_equality_residual_rad": 0.054517870443361094,
+      "initial_knee_passive_torque_Nm": [
+        -77.48681834445044,
+        -83.70894664842106
+      ],
+      "initial_vx": 0.06280517530155683,
+      "peak_ground_force_BW_first200ms": 4.579883091945344,
+      "first_step_knee_passive_torque_Nm": [
+        -77.48681834445044,
+        -83.70894664842106
+      ],
+      "local_entry_time": 0.16,
+      "entry_max_passive_toe_position_error_rad": 0.07761840467172312,
+      "entry_max_passive_toe_speed_rad_s": 0.02516905324590589,
+      "entry_flight": true,
+      "entry_ground_vertical_force_N": 0.0
+    },
+    {
+      "mode": "reference_approach",
+      "seed": 83002,
+      "seconds": 0.78,
+      "initial_max_equality_residual_rad": 0.01908905194743927,
+      "initial_knee_passive_torque_Nm": [
+        -85.91849017846293,
+        -85.98382484874205
+      ],
+      "initial_vx": 0.00597327570444478,
+      "peak_ground_force_BW_first200ms": 5.091352975975701,
+      "first_step_knee_passive_torque_Nm": [
+        -85.91849017846293,
+        -85.98382484874205
+      ],
+      "local_entry_time": 0.14,
+      "entry_max_passive_toe_position_error_rad": 0.0775327195571402,
+      "entry_max_passive_toe_speed_rad_s": 0.04596727953443537,
+      "entry_flight": true,
+      "entry_ground_vertical_force_N": 0.0
+    },
+    {
+      "mode": "reference_approach",
+      "seed": 83003,
+      "seconds": 0.4,
+      "initial_max_equality_residual_rad": 0.04156726520886944,
+      "initial_knee_passive_torque_Nm": [
+        -93.37025457980774,
+        -85.48605047239644
+      ],
+      "initial_vx": 0.0750586313929637,
+      "peak_ground_force_BW_first200ms": 5.232467671201966,
+      "first_step_knee_passive_torque_Nm": [
+        -93.37025457980774,
+        -85.48605047239644
+      ],
+      "local_entry_time": 0.16,
+      "entry_max_passive_toe_position_error_rad": 0.07762607783116911,
+      "entry_max_passive_toe_speed_rad_s": 0.030807530377781788,
+      "entry_flight": true,
+      "entry_ground_vertical_force_N": 0.0
+    },
+    {
+      "mode": "reference_approach",
+      "seed": 83004,
+      "seconds": 0.74,
+      "initial_max_equality_residual_rad": 0.036744623557133815,
+      "initial_knee_passive_torque_Nm": [
+        -89.1865273310848,
+        -87.88204802179575
+      ],
+      "initial_vx": 0.2503575866401893,
+      "peak_ground_force_BW_first200ms": 5.197807196564929,
+      "first_step_knee_passive_torque_Nm": [
+        -89.1865273310848,
+        -87.88204802179575
+      ],
+      "local_entry_time": 0.14,
+      "entry_max_passive_toe_position_error_rad": 0.07754610329216623,
+      "entry_max_passive_toe_speed_rad_s": 0.07784853187879477,
+      "entry_flight": true,
+      "entry_ground_vertical_force_N": 0.0
+    }
+  ],
+  "contact_gated_approach_falls": 4,
+  "contact_gated_approach": [
+    {
+      "seed": 83001,
+      "seconds": 0.44,
+      "local_entry_time": 0.32,
+      "fell": true
+    },
+    {
+      "seed": 83002,
+      "seconds": 0.8,
+      "local_entry_time": null,
+      "fell": true
+    },
+    {
+      "seed": 83003,
+      "seconds": 0.86,
+      "local_entry_time": null,
+      "fell": true
+    },
+    {
+      "seed": 83004,
+      "seconds": 0.76,
+      "local_entry_time": null,
+      "fell": true
+    }
+  ]
+}

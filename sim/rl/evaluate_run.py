@@ -35,27 +35,36 @@ def episode(model, venv, env, command, seconds, lock_tail=False, impulse=None, f
     fell, applied, recovered_at, settle = False, False, None, 0
     base_w, base_tilt = [], []
     yaw = lambda: float(np.arctan2(env.data.xmat[env.base][3], env.data.xmat[env.base][0]))
+    turn_interval_vx = []
     turn_log = {'yaw0': None, 'yaw1': None, 'min_vx': None, 'max_tilt': 0., 'acc': 0., 'prev': None}
     path, prev = 0., env.data.xpos[env.base][:2].copy()
     for _ in range(int(seconds/.02)):
         if impulse and not applied and env.data.time >= impulse[2]:
             env.apply_impulse(impulse[0], impulse[1])
             applied = True
+        in_turn = False
         if turn:
-            t = env.data.time
+            t = round(float(env.data.time), 12)
             if t >= turn[1] and turn_log['yaw0'] is None:
                 turn_log['yaw0'] = yaw()
+                turn_log['prev'] = turn_log['yaw0']
             in_turn = turn[1] <= t < turn[1]+turn[2]
             env.command[2] = turn[0] if in_turn else 0.
             if turn_log['yaw0'] is not None and turn_log['yaw1'] is None and t >= turn[1]+turn[2]:
                 turn_log['yaw1'] = yaw()
+            # The command changed after the preceding observation was captured.
+            obs = venv.normalize_obs(env._obs()[None])
         action, _ = model.predict(obs, deterministic=True)
         raw, _, term, trunc, info = env.step(action[0])
+        if in_turn:
+            turn_interval_vx.append(float(info['v_body'][0]))
         if turn and turn_log['yaw0'] is not None and turn_log['yaw1'] is None:  # unwrapped heading change
             y = yaw()
             if turn_log['prev'] is not None:
                 turn_log['acc'] += float(np.angle(np.exp(1j*(y-turn_log['prev']))))
             turn_log['prev'] = y
+            if round(float(env.data.time), 12) >= turn[1]+turn[2]:
+                turn_log['yaw1'] = y
         if turn and turn[1] <= env.data.time < turn[1]+turn[2]+1.:
             v = info['v_body'][0]
             turn_log['min_vx'] = v if turn_log['min_vx'] is None else min(turn_log['min_vx'], v)
@@ -135,7 +144,22 @@ def episode(model, venv, env, command, seconds, lock_tail=False, impulse=None, f
             'recovery_s': recovered_at, 'impulse': impulse[1] if impulse else None,
             'turn_rad': round(turn_log['acc'], 2) if turn and turn_log['yaw1'] is not None else None,
             'turn_min_vx': round(float(turn_log['min_vx']), 2) if turn and turn_log['min_vx'] is not None else None,
-            'turn_max_tilt': round(float(turn_log['max_tilt']), 2) if turn else None}
+            'turn_max_tilt': round(float(turn_log['max_tilt']), 2) if turn else None,
+            'raw': {'mean_vx': float(vx.mean()), 'max_tilt': float(max(log['tilt'])),
+                    'lr_phase': lr_phase, 'time_s': n*.02,
+                    'turn_rad': float(turn_log['acc']) if turn and turn_log['yaw1'] is not None else None,
+                    'turn_min_vx': float(turn_log['min_vx']) if turn_log['min_vx'] is not None else None,
+                    'turn_max_tilt': float(turn_log['max_tilt']) if turn else None,
+                    'turn_interval_samples': len(turn_interval_vx),
+                    'turn_interval_mean_vx': float(np.mean(turn_interval_vx)) if turn_interval_vx else None,
+                    'turn_interval_min_vx': float(min(turn_interval_vx)) if turn_interval_vx else None}}
+
+
+def turn_pass(result, commanded_angle, tolerance=.2):
+    actual = result.get('raw', {}).get('turn_rad')
+    return bool(not result['fell'] and actual is not None and np.isfinite(actual)
+                and commanded_angle != 0
+                and abs(actual-commanded_angle) <= tolerance*abs(commanded_angle))
 
 
 def mean_row(eps, keys):
@@ -167,16 +191,52 @@ def main():
     p.add_argument('--ankle-clutch', action='store_true')
     p.add_argument('--couple-ankle', action='store_true')
     p.add_argument('--arch8', action='store_true')
+    p.add_argument('--identical-starts', action='store_true', help='old behaviour: every episode starts from the same state (before 2026-10-01)')
+    p.add_argument('--from-args', action='store_true', help="rebuild the env exactly from the run's args.json (springs, motors, masses, hip_back, ramp); overrides the env flags above")
     p.add_argument('--video')
     p.add_argument('--out')
+    p.add_argument('--details-out', help='JSONL with per-start results and unrounded gate metrics')
     a = p.parse_args()
+    if a.episodes < 1 or a.seconds <= 0:
+        p.error('episodes and evaluation duration must be positive')
+    if a.turns and (a.turn_at < 0 or a.turn_s <= 0 or a.turn_at+a.turn_s > a.seconds):
+        p.error('turn interval must be positive and contained in the evaluation duration')
     modes = ['active', 'locked'] if a.tail == 'both' else [a.tail]
     keys = ('mean_vx', 'path_m', 'yaw_drift', 'stride_hz', 'duty', 'leg_duty', 'lr_phase', 'flight_frac', 'peak_grf_bw', 'peak_grf_sd', 'power_w', 'cot',
             'tail_qd_rms', 'L_yz_rms', 'tail_leg_yaw_corr', 'max_tilt')
     rows = []
+    details = None
+    if a.details_out:
+        detail_path = Path(a.details_out)
+        detail_path.parent.mkdir(parents=True, exist_ok=True)
+        details = detail_path.open('x')
+
+    def evaluate_one(env, mode, command, **kwargs):
+        model, venv = load(a.model, env)
+        try:
+            result = episode(model, venv, env, command, a.seconds,
+                             lock_tail=mode == 'locked', **kwargs)
+            if details:
+                record = dict(tail=mode, initial_seed=env.init_seed, command=command,
+                              turn=kwargs.get('turn'), impulse=kwargs.get('impulse'), result=result)
+                if kwargs.get('turn'):
+                    record['turn_pass_20pct'] = turn_pass(result, kwargs['turn'][0]*kwargs['turn'][2])
+                details.write(json.dumps(record)+'\n'); details.flush()
+            return result
+        finally:
+            venv.close()
 
     def new_env(seed, render=False):
+        env = _new_env(seed, render)
+        env.init_seed = None if a.identical_starts else seed   # distinct, seeded start per episode
+        return env
+
+    def _new_env(seed, render=False):
         # a policy trained with --tail locked has 10 actions; 'both' evaluates a tail-active policy with the tail held
+        if a.from_args:
+            from train_run import env_kwargs
+            kw = {**env_kwargs(json.loads((Path(a.model).parent/'args.json').read_text())), 'level': 0., 'episode_s': a.seconds+5.}
+            return RunEnv(**kw, randomize=False, seed=seed, render_mode='rgb_array' if render else None)
         return RunEnv(mass=a.mass, springs=a.springs, randomize=False, seed=seed, obs_vel=not a.no_obs_vel,
                       tail='locked' if a.tail == 'locked' else 'active', ankle_clutch=a.ankle_clutch, couple_ankle=a.couple_ankle, arch8=a.arch8, render_mode='rgb_array' if render else None)
     for mode in modes:
@@ -184,17 +244,15 @@ def main():
             eps = []
             for ep in range(a.episodes):
                 env = new_env(1000+ep)
-                model, venv = load(a.model, env)
-                eps.append(episode(model, venv, env, [vx, 0., 0.], a.seconds, lock_tail=mode == 'locked'))
+                eps.append(evaluate_one(env, mode, [vx, 0., 0.]))
             row = {'tail': mode, 'cmd_vx': vx, 'falls': sum(e['fell'] for e in eps), 'episodes': len(eps), **mean_row(eps, keys)}
             rows.append(row); print(json.dumps(row), flush=True)
         for J in a.impulses or []:
             eps = []
             for ep in range(a.episodes):
                 env = new_env(2000+ep)
-                model, venv = load(a.model, env)
-                eps.append(episode(model, venv, env, [a.impulse_cmd, 0., 0.], a.seconds, lock_tail=mode == 'locked',
-                                   impulse=(a.impulse_axis, J, a.impulse_at)))
+                eps.append(evaluate_one(env, mode, [a.impulse_cmd, 0., 0.],
+                                        impulse=(a.impulse_axis, J, a.impulse_at)))
             rec = [e['recovery_s'] for e in eps if e['recovery_s'] is not None and not e['fell']]
             row = {'tail': mode, 'impulse_axis': a.impulse_axis, 'impulse_nms': J, 'cmd_vx': a.impulse_cmd,
                    'falls': sum(e['fell'] for e in eps), 'episodes': len(eps),
@@ -206,9 +264,8 @@ def main():
                 eps = []
                 for ep in range(a.episodes):
                     env = new_env(3000+ep)
-                    model, venv = load(a.model, env)
-                    eps.append(episode(model, venv, env, [vx, 0., 0.], a.seconds, lock_tail=mode == 'locked',
-                                       turn=(wz, a.turn_at, a.turn_s)))
+                    eps.append(evaluate_one(env, mode, [vx, 0., 0.],
+                                            turn=(wz, a.turn_at, a.turn_s)))
                 ok = [e for e in eps if not e['fell'] and e['turn_rad'] is not None]
                 row = {'tail': mode, 'turn_cmd_rad_s': wz, 'turn_s': a.turn_s, 'cmd_vx': vx,
                        'falls': sum(e['fell'] for e in eps), 'episodes': len(eps),
@@ -217,6 +274,8 @@ def main():
                        'turn_min_vx': round(float(np.mean([e['turn_min_vx'] for e in ok])), 2) if ok else None,
                        'turn_max_tilt': round(float(np.mean([e['turn_max_tilt'] for e in eps if e['turn_max_tilt'] is not None])), 2)}
                 rows.append(row); print(json.dumps(row), flush=True)
+    if details:
+        details.close()
     if a.out:
         Path(a.out).parent.mkdir(parents=True, exist_ok=True)
         Path(a.out).write_text(json.dumps(rows, indent=1)+'\n')

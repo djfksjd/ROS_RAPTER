@@ -1,0 +1,138 @@
+{
+  "search": [
+    {
+      "start_knee": 1.5,
+      "optimizer_status": 2,
+      "nfev": 11,
+      "static_feasible": false,
+      "root_force_max_N": 110.766672,
+      "root_torque_max_Nm": 6.185252931351947,
+      "passive_force_max_Nm": 0.003758765026813382,
+      "max_continuous_ratio": 0.9789735685859654
+    },
+    {
+      "start_knee": 1.25,
+      "optimizer_status": 0,
+      "nfev": 400,
+      "static_feasible": true,
+      "root_force_max_N": 9.37653528580995e-05,
+      "root_torque_max_Nm": 1.6170542952664846e-05,
+      "passive_force_max_Nm": 8.486845638727702e-06,
+      "max_continuous_ratio": 0.9500001945738413
+    },
+    {
+      "start_knee": 1.1,
+      "optimizer_status": 0,
+      "nfev": 400,
+      "static_feasible": true,
+      "root_force_max_N": 9.822276425097698e-06,
+      "root_torque_max_Nm": 1.979517268324571e-06,
+      "passive_force_max_Nm": 9.30438497581676e-07,
+      "max_continuous_ratio": 0.950000104178538
+    }
+  ],
+  "rollouts": [
+    {
+      "candidate_start_knee": 1.25,
+      "initial_state_kind": "equilibrium_exact",
+      "seed": null,
+      "seconds": 6.5,
+      "fell": true,
+      "gate": {
+        "pass_gate": false,
+        "samples": 325,
+        "max_displacement_m": 0.49454731968551635,
+        "max_tilt_rad": 0.8240264499728637,
+        "flight_samples": 0
+      },
+      "max_load_average": 0.9110285125191894,
+      "catalogue_pass": false,
+      "original_nominal_start_tested": false
+    },
+    {
+      "candidate_start_knee": 1.25,
+      "initial_state_kind": "equilibrium_microperturbed",
+      "seed": 84001,
+      "seconds": 1.82,
+      "fell": true,
+      "gate": {
+        "pass_gate": false,
+        "samples": 91,
+        "max_displacement_m": 0.5054418287711546,
+        "max_tilt_rad": 0.845850788896311,
+        "flight_samples": 0
+      },
+      "max_load_average": 0.9360833885475156,
+      "catalogue_pass": false,
+      "original_nominal_start_tested": false
+    },
+    {
+      "candidate_start_knee": 1.25,
+      "initial_state_kind": "equilibrium_microperturbed",
+      "seed": 84002,
+      "seconds": 2.5,
+      "fell": true,
+      "gate": {
+        "pass_gate": false,
+        "samples": 125,
+        "max_displacement_m": 0.4860586225756258,
+        "max_tilt_rad": 0.8063095985545431,
+        "flight_samples": 0
+      },
+      "max_load_average": 0.923708907928529,
+      "catalogue_pass": false,
+      "original_nominal_start_tested": false
+    },
+    {
+      "candidate_start_knee": 1.1,
+      "initial_state_kind": "equilibrium_exact",
+      "seed": null,
+      "seconds": 6.4,
+      "fell": true,
+      "gate": {
+        "pass_gate": false,
+        "samples": 320,
+        "max_displacement_m": 0.4839797892547478,
+        "max_tilt_rad": 0.8111909735851601,
+        "flight_samples": 0
+      },
+      "max_load_average": 0.9104887966927995,
+      "catalogue_pass": false,
+      "original_nominal_start_tested": false
+    },
+    {
+      "candidate_start_knee": 1.1,
+      "initial_state_kind": "equilibrium_microperturbed",
+      "seed": 84001,
+      "seconds": 1.8,
+      "fell": true,
+      "gate": {
+        "pass_gate": false,
+        "samples": 90,
+        "max_displacement_m": 0.4819893714855802,
+        "max_tilt_rad": 0.805472916508341,
+        "flight_samples": 0
+      },
+      "max_load_average": 0.9307614610233546,
+      "catalogue_pass": false,
+      "original_nominal_start_tested": false
+    },
+    {
+      "candidate_start_knee": 1.1,
+      "initial_state_kind": "equilibrium_microperturbed",
+      "seed": 84002,
+      "seconds": 2.5,
+      "fell": true,
+      "gate": {
+        "pass_gate": false,
+        "samples": 125,
+        "max_displacement_m": 0.48593725821516337,
+        "max_tilt_rad": 0.8154796955305159,
+        "flight_samples": 0
+      },
+      "max_load_average": 0.92383881578923,
+      "catalogue_pass": false,
+      "original_nominal_start_tested": false
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "control": {
+    "episodes": 696,
+    "completed_episode_steps": 502279,
+    "kinds": {
+      "stand": {
+        "episodes": 138,
+        "steps": 134260
+      },
+      "stop": {
+        "episodes": 151,
+        "steps": 140691
+      },
+      "turn": {
+        "episodes": 268,
+        "steps": 148823
+      },
+      "straight": {
+        "episodes": 139,
+        "steps": 78505
+      }
+    },
+    "fully_zero_command_steps": 215519,
+    "turn_command_steps": 25566,
+    "unfinished_steps_excluded": 1529
+  },
+  "penalty": {
+    "episodes": 691,
+    "completed_episode_steps": 501384,
+    "kinds": {
+      "stand": {
+        "episodes": 138,
+        "steps": 132220
+      },
+      "stop": {
+        "episodes": 148,
+        "steps": 140178
+      },
+      "turn": {
+        "episodes": 268,
+        "steps": 152517
+      },
+      "straight": {
+        "episodes": 137,
+        "steps": 76469
+      }
+    },
+    "fully_zero_command_steps": 214513,
+    "turn_command_steps": 25797,
+    "unfinished_steps_excluded": 2424
+  }
+}

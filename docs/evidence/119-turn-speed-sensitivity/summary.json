@@ -1,0 +1,110 @@
+[
+  {
+    "run": "kl005_update64k_20261009",
+    "yaw": -1.0,
+    "enabled": false,
+    "seed": 70001,
+    "fell": false,
+    "min_vx": 3.1450718536129316,
+    "max_vx": 4.012447299873288,
+    "mean_vx": 3.4582715839086484,
+    "min_vx_time": 5.96
+  },
+  {
+    "run": "kl005_update64k_20261009",
+    "yaw": -1.0,
+    "enabled": true,
+    "seed": 70001,
+    "fell": false,
+    "min_vx": 3.1450718536129316,
+    "max_vx": 4.012447299873288,
+    "mean_vx": 3.4582715839086484,
+    "min_vx_time": 5.96,
+    "trajectory_exactly_matches_disabled": true,
+    "speed_input_mean_abs_action_change": {
+      "4.4": 0.005271397738833911,
+      "4.8": 0.0104971929511521
+    }
+  },
+  {
+    "run": "kl005_update64k_20261009",
+    "yaw": 1.0,
+    "enabled": false,
+    "seed": 70001,
+    "fell": false,
+    "min_vx": 3.0294356175117207,
+    "max_vx": 3.9324024070553922,
+    "mean_vx": 3.53308207960372,
+    "min_vx_time": 5.98
+  },
+  {
+    "run": "kl005_update64k_20261009",
+    "yaw": 1.0,
+    "enabled": true,
+    "seed": 70001,
+    "fell": false,
+    "min_vx": 3.0294356175117207,
+    "max_vx": 3.9324024070553922,
+    "mean_vx": 3.53308207960372,
+    "min_vx_time": 5.98,
+    "trajectory_exactly_matches_disabled": true,
+    "speed_input_mean_abs_action_change": {
+      "4.4": 0.005282450984232127,
+      "4.8": 0.010516899233334698
+    }
+  },
+  {
+    "run": "kl005_linerr2_update64k_20261009",
+    "yaw": -1.0,
+    "enabled": false,
+    "seed": 70001,
+    "fell": false,
+    "min_vx": 3.2822299417298044,
+    "max_vx": 4.182818556251092,
+    "mean_vx": 3.717499801539983,
+    "min_vx_time": 5.96
+  },
+  {
+    "run": "kl005_linerr2_update64k_20261009",
+    "yaw": -1.0,
+    "enabled": true,
+    "seed": 70001,
+    "fell": false,
+    "min_vx": 3.2822299417298044,
+    "max_vx": 4.182818556251092,
+    "mean_vx": 3.717499801539983,
+    "min_vx_time": 5.96,
+    "trajectory_exactly_matches_disabled": true,
+    "speed_input_mean_abs_action_change": {
+      "4.4": 0.005460705938457977,
+      "4.8": 0.01086161353479838
+    }
+  },
+  {
+    "run": "kl005_linerr2_update64k_20261009",
+    "yaw": 1.0,
+    "enabled": false,
+    "seed": 70001,
+    "fell": false,
+    "min_vx": 3.241458200266239,
+    "max_vx": 3.992283454983001,
+    "mean_vx": 3.534297264221144,
+    "min_vx_time": 5.98
+  },
+  {
+    "run": "kl005_linerr2_update64k_20261009",
+    "yaw": 1.0,
+    "enabled": true,
+    "seed": 70001,
+    "fell": false,
+    "min_vx": 3.241458200266239,
+    "max_vx": 3.992283454983001,
+    "mean_vx": 3.534297264221144,
+    "min_vx_time": 5.98,
+    "trajectory_exactly_matches_disabled": true,
+    "speed_input_mean_abs_action_change": {
+      "4.4": 0.005368238625669619,
+      "4.8": 0.010672167012962745
+    }
+  }
+]

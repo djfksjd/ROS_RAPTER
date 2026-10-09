@@ -1,0 +1,20 @@
+{
+  "code_hashes": {
+    "sim/rl/stand_env.py": "cfa698639d20b798f8933e7e8d717f1592a9c119cf275b2c8c04465e7dd67480",
+    "sim/rl/train_stand.py": "4f3035e4ee6f57b8351843e9eefcb4fc5d92d55c63421a218de45fbe8ac1b245",
+    "sim/rl/evaluate_stand.py": "2cf3b8829d55fbb71d7bed3eb68adf6077bb04e71f07d2c779c28c00024bda23",
+    "tests/test_stand_env.py": "e2c897a965decd9add0fbec061ef458e0029428233de71492ba8aeb0460efdc5"
+  },
+  "smoke_model_hashes": {
+    "model.zip": "35144ab99cf8d9acdfee0c401b01c69a0be68f01a5199f0f4aead69c445ec8d1",
+    "vecnorm.pkl": "2c4712cc681b4b900e354bdffef7133459094dc19b1df58f8dcf28ff9a780458"
+  },
+  "pilot_run": "sim/rl/runs/stand_skill_pilot_20261009",
+  "pilot_handle": 14329,
+  "pilot_training_status": "confirmed_running",
+  "pilot_latest_observed_steps": 184320,
+  "goal_status": "active",
+  "adopted": false,
+  "checkpoint65536_catalogue_pass": 0,
+  "checkpoint65536_trials": 4
+}

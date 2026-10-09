@@ -1,0 +1,5 @@
+{
+  "status": "training_complete",
+  "actual_steps": 4096,
+  "evaluation_pass_unproven": true
+}

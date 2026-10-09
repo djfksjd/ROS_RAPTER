@@ -1,0 +1,97 @@
+[
+  {
+    "seed": 83001,
+    "seconds": 0.44,
+    "fell": true,
+    "catalogue_pass": false,
+    "raw_return": -10.461293701855626,
+    "discounted_raw_return": -8.504958514132353,
+    "nonfoot_contacts": [
+      {
+        "body": "tail_link",
+        "distance_m": -0.01567564635024493,
+        "contact_force_normal_N": 122.05700276149464
+      },
+      {
+        "body": "tail_link",
+        "distance_m": -0.01521843349770273,
+        "contact_force_normal_N": 27.667669770754525
+      }
+    ]
+  },
+  {
+    "seed": 83002,
+    "seconds": 0.46,
+    "fell": true,
+    "catalogue_pass": false,
+    "raw_return": -10.331242702730806,
+    "discounted_raw_return": -8.310692085390828,
+    "nonfoot_contacts": [
+      {
+        "body": "tail_link",
+        "distance_m": -0.01465702807246324,
+        "contact_force_normal_N": 124.21601026905873
+      },
+      {
+        "body": "tail_link",
+        "distance_m": -0.017128253813624067,
+        "contact_force_normal_N": 305.3091856348764
+      }
+    ]
+  },
+  {
+    "seed": 83003,
+    "seconds": 0.78,
+    "fell": true,
+    "catalogue_pass": false,
+    "raw_return": -11.90818378728479,
+    "discounted_raw_return": -8.292317687736505,
+    "nonfoot_contacts": [
+      {
+        "body": "tail_link",
+        "distance_m": -0.00813258735831933,
+        "contact_force_normal_N": 433.1624062595925
+      }
+    ]
+  },
+  {
+    "seed": 83004,
+    "seconds": 0.36,
+    "fell": true,
+    "catalogue_pass": false,
+    "raw_return": -10.479229377702188,
+    "discounted_raw_return": -8.859671891211097,
+    "nonfoot_contacts": [
+      {
+        "body": "tail_link",
+        "distance_m": -0.0066989046494349,
+        "contact_force_normal_N": 0.0
+      },
+      {
+        "body": "tail_link",
+        "distance_m": -0.0022001912170731552,
+        "contact_force_normal_N": 0.0
+      },
+      {
+        "body": "tail_link",
+        "distance_m": -0.04481262094739377,
+        "contact_force_normal_N": 500.18381257812973
+      },
+      {
+        "body": "tail_link",
+        "distance_m": -0.03806455079885116,
+        "contact_force_normal_N": 145.89498388815437
+      },
+      {
+        "body": "tail_link",
+        "distance_m": -0.006888648744200521,
+        "contact_force_normal_N": 0.0
+      },
+      {
+        "body": "tail_link",
+        "distance_m": -0.00014057859565791073,
+        "contact_force_normal_N": 0.0
+      }
+    ]
+  }
+]

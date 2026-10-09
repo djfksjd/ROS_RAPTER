@@ -1,0 +1,9 @@
+{'mode': 'original', 'telemetry': False, 'seed': 83001, 'seconds': 0.8200000000000001, 'fell': True, 'catalogue_pass': False}
+{'mode': 'original', 'telemetry': True, 'seed': 83001, 'seconds': 0.8200000000000001, 'fell': True, 'catalogue_pass': False}
+{'mode': 'original', 'telemetry': True, 'seed': 83002, 'seconds': 0.78, 'fell': True, 'catalogue_pass': False}
+{'mode': 'original', 'telemetry': True, 'seed': 83003, 'seconds': 0.8200000000000001, 'fell': True, 'catalogue_pass': False}
+{'mode': 'original', 'telemetry': True, 'seed': 83004, 'seconds': 0.64, 'fell': True, 'catalogue_pass': False}
+{'mode': 'dependent_projected', 'telemetry': True, 'seed': 83001, 'seconds': 0.6, 'fell': True, 'catalogue_pass': False}
+{'mode': 'dependent_projected', 'telemetry': True, 'seed': 83002, 'seconds': 0.78, 'fell': True, 'catalogue_pass': False}
+{'mode': 'dependent_projected', 'telemetry': True, 'seed': 83003, 'seconds': 0.92, 'fell': True, 'catalogue_pass': False}
+{'mode': 'dependent_projected', 'telemetry': True, 'seed': 83004, 'seconds': 1.02, 'fell': True, 'catalogue_pass': False}

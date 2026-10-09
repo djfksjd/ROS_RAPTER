@@ -1,0 +1,11 @@
+Logging to /Users/danny/개발 모음 폴더/raptor/sim/rl/runs/stand_skill_smoke_20261009
+---------------------------------
+| rollout/           |          |
+|    ep_len_mean     | 37.3     |
+|    ep_rew_mean     | -14.9    |
+| time/              |          |
+|    fps             | 1064     |
+|    iterations      | 1        |
+|    time_elapsed    | 3        |
+|    total_timesteps | 4096     |
+---------------------------------

@@ -1,0 +1,13 @@
+{
+  "source_hashes": {
+    "sim/rl/run_env.py": "3618069ecbc8bcd85674121458e9f99cc4cf7c4b5b4f18efe6f082dbbb5aba5f",
+    "sim/rl/raptor_env.py": "ed1cd8540356eca47e37e7ca33da29d32323ab8dc6eda39b76ed837233fa50b8",
+    "sim/raptor_r02.xml": "8e5a82dac7cc58d427615ce266de71e73cc57a8215f82a4f3edaa035d53d6b02"
+  },
+  "packages": {
+    "numpy": "2.3.5",
+    "scipy": "1.18.1",
+    "mujoco": "3.14.0"
+  },
+  "goal_status": "active"
+}

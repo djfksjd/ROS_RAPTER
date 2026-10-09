@@ -1,0 +1,35 @@
+{
+  "baseline": "scr_a8_h2",
+  "baseline_steps": 10076160,
+  "pilots": {
+    "scr_a8_h2": {
+      "model.zip": "43c87cae9ca3b2c672092f6d424a78c7326380342904b635a2428c06920233ec",
+      "vecnorm.pkl": "1a7326ae6949b8e5aa2a880f72b23509adf3c102abcee43a57062b720809f112",
+      "args.json": "010cbcd0f1fa92121a930570e265cd02b1b93ef0e4c951ba633c18b4c9ee2c80"
+    },
+    "turn_pilot_control_20261009": {
+      "model.zip": "fcc3c0a5f910c59ca5d513bfd9d6784526ad22b902f3c694165c730ee8c7b781",
+      "vecnorm.pkl": "3c499fcfbbb9a12ed645698f60466b9182c415b040ada62a7b78a034cd29d4df",
+      "args.json": "533ec85191b01fbf31f70fdc60d8b1c961cc558c2b934da64d04936df41dc730"
+    },
+    "turn_pilot_sym0_20261009": {
+      "model.zip": "09739f13b30e70f15b14a0835f9f12f0940e239978e37c219594f22cedf4d5a6",
+      "vecnorm.pkl": "0b72112226d5d9a705250684e2c6574779f0b77948d5555337c6d87ca0a5125f",
+      "args.json": "78ea08b63f826d81d48e5dfc6ef348aff14088b2af95ef678b7f5eb65a5a6771"
+    },
+    "turn_pilot_yaw16_20261009": {
+      "model.zip": "75a260ebe6b662e1fdeccfa85e4f55aa69c3422e0143a234b54a7eacd034f4de",
+      "vecnorm.pkl": "1bdf544bd50bda824e7b7d26b84d7f29dbd06c37f5567827b9ab5d1ee7b90e7a",
+      "args.json": "02aaa5086938d2be013c67b52d502299189f973955e8b354ea86422e5c9e61ab"
+    },
+    "turn_pilot_yawerr8_20261009": {
+      "model.zip": "dd7e9401c809d163985ca0461790ecc1be337cfcb6b0bc55a9429d1cf40fa147",
+      "vecnorm.pkl": "877f6030a59015e10a1c459c040673ae2522dfe9f9887d685d498063f24a0e30",
+      "args.json": "4cfbcbc36633fabbd5fcde620fb2d6f1b7b501c3b473cbffffd851fb0641f942"
+    }
+  },
+  "training_seed": 0,
+  "environment": "T1 MuJoCo virtual actuator and heat proxy",
+  "status": "four pilots and long turn diagnosis complete; all turn-failed; baseline retained",
+  "adopted": false
+}

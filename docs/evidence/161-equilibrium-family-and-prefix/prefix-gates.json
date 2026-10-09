@@ -1,0 +1,212 @@
+[
+  {
+    "seed": 83002,
+    "gate": {
+      "pass_gate": true,
+      "samples": 30,
+      "max_displacement_m": 0.02075289533862515,
+      "max_tilt_rad": 0.06389935519468239,
+      "flight_samples": 0
+    }
+  },
+  {
+    "seed": 86001,
+    "gate": {
+      "pass_gate": true,
+      "samples": 30,
+      "max_displacement_m": 0.08197025800337474,
+      "max_tilt_rad": 0.09565663007373301,
+      "flight_samples": 0
+    }
+  },
+  {
+    "seed": 86002,
+    "gate": {
+      "pass_gate": false,
+      "samples": 30,
+      "max_displacement_m": 0.32231286008936694,
+      "max_tilt_rad": 0.4429834534852335,
+      "flight_samples": 0
+    }
+  },
+  {
+    "seed": 86003,
+    "gate": {
+      "pass_gate": false,
+      "samples": 30,
+      "max_displacement_m": 0.13429259590033993,
+      "max_tilt_rad": 0.19173791315480018,
+      "flight_samples": 0
+    }
+  },
+  {
+    "seed": 86004,
+    "gate": {
+      "pass_gate": false,
+      "samples": 30,
+      "max_displacement_m": 0.2821411072342588,
+      "max_tilt_rad": 0.4298517586533635,
+      "flight_samples": 0
+    }
+  },
+  {
+    "seed": 86005,
+    "gate": {
+      "pass_gate": false,
+      "samples": 30,
+      "max_displacement_m": 0.11534678321518468,
+      "max_tilt_rad": 0.1839768146891988,
+      "flight_samples": 0
+    }
+  },
+  {
+    "seed": 86006,
+    "gate": {
+      "pass_gate": false,
+      "samples": 30,
+      "max_displacement_m": 0.1634304755044777,
+      "max_tilt_rad": 0.2646662708976097,
+      "flight_samples": 0
+    }
+  },
+  {
+    "seed": 86007,
+    "gate": {
+      "pass_gate": false,
+      "samples": 30,
+      "max_displacement_m": 0.2828801205542675,
+      "max_tilt_rad": 0.429265113461475,
+      "flight_samples": 0
+    }
+  },
+  {
+    "seed": 86008,
+    "gate": {
+      "pass_gate": true,
+      "samples": 30,
+      "max_displacement_m": 0.09269157963079803,
+      "max_tilt_rad": 0.15261077922252198,
+      "flight_samples": 0
+    }
+  },
+  {
+    "seed": 86009,
+    "gate": {
+      "pass_gate": false,
+      "samples": 30,
+      "max_displacement_m": 0.20515777412491362,
+      "max_tilt_rad": 0.32825699804880365,
+      "flight_samples": 0
+    }
+  },
+  {
+    "seed": 86010,
+    "gate": {
+      "pass_gate": false,
+      "samples": 30,
+      "max_displacement_m": 0.12604588976394784,
+      "max_tilt_rad": 0.181376406219262,
+      "flight_samples": 0
+    }
+  },
+  {
+    "seed": 86011,
+    "gate": {
+      "pass_gate": false,
+      "samples": 30,
+      "max_displacement_m": 0.3978522000636265,
+      "max_tilt_rad": 0.6190062535264486,
+      "flight_samples": 0
+    }
+  },
+  {
+    "seed": 86012,
+    "gate": {
+      "pass_gate": false,
+      "samples": 30,
+      "max_displacement_m": 0.2753733713660455,
+      "max_tilt_rad": 0.39804531007336413,
+      "flight_samples": 0
+    }
+  },
+  {
+    "seed": 86013,
+    "gate": {
+      "pass_gate": true,
+      "samples": 30,
+      "max_displacement_m": 0.07773426863288478,
+      "max_tilt_rad": 0.12682535741605858,
+      "flight_samples": 0
+    }
+  },
+  {
+    "seed": 86014,
+    "gate": {
+      "pass_gate": false,
+      "samples": 30,
+      "max_displacement_m": 0.17194863925539797,
+      "max_tilt_rad": 0.24577072400058306,
+      "flight_samples": 0
+    }
+  },
+  {
+    "seed": 86015,
+    "gate": {
+      "pass_gate": false,
+      "samples": 30,
+      "max_displacement_m": 0.34259767009916636,
+      "max_tilt_rad": 0.506525591531188,
+      "flight_samples": 0
+    }
+  },
+  {
+    "seed": 86016,
+    "gate": {
+      "pass_gate": false,
+      "samples": 30,
+      "max_displacement_m": 0.40660113399018133,
+      "max_tilt_rad": 0.5820212506375639,
+      "flight_samples": 0
+    }
+  },
+  {
+    "seed": 86017,
+    "gate": {
+      "pass_gate": false,
+      "samples": 30,
+      "max_displacement_m": 0.18155802583306221,
+      "max_tilt_rad": 0.22717306016252214,
+      "flight_samples": 3
+    }
+  },
+  {
+    "seed": 86018,
+    "gate": {
+      "pass_gate": true,
+      "samples": 30,
+      "max_displacement_m": 0.09634695319129451,
+      "max_tilt_rad": 0.0868593398408508,
+      "flight_samples": 0
+    }
+  },
+  {
+    "seed": 86019,
+    "gate": {
+      "pass_gate": false,
+      "samples": 30,
+      "max_displacement_m": 0.1696466100148004,
+      "max_tilt_rad": 0.2520705078193264,
+      "flight_samples": 0
+    }
+  },
+  {
+    "seed": 86020,
+    "gate": {
+      "pass_gate": false,
+      "samples": 30,
+      "max_displacement_m": 0.259682948635461,
+      "max_tilt_rad": 0.404349348627142,
+      "flight_samples": 0
+    }
+  }
+]

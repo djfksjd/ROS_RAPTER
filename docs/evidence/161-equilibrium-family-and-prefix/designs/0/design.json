@@ -1,0 +1,14 @@
+{
+  "number": 0,
+  "pitch": 0.06977479782249586,
+  "validation": {
+    "max_root_linear_acc": 6.898862718367301e-08,
+    "max_root_angular_acc": 1.2909213292648938e-07,
+    "max_joint_acc": 2.3149094303626912e-06
+  },
+  "f0_norm": 8.278358212968415e-09,
+  "reachable_rank": 65,
+  "controller_radius": 0.991081092369503,
+  "observer_radius": 0.926043645155393,
+  "catalogue_pass": false
+}

@@ -1,0 +1,15 @@
+{
+  "measured_original_observation_size": 46,
+  "selected_measurements": 41,
+  "finite_difference": 0.0001,
+  "unstable_observable_modes": [
+    {
+      "eigenvalue": 1.062410927239005,
+      "observability_pbh_min_singular": 0.010715062931598945
+    }
+  ],
+  "observer_error_spectral_radius": 0.9260952894965507,
+  "controller_runtime_requires_passive_joint_measurements": false,
+  "covariances_are_design_assumptions": true,
+  "measurement_pipeline_has_existing_mixed_timestamp_caches": true
+}

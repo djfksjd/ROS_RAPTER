@@ -1,0 +1,1490 @@
+[
+  {
+    "mode": "fixed_baseline",
+    "seed": 83002,
+    "time": 0.1,
+    "knee_pulse_normalized": 0.0,
+    "body_point_vz_world_estimate_mps": 0.4892896044311202,
+    "height": 0.7697586590790838,
+    "height_before": 0.7603665820479025,
+    "pitch_rate": 0.10213373601436615,
+    "foot_load_N": [
+      45.00147315818948,
+      72.06016724143305
+    ],
+    "loaded_before": {
+      "left": true,
+      "right": true
+    },
+    "flight": false,
+    "fell": false,
+    "actual_motor_torque": [
+      -9.789459772548994,
+      4.069080893006799,
+      53.70716304565814,
+      7.098241217357934,
+      -8.79042095044241,
+      44.34816291012828,
+      -0.9031861881335272,
+      9.327729471269723
+    ],
+    "offline_replay_from_original_start": true
+  },
+  {
+    "mode": "fixed_baseline",
+    "seed": 83002,
+    "time": 0.1,
+    "knee_pulse_normalized": -0.01,
+    "body_point_vz_world_estimate_mps": 0.5126667000776276,
+    "height": 0.7699379052230567,
+    "height_before": 0.7603665820479025,
+    "pitch_rate": 0.1473458856344223,
+    "foot_load_N": [
+      56.47612205596807,
+      86.27903947719747
+    ],
+    "loaded_before": {
+      "left": true,
+      "right": true
+    },
+    "flight": false,
+    "fell": false,
+    "actual_motor_torque": [
+      -9.85588605730658,
+      4.068653547941835,
+      50.18507165053268,
+      6.993836230810697,
+      -8.945647938700972,
+      40.08302823265717,
+      -0.9079584810987548,
+      10.211792109891796
+    ],
+    "offline_replay_from_original_start": true
+  },
+  {
+    "mode": "fixed_baseline",
+    "seed": 83002,
+    "time": 0.1,
+    "knee_pulse_normalized": 0.01,
+    "body_point_vz_world_estimate_mps": 0.4759423010850985,
+    "height": 0.7696410136618583,
+    "height_before": 0.7603665820479025,
+    "pitch_rate": 0.06625646352767944,
+    "foot_load_N": [
+      44.60046773006986,
+      56.860829581336844
+    ],
+    "loaded_before": {
+      "left": true,
+      "right": true
+    },
+    "flight": false,
+    "fell": false,
+    "actual_motor_torque": [
+      -9.164305305072102,
+      3.9978513851474418,
+      53.72297364117549,
+      7.745585061533259,
+      -8.581050072710696,
+      48.90231470059621,
+      -0.838396355463837,
+      8.68205071531812
+    ],
+    "offline_replay_from_original_start": true
+  },
+  {
+    "mode": "fixed_baseline",
+    "seed": 83002,
+    "time": 0.2,
+    "knee_pulse_normalized": 0.0,
+    "body_point_vz_world_estimate_mps": 0.29474824988005377,
+    "height": 0.8054074450697313,
+    "height_before": 0.7995143943643113,
+    "pitch_rate": 0.20578742027282715,
+    "foot_load_N": [
+      45.45099836055119,
+      72.17530514460745
+    ],
+    "loaded_before": {
+      "left": true,
+      "right": true
+    },
+    "flight": false,
+    "fell": false,
+    "actual_motor_torque": [
+      -9.382625875903493,
+      4.1726527847857255,
+      30.600223495502178,
+      6.750809412483493,
+      -2.2652603226438828,
+      23.100628173982614,
+      0.0334549295109818,
+      3.4580360143452373
+    ],
+    "offline_replay_from_original_start": true
+  },
+  {
+    "mode": "fixed_baseline",
+    "seed": 83002,
+    "time": 0.2,
+    "knee_pulse_normalized": -0.01,
+    "body_point_vz_world_estimate_mps": 0.31375827251063065,
+    "height": 0.8055675766766297,
+    "height_before": 0.7995143943643113,
+    "pitch_rate": 0.26775556802749634,
+    "foot_load_N": [
+      57.0412131493842,
+      85.73183143800061
+    ],
+    "loaded_before": {
+      "left": true,
+      "right": true
+    },
+    "flight": false,
+    "fell": false,
+    "actual_motor_torque": [
+      -9.440859140302432,
+      3.870446177438737,
+      27.212647463494136,
+      6.658842275316621,
+      -2.3727457000034633,
+      19.311611376234055,
+      0.08141690433516195,
+      4.531894480667551
+    ],
+    "offline_replay_from_original_start": true
+  },
+  {
+    "mode": "fixed_baseline",
+    "seed": 83002,
+    "time": 0.2,
+    "knee_pulse_normalized": 0.01,
+    "body_point_vz_world_estimate_mps": 0.27908657551210436,
+    "height": 0.8052671063807194,
+    "height_before": 0.7995143943643113,
+    "pitch_rate": 0.14033916592597961,
+    "foot_load_N": [
+      35.247890235551964,
+      59.852651098627426
+    ],
+    "loaded_before": {
+      "left": true,
+      "right": true
+    },
+    "flight": false,
+    "fell": false,
+    "actual_motor_torque": [
+      -9.287291142725818,
+      4.50114503003897,
+      33.681875498250406,
+      6.8626153497965685,
+      -2.034665271892038,
+      26.66023526152287,
+      -0.1963072282387765,
+      2.379103496512998
+    ],
+    "offline_replay_from_original_start": true
+  },
+  {
+    "mode": "fixed_baseline",
+    "seed": 83002,
+    "time": 0.24,
+    "knee_pulse_normalized": 0.0,
+    "body_point_vz_world_estimate_mps": 0.13636893094179303,
+    "height": 0.8150426101167783,
+    "height_before": 0.811108056379835,
+    "pitch_rate": 0.04006361588835716,
+    "foot_load_N": [
+      10.56689958752639,
+      24.112208181226784
+    ],
+    "loaded_before": {
+      "left": true,
+      "right": true
+    },
+    "flight": false,
+    "fell": false,
+    "actual_motor_torque": [
+      -8.106969875361509,
+      3.470495366436978,
+      34.64442120699573,
+      7.077532536725332,
+      -0.6865228146003801,
+      30.859307365227437,
+      -0.47640143960348746,
+      -1.1739189886232593
+    ],
+    "offline_replay_from_original_start": true
+  },
+  {
+    "mode": "fixed_baseline",
+    "seed": 83002,
+    "time": 0.24,
+    "knee_pulse_normalized": -0.01,
+    "body_point_vz_world_estimate_mps": 0.13458901356647715,
+    "height": 0.8150405689452136,
+    "height_before": 0.811108056379835,
+    "pitch_rate": 0.11880400776863098,
+    "foot_load_N": [
+      15.618394082869635,
+      31.843011744741535
+    ],
+    "loaded_before": {
+      "left": true,
+      "right": true
+    },
+    "flight": false,
+    "fell": false,
+    "actual_motor_torque": [
+      -8.3439255880336,
+      3.0468494456100643,
+      32.634303091910624,
+      7.067438679062217,
+      -1.1640438945215124,
+      28.266327120007986,
+      -0.3507987723651781,
+      -0.11004129705441912
+    ],
+    "offline_replay_from_original_start": true
+  },
+  {
+    "mode": "fixed_baseline",
+    "seed": 83002,
+    "time": 0.24,
+    "knee_pulse_normalized": 0.01,
+    "body_point_vz_world_estimate_mps": 0.14302859583259472,
+    "height": 0.8150745367353274,
+    "height_before": 0.811108056379835,
+    "pitch_rate": -0.04153500124812126,
+    "foot_load_N": [
+      7.858367572383709,
+      18.802628751467008
+    ],
+    "loaded_before": {
+      "left": true,
+      "right": true
+    },
+    "flight": false,
+    "fell": false,
+    "actual_motor_torque": [
+      -7.91642607438607,
+      4.039516686686966,
+      36.238131622711194,
+      7.07380252216775,
+      -0.11924293664549168,
+      32.92185211214121,
+      -0.5274963983099609,
+      -2.2172762220179125
+    ],
+    "offline_replay_from_original_start": true
+  },
+  {
+    "mode": "fixed_baseline",
+    "seed": 83002,
+    "time": 0.3,
+    "knee_pulse_normalized": 0.0,
+    "body_point_vz_world_estimate_mps": -0.25742863776482283,
+    "height": 0.8101860699995393,
+    "height_before": 0.8144953835260971,
+    "pitch_rate": 0.04147248715162277,
+    "foot_load_N": [
+      8.883132149329308,
+      68.19759685688264
+    ],
+    "loaded_before": {
+      "left": false,
+      "right": true
+    },
+    "flight": false,
+    "fell": false,
+    "actual_motor_torque": [
+      -1.0661080937751057,
+      -2.0714294039367473,
+      -2.573234700788248,
+      -6.086916725493439,
+      4.90805104989704,
+      21.5843021254193,
+      1.2574445704051807,
+      1.2548327442034402
+    ],
+    "offline_replay_from_original_start": true
+  },
+  {
+    "mode": "fixed_baseline",
+    "seed": 83002,
+    "time": 0.3,
+    "knee_pulse_normalized": -0.01,
+    "body_point_vz_world_estimate_mps": -0.25593363523539797,
+    "height": 0.8102086229930241,
+    "height_before": 0.8144953835260971,
+    "pitch_rate": 0.10850739479064941,
+    "foot_load_N": [
+      9.735987484106369,
+      82.48487158053524
+    ],
+    "loaded_before": {
+      "left": false,
+      "right": true
+    },
+    "flight": false,
+    "fell": false,
+    "actual_motor_torque": [
+      -1.8401921362249318,
+      -2.791071336444304,
+      -3.2068041121531223,
+      -6.160463833701188,
+      4.898392523112477,
+      17.76550747611475,
+      1.2826189787421767,
+      2.194208109712893
+    ],
+    "offline_replay_from_original_start": true
+  },
+  {
+    "mode": "fixed_baseline",
+    "seed": 83002,
+    "time": 0.3,
+    "knee_pulse_normalized": 0.01,
+    "body_point_vz_world_estimate_mps": -0.2566831918663355,
+    "height": 0.8101713418693437,
+    "height_before": 0.8144953835260971,
+    "pitch_rate": -0.02985171414911747,
+    "foot_load_N": [
+      5.83634894115322,
+      54.940732041061274
+    ],
+    "loaded_before": {
+      "left": false,
+      "right": true
+    },
+    "flight": false,
+    "fell": false,
+    "actual_motor_torque": [
+      -0.1836185791895666,
+      -1.395182885412794,
+      -1.3612328939449299,
+      -5.823672526131743,
+      5.1088108118036075,
+      24.940680895729884,
+      1.201988481466791,
+      0.28577765444381775
+    ],
+    "offline_replay_from_original_start": true
+  },
+  {
+    "mode": "fixed_baseline",
+    "seed": 86013,
+    "time": 0.1,
+    "knee_pulse_normalized": 0.0,
+    "body_point_vz_world_estimate_mps": 0.5012449237899769,
+    "height": 0.7619625075646287,
+    "height_before": 0.7521795871384087,
+    "pitch_rate": 0.11618146300315857,
+    "foot_load_N": [
+      39.27392139119437,
+      69.94436920954169
+    ],
+    "loaded_before": {
+      "left": true,
+      "right": true
+    },
+    "flight": false,
+    "fell": false,
+    "actual_motor_torque": [
+      2.244809742427868,
+      -5.9459414610111025,
+      52.252019826701826,
+      -5.703562957915786,
+      0.9042412172111085,
+      47.5619131398505,
+      -0.020199492696099768,
+      9.510052976228659
+    ],
+    "offline_replay_from_original_start": true
+  },
+  {
+    "mode": "fixed_baseline",
+    "seed": 86013,
+    "time": 0.1,
+    "knee_pulse_normalized": -0.01,
+    "body_point_vz_world_estimate_mps": 0.5199414673052362,
+    "height": 0.7621287109852783,
+    "height_before": 0.7521795871384087,
+    "pitch_rate": 0.17450174689292908,
+    "foot_load_N": [
+      47.428086903836515,
+      83.3464629028569
+    ],
+    "loaded_before": {
+      "left": true,
+      "right": true
+    },
+    "flight": false,
+    "fell": false,
+    "actual_motor_torque": [
+      2.1158253861449547,
+      -6.5486705728971515,
+      49.39895460563059,
+      -5.843643610207497,
+      0.8454727642486546,
+      43.51026734180596,
+      -0.03666126789934515,
+      10.514310296604961
+    ],
+    "offline_replay_from_original_start": true
+  },
+  {
+    "mode": "fixed_baseline",
+    "seed": 86013,
+    "time": 0.1,
+    "knee_pulse_normalized": 0.01,
+    "body_point_vz_world_estimate_mps": 0.48710030094381057,
+    "height": 0.7618223497716768,
+    "height_before": 0.7521795871384087,
+    "pitch_rate": 0.069329172372818,
+    "foot_load_N": [
+      35.90552054923429,
+      56.53853297503803
+    ],
+    "loaded_before": {
+      "left": true,
+      "right": true
+    },
+    "flight": false,
+    "fell": false,
+    "actual_motor_torque": [
+      2.709072722410944,
+      -5.542650039505702,
+      53.512026489089976,
+      -5.2252551818328445,
+      1.114199124693755,
+      51.7597696541402,
+      0.05569463321078666,
+      8.724416546616261
+    ],
+    "offline_replay_from_original_start": true
+  },
+  {
+    "mode": "fixed_baseline",
+    "seed": 86013,
+    "time": 0.2,
+    "knee_pulse_normalized": 0.0,
+    "body_point_vz_world_estimate_mps": 0.27207755425524555,
+    "height": 0.7978455611561588,
+    "height_before": 0.7922620452984317,
+    "pitch_rate": 0.23358160257339478,
+    "foot_load_N": [
+      51.30100173976785,
+      67.40421555872074
+    ],
+    "loaded_before": {
+      "left": true,
+      "right": true
+    },
+    "flight": false,
+    "fell": false,
+    "actual_motor_torque": [
+      2.6177462867966845,
+      -0.16026744398249093,
+      27.791519083473304,
+      -4.2301278906160835,
+      2.337682309758918,
+      25.11813798113235,
+      -0.20257903899383206,
+      3.2873479357929623
+    ],
+    "offline_replay_from_original_start": true
+  },
+  {
+    "mode": "fixed_baseline",
+    "seed": 86013,
+    "time": 0.2,
+    "knee_pulse_normalized": -0.01,
+    "body_point_vz_world_estimate_mps": 0.2788208996123441,
+    "height": 0.7979127377101886,
+    "height_before": 0.7922620452984317,
+    "pitch_rate": 0.3001426160335541,
+    "foot_load_N": [
+      61.37097530856513,
+      77.88088292017515
+    ],
+    "loaded_before": {
+      "left": true,
+      "right": true
+    },
+    "flight": false,
+    "fell": false,
+    "actual_motor_torque": [
+      2.6098937769614996,
+      -0.39288871930557434,
+      24.749109562600665,
+      -4.255574318684845,
+      2.1548105141665133,
+      22.00686342231586,
+      -0.2022805821464611,
+      4.31459841137509
+    ],
+    "offline_replay_from_original_start": true
+  },
+  {
+    "mode": "fixed_baseline",
+    "seed": 86013,
+    "time": 0.2,
+    "knee_pulse_normalized": 0.01,
+    "body_point_vz_world_estimate_mps": 0.26490991658397506,
+    "height": 0.7977740273693191,
+    "height_before": 0.7922620452984317,
+    "pitch_rate": 0.16684241592884064,
+    "foot_load_N": [
+      41.057492877345055,
+      56.776911043230186
+    ],
+    "loaded_before": {
+      "left": true,
+      "right": true
+    },
+    "flight": false,
+    "fell": false,
+    "actual_motor_torque": [
+      2.6207984767666948,
+      0.07418615464030154,
+      30.890150647158748,
+      -4.205583136376807,
+      2.5157649983373744,
+      28.282198145078837,
+      -0.18830124625831965,
+      2.2532711702891888
+    ],
+    "offline_replay_from_original_start": true
+  },
+  {
+    "mode": "fixed_baseline",
+    "seed": 86013,
+    "time": 0.24,
+    "knee_pulse_normalized": 0.0,
+    "body_point_vz_world_estimate_mps": 0.1472055538626184,
+    "height": 0.8073610648428975,
+    "height_before": 0.8033215015521955,
+    "pitch_rate": 0.07585397362709045,
+    "foot_load_N": [
+      18.21271864081043,
+      24.116875189391983
+    ],
+    "loaded_before": {
+      "left": true,
+      "right": true
+    },
+    "flight": false,
+    "fell": false,
+    "actual_motor_torque": [
+      2.9836972522106273,
+      1.1044279998430397,
+      32.215585193025845,
+      -3.4211937801795687,
+      1.540205955964666,
+      31.231835176933032,
+      -0.08846733871679628,
+      -0.7754047867546321
+    ],
+    "offline_replay_from_original_start": true
+  },
+  {
+    "mode": "fixed_baseline",
+    "seed": 86013,
+    "time": 0.24,
+    "knee_pulse_normalized": -0.01,
+    "body_point_vz_world_estimate_mps": 0.13745255785504873,
+    "height": 0.8073145351938784,
+    "height_before": 0.8033215015521955,
+    "pitch_rate": 0.15895220637321472,
+    "foot_load_N": [
+      21.643006995435886,
+      28.769057732277687
+    ],
+    "loaded_before": {
+      "left": true,
+      "right": true
+    },
+    "flight": false,
+    "fell": false,
+    "actual_motor_torque": [
+      2.97797738705661,
+      0.48879467759161344,
+      30.497355836788984,
+      -3.490098376632082,
+      1.0630136672245953,
+      29.30994519828596,
+      -0.11008463672247416,
+      0.27993222601493795
+    ],
+    "offline_replay_from_original_start": true
+  },
+  {
+    "mode": "fixed_baseline",
+    "seed": 86013,
+    "time": 0.24,
+    "knee_pulse_normalized": 0.01,
+    "body_point_vz_world_estimate_mps": 0.15775039499060198,
+    "height": 0.8074064812725932,
+    "height_before": 0.8033215015521955,
+    "pitch_rate": -0.00931596104055643,
+    "foot_load_N": [
+      14.95439076246791,
+      20.82759366525957
+    ],
+    "loaded_before": {
+      "left": true,
+      "right": true
+    },
+    "flight": false,
+    "fell": false,
+    "actual_motor_torque": [
+      2.9644188211498053,
+      1.7668310933090083,
+      33.90374224926302,
+      -3.4019207861395104,
+      2.2087956822639967,
+      32.91223951068298,
+      -0.08256754529959263,
+      -1.8319516038772345
+    ],
+    "offline_replay_from_original_start": true
+  },
+  {
+    "mode": "fixed_baseline",
+    "seed": 86013,
+    "time": 0.3,
+    "knee_pulse_normalized": 0.0,
+    "body_point_vz_world_estimate_mps": -0.2368678091291481,
+    "height": 0.8047545481370356,
+    "height_before": 0.8083623675911001,
+    "pitch_rate": 0.07637441158294678,
+    "foot_load_N": [
+      3.7990766968883527,
+      61.55655263130754
+    ],
+    "loaded_before": {
+      "left": false,
+      "right": true
+    },
+    "flight": false,
+    "fell": false,
+    "actual_motor_torque": [
+      0.02442473532851963,
+      0.6792232808710992,
+      -1.0416016617485866,
+      -4.7990782207934055,
+      1.0670125814306743,
+      21.48597466522301,
+      -0.809654873702128,
+      1.5815777321267728
+    ],
+    "offline_replay_from_original_start": true
+  },
+  {
+    "mode": "fixed_baseline",
+    "seed": 86013,
+    "time": 0.3,
+    "knee_pulse_normalized": -0.01,
+    "body_point_vz_world_estimate_mps": -0.23717703150042818,
+    "height": 0.8047748434514961,
+    "height_before": 0.8083623675911001,
+    "pitch_rate": 0.13739781081676483,
+    "foot_load_N": [
+      5.700030018258892,
+      71.99823959836613
+    ],
+    "loaded_before": {
+      "left": false,
+      "right": true
+    },
+    "flight": false,
+    "fell": false,
+    "actual_motor_torque": [
+      -0.21370418559039184,
+      0.26257691472761735,
+      -1.6737484624251238,
+      -5.270641430116824,
+      0.7054808954562191,
+      18.331251021655248,
+      -0.8733318325460241,
+      2.4230971672212296
+    ],
+    "offline_replay_from_original_start": true
+  },
+  {
+    "mode": "fixed_baseline",
+    "seed": 86013,
+    "time": 0.3,
+    "knee_pulse_normalized": 0.01,
+    "body_point_vz_world_estimate_mps": -0.23779653363506648,
+    "height": 0.8047289497061533,
+    "height_before": 0.8083623675911001,
+    "pitch_rate": 0.021407436579465866,
+    "foot_load_N": [
+      2.872945305416324,
+      51.21811929142998
+    ],
+    "loaded_before": {
+      "left": false,
+      "right": true
+    },
+    "flight": false,
+    "fell": false,
+    "actual_motor_torque": [
+      0.19772426283601074,
+      0.7490515105430973,
+      -0.5661709051549906,
+      -4.308631552176297,
+      1.5604813850962387,
+      24.65502294063606,
+      -0.7381565276677267,
+      0.7954440565075145
+    ],
+    "offline_replay_from_original_start": true
+  },
+  {
+    "mode": "paired_pitch_only",
+    "seed": 83002,
+    "time": 0.1,
+    "knee_pulse_normalized": 0.0,
+    "body_point_vz_world_estimate_mps": 0.4488664866875571,
+    "height": 0.7705530681200348,
+    "height_before": 0.7618250245354063,
+    "pitch_rate": -0.13043206930160522,
+    "foot_load_N": [
+      37.649569886654874,
+      74.11635440399407
+    ],
+    "loaded_before": {
+      "left": true,
+      "right": true
+    },
+    "flight": false,
+    "fell": false,
+    "actual_motor_torque": [
+      -10.451212026880967,
+      -5.245344385555654,
+      52.02320017355066,
+      6.567612985269388,
+      -19.251666429858744,
+      40.30334226543016,
+      -0.9284989152613563,
+      27.6458005728579
+    ],
+    "offline_replay_from_original_start": true
+  },
+  {
+    "mode": "paired_pitch_only",
+    "seed": 83002,
+    "time": 0.1,
+    "knee_pulse_normalized": -0.01,
+    "body_point_vz_world_estimate_mps": 0.47034971169015427,
+    "height": 0.7707005924497816,
+    "height_before": 0.7618250245354063,
+    "pitch_rate": -0.07515140622854233,
+    "foot_load_N": [
+      53.74347597055407,
+      89.39002408133983
+    ],
+    "loaded_before": {
+      "left": true,
+      "right": true
+    },
+    "flight": false,
+    "fell": false,
+    "actual_motor_torque": [
+      -10.395560906370012,
+      -5.377131186549775,
+      47.31550133108681,
+      6.585534537647396,
+      -19.180994687871078,
+      35.87120686580715,
+      -0.9230939651620665,
+      28.634413558782207
+    ],
+    "offline_replay_from_original_start": true
+  },
+  {
+    "mode": "paired_pitch_only",
+    "seed": 83002,
+    "time": 0.1,
+    "knee_pulse_normalized": 0.01,
+    "body_point_vz_world_estimate_mps": 0.4355041741634497,
+    "height": 0.7704598481117932,
+    "height_before": 0.7618250245354063,
+    "pitch_rate": -0.16596193611621857,
+    "foot_load_N": [
+      31.1458193106234,
+      58.57560601188016
+    ],
+    "loaded_before": {
+      "left": true,
+      "right": true
+    },
+    "flight": false,
+    "fell": false,
+    "actual_motor_torque": [
+      -9.885719180313416,
+      -5.360533823547598,
+      53.840786377106234,
+      7.146063048997483,
+      -19.01033828007587,
+      44.959042085573515,
+      -0.9099861911624353,
+      27.050066775469325
+    ],
+    "offline_replay_from_original_start": true
+  },
+  {
+    "mode": "paired_pitch_only",
+    "seed": 83002,
+    "time": 0.2,
+    "knee_pulse_normalized": 0.0,
+    "body_point_vz_world_estimate_mps": 0.28146320188785034,
+    "height": 0.8040724020244683,
+    "height_before": 0.7981229817516432,
+    "pitch_rate": 0.48340070247650146,
+    "foot_load_N": [
+      42.231847786485666,
+      69.50675510295129
+    ],
+    "loaded_before": {
+      "left": true,
+      "right": true
+    },
+    "flight": false,
+    "fell": false,
+    "actual_motor_torque": [
+      -9.512239133387881,
+      7.127909437627352,
+      32.65188469459497,
+      6.848967155983193,
+      -0.5169572771719118,
+      24.67756442275686,
+      -0.1748639619477892,
+      -1.3433577392745981
+    ],
+    "offline_replay_from_original_start": true
+  },
+  {
+    "mode": "paired_pitch_only",
+    "seed": 83002,
+    "time": 0.2,
+    "knee_pulse_normalized": -0.01,
+    "body_point_vz_world_estimate_mps": 0.3016352406447546,
+    "height": 0.804242722306193,
+    "height_before": 0.7981229817516432,
+    "pitch_rate": 0.5440682768821716,
+    "foot_load_N": [
+      54.83032322297713,
+      83.0835836247212
+    ],
+    "loaded_before": {
+      "left": true,
+      "right": true
+    },
+    "flight": false,
+    "fell": false,
+    "actual_motor_torque": [
+      -9.524540134141981,
+      6.905910647525161,
+      29.050798523336994,
+      6.794755795141169,
+      -0.6590470623551141,
+      20.87339702510542,
+      -0.12505336628163183,
+      -0.2703039181941165
+    ],
+    "offline_replay_from_original_start": true
+  },
+  {
+    "mode": "paired_pitch_only",
+    "seed": 83002,
+    "time": 0.2,
+    "knee_pulse_normalized": 0.01,
+    "body_point_vz_world_estimate_mps": 0.26497832775348074,
+    "height": 0.8039221762876331,
+    "height_before": 0.7981229817516432,
+    "pitch_rate": 0.41843655705451965,
+    "foot_load_N": [
+      31.981344246999797,
+      57.190843069603275
+    ],
+    "loaded_before": {
+      "left": true,
+      "right": true
+    },
+    "flight": false,
+    "fell": false,
+    "actual_motor_torque": [
+      -9.432138670729357,
+      7.465372755312217,
+      35.76004074393063,
+      6.946662380422332,
+      -0.2626305921045855,
+      28.252471803318258,
+      -0.39512946339174476,
+      -2.4249376844235933
+    ],
+    "offline_replay_from_original_start": true
+  },
+  {
+    "mode": "paired_pitch_only",
+    "seed": 83002,
+    "time": 0.24,
+    "knee_pulse_normalized": 0.0,
+    "body_point_vz_world_estimate_mps": 0.08421114757072401,
+    "height": 0.8136755210496079,
+    "height_before": 0.8097818856793957,
+    "pitch_rate": 0.5010111927986145,
+    "foot_load_N": [
+      0.0,
+      15.965836263667818
+    ],
+    "loaded_before": {
+      "left": false,
+      "right": true
+    },
+    "flight": true,
+    "fell": false,
+    "actual_motor_torque": [
+      -3.2228971643192583,
+      4.411204304076023,
+      1.6529380798149305,
+      3.5983421744407806,
+      12.104278131311958,
+      36.940695687631774,
+      -1.808744542844376,
+      -18.73081218011218
+    ],
+    "offline_replay_from_original_start": true
+  },
+  {
+    "mode": "paired_pitch_only",
+    "seed": 83002,
+    "time": 0.24,
+    "knee_pulse_normalized": -0.01,
+    "body_point_vz_world_estimate_mps": 0.08111355682867438,
+    "height": 0.8136561878320017,
+    "height_before": 0.8097818856793957,
+    "pitch_rate": 0.5555274486541748,
+    "foot_load_N": [
+      0.0,
+      22.391734042540755
+    ],
+    "loaded_before": {
+      "left": false,
+      "right": true
+    },
+    "flight": false,
+    "fell": false,
+    "actual_motor_torque": [
+      -3.57857691090479,
+      4.548977102967797,
+      1.1431319004013858,
+      3.5938781667506703,
+      11.51996786344165,
+      34.55058092815398,
+      -1.7673875178407694,
+      -17.990444374372032
+    ],
+    "offline_replay_from_original_start": true
+  },
+  {
+    "mode": "paired_pitch_only",
+    "seed": 83002,
+    "time": 0.24,
+    "knee_pulse_normalized": 0.01,
+    "body_point_vz_world_estimate_mps": 0.0878416860330925,
+    "height": 0.813691194790048,
+    "height_before": 0.8097818856793957,
+    "pitch_rate": 0.4487292766571045,
+    "foot_load_N": [
+      0.0,
+      12.784850148899476
+    ],
+    "loaded_before": {
+      "left": false,
+      "right": true
+    },
+    "flight": true,
+    "fell": false,
+    "actual_motor_torque": [
+      -2.946497985961308,
+      4.443375768114947,
+      1.8565515686389062,
+      3.47120471855877,
+      12.894700459347916,
+      38.87980630784318,
+      -1.8005104281056812,
+      -19.41739157090479
+    ],
+    "offline_replay_from_original_start": true
+  },
+  {
+    "mode": "paired_pitch_only",
+    "seed": 83002,
+    "time": 0.3,
+    "knee_pulse_normalized": 0.0,
+    "body_point_vz_world_estimate_mps": -0.4944126909810505,
+    "height": 0.8030134631859124,
+    "height_before": 0.8105023193621231,
+    "pitch_rate": 0.42277276515960693,
+    "foot_load_N": [
+      5.4193973597106,
+      2.142704446465057
+    ],
+    "loaded_before": {
+      "left": false,
+      "right": false
+    },
+    "flight": true,
+    "fell": false,
+    "actual_motor_torque": [
+      0.16879951592986853,
+      1.0459438431504395,
+      -0.7881923532964947,
+      -0.8592782238179293,
+      -0.7224290209769038,
+      -0.9704257064745434,
+      0.038716525936068336,
+      0.5284116308511102
+    ],
+    "offline_replay_from_original_start": true
+  },
+  {
+    "mode": "paired_pitch_only",
+    "seed": 83002,
+    "time": 0.3,
+    "knee_pulse_normalized": -0.01,
+    "body_point_vz_world_estimate_mps": -0.5005052290009118,
+    "height": 0.8029824970663725,
+    "height_before": 0.8105023193621231,
+    "pitch_rate": 0.472468763589859,
+    "foot_load_N": [
+      7.793242003218157,
+      3.348491817114451
+    ],
+    "loaded_before": {
+      "left": false,
+      "right": false
+    },
+    "flight": true,
+    "fell": false,
+    "actual_motor_torque": [
+      -0.010579295967976243,
+      0.5879567943931079,
+      -1.7076702124832082,
+      -0.9998379125986583,
+      -0.9155896860640951,
+      -1.7278101053226465,
+      0.17149183187807254,
+      1.1543453506705035
+    ],
+    "offline_replay_from_original_start": true
+  },
+  {
+    "mode": "paired_pitch_only",
+    "seed": 83002,
+    "time": 0.3,
+    "knee_pulse_normalized": 0.01,
+    "body_point_vz_world_estimate_mps": -0.4889391466544632,
+    "height": 0.8030436381912759,
+    "height_before": 0.8105023193621231,
+    "pitch_rate": 0.37852397561073303,
+    "foot_load_N": [
+      3.1932942724834064,
+      1.0037441980393458
+    ],
+    "loaded_before": {
+      "left": false,
+      "right": false
+    },
+    "flight": true,
+    "fell": false,
+    "actual_motor_torque": [
+      0.47937232363101767,
+      1.2305066211910116,
+      0.003245409307510272,
+      -0.7908637026724135,
+      -0.48153198510715356,
+      -0.21785996923017592,
+      -0.09830486369491373,
+      -0.05535414684448625
+    ],
+    "offline_replay_from_original_start": true
+  },
+  {
+    "mode": "paired_pitch_only",
+    "seed": 86013,
+    "time": 0.1,
+    "knee_pulse_normalized": 0.0,
+    "body_point_vz_world_estimate_mps": 0.4538491484131654,
+    "height": 0.7622360426712669,
+    "height_before": 0.753331611637261,
+    "pitch_rate": 0.024497848004102707,
+    "foot_load_N": [
+      45.10136106352927,
+      79.21887547551819
+    ],
+    "loaded_before": {
+      "left": true,
+      "right": true
+    },
+    "flight": false,
+    "fell": false,
+    "actual_motor_torque": [
+      2.165796515887726,
+      -14.740060072258188,
+      47.83243239263868,
+      -5.786552245046143,
+      -8.254327488871297,
+      42.37845735979545,
+      -0.1331844213213671,
+      26.232989460657418
+    ],
+    "offline_replay_from_original_start": true
+  },
+  {
+    "mode": "paired_pitch_only",
+    "seed": 86013,
+    "time": 0.1,
+    "knee_pulse_normalized": -0.01,
+    "body_point_vz_world_estimate_mps": 0.4741944246116445,
+    "height": 0.7624058968685077,
+    "height_before": 0.753331611637261,
+    "pitch_rate": 0.07965470850467682,
+    "foot_load_N": [
+      54.81836637172633,
+      93.3432944139103
+    ],
+    "loaded_before": {
+      "left": true,
+      "right": true
+    },
+    "flight": false,
+    "fell": false,
+    "actual_motor_torque": [
+      2.0711627463787514,
+      -15.127674737345274,
+      44.495571410605066,
+      -5.885336746670566,
+      -8.245298197470163,
+      38.16707265237426,
+      -0.16925765902959533,
+      27.225406940442603
+    ],
+    "offline_replay_from_original_start": true
+  },
+  {
+    "mode": "paired_pitch_only",
+    "seed": 86013,
+    "time": 0.1,
+    "knee_pulse_normalized": 0.01,
+    "body_point_vz_world_estimate_mps": 0.4370183508799712,
+    "height": 0.7620824362898486,
+    "height_before": 0.753331611637261,
+    "pitch_rate": -0.03580367565155029,
+    "foot_load_N": [
+      36.38082477074862,
+      64.94690348228642
+    ],
+    "loaded_before": {
+      "left": true,
+      "right": true
+    },
+    "flight": false,
+    "fell": false,
+    "actual_motor_torque": [
+      2.403116371039623,
+      -14.037065054260836,
+      50.71507263126409,
+      -5.534134788035603,
+      -8.360407505819637,
+      46.59579477253283,
+      -0.11652413074565857,
+      25.216759498302157
+    ],
+    "offline_replay_from_original_start": true
+  },
+  {
+    "mode": "paired_pitch_only",
+    "seed": 86013,
+    "time": 0.2,
+    "knee_pulse_normalized": 0.0,
+    "body_point_vz_world_estimate_mps": 0.27661013829729103,
+    "height": 0.7961108795817851,
+    "height_before": 0.7901162431187295,
+    "pitch_rate": 0.46966516971588135,
+    "foot_load_N": [
+      46.57232107820525,
+      61.64261818701861
+    ],
+    "loaded_before": {
+      "left": true,
+      "right": true
+    },
+    "flight": false,
+    "fell": false,
+    "actual_motor_torque": [
+      2.724807212265799,
+      4.0510408646155724,
+      30.454901390410555,
+      -4.194198985790846,
+      6.228977889744101,
+      27.972012477380645,
+      -0.23542399365757077,
+      -4.424695850625589
+    ],
+    "offline_replay_from_original_start": true
+  },
+  {
+    "mode": "paired_pitch_only",
+    "seed": 86013,
+    "time": 0.2,
+    "knee_pulse_normalized": -0.01,
+    "body_point_vz_world_estimate_mps": 0.28505824014696085,
+    "height": 0.7962017001335533,
+    "height_before": 0.7901162431187295,
+    "pitch_rate": 0.5362768173217773,
+    "foot_load_N": [
+      56.55809241573245,
+      72.31080624412829
+    ],
+    "loaded_before": {
+      "left": true,
+      "right": true
+    },
+    "flight": false,
+    "fell": false,
+    "actual_motor_torque": [
+      2.655168078831161,
+      3.768849088384229,
+      27.431099313348227,
+      -4.2919270266391845,
+      6.01453263907473,
+      24.780035262785418,
+      -0.27255307190293393,
+      -3.3778553234179824
+    ],
+    "offline_replay_from_original_start": true
+  },
+  {
+    "mode": "paired_pitch_only",
+    "seed": 86013,
+    "time": 0.2,
+    "knee_pulse_normalized": 0.01,
+    "body_point_vz_world_estimate_mps": 0.2700466674040556,
+    "height": 0.7960407696186709,
+    "height_before": 0.7901162431187295,
+    "pitch_rate": 0.40287086367607117,
+    "foot_load_N": [
+      36.32105374021742,
+      51.15205450471385
+    ],
+    "loaded_before": {
+      "left": true,
+      "right": true
+    },
+    "flight": false,
+    "fell": false,
+    "actual_motor_torque": [
+      2.719884753670661,
+      4.273616358566414,
+      33.55770982796605,
+      -4.1765065036025035,
+      6.41701274724835,
+      31.102623746424,
+      -0.22522920821725395,
+      -5.457418269066018
+    ],
+    "offline_replay_from_original_start": true
+  },
+  {
+    "mode": "paired_pitch_only",
+    "seed": 86013,
+    "time": 0.24,
+    "knee_pulse_normalized": 0.0,
+    "body_point_vz_world_estimate_mps": 0.17423101024016321,
+    "height": 0.8067974141006299,
+    "height_before": 0.8020779406955011,
+    "pitch_rate": 0.2176760882139206,
+    "foot_load_N": [
+      10.742865890881742,
+      14.883705322854315
+    ],
+    "loaded_before": {
+      "left": true,
+      "right": true
+    },
+    "flight": true,
+    "fell": false,
+    "actual_motor_torque": [
+      2.9364524335064783,
+      11.147808007704498,
+      37.184609996396034,
+      -3.378899166981209,
+      11.953646292465919,
+      36.51662339314066,
+      0.016336162260613588,
+      -20.052054891879724
+    ],
+    "offline_replay_from_original_start": true
+  },
+  {
+    "mode": "paired_pitch_only",
+    "seed": 86013,
+    "time": 0.24,
+    "knee_pulse_normalized": -0.01,
+    "body_point_vz_world_estimate_mps": 0.16425396251911029,
+    "height": 0.8067472449107224,
+    "height_before": 0.8020779406955011,
+    "pitch_rate": 0.2931465804576874,
+    "foot_load_N": [
+      12.917053111375957,
+      18.131474845200906
+    ],
+    "loaded_before": {
+      "left": true,
+      "right": true
+    },
+    "flight": false,
+    "fell": false,
+    "actual_motor_torque": [
+      2.995306491040334,
+      10.914794580740931,
+      35.686220886980436,
+      -3.428694498027327,
+      11.395595837152825,
+      34.82825139191516,
+      -0.01021316670086819,
+      -19.06441839529929
+    ],
+    "offline_replay_from_original_start": true
+  },
+  {
+    "mode": "paired_pitch_only",
+    "seed": 86013,
+    "time": 0.24,
+    "knee_pulse_normalized": 0.01,
+    "body_point_vz_world_estimate_mps": 0.18282658666815008,
+    "height": 0.8068417480558915,
+    "height_before": 0.8020779406955011,
+    "pitch_rate": 0.1512766033411026,
+    "foot_load_N": [
+      9.00268394776425,
+      12.461070400093364
+    ],
+    "loaded_before": {
+      "left": true,
+      "right": true
+    },
+    "flight": true,
+    "fell": false,
+    "actual_motor_torque": [
+      2.823982867989943,
+      11.047191162617139,
+      38.47761660734659,
+      -3.2841198698330283,
+      12.564964254277811,
+      38.179170065186895,
+      0.045406274471111084,
+      -20.95372877534312
+    ],
+    "offline_replay_from_original_start": true
+  },
+  {
+    "mode": "paired_pitch_only",
+    "seed": 86013,
+    "time": 0.3,
+    "knee_pulse_normalized": 0.0,
+    "body_point_vz_world_estimate_mps": -0.350671255627475,
+    "height": 0.8016734655021086,
+    "height_before": 0.8071390858262736,
+    "pitch_rate": -0.024592524394392967,
+    "foot_load_N": [
+      0.0,
+      0.0
+    ],
+    "loaded_before": {
+      "left": false,
+      "right": false
+    },
+    "flight": true,
+    "fell": false,
+    "actual_motor_torque": [
+      -0.6552736097961738,
+      -1.8946451503786648,
+      -1.188928481350672,
+      0.6748378672506554,
+      -2.0448566902053926,
+      -1.2397876236653929,
+      -0.030614886683539008,
+      4.832573322178071
+    ],
+    "offline_replay_from_original_start": true
+  },
+  {
+    "mode": "paired_pitch_only",
+    "seed": 86013,
+    "time": 0.3,
+    "knee_pulse_normalized": -0.01,
+    "body_point_vz_world_estimate_mps": -0.35905826569058186,
+    "height": 0.8016381054404247,
+    "height_before": 0.8071390858262736,
+    "pitch_rate": 0.027661368250846863,
+    "foot_load_N": [
+      0.0,
+      2.0898951984953342
+    ],
+    "loaded_before": {
+      "left": false,
+      "right": false
+    },
+    "flight": true,
+    "fell": false,
+    "actual_motor_torque": [
+      -0.6535381071554616,
+      -2.309771266131065,
+      -1.6475030967711746,
+      0.6731276959392085,
+      -2.459884697023483,
+      -1.698134726601097,
+      -0.030310137620498504,
+      5.463098812146789
+    ],
+    "offline_replay_from_original_start": true
+  },
+  {
+    "mode": "paired_pitch_only",
+    "seed": 86013,
+    "time": 0.3,
+    "knee_pulse_normalized": 0.01,
+    "body_point_vz_world_estimate_mps": -0.3424233013704012,
+    "height": 0.801708144985088,
+    "height_before": 0.8071390858262736,
+    "pitch_rate": -0.0756455734372139,
+    "foot_load_N": [
+      0.0,
+      0.0
+    ],
+    "loaded_before": {
+      "left": false,
+      "right": false
+    },
+    "flight": true,
+    "fell": false,
+    "actual_motor_torque": [
+      -0.6569240854806075,
+      -1.477737432382014,
+      -0.7300300733940048,
+      0.6766460242517223,
+      -1.6272012125511424,
+      -0.7816354731237425,
+      -0.03097042899674881,
+      4.203219483630711
+    ],
+    "offline_replay_from_original_start": true
+  }
+]

@@ -1,0 +1,22 @@
+{
+  "status": "training_completed_final_validation_in114",
+  "sessions": {
+    "control": 52713,
+    "candidate": 45690
+  },
+  "files": {
+    "turn_duration2_control_20261009.args.json": "aad9ec5f768c9adccd105934d7c696fba0e18a3768d3f50d988c087252bb5cb8",
+    "final_validation.py": "5224687cd4f8cd1a8c4c4b69d260ec326e7328cefe91df188a7801d444e24f63",
+    "suite.log": "c69fc69aecde0a02ea70cf2685ae4c4f4463201b55a451d11531b69b5405289f",
+    "README.md": "da1bb928ec3b8c3692fbe8c67a412b43ff1fdfc0aa6349f2eed916f19f4a5156",
+    "initialization.json": "fd32bde65500c23714a0dc15140650cb2bd24ff93c609fd98196d8b79d2b1c1b",
+    "progress-observation.json": "4059c426cd1b128db62dd930aa8b1e039e903eba88c59ad71c32ddf816b85c34",
+    "focused.log": "a991e857d0f9e18c674198525a7a665f6c7e17cce290799f58af9e3e5c67d190",
+    "turn_duration6_candidate_20261009.args.json": "326c6978300d22e47182cc8e77880c6d5c2915e971ad23bf873c90ea3face384"
+  },
+  "code_hashes": {
+    "sim/rl/command_sequence.py": "f797e550a292b2665ef9fda96983901b6258840937a835876aae2adc41e42554",
+    "sim/rl/train_symmetric.py": "80d4d7d8f9f8f06dd27bd537bf4f546d37ad63533f0d85a58e4d7a3d11f085d6",
+    "tests/test_command_sequence.py": "477a695db7cbf58f949fcaa5f3b376c83a23d68655d1458da379d6a2c20f5afe"
+  }
+}

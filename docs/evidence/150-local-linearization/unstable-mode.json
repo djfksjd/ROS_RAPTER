@@ -1,0 +1,47 @@
+{
+  "eigenvalue": 1.0624109271546203,
+  "growth_rate_per_second": 3.027039251799521,
+  "largest_raw_state_components": [
+    {
+      "state": "v/root_pitch_tangent",
+      "coefficient": -0.7832878964580529
+    },
+    {
+      "state": "q/root_pitch_tangent",
+      "coefficient": -0.2590717874887618
+    },
+    {
+      "state": "v/left_toe_2_distal_joint",
+      "coefficient": 0.22102716746778933
+    },
+    {
+      "state": "v/right_toe_2_distal_joint",
+      "coefficient": 0.2210271540478092
+    },
+    {
+      "state": "v/left_toe_1_distal_joint",
+      "coefficient": 0.17904417477231738
+    },
+    {
+      "state": "v/right_toe_3_distal_joint",
+      "coefficient": 0.17904416037360457
+    },
+    {
+      "state": "v/root_x",
+      "coefficient": -0.17156042867068882
+    },
+    {
+      "state": "v/right_toe_2_proximal_joint",
+      "coefficient": 0.1586372383018253
+    },
+    {
+      "state": "v/left_toe_2_proximal_joint",
+      "coefficient": 0.15863723560450485
+    },
+    {
+      "state": "v/root_z",
+      "coefficient": 0.14119302018213806
+    }
+  ],
+  "mixed_state_units": true
+}

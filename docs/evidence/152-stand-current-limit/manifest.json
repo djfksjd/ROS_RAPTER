@@ -1,0 +1,10 @@
+{
+  "code_hashes": {
+    "sim/rl/local_stand_model.py": "639f464d6b6b51466cb87ec02ac7fbd38c20124c377405942353a9b0f9f3fc41",
+    "tests/test_local_stand_model.py": "979ce3e766ab216fbc3ce7212dc61aeb6541edba167c475732a7c51e4da54837"
+  },
+  "software_continuous_limit_factor": 0.995,
+  "default_RunEnv_changed": false,
+  "source": "sim/rl/runs/kl005_lr3e5_update64k_20261009",
+  "goal_status": "active"
+}
