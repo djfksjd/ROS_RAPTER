@@ -30,6 +30,19 @@
 > [중간 보고서 PDF](docs/reports/Raptor_Interim_Report_20261009.pdf) · [재개 체크포인트](docs/checkpoints/2026-10-09-pause/README.md) · [작업 상태](docs/WORK_STATE.ko.md) · [최신 실험 163](docs/evidence/163-knee-vertical-support/README.md)<br>
 > 다음 단계는 초기 접촉 상태에서 고관절·무릎·꼬리의 수평·수직·pitch 결합 응답 측정입니다. 사용자 재개 요청 전에는 새 실험을 시작하지 않습니다.
 
+## 최신 시뮬레이션 영상·그래프 (2026-10-09)
+
+기존 체크포인트를 재생한 **MuJoCo 동역학 모델 렌더**입니다. 실물 사진·제작 도면은 아닙니다. 아래 주행 영상은 한 개발 조건이며, 기립 영상도 원개발21조건 중 성공1개의 사례입니다. 실패 영상과 전체 통과율을 함께 확인하세요.
+
+| 4 m/s 주행·회전 / 1배속 | 기립 단일 성공 / 약4배속 |
+|---|---|
+| ![주행 회전 미리보기](docs/assets/latest/run-turn-preview.gif) | ![기립 미리보기](docs/assets/latest/stand-preview.gif) |
+| [10초 MP4](docs/assets/latest/run-turn-4mps.mp4) | [60초 시험 MP4](docs/assets/latest/stand-83002.mp4) · [0.9초 실패 MP4](docs/assets/latest/stand-86013.mp4) |
+
+![최근 회전 통과율 그래프](docs/assets/latest/turn-gates.png)
+
+[기립 성공·실패 그래프, 무릎 반응 그래프, 렌더 스냅샷과 검증 기록 모두 보기](docs/assets/latest/README.md)
+
 > **이전 개발 기록 · 2026-09-30**<br>
 > 40 km/h 요구 사양서([docs/design/40kmh-spec.md](docs/design/40kmh-spec.md))를 계산기로 작성했고, **T1 가상 구동기 달리기 환경**(5 kg R-02 + 스프링 (c), 토크·속도·전력 클램프, 꼬리 행동)에서 강화학습으로 평지 **9.1 m/s(33 km/h) 타조형 교대 달리기**(바운드 걸음·관절 굽힘·속도 보상을 Codex·UNI_AI 검토로 수정, 유각 발목 37~39°), 발목 모터 없는 말 다리 연동으로도 8.3 m/s, 꼬리 활성이 요·피치 임펄스를 더 견딤, 2.5 rad/s 방향전환 무전도(단 속도·교대·회전을 한 정책으로 합치는 것은 미완)까지 측정했습니다. 넘어진 뒤 일어나기는 3차 학습까지 실패(설계 항목). 40 km/h는 미달성이며 모두 가상 구동기 결과입니다. [현재 단계 보기](#현재--40-kmh-사양과-t1-달리기-2026-09-30)<br>
 > 이전 · 목표(40km/h 달리기·꼬리 균형)에 맞춰 **수학적 전면 재설계 R-02**(11.4kg, 타조 비율 다리, 두 발가락, 앞 센서 포드)를 만들었습니다. 설계 → Xacro → URDF → MuJoCo·Gazebo가 한 원천이고, 목표 형태의 외형 메시와 MuJoCo 평지 보행까지 완료했습니다. [3세대 R-02 보기](#3세대--r-02-전면-재설계-2026-09-29)<br>
