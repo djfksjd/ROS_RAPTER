@@ -29,3 +29,5 @@ restore.py는SHA256확인후누락파일만복사하며다른기존파일이있�
 공개채널목록121·자막전문43·영상음성완시청0·미검토78. 자체분석/출처/주장ledger는docs/research/engiuniverse-20261009에포함. 자동자막원문/영상/외부논문PDF/사용자노트원본은공개하지않았고Documents연구폴더에남아있다. HTTP429/403실패도보존. 전편시청완료아님.
 
 일시정지전검사:AI환경154개77통과/77환경생략; sim환경154개모두통과. 두로그포함. ps목록에서관련학습/실험프로세스없음. 검사는시뮬레이션규약/코드에대한것이며goal성능통과또는실물검증아님.
+
+추가 보존: environment.json에실제Python/패키지버전기록(다른OS용portable lock아님). 빈임시repo에서12파일누락확인→restore --apply→재검증누락0을확인했고restore-verification.json에결과를기록했다. 기존Mac파일은변경하지않았다.
