@@ -25,12 +25,34 @@
 
 핵심은 **빠르고 정확한 명령 이해와 사람의 통제**입니다. AI가 작전을 자율 결정하거나 모터 명령을 직접 만들지 않습니다. `STOP`은 모델 추론을 거치지 않고 우선 처리합니다.
 
-> **현재 체크포인트 · 2026-10-09 / 사용자 요청으로 일시정지**<br>
+> **현재 체크포인트 · 2026-10-13 / 사용자 요청으로 일시정지**<br>
+> 모델 개정 2(걸쇠가 에너지를 만들던 오류 제거)에서 무릎 스프링·클러치를 다시 학습했습니다. 현재 최선 후보 `rev2_r3_ck7M`은 **8회 점검**에서 2–7 m/s 명령 모두 전도 0, 모든 모터가 연속 정격 아래(최고 0.88), 걸음당 스프링 저장 3.3–6.0 J, 클러치 입각 연결 100 %입니다. 속도는 7 m/s 명령에서 **5.7 m/s(약 21 km/h)** 로 40 km/h의 절반 수준이며, 롤 충격 2.0 N·m·s 기준은 미달입니다(공중 구간 롤 관성 한계). 고정 시드 299회 판정과 최종 정책 선정은 아직 하지 않았고, 실물·40 km/h 달성으로 보고하지 않습니다.<br>
+> [증거 164 · 영상·그래프·원자료](docs/evidence/164-rev2-spring-clutch/README.md) · [최종 설계 검증 보고서 1.8 PDF](docs/reports/final-20261012/RAPTOR_final_design_verification_v1.8_20261012.pdf) · [작업 상태](docs/WORK_STATE.ko.md)<br>
+> 다음 단계는 발열을 지키는 최고 속도 측정(6–11.1 m/s 명령 스캔)과 299회 판정입니다. 사용자 재개 요청 전에는 새 실험을 시작하지 않습니다.
+
+## 최신 시뮬레이션 영상·그래프 (2026-10-13 · 모델 개정 2)
+
+**MuJoCo 동역학 모델 렌더**이며 실물이 아닙니다. 영상은 시드 96001 한 조건의 10초 재생이고, 통과율은 아래 그래프와 [증거 164](docs/evidence/164-rev2-spring-clutch/README.md)의 표로 확인하세요.
+
+| 명령 4 m/s (실제 4.2 m/s) / 1배속 | 명령 7 m/s (실제 5.7 m/s) / 1배속 |
+|---|---|
+| ![4 m/s 달리기](docs/evidence/164-rev2-spring-clutch/rev2/train/media/rev2_r3_ck7M_4mps.gif) | ![7 m/s 달리기](docs/evidence/164-rev2-spring-clutch/rev2/train/media/rev2_r3_ck7M_7mps.gif) |
+| [10초 MP4](docs/evidence/164-rev2-spring-clutch/rev2/train/media/rev2_r3_ck7M_4mps.mp4) | [10초 MP4](docs/evidence/164-rev2-spring-clutch/rev2/train/media/rev2_r3_ck7M_7mps.mp4) |
+
+![정책 6종 비교: 속도, 가장 뜨거운 모터, 스프링 저장](docs/evidence/164-rev2-spring-clutch/rev2/train/media/rev2_summary.png)
+
+앞 세 정책은 299회 판정, 뒤 세 정책은 8회 점검입니다. 걸쇠 → 접지각 클러치 → 래칫 클러치와 좌우 대칭 정책으로 가면서 가장 뜨거운 모터의 부하가 1.77 → 0.88로 내려왔고, 속도는 5.7–5.9 m/s에서 거의 변하지 않았습니다.
+
+![롤 충격 뒤 넘어진 횟수](docs/evidence/164-rev2-spring-clutch/rev2/train/media/roll_impulse.png)
+
+롤 충격은 1.25 N·m·s까지는 대부분 버티지만 2.0 N·m·s에서는 32회 중 3–11회 넘어집니다. 추적한 사례는 두 발이 공중에 있을 때 충격이 들어온 경우입니다.
+
+> **이전 체크포인트 · 2026-10-09**<br>
 > 후방 골반 8축 후보의 회전 보정은 4 m/s 개발 시험에서 회전량 **20/20**, 회전 중 속도까지 동시 통과 **11/20**으로 통합 미달입니다. 평형 근처 60초 기립은 20/20이지만 원시작 후보는 기존 개발 조건 **1/21**, 고정 후 새 20조건은 **0/20**으로 일반 기립·가속·감속·STOP은 미완료입니다. 기준 정책은 교체하지 않았고 실물·40 km/h 달성으로 보고하지 않습니다.<br>
 > [중간 보고서 PDF](docs/reports/Raptor_Interim_Report_20261009.pdf) · [재개 체크포인트](docs/checkpoints/2026-10-09-pause/README.md) · [작업 상태](docs/WORK_STATE.ko.md) · [최신 실험 163](docs/evidence/163-knee-vertical-support/README.md)<br>
 > 다음 단계는 초기 접촉 상태에서 고관절·무릎·꼬리의 수평·수직·pitch 결합 응답 측정입니다. 사용자 재개 요청 전에는 새 실험을 시작하지 않습니다.
 
-## 최신 시뮬레이션 영상·그래프 (2026-10-09)
+## 이전 시뮬레이션 영상·그래프 (2026-10-09)
 
 기존 체크포인트를 재생한 **MuJoCo 동역학 모델 렌더**입니다. 실물 사진·제작 도면은 아닙니다. 아래 주행 영상은 한 개발 조건이며, 기립 영상도 원개발21조건 중 성공1개의 사례입니다. 실패 영상과 전체 통과율을 함께 확인하세요.
 
@@ -444,6 +466,8 @@ ROS 실행·응답 확인·STOP 사용법은 [로컬 개발 가이드](docs/loca
 | [강화학습 보행](docs/RL_LOCOMOTION.ko.md) | 학습 환경·보상·지형·단계 |
 | [40 km/h 요구 사양서](docs/design/40kmh-spec.md) | SLIP·관절·스프링·구동기·꼬리 계산과 상용 구동기 대조 |
 | [동작 카탈로그](docs/design/motion-catalogue.md) | 동작별 통과 기준·현재 판정·외형 확정 전 동결 항목 (Codex 검토) |
+| [모델 개정 2 증거 164](docs/evidence/164-rev2-spring-clutch/README.md) | 무릎 스프링·클러치·발열·외란: 정책 6종 비교, 영상, 원인 조사, 미달 항목 |
+| [최종 설계 검증 보고서 1.8](docs/reports/final-20261012/README.ko.md) | 계산 문서 재작성본(104쪽 PDF)·출처·검증 기록 |
 | [T1 달리기 증거 86](docs/evidence/86-t1-run/README.md) | 가상 구동기 달리기·꼬리 활성/고정·임펄스·방향전환·일어나기 |
 | [MuJoCo/MJX 로드맵](docs/MUJOCO_MJX_ROADMAP.ko.md) | 후속 학습 계획 — 아직 미실행 |
 | [검증 자료 전체](docs/evidence/README.md) | 원본 로그·측정값·스크린샷 |

@@ -1,0 +1,254 @@
+[
+ {
+  "run": "rev2_a8_h2",
+  "cmd": 7.0,
+  "locked": false,
+  "tau_mean": 4.580719518679142,
+  "tau_std": 14.176120910168613,
+  "residual_rms": 2.241177629559141e-06,
+  "inertia_about_joint": 0.39981324616000014,
+  "at_peak_limit_frac": 0.0,
+  "peak_limit_Nm": 43.2,
+  "qd_absmax": 3.100488632909547,
+  "qd_rms": 1.4327399138006298,
+  "trunk_vert_acc_rms": 10.224689154304707,
+  "trunk_pitch_acc_rms": 42.4871369914681,
+  "std": {
+   "own_swing": 22.527092104445554,
+   "trunk_translation": 4.34307789500693,
+   "trunk_rotation": 18.9652799350821,
+   "other_joints": 1.1970807645511004e-14,
+   "gravity_coriolis": 0.3292355499071585,
+   "passive": 0.0,
+   "constraint": 0.0
+  },
+  "mean": {
+   "own_swing": 0.07303609263454355,
+   "trunk_translation": 0.20746500199025067,
+   "trunk_rotation": 0.027539279257566832,
+   "other_joints": -1.769477112969448e-17,
+   "gravity_coriolis": 4.27267902447229,
+   "passive": 0.0,
+   "constraint": 0.0
+  },
+  "share_of_variance": {
+   "own_swing": 0.8678971285225324,
+   "trunk_translation": -0.07314431508472627,
+   "trunk_rotation": 0.20727267775240915,
+   "other_joints": 1.6932263514269915e-19,
+   "gravity_coriolis": -0.0020254900351082514,
+   "passive": 0.0,
+   "constraint": 0.0
+  }
+ },
+ {
+  "run": "rev2_n10",
+  "cmd": 7.0,
+  "locked": false,
+  "tau_mean": 4.7085313461506955,
+  "tau_std": 13.264756897384377,
+  "residual_rms": 2.844429104179487e-06,
+  "inertia_about_joint": 0.39981324616000014,
+  "at_peak_limit_frac": 0.00284,
+  "peak_limit_Nm": 43.2,
+  "qd_absmax": 5.217782898103658,
+  "qd_rms": 1.972391171621613,
+  "trunk_vert_acc_rms": 13.535947016487883,
+  "trunk_pitch_acc_rms": 61.23189326475679,
+  "std": {
+   "own_swing": 35.70063978024067,
+   "trunk_translation": 6.353186185262796,
+   "trunk_rotation": 28.13684144388888,
+   "other_joints": 1.4974387193380558e-14,
+   "gravity_coriolis": 0.5198576228441847,
+   "passive": 0.0,
+   "constraint": 0.0
+  },
+  "mean": {
+   "own_swing": -0.3375016118117524,
+   "trunk_translation": 0.4670977909582304,
+   "trunk_rotation": 0.5371059399828535,
+   "other_joints": 1.4255979435485834e-16,
+   "gravity_coriolis": 4.041829336938765,
+   "passive": 0.0,
+   "constraint": 0.0
+  },
+  "share_of_variance": {
+   "own_swing": 1.7105061787455178,
+   "trunk_translation": -0.020356092406830176,
+   "trunk_rotation": -0.6849365399381631,
+   "other_joints": 5.025040963056861e-18,
+   "gravity_coriolis": -0.005213555897032454,
+   "passive": 0.0,
+   "constraint": 0.0
+  }
+ },
+ {
+  "run": "rev2_td340",
+  "cmd": 7.0,
+  "locked": false,
+  "tau_mean": 4.526391479350058,
+  "tau_std": 20.056956561973486,
+  "residual_rms": 1.342815266644964e-06,
+  "inertia_about_joint": 0.3998132461600001,
+  "at_peak_limit_frac": 0.03908,
+  "peak_limit_Nm": 43.2,
+  "qd_absmax": 3.961235405371795,
+  "qd_rms": 1.803302304481672,
+  "trunk_vert_acc_rms": 16.06349557263309,
+  "trunk_pitch_acc_rms": 41.10438036109665,
+  "std": {
+   "own_swing": 27.318861941614777,
+   "trunk_translation": 6.690663206477723,
+   "trunk_rotation": 17.54863894570632,
+   "other_joints": 1.1645610960832181e-14,
+   "gravity_coriolis": 0.35514384680611505,
+   "passive": 0.0,
+   "constraint": 0.0
+  },
+  "mean": {
+   "own_swing": -0.5639831751748483,
+   "trunk_translation": 0.33707478750436437,
+   "trunk_rotation": 0.571259275611611,
+   "other_joints": -2.6325731041575047e-17,
+   "gravity_coriolis": 4.182040536223003,
+   "passive": 0.0,
+   "constraint": 0.0
+  },
+  "share_of_variance": {
+   "own_swing": 1.0109387858879784,
+   "trunk_translation": 0.09935733174992413,
+   "trunk_rotation": -0.1049619236343527,
+   "other_joints": 6.99965925210113e-18,
+   "gravity_coriolis": -0.005334196045550331,
+   "passive": 0.0,
+   "constraint": 0.0
+  }
+ },
+ {
+  "run": "rev2_td340",
+  "cmd": 5.5,
+  "locked": false,
+  "tau_mean": 4.5523853601736946,
+  "tau_std": 16.951017130718625,
+  "residual_rms": 2.0336737082428922e-06,
+  "inertia_about_joint": 0.3998132461600001,
+  "at_peak_limit_frac": 0.01668,
+  "peak_limit_Nm": 43.2,
+  "qd_absmax": 3.708807834492393,
+  "qd_rms": 1.5790674523516486,
+  "trunk_vert_acc_rms": 14.05501609077212,
+  "trunk_pitch_acc_rms": 37.03625230655721,
+  "std": {
+   "own_swing": 23.514421877377575,
+   "trunk_translation": 6.295867477461656,
+   "trunk_rotation": 16.07875817322811,
+   "other_joints": 9.920679662904331e-15,
+   "gravity_coriolis": 0.33062571467302715,
+   "passive": 0.0,
+   "constraint": 0.0
+  },
+  "mean": {
+   "own_swing": -0.393376599357816,
+   "trunk_translation": 0.2627158815268396,
+   "trunk_rotation": 0.4005288373971506,
+   "other_joints": 3.600584575358287e-17,
+   "gravity_coriolis": 4.282517141666622,
+   "passive": 0.0,
+   "constraint": 0.0
+  },
+  "share_of_variance": {
+   "own_swing": 0.9290087507036258,
+   "trunk_translation": 0.13087863046633108,
+   "trunk_rotation": -0.05671231499828571,
+   "other_joints": -9.802894820535373e-18,
+   "gravity_coriolis": -0.0031750693835098727,
+   "passive": 0.0,
+   "constraint": 0.0
+  }
+ },
+ {
+  "run": "rev2_td340",
+  "cmd": 4.0,
+  "locked": false,
+  "tau_mean": 4.610983019705206,
+  "tau_std": 13.888178477176968,
+  "residual_rms": 1.0678334243115083e-06,
+  "inertia_about_joint": 0.39981324616000014,
+  "at_peak_limit_frac": 0.0078,
+  "peak_limit_Nm": 43.2,
+  "qd_absmax": 3.000701486085387,
+  "qd_rms": 1.3408275022359695,
+  "trunk_vert_acc_rms": 11.909685908629152,
+  "trunk_pitch_acc_rms": 33.38697494450285,
+  "std": {
+   "own_swing": 19.374912171184675,
+   "trunk_translation": 5.731074685128335,
+   "trunk_rotation": 14.844688611612616,
+   "other_joints": 6.3102718122102766e-15,
+   "gravity_coriolis": 0.33348060065272445,
+   "passive": 0.0,
+   "constraint": 0.0
+  },
+  "mean": {
+   "own_swing": -0.314383575426745,
+   "trunk_translation": 0.2028239950077334,
+   "trunk_rotation": 0.3870342224652375,
+   "other_joints": 3.393581044812875e-17,
+   "gravity_coriolis": 4.3355083242735155,
+   "passive": 0.0,
+   "constraint": 0.0
+  },
+  "share_of_variance": {
+   "own_swing": 0.7313256576979068,
+   "trunk_translation": 0.18111588978741297,
+   "trunk_rotation": 0.08839881069874794,
+   "other_joints": -3.117919940965243e-19,
+   "gravity_coriolis": -0.0008403605591889292,
+   "passive": 0.0,
+   "constraint": 0.0
+  }
+ },
+ {
+  "run": "rev2_td340",
+  "cmd": 7.0,
+  "locked": true,
+  "tau_mean": 4.731244186719257,
+  "tau_std": 13.35172950784516,
+  "residual_rms": 1.651206071689894e-06,
+  "inertia_about_joint": 0.39981324616000014,
+  "at_peak_limit_frac": 0.0214,
+  "peak_limit_Nm": 43.2,
+  "qd_absmax": 3.234877457004485,
+  "qd_rms": 0.90837680234276,
+  "trunk_vert_acc_rms": 14.49075441794625,
+  "trunk_pitch_acc_rms": 47.88726973938754,
+  "std": {
+   "own_swing": 23.23178119141765,
+   "trunk_translation": 7.209029421349357,
+   "trunk_rotation": 23.762303976463304,
+   "other_joints": 1.5105790052052576e-15,
+   "gravity_coriolis": 0.3823796100420962,
+   "passive": 0.0,
+   "constraint": 0.0
+  },
+  "mean": {
+   "own_swing": -0.2213405283048404,
+   "trunk_translation": 0.4566603576237822,
+   "trunk_rotation": 0.17491486610703053,
+   "other_joints": 3.533342146716422e-17,
+   "gravity_coriolis": 4.321009486424036,
+   "passive": 0.0,
+   "constraint": 0.0
+  },
+  "share_of_variance": {
+   "own_swing": 0.6933987822989504,
+   "trunk_translation": 0.27096367611020933,
+   "trunk_rotation": 0.05242358291534121,
+   "other_joints": 3.020855821663339e-18,
+   "gravity_coriolis": -0.01678604153472911,
+   "passive": 0.0,
+   "constraint": 0.0
+  }
+ }
+]

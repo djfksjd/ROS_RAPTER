@@ -1,0 +1,77 @@
+{
+ "passed": true,
+ "compared_keys": [
+  "fell",
+  "t",
+  "speed_tail",
+  "heat_max",
+  "energy_injected_J",
+  "motor_positive_work_J",
+  "knee_min",
+  "knee_max",
+  "engagements",
+  "vz_max"
+ ],
+ "rows": [
+  {
+   "cmd": 4.0,
+   "seed": 95001,
+   "identical": true,
+   "fell": false,
+   "t": 60.0,
+   "speed_tail": 3.983553739529487,
+   "heat_max": 0.8588381627316867,
+   "energy_injected_J": 2375.77174226395,
+   "motor_positive_work_J": 4987.593436731254,
+   "knee_min": 0.9671602551427801,
+   "knee_max": 1.8949672695367372,
+   "engagements": 265,
+   "vz_max": 1.0029019519378604
+  },
+  {
+   "cmd": 4.0,
+   "seed": 95007,
+   "identical": true,
+   "fell": false,
+   "t": 60.0,
+   "speed_tail": 4.017292212587624,
+   "heat_max": 0.8697475795168793,
+   "energy_injected_J": 2336.2773199641606,
+   "motor_positive_work_J": 4937.516799378886,
+   "knee_min": 0.9700067805207891,
+   "knee_max": 1.8923800303243081,
+   "engagements": 263,
+   "vz_max": 0.7785270555575277
+  },
+  {
+   "cmd": 7.0,
+   "seed": 95001,
+   "identical": true,
+   "fell": false,
+   "t": 60.0,
+   "speed_tail": 6.170766421720926,
+   "heat_max": 0.9571462707116186,
+   "energy_injected_J": 3301.181221711949,
+   "motor_positive_work_J": 8490.753895697686,
+   "knee_min": 1.0465683024688157,
+   "knee_max": 1.9487452812249515,
+   "engagements": 313,
+   "vz_max": 0.9762751952261282
+  },
+  {
+   "cmd": 7.0,
+   "seed": 95007,
+   "identical": true,
+   "fell": false,
+   "t": 60.0,
+   "speed_tail": 6.178013357239394,
+   "heat_max": 0.9611396223589802,
+   "energy_injected_J": 3246.906609710638,
+   "motor_positive_work_J": 8484.477856810605,
+   "knee_min": 1.0574740991623208,
+   "knee_max": 1.9623013491307615,
+   "engagements": 310,
+   "vz_max": 0.7774834142446811
+  }
+ ]
+}

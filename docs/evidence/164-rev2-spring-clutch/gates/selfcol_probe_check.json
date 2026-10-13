@@ -1,0 +1,160 @@
+{
+ "nominal": {
+  "base|left_thigh": 0.13,
+  "base|right_thigh": 0.26,
+  "left_metatarsus|left_toe_2_p": 3.87,
+  "left_metatarsus|left_toe_1_p": 3.62,
+  "left_metatarsus|left_toe_3_p": 8.04,
+  "right_metatarsus|right_toe_2_p": 3.99,
+  "right_metatarsus|right_toe_3_p": 3.51,
+  "right_metatarsus|right_toe_1_p": 8.33
+ },
+ "hip_roll_in_0.1": {
+  "base|left_thigh": 3.09,
+  "base|right_thigh": 3.09,
+  "left_metatarsus|left_toe_2_p": 3.87,
+  "left_metatarsus|left_toe_1_p": 3.62,
+  "left_metatarsus|left_toe_3_p": 8.04,
+  "right_metatarsus|right_toe_2_p": 3.99,
+  "right_metatarsus|right_toe_3_p": 3.51,
+  "right_metatarsus|right_toe_1_p": 8.33
+ },
+ "hip_roll_in_0.2": {
+  "base|left_thigh": 6.36,
+  "base|right_thigh": 6.36,
+  "left_shin|right_shin": 1.7,
+  "left_shin|right_metatarsus": 0.39,
+  "left_metatarsus|left_toe_2_p": 3.87,
+  "left_metatarsus|left_toe_1_p": 3.62,
+  "left_metatarsus|left_toe_3_p": 8.04,
+  "left_metatarsus|right_shin": 2.3,
+  "left_metatarsus|right_metatarsus": 23.59,
+  "left_toe_1_p|right_toe_3_p": 1.64,
+  "left_toe_1_d|right_toe_3_p": 14.37,
+  "left_toe_1_d|right_toe_3_d": 28.2,
+  "right_metatarsus|right_toe_2_p": 3.99,
+  "right_metatarsus|right_toe_3_p": 3.51,
+  "right_metatarsus|right_toe_1_p": 8.33
+ },
+ "hip_roll_in_0.3": {
+  "base|left_thigh": 9.76,
+  "base|right_thigh": 9.76,
+  "left_shin|right_shin": 35.7,
+  "left_metatarsus|left_toe_2_p": 3.87,
+  "left_metatarsus|left_toe_1_p": 3.62,
+  "left_metatarsus|left_toe_3_p": 8.04,
+  "right_metatarsus|right_toe_2_p": 3.99,
+  "right_metatarsus|right_toe_3_p": 3.51,
+  "right_metatarsus|right_toe_1_p": 8.33
+ },
+ "hip_roll_in_0.5": {
+  "base|left_thigh": 16.83,
+  "base|right_thigh": 16.83,
+  "left_thigh|right_thigh": 19.86,
+  "left_thigh|right_shin": 19.43,
+  "left_shin|right_thigh": 16.81,
+  "left_shin|right_shin": 45.93,
+  "left_metatarsus|left_toe_2_p": 3.87,
+  "left_metatarsus|left_toe_1_p": 3.62,
+  "left_metatarsus|left_toe_3_p": 8.04,
+  "right_metatarsus|right_toe_2_p": 3.99,
+  "right_metatarsus|right_toe_3_p": 3.51,
+  "right_metatarsus|right_toe_1_p": 8.33
+ },
+ "hip_roll_out_0.3": {
+  "base|left_thigh": 2.15,
+  "base|right_thigh": 2.32,
+  "left_metatarsus|left_toe_2_p": 3.87,
+  "left_metatarsus|left_toe_1_p": 3.62,
+  "left_metatarsus|left_toe_3_p": 8.04,
+  "right_metatarsus|right_toe_2_p": 3.99,
+  "right_metatarsus|right_toe_3_p": 3.51,
+  "right_metatarsus|right_toe_1_p": 8.33
+ },
+ "left_knee_2.3_fold": {
+  "base|left_thigh": 0.13,
+  "base|right_thigh": 0.26,
+  "left_metatarsus|left_toe_2_p": 3.87,
+  "left_metatarsus|left_toe_1_p": 3.62,
+  "left_metatarsus|left_toe_3_p": 8.04,
+  "right_metatarsus|right_toe_2_p": 3.99,
+  "right_metatarsus|right_toe_3_p": 3.51,
+  "right_metatarsus|right_toe_1_p": 8.33
+ },
+ "left_knee_2.0_fold": {
+  "base|left_thigh": 0.13,
+  "base|right_thigh": 0.26,
+  "left_metatarsus|left_toe_2_p": 3.87,
+  "left_metatarsus|left_toe_1_p": 3.62,
+  "left_metatarsus|left_toe_3_p": 8.04,
+  "right_metatarsus|right_toe_2_p": 3.99,
+  "right_metatarsus|right_toe_3_p": 3.51,
+  "right_metatarsus|right_toe_1_p": 8.33
+ },
+ "left_hip_back_0.47": {
+  "base|left_thigh": 0.13,
+  "base|right_thigh": 0.26,
+  "left_metatarsus|left_toe_2_p": 3.87,
+  "left_metatarsus|left_toe_1_p": 3.62,
+  "left_metatarsus|left_toe_3_p": 8.04,
+  "right_metatarsus|right_toe_2_p": 3.99,
+  "right_metatarsus|right_toe_3_p": 3.51,
+  "right_metatarsus|right_toe_1_p": 8.33
+ },
+ "left_hip_fwd_-1.5": {
+  "base|left_thigh": 0.12,
+  "base|right_thigh": 0.26,
+  "left_metatarsus|left_toe_2_p": 3.87,
+  "left_metatarsus|left_toe_1_p": 3.62,
+  "left_metatarsus|left_toe_3_p": 8.04,
+  "right_metatarsus|right_toe_2_p": 3.99,
+  "right_metatarsus|right_toe_3_p": 3.51,
+  "right_metatarsus|right_toe_1_p": 8.33
+ },
+ "tail_pitch_-0.8": {
+  "base|left_thigh": 0.13,
+  "base|right_thigh": 0.26,
+  "left_metatarsus|left_toe_2_p": 3.87,
+  "left_metatarsus|left_toe_1_p": 3.62,
+  "left_metatarsus|left_toe_3_p": 8.04,
+  "right_metatarsus|right_toe_2_p": 3.99,
+  "right_metatarsus|right_toe_3_p": 3.51,
+  "right_metatarsus|right_toe_1_p": 8.33
+ },
+ "tail_pitch_0.8": {
+  "base|left_thigh": 0.13,
+  "base|right_thigh": 0.26,
+  "left_metatarsus|left_toe_2_p": 3.87,
+  "left_metatarsus|left_toe_1_p": 3.62,
+  "left_metatarsus|left_toe_3_p": 8.04,
+  "right_metatarsus|right_toe_2_p": 3.99,
+  "right_metatarsus|right_toe_3_p": 3.51,
+  "right_metatarsus|right_toe_1_p": 8.33
+ },
+ "tail_yaw_0.8": {
+  "base|left_thigh": 0.13,
+  "base|right_thigh": 0.26,
+  "left_metatarsus|left_toe_2_p": 3.87,
+  "left_metatarsus|left_toe_1_p": 3.62,
+  "left_metatarsus|left_toe_3_p": 8.04,
+  "right_metatarsus|right_toe_2_p": 3.99,
+  "right_metatarsus|right_toe_3_p": 3.51,
+  "right_metatarsus|right_toe_1_p": 8.33
+ },
+ "mask_nominal": [],
+ "mask_hip_roll_in_0.5": [
+  "left_shin_link|right_shin_link",
+  "left_shin_link|right_thigh_link",
+  "left_thigh_link|right_shin_link",
+  "left_thigh_link|right_thigh_link"
+ ],
+ "mask_hip_roll_in_0.2": [
+  "left_metatarsus_link|right_metatarsus_link",
+  "left_metatarsus_link|right_shin_link",
+  "left_shin_link|right_metatarsus_link",
+  "left_shin_link|right_shin_link",
+  "left_toe_1_distal_link|right_toe_3_distal_link",
+  "left_toe_1_distal_link|right_toe_3_proximal_link",
+  "left_toe_1_proximal_link|right_toe_3_proximal_link"
+ ]
+}

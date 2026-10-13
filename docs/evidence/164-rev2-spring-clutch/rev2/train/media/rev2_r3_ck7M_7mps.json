@@ -1,0 +1,36 @@
+{
+ "run": "rev2_r3_ck7M",
+ "cmd": 7.0,
+ "seed": 96001,
+ "seconds": 9.999999999999897,
+ "fell": false,
+ "frames": 250,
+ "speed_last5s": 5.706187012725106,
+ "spring": [
+  500,
+  0.956,
+  "uni+",
+  "ratchet"
+ ],
+ "spring_engaged_stance_frac": 1.0,
+ "render_equals_plain_rollout": true,
+ "model_sha256": "e0af544a4f5c4f66ba5928b526b483c1fccc6054c5db98078be6ed1fcd518ea4",
+ "files": {
+  "rev2_r3_ck7M_7mps.gif": {
+   "bytes": 1353005,
+   "sha256": "f956967d12600e956bede54b6001cd13a479610777d97eb46d2d5316b1c2e731"
+  },
+  "rev2_r3_ck7M_7mps.mp4": {
+   "bytes": 1199379,
+   "sha256": "f6610b04dd2d41740b278b9a0c67fbba563860a6b544896104722a03e7ae0759"
+  },
+  "rev2_r3_ck7M_7mps_knee.png": {
+   "bytes": 114752,
+   "sha256": "3f7cd6aa416281574c1300c4a67b2368b065e98a9cc9c8742b5ca430ab7e9467"
+  },
+  "rev2_r3_ck7M_7mps_touchdown.png": {
+   "bytes": 141305,
+   "sha256": "4c643d2d362a8402736ef37b43a00cdcdb8c435fbf6a70e337861a764d9e5d12"
+  }
+ }
+}
