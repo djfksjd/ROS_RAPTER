@@ -1,0 +1,92 @@
+{
+ "2.0": {
+  "left": {
+   "duty": 0.37333333333333335,
+   "swing_min": 1.036983924913366,
+   "swing_max": 1.9074429859090802,
+   "stance_min": 1.0346292354017768,
+   "stance_max": 1.2252464649564112,
+   "stance_mean": 1.125532219270886,
+   "touchdown_mean": 1.173836901812262,
+   "liftoff_mean": 1.0464997618716971,
+   "n_td": 28,
+   "swing_below_q0_frac": 0.0,
+   "stance_below_q0_frac": 0.0,
+   "armed_frac": 0.9613333333333334
+  },
+  "right": {
+   "duty": 0.36133333333333334,
+   "swing_min": 1.074076223855843,
+   "swing_max": 1.9583249378113372,
+   "stance_min": 1.0756262325515946,
+   "stance_max": 1.2225068948226563,
+   "stance_mean": 1.155524407295978,
+   "touchdown_mean": 1.1616330753709738,
+   "liftoff_mean": 1.0795646656103632,
+   "n_td": 29,
+   "swing_below_q0_frac": 0.0,
+   "stance_below_q0_frac": 0.0,
+   "armed_frac": 0.9626666666666667
+  }
+ },
+ "4.0": {
+  "left": {
+   "duty": 0.31733333333333336,
+   "swing_min": 1.0498629408102114,
+   "swing_max": 2.1191444471299064,
+   "stance_min": 1.0707582963429798,
+   "stance_max": 1.3529661974719962,
+   "stance_mean": 1.250079662575336,
+   "touchdown_mean": 1.2456434202708782,
+   "liftoff_mean": 1.063509630896005,
+   "n_td": 33,
+   "swing_below_q0_frac": 0.0,
+   "stance_below_q0_frac": 0.0,
+   "armed_frac": 0.9573333333333334
+  },
+  "right": {
+   "duty": 0.312,
+   "swing_min": 1.1061197984493565,
+   "swing_max": 2.077121345210152,
+   "stance_min": 1.1216164760130773,
+   "stance_max": 1.3851265656763474,
+   "stance_mean": 1.2832545288212645,
+   "touchdown_mean": 1.279888503082942,
+   "liftoff_mean": 1.1168506429164977,
+   "n_td": 32,
+   "swing_below_q0_frac": 0.0,
+   "stance_below_q0_frac": 0.0,
+   "armed_frac": 0.956
+  }
+ },
+ "7.0": {
+  "left": {
+   "duty": 0.2853333333333333,
+   "swing_min": 0.8550258949779267,
+   "swing_max": 2.220017345981942,
+   "stance_min": 0.9061153076873786,
+   "stance_max": 1.3368198142437449,
+   "stance_mean": 1.1971537028153532,
+   "touchdown_mean": 1.2341742709724854,
+   "liftoff_mean": 0.9224057669482253,
+   "n_td": 39,
+   "swing_below_q0_frac": 0.1044776119402985,
+   "stance_below_q0_frac": 0.04672897196261682,
+   "armed_frac": 0.924
+  },
+  "right": {
+   "duty": 0.2813333333333333,
+   "swing_min": 0.9999403412106946,
+   "swing_max": 2.2052869662709162,
+   "stance_min": 1.0351345435288482,
+   "stance_max": 1.3990741917637373,
+   "stance_mean": 1.2689960972144527,
+   "touchdown_mean": 1.247946657158989,
+   "liftoff_mean": 1.030347535794539,
+   "n_td": 39,
+   "swing_below_q0_frac": 0.0,
+   "stance_below_q0_frac": 0.0,
+   "armed_frac": 0.9493333333333334
+  }
+ }
+}

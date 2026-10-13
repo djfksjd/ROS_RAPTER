@@ -88,6 +88,15 @@ MOTOR_CLASSES = {'A': (22., 40., 500.), 'B': (48., 33., 900.), 'C': (120., 21., 
 ARCH8 = {'hip_pitch': ('B', 1.), 'knee_pitch': ('B', 'fourbar'), 'hip_roll': ('A', 1.7), 'tail_yaw': ('B', 1.), 'tail_pitch': ('B', 1.)}
 ARCH8_FOURBAR = dict(a=.083, b=.194, c=.102, beta_deg=69., branch=1.)
 LINK_ETA = .9
+# 'ratchet' spring engagement (springs_override, opt-in): one-way clutch in series with the unilateral spring. The pawl is
+# lifted when the foot unloads, drops once the swing joint has come back RATCHET_REARM rad from its swing peak (or at the
+# latest when the foot loads), and from then on the spring's rest angle follows the most extended angle reached, rounded
+# up to the next tooth (RATCHET_PITCH rad). It always engages at zero deflection, so it cannot inject energy, and it has no
+# fixed rest angle that the gait would have to reach (evidence: geometry_probe.py, 2026-10-13).
+RATCHET_PITCH, RATCHET_REARM = .02, .05
+# spring_store reward term (weight 0 unless given): rate (W) at which a ratchet spring takes up energy while its foot is
+# loaded, credited up to SPRING_STORE_CAP J per stance. It pays for letting the stance leg yield into the spring.
+SPRING_STORE_CAP = 6.
 # heat (arch8 only): per motor, a low-pass (tau HEAT_TAU s) of (motor torque / continuous torque)^2 with the continuous
 # torque = 40 % of the class peak - the same RMS criterion as the actuator budget. The term is the sum over motors of
 # max(0, heat - 1): zero while every motor stays within its continuous rating. Added 2026-10-01 after the arch8 policy ran
@@ -98,6 +107,25 @@ LP20 = PHYSICS_DT/(PHYSICS_DT + 1/(2*np.pi*20.))  # 20 Hz first-order low-pass p
 # motor (class B, 1.5:1 cable drive) and an ankle roll motor (class A, direct), both mounted on the pelvis next to the
 # hip (most favourable placement: no distal motor mass), ankle not coupled to the knee.
 ARCH12_EXTRA = {'ankle_pitch': ('B', 1.5), 'ankle_roll': ('A', 1.)}
+# model_rev 2 (2026-10-12, final design report 1.2 section 62; every item is also a separate RunEnv option and all are off
+# at model_rev 1, which reproduces the earlier evidence bit for bit):
+#   latch_fallback=False  the knee latch engages only in swing when the knee extends down through q0 after having been
+#                         above it in that swing (one-way catch), and stays released otherwise (also at reset).
+#                         The rev-1 fallback engaged the spring at touchdown at any deflection, which created energy:
+#                         5,756 of 5,756 engagements of scr_a8_h2, 39-54 W. Use a 'uni+' latch spring with this option:
+#                         it carries no load below q0, so an engagement adds exactly zero energy.
+#   friction_dr='foot'    the friction draw scales the foot pads and the floor together (the pads have priority 1, so the
+#                         rev-1 draw on the floor alone never reached the foot contacts)
+#   self_collision=True   left leg / right leg / tail / torso contact pairs. Links joined through a geomless link stay
+#                         excluded (thigh-torso through the hip-roll link, metatarsus-toes and toes of one foot through the
+#                         foot link): their box shapes overlap by construction.
+#   knee_band=KNEE_BAND   knee targets limited to the four-bar range where both transmission angles are >= 30 deg
+#   start_contact=True    reset puts the lowest toe surface on the ground (rev 1 started 13 mm above it)
+#   armature=True         reflected rotor inertia on the driven joints: T-Motor AK10-9 V3.0 (rotor 1002 g cm^2, 9:1) times
+#                         the external ratio squared. ASSUMED for the class-A hip roll motor (no published value used) and
+#                         for the knee, where the mean of N^2 over KNEE_BAND replaces the angle-dependent four-bar ratio.
+KNEE_BAND = (.7159, 2.2454)
+ROTOR_J_OUT = 81*1.002e-4   # kg m^2 at the module output
 # real_mass: explicit part masses instead of uniform scaling of the 11.36 kg design table (2026-10-01; arch8e had been
 # trained at 11.36 kg although its real build is 11.02 kg). Payload from design_r02.masses (torso frame 1.0, battery
 # 0.6, compute 0.3, mast 0.2, pod 0.45 kg) on the torso; pelvis motors on the hip-roll link (they move with the hip
@@ -150,7 +178,7 @@ def motor_available(cls, w):
     return np.minimum(env, P/np.maximum(a, 1e-3))
 KIN = dict(fold=(65., 15., .30, .60), extend=(135., 12., .80, .98), static_tol=12., static_scale=10., retract=(1.7, .8, .75, .95))
 WEIGHTS_RUN = dict(track_lin=3., progress=1., track_yaw=1., yaw_err=0., flight=0., air_time=0., gait=-3., stand=-2., grf=-1., cot=-.05, ang_mom=-.5,
-                   fold=0., extend=0., ankle_static=0., retract=0., leg_sym=0., heat=0.,
+                   fold=0., extend=0., ankle_static=0., retract=0., leg_sym=0., heat=0., spring_store=0., spring_release=0.,
                    lin_vel_z=-.5, ang_vel_xy=-.05, orientation=-5., height=-20., torque=-1e-5, action_rate=-.02,
                    joint_acc=-2e-8, slip=-.2, collision=-5., joint_limit=-5., alive=.5)
 
@@ -173,8 +201,18 @@ class RunEnv(RaptorEnv):
                  zero_cmd=.1, top_cmd=.3, disturb_items=None, grf_cap=4., init_speed=True, obs_vel=True, ankle_clutch=False,
                  kin=None, yaw_impulse=None, couple_ankle=False, track_sigma_frac=.15, arch8=False,
                  springs_override=None, arch8_override=None, arch12=False, real_mass=False, hip_back=0., nominal=None,
-                 target_ramp=False, obs_contact=False):
+                 target_ramp=False, obs_contact=False, model_rev=1, latch_fallback=None, friction_dr=None,
+                 self_collision=None, knee_band=None, start_contact=None, armature=None, heat_limit=1., roll_impulse=None, init_noise=.02):
         self.mass, self.spring_set, self.tail = float(mass), springs, tail
+        rev2 = int(model_rev) >= 2
+        pick = lambda v, new, old: (new if rev2 else old) if v is None else v
+        self.model_rev = int(model_rev)
+        self.roll_impulse = roll_impulse  # (rate 1/s, lo, hi): training roll impulses about the trunk's own x axis, like yaw_impulse
+        self.init_noise = float(init_noise)  # std (rad) of the joint-angle noise at a randomised reset
+        self.heat_limit = float(heat_limit)  # the heat term penalises max(0, heat - heat_limit); 1 = continuous rating
+        self.latch_fallback, self.friction_dr = bool(pick(latch_fallback, False, True)), pick(friction_dr, 'foot', 'floor')
+        self.self_collision, self.start_contact = bool(pick(self_collision, True, False)), bool(pick(start_contact, True, False))
+        self.knee_band, self.armature = pick(knee_band, KNEE_BAND, None), bool(pick(armature, True, False))
         # hip_back (m): R-03, the hip mount (pelvis, hip motors, legs) moved rearward along the torso; the torso payload
         # and the tail root stay where they are (raptor layout: pelvis at the rear of the trunk, tail root behind it).
         # nominal: (hip, knee, ankle) action-offset pose replacing NOMINAL_T1 (nominal_scan.py, same rule per variant).
@@ -301,6 +339,21 @@ class RunEnv(RaptorEnv):
             for side in ('left', 'right'):
                 eq = spec.add_equality(type=mujoco.mjtEq.mjEQ_JOINT, name1=f'{side}_ankle_roll_joint', data=[0.]*11)
                 eq.solref = [.004, 1.]
+        if self.self_collision:
+            # contype bit 0 keeps every link colliding with the ground; bits 1/2 = left/right leg, 3 = tail, 4 = torso
+            for g in spec.geoms:
+                nm = g.parent.name
+                if nm == 'world':
+                    continue
+                side = 2 if nm.startswith('left') else 4 if nm.startswith('right') else 0
+                if nm == 'base_link':
+                    g.contype, g.conaffinity = 1 | 16, 0
+                elif nm.startswith('tail'):
+                    g.contype, g.conaffinity = 1 | 8, 0
+                elif 'thigh' in nm:
+                    g.contype, g.conaffinity = 1 | side, (6-side) | 8
+                else:
+                    g.contype, g.conaffinity = 1 | side, (6-side) | 8 | 16
         m = spec.compile()
         m.opt.timestep = PHYSICS_DT
         # uniform mass scaling, geometry fixed (spec §5): masses and inertias. The R-02 toe springs are kept: scaled
@@ -352,6 +405,18 @@ class RunEnv(RaptorEnv):
         self.q_adr = np.array([m.jnt_qposadr[m.joint(n).id] for n in self.active])
         self.v_adr = np.array([m.jnt_dofadr[m.joint(n).id] for n in self.active])
         self.lo, self.hi = m.jnt_range[[m.joint(n).id for n in self.active]].T.copy()
+        if self.knee_band is not None:
+            for i, n in enumerate(self.active):
+                if joint_type(n) == 'knee_pitch':
+                    self.lo[i], self.hi[i] = self.knee_band
+        if self.armature and self.arch8:
+            band = (self.knee_ratio[0] >= KNEE_BAND[0]) & (self.knee_ratio[0] <= KNEE_BAND[1])
+            n2_knee = float(np.mean(self.knee_ratio[1][band]**2))
+            for i, n in enumerate(self.active):
+                jt = joint_type(n)
+                if jt in self.arch8_map:
+                    g = self.arch8_map[jt][1]
+                    m.dof_armature[m.jnt_dofadr[m.joint(n).id]] = ROTOR_J_OUT*(n2_knee if g == 'fourbar' else g*g)
         # PD position servo as an affine actuator: force = kp (ctrl - q) - kd qd, clamped by forcerange each step
         m.actuator_gainprm[self.act, 0] = self.kp
         m.actuator_biasprm[self.act, :3] = np.c_[np.zeros(len(self.act)), -self.kp, -self.kd]
@@ -373,6 +438,8 @@ class RunEnv(RaptorEnv):
         self.foot_geoms = {s: [g for g in range(m.ngeom) if m.geom_bodyid[g] in foot_bodies
                                and m.body(m.geom_bodyid[g]).name.startswith(s)] for s in ('left', 'right')}
         self.foot_body = {s: m.body(f'{s}_foot_link').id for s in ('left', 'right')}
+        self.pad_geoms = [g for s in self.foot_geoms for g in self.foot_geoms[s] if m.geom_priority[g] == 1]
+        self.robot_geoms = {g for g in range(m.ngeom) if m.geom_bodyid[g] != 0}
         self.nominal_mass = m.body_mass.copy()
         self.nominal_friction = m.geom_friction.copy()
         self.weight = 9.81*float(m.body_subtreemass[self.root])
@@ -388,7 +455,11 @@ class RunEnv(RaptorEnv):
         if not self.randomize:
             return
         m.body_mass[self.base] *= self.rng.uniform(.9, 1.15)
-        m.geom_friction[sorted(self.ground), 0] = self.rng.uniform(.5, 1.25)
+        if self.friction_dr == 'foot':
+            idx = sorted(self.ground)+self.pad_geoms
+            m.geom_friction[idx, 0] = self.nominal_friction[idx, 0]*self.rng.uniform(.625, 1.5625)
+        else:
+            m.geom_friction[sorted(self.ground), 0] = self.rng.uniform(.5, 1.25)
         self.tau_max = self.tau_nom*self.rng.uniform(.9, 1.1)
 
     def set_curriculum(self, level, cmd_max):
@@ -409,12 +480,19 @@ class RunEnv(RaptorEnv):
         # episodes are distinct trials. Until 2026-10-01 every deterministic evaluation episode started from the identical
         # state, so "n episodes" were n copies of one trial.
         init_rng = np.random.default_rng(self.init_seed) if (not self.randomize and getattr(self, 'init_seed', None) is not None) else None
-        d.qpos[self.q_adr] = self.q0+(self.rng.normal(0, .02, len(self.q0)) if self.randomize else
+        d.qpos[self.q_adr] = self.q0+(self.rng.normal(0, self.init_noise, len(self.q0)) if self.randomize else
                                       init_rng.normal(0, .03, len(self.q0)) if init_rng is not None else 0)
         mujoco.mj_forward(m, d)
         lowest = min(d.geom_xpos[g][2]-.02 for s in self.foot_geoms for g in self.foot_geoms[s])
         d.qpos[2] += -lowest+.005
         mujoco.mj_forward(m, d)
+        if self.start_contact:
+            d.qpos[2] -= self._pad_clearance()-1e-4
+            mujoco.mj_forward(m, d)
+        if not self.latch_fallback:
+            for (s_, joint), (engaged, _) in self.spring_engage.items():
+                if engaged == 'latch':
+                    m.tendon_stiffness[m.tendon(f'spring_{s_}_{joint}').id] = 0.
         self.h_nom = d.xpos[self.base][2]-.03
         d.ctrl[self.act] = d.qpos[self.q_adr]
         self.ctrl_prev = d.qpos[self.q_adr].copy()
@@ -426,6 +504,9 @@ class RunEnv(RaptorEnv):
         self.ankle_td = {'left': None, 'right': None}
         self.spring_was_on = {}
         self.stance_seen = {}
+        self.latch_armed = {}
+        self.ratchet = {}
+        self.spring_inject_J = self.spring_release_J = self._release_seen = 0.
         self.heat = (self.rng.uniform(0., .8, len(self.q0)) if self.randomize else np.zeros(len(self.q0)))
         self.tau_lp = np.zeros(len(self.q0))
         self.sym_ema = None
@@ -440,6 +521,25 @@ class RunEnv(RaptorEnv):
         if init_rng is not None:
             d.qvel[0] += init_rng.uniform(0., .5)
         return self._observe(), {}
+
+    def _ratchet_arm(self, st, q):
+        """Drop the pawl at joint angle q: rest angle = next tooth at or above q (zero deflection, no stored energy)."""
+        rest = RATCHET_PITCH*np.ceil(q/RATCHET_PITCH)
+        self.model.tendon_lengthspring[st['t']] = [-1e6, rest]
+        self.spring_inject_J += .5*st['k']*max(0., q-rest)**2
+        st['armed'], st['qmin'] = True, q
+
+    def _pad_clearance(self):
+        """Height of the lowest foot-pad surface point above z = 0 (sphere radius or box extent along world z)."""
+        m, d = self.model, self.data
+        ext = lambda g: (m.geom_size[g][0] if m.geom_type[g] == mujoco.mjtGeom.mjGEOM_SPHERE
+                         else abs(d.geom_xmat[g].reshape(3, 3)[2]) @ m.geom_size[g])
+        return float(min(d.geom_xpos[g][2]-ext(g) for g in self.pad_geoms))
+
+    def self_contacts(self):
+        """Number of active contacts between two robot geoms (0 unless self_collision)."""
+        d = self.data
+        return sum(1 for i in range(d.ncon) if d.contact[i].geom1 in self.robot_geoms and d.contact[i].geom2 in self.robot_geoms)
 
     def _sample_command(self):
         c = self.rng.uniform(-1, 1, 3)*self.cmd_max
@@ -583,8 +683,8 @@ class RunEnv(RaptorEnv):
         'y' in the torso frame is used for pitch so the impulse is about the body's own pitch axis."""
         d = self.data
         w = np.zeros(6)
-        if axis == 'y':
-            w[3:] = d.xmat[self.base].reshape(3, 3)[:, 1]*impulse/duration
+        if axis in ('y', 'r'):  # 'r' = the trunk's own roll (x) axis
+            w[3:] = d.xmat[self.base].reshape(3, 3)[:, 1 if axis == 'y' else 0]*impulse/duration
         else:
             w[3+'xyz'.index(axis)] = impulse/duration
         self.events.append((self.base if body is None else body, w, d.time+duration-1e-6))
@@ -598,6 +698,8 @@ class RunEnv(RaptorEnv):
         d, L, s = self.data, self.level, self.mass/5.
         if self.yaw_impulse and self.rng.random() < self.yaw_impulse[0]*CONTROL_DT:
             self.apply_impulse('z', s*self.rng.uniform(*self.yaw_impulse[1:])*self.rng.choice([-1, 1]))
+        if self.roll_impulse and self.rng.random() < self.roll_impulse[0]*CONTROL_DT:
+            self.apply_impulse('r', s*self.rng.uniform(*self.roll_impulse[1:])*self.rng.choice([-1, 1]))
         if L <= 0:
             return
         if 'pitch' in self.disturb_items and self.rng.random() < .3*CONTROL_DT:
@@ -654,19 +756,47 @@ class RunEnv(RaptorEnv):
                 q0 = m.tendon_lengthspring[t][0] if m.tendon_lengthspring[t][0] > -1e5 else m.tendon_lengthspring[t][1]
                 was = self.spring_was_on.get((s_, joint), False)
                 if self.loaded[s_]:
-                    on = True                                   # stays engaged through stance (fallback: engage at touchdown)
+                    on = True if self.latch_fallback else was   # stays engaged through stance (fallback: engage at touchdown)
                 else:
                     on = was and self.stance_seen.get(s_, False) is False and False
-                    if not was and qj <= q0:                   # extension past the rest angle in swing: latch
-                        on = True
+                    if not self.latch_fallback and qj > q0:
+                        self.latch_armed[s_] = True            # the knee has flexed above the rest angle in this swing
+                    if not was and qj <= q0 and (self.latch_fallback or self.latch_armed.get(s_, False)):
+                        on = True                              # extension past the rest angle in swing: latch
                     elif was and not self.stance_seen.get(s_, False):
                         on = True                              # latched in late swing, waiting for touchdown
                 if self.loaded[s_]:
                     self.stance_seen[s_] = True
                 elif self.stance_seen.get(s_, False):         # lift-off after a stance: release
                     on, self.stance_seen[s_] = False, False
+                    self.latch_armed[s_] = False
                 self.spring_was_on[(s_, joint)] = on
                 m.tendon_stiffness[t] = k_ if on else 0.
+                continue
+            if engaged == 'ratchet':
+                t = m.tendon(f'spring_{s_}_{joint}').id
+                adr = m.jnt_qposadr[m.joint(f'{s_}_{joint}_joint').id]
+                qj = d.qpos[adr]
+                st = self.ratchet.get((s_, joint))
+                if st is None:  # start of the episode: engaged at the current angle
+                    st = self.ratchet[(s_, joint)] = dict(t=t, adr=adr, k=k_, armed=False, qmin=qj, qpeak=qj, stance=False)
+                    self._ratchet_arm(st, qj)
+                if self.loaded[s_]:
+                    st['stance'] = True
+                    if not st['armed']:  # the swing never came back RATCHET_REARM: the load drops the pawl
+                        self._ratchet_arm(st, qj)
+                else:
+                    if st['stance']:  # lift-off: pawl lifted, whatever is still stored is lost
+                        st['stance'] = False
+                        if st['armed']:
+                            self.spring_release_J += .5*k_*max(0., qj-m.tendon_lengthspring[t][1])**2
+                        st['armed'], st['qpeak'] = False, qj
+                    if not st['armed']:
+                        st['qpeak'] = max(st['qpeak'], qj)
+                        if qj < st['qpeak']-RATCHET_REARM:
+                            self._ratchet_arm(st, qj)
+                self.spring_was_on[(s_, joint)] = st['armed']
+                m.tendon_stiffness[t] = k_ if st['armed'] else 0.
                 continue
             if engaged != 'always':
                 t = m.tendon(f'spring_{s_}_{joint}').id
@@ -685,6 +815,10 @@ class RunEnv(RaptorEnv):
                 d.ctrl[self.act] = start+(k_sub+1)/n_sub*(target-start)
             self._clamp()
             mujoco.mj_step(m, d)
+            for st in self.ratchet.values():  # the rest angle follows the most extended angle, one tooth at a time
+                if st['armed'] and d.qpos[st['adr']] < st['qmin']:
+                    st['qmin'] = d.qpos[st['adr']]
+                    m.tendon_lengthspring[st['t']] = [-1e6, RATCHET_PITCH*np.ceil(st['qmin']/RATCHET_PITCH)]
             tau, qd = d.actuator_force[self.act], d.qvel[self.v_adr]
             power += np.sum(np.clip(tau*qd, 0, None))
             torque_sq += np.sum(tau**2)
@@ -770,7 +904,7 @@ class RunEnv(RaptorEnv):
         terms['gait'] = sum((min(feet[s_]/(.2*W), 1.)-sched[s_])**2 for s_ in feet) if sched else 0.
         terms.update(self.kinematics_terms(loaded_now, w[1]))
         terms['leg_sym'] = self.leg_symmetry() if self.command[0] >= .5 else 0.
-        terms['heat'] = float(np.sum(np.clip(self.heat-1., 0., None))) if self.arch8 else 0.
+        terms['heat'] = float(np.sum(np.clip(self.heat-self.heat_limit, 0., None))) if self.arch8 else 0.
         terms['stand'] = float(flight) if cx < .05 else 0.  # hopping in place at a zero command (v1 defect)
         if 'stand_support' in self.weights:
             # Optional double-support objective, only for a fully zero command.
@@ -781,11 +915,28 @@ class RunEnv(RaptorEnv):
         terms['grf'] = grf
         terms['slip'] = slip
         terms['collision'] = float(body_hit)
+        if 'self_collision' in self.weights:
+            terms['self_collision'] = float(self.self_contacts() > 0)
         q = d.qpos[self.q_adr]
         margin = .9*(self.hi-self.lo)/2
         mid = (self.hi+self.lo)/2
         terms['joint_limit'] = np.sum(np.clip(np.abs(q-mid)-margin, 0, None))
         terms['alive'] = 1.
+        if self.weights.get('spring_store'):
+            gain = 0.
+            for (s_, _j), st in self.ratchet.items():
+                u = .5*st['k']*max(0., d.qpos[st['adr']]-m.tendon_lengthspring[st['t']][1])**2 if st['armed'] else 0.
+                if loaded_now[s_]:
+                    add = min(max(0., u-st.get('u', 0.)), SPRING_STORE_CAP-st.get('credit', 0.))
+                    st['credit'] = st.get('credit', 0.)+add
+                    gain += add
+                else:
+                    st['credit'] = 0.
+                st['u'] = u
+            terms['spring_store'] = gain/CONTROL_DT
+        if self.weights.get('spring_release'):  # rate (W) at which the ratchet throws stored energy away at lift-off
+            terms['spring_release'] = (self.spring_release_J-getattr(self, '_release_seen', 0.))/CONTROL_DT
+            self._release_seen = self.spring_release_J
         reward = CONTROL_DT*sum(self.weights[k]*v for k, v in terms.items())
 
         tilt = np.arccos(np.clip(-grav[2], -1, 1))
@@ -799,5 +950,6 @@ class RunEnv(RaptorEnv):
                 'x': d.xpos[self.base][0], 'power': power, 'grf': {s: feet[s]/W for s in feet}, 'flight': flight,
                 'loaded': loaded_now, 'L': L, 'L_tail': L_tail, 'L_legs': L_legs,
                 'tail_qd': d.qvel[self.v_adr][self.tail_idx].copy(), 'phase': self.phase,
-                'heat': self.heat.copy() if self.arch8 else None}
+                'heat': self.heat.copy() if self.arch8 else None,
+                'latched': {s_: bool(on_) for (s_, _j), on_ in self.spring_was_on.items()}}
         return self._observe(), float(reward), bool(fallen), bool(truncated), info

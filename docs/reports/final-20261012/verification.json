@@ -1,0 +1,193 @@
+{
+ "pdf_sha256": "3964dc6e7ac0b28ad8727895a58d779e7537cd2020e2538ced720000d22449dc",
+ "pages": 104,
+ "outline_entries": 84,
+ "figures": 24,
+ "source_records": 63,
+ "text_bounds_errors": [],
+ "long_numbers_checked": 225,
+ "runtime_code_modified": "opt-in model_rev 2 in sim/rl/run_env.py and --model-rev in train_run.py; defaults reproduce earlier records",
+ "new_training": true,
+ "diagnostic_rollouts_of_frozen_policy": 276,
+ "checks": {
+  "citations": {
+   "cited": 63,
+   "registered": 63,
+   "missing": []
+  },
+  "arithmetic": {
+   "total_mass": 11.2912,
+   "Fz": 55.383336,
+   "K_load": 20.011277736,
+   "k_spring": 168.97042253521127,
+   "knee_motor_nominal": 75.38240956624213,
+   "knee_peak": 47.88948332350972,
+   "knee_cont": 19.15579332940389,
+   "N_at_1p5": -1.1085528547108732,
+   "evidence148_closed_form": 23.328386403854154,
+   "pinocchio_vs_mujoco_max": 2.842170943040401e-14,
+   "status": "passed"
+  },
+  "gates": {
+   "rows": 220,
+   "base_inject_W": {
+    "4.0": 39.091123879370066,
+    "7.0": 54.141959296505355
+   },
+   "base_motor_positive_W": {
+    "4.0": 82.81399357443217,
+    "7.0": 141.64405646346344
+   },
+   "selfcol_falls_7": 5,
+   "latch_variant_falls": 40,
+   "status": "passed"
+  },
+  "model_rev2": {
+   "regression_identical": true,
+   "option_rows": 180,
+   "spring_rows": 570,
+   "injected_energy_J_rev2": 0.0,
+   "falls_rev2_all": 20,
+   "F_cont_BW": {
+    "0.956": 1.733404412335532,
+    "1.3": 0.7775605339855161
+   },
+   "status": "passed"
+  },
+  "model_rev2_training": {
+   "accept_rows": 1196,
+   "falls": 0,
+   "latch_engagements": 0,
+   "knee_heat": {
+    "2": 1.130665649354909,
+    "4": 1.5877263444155456,
+    "5.5": 1.6650614903550314,
+    "7": 1.7701510560296196
+   },
+   "dr_falls": {
+    "2": 5,
+    "4": 40,
+    "7": 36
+   },
+   "training_steps": 13099008,
+   "status": "passed"
+  },
+  "model_rev2_nominal_knee_run": {
+   "accept_rows": 1196,
+   "falls": {
+    "2": 0,
+    "4": 0,
+    "5.5": 0,
+    "7": 1
+   },
+   "knee_heat": {
+    "2": 0.8148814065724937,
+    "4": 1.273399008306065,
+    "5.5": 1.2743414909378372,
+    "7": 1.1214778566144499
+   },
+   "dr_falls": {
+    "2": 9,
+    "4": 21,
+    "7": 38
+   },
+   "latched_stance_frac_7": 0.008224975917564093,
+   "training_steps": 10076160,
+   "status": "passed"
+  },
+  "geometry_check": {
+   "hip_height_at_q0": 0.8323221972274768,
+   "hip_height_at_0p74": 0.8581460834294875,
+   "heat_none": {
+    "2": 0.814218536804821,
+    "4": 1.275216138711832,
+    "7": 1.131011037070501
+   },
+   "latch_q0_1p2": {
+    "2": {
+     "heat": 0.814218536804821,
+     "engaged_frac": 0.8191489361702128
+    },
+    "4": {
+     "heat": 1.275216138711832,
+     "engaged_frac": 0.8148148148148149
+    },
+    "7": {
+     "heat": 1.131011037070501,
+     "engaged_frac": 0.8384615384615385
+    }
+   },
+   "touchdown_clutch": {
+    "2": {
+     "k170": 0.752953796434467,
+     "k340": 0.698834153153417,
+     "k680": 0.6120301578592293
+    },
+    "4": {
+     "k170": 0.9952001164286336,
+     "k340": 0.7877322747018269,
+     "k680": 0.6236582915910555
+    },
+    "7": {
+     "k170": 1.0790477495845536,
+     "k340": 1.031517848721076,
+     "k680": 0.9497582068615326
+    }
+   },
+   "status": "passed"
+  },
+  "touchdown_clutch_run": {
+   "accept_rows": 1196,
+   "falls": 0,
+   "knee_heat": {
+    "2": 0.5529041183706974,
+    "4": 0.9650562481273411,
+    "5.5": 1.094098809517465,
+    "7": 1.0645223293025405
+   },
+   "heat_max": {
+    "2": 0.7304703553371975,
+    "4": 0.9650562481273411,
+    "5.5": 1.094098809517465,
+    "7": 1.4156722420991217
+   },
+   "dr_falls": {
+    "2": 18,
+    "4": 25,
+    "7": 36
+   },
+   "media_runs": [
+    "rev2_a8_h2_4mps",
+    "rev2_n10_4mps",
+    "rev2_td340_4mps"
+   ],
+   "training_steps": 10076160,
+   "status": "passed"
+  },
+  "tail_heat_cause": {
+   "tail_heat_7": 1.4158472595741434,
+   "tau_mean": 4.526391479350058,
+   "tau_std": 20.056956561973486,
+   "inertia": 0.3998132461600001,
+   "std_terms": {
+    "own_swing": 27.318861941614777,
+    "trunk_translation": 6.690663206477723,
+    "trunk_rotation": 17.54863894570632,
+    "other_joints": 1.1645610960832181e-14,
+    "gravity_coriolis": 0.35514384680611505,
+    "passive": 0.0,
+    "constraint": 0.0
+   },
+   "at_peak_limit_frac": 0.03908,
+   "geared": {
+    "1@5.5": 1.031690706425218,
+    "1@7": 1.4158472595741434,
+    "1.5@5.5": 0.530211058972653,
+    "1.5@7": 0.7299797775988103,
+    "2@5.5": 0.3309698812559328,
+    "2@7": 0.4756087966416075
+   },
+   "status": "passed"
+  }
+ }
+}

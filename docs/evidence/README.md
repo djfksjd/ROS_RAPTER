@@ -242,3 +242,5 @@ File 34 verifies that refused development probes emit no trajectory commands.
 - [162 초기hip/tailcapture](162-early-hip-tail-capture/README.md): 원개발105대조, 개선실패·접촉이탈진단,기준선보존.
 
 - [163 무릎수직지지](163-knee-vertical-support/README.md): pulse48·개발42,접촉상태별부호변화/미채택.
+
+- [164 모델 개정 2 스프링·클러치·발열·외란](164-rev2-spring-clutch/README.md): 정책 6종 비교·영상·원인 조사, 롤 충격 2.0 N·m·s 미달(공중 롤 관성 한계), 최종 정책 미선정·일시정지.

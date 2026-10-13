@@ -1,0 +1,732 @@
+{
+ "train": {
+  "steps": 10076160,
+  "first_pass_step": 2700000,
+  "final_cmd_max": 8.091,
+  "last_eval_speeds": [
+   5.6,
+   5.44,
+   4.11,
+   5.73
+  ],
+  "last_eval_falls": [
+   0,
+   0,
+   1,
+   0
+  ],
+  "args": {
+   "name": "rev2_n10",
+   "env": "run",
+   "steps": 10000000.0,
+   "envs": 8,
+   "mass": 5.0,
+   "springs": "c",
+   "tail": "active",
+   "level": 0.0,
+   "cmd": [
+    2.0,
+    0.2,
+    0.5
+   ],
+   "cmd_final": [
+    11.1,
+    0.3,
+    2.5
+   ],
+   "weights": "{\"track_lin\": 5, \"progress\": 3, \"track_yaw\": 4, \"yaw_err\": -1, \"stand\": -5, \"gait\": -8, \"fold\": 0.35, \"extend\": 0.3, \"ankle_static\": -0.2, \"retract\": 0.7, \"leg_sym\": -6, \"heat\": -1}",
+   "zero_cmd": 0.15,
+   "top_cmd": 0.3,
+   "episode_s": 15.0,
+   "disturb_items": null,
+   "no_obs_vel": false,
+   "no_init_speed": false,
+   "ankle_clutch": true,
+   "kin": "{}",
+   "eval_curriculum": true,
+   "fixed_curriculum": false,
+   "track_sigma_frac": 0.3,
+   "springs_override": "{\"knee_pitch\": [170, 0.956, \"uni+\", \"latch\"]}",
+   "arch8_override": "{\"hip_pitch\": [\"B\", 1.5]}",
+   "arch8": true,
+   "couple_ankle": false,
+   "arch12": false,
+   "real_mass": true,
+   "hip_back": 0.2,
+   "target_ramp": true,
+   "model_rev": 2,
+   "nominal": [
+    -0.5273,
+    1.0,
+    -0.9997
+   ],
+   "yaw_impulse": [
+    0.15,
+    0.2,
+    1.0
+   ],
+   "init": null,
+   "resume_action_std": null,
+   "seed": 0
+  }
+ },
+ "accept": {
+  "accept@2": {
+   "n": 299,
+   "falls": 0,
+   "speed": 1.9459912673774016,
+   "speed_min": 1.9397783631683614,
+   "heat_knee": 0.8148814065724937,
+   "heat_knee_max": 0.8240089108732029,
+   "heat_max": 0.8148814065724937,
+   "hottest": [
+    "knee_pitch_joint"
+   ],
+   "engagements": 0,
+   "latched_stance_frac": 0.0,
+   "energy_injected_J": 0.0,
+   "self_contact_step_frac": 3.3444816053511705e-06,
+   "knee_min": 0.7483066313242045,
+   "fall_t": []
+  },
+  "accept@4": {
+   "n": 299,
+   "falls": 0,
+   "speed": 3.838754078992844,
+   "speed_min": 3.834748057913252,
+   "heat_knee": 1.273399008306065,
+   "heat_knee_max": 1.2832267423456452,
+   "heat_max": 1.273399008306065,
+   "hottest": [
+    "knee_pitch_joint"
+   ],
+   "engagements": 3,
+   "latched_stance_frac": 9.849490375688078e-06,
+   "energy_injected_J": 0.0,
+   "self_contact_step_frac": 2.229654403567447e-06,
+   "knee_min": 0.7825302221230098,
+   "fall_t": []
+  },
+  "accept@5.5": {
+   "n": 299,
+   "falls": 0,
+   "speed": 4.864256870863235,
+   "speed_min": 4.859219642134663,
+   "heat_knee": 1.2743414909378372,
+   "heat_knee_max": 1.2812534874739545,
+   "heat_max": 1.2743414909378372,
+   "hottest": [
+    "knee_pitch_joint"
+   ],
+   "engagements": 0,
+   "latched_stance_frac": 0.0,
+   "energy_injected_J": 0.0,
+   "self_contact_step_frac": 0.0,
+   "knee_min": 0.7504725847625778,
+   "fall_t": []
+  },
+  "accept@7": {
+   "n": 299,
+   "falls": 1,
+   "speed": 5.8878595584015745,
+   "speed_min": 5.859419650416341,
+   "heat_knee": 1.1214778566144499,
+   "heat_knee_max": 1.1382600236784075,
+   "heat_max": 1.1214778566144499,
+   "hottest": [
+    "knee_pitch_joint"
+   ],
+   "engagements": 838,
+   "latched_stance_frac": 0.008224975917564093,
+   "energy_injected_J": 0.0,
+   "self_contact_step_frac": 0.0,
+   "knee_min": 0.7371991796436939,
+   "fall_t": [
+    0.32
+   ]
+  }
+ },
+ "dr": {
+  "dr@2": {
+   "n": 59,
+   "falls": 9,
+   "speed": 1.9436462533173429,
+   "speed_min": 1.815632255517217,
+   "heat_knee": 0.807287155913877,
+   "heat_knee_max": 0.8619716198607988,
+   "heat_max": 0.807287155913877,
+   "hottest": [
+    "knee_pitch_joint"
+   ],
+   "engagements": 185,
+   "latched_stance_frac": 0.01451993866955595,
+   "energy_injected_J": 0.0,
+   "self_contact_step_frac": 4.1483961187389266e-05,
+   "knee_min": 0.7059899969410373,
+   "fall_t": [
+    0.9,
+    4.68,
+    18.66,
+    19.12,
+    21.26,
+    30.28,
+    30.56,
+    43.5,
+    59.48
+   ]
+  },
+  "dr@4": {
+   "n": 59,
+   "falls": 21,
+   "speed": 3.7994030795632723,
+   "speed_min": 3.4749341278188144,
+   "heat_knee": 1.2434291713129912,
+   "heat_knee_max": 1.3803389336464849,
+   "heat_max": 1.2434291713129912,
+   "hottest": [
+    "knee_pitch_joint"
+   ],
+   "engagements": 295,
+   "latched_stance_frac": 0.025607332192230284,
+   "energy_injected_J": 0.0,
+   "self_contact_step_frac": 0.0004056426022986494,
+   "knee_min": 0.7056275440394011,
+   "fall_t": [
+    4.74,
+    9.64,
+    17.42,
+    18.62,
+    19.26,
+    21.16,
+    21.54,
+    26.62,
+    31.54,
+    31.74,
+    35.56,
+    36.4,
+    38.66,
+    42.18,
+    42.54,
+    43.34,
+    44.76,
+    50.52,
+    55.24,
+    56.88,
+    59.44
+   ]
+  },
+  "dr@7": {
+   "n": 59,
+   "falls": 38,
+   "speed": 5.782591769307748,
+   "speed_min": 5.567254961480855,
+   "heat_knee": 1.125539569692096,
+   "heat_knee_max": 1.2393196895110055,
+   "heat_max": 1.125539569692096,
+   "hottest": [
+    "knee_pitch_joint"
+   ],
+   "engagements": 330,
+   "latched_stance_frac": 0.032958666684001936,
+   "energy_injected_J": 0.0,
+   "self_contact_step_frac": 0.0003130101728710076,
+   "knee_min": 0.6991209447144899,
+   "fall_t": [
+    1.06,
+    1.48,
+    5.36,
+    7.08,
+    7.2,
+    8.04,
+    8.62,
+    9.9,
+    16.22,
+    16.56,
+    17.14,
+    18.42,
+    18.94,
+    21.34,
+    22.02,
+    24.08,
+    24.24,
+    24.46,
+    24.64,
+    26.96,
+    30.46,
+    30.8,
+    31.4,
+    31.96,
+    32.96,
+    34.7,
+    36.18,
+    38.68,
+    41.24,
+    42.12,
+    48.62,
+    48.68,
+    49.64,
+    49.7,
+    50.0,
+    50.44,
+    52.4,
+    52.9
+   ]
+  }
+ },
+ "ablate": {
+  "as_trained@2": {
+   "n": 10,
+   "falls": 0,
+   "speed": 1.9461934194047126,
+   "speed_min": 1.942781791447149,
+   "heat_knee": 0.8143825783278271,
+   "heat_knee_max": 0.8194629914551916,
+   "heat_max": 0.8143825783278271,
+   "hottest": [
+    "knee_pitch_joint"
+   ],
+   "engagements": 0,
+   "latched_stance_frac": 0.0,
+   "energy_injected_J": 0.0,
+   "self_contact_step_frac": 0.0,
+   "knee_min": 0.802526039616723,
+   "fall_t": []
+  },
+  "as_trained@4": {
+   "n": 10,
+   "falls": 0,
+   "speed": 3.8393650353270026,
+   "speed_min": 3.8383424692507475,
+   "heat_knee": 1.2735245114472578,
+   "heat_knee_max": 1.2830420393464435,
+   "heat_max": 1.2735245114472578,
+   "hottest": [
+    "knee_pitch_joint"
+   ],
+   "engagements": 0,
+   "latched_stance_frac": 0.0,
+   "energy_injected_J": 0.0,
+   "self_contact_step_frac": 0.0,
+   "knee_min": 0.7931404224636917,
+   "fall_t": []
+  },
+  "as_trained@7": {
+   "n": 10,
+   "falls": 0,
+   "speed": 5.892059179098903,
+   "speed_min": 5.877332053413506,
+   "heat_knee": 1.124049477637382,
+   "heat_knee_max": 1.1307618757967348,
+   "heat_max": 1.124049477637382,
+   "hottest": [
+    "knee_pitch_joint"
+   ],
+   "engagements": 28,
+   "latched_stance_frac": 0.008359344599521,
+   "energy_injected_J": 0.0,
+   "self_contact_step_frac": 0.0,
+   "knee_min": 0.7371991796436939,
+   "fall_t": []
+  },
+  "k340@2": {
+   "n": 10,
+   "falls": 0,
+   "speed": 1.9461934194047126,
+   "speed_min": 1.942781791447149,
+   "heat_knee": 0.8143825783278271,
+   "heat_knee_max": 0.8194629914551916,
+   "heat_max": 0.8143825783278271,
+   "hottest": [
+    "knee_pitch_joint"
+   ],
+   "engagements": 0,
+   "latched_stance_frac": 0.0,
+   "energy_injected_J": 0.0,
+   "self_contact_step_frac": 0.0,
+   "knee_min": 0.802526039616723,
+   "fall_t": []
+  },
+  "k340@4": {
+   "n": 10,
+   "falls": 0,
+   "speed": 3.8393650353270026,
+   "speed_min": 3.8383424692507475,
+   "heat_knee": 1.2735245114472578,
+   "heat_knee_max": 1.2830420393464435,
+   "heat_max": 1.2735245114472578,
+   "hottest": [
+    "knee_pitch_joint"
+   ],
+   "engagements": 0,
+   "latched_stance_frac": 0.0,
+   "energy_injected_J": 0.0,
+   "self_contact_step_frac": 0.0,
+   "knee_min": 0.7931404224636917,
+   "fall_t": []
+  },
+  "k340@7": {
+   "n": 10,
+   "falls": 0,
+   "speed": 5.892059179098903,
+   "speed_min": 5.877332053413506,
+   "heat_knee": 1.124049477637382,
+   "heat_knee_max": 1.1307618757967348,
+   "heat_max": 1.124049477637382,
+   "hottest": [
+    "knee_pitch_joint"
+   ],
+   "engagements": 28,
+   "latched_stance_frac": 0.008359344599521,
+   "energy_injected_J": 0.0,
+   "self_contact_step_frac": 0.0,
+   "knee_min": 0.7371991796436939,
+   "fall_t": []
+  },
+  "k85@2": {
+   "n": 10,
+   "falls": 0,
+   "speed": 1.9461934194047126,
+   "speed_min": 1.942781791447149,
+   "heat_knee": 0.8143825783278271,
+   "heat_knee_max": 0.8194629914551916,
+   "heat_max": 0.8143825783278271,
+   "hottest": [
+    "knee_pitch_joint"
+   ],
+   "engagements": 0,
+   "latched_stance_frac": 0.0,
+   "energy_injected_J": 0.0,
+   "self_contact_step_frac": 0.0,
+   "knee_min": 0.802526039616723,
+   "fall_t": []
+  },
+  "k85@4": {
+   "n": 10,
+   "falls": 0,
+   "speed": 3.8393650353270026,
+   "speed_min": 3.8383424692507475,
+   "heat_knee": 1.2735245114472578,
+   "heat_knee_max": 1.2830420393464435,
+   "heat_max": 1.2735245114472578,
+   "hottest": [
+    "knee_pitch_joint"
+   ],
+   "engagements": 0,
+   "latched_stance_frac": 0.0,
+   "energy_injected_J": 0.0,
+   "self_contact_step_frac": 0.0,
+   "knee_min": 0.7931404224636917,
+   "fall_t": []
+  },
+  "k85@7": {
+   "n": 10,
+   "falls": 0,
+   "speed": 5.892059179098903,
+   "speed_min": 5.877332053413506,
+   "heat_knee": 1.124049477637382,
+   "heat_knee_max": 1.1307618757967348,
+   "heat_max": 1.124049477637382,
+   "hottest": [
+    "knee_pitch_joint"
+   ],
+   "engagements": 28,
+   "latched_stance_frac": 0.008359344599521,
+   "energy_injected_J": 0.0,
+   "self_contact_step_frac": 0.0,
+   "knee_min": 0.7371991796436939,
+   "fall_t": []
+  },
+  "no_spring@2": {
+   "n": 10,
+   "falls": 0,
+   "speed": 1.9461934194047126,
+   "speed_min": 1.942781791447149,
+   "heat_knee": 0.8143825783278271,
+   "heat_knee_max": 0.8194629914551916,
+   "heat_max": 0.8143825783278271,
+   "hottest": [
+    "knee_pitch_joint"
+   ],
+   "engagements": 0,
+   "latched_stance_frac": 0.0,
+   "energy_injected_J": 0.0,
+   "self_contact_step_frac": 0.0,
+   "knee_min": 0.802526039616723,
+   "fall_t": []
+  },
+  "no_spring@4": {
+   "n": 10,
+   "falls": 0,
+   "speed": 3.8393650353270026,
+   "speed_min": 3.8383424692507475,
+   "heat_knee": 1.2735245114472578,
+   "heat_knee_max": 1.2830420393464435,
+   "heat_max": 1.2735245114472578,
+   "hottest": [
+    "knee_pitch_joint"
+   ],
+   "engagements": 0,
+   "latched_stance_frac": 0.0,
+   "energy_injected_J": 0.0,
+   "self_contact_step_frac": 0.0,
+   "knee_min": 0.7931404224636917,
+   "fall_t": []
+  },
+  "no_spring@7": {
+   "n": 10,
+   "falls": 0,
+   "speed": 5.892059179098903,
+   "speed_min": 5.877332053413506,
+   "heat_knee": 1.124049477637382,
+   "heat_knee_max": 1.1307618757967348,
+   "heat_max": 1.124049477637382,
+   "hottest": [
+    "knee_pitch_joint"
+   ],
+   "engagements": 0,
+   "latched_stance_frac": 0.0,
+   "energy_injected_J": 0.0,
+   "self_contact_step_frac": 0.0,
+   "knee_min": 0.7371991796436939,
+   "fall_t": []
+  }
+ },
+ "peek_3M": {
+  "as_trained@2": {
+   "n": 2,
+   "falls": 0,
+   "speed": 1.87215287637636,
+   "speed_min": 1.8720823542220886,
+   "heat_knee": 0.5902749620483299,
+   "heat_knee_max": 0.5904382841456081,
+   "heat_max": 0.8252007841675422,
+   "hottest": [
+    "hip_roll_joint"
+   ],
+   "engagements": 227,
+   "latched_stance_frac": 0.456206212480033,
+   "energy_injected_J": 0.0,
+   "self_contact_step_frac": 0.0,
+   "knee_min": 0.7303333398424108,
+   "fall_t": []
+  },
+  "k340@2": {
+   "n": 2,
+   "falls": 0,
+   "speed": 1.8719446385330962,
+   "speed_min": 1.8717684929646117,
+   "heat_knee": 0.5899306070369748,
+   "heat_knee_max": 0.5899668522837576,
+   "heat_max": 0.8253246189314561,
+   "hottest": [
+    "hip_roll_joint"
+   ],
+   "engagements": 227,
+   "latched_stance_frac": 0.456206212480033,
+   "energy_injected_J": 0.0,
+   "self_contact_step_frac": 0.0,
+   "knee_min": 0.7302929517405593,
+   "fall_t": []
+  },
+  "k85@2": {
+   "n": 2,
+   "falls": 0,
+   "speed": 1.8721284244667025,
+   "speed_min": 1.871788472731519,
+   "heat_knee": 0.5903657587878056,
+   "heat_knee_max": 0.59063162278155,
+   "heat_max": 0.8251657630679724,
+   "hottest": [
+    "hip_roll_joint"
+   ],
+   "engagements": 227,
+   "latched_stance_frac": 0.45599989166397015,
+   "energy_injected_J": 0.0,
+   "self_contact_step_frac": 0.0,
+   "knee_min": 0.7302929829418866,
+   "fall_t": []
+  },
+  "no_spring@2": {
+   "n": 2,
+   "falls": 0,
+   "speed": 1.8720015035508295,
+   "speed_min": 1.871774330568178,
+   "heat_knee": 0.590618266924948,
+   "heat_knee_max": 0.5907698832258889,
+   "heat_max": 0.8252288069282224,
+   "hottest": [
+    "hip_roll_joint"
+   ],
+   "engagements": 0,
+   "latched_stance_frac": 0.0,
+   "energy_injected_J": 0.0,
+   "self_contact_step_frac": 0.0,
+   "knee_min": 0.7302929970279927,
+   "fall_t": []
+  }
+ },
+ "gait": {
+  "2": {
+   "touchdown_mean": [
+    1.0336971179283692,
+    0.9949597967980943
+   ],
+   "liftoff_mean": [
+    0.8965937839265108,
+    0.8218092905128869
+   ],
+   "swing_min": [
+    0.8893273386007811,
+    0.8150134211414035
+   ],
+   "swing_max": [
+    1.6787387070512747,
+    1.735140630091476
+   ],
+   "stance_min": [
+    0.8854513098741241,
+    0.807259558617956
+   ],
+   "stance_max": [
+    1.0742804244888373,
+    1.0822186842606136
+   ],
+   "duty": [
+    0.36133333333333334,
+    0.38
+   ]
+  },
+  "4": {
+   "touchdown_mean": [
+    1.0397225992482182,
+    1.0262032275927777
+   ],
+   "liftoff_mean": [
+    0.8974984160181576,
+    0.8178352372591636
+   ],
+   "swing_min": [
+    0.8928637770829215,
+    0.8001870859924469
+   ],
+   "swing_max": [
+    1.8013371484433196,
+    1.8384274166195822
+   ],
+   "stance_min": [
+    0.8975120953649806,
+    0.8000197974231883
+   ],
+   "stance_max": [
+    1.0604090873856225,
+    1.140904628116896
+   ],
+   "duty": [
+    0.25066666666666665,
+    0.30666666666666664
+   ]
+  },
+  "7": {
+   "touchdown_mean": [
+    1.0515445220646047,
+    0.9573562379193635
+   ],
+   "liftoff_mean": [
+    0.8642520512573836,
+    0.7549591795596274
+   ],
+   "swing_min": [
+    0.8362906815334613,
+    0.7389472272507022
+   ],
+   "swing_max": [
+    1.8700195795101813,
+    1.9682083200352305
+   ],
+   "stance_min": [
+    0.8488905930754208,
+    0.7668706991908986
+   ],
+   "stance_max": [
+    1.148519125628621,
+    1.0886376790796706
+   ],
+   "duty": [
+    0.228,
+    0.212
+   ]
+  }
+ },
+ "replay": {
+  "2": {
+   "none": [
+    0.814218536804821,
+    0.02616,
+    74.0549160621409
+   ],
+   "stance_k170_q0956": [
+    0.49963493748066196,
+    0.0006,
+    73.88965377702158
+   ],
+   "stance_best": {
+    "k": 320.0,
+    "q0": 0.9,
+    "res": [
+     0.230574346591458,
+     0.0006,
+     73.88965377702158
+    ]
+   },
+   "req_peak": 74.0549160621409
+  },
+  "4": {
+   "none": [
+    1.275216138711832,
+    0.06452,
+    71.92699455237405
+   ],
+   "stance_k170_q0956": [
+    0.7157173869427832,
+    0.00488,
+    71.30693481922603
+   ],
+   "stance_best": {
+    "k": 200.0,
+    "q0": 0.78,
+    "res": [
+     0.2627747967566628,
+     0.00488,
+     71.30693481922603
+    ]
+   },
+   "req_peak": 72.64378188178569
+  },
+  "7": {
+   "none": [
+    1.131011037070501,
+    0.06688,
+    78.28354374543373
+   ],
+   "stance_k170_q0956": [
+    0.9445744311372983,
+    0.01604,
+    78.28354374543373
+   ],
+   "stance_best": {
+    "k": 240.0,
+    "q0": 0.74,
+    "res": [
+     0.43010849034782017,
+     0.0076,
+     77.79471424752609
+    ]
+   },
+   "req_peak": 78.28354374543373
+  }
+ },
+ "seeds_with_engagement_7": 283,
+ "max_engagements_7": 8,
+ "binomial_1_of_299_upper95": 0.015766783127611428,
+ "rollouts": 1501
+}

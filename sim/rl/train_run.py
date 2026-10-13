@@ -102,7 +102,7 @@ def env_kwargs(a):
                 springs_override=json.loads(a['springs_override']) if g('springs_override') else None,
                 arch8_override=json.loads(a['arch8_override']) if g('arch8_override') else None,
                 arch12=g('arch12', False), real_mass=g('real_mass', False), hip_back=g('hip_back', 0.), nominal=g('nominal'),
-                target_ramp=g('target_ramp', False),obs_contact=g('obs_contact',False))
+                target_ramp=g('target_ramp', False),obs_contact=g('obs_contact',False), model_rev=g('model_rev', 1), heat_limit=g('heat_limit', 1.), roll_impulse=g('roll_impulse'), init_noise=g('init_noise', .02))
 
 
 def main():
@@ -137,8 +137,13 @@ def main():
     p.add_argument('--real-mass', action='store_true', help='explicit part masses (run_env.real_masses); --mass is ignored')
     p.add_argument('--hip-back', type=float, default=0., help='R-03: hip mount moved rearward along the torso (m)')
     p.add_argument('--target-ramp', action='store_true', help='interpolate each PD target over the 20 ms control step')
+    p.add_argument('--model-rev', type=int, default=1, help='2 = physically consistent model options of run_env (latch without fallback, foot friction draw, self-collision, knee band, ground start, rotor inertia)')
     p.add_argument('--nominal', type=float, nargs=3, metavar=('HIP', 'KNEE', 'ANKLE'), help='nominal pose (nominal_scan.py)')
     p.add_argument('--yaw-impulse', type=float, nargs=3, metavar=('RATE', 'LO', 'HI'), help='training yaw impulses independent of the level')
+    p.add_argument('--init-noise', type=float, default=.02, help='std (rad) of the joint-angle noise at a training reset')
+    p.add_argument('--symmetric', action='store_true', help='left-right symmetric policy (sym_policy.py); needs --init, freezes the observation normalisation')
+    p.add_argument('--roll-impulse', type=float, nargs=3, metavar=('RATE', 'LO', 'HI'), help='training roll impulses independent of the level')
+    p.add_argument('--heat-limit', type=float, default=1., help='the heat term penalises max(0, heat - this); 1 = continuous rating')
     p.add_argument('--init', help='model.zip to continue from (its vecnorm.pkl is loaded too)')
     p.add_argument('--resume-action-std', type=float, help='optional Gaussian exploration std reset for a resumed PPO policy; actor mean is preserved')
     p.add_argument('--seed', type=int, default=0)
@@ -156,6 +161,19 @@ def main():
     if a.init:
         env = VecNormalize.load(str(Path(a.init).with_name('vecnorm.pkl')), env)
         model = PPO.load(a.init, env=env, device='cpu')
+        if a.symmetric:
+            from mirror_probe import ObservationReflection
+            from sym_policy import SymPolicy, freeze_obs, reflection_constants
+            probe = RunEnv(seed=0, **kw)
+            freeze_obs(env)
+            sym = reflection_constants(ObservationReflection(probe.active, probe.policy_idx, probe.q0, probe.obs_vel, probe.obs_contact), env)
+            if not isinstance(model.policy, SymPolicy):
+                old = model
+                model = PPO(SymPolicy, env, n_steps=old.n_steps, batch_size=old.batch_size, n_epochs=old.n_epochs, learning_rate=old.learning_rate,
+                            gamma=old.gamma, gae_lambda=old.gae_lambda, clip_range=old.clip_range, ent_coef=old.ent_coef, max_grad_norm=old.max_grad_norm,
+                            device='cpu', policy_kwargs={**old.policy_kwargs, 'sym': sym}, seed=a.seed, verbose=0)
+                model.policy.load_state_dict(old.policy.state_dict(), strict=False)
+                model.num_timesteps = old.num_timesteps
         if a.resume_action_std is not None:
             with torch.no_grad():
                 model.policy.log_std.fill_(float(np.log(a.resume_action_std)))

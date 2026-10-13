@@ -1,0 +1,14 @@
+{
+ "declared": "2026-10-13, before any result of run rev2_r1 existed",
+ "protocol": "init seeds 96001-96299, deterministic policy, 60 s rollouts, commands 2 / 4 / 5.5 / 7 m/s; rev2_accept.py and disturb_tol.py",
+ "gates": {
+  "fall": "0/299 falls at each of the four commands",
+  "heat": "mean (motor torque / continuous torque)^2 of every motor <= 1.0 at each command (299-run mean); margin target <= 0.8 reported separately",
+  "clutch": "knee clutch armed >= 95 % of stance time at each command; energy at engagement = 0; energy lost at release < 1 % of the motor positive work",
+  "spring": "at 4, 5.5 and 7 m/s: mean peak energy stored per stance >= 2 J, and removing the spring at evaluation raises the knee load^2 by >= 10 %",
+  "geometry": "every joint within 0.03 rad of a limit < 1 % of the time; self-contact step fraction = 0; knee inside the four-bar band",
+  "disturbance_single": "0/16 falls at 2, 4 and 7 m/s for one impulse of: yaw 2.0, pitch 2.0, roll 2.0 N.m.s; lateral, forward, backward push 10 N.s",
+  "disturbance_60s": "0/59 falls in 60 s at 2, 4 and 7 m/s with the training randomisation (yaw impulses 0.15/s up to 2.26 N.m.s, roll impulses 0.1/s up to 2.03 N.m.s, one push, mass/friction/torque draws)"
+ },
+ "baseline_rev2_td340": {"fall": "pass", "heat": "fail (knee 1.09/1.06, tail pitch 1.03/1.42 at 5.5/7 m/s)", "clutch": "fail (75-90 % of stance)", "spring": "fail (peak 0.01-0.6 J)", "geometry": "fail (knee near its lower band limit 6-8 % of the time)", "disturbance_single": "fail (yaw 2.0: 2/16, 1/16, 3/16; roll 2.0: 4/16, 7/16, 8/16)", "disturbance_60s": "fail (18/59, 25/59, 36/59 with yaw impulses only)"}
+}
