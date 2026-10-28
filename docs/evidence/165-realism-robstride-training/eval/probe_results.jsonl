@@ -1,0 +1,16 @@
+{"run": "rev2_r3_ck7M_rz", "cmd": 2.0, "dr": true, "falls": 4, "n": 8, "vx": 2.16, "t_winding_max_c": 82.1, "min_derate": 1.0, "cutoff_steps": 0}
+{"run": "rev2_r3_ck7M_rz", "cmd": 4.0, "dr": true, "falls": 7, "n": 8, "vx": 4.1, "t_winding_max_c": 96.7, "min_derate": 1.0, "cutoff_steps": 0}
+{"run": "rev2_r3_ck7M_rz", "cmd": 5.5, "dr": true, "falls": 8, "n": 8, "vx": 4.93, "t_winding_max_c": 96.6, "min_derate": 1.0, "cutoff_steps": 0}
+{"run": "rev2_r3_ck7M_rz", "cmd": 7.0, "dr": true, "falls": 8, "n": 8, "vx": 5.5, "t_winding_max_c": 112.5, "min_derate": 1.0, "cutoff_steps": 0}
+{"run": "rev2_r3_ck7M_rz", "cmd": 2.0, "dr": false, "falls": 0, "n": 8, "vx": 1.9, "t_winding_max_c": 40.6, "min_derate": 1.0, "cutoff_steps": 0}
+{"run": "rev2_r3_ck7M_rz", "cmd": 4.0, "dr": false, "falls": 0, "n": 8, "vx": 4.07, "t_winding_max_c": 49.8, "min_derate": 1.0, "cutoff_steps": 0}
+{"run": "rev2_r3_ck7M_rz", "cmd": 5.5, "dr": false, "falls": 0, "n": 8, "vx": 4.89, "t_winding_max_c": 53.3, "min_derate": 1.0, "cutoff_steps": 0}
+{"run": "rev2_r3_ck7M_rz", "cmd": 7.0, "dr": false, "falls": 0, "n": 8, "vx": 5.48, "t_winding_max_c": 59.0, "min_derate": 1.0, "cutoff_steps": 0}
+{"run": "rev2_rz1", "cmd": 2.0, "dr": true, "falls": 1, "n": 8, "vx": 1.86, "t_winding_max_c": 56.0, "min_derate": 1.0, "cutoff_steps": 0}
+{"run": "rev2_rz1", "cmd": 4.0, "dr": true, "falls": 3, "n": 8, "vx": 3.9, "t_winding_max_c": 62.1, "min_derate": 1.0, "cutoff_steps": 0}
+{"run": "rev2_rz1", "cmd": 5.5, "dr": true, "falls": 5, "n": 8, "vx": 4.56, "t_winding_max_c": 72.5, "min_derate": 1.0, "cutoff_steps": 0}
+{"run": "rev2_rz1", "cmd": 7.0, "dr": true, "falls": 5, "n": 8, "vx": 5.05, "t_winding_max_c": 80.8, "min_derate": 1.0, "cutoff_steps": 0}
+{"run": "rev2_rz1", "cmd": 2.0, "dr": false, "falls": 0, "n": 8, "vx": 1.89, "t_winding_max_c": 34.6, "min_derate": 1.0, "cutoff_steps": 0}
+{"run": "rev2_rz1", "cmd": 4.0, "dr": false, "falls": 0, "n": 8, "vx": 4.23, "t_winding_max_c": 37.1, "min_derate": 1.0, "cutoff_steps": 0}
+{"run": "rev2_rz1", "cmd": 5.5, "dr": false, "falls": 0, "n": 8, "vx": 5.18, "t_winding_max_c": 40.9, "min_derate": 1.0, "cutoff_steps": 0}
+{"run": "rev2_rz1", "cmd": 7.0, "dr": false, "falls": 0, "n": 8, "vx": 5.69, "t_winding_max_c": 46.4, "min_derate": 1.0, "cutoff_steps": 0}
