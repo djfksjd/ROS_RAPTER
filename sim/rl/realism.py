@@ -15,9 +15,13 @@ constant = kt). Total ratio N = gear_ratio x external_ratio, eta = gear_efficien
                   back-EMF as extra headroom; above the no-load speed (|E| > V) only regenerative current of the sign
                   -sign(E) is possible, e.g. E 60 V, V 48 V, R 1 ohm, i_lim 20 A -> -20 .. -12 A)
                   empty intersection (|E| > V + i_lim R: the current the back-EMF drives through the bridge exceeds the
-                  limit) -> the window collapses to the forced regenerative current i = -sign(E) i_lim (current_window)
+                  limit) -> the voltage limit wins: the freewheeling diodes clamp the terminals to the bus, the current
+                  is the uncontrolled regenerative i = (sign(E) V - E)/R past i_lim (also while cut off), and the
+                  over-current flag is set (info 'overcurrent'; current_window)
   output torque   drive (tau qd >= 0): tau = i kt N eta; back-driven (braking): tau = i kt N / eta_b
   rotor inertia   j_rotor N^2 -> MuJoCo dof_armature (replaces the model_rev 2 AK10-9 value on those joints)
+  motor speed     with backlash: the joint speed while engaged (motor and joint move together), the hidden motor-side
+                  speed while free
 The PD gains of RunEnv are unchanged; only the force range of each physics step comes from this model.
 Thermal: per motor C_w dT_w = (P - (T_w - T_h)/R_wh) dt, C_h dT_h = ((T_w - T_h)/R_wh - (T_h - T_a)/R_ha) dt with
 P = loss_factor i^2 R0 (1 + alpha_cu (T_w - t_ref)); torque derated linearly from T_max - derate_margin to 0 at T_max,
@@ -28,7 +32,8 @@ armature the joint had) that drives the joint through a gap of +-b/2. Engaged on
 (J back on the joint as armature) and the servo torque is transmitted; the contact opens when the transmitted torque
 tau_s - J qacc would pull. Free, the joint gets no actuator torque while the motor crosses the gap under its own servo
 torque (implicit PD); when it reaches a face with closing speed the joint receives the impact impulse
-P = (1+e)(w - qd) J J_l/(J + J_l), J_l = 1/(M^-1)_ii, as a one-step torque P/dt (e = restitution, 0 = plastic).
+P = (1+e)(w - qd) J J_l/(J + J_l), J_l = 1/(M^-1)_ii, as a one-step torque P/dt (e = restitution, 0 = plastic). The
+contact test compares positions at the same time: motor and joint both advanced to the end of the step.
 """
 import copy
 import json
@@ -180,11 +185,13 @@ class DelayLine:
 
 def current_window(emf, v, r, i_lim):
     """Allowed signed current [lo, hi]: |i| <= i_lim intersected with |emf + i r| <= v. Where the two do not overlap
-    (|emf| > v + i_lim r) both bounds are the forced regenerative current -sign(emf) i_lim. Returns lo, hi, empty."""
+    (|emf| > v + i_lim r) the voltage limit wins: the bridge diodes clamp the terminal voltage to sign(emf) v, so both
+    bounds are the regenerative current (sign(emf) v - emf)/r, larger than i_lim (over-current; the drive cannot stop
+    it, not even when cut off). Returns lo, hi, empty (= over-current flag)."""
     hi = np.minimum(i_lim, (v-emf)/r)
     lo = np.maximum(-i_lim, (-v-emf)/r)
     empty = lo > hi
-    forced = -np.sign(emf)*i_lim
+    forced = (np.sign(emf)*v-emf)/r
     return np.where(empty, forced, lo), np.where(empty, forced, hi), empty
 
 
@@ -332,6 +339,7 @@ class Realism:
             self.v_nom = self.nom['v_bus'].copy()
             self.current = np.zeros(k)
             self.cut = np.zeros(k, bool)
+            self.overcurrent = np.zeros(k, bool)
         if self.on['friction']:
             dr = self.cfg['friction'].get('dr', {})
             m.dof_frictionloss[self.fric_dofs] = self.floss_base+self.coulomb*self._draw(dr.get('coulomb'), size=len(self.coulomb))
@@ -410,7 +418,7 @@ class Realism:
         emf = kn*qd  # kt w_m
         R, i_lim = self.R, self.i_lim  # from the temperatures after the previous physics step (_thermal_state)
         v = self.v_bus if self.on['battery'] else self.v_nom  # with a battery every motor sees the sagging bus
-        i_lo, i_hi, _ = current_window(emf, v, R, i_lim)
+        i_lo, i_hi, self.overcurrent = current_window(emf, v, R, i_lim)
         hi_m = i_hi*kn*np.where(i_hi*qd >= 0, self.eta, 1/self.eta_b)
         lo_m = i_lo*kn*np.where(i_lo*qd >= 0, self.eta, 1/self.eta_b)
         lo, hi = np.array(lo, float), np.array(hi, float)
@@ -419,10 +427,12 @@ class Realism:
         return lo, hi
 
     def _motor_speed(self, d):
-        """Joint-unit speed of the motors (with backlash: the motor-side speed, which differs inside the gap)."""
+        """Joint-unit speed of the motors. With backlash, inside the gap (free) the motor-side speed; engaged, the motor
+        moves with the joint, so the present joint speed (bl_w holds the joint speed of the previous step there)."""
         qd = d.qvel[self.v_adr_m]
         if self.on['backlash'] and (self.bl_m >= 0).any():
-            qd = np.where(self.bl_m >= 0, self.bl_w[self.bl_m], qd)
+            free = (self.bl_m >= 0) & (self.bl_s[self.bl_m] == 0)
+            qd = np.where(free, self.bl_w[self.bl_m], qd)
         return qd
 
     def command(self, env, want):
@@ -456,7 +466,8 @@ class Realism:
         tau_f = np.minimum(np.maximum(kp*(tgt-th-dt*w_imp)-kd*w_imp, lo_j), hi_j)
         w_f = w+a*tau_f
         th_f = th+dt*w_f
-        delta = th_f-q
+        q_f = q+dt*qd  # joint at the end of the step: compare positions at the same time
+        delta = th_f-q_f
         hit = ~eng & (np.abs(delta) >= h) & (np.sign(delta)*(w_f-qd) > 0)
         tau_j = np.where(eng, tau_e, 0.)
         if hit.any():
@@ -470,7 +481,7 @@ class Realism:
                 P = (1.+self.bl_e)*(w_f[j]-qd[j])*red
                 tau_j[j] = P/dt
                 w_f[j] -= P/J[j]
-                th_f[j] = q[j]+np.sign(delta[j])*h[j]
+                th_f[j] = q_f[j]+np.sign(delta[j])*h[j]
                 if self.bl_e == 0.:
                     s[j] = np.sign(delta[j])
                 self.bl_impacts += 1
@@ -550,6 +561,7 @@ class Realism:
         out = {'action_delay_steps': self.k_act, 'obs_delay_steps': self.k_obs}
         if self.on['motor']:
             out['current'] = full(self.current)
+            out['overcurrent'] = full(self.overcurrent.astype(float), 0.) > 0  # voltage-forced current past i_lim
         if self.on['thermal']:
             out.update(t_winding=full(self.thermal.t_w), t_housing=full(self.thermal.t_h), t_ambient=self.t_amb,
                        derate=full(np.where(self.cut, 0., derate(self.thermal.t_w, self.t_derate, self.t_max)), 1.),

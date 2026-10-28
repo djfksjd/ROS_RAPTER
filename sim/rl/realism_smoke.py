@@ -26,7 +26,7 @@ def rollout(realism, steps, seed, randomize, kw):
     rng = np.random.default_rng(seed)
     a = np.zeros(env.action_space.shape)
     t_max, i_max, resets, bad = None, None, 0, 0
-    impacts = 0
+    impacts, overcurrent = 0, 0
     t0 = time.perf_counter()
     for _ in range(steps):
         a = .8*a+.2*rng.uniform(-1, 1, a.shape)
@@ -44,6 +44,7 @@ def rollout(realism, steps, seed, randomize, kw):
             if 'current' in rz:
                 i_max = rz['current'][idx] if i_max is None else np.maximum(i_max, rz['current'][idx])
             impacts = rz.get('backlash_impacts', impacts)
+            overcurrent += bool(np.any(rz.get('overcurrent', False)))
         bad += not finite
         if term or trunc:
             resets += 1
@@ -58,6 +59,7 @@ def rollout(realism, steps, seed, randomize, kw):
         if i_max is not None:
             out['current_max_a'] = dict(zip(names, np.round(i_max, 2).tolist()))
         out['backlash_impacts_last_episode'] = impacts
+        out['overcurrent_steps'] = overcurrent  # control steps with a voltage-forced current past i_lim (end of step)
     return out
 
 

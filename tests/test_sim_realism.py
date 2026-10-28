@@ -102,6 +102,23 @@ class BuildingBlockTest(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'r_th_wh'):  # the survey has no thermal data of its own
             rz.load_motor_specs(SURVEY, names={'RS03'})
 
+    def test_robstride_rated_torque_settles_below_derate_start(self):
+        """Estimated thermal values: the published rated torque (vendor heat sink, 25 C ambient) must settle at the derate
+        start T_max - derate_margin (fixed point with the copper coefficient), so the rated torque is continuous."""
+        cfg = rz.load_config(str(ROBSTRIDE))
+        th = cfg['thermal']
+        specs = rz.load_motor_specs(cfg['motor']['spec_file'], cfg['motor']['spec_override'], {'RS03', 'RS06'})
+        a, tref, ta, lf = th['alpha_cu'], th['t_ref_c'], 25., th['loss_factor']
+        for name, s in specs.items():
+            p0 = lf*s['i_cont']**2*s['r_phase']
+            rs = s['r_th_wh']+s['r_th_ha']
+            t_w = (ta+p0*rs*(1-a*tref))/(1-p0*rs*a)
+            t_derate = s['t_winding_max']-th['derate_margin_k']
+            self.assertLessEqual(t_w, t_derate+.5, msg=name)
+            self.assertGreater(t_w, t_derate-2., msg=name)  # estimated at the rated point, not arbitrarily cool
+            # the winding-housing drop alone stays below the limit at that loss
+            self.assertLess(p0*(1+a*(t_w-tref))*s['r_th_wh'], s['t_winding_max']-ta, msg=name)
+
     def test_config_merge_and_enable(self):
         self.assertIsNone(rz.load_config(None))
         self.assertIsNone(rz.load_config(False))
@@ -158,8 +175,8 @@ class RealismEnvTest(unittest.TestCase):
             lo, hi = env._clamp()
             E = kt*N*qd
             c_hi, c_lo = min(ipk, (V-E)/R), max(-ipk, (-V-E)/R)  # current limit intersected with the voltage window
-            if c_lo > c_hi:
-                c_lo = c_hi = -np.sign(E)*ipk
+            if c_lo > c_hi:  # empty: the bridge clamps the terminals to V, current (sign(E) V - E)/R past the limit
+                c_lo = c_hi = (np.sign(E)*V-E)/R
             self.assertAlmostEqual(hi[z.idx[i]], tq(c_hi, qd), places=9, msg=qd)
             self.assertAlmostEqual(lo[z.idx[i]], tq(c_lo, qd), places=9, msg=qd)
             self.assertLessEqual(lo[z.idx[i]], hi[z.idx[i]])
@@ -176,11 +193,28 @@ class RealismEnvTest(unittest.TestCase):
         np.testing.assert_allclose(lo, [-20., 12., -20., -20.])
         np.testing.assert_allclose(hi, [-12., 20., 20., 20.])
         self.assertFalse(empty.any())
-        # |E| > V + i_lim R: no overlap -> forced regenerative current at the limit; cut-off (i_lim 0) -> 0
+        # |E| > V + i_lim R: no overlap. The voltage limit wins: the freewheeling diodes clamp the terminal voltage to V,
+        # so the regenerative current is (V - E)/R = -32 A past the 20 A limit (flag set); also with the cut-off latched
         lo, hi, empty = rz.current_window(np.array([80., -80., 80.]), 48., 1., np.array([20., 20., 0.]))
         np.testing.assert_array_equal(empty, [True, True, True])
-        np.testing.assert_allclose(lo, [-20., 20., 0.])
-        np.testing.assert_allclose(hi, [-20., 20., 0.])
+        np.testing.assert_allclose(lo, [-32., 32., -32.])
+        np.testing.assert_allclose(hi, [-32., 32., -32.])
+        emf = np.array([80., -80., 80.])
+        self.assertTrue(np.all(np.abs(emf+lo*1.) <= 48.+1e-9))  # terminal voltage within the bus
+
+    def test_overcurrent_flag_in_info(self):
+        env = self.make(only('motor'))
+        z, d = env.rz, env.data
+        info = env.step(np.zeros(env.action_space.shape))[4]['realism']
+        self.assertIn('overcurrent', info)
+        self.assertFalse(info['overcurrent'][z.idx].any())
+        i = 0
+        N = z.ratio(d.qpos[z.q_adr_m])[i]
+        d.qvel[env.v_adr[z.idx[i]]] = 3.*z.v_nom[i]/(z.kt[i]*N)  # 3x no-load speed: E = 3 V > V + i_lim R
+        env._clamp()
+        self.assertTrue(z.overcurrent[i])
+        self.assertTrue(z.info()['overcurrent'][z.idx[i]])
+        d.qvel[:] = 0.
 
     def test_rollout_forces_stay_within_motor_limits(self):
         env = self.make(only('motor', 'thermal', 'friction'))
@@ -288,6 +322,57 @@ class RealismEnvTest(unittest.TestCase):
         tau = z.bl_tau[j]
         self.assertGreater(tau, 0.)
         self.assertAlmostEqual(z.bl_w[j], w0+1e-3*tau/z.bl_J[j], places=9)
+
+    def test_backlash_no_false_impact_at_nearly_equal_speeds(self):
+        """Motor 10.1 rad/s, joint 10 rad/s, motor in the middle of a 0.005 rad gap, dt 1 ms: the gap closes by only
+        1e-4 rad in the step, so no impact (comparing the next-step motor position with the present joint position
+        would see 0.0101 rad > 0.0025 rad)."""
+        env, z = self.backlash_env(b=.005)
+        d, m = env.data, env.model
+        j = len(z.bl_idx)-1  # tail joint
+        z.bl_kp[j] = z.bl_kd[j] = 0.  # no servo torque: rotor keeps its speed
+        q = d.qpos[z.bl_q[j]]
+        d.qvel[z.bl_dof[j]] = 10.
+        z.bl_s[:] = 0.
+        z.bl_th[:], z.bl_w[:] = d.qpos[z.bl_q], d.qvel[z.bl_dof]
+        z.bl_th[j], z.bl_w[j] = q, 10.1
+        d.ctrl[env.act] = d.qpos[env.q_adr]
+        lo, hi = env._clamp()
+        n0 = z.bl_impacts
+        z.before_substep(env, lo, hi, 1e-3)
+        self.assertEqual(z.bl_impacts, n0)
+        self.assertEqual(z.bl_s[j], 0.)
+        self.assertEqual(tuple(m.actuator_forcerange[z.bl_act[j]]), (0., 0.))
+        # the same speeds with the rotor 1e-6 rad short of the + face: it closes in this step
+        z.bl_th[j], z.bl_w[j] = q+.0025-1e-6, 10.1
+        z.before_substep(env, lo, hi, 1e-3)
+        self.assertEqual(z.bl_impacts, n0+1)
+        self.assertEqual(z.bl_s[j], 1.)
+
+    def test_backlash_engaged_motor_speed_is_present_joint_speed(self):
+        """Engaged, motor and joint move together: back-EMF and voltage limit use the present joint speed x N, not the
+        motor speed stored one physics step earlier. Free: the stored motor-side speed."""
+        bl = json.loads(rz.DEFAULT_CONFIG.read_text())['backlash']['rad']
+        env = self.make(only('motor', 'backlash', backlash={'rad': {k: .01 for k in bl}, 'dr': {}}))
+        z, d = env.rz, env.data
+        k = int(np.flatnonzero(z.bl_m >= 0)[0])
+        b, i = z.bl_m[k], z.idx[k]
+        N = z.ratio(d.qpos[z.q_adr_m])[k]
+        w0 = z.v_nom[k]/(z.kt[k]*N)
+        d.qvel[:] = 0.
+        lo0, hi0 = env._clamp()  # standstill reference
+        d.qvel[env.v_adr[i]] = .95*w0
+        z.bl_s[b], z.bl_w[b] = 1., 0.  # engaged, stale stored speed 0
+        np.testing.assert_allclose(z._motor_speed(d)[k], .95*w0)
+        lo, hi = env._clamp()
+        i_v = .05*z.v_nom[k]/z.R[k]  # (V - E)/R at this speed, below the current limit
+        self.assertLess(i_v, z.i_lim[k])
+        self.assertAlmostEqual(hi[i], i_v*z.kt[k]*N*z.eta[k], places=9)
+        self.assertLess(hi[i], hi0[i])  # the back-EMF of this speed already limits the torque
+        z.bl_s[b], z.bl_w[b] = 0., .5*w0  # free: rotor speed .5 w0 while the joint stands
+        d.qvel[env.v_adr[i]] = 0.
+        np.testing.assert_allclose(z._motor_speed(d)[k], .5*w0)
+        d.qvel[:] = 0.
 
     def test_backlash_recontact_impulse_and_engagement(self):
         env, z = self.backlash_env()
