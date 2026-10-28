@@ -846,7 +846,9 @@ class RunEnv(RaptorEnv):
                 d.ctrl[self.act] = start+(k_sub+1)/n_sub*(target-start)
             if self.rz is not None:
                 d.ctrl[self.act] = self.rz.command(self, start+(k_sub+1)/n_sub*(target-start) if self.target_ramp else target)
-            self._clamp()
+            lo_, hi_ = self._clamp()
+            if self.rz is not None:
+                self.rz.before_substep(self, lo_, hi_, PHYSICS_DT)
             mujoco.mj_step(m, d)
             if self.rz is not None:
                 self.rz.after_substep(self, PHYSICS_DT)

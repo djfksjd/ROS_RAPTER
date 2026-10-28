@@ -20,6 +20,8 @@ if mujoco is not None:
     import realism as rz
 
 PLACEHOLDER = ROOT/'sim'/'rl'/'motor_specs'/'PLACEHOLDER_not_real.json'
+SURVEY = ROOT/'docs'/'design'/'motor_candidates.json'
+ROBSTRIDE = ROOT/'sim'/'rl'/'realism_robstride.json'
 
 
 def only(*blocks, **extra):
@@ -79,6 +81,27 @@ class BuildingBlockTest(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'r_phase'):
             rz.load_motor_specs({**base, 'r_phase': -1.})
 
+    def test_survey_modules_load_with_estimated_thermal_overrides(self):
+        over = json.loads(ROBSTRIDE.read_text())['motor']['spec_override']
+        specs = rz.load_motor_specs(SURVEY, over, {'RS03', 'RS06'})
+        self.assertEqual(set(specs), {'RS03', 'RS06'})  # other vendors (incomplete data) are not parsed
+        mods = json.loads(SURVEY.read_text())['modules']
+        for name, s in specs.items():
+            m = mods[name]
+            self.assertFalse(s['placeholder'])
+            self.assertAlmostEqual(s['kt']*s['gear_ratio'], m['kt_out'])
+            self.assertAlmostEqual(s['i_peak']*s['kt']*s['gear_ratio'], m['tau_peak'])   # published peak torque
+            self.assertAlmostEqual(s['i_cont']*s['kt']*s['gear_ratio'], m['tau_cont'])
+            self.assertAlmostEqual(s['j_rotor']*s['gear_ratio']**2, m['j_out'])
+            self.assertEqual((s['r_phase'], s['t_winding_max'], s['gear_efficiency']), (m['r_line'], m['t_wind'], 1.))
+            self.assertIn('RobStride', s['source'])
+            for f in ('r_th_wh', 'r_th_ha', 'c_th_w', 'c_th_h'):
+                self.assertTrue(over[name][f]['estimate'])
+                self.assertIn('maxon', over[name][f]['source'])
+                self.assertEqual(s[f], over[name][f]['value'])
+        with self.assertRaisesRegex(ValueError, 'r_th_wh'):  # the survey has no thermal data of its own
+            rz.load_motor_specs(SURVEY, names={'RS03'})
+
     def test_config_merge_and_enable(self):
         self.assertIsNone(rz.load_config(None))
         self.assertIsNone(rz.load_config(False))
@@ -86,9 +109,13 @@ class BuildingBlockTest(unittest.TestCase):
         self.assertEqual([b for b in rz.BLOCKS if cfg[b]['enabled']], ['delay'])
         self.assertEqual(cfg['delay']['action_steps'], {'nominal': 3, 'range': [0, 6]})
         default = json.loads(rz.DEFAULT_CONFIG.read_text())
-        for b in rz.BLOCKS:
-            self.assertEqual(default[b]['source'], '')
-            self.assertIn('sim2real_params.json', default[b]['source_todo'])
+        params = json.loads((ROOT/'docs'/'design'/'sim2real_params.json').read_text())['params']
+        names = {p['name'] for p in params}
+        for b in rz.BLOCKS:  # every source names entries that exist in sim2real_params.json
+            src = default[b]['source']
+            self.assertEqual(src['file'], 'docs/design/sim2real_params.json')
+            cited = {w.strip(',;:()') for v in src.values() for w in v.split()} & names
+            self.assertTrue(cited, b)
         with tempfile.NamedTemporaryFile('w', suffix='.json', delete=False) as f:
             json.dump(only('imu'), f)
         self.assertTrue(rz.load_config(f.name)['imu']['enabled'])
@@ -125,17 +152,35 @@ class RealismEnvTest(unittest.TestCase):
         kt, R, N, eta, etab = z.kt[i], z.r0[i], z.ratio(d.qpos[z.q_adr_m])[i], z.eta[i], z.eta_b[i]
         V, ipk = z.v_nom[i], z.i_peak[i]
         w0 = V/(kt*N)  # no-load joint speed
-        for qd in (0., .2*w0, .5*w0, .9*w0, 1.2*w0, -.5*w0):
+        tq = lambda cur, qd: cur*kt*N*(eta if cur*qd >= 0 else 1/etab)
+        for qd in (0., .2*w0, .5*w0, .9*w0, 1.1*w0, 1.2*w0, 2.*w0, -.5*w0, -1.1*w0):
             d.qvel[env.v_adr[z.idx[i]]] = qd
             lo, hi = env._clamp()
-            wm = N*qd
-            drive_hi = min(ipk, max(0., (V-kt*wm)/R))*kt*N*(eta if qd >= 0 else 1/etab)
-            self.assertAlmostEqual(hi[z.idx[i]], drive_hi, places=9, msg=qd)
-            self.assertAlmostEqual(-lo[z.idx[i]], min(ipk, max(0., (V+kt*wm)/R))*kt*N*(eta if qd <= 0 else 1/etab), places=9)
+            E = kt*N*qd
+            c_hi, c_lo = min(ipk, (V-E)/R), max(-ipk, (-V-E)/R)  # current limit intersected with the voltage window
+            if c_lo > c_hi:
+                c_lo = c_hi = -np.sign(E)*ipk
+            self.assertAlmostEqual(hi[z.idx[i]], tq(c_hi, qd), places=9, msg=qd)
+            self.assertAlmostEqual(lo[z.idx[i]], tq(c_lo, qd), places=9, msg=qd)
+            self.assertLessEqual(lo[z.idx[i]], hi[z.idx[i]])
             self.assertEqual(env.model.actuator_forcerange[env.act[z.idx[i]], 1], hi[z.idx[i]])
-            if qd > 0:  # drive quadrant: the back-EMF line tau <= (V - kt w_m)/R kt N eta
-                self.assertLessEqual(hi[z.idx[i]], (V-kt*wm)/R*kt*N*eta+1e-9 if wm < V/kt else 1e-12)
+            if 0 < qd < w0:  # drive quadrant: the back-EMF line tau <= (V - kt w_m)/R kt N eta
+                self.assertLessEqual(hi[z.idx[i]], (V-E)/R*kt*N*eta+1e-9)
+            if qd > w0:  # above no-load speed only braking (negative) torque is possible
+                self.assertLess(hi[z.idx[i]], 0.)
         d.qvel[:] = 0.
+
+    def test_current_window_overspeed(self):
+        """E 60 V > V 48 V, R 1 ohm, 20 A: physically -20 .. -12 A (the earlier code allowed -20 .. 0 A)."""
+        lo, hi, empty = rz.current_window(np.array([60., -60., 10., 0.]), 48., 1., 20.)
+        np.testing.assert_allclose(lo, [-20., 12., -20., -20.])
+        np.testing.assert_allclose(hi, [-12., 20., 20., 20.])
+        self.assertFalse(empty.any())
+        # |E| > V + i_lim R: no overlap -> forced regenerative current at the limit; cut-off (i_lim 0) -> 0
+        lo, hi, empty = rz.current_window(np.array([80., -80., 80.]), 48., 1., np.array([20., 20., 0.]))
+        np.testing.assert_array_equal(empty, [True, True, True])
+        np.testing.assert_allclose(lo, [-20., 20., 0.])
+        np.testing.assert_allclose(hi, [-20., 20., 0.])
 
     def test_rollout_forces_stay_within_motor_limits(self):
         env = self.make(only('motor', 'thermal', 'friction'))
@@ -219,14 +264,103 @@ class RealismEnvTest(unittest.TestCase):
                 np.testing.assert_array_equal(obs[k][t][jq], obs[0][t-lag][jq])
             np.testing.assert_array_equal(obs[k][1][jq], obs[0][0][jq])  # before that: the reset state
 
-    def test_backlash_dead_band(self):
-        env = self.make(only('backlash'))
-        b = env.rz.backlash
-        q = env.data.qpos[env.q_adr].copy()
-        want = q+np.r_[.3*b[:6], -2*b[6:]]
-        out = env.rz.command(env, want)
-        np.testing.assert_allclose(out[:6], q[:6])                    # inside the gap: no servo error
-        np.testing.assert_allclose(out[6:], q[6:]-1.5*b[6:])          # outside: error reduced by half the gap
+    def backlash_env(self, b=.04, **kw):
+        env = self.make(only('backlash', backlash={'rad': {k: b for k in rz.json.loads(rz.DEFAULT_CONFIG.read_text())['backlash']['rad']},
+                                                   'dr': {}}), **kw)
+        return env, env.rz
+
+    def test_backlash_free_play_no_joint_torque_inside_gap(self):
+        env, z = self.backlash_env()
+        d, m = env.data, env.model
+        j = 0
+        z.bl_s[:] = 0.
+        z.bl_th[:], z.bl_w[:] = d.qpos[z.bl_q], d.qvel[z.bl_dof]
+        d.ctrl[env.act] = d.qpos[env.q_adr]
+        d.ctrl[z.bl_act[j]] += .5  # servo pulls hard in +
+        lo, hi = env._clamp()
+        th0, w0 = z.bl_th[j], z.bl_w[j]
+        z.before_substep(env, lo, hi, 1e-3)
+        self.assertEqual(tuple(m.actuator_forcerange[z.bl_act[j]]), (0., 0.))  # joint feels nothing in the gap
+        self.assertEqual(m.dof_armature[z.bl_dof[j]], 0.)                       # rotor not on the joint
+        self.assertGreater(z.bl_w[j], w0)                                         # rotor accelerates in +
+        self.assertGreater(z.bl_th[j], th0)
+        self.assertEqual(z.bl_s[j], 0.)
+        tau = z.bl_tau[j]
+        self.assertGreater(tau, 0.)
+        self.assertAlmostEqual(z.bl_w[j], w0+1e-3*tau/z.bl_J[j], places=9)
+
+    def test_backlash_recontact_impulse_and_engagement(self):
+        env, z = self.backlash_env()
+        d, m = env.data, env.model
+        j = len(z.bl_idx)-1  # tail joint: no ground contact on that branch
+        q = d.qpos[z.bl_q[j]]
+        h = .5*z.backlash[j]
+        d.qvel[:] = 0.
+        mujoco.mj_forward(m, d)
+        z.bl_s[:] = 0.
+        z.bl_th[:], z.bl_w[:] = d.qpos[z.bl_q], 0.
+        z.bl_J[j] = .02  # an RS03-like rotor (output side)
+        z.bl_th[j], z.bl_w[j] = q+h-1e-4, 3.  # rotor about to hit the + face at 3 rad/s
+        d.ctrl[env.act] = d.qpos[env.q_adr]
+        d.ctrl[z.bl_act[j]] = z.bl_th[j]
+        lo, hi = env._clamp()
+        n0 = z.bl_impacts
+        z.before_substep(env, lo, hi, 1e-3)
+        self.assertEqual(z.bl_impacts, n0+1)
+        self.assertEqual(z.bl_s[j], 1.)  # plastic: engaged on the + face
+        tau = m.actuator_forcerange[z.bl_act[j], 0]
+        self.assertEqual(tau, m.actuator_forcerange[z.bl_act[j], 1])
+        x = np.zeros((1, m.nv)); e = np.zeros((1, m.nv)); e[0, z.bl_dof[j]] = 1.
+        mujoco.mj_solveM(m, d, x, e)
+        jl, J = 1/x[0, z.bl_dof[j]], z.bl_J[j]
+        self.assertGreater(tau, 0.)
+        # impulse = rotor speed at contact x reduced inertia; the rotor speed after this 1 ms of servo damping
+        # (implicit PD, target at the rotor) is w_f = 3 / (1 + dt kd/J + dt^2 kp/J)
+        kp, kd = z.bl_kp[j], z.bl_kd[j]
+        w_f = 3./(1.+1e-3*kd/J+1e-6*kp/J)
+        self.assertAlmostEqual(tau*1e-3, w_f*J*jl/(J+jl), delta=1e-6*w_f*J)
+        qd0 = d.qvel[z.bl_dof[j]]
+        mujoco.mj_step(m, d)
+        self.assertGreater(d.qvel[z.bl_dof[j]]-qd0, .5*tau*1e-3/jl)  # the joint is knocked forward
+        lo, hi = env._clamp()
+        z.before_substep(env, lo, hi, 1e-3)  # engaged: rotor inertia back on the joint
+        if z.bl_s[j] != 0:
+            self.assertEqual(m.dof_armature[z.bl_dof[j]], J)
+
+    def test_backlash_contact_opens_when_servo_torque_reverses(self):
+        env, z = self.backlash_env()
+        d, m = env.data, env.model
+        j = 0
+        z.bl_s[:] = 1.
+        d.ctrl[env.act] = d.qpos[env.q_adr]
+        d.ctrl[z.bl_act[j]] -= .5  # reverse: servo now pushes in -
+        d.qacc[:] = 0.
+        lo, hi = env._clamp()
+        z.before_substep(env, lo, hi, 1e-3)
+        self.assertEqual(z.bl_s[j], 0.)
+        self.assertEqual(tuple(m.actuator_forcerange[z.bl_act[j]]), (0., 0.))
+        self.assertLess(z.bl_w[j], d.qvel[z.bl_dof[j]])  # rotor starts back across the gap
+        # a joint whose servo keeps pushing into the face stays engaged and transmits the servo torque
+        k = 1
+        d.ctrl[z.bl_act[k]] = d.qpos[z.bl_q[k]]+1.
+        z.bl_s[k] = 1.
+        lo, hi = env._clamp()
+        z.before_substep(env, lo, hi, 1e-3)
+        self.assertEqual(z.bl_s[k], 1.)
+        self.assertGreater(m.actuator_forcerange[z.bl_act[k], 0], 0.)
+
+    def test_backlash_rollout_finite_with_impacts(self):
+        env, z = self.backlash_env(b=.01)
+        rng = np.random.default_rng(3)
+        a = np.zeros(env.action_space.shape)
+        for _ in range(60):
+            a = .7*a+.3*rng.uniform(-1, 1, a.shape)
+            obs, _, term, _, info = env.step(a)
+            self.assertTrue(np.all(np.isfinite(obs)))
+            self.assertTrue(np.all(np.isfinite(env.data.qvel)))
+            if term:
+                break
+        self.assertGreater(info['realism']['backlash_impacts'], 0)
 
     def test_sensor_noise_and_thermal_observation(self):
         env = self.make(only('motor', 'thermal', 'imu', 'encoder', thermal={'observe': True}))
@@ -244,6 +378,57 @@ class RealismEnvTest(unittest.TestCase):
         np.testing.assert_allclose(q, np.round(q), atol=1e-9)   # quantised encoder
         self.assertLess(np.abs(seen[0]['q']-clean['q']).max(), .01)
         np.testing.assert_allclose(o[-n:], 0., atol=1e-9)        # at ambient
+
+    def test_robstride_config_on_arch8(self):
+        env = self.make(str(ROBSTRIDE), arch8=True, model_rev=2)
+        z, d, m = env.rz, env.data, env.model
+        names = {env.active[i]: z.motor_name[k] for k, i in enumerate(z.idx)}
+        self.assertEqual(names, {'left_hip_pitch_joint': 'RS03', 'right_hip_pitch_joint': 'RS03',
+                                 'left_hip_roll_joint': 'RS06', 'right_hip_roll_joint': 'RS06',
+                                 'left_knee_pitch_joint': 'RS03', 'right_knee_pitch_joint': 'RS03',
+                                 'tail_pitch_joint': 'RS03', 'tail_yaw_joint': 'RS06'})
+        d.qvel[:] = 0.
+        lo, hi = env._clamp()
+        N_fb = np.interp(d.qpos[z.q_adr_m], *env.knee_ratio)
+        expect = {'RS03': 60., 'RS06': 36.}
+        for k, i in enumerate(z.idx):  # stall torque = published module peak x external ratio x link efficiency
+            ext = N_fb[k] if z.fourbar[k] else z.ext[k]
+            self.assertAlmostEqual(hi[i], expect[z.motor_name[k]]*ext*z.link[k], places=6, msg=env.active[i])
+            self.assertAlmostEqual(lo[i], -hi[i], places=6)
+        hp = env.active.index('left_hip_pitch_joint')
+        self.assertAlmostEqual(m.dof_armature[env.v_adr[hp]], .02)  # RS03 output-side inertia, direct drive
+        self.assertAlmostEqual(z.loss_factor, 1.5)
+        for _ in range(5):
+            _, _, term, _, info = env.step(np.zeros(env.action_space.shape))
+        for key in ('t_winding', 'current'):
+            self.assertTrue(np.all(np.isfinite(info['realism'][key][z.idx])))
+        self.assertTrue(np.all(info['realism']['t_winding'][z.idx] >= z.t_amb))
+
+    def test_imu_bias_random_walk_follows_sim_time_not_reads(self):
+        env = self.make(only('imu'))
+        z, d = env.rz, env.data
+        b0 = z.gyro_bias.copy()
+        for _ in range(5):  # same sim time: no bias change however often the sensors are read
+            env._observe()
+        np.testing.assert_array_equal(z.gyro_bias, b0)
+        rw, dt, k = z.cfg['imu']['gyro_bias_rw'], .02, 3000
+        inc = []
+        for _ in range(k):
+            d.time += dt
+            prev = z.gyro_bias.copy()
+            env._observe(); env._observe()  # two reads per step
+            inc.append(z.gyro_bias-prev)
+        inc = np.array(inc)
+        self.assertAlmostEqual(float(inc.std()), rw*np.sqrt(dt), delta=.06*rw*np.sqrt(dt))
+        # one long interval: same variance as many short ones
+        z.gyro_bias[:] = 0.
+        big = []
+        for _ in range(k):
+            z.gyro_bias[:] = 0.
+            d.time += 1.
+            env._observe()
+            big.append(z.gyro_bias.copy())
+        self.assertAlmostEqual(float(np.std(big)), rw, delta=.06*rw)
 
     def test_battery_sag(self):
         env = self.make(only('motor', 'battery'))

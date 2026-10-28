@@ -26,6 +26,8 @@
 
 2026-10-29 시뮬레이션 실물화 계층(사용자 지시, 학습 없음, 일시정지 유지): `RunEnv(realism=...)` 선택 옵션으로 모터 전류·역기전력 토크 한계, 역구동 효율, 반사 관성, 관절 마찰, 백래시, 2노드 권선 열 모델(감액·차단), 행동·관측 지연, IMU·엔코더 잡음, 배터리 전압 강하를 더했다. 기본 `realism=None`은 main과 6조건 rollout이 바이트 단위로 같다. 모터 값은 자리표시(`PLACEHOLDER_not_real.json`)라 결과를 보고하지 않는다. 다음 한 단계는 조사 세션의 `docs/design/motor_candidates.json`을 넣고 배정을 정하는 것이다. [SIM_REALISM.ko.md](SIM_REALISM.ko.md).
 
+2026-10-28 실물화 통합·수정(사용자 지시, 학습 없음, 일시정지 유지): 실물화 계층·모터 선정·센서 sim2real 브랜치를 병합했다. 외부 검토 지적대로 과속 시 전류 구간(전압·전류 구간 교집합, 비면 회생 전류 강제), IMU 바이어스 랜덤워크의 시뮬레이션 시간 기준 갱신, 유격 상태를 가진 백래시(자유 유격·재접촉 충격량)를 고치고 4절 반사 관성 평균 N² 근사를 한계로 적었다. `sim/rl/realism_robstride.json`이 `motor_candidates.json`을 직접 읽어 제안 조합(RS03·RS06)을 쓴다. 열저항·열용량은 maxon 유사 모터 추정이며 RobStride 방열판 정격과 맞지 않아 비관적이다. 기본값 6조건 main 대비 ALL IDENTICAL, `tests/` 178개 통과, arch8+개정2 짧은 무작위 행동 rollout NaN 0. 정책 평가·학습은 하지 않았다. `MOTOR_SELECTION.ko.md`의 정격·속도 표현을 방열판 정격 기준·교차점 추정으로 고쳤다. 다음 한 단계는 사용자 지시 시 `rev2_r3_ck7M`을 이 설정으로 학습 없이 평가하는 것이다. [SIM_REALISM.ko.md](SIM_REALISM.ko.md).
+
 이 파일을 먼저 읽고, git status와 해당 단계의 증거만 확인한다. 비밀값 기록 금지.
 
 
