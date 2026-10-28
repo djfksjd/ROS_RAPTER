@@ -30,6 +30,7 @@ HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 from raptor_env import RaptorEnv, CONTROL_DT, SIM, joint_type  # noqa: E402
 import terrain as tr  # noqa: E402
+from realism import Realism, load_config  # noqa: E402
 
 ROOT = SIM.parent
 R02_MODEL = SIM/'raptor_r02.xml'
@@ -202,7 +203,8 @@ class RunEnv(RaptorEnv):
                  kin=None, yaw_impulse=None, couple_ankle=False, track_sigma_frac=.15, arch8=False,
                  springs_override=None, arch8_override=None, arch12=False, real_mass=False, hip_back=0., nominal=None,
                  target_ramp=False, obs_contact=False, model_rev=1, latch_fallback=None, friction_dr=None,
-                 self_collision=None, knee_band=None, start_contact=None, armature=None, heat_limit=1., roll_impulse=None, init_noise=.02):
+                 self_collision=None, knee_band=None, start_contact=None, armature=None, heat_limit=1., roll_impulse=None, init_noise=.02,
+                 realism=None):
         self.mass, self.spring_set, self.tail = float(mass), springs, tail
         rev2 = int(model_rev) >= 2
         pick = lambda v, new, old: (new if rev2 else old) if v is None else v
@@ -299,6 +301,12 @@ class RunEnv(RaptorEnv):
         self.rng = np.random.default_rng(seed)
         self.observation_space = gym.spaces.Box(-np.inf, np.inf, (11+3*(self.obs_vel)+2*n+na+2*self.obs_contact,), np.float32)
         self.action_space = gym.spaces.Box(-1., 1., (na,), np.float32)
+        # realism (opt-in, 2026-10-29): motor current/voltage/thermal limits, friction, backlash, delays, sensor noise,
+        # battery sag (realism.py, docs/SIM_REALISM.ko.md). None keeps the earlier code path unchanged.
+        cfg = load_config(realism)
+        self.rz = Realism(cfg, seed, CONTROL_DT) if cfg else None
+        if self.rz is not None and self.rz.obs_temp:
+            self.observation_space = gym.spaces.Box(-np.inf, np.inf, (self.observation_space.shape[0]+n,), np.float32)
         self.resample_steps = 250
         self.model = self.renderer = None
 
@@ -425,6 +433,8 @@ class RunEnv(RaptorEnv):
         m.actuator_forcelimited[self.act] = 1
         m.actuator_forcerange[self.act] = np.c_[-self.tau_nom, self.tau_nom]
         m.jnt_actfrclimited[:] = 0
+        if self.rz is not None:
+            self.rz.setup(self, m)
         self.model, self.data = m, mujoco.MjData(m)
         mujoco.mj_setConst(m, self.data)
         self.close()
@@ -469,6 +479,8 @@ class RunEnv(RaptorEnv):
     def reset(self, *, seed=None, options=None):
         if seed is not None:
             self.rng = np.random.default_rng(seed)
+            if self.rz is not None:
+                self.rz.reseed(seed)
         if self.model is None:
             self._build()
         self._randomize()
@@ -520,6 +532,8 @@ class RunEnv(RaptorEnv):
             d.qvel[0] += self.rng.uniform(0., .3*self.command[0])
         if init_rng is not None:
             d.qvel[0] += init_rng.uniform(0., .5)
+        if self.rz is not None:
+            self.rz.reset(self)
         return self._observe(), {}
 
     def _ratchet_arm(self, st, q):
@@ -551,17 +565,29 @@ class RunEnv(RaptorEnv):
         return c
 
     def _observe(self):
+        if self.rz is not None:
+            return self.rz.observe(self)  # delayed and noisy sensors (realism)
         return self._obs()
 
     def _obs(self):
+        return self._compose(self._sense())
+
+    def _sense(self):
+        """Raw sensor values of the observation (realism delays and corrupts these): IMU gyro, gravity direction, body
+        velocity (state estimator), joint positions and velocities."""
         d = self.data
         R = d.xmat[self.base].reshape(3, 3)
-        gyro = d.qvel[3:6]
-        grav = R.T @ np.array([0, 0, -1.])
-        parts = [gyro*.25, grav, self.command*np.array([.1, 2., .5])]
+        s = {'gyro': d.qvel[3:6].copy(), 'grav': R.T @ np.array([0, 0, -1.])}
         if self.obs_vel:
-            parts.append(self.body_velocity(self.base)[1]*.1)
-        parts += [d.qpos[self.q_adr]-self.q0, d.qvel[self.v_adr]*.05, self.last_action,
+            s['vel'] = self.body_velocity(self.base)[1]
+        s['q'], s['qd'] = d.qpos[self.q_adr].copy(), d.qvel[self.v_adr].copy()
+        return s
+
+    def _compose(self, s):
+        parts = [s['gyro']*.25, s['grav'], self.command*np.array([.1, 2., .5])]
+        if self.obs_vel:
+            parts.append(s['vel']*.1)
+        parts += [s['q']-self.q0, s['qd']*.05, self.last_action,
                   [np.sin(2*np.pi*self.phase), np.cos(2*np.pi*self.phase)]]
         if self.obs_contact:
             parts.append([float(self.loaded['left']),float(self.loaded['right'])])
@@ -569,9 +595,14 @@ class RunEnv(RaptorEnv):
 
     # --- virtual actuator ----------------------------------------------------------------------
     def _clamp(self):
-        """Force range per actuator for this physics step: torque limit, power limit P/|qd|, no drive beyond v_max."""
-        if self.arch8:
-            return self._clamp_arch8()
+        """Force range per actuator for this physics step: torque limit, power limit P/|qd|, no drive beyond v_max.
+        With the realism motor model the motor joints get its current/voltage/thermal limits instead."""
+        lo, hi = self._clamp_arch8() if self.arch8 else self._clamp_t1()
+        if getattr(self, 'rz', None) is not None:
+            lo, hi = self.rz.motor_limits(self, lo, hi)
+        return lo, hi
+
+    def _clamp_t1(self):
         qd = self.data.qvel[self.v_adr]
         lim = np.minimum(self.tau_max, self.p_max/np.maximum(np.abs(qd), 1e-2))
         lo, hi = -lim, lim.copy()
@@ -813,8 +844,14 @@ class RunEnv(RaptorEnv):
         for k_sub in range(n_sub):
             if self.target_ramp:
                 d.ctrl[self.act] = start+(k_sub+1)/n_sub*(target-start)
-            self._clamp()
+            if self.rz is not None:
+                d.ctrl[self.act] = self.rz.command(self, start+(k_sub+1)/n_sub*(target-start) if self.target_ramp else target)
+            lo_, hi_ = self._clamp()
+            if self.rz is not None:
+                self.rz.before_substep(self, lo_, hi_, PHYSICS_DT)
             mujoco.mj_step(m, d)
+            if self.rz is not None:
+                self.rz.after_substep(self, PHYSICS_DT)
             for st in self.ratchet.values():  # the rest angle follows the most extended angle, one tooth at a time
                 if st['armed'] and d.qpos[st['adr']] < st['qmin']:
                     st['qmin'] = d.qpos[st['adr']]
@@ -952,4 +989,6 @@ class RunEnv(RaptorEnv):
                 'tail_qd': d.qvel[self.v_adr][self.tail_idx].copy(), 'phase': self.phase,
                 'heat': self.heat.copy() if self.arch8 else None,
                 'latched': {s_: bool(on_) for (s_, _j), on_ in self.spring_was_on.items()}}
+        if self.rz is not None:
+            info['realism'] = self.rz.info()
         return self._observe(), float(reward), bool(fallen), bool(truncated), info

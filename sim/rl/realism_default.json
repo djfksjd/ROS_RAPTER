@@ -1,0 +1,87 @@
+{
+  "_comment": "Default sim-realism layer for RunEnv(realism=...) (sim/rl/realism.py, docs/SIM_REALISM.ko.md). Every value here is an ASSUMPTION; each block's source names the docs/design/sim2real_params.json entries its values or ranges are compared with; source_todo stays where that file has no verified value. Ranges [lo, hi] are drawn per episode only when the env randomizes; otherwise 'nominal' is used. Scale ranges multiply the nominal value.",
+  "motor": {
+    "enabled": true,
+    "source": {"file": "docs/design/sim2real_params.json", "dr.gear_efficiency": "osu_rr_torque_efficiency 0.9-1.0 x (roadrunner@55a092e); 이 범위 0.95-1.0은 더 좁은 가정", "dr.kt": "ndfeb_remanence_temp_coeff -0.1 %/K (partial): ±5 %는 자석 온도 약 ±50 K에 해당하는 가정", "dr.i_peak": "actuator_torque_limit_scale 0.9-1.1 x (yes_repo, run_env)와 비교용; 이 범위는 가정"},
+    "source_todo": "TODO: 실측 또는 원문 확인 (sim2real_params.json에 verified 값 없음)",
+    "spec_file": "motor_specs/PLACEHOLDER_not_real.json",
+    "assign": {
+      "hip_pitch":   {"motor": "PLACEHOLDER_NOT_REAL_9to1", "external_ratio": 1.0, "link_efficiency": 1.0},
+      "knee_pitch":  {"motor": "PLACEHOLDER_NOT_REAL_9to1", "external_ratio": 1.0, "link_efficiency": 1.0},
+      "ankle_pitch": {"motor": "PLACEHOLDER_NOT_REAL_9to1", "external_ratio": 1.0, "link_efficiency": 1.0},
+      "hip_roll":    {"motor": "PLACEHOLDER_NOT_REAL_9to1", "external_ratio": 1.0, "link_efficiency": 1.0},
+      "ankle_roll":  {"motor": "PLACEHOLDER_NOT_REAL_9to1", "external_ratio": 1.0, "link_efficiency": 1.0},
+      "tail_pitch":  {"motor": "PLACEHOLDER_NOT_REAL_9to1", "external_ratio": 1.5, "link_efficiency": 0.95},
+      "tail_yaw":    {"motor": "PLACEHOLDER_NOT_REAL_9to1", "external_ratio": 1.5, "link_efficiency": 0.95}
+    },
+    "armature": true,
+    "dr": {"kt": [0.95, 1.05], "r_phase": [0.9, 1.1], "gear_efficiency": [0.95, 1.0], "j_rotor": [0.9, 1.1], "i_peak": [0.95, 1.05]}
+  },
+  "friction": {
+    "enabled": true,
+    "source": {"file": "docs/design/sim2real_params.json", "dr.viscous": "cassie_li_damping 0.7-4.0 x, osu_rr_damping 0.5-3.5 x, osu_apex_damping 0.3-5.0 x (관절 감쇠); 이 범위 0.5-1.5는 더 좁은 가정", "coulomb": "joint_coulomb_friction: verified no (실측 필요) - 값은 가정"},
+    "source_todo": "TODO: 실측 또는 원문 확인 (sim2real_params.json에 verified 값 없음)",
+    "coulomb": {"hip_pitch": 0.3, "knee_pitch": 0.3, "ankle_pitch": 0.2, "hip_roll": 0.3, "ankle_roll": 0.1, "tail_pitch": 0.3, "tail_yaw": 0.3},
+    "viscous": {"hip_pitch": 0.02, "knee_pitch": 0.02, "ankle_pitch": 0.01, "hip_roll": 0.02, "ankle_roll": 0.01, "tail_pitch": 0.02, "tail_yaw": 0.02},
+    "dr": {"coulomb": [0.5, 1.5], "viscous": [0.5, 1.5]}
+  },
+  "backlash": {
+    "enabled": false,
+    "source": {"file": "docs/design/sim2real_params.json", "rad": "joint_backlash: verified no (실측 필요) - 값은 가정"},
+    "source_todo": "TODO: 실측 또는 원문 확인 (sim2real_params.json에 verified 값 없음)",
+    "rad": {"hip_pitch": 0.005, "knee_pitch": 0.005, "ankle_pitch": 0.005, "hip_roll": 0.005, "ankle_roll": 0.005, "tail_pitch": 0.008, "tail_yaw": 0.008},
+    "dr": {"rad": [0.5, 1.5]},
+    "restitution": 0.0,
+    "motor_inertia_min": 0.001
+  },
+  "thermal": {
+    "enabled": true,
+    "source": {"file": "docs/design/sim2real_params.json", "alpha_cu": "copper_resistance_temp_coeff 0.00393 1/K (IEC 60028, 원문 미열람)", "r_th, c_th": "winding_thermal_resistance, winding_thermal_time_constant: verified no - 모터별 스펙 파일 값"},
+    "source_todo": "TODO: 실측 또는 원문 확인 (sim2real_params.json에 verified 값 없음)",
+    "ambient_c": {"nominal": 25.0, "range": [10.0, 40.0]},
+    "initial": "ambient",
+    "alpha_cu": 0.00393,
+    "t_ref_c": 25.0,
+    "loss_factor": 1.0,
+    "derate_margin_k": 20.0,
+    "observe": false,
+    "dr": {"r_th_ha": [0.8, 1.25], "c_th_h": [0.8, 1.25]}
+  },
+  "delay": {
+    "enabled": true,
+    "source": {"file": "docs/design/sim2real_params.json", "action_steps, obs_steps": "cassie_li_state_action_delay 0.45-28.6 ms (cassie_rl_walking@45c830e), osu_rr_torque_delay 2-3.5 ms; 이 범위 0-6 ms는 Cassie 범위 안의 가정"},
+    "source_todo": "TODO: 실측 또는 원문 확인 (sim2real_params.json에 verified 값 없음)",
+    "action_steps": {"nominal": 2, "range": [0, 6]},
+    "obs_steps": {"nominal": 2, "range": [0, 6]}
+  },
+  "imu": {
+    "enabled": true,
+    "source": {"file": "docs/design/sim2real_params.json", "gyro_std": "cassie_li_noise_ang_vel ±0.01 rad/s (균등), lg_noise_ang_vel ±0.2 rad/s; 여기서는 정규 std 0.01", "accel_std": "cassie_li_noise_lin_acc ±0.1 m/s²", "vel_std": "cassie_li_noise_lin_vel ±0.04 m/s, lg_noise_lin_vel ±0.1 m/s, state_est_velocity_rms_bloesch <0.02 m/s", "gyro_bias_*": "imu_vn100_gyro_bias_instability 5-10 °/h, imu_mti3_gyro 6 °/h (partial); 초기 바이어스 0.01 rad/s(약 2000 °/h)는 MEMS 저가형 보수 가정", "accel_bias_*": "출처 없음 - 가정"},
+    "source_todo": "TODO: 실측 또는 원문 확인 (sim2real_params.json에 verified 값 없음)",
+    "gyro_std": 0.01,
+    "gyro_bias_rw": 0.002,
+    "gyro_bias_init": 0.01,
+    "accel_std": 0.05,
+    "accel_bias_rw": 0.005,
+    "accel_bias_init": 0.05,
+    "vel_std": 0.05
+  },
+  "encoder": {
+    "enabled": true,
+    "source": {"file": "docs/design/sim2real_params.json", "offset_range": "osu_rr_encoder_offset ±0.05 rad (roadrunner@55a092e); 이 범위 ±0.002는 보정 후를 가정한 더 좁은 값", "q_std": "lg_noise_dof_pos ±0.01 rad (legged_gym@8fa29ac)", "qd_std": "lg_noise_dof_vel ±1.5 rad/s (legged_gym@8fa29ac); 이 값 0.02는 더 작은 가정", "bits": "ak10_9_v3_encoders 14 bit (partial), RobStride 14 bit (docs/design/motor_candidates.json, verified)"},
+    "source_todo": "TODO: 실측 또는 원문 확인 (sim2real_params.json에 verified 값 없음)",
+    "bits": 14,
+    "q_std": 0.0005,
+    "qd_std": 0.02,
+    "offset_range": [-0.002, 0.002]
+  },
+  "battery": {
+    "enabled": false,
+    "source": {"file": "docs/design/sim2real_params.json", "r_internal": "battery_internal_resistance: verified no (배터리 선정 후) - 값은 가정"},
+    "source_todo": "TODO: 실측 또는 원문 확인 (sim2real_params.json에 verified 값 없음)",
+    "v_oc": null,
+    "r_internal": {"nominal": 0.05, "range": [0.03, 0.1]},
+    "p_aux_w": 20.0,
+    "regen": false
+  }
+}

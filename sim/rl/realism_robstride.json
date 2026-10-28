@@ -1,0 +1,36 @@
+{
+  "_comment": "Proposed 8-axis motor set of docs/design/MOTOR_SELECTION.ko.md (hip pitch RS03 direct, hip roll RS06 + 1.5:1 belt, knee RS03 + four-bar, tail pitch RS03, tail yaw RS06) for RunEnv(arch8=True, realism='sim/rl/realism_robstride.json'). Merged onto realism_default.json. Electrical/mechanical values come from docs/design/motor_candidates.json (RobStride official manuals, verified there); every thermal value is an ESTIMATE (no vendor publishes them): resistances back-calculated from the vendor rated torque on its specified heat sink, capacities from a similar literature motor. Not validated against hardware.",
+  "motor": {
+    "spec_file": "../../docs/design/motor_candidates.json",
+    "spec_file_note": "the 'modules' entries are converted by realism.survey_module_spec: kt = kt_out/ratio, gear_efficiency 1 (kt_out is measured at the output, internal gear loss included), j_rotor = j_out/ratio^2, i_peak = tau_peak/kt_out (DC-equivalent current reproducing the published peak torque), r_phase = r_line (line-to-line). Back-EMF uses the same kt: no-load speed V/kt_out is 20.3 rad/s for RS03 (datasheet 20.4) and 44.0 rad/s for RS06 (datasheet 50.3, i.e. 12 % conservative).",
+    "assign": {
+      "hip_pitch":   {"motor": "RS03", "external_ratio": 1.0, "link_efficiency": 1.0},
+      "hip_roll":    {"motor": "RS06", "external_ratio": 1.5, "link_efficiency": 0.9},
+      "knee_pitch":  {"motor": "RS03", "external_ratio": "fourbar", "link_efficiency": 0.9},
+      "tail_pitch":  {"motor": "RS03", "external_ratio": 1.0, "link_efficiency": 1.0},
+      "tail_yaw":    {"motor": "RS06", "external_ratio": 1.0, "link_efficiency": 1.0},
+      "ankle_pitch": null,
+      "ankle_roll":  null
+    },
+    "assign_note": "link_efficiency 0.9 = LINK_ETA of run_env/motor_selection_calc for a belt or linkage stage; ankle_pitch is coupled to the knee in arch8 (no motor), ankle_roll is locked in arch8: null keeps the env's own limits",
+    "spec_override": {
+      "RS03": {
+        "r_th_wh": {"value": 0.874, "unit": "K/W", "estimate": true, "source": "back-calculated from the RobStride rating 20 N·m continuous on a 215x220 mm heat sink (motor_candidates.json RS03 note): steady winding 125 C (= 145 C limit - 20 K derate margin) at 25 C ambient, loss 1.5 i^2 r_line (1 + 0.00393 (T - 25)) = 58.5 W -> r_th_wh + r_th_ha = 1.709 K/W, split in the ratio 1.82 : 1.74 of maxon EC 90 flat 260 W (980 g, similar size to RS03 880-928 g; winding-housing 1.82 K/W, catalogue page edition 2021-03, web search summary 2026-10-28, maxongroup.com PDF not opened) = 0.480 x the maxon values"},
+        "r_th_ha": {"value": 0.835, "unit": "K/W", "estimate": true, "source": "same back-calculation: housing-ambient including the 215x220 mm vendor heat sink = 0.480 x maxon EC 90 flat 260 W 1.74 K/W (free air)"},
+        "c_th_w":  {"value": 31.3, "unit": "J/K", "estimate": true, "source": "derived: winding time constant 57 s / 1.82 K/W (same maxon page)"},
+        "c_th_h":  {"value": 148.0, "unit": "J/K", "estimate": true, "source": "derived: motor time constant 258 s / 1.74 K/W (same maxon page)"}
+      },
+      "RS06": {
+        "r_th_wh": {"value": 1.252, "unit": "K/W", "estimate": true, "source": "back-calculated from the RobStride rating 11 N·m continuous on a 130x160 mm heat sink (motor_candidates.json RS06 note): steady winding 125 C (= 145 C limit - 20 K derate margin) at 25 C ambient, loss 48.9 W -> r_th_wh + r_th_ha = 2.043 K/W, split in the ratio 2.99 : 1.89 of maxon EC 90 flat 90 W (datasheet edition 2009-05, web search summary 2026-10-28, not opened; smaller RS06 615-621 g) = 0.419 x the maxon values"},
+        "r_th_ha": {"value": 0.791, "unit": "K/W", "estimate": true, "source": "same back-calculation: housing-ambient including the 130x160 mm vendor heat sink = 0.419 x maxon EC 90 flat 90 W 1.89 K/W (free air; 2013 edition 1.91 K/W)"},
+        "c_th_w":  {"value": 17.6, "unit": "J/K", "estimate": true, "source": "derived: winding time constant 52.6 s / 2.99 K/W (same maxon EC 90 flat 90 W datasheet)"},
+        "c_th_h":  {"value": 148.7, "unit": "J/K", "estimate": true, "source": "derived: motor time constant 281 s / 1.89 K/W (same maxon EC 90 flat 90 W datasheet)"}
+      }
+    },
+    "spec_override_note": "thermal resistances are ESTIMATES back-calculated so that the RobStride rated torque (RS03 20 N·m on a 215x220 mm heat sink, RS06 11 N·m on a 130x160 mm heat sink, both at 100 rpm, motor_candidates.json) settles at the derate start 125 C at 25 C ambient (docs/SIM_REALISM.ko.md); the free-air maxon values (RS06 winding-housing alone 154.6 K at the rated loss) could not hold the rating. Valid only for a mount that sinks heat like the vendor plate (not measured). c_th_w and c_th_h stay the maxon-derived values (the heat sink's own mass is not added: faster heating than with the plate)"
+  },
+  "thermal": {
+    "loss_factor": 1.5,
+    "loss_factor_note": "ESTIMATE: kt_out is per A rms of phase current and r_line is line-to-line; for a star winding the copper loss 3 I^2 R_phase = 1.5 I^2 r_line"
+  }
+}
