@@ -1,0 +1,26 @@
+{
+  "_warning": "PLACEHOLDER - NOT A REAL MOTOR. Round-number values to exercise sim/rl/realism.py only. No datasheet was used. Replace with docs/design/motor_candidates.json (separate survey session) before any result is reported.",
+  "placeholder": true,
+  "units": "SI; temperatures in degC (temp_unit), temperature differences in K",
+  "motors": [
+    {
+      "name": "PLACEHOLDER_NOT_REAL_9to1",
+      "placeholder": true,
+      "temp_unit": "C",
+      "gear_ratio": 9.0,
+      "gear_efficiency": 0.9,
+      "backdrive_efficiency": 0.85,
+      "kt": 0.105,
+      "r_phase": 0.15,
+      "j_rotor": 1.0e-4,
+      "v_bus": 48.0,
+      "i_peak": 40.0,
+      "i_cont": 15.0,
+      "t_winding_max": 120.0,
+      "r_th_wh": 0.6,
+      "r_th_ha": 1.5,
+      "c_th_w": 40.0,
+      "c_th_h": 300.0
+    }
+  ]
+}

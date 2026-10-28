@@ -1,0 +1,86 @@
+{
+  "_comment": "Default sim-realism layer for RunEnv(realism=...) (sim/rl/realism.py, docs/SIM_REALISM.ko.md). Every value here is an ASSUMPTION; the source fields are empty until docs/design/sim2real_params.json exists. Ranges [lo, hi] are drawn per episode only when the env randomizes; otherwise 'nominal' is used. Scale ranges multiply the nominal value.",
+  "source_todo": "TODO: docs/design/sim2real_params.json",
+  "motor": {
+    "enabled": true,
+    "source": "",
+    "source_todo": "TODO: docs/design/sim2real_params.json",
+    "spec_file": "motor_specs/PLACEHOLDER_not_real.json",
+    "assign": {
+      "hip_pitch":   {"motor": "PLACEHOLDER_NOT_REAL_9to1", "external_ratio": 1.0, "link_efficiency": 1.0},
+      "knee_pitch":  {"motor": "PLACEHOLDER_NOT_REAL_9to1", "external_ratio": 1.0, "link_efficiency": 1.0},
+      "ankle_pitch": {"motor": "PLACEHOLDER_NOT_REAL_9to1", "external_ratio": 1.0, "link_efficiency": 1.0},
+      "hip_roll":    {"motor": "PLACEHOLDER_NOT_REAL_9to1", "external_ratio": 1.0, "link_efficiency": 1.0},
+      "ankle_roll":  {"motor": "PLACEHOLDER_NOT_REAL_9to1", "external_ratio": 1.0, "link_efficiency": 1.0},
+      "tail_pitch":  {"motor": "PLACEHOLDER_NOT_REAL_9to1", "external_ratio": 1.5, "link_efficiency": 0.95},
+      "tail_yaw":    {"motor": "PLACEHOLDER_NOT_REAL_9to1", "external_ratio": 1.5, "link_efficiency": 0.95}
+    },
+    "armature": true,
+    "dr": {"kt": [0.95, 1.05], "r_phase": [0.9, 1.1], "gear_efficiency": [0.95, 1.0], "j_rotor": [0.9, 1.1], "i_peak": [0.95, 1.05]}
+  },
+  "friction": {
+    "enabled": true,
+    "source": "",
+    "source_todo": "TODO: docs/design/sim2real_params.json",
+    "coulomb": {"hip_pitch": 0.3, "knee_pitch": 0.3, "ankle_pitch": 0.2, "hip_roll": 0.3, "ankle_roll": 0.1, "tail_pitch": 0.3, "tail_yaw": 0.3},
+    "viscous": {"hip_pitch": 0.02, "knee_pitch": 0.02, "ankle_pitch": 0.01, "hip_roll": 0.02, "ankle_roll": 0.01, "tail_pitch": 0.02, "tail_yaw": 0.02},
+    "dr": {"coulomb": [0.5, 1.5], "viscous": [0.5, 1.5]}
+  },
+  "backlash": {
+    "enabled": false,
+    "source": "",
+    "source_todo": "TODO: docs/design/sim2real_params.json",
+    "rad": {"hip_pitch": 0.005, "knee_pitch": 0.005, "ankle_pitch": 0.005, "hip_roll": 0.005, "ankle_roll": 0.005, "tail_pitch": 0.008, "tail_yaw": 0.008},
+    "dr": {"rad": [0.5, 1.5]}
+  },
+  "thermal": {
+    "enabled": true,
+    "source": "",
+    "source_todo": "TODO: docs/design/sim2real_params.json",
+    "ambient_c": {"nominal": 25.0, "range": [10.0, 40.0]},
+    "initial": "ambient",
+    "alpha_cu": 0.00393,
+    "t_ref_c": 25.0,
+    "loss_factor": 1.0,
+    "derate_margin_k": 20.0,
+    "observe": false,
+    "dr": {"r_th_ha": [0.8, 1.25], "c_th_h": [0.8, 1.25]}
+  },
+  "delay": {
+    "enabled": true,
+    "source": "",
+    "source_todo": "TODO: docs/design/sim2real_params.json",
+    "action_steps": {"nominal": 2, "range": [0, 6]},
+    "obs_steps": {"nominal": 2, "range": [0, 6]}
+  },
+  "imu": {
+    "enabled": true,
+    "source": "",
+    "source_todo": "TODO: docs/design/sim2real_params.json",
+    "gyro_std": 0.01,
+    "gyro_bias_rw": 0.002,
+    "gyro_bias_init": 0.01,
+    "accel_std": 0.05,
+    "accel_bias_rw": 0.005,
+    "accel_bias_init": 0.05,
+    "vel_std": 0.05
+  },
+  "encoder": {
+    "enabled": true,
+    "source": "",
+    "source_todo": "TODO: docs/design/sim2real_params.json",
+    "bits": 14,
+    "q_std": 0.0005,
+    "qd_std": 0.02,
+    "offset_range": [-0.002, 0.002]
+  },
+  "battery": {
+    "enabled": false,
+    "source": "",
+    "source_todo": "TODO: docs/design/sim2real_params.json",
+    "v_oc": null,
+    "r_internal": {"nominal": 0.05, "range": [0.03, 0.1]},
+    "p_aux_w": 20.0,
+    "regen": false
+  }
+}
