@@ -1,7 +1,9 @@
 """Height-field terrains for Raptor RL (MuJoCo). Heights in metres, grid 0.05 m.
 
 Kinds: flat, rough (random bumps), slope (fore-aft ramp), side_slope (cross slope everywhere, walking
-along it), stairs (up), platform (drop-off edge).
+along it), stairs (up), platform (drop-off edge), rough_hfield (the old height-field rough, kept to reproduce old runs).
+rough is built from 0.2 m boxes in a strip |y| < ROUGH_HALF_WIDTH: with the height field the foot boxes sank 2-5 cm
+and a policy fell even on a 0.5 cm field (evidence 173).
 `level` in [0, 1] scales difficulty for a curriculum. The robot spawns at the grid centre (x = 0),
 walking along +x.
 """
@@ -10,7 +12,8 @@ import numpy as np
 
 SIZE = 8.  # m, square
 RES = .05  # m per cell
-KINDS = ('flat', 'rough', 'slope', 'side_slope', 'stairs', 'platform')
+KINDS = ('flat', 'rough', 'slope', 'side_slope', 'stairs', 'platform', 'rough_hfield')
+ROUGH_HALF_WIDTH = 2.  # m
 
 
 def heights(kind, level, rng):
@@ -19,7 +22,7 @@ def heights(kind, level, rng):
     X = np.tile(x, (n, 1))  # columns = x
     h = np.zeros((n, n))
     ahead = np.clip(X-.5, 0, None)  # keep the spawn pad flat
-    if kind == 'rough':
+    if kind in ('rough', 'rough_hfield'):
         amp = .005+.045*level
         noise = rng.uniform(-amp, amp, (n//4+1, n//4+1))
         h = np.kron(noise, np.ones((4, 4)))[:n, :n]
@@ -49,6 +52,23 @@ def add_terrain(spec, kind, level, rng):
     h = heights(kind, level, rng)
     world, n = spec.worldbody, h.shape[0]
     if kind == 'rough':
+        x = np.linspace(-SIZE/2, SIZE/2, n)
+        lo = min(h.min(), 0.)-.02
+        keep = np.zeros_like(h, bool)
+        for i in range(0, n-3, 4):  # rows = y
+            for j in range(0, n-3, 4):  # columns = x; patch j covers cells j..j+3
+                xc, yc = x[j]+1.5*RES, x[i]+1.5*RES
+                if x[j] < .5 or abs(yc) > ROUGH_HALF_WIDTH:
+                    continue
+                keep[i:i+4, j:j+4] = True
+                world.add_geom(name=f'patch{i}_{j}', type=mujoco.mjtGeom.mjGEOM_BOX, size=[2*RES, 2*RES, (h[i, j]-lo)/2],
+                               pos=[xc, yc, (h[i, j]+lo)/2])
+        x0 = x[np.flatnonzero(keep.any(0))[0]]-RES/2  # first patch edge: the spawn pad reaches it with no gap
+        h[~keep] = lo
+        h[np.tile(x, (n, 1)) < x0] = 0.
+        world.add_geom(name='pad', type=mujoco.mjtGeom.mjGEOM_BOX, size=[(SIZE/2+x0)/2, SIZE/2, -lo/2], pos=[(-SIZE/2+x0)/2, 0, lo/2])
+        spec.geom('floor').pos = [0, 0, lo]
+    elif kind == 'rough_hfield':
         lo, hi = h.min(), h.max()
         span = max(hi-lo, 1e-3)
         spec.add_hfield(name='terrain', nrow=n, ncol=n, size=[SIZE/2, SIZE/2, span, .5],

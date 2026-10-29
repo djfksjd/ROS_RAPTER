@@ -105,7 +105,8 @@ def env_kwargs(a):
                 target_ramp=g('target_ramp', False),obs_contact=g('obs_contact',False), model_rev=g('model_rev', 1), heat_limit=g('heat_limit', 1.), roll_impulse=g('roll_impulse'), init_noise=g('init_noise', .02),
                 realism=g('realism'), scale_override=json.loads(a['scale_override']) if g('scale_override') else None,
                 range_override=json.loads(a['range_override']) if g('range_override') else None,
-                gait_duty_min=g('gait_duty_min'), contact_tc=g('contact_tc'))
+                gait_duty_min=g('gait_duty_min'), contact_tc=g('contact_tc'),
+                terrain=json.loads(a['terrain']) if g('terrain') else None)
 
 
 def main():
@@ -151,6 +152,7 @@ def main():
     p.add_argument('--range-override', help='JSON {joint type: rad} symmetric joint stop replacing the MJCF range, e.g. {"hip_roll": 0.65}')
     p.add_argument('--gait-duty-min', type=float, help='floor of the scheduled stance duty at running speed (default GAIT_DUTY 0.28)')
     p.add_argument('--contact-tc', type=float, help='solref time constant of every contact (default: MJCF, MuJoCo 0.02)')
+    p.add_argument('--terrain', help='JSON {"kinds": {kind: weight}, "max_level": L, "vmax": m/s, "size": m}: terrain drawn per episode (run_env.py)')
     p.add_argument('--realism', help='realism config JSON path for RunEnv(realism=...) (realism.py, docs/SIM_REALISM.ko.md); omitted = off')
     p.add_argument('--init', help='model.zip to continue from (its vecnorm.pkl is loaded too)')
     p.add_argument('--resume-action-std', type=float, help='optional Gaussian exploration std reset for a resumed PPO policy; actor mean is preserved')
