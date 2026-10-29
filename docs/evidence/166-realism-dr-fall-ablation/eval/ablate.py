@@ -1,5 +1,5 @@
 """Randomized-fall ablation (evaluate_run episode pattern as evidence 165 temp_probe.py): randomize on, one group
-returned to nominal. argv: run_dir group cmd episodes. Groups: all (nothing off), impulse (yaw/roll impulses + push),
+returned to nominal. argv: run_dir group cmd episodes [seed0=5000]. Groups: all (nothing off), impulse (yaw/roll impulses + push),
 only_yaw / only_roll / only_push (just that impulse kept, everything else on), plant (body mass, foot friction, tau_max), init (start pose noise, start speed, start heat), delay (action/obs delay
 at nominal 2 steps), sensor (IMU bias, encoder offset), motor (motor/friction/thermal/ambient draws at nominal)."""
 import json, sys
@@ -11,6 +11,7 @@ from evaluate import load
 from run_env import RunEnv
 from train_run import env_kwargs
 d, grp, vx, n = Path(sys.argv[1]), sys.argv[2], float(sys.argv[3]), int(sys.argv[4]); secs = 60.
+seed0 = int(sys.argv[5]) if len(sys.argv) > 5 else 5000
 kw = {**env_kwargs(json.loads((d/'args.json').read_text())), 'level': 0., 'episode_s': secs+5.}
 if grp == 'impulse':
     kw.update(yaw_impulse=None, roll_impulse=None, disturb_items=[i for i in ('pitch', 'yaw', 'trip', 'touchdown')])
@@ -47,7 +48,7 @@ def _log(self, axis, impulse, duration=.04, body=None):
 RunEnv.apply_impulse = _log
 rows = []
 for ep in range(n):
-    env = RunEnv(**kw, randomize=True, seed=5000+ep); env.init_seed = None
+    env = RunEnv(**kw, randomize=True, seed=seed0+ep); env.init_seed = None
     model, venv = load(str(d/'model.zip'), env)
     venv.reset(); env.imp_log = []
     if grp == 'init': env.heat[:] = 0.
@@ -60,5 +61,5 @@ for ep in range(n):
         if term: t_fall = round((t+1)*.02, 2); break
         w = np.asarray(info.get('realism', {}).get('t_winding', []), float); tw = max(tw, float(np.nanmax(w))) if w.size else tw
         vxs.append(info['v_body'][0])
-    rows.append(dict(seed=5000+ep, t_fall=t_fall, vx=round(float(np.mean(vxs[100:])), 2) if len(vxs) > 100 else None, tw=round(tw, 1), impulses=env.imp_log))
+    rows.append(dict(seed=seed0+ep, t_fall=t_fall, vx=round(float(np.mean(vxs[100:])), 2) if len(vxs) > 100 else None, tw=round(tw, 1), impulses=env.imp_log))
 print(json.dumps(dict(run=d.name, group=grp, cmd=vx, n=n, falls=sum(r['t_fall'] is not None for r in rows), episodes=rows)), flush=True)

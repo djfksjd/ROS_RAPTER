@@ -103,7 +103,7 @@ def env_kwargs(a):
                 arch8_override=json.loads(a['arch8_override']) if g('arch8_override') else None,
                 arch12=g('arch12', False), real_mass=g('real_mass', False), hip_back=g('hip_back', 0.), nominal=g('nominal'),
                 target_ramp=g('target_ramp', False),obs_contact=g('obs_contact',False), model_rev=g('model_rev', 1), heat_limit=g('heat_limit', 1.), roll_impulse=g('roll_impulse'), init_noise=g('init_noise', .02),
-                realism=g('realism'))
+                realism=g('realism'), scale_override=json.loads(a['scale_override']) if g('scale_override') else None)
 
 
 def main():
@@ -145,6 +145,7 @@ def main():
     p.add_argument('--symmetric', action='store_true', help='left-right symmetric policy (sym_policy.py); needs --init, freezes the observation normalisation')
     p.add_argument('--roll-impulse', type=float, nargs=3, metavar=('RATE', 'LO', 'HI'), help='training roll impulses independent of the level')
     p.add_argument('--heat-limit', type=float, default=1., help='the heat term penalises max(0, heat - this); 1 = continuous rating')
+    p.add_argument('--scale-override', help='JSON {joint type: rad} action half-range replacing SCALE_RUN, e.g. {"hip_roll": 0.5}')
     p.add_argument('--realism', help='realism config JSON path for RunEnv(realism=...) (realism.py, docs/SIM_REALISM.ko.md); omitted = off')
     p.add_argument('--init', help='model.zip to continue from (its vecnorm.pkl is loaded too)')
     p.add_argument('--resume-action-std', type=float, help='optional Gaussian exploration std reset for a resumed PPO policy; actor mean is preserved')
