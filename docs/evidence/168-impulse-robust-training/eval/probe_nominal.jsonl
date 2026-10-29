@@ -1,0 +1,4 @@
+{"run": "rev2_rz2_ev_r01", "cmd": 2.0, "dr": false, "falls": 0, "n": 8, "vx": 1.94, "t_winding_max_c": 34.8, "min_derate": 1.0, "cutoff_steps": 0}
+{"run": "rev2_rz2_ev_r01", "cmd": 4.0, "dr": false, "falls": 0, "n": 8, "vx": 3.99, "t_winding_max_c": 35.5, "min_derate": 1.0, "cutoff_steps": 0}
+{"run": "rev2_rz2_ev_r01", "cmd": 5.5, "dr": false, "falls": 0, "n": 8, "vx": 4.93, "t_winding_max_c": 36.1, "min_derate": 1.0, "cutoff_steps": 0}
+{"run": "rev2_rz2_ev_r01", "cmd": 7.0, "dr": false, "falls": 0, "n": 8, "vx": 5.51, "t_winding_max_c": 40.5, "min_derate": 1.0, "cutoff_steps": 0}

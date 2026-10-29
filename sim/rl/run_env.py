@@ -204,7 +204,7 @@ class RunEnv(RaptorEnv):
                  springs_override=None, arch8_override=None, arch12=False, real_mass=False, hip_back=0., nominal=None,
                  target_ramp=False, obs_contact=False, model_rev=1, latch_fallback=None, friction_dr=None,
                  self_collision=None, knee_band=None, start_contact=None, armature=None, heat_limit=1., roll_impulse=None, init_noise=.02,
-                 realism=None):
+                 realism=None, scale_override=None):
         self.mass, self.spring_set, self.tail = float(mass), springs, tail
         rev2 = int(model_rev) >= 2
         pick = lambda v, new, old: (new if rev2 else old) if v is None else v
@@ -252,7 +252,8 @@ class RunEnv(RaptorEnv):
         if real_mass:
             self.mass = real_masses(probe, arch12)
         self.q0 = np.array([pose.get(n, 0.) for n in self.active])
-        self.scale = np.array([SCALE_RUN[joint_type(n)] for n in self.active])
+        # scale_override {joint type: rad}: action half-range around q0 replacing SCALE_RUN (e.g. a wider hip roll band)
+        self.scale = np.array([{**SCALE_RUN, **(scale_override or {})}[joint_type(n)] for n in self.active])
         # couple_ankle: horse-style reciprocal apparatus. Each ankle pitch joint follows its knee 1:1 through a joint
         # equality (ankle = c - knee, c from the nominal pose); the ankle pitch motor is removed (no action, zero force),
         # so the knee motor drives both. Active DOF 12 -> 10. Knee limits become 28 N·m / 27 rad/s / 308 W
