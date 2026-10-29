@@ -1,0 +1,72 @@
+{"seed": 5000, "cmd": 4.0, "fell": true, "t_fall": 42.94, "tilt_max": 2.68, "h_min": 0.07, "recovered": false}
+{"seed": 5001, "cmd": 4.0, "fell": false}
+{"seed": 5002, "cmd": 4.0, "fell": false}
+{"seed": 5003, "cmd": 4.0, "fell": false}
+{"seed": 5004, "cmd": 4.0, "fell": false}
+{"seed": 5005, "cmd": 4.0, "fell": false}
+{"seed": 5006, "cmd": 4.0, "fell": true, "t_fall": 31.52, "tilt_max": 2.94, "h_min": 0.21, "recovered": false}
+{"seed": 5007, "cmd": 4.0, "fell": false}
+{"seed": 5008, "cmd": 4.0, "fell": true, "t_fall": 9.04, "tilt_max": 2.51, "h_min": 0.24, "recovered": false}
+{"seed": 5009, "cmd": 4.0, "fell": false}
+{"seed": 5010, "cmd": 4.0, "fell": true, "t_fall": 16.26, "tilt_max": 2.58, "h_min": 0.1, "recovered": false}
+{"seed": 5011, "cmd": 4.0, "fell": true, "t_fall": 5.78, "tilt_max": 2.4, "h_min": 0.24, "recovered": false}
+{"seed": 5012, "cmd": 4.0, "fell": true, "t_fall": 34.1, "tilt_max": 2.87, "h_min": 0.21, "recovered": false}
+{"seed": 5013, "cmd": 4.0, "fell": false}
+{"seed": 5014, "cmd": 4.0, "fell": true, "t_fall": 55.02, "tilt_max": 2.98, "h_min": 0.11, "recovered": false}
+{"seed": 5015, "cmd": 4.0, "fell": true, "t_fall": 13.72, "tilt_max": 2.94, "h_min": 0.17, "recovered": false}
+{"seed": 5016, "cmd": 4.0, "fell": false}
+{"seed": 5017, "cmd": 4.0, "fell": true, "t_fall": 0.3, "tilt_max": 0.38, "h_min": 0.31, "recovered": false}
+{"seed": 5018, "cmd": 4.0, "fell": true, "t_fall": 43.94, "tilt_max": 3.07, "h_min": 0.2, "recovered": false}
+{"seed": 5019, "cmd": 4.0, "fell": false}
+{"seed": 5020, "cmd": 4.0, "fell": true, "t_fall": 19.86, "tilt_max": 2.76, "h_min": -0.17, "recovered": false}
+{"seed": 5021, "cmd": 4.0, "fell": true, "t_fall": 36.36, "tilt_max": 2.67, "h_min": 0.13, "recovered": false}
+{"seed": 5022, "cmd": 4.0, "fell": true, "t_fall": 13.84, "tilt_max": 3.03, "h_min": 0.03, "recovered": false}
+{"seed": 5023, "cmd": 4.0, "fell": false}
+{"seed": 5000, "cmd": 5.5, "fell": true, "t_fall": 43.04, "tilt_max": 2.3, "h_min": -0.01, "recovered": false}
+{"seed": 5001, "cmd": 5.5, "fell": true, "t_fall": 23.6, "tilt_max": 2.81, "h_min": 0.2, "recovered": false}
+{"seed": 5002, "cmd": 5.5, "fell": false}
+{"seed": 5003, "cmd": 5.5, "fell": false}
+{"seed": 5004, "cmd": 5.5, "fell": false}
+{"seed": 5005, "cmd": 5.5, "fell": false}
+{"seed": 5006, "cmd": 5.5, "fell": false}
+{"seed": 5007, "cmd": 5.5, "fell": true, "t_fall": 5.0, "tilt_max": 2.58, "h_min": -0.06, "recovered": false}
+{"seed": 5008, "cmd": 5.5, "fell": true, "t_fall": 19.4, "tilt_max": 2.63, "h_min": 0.15, "recovered": false}
+{"seed": 5009, "cmd": 5.5, "fell": true, "t_fall": 45.64, "tilt_max": 2.79, "h_min": -0.09, "recovered": false}
+{"seed": 5010, "cmd": 5.5, "fell": true, "t_fall": 58.68, "tilt_max": 2.69, "h_min": 0.15, "recovered": false}
+{"seed": 5011, "cmd": 5.5, "fell": true, "t_fall": 16.98, "tilt_max": 2.93, "h_min": -0.02, "recovered": false}
+{"seed": 5012, "cmd": 5.5, "fell": true, "t_fall": 29.58, "tilt_max": 3.05, "h_min": -0.02, "recovered": false}
+{"seed": 5013, "cmd": 5.5, "fell": true, "t_fall": 18.34, "tilt_max": 2.96, "h_min": 0.17, "recovered": false}
+{"seed": 5014, "cmd": 5.5, "fell": false}
+{"seed": 5015, "cmd": 5.5, "fell": true, "t_fall": 13.68, "tilt_max": 3.01, "h_min": 0.15, "recovered": false}
+{"seed": 5016, "cmd": 5.5, "fell": true, "t_fall": 8.24, "tilt_max": 2.96, "h_min": -0.03, "recovered": false}
+{"seed": 5017, "cmd": 5.5, "fell": true, "t_fall": 0.26, "tilt_max": 0.37, "h_min": 0.3, "recovered": false}
+{"seed": 5018, "cmd": 5.5, "fell": true, "t_fall": 45.12, "tilt_max": 2.8, "h_min": -0.01, "recovered": false}
+{"seed": 5019, "cmd": 5.5, "fell": false}
+{"seed": 5020, "cmd": 5.5, "fell": false}
+{"seed": 5021, "cmd": 5.5, "fell": false}
+{"seed": 5022, "cmd": 5.5, "fell": true, "t_fall": 45.64, "tilt_max": 3.0, "h_min": 0.26, "recovered": false}
+{"seed": 5023, "cmd": 5.5, "fell": false}
+{"seed": 5000, "cmd": 7.0, "fell": true, "t_fall": 43.1, "tilt_max": 3.02, "h_min": 0.02, "recovered": false}
+{"seed": 5001, "cmd": 7.0, "fell": false}
+{"seed": 5002, "cmd": 7.0, "fell": false}
+{"seed": 5003, "cmd": 7.0, "fell": false}
+{"seed": 5004, "cmd": 7.0, "fell": false}
+{"seed": 5005, "cmd": 7.0, "fell": false}
+{"seed": 5006, "cmd": 7.0, "fell": false}
+{"seed": 5007, "cmd": 7.0, "fell": true, "t_fall": 44.98, "tilt_max": 2.58, "h_min": 0.14, "recovered": false}
+{"seed": 5008, "cmd": 7.0, "fell": false}
+{"seed": 5009, "cmd": 7.0, "fell": false}
+{"seed": 5010, "cmd": 7.0, "fell": false}
+{"seed": 5011, "cmd": 7.0, "fell": false}
+{"seed": 5012, "cmd": 7.0, "fell": true, "t_fall": 51.14, "tilt_max": 2.59, "h_min": 0.09, "recovered": false}
+{"seed": 5013, "cmd": 7.0, "fell": false}
+{"seed": 5014, "cmd": 7.0, "fell": true, "t_fall": 54.98, "tilt_max": 2.64, "h_min": 0.06, "recovered": false}
+{"seed": 5015, "cmd": 7.0, "fell": false}
+{"seed": 5016, "cmd": 7.0, "fell": false}
+{"seed": 5017, "cmd": 7.0, "fell": false}
+{"seed": 5018, "cmd": 7.0, "fell": false}
+{"seed": 5019, "cmd": 7.0, "fell": false}
+{"seed": 5020, "cmd": 7.0, "fell": false}
+{"seed": 5021, "cmd": 7.0, "fell": false}
+{"seed": 5022, "cmd": 7.0, "fell": true, "t_fall": 45.6, "tilt_max": 2.69, "h_min": 0.51, "recovered": false}
+{"seed": 5023, "cmd": 7.0, "fell": false}

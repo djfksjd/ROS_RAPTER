@@ -204,7 +204,7 @@ class RunEnv(RaptorEnv):
                  springs_override=None, arch8_override=None, arch12=False, real_mass=False, hip_back=0., nominal=None,
                  target_ramp=False, obs_contact=False, model_rev=1, latch_fallback=None, friction_dr=None,
                  self_collision=None, knee_band=None, start_contact=None, armature=None, heat_limit=1., roll_impulse=None, init_noise=.02,
-                 realism=None, scale_override=None, range_override=None):
+                 realism=None, scale_override=None, range_override=None, gait_duty_min=None):
         self.mass, self.spring_set, self.tail = float(mass), springs, tail
         rev2 = int(model_rev) >= 2
         pick = lambda v, new, old: (new if rev2 else old) if v is None else v
@@ -256,6 +256,8 @@ class RunEnv(RaptorEnv):
         self.scale = np.array([{**SCALE_RUN, **(scale_override or {})}[joint_type(n)] for n in self.active])
         # range_override {joint type: rad}: symmetric joint stop +-rad replacing the MJCF range (a design change, e.g. hip roll 0.65)
         self.range_override = range_override or {}
+        # gait_duty_min: floor of the scheduled stance duty replacing GAIT_DUTY (0.28 leaves ~44 % flight at running speed)
+        self.gait_duty_min = GAIT_DUTY if gait_duty_min is None else float(gait_duty_min)
         # couple_ankle: horse-style reciprocal apparatus. Each ankle pitch joint follows its knee 1:1 through a joint
         # equality (ankle = c - knee, c from the nominal pose); the ankle pitch motor is removed (no action, zero force),
         # so the knee motor drives both. Active DOF 12 -> 10. Knee limits become 28 N·m / 27 rad/s / 308 W
@@ -653,7 +655,7 @@ class RunEnv(RaptorEnv):
 
     def gait_duty(self, cx=None):
         cx = self.command[0] if cx is None else cx
-        return float(np.clip(.6-.128*(cx-.5), GAIT_DUTY, .6))
+        return float(np.clip(.6-.128*(cx-.5), self.gait_duty_min, .6))
 
     def kinematics_terms(self, loaded, w_pitch):
         """Joint-flexion shaping terms (see KIN), averaged over the two legs; zeros below 0.5 m/s."""
