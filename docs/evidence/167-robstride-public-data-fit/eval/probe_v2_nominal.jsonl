@@ -1,0 +1,4 @@
+{"run": "rev2_rz1_v2eval", "cmd": 2.0, "dr": false, "falls": 0, "n": 8, "vx": 1.89, "t_winding_max_c": 32.9, "min_derate": 1.0, "cutoff_steps": 0}
+{"run": "rev2_rz1_v2eval", "cmd": 4.0, "dr": false, "falls": 0, "n": 8, "vx": 4.24, "t_winding_max_c": 33.4, "min_derate": 1.0, "cutoff_steps": 0}
+{"run": "rev2_rz1_v2eval", "cmd": 5.5, "dr": false, "falls": 0, "n": 8, "vx": 5.19, "t_winding_max_c": 34.8, "min_derate": 1.0, "cutoff_steps": 0}
+{"run": "rev2_rz1_v2eval", "cmd": 7.0, "dr": false, "falls": 0, "n": 8, "vx": 5.71, "t_winding_max_c": 38.2, "min_derate": 1.0, "cutoff_steps": 0}
