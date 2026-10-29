@@ -1,0 +1,139 @@
+{
+ "_comment": "evidence 171: realism v2 with the imu block off (one-block-off sensitivity test)",
+ "motor": {
+  "spec_file": "../../docs/design/motor_candidates.json",
+  "spec_file_note": "the 'modules' entries are converted by realism.survey_module_spec: kt = kt_out/ratio, gear_efficiency 1 (kt_out is measured at the output, internal gear loss included), j_rotor = j_out/ratio^2, i_peak = tau_peak/kt_out (DC-equivalent current reproducing the published peak torque), r_phase = r_line (line-to-line). Back-EMF uses the same kt: no-load speed V/kt_out is 20.3 rad/s for RS03 (datasheet 20.4) and 44.0 rad/s for RS06 (datasheet 50.3, i.e. 12 % conservative).",
+  "assign": {
+   "hip_pitch": {
+    "motor": "RS03",
+    "external_ratio": 1.0,
+    "link_efficiency": 1.0
+   },
+   "hip_roll": {
+    "motor": "RS06",
+    "external_ratio": 1.5,
+    "link_efficiency": 0.9
+   },
+   "knee_pitch": {
+    "motor": "RS03",
+    "external_ratio": "fourbar",
+    "link_efficiency": 0.9
+   },
+   "tail_pitch": {
+    "motor": "RS03",
+    "external_ratio": 1.0,
+    "link_efficiency": 1.0
+   },
+   "tail_yaw": {
+    "motor": "RS06",
+    "external_ratio": 1.0,
+    "link_efficiency": 1.0
+   },
+   "ankle_pitch": null,
+   "ankle_roll": null
+  },
+  "assign_note": "link_efficiency 0.9 = LINK_ETA of run_env/motor_selection_calc for a belt or linkage stage; ankle_pitch is coupled to the knee in arch8 (no motor), ankle_roll is locked in arch8: null keeps the env's own limits",
+  "spec_override": {
+   "RS03": {
+    "r_th_wh": {
+     "value": 0.5201,
+     "unit": "K/W",
+     "estimate": false,
+     "fit": true,
+     "source": "FIT to the vendor overload table, RobStride/Product_Information@384cc56 RS03User Manual261013.pdf p.11 table 13 (60/50/40/30 N\u00b7m -> 13/34/67/393 s, 20 N\u00b7m rated; 215x220 mm aluminium heat sink, 25 C, 100 rpm): docs/evidence/167-robstride-public-data-fit/eval/thermal_fit.py (rotating table fit, log-time error; the stall table is NOT reproduced, see evidence 167)"
+    },
+    "r_th_ha": {
+     "value": 1.4208,
+     "unit": "K/W",
+     "estimate": false,
+     "fit": true,
+     "source": "FIT to the vendor overload table, RobStride/Product_Information@384cc56 RS03User Manual261013.pdf p.11 table 13 (60/50/40/30 N\u00b7m -> 13/34/67/393 s, 20 N\u00b7m rated; 215x220 mm aluminium heat sink, 25 C, 100 rpm): docs/evidence/167-robstride-public-data-fit/eval/thermal_fit.py (rotating table fit, log-time error; the stall table is NOT reproduced, see evidence 167)"
+    },
+    "c_th_w": {
+     "value": 47.81,
+     "unit": "J/K",
+     "estimate": false,
+     "fit": true,
+     "source": "FIT to the vendor overload table, RobStride/Product_Information@384cc56 RS03User Manual261013.pdf p.11 table 13 (60/50/40/30 N\u00b7m -> 13/34/67/393 s, 20 N\u00b7m rated; 215x220 mm aluminium heat sink, 25 C, 100 rpm): docs/evidence/167-robstride-public-data-fit/eval/thermal_fit.py (rotating table fit, log-time error; the stall table is NOT reproduced, see evidence 167)"
+    },
+    "c_th_h": {
+     "value": 699.41,
+     "unit": "J/K",
+     "estimate": false,
+     "fit": true,
+     "source": "FIT to the vendor overload table, RobStride/Product_Information@384cc56 RS03User Manual261013.pdf p.11 table 13 (60/50/40/30 N\u00b7m -> 13/34/67/393 s, 20 N\u00b7m rated; 215x220 mm aluminium heat sink, 25 C, 100 rpm): docs/evidence/167-robstride-public-data-fit/eval/thermal_fit.py (rotating table fit, log-time error; the stall table is NOT reproduced, see evidence 167)"
+    }
+   },
+   "RS06": {
+    "r_th_wh": {
+     "value": 1.0376,
+     "unit": "K/W",
+     "estimate": false,
+     "fit": true,
+     "source": "FIT to the vendor overload table, RobStride/Product_Information@384cc56 RS06User Manual260713.pdf p.10 table 13 (36..13 N\u00b7m -> 5..1360 s, 11 N\u00b7m rated; 130x160 mm heat sink, 25 C, 100 rpm): docs/evidence/167-robstride-public-data-fit/eval/thermal_fit.py (rotating table fit, log-time error; the stall table is NOT reproduced, see evidence 167)"
+    },
+    "r_th_ha": {
+     "value": 1.2825,
+     "unit": "K/W",
+     "estimate": false,
+     "fit": true,
+     "source": "FIT to the vendor overload table, RobStride/Product_Information@384cc56 RS06User Manual260713.pdf p.10 table 13 (36..13 N\u00b7m -> 5..1360 s, 11 N\u00b7m rated; 130x160 mm heat sink, 25 C, 100 rpm): docs/evidence/167-robstride-public-data-fit/eval/thermal_fit.py (rotating table fit, log-time error; the stall table is NOT reproduced, see evidence 167)"
+    },
+    "c_th_w": {
+     "value": 21.1,
+     "unit": "J/K",
+     "estimate": false,
+     "fit": true,
+     "source": "FIT to the vendor overload table, RobStride/Product_Information@384cc56 RS06User Manual260713.pdf p.10 table 13 (36..13 N\u00b7m -> 5..1360 s, 11 N\u00b7m rated; 130x160 mm heat sink, 25 C, 100 rpm): docs/evidence/167-robstride-public-data-fit/eval/thermal_fit.py (rotating table fit, log-time error; the stall table is NOT reproduced, see evidence 167)"
+    },
+    "c_th_h": {
+     "value": 1152.02,
+     "unit": "J/K",
+     "estimate": false,
+     "fit": true,
+     "source": "FIT to the vendor overload table, RobStride/Product_Information@384cc56 RS06User Manual260713.pdf p.10 table 13 (36..13 N\u00b7m -> 5..1360 s, 11 N\u00b7m rated; 130x160 mm heat sink, 25 C, 100 rpm): docs/evidence/167-robstride-public-data-fit/eval/thermal_fit.py (rotating table fit, log-time error; the stall table is NOT reproduced, see evidence 167)"
+    }
+   }
+  },
+  "spec_override_note": "2026-10-29: thermal values fitted to the RobStride manual overload tables (evidence 167). They hold for the vendor test mount (aluminium heat-sink plate; the fitted c_th_h of 700-1150 J/K includes the plate); the robot mount is unknown, so thermal.dr widens r_th_ha up and c_th_h down. Previous estimates (maxon-ratio back-calculation, rated -> 125 C) heated 2-5x too fast against the same table: RS03 30 N\u00b7m reached 145 C in 72 s vs 393 s."
+ },
+ "thermal": {
+  "loss_factor": 1.5,
+  "loss_factor_note": "ESTIMATE: kt_out is per A rms of phase current and r_line is line-to-line; for a star winding the copper loss 3 I^2 R_phase = 1.5 I^2 r_line",
+  "dr": {
+   "r_th_ha": [
+    0.8,
+    2.0
+   ],
+   "c_th_h": [
+    0.2,
+    1.25
+   ]
+  },
+  "dr_note": "ESTIMATE: nominal = vendor heat-sink plate (fit, evidence 167); the robot's leg mount is unknown, so housing-ambient resistance up to 2x and housing capacity down to 0.2x (about the bare motor, c_th_h 148 J/K of the previous maxon-derived value) are drawn"
+ },
+ "friction": {
+  "coulomb": {
+   "hip_pitch": 0.3,
+   "knee_pitch": 0.4,
+   "hip_roll": 0.45,
+   "tail_pitch": 0.3,
+   "tail_yaw": 0.3
+  },
+  "viscous": {
+   "hip_pitch": 0.053,
+   "knee_pitch": 0.097,
+   "hip_roll": 0.034,
+   "tail_pitch": 0.053,
+   "tail_yaw": 0.015
+  },
+  "robstride_note": "joint side, N\u00b7m and N\u00b7m\u00b7s/rad. Viscous from the manual no-load current (RS03 0.6 Arms x 2.36 N\u00b7m/Arms = 1.42 N\u00b7m at 200 rpm; RS06 0.98 Arms x 1.09 = 1.07 N\u00b7m at 480 rpm; both +-10 %, RobStride/Product_Information@384cc56): b_out = (no-load drag - coulomb_out) / no-load speed = 0.053 (RS03), 0.015 (RS06). Coulomb at the actuator output 0.3 N\u00b7m stays an ESTIMATE (no vendor value; K-Scale K-Bot MJCF uses frictionloss 0.2 for robstride_03, kscalelabs/kbot-joystick@211f9a2, also not identified). Through an external stage both scale: hip_roll belt 1.5 (coulomb x1.5, viscous x2.25), knee four-bar rms ratio 1.35 (x1.35, x1.82). ankle_pitch/ankle_roll keep the default (no motor in arch8)."
+ },
+ "enable": [
+  "motor",
+  "friction",
+  "thermal",
+  "delay",
+  "encoder"
+ ]
+}
