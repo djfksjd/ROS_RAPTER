@@ -1,0 +1,420 @@
+{
+ "RS03": {
+  "current": {
+   "r_th_wh": 0.874,
+   "r_th_ha": 0.835,
+   "c_th_w": 31.3,
+   "c_th_h": 148.0,
+   "rows": [
+    {
+     "kind": "rotate",
+     "load": 60,
+     "manual_s": 13,
+     "model_s": 9.4,
+     "steady_c": Infinity
+    },
+    {
+     "kind": "rotate",
+     "load": 50,
+     "manual_s": 34,
+     "model_s": 14.6,
+     "steady_c": Infinity
+    },
+    {
+     "kind": "rotate",
+     "load": 40,
+     "manual_s": 67,
+     "model_s": 26.4,
+     "steady_c": Infinity
+    },
+    {
+     "kind": "rotate",
+     "load": 30,
+     "manual_s": 393,
+     "model_s": 71.8,
+     "steady_c": 467.5
+    },
+    {
+     "kind": "rotate",
+     "load": 20,
+     "manual_s": null,
+     "model_s": null,
+     "steady_c": 125.0
+    },
+    {
+     "kind": "stall",
+     "load": 60,
+     "manual_s": 1,
+     "model_s": 6.4,
+     "steady_c": Infinity
+    },
+    {
+     "kind": "stall",
+     "load": 50,
+     "manual_s": 4,
+     "model_s": 9.6,
+     "steady_c": Infinity
+    },
+    {
+     "kind": "stall",
+     "load": 40,
+     "manual_s": 9,
+     "model_s": 16.5,
+     "steady_c": Infinity
+    },
+    {
+     "kind": "stall",
+     "load": 30,
+     "manual_s": 25,
+     "model_s": 37.7,
+     "steady_c": 2259.2
+    },
+    {
+     "kind": "stall",
+     "load": 20,
+     "manual_s": 190,
+     "model_s": 234.6,
+     "steady_c": 193.9
+    },
+    {
+     "kind": "stall",
+     "load": 13,
+     "manual_s": null,
+     "model_s": null,
+     "steady_c": 76.6
+    }
+   ],
+   "loss": 8.567991023059779
+  },
+  "fitted": {
+   "r_th_wh": 0.5201,
+   "r_th_ha": 1.4208,
+   "c_th_w": 47.81,
+   "c_th_h": 699.41,
+   "rows": [
+    {
+     "kind": "rotate",
+     "load": 60,
+     "manual_s": 13,
+     "model_s": 16.2,
+     "steady_c": Infinity
+    },
+    {
+     "kind": "rotate",
+     "load": 50,
+     "manual_s": 34,
+     "model_s": 27.6,
+     "steady_c": Infinity
+    },
+    {
+     "kind": "rotate",
+     "load": 40,
+     "manual_s": 67,
+     "model_s": 68.5,
+     "steady_c": Infinity
+    },
+    {
+     "kind": "rotate",
+     "load": 30,
+     "manual_s": 393,
+     "model_s": 390.2,
+     "steady_c": 682.8
+    },
+    {
+     "kind": "rotate",
+     "load": 20,
+     "manual_s": null,
+     "model_s": null,
+     "steady_c": 145.0
+    },
+    {
+     "kind": "stall",
+     "load": 60,
+     "manual_s": 1,
+     "model_s": 10.5,
+     "steady_c": Infinity
+    },
+    {
+     "kind": "stall",
+     "load": 50,
+     "manual_s": 4,
+     "model_s": 16.6,
+     "steady_c": Infinity
+    },
+    {
+     "kind": "stall",
+     "load": 40,
+     "manual_s": 9,
+     "model_s": 32.6,
+     "steady_c": Infinity
+    },
+    {
+     "kind": "stall",
+     "load": 30,
+     "manual_s": 25,
+     "model_s": 142.5,
+     "steady_c": Infinity
+    },
+    {
+     "kind": "stall",
+     "load": 20,
+     "manual_s": 190,
+     "model_s": 1202.2,
+     "steady_c": 235.9
+    },
+    {
+     "kind": "stall",
+     "load": 13,
+     "manual_s": null,
+     "model_s": null,
+     "steady_c": 85.3
+    }
+   ],
+   "loss": 0.09440568308229548
+  }
+ },
+ "RS06": {
+  "current": {
+   "r_th_wh": 1.252,
+   "r_th_ha": 0.791,
+   "c_th_w": 17.6,
+   "c_th_h": 148.7,
+   "rows": [
+    {
+     "kind": "rotate",
+     "load": 36,
+     "manual_s": 5,
+     "model_s": 5.1,
+     "steady_c": Infinity
+    },
+    {
+     "kind": "rotate",
+     "load": 34,
+     "manual_s": 6,
+     "model_s": 5.8,
+     "steady_c": Infinity
+    },
+    {
+     "kind": "rotate",
+     "load": 32,
+     "manual_s": 8,
+     "model_s": 6.6,
+     "steady_c": Infinity
+    },
+    {
+     "kind": "rotate",
+     "load": 28,
+     "manual_s": 11,
+     "model_s": 9.0,
+     "steady_c": Infinity
+    },
+    {
+     "kind": "rotate",
+     "load": 23,
+     "manual_s": 21,
+     "model_s": 14.8,
+     "steady_c": Infinity
+    },
+    {
+     "kind": "rotate",
+     "load": 18,
+     "manual_s": 70,
+     "model_s": 30.9,
+     "steady_c": 810.8
+    },
+    {
+     "kind": "rotate",
+     "load": 15,
+     "manual_s": 280,
+     "model_s": 67.2,
+     "steady_c": 305.8
+    },
+    {
+     "kind": "rotate",
+     "load": 13,
+     "manual_s": 1360,
+     "model_s": 170.3,
+     "steady_c": 190.4
+    },
+    {
+     "kind": "rotate",
+     "load": 11,
+     "manual_s": null,
+     "model_s": null,
+     "steady_c": 125.0
+    },
+    {
+     "kind": "stall",
+     "load": 36,
+     "manual_s": 1,
+     "model_s": 3.5,
+     "steady_c": Infinity
+    },
+    {
+     "kind": "stall",
+     "load": 30,
+     "manual_s": 1,
+     "model_s": 5.2,
+     "steady_c": Infinity
+    },
+    {
+     "kind": "stall",
+     "load": 25,
+     "manual_s": 5,
+     "model_s": 7.8,
+     "steady_c": Infinity
+    },
+    {
+     "kind": "stall",
+     "load": 20,
+     "manual_s": 11,
+     "model_s": 13.5,
+     "steady_c": Infinity
+    },
+    {
+     "kind": "stall",
+     "load": 17,
+     "manual_s": 15,
+     "model_s": 21.2,
+     "steady_c": 5154.6
+    },
+    {
+     "kind": "stall",
+     "load": 11,
+     "manual_s": 200,
+     "model_s": 162.3,
+     "steady_c": 193.9
+    },
+    {
+     "kind": "stall",
+     "load": 8,
+     "manual_s": null,
+     "model_s": null,
+     "steady_c": 93.0
+    }
+   ],
+   "loss": 11.225752703994857
+  },
+  "fitted": {
+   "r_th_wh": 1.0376,
+   "r_th_ha": 1.2825,
+   "c_th_w": 21.1,
+   "c_th_h": 1152.02,
+   "rows": [
+    {
+     "kind": "rotate",
+     "load": 36,
+     "manual_s": 5,
+     "model_s": 6.2,
+     "steady_c": Infinity
+    },
+    {
+     "kind": "rotate",
+     "load": 34,
+     "manual_s": 6,
+     "model_s": 7.1,
+     "steady_c": Infinity
+    },
+    {
+     "kind": "rotate",
+     "load": 32,
+     "manual_s": 8,
+     "model_s": 8.2,
+     "steady_c": Infinity
+    },
+    {
+     "kind": "rotate",
+     "load": 28,
+     "manual_s": 11,
+     "model_s": 11.3,
+     "steady_c": Infinity
+    },
+    {
+     "kind": "rotate",
+     "load": 23,
+     "manual_s": 21,
+     "model_s": 19.3,
+     "steady_c": Infinity
+    },
+    {
+     "kind": "rotate",
+     "load": 18,
+     "manual_s": 70,
+     "model_s": 48.8,
+     "steady_c": 1560.5
+    },
+    {
+     "kind": "rotate",
+     "load": 15,
+     "manual_s": 280,
+     "model_s": 343.9,
+     "steady_c": 400.0
+    },
+    {
+     "kind": "rotate",
+     "load": 13,
+     "manual_s": 1360,
+     "model_s": 1162.7,
+     "steady_c": 231.1
+    },
+    {
+     "kind": "rotate",
+     "load": 11,
+     "manual_s": null,
+     "model_s": null,
+     "steady_c": 144.9
+    },
+    {
+     "kind": "stall",
+     "load": 36,
+     "manual_s": 1,
+     "model_s": 4.2,
+     "steady_c": Infinity
+    },
+    {
+     "kind": "stall",
+     "load": 30,
+     "manual_s": 1,
+     "model_s": 6.4,
+     "steady_c": Infinity
+    },
+    {
+     "kind": "stall",
+     "load": 25,
+     "manual_s": 5,
+     "model_s": 9.8,
+     "steady_c": Infinity
+    },
+    {
+     "kind": "stall",
+     "load": 20,
+     "manual_s": 11,
+     "model_s": 17.5,
+     "steady_c": Infinity
+    },
+    {
+     "kind": "stall",
+     "load": 17,
+     "manual_s": 15,
+     "model_s": 29.4,
+     "steady_c": Infinity
+    },
+    {
+     "kind": "stall",
+     "load": 11,
+     "manual_s": 200,
+     "model_s": 1110.2,
+     "steady_c": 235.7
+    },
+    {
+     "kind": "stall",
+     "load": 8,
+     "manual_s": null,
+     "model_s": null,
+     "steady_c": 105.2
+    }
+   ],
+   "loss": 0.2822129154170873
+  }
+ }
+}
