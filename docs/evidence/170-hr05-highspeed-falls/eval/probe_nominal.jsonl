@@ -1,0 +1,4 @@
+{"run": "rev2_hr065_ev_r01", "cmd": 2.0, "dr": false, "falls": 0, "n": 8, "vx": 1.96, "t_winding_max_c": 31.9, "min_derate": 1.0, "cutoff_steps": 0}
+{"run": "rev2_hr065_ev_r01", "cmd": 4.0, "dr": false, "falls": 0, "n": 8, "vx": 4.26, "t_winding_max_c": 34.5, "min_derate": 1.0, "cutoff_steps": 0}
+{"run": "rev2_hr065_ev_r01", "cmd": 5.5, "dr": false, "falls": 0, "n": 8, "vx": 5.41, "t_winding_max_c": 36.2, "min_derate": 1.0, "cutoff_steps": 0}
+{"run": "rev2_hr065_ev_r01", "cmd": 7.0, "dr": false, "falls": 0, "n": 8, "vx": 6.24, "t_winding_max_c": 38.2, "min_derate": 1.0, "cutoff_steps": 0}

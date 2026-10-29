@@ -204,7 +204,7 @@ class RunEnv(RaptorEnv):
                  springs_override=None, arch8_override=None, arch12=False, real_mass=False, hip_back=0., nominal=None,
                  target_ramp=False, obs_contact=False, model_rev=1, latch_fallback=None, friction_dr=None,
                  self_collision=None, knee_band=None, start_contact=None, armature=None, heat_limit=1., roll_impulse=None, init_noise=.02,
-                 realism=None, scale_override=None):
+                 realism=None, scale_override=None, range_override=None):
         self.mass, self.spring_set, self.tail = float(mass), springs, tail
         rev2 = int(model_rev) >= 2
         pick = lambda v, new, old: (new if rev2 else old) if v is None else v
@@ -254,6 +254,8 @@ class RunEnv(RaptorEnv):
         self.q0 = np.array([pose.get(n, 0.) for n in self.active])
         # scale_override {joint type: rad}: action half-range around q0 replacing SCALE_RUN (e.g. a wider hip roll band)
         self.scale = np.array([{**SCALE_RUN, **(scale_override or {})}[joint_type(n)] for n in self.active])
+        # range_override {joint type: rad}: symmetric joint stop +-rad replacing the MJCF range (a design change, e.g. hip roll 0.65)
+        self.range_override = range_override or {}
         # couple_ankle: horse-style reciprocal apparatus. Each ankle pitch joint follows its knee 1:1 through a joint
         # equality (ankle = c - knee, c from the nominal pose); the ankle pitch motor is removed (no action, zero force),
         # so the knee motor drives both. Active DOF 12 -> 10. Knee limits become 28 N·m / 27 rad/s / 308 W
@@ -365,6 +367,9 @@ class RunEnv(RaptorEnv):
                     g.contype, g.conaffinity = 1 | side, (6-side) | 8 | 16
         m = spec.compile()
         m.opt.timestep = PHYSICS_DT
+        for n in self.active:
+            if joint_type(n) in self.range_override:
+                m.jnt_range[m.joint(n).id] = [-self.range_override[joint_type(n)], self.range_override[joint_type(n)]]
         # uniform mass scaling, geometry fixed (spec §5): masses and inertias. The R-02 toe springs are kept: scaled
         # with mass they fall below the W*h (5 kg x 0.71 m = 34 N·m/rad) a passive stand on the toes needs, and the
         # robot topples forward in ~3 s (measured 2026-09-29).
