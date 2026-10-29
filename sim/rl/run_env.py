@@ -204,7 +204,8 @@ class RunEnv(RaptorEnv):
                  springs_override=None, arch8_override=None, arch12=False, real_mass=False, hip_back=0., nominal=None,
                  target_ramp=False, obs_contact=False, model_rev=1, latch_fallback=None, friction_dr=None,
                  self_collision=None, knee_band=None, start_contact=None, armature=None, heat_limit=1., roll_impulse=None, init_noise=.02,
-                 realism=None, scale_override=None, range_override=None, gait_duty_min=None):
+                 realism=None, scale_override=None, range_override=None, gait_duty_min=None,
+                 contact_tc=None):
         self.mass, self.spring_set, self.tail = float(mass), springs, tail
         rev2 = int(model_rev) >= 2
         pick = lambda v, new, old: (new if rev2 else old) if v is None else v
@@ -258,6 +259,9 @@ class RunEnv(RaptorEnv):
         self.range_override = range_override or {}
         # gait_duty_min: floor of the scheduled stance duty replacing GAIT_DUTY (0.28 leaves ~44 % flight at running speed)
         self.gait_duty_min = GAIT_DUTY if gait_duty_min is None else float(gait_duty_min)
+        # contact_tc: solref time constant of every contact replacing the MJCF/MuJoCo default 0.02 s, which lets the feet
+        # sink 1-4 cm into flat ground (evidence 174); 0.005 is mujoco_menagerie Cassie's value (>= 2 physics steps)
+        self.contact_tc = contact_tc
         # couple_ankle: horse-style reciprocal apparatus. Each ankle pitch joint follows its knee 1:1 through a joint
         # equality (ankle = c - knee, c from the nominal pose); the ankle pitch motor is removed (no action, zero force),
         # so the knee motor drives both. Active DOF 12 -> 10. Knee limits become 28 N·m / 27 rad/s / 308 W
@@ -443,6 +447,8 @@ class RunEnv(RaptorEnv):
         m.jnt_actfrclimited[:] = 0
         if self.rz is not None:
             self.rz.setup(self, m)
+        if self.contact_tc is not None:
+            m.geom_solref[:, 0] = self.contact_tc
         self.model, self.data = m, mujoco.MjData(m)
         mujoco.mj_setConst(m, self.data)
         self.close()

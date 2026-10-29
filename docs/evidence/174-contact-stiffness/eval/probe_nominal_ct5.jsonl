@@ -1,0 +1,4 @@
+{"run": "rev2_ct5_st_r01", "cmd": 2.0, "dr": false, "falls": 0, "n": 8, "vx": 1.98, "t_winding_max_c": 33.7, "min_derate": 1.0, "cutoff_steps": 0}
+{"run": "rev2_ct5_st_r01", "cmd": 4.0, "dr": false, "falls": 0, "n": 8, "vx": 4.06, "t_winding_max_c": 35.4, "min_derate": 1.0, "cutoff_steps": 0}
+{"run": "rev2_ct5_st_r01", "cmd": 5.5, "dr": false, "falls": 0, "n": 8, "vx": 4.95, "t_winding_max_c": 36.8, "min_derate": 1.0, "cutoff_steps": 0}
+{"run": "rev2_ct5_st_r01", "cmd": 7.0, "dr": false, "falls": 0, "n": 8, "vx": 5.61, "t_winding_max_c": 38.4, "min_derate": 1.0, "cutoff_steps": 0}
