@@ -205,7 +205,7 @@ class RunEnv(RaptorEnv):
                  target_ramp=False, obs_contact=False, model_rev=1, latch_fallback=None, friction_dr=None,
                  self_collision=None, knee_band=None, start_contact=None, armature=None, heat_limit=1., roll_impulse=None, init_noise=.02,
                  realism=None, scale_override=None, range_override=None, gait_duty_min=None,
-                 contact_tc=None):
+                 contact_tc=None, terrain=None):
         self.mass, self.spring_set, self.tail = float(mass), springs, tail
         rev2 = int(model_rev) >= 2
         pick = lambda v, new, old: (new if rev2 else old) if v is None else v
@@ -262,6 +262,14 @@ class RunEnv(RaptorEnv):
         # contact_tc: solref time constant of every contact replacing the MJCF/MuJoCo default 0.02 s, which lets the feet
         # sink 1-4 cm into flat ground (evidence 174); 0.005 is mujoco_menagerie Cassie's value (>= 2 physics steps)
         self.contact_tc = contact_tc
+        # terrain: {"kinds": {kind: weight}, "max_level": L, "vmax": m/s, "size": m}. Each reset draws a kind (terrain.py)
+        # and a level U(0, L) and rebuilds the model when the ground changes. Off flat ground the command is straight
+        # (no lateral/yaw) at U(0, vmax), the episode is truncated before the robot leaves the terrain, and heights
+        # (fall check, sag) are taken above the local ground. None keeps flat ground and the earlier random stream.
+        self.terrain = terrain
+        self.kind, self.t_level = 'flat', 0.
+        if terrain:
+            tr.SIZE = float(terrain.get('size', 40.))
         # couple_ankle: horse-style reciprocal apparatus. Each ankle pitch joint follows its knee 1:1 through a joint
         # equality (ankle = c - knee, c from the nominal pose); the ankle pitch motor is removed (no action, zero force),
         # so the knee motor drives both. Active DOF 12 -> 10. Knee limits become 28 N·m / 27 rad/s / 308 W
@@ -322,7 +330,7 @@ class RunEnv(RaptorEnv):
     # --- model -------------------------------------------------------------------------------
     def _build(self):
         spec = mujoco.MjSpec.from_file(self.model_path)
-        self.heights = tr.add_terrain(spec, 'flat', 0., self.rng)
+        self.heights = tr.add_terrain(spec, self.kind, self.t_level, self.rng)
         ratio = self.mass/DESIGN_MASS
         for side in ('left', 'right') if self.hip_back else ():
             b = spec.body(f'{side}_hip_roll_link')
@@ -495,6 +503,12 @@ class RunEnv(RaptorEnv):
             self.rng = np.random.default_rng(seed)
             if self.rz is not None:
                 self.rz.reseed(seed)
+        if self.terrain:
+            kinds = self.terrain['kinds']
+            k = list(kinds)[self.rng.choice(len(kinds), p=np.array(list(kinds.values()), float)/sum(kinds.values()))]
+            if k != 'flat' or self.kind != 'flat':
+                self.model = None
+            self.kind, self.t_level = k, (self.rng.uniform(0., self.terrain.get('max_level', 1.)) if k != 'flat' else 0.)
         if self.model is None:
             self._build()
         self._randomize()
@@ -576,6 +590,10 @@ class RunEnv(RaptorEnv):
             else self.rng.uniform(0., self.cmd_max[0])
         if c[0] == 0.:
             c[1:] = 0.
+        if self.kind != 'flat':
+            c[:] = 0.
+            if u >= self.zero_cmd:
+                c[0] = self.rng.uniform(0., self.terrain.get('vmax', 3.))
         return c
 
     def _observe(self):
@@ -917,6 +935,8 @@ class RunEnv(RaptorEnv):
         terms['ang_vel_xy'] = np.sum(w[:2]**2)
         terms['orientation'] = np.sum(grav[:2]**2)
         bz = d.xpos[self.base][2]
+        if self.kind != 'flat':
+            bz -= tr.height_at(self.heights, *d.xpos[self.base][:2])
         sag = self.h_nom-bz-.1  # 0.1 m free band: SLIP stance compression (spec §2: 0.15 m at the CoM)
         terms['height'] = sag**2 if sag > 0 else 0.
         terms['torque'] = torque_sq
@@ -997,7 +1017,10 @@ class RunEnv(RaptorEnv):
             reward -= 10.
         self.last_action, self.prev_qd = action, qd.copy()
         truncated = self.steps >= self.episode_steps
-        info = {'terms': terms, 'tilt': tilt, 'v_body': v_body, 'command': self.command.copy(), 'kind': 'flat',
+        if self.kind != 'flat':
+            bx, by = d.xpos[self.base][:2]
+            truncated |= bx > tr.SIZE/2-1. or (self.kind == 'rough' and abs(by) > tr.ROUGH_HALF_WIDTH-.2)
+        info = {'terms': terms, 'tilt': tilt, 'v_body': v_body, 'command': self.command.copy(), 'kind': self.kind,
                 'x': d.xpos[self.base][0], 'power': power, 'grf': {s: feet[s]/W for s in feet}, 'flight': flight,
                 'loaded': loaded_now, 'L': L, 'L_tail': L_tail, 'L_legs': L_legs,
                 'tail_qd': d.qvel[self.v_adr][self.tail_idx].copy(), 'phase': self.phase,
