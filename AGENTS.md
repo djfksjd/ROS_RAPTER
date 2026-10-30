@@ -34,6 +34,8 @@
 - 기존 프로젝트를 재작성하지 않고 실제 코드와 로그를 기준으로 작업한다.
 - 기본은 왼쪽 다리 4 + 오른쪽 다리 4 + 꼬리 2 = **10 active DOF**다. 사용자 결정(2026-09-29)으로
   발목 roll을 더한 **12 active DOF** 변형(`ankle_roll:=true`, digitigrade 전용)을 쓴다.
+  사용자 결정(2026-10-31)으로 순차 학습의 기준 구성은 다리마다 고관절 yaw·roll·pitch·무릎(발목은 무릎과 1:1 연동)
+  4축 + 꼬리 2축 = **10 active DOF**이며, 진행 순서와 합격 기준은 `docs/STAGED_PLAN.ko.md`를 따른다.
   수동 발가락·꼬리 관절은 능동축과 구분한다. 이 밖의 능동축 증가 전에 사용자에게 보고한다.
 - ROS 기준환경은 Ubuntu 24.04 / ROS 2 Jazzy / Gazebo Harmonic이다.
   macOS native ROS 포팅을 임의로 시작하지 않는다.

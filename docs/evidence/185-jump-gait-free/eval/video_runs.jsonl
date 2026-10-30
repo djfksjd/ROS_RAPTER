@@ -1,0 +1,3 @@
+{"run": "rev2_jp3_st_r01", "kind": "drop", "height": 0.5, "cmd": 2.0, "n": 1, "falls": 0, "blocked": 0, "episodes": [{"seed": 5000, "t_fall": null, "cause": null, "x": 6.01, "blocked": false, "vx": 1.89, "grf_max_bw": 6.08, "current_over_peak_max": 1.01}]}
+{"run": "rev2_jp3_st_r01", "kind": "drop", "height": 0.8, "cmd": 2.0, "n": 1, "falls": 1, "blocked": 0, "episodes": [{"seed": 5000, "t_fall": 2.06, "cause": "body", "x": 2.84, "blocked": false, "vx": 1.83, "grf_max_bw": 1.34, "current_over_peak_max": 1.0}]}
+{"run": "rev2_jp3_st_r01", "kind": "ledge", "height": 0.3, "cmd": 2.0, "n": 1, "falls": 0, "blocked": 0, "episodes": [{"seed": 5000, "t_fall": null, "cause": null, "x": 6.01, "blocked": false, "vx": 1.98, "grf_max_bw": 3.3, "current_over_peak_max": 1.0}]}
