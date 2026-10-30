@@ -1,0 +1,16 @@
+{"run": "rev2_tr1_st_r01", "cmd": 4.0, "n": 8, "falls": 0, "vx": 3.709, "flight": 0.431, "step_hz": 4.32, "stride": 0.859, "clear": 0.335, "hip": 0.856, "power": 166.147, "act": 0.315}
+{"run": "rev2_ct5_st_r01", "cmd": 4.0, "n": 8, "falls": 0, "vx": 4.066, "flight": 0.444, "step_hz": 4.328, "stride": 0.94, "clear": 0.333, "hip": 0.871, "power": 174.255, "act": 0.361}
+{"run": "rev2_ct5_st_r01", "cmd": 5.5, "n": 8, "falls": 0, "vx": 4.966, "flight": 0.488, "step_hz": 4.734, "stride": 1.049, "clear": 0.366, "hip": 0.86, "power": 224.928, "act": 0.384}
+{"run": "rev2_ct5_st_r01", "cmd": 2.0, "n": 8, "falls": 0, "vx": 1.981, "flight": 0.295, "step_hz": 3.758, "stride": 0.527, "clear": 0.306, "hip": 0.898, "power": 116.224, "act": 0.279}
+{"run": "rev2_ct5_st_r01", "cmd": 7.0, "n": 8, "falls": 0, "vx": 5.643, "flight": 0.513, "step_hz": 5.164, "stride": 1.093, "clear": 0.392, "hip": 0.86, "power": 274.808, "act": 0.394}
+{"run": "rev2_tr1_st_r01", "cmd": 5.5, "n": 8, "falls": 0, "vx": 4.5, "flight": 0.465, "step_hz": 4.75, "stride": 0.947, "clear": 0.37, "hip": 0.851, "power": 206.549, "act": 0.335}
+{"run": "rev2_tr1_st_r01", "cmd": 2.0, "n": 8, "falls": 0, "vx": 1.991, "flight": 0.277, "step_hz": 3.766, "stride": 0.529, "clear": 0.279, "hip": 0.86, "power": 97.724, "act": 0.231}
+{"run": "rev2_tr1_st_r01", "cmd": 7.0, "n": 8, "falls": 0, "vx": 4.935, "flight": 0.492, "step_hz": 5.156, "stride": 0.957, "clear": 0.4, "hip": 0.854, "power": 248.855, "act": 0.341}
+{"run": "rev2_tr2_st_r01", "cmd": 4.0, "n": 8, "falls": 0, "vx": 3.681, "flight": 0.475, "step_hz": 4.328, "stride": 0.851, "clear": 0.29, "hip": 0.867, "power": 155.493, "act": 0.255}
+{"run": "rev2_tr2_st_r01", "cmd": 5.5, "n": 8, "falls": 0, "vx": 4.661, "flight": 0.524, "step_hz": 4.75, "stride": 0.981, "clear": 0.31, "hip": 0.879, "power": 202.618, "act": 0.277}
+{"run": "rev2_tr3_st_r01", "cmd": 4.0, "n": 8, "falls": 0, "vx": 3.899, "flight": 0.443, "step_hz": 4.312, "stride": 0.904, "clear": 0.262, "hip": 0.841, "power": 165.766, "act": 0.259}
+{"run": "rev2_tr3_st_r01", "cmd": 2.0, "n": 8, "falls": 0, "vx": 1.874, "flight": 0.3, "step_hz": 3.766, "stride": 0.498, "clear": 0.25, "hip": 0.838, "power": 101.017, "act": 0.217}
+{"run": "rev2_tr2_st_r01", "cmd": 2.0, "n": 8, "falls": 0, "vx": 1.838, "flight": 0.284, "step_hz": 3.797, "stride": 0.484, "clear": 0.24, "hip": 0.856, "power": 86.716, "act": 0.215}
+{"run": "rev2_tr3_st_r01", "cmd": 5.5, "n": 8, "falls": 0, "vx": 4.571, "flight": 0.495, "step_hz": 4.742, "stride": 0.964, "clear": 0.274, "hip": 0.846, "power": 204.448, "act": 0.278}
+{"run": "rev2_tr2_st_r01", "cmd": 7.0, "n": 8, "falls": 0, "vx": 4.781, "flight": 0.502, "step_hz": 5.164, "stride": 0.926, "clear": 0.315, "hip": 0.876, "power": 210.987, "act": 0.289}
+{"run": "rev2_tr3_st_r01", "cmd": 7.0, "n": 8, "falls": 0, "vx": 4.002, "flight": 0.49, "step_hz": 5.164, "stride": 0.775, "clear": 0.29, "hip": 0.875, "power": 199.808, "act": 0.288}
