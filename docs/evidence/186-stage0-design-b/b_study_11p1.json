@@ -1,0 +1,711 @@
+{
+ "v_m_s": 11.1,
+ "peak_grf_bw": 3.23,
+ "non_actuator_kg": 4.53,
+ "loads_11p36kg": {
+  "hip_peak_nm": 37.4,
+  "hip_peak_rad_s": 20.6,
+  "knee_drive_peak_nm": 43.3,
+  "knee_peak_rad_s": 21.1
+ },
+ "results": {
+  "design loads, verified modules, published x1": {
+   "mass_kg": 13.33,
+   "actuator_kg": 8.8,
+   "actuator_fraction": 0.66,
+   "feasible": true,
+   "picks": {
+    "hip_pitch": {
+     "module": "RS03",
+     "drive": "direct",
+     "G": 1.0,
+     "util": 0.96,
+     "rms_over_rated": 1.0,
+     "peak_module_nm": 43.9,
+     "peak_module_rad_s": 20.6
+    },
+    "knee": {
+     "module": "RS04",
+     "drive": "four-bar",
+     "geometry": {
+      "a": 0.115,
+      "b": 0.143,
+      "c": 0.113,
+      "beta_deg": 62,
+      "branch": 1.0,
+      "N_range": [
+       0.77,
+       1.28
+      ]
+     },
+     "util": 0.64,
+     "rms_over_rated": 0.73,
+     "peak_module_nm": 49.9,
+     "peak_module_rad_s": 17.7
+    },
+    "hip_roll": {
+     "module": "RS06",
+     "drive": "belt 2.5",
+     "G": 2.5,
+     "util": 0.52,
+     "rms_over_rated": 0.77
+    },
+    "hip_yaw": {
+     "module": "RS02",
+     "drive": "belt 2.5",
+     "G": 2.5,
+     "util": 0.77,
+     "rms_over_rated": 0.65
+    }
+   },
+   "tail": [
+    "RS03",
+    "RS06"
+   ]
+  },
+  "design loads, verified modules, published x1.2": {
+   "mass_kg": 14.41,
+   "actuator_kg": 9.88,
+   "actuator_fraction": 0.69,
+   "feasible": true,
+   "picks": {
+    "hip_pitch": {
+     "module": "RS04",
+     "drive": "direct",
+     "G": 1.0,
+     "util": 0.56,
+     "rms_over_rated": 0.65,
+     "peak_module_nm": 56.9,
+     "peak_module_rad_s": 20.6
+    },
+    "knee": {
+     "module": "RS04",
+     "drive": "four-bar",
+     "geometry": {
+      "a": 0.115,
+      "b": 0.143,
+      "c": 0.113,
+      "beta_deg": 62,
+      "branch": 1.0,
+      "N_range": [
+       0.77,
+       1.28
+      ]
+     },
+     "util": 0.83,
+     "rms_over_rated": 0.94,
+     "peak_module_nm": 64.7,
+     "peak_module_rad_s": 17.7
+    },
+    "hip_roll": {
+     "module": "RS06",
+     "drive": "belt 2.5",
+     "G": 2.5,
+     "util": 0.68,
+     "rms_over_rated": 0.83
+    },
+    "hip_yaw": {
+     "module": "RS02",
+     "drive": "belt 2.5",
+     "G": 2.5,
+     "util": 1.0,
+     "rms_over_rated": 0.7
+    }
+   },
+   "tail": [
+    "RS03",
+    "RS06"
+   ]
+  },
+  "design loads, verified modules, assumed x1": {
+   "mass_kg": 14.61,
+   "actuator_kg": 10.08,
+   "actuator_fraction": 0.69,
+   "feasible": true,
+   "picks": {
+    "hip_pitch": {
+     "module": "RS04",
+     "drive": "belt 0.95",
+     "G": 0.95,
+     "util": 0.58,
+     "rms_over_rated": 0.57,
+     "peak_module_nm": 54.6,
+     "peak_module_rad_s": 19.5
+    },
+    "knee": {
+     "module": "RS04",
+     "drive": "four-bar",
+     "geometry": {
+      "a": 0.085,
+      "b": 0.284,
+      "c": 0.062,
+      "beta_deg": 125,
+      "branch": -1.0,
+      "N_range": [
+       0.47,
+       1.98
+      ]
+     },
+     "util": 0.75,
+     "rms_over_rated": 0.85,
+     "peak_module_nm": 57.0,
+     "peak_module_rad_s": 17.0
+    },
+    "hip_roll": {
+     "module": "RS06",
+     "drive": "belt 2.5",
+     "G": 2.5,
+     "util": 0.57,
+     "rms_over_rated": 0.84
+    },
+    "hip_yaw": {
+     "module": "RS02",
+     "drive": "belt 2.5",
+     "G": 2.5,
+     "util": 0.84,
+     "rms_over_rated": 0.71
+    }
+   },
+   "tail": [
+    "RS03",
+    "RS06"
+   ]
+  },
+  "design loads, verified modules, assumed x1.2": {
+   "mass_kg": 14.61,
+   "feasible": false,
+   "picks": {
+    "hip_pitch": "RS04",
+    "knee": null,
+    "hip_roll": "RS06",
+    "hip_yaw": "RS06"
+   },
+   "best_scores": {
+    "hip_pitch": {
+     "RS03": 1.44,
+     "RS04": 0.7
+    },
+    "knee": {
+     "RS03": 2.03,
+     "RS04": 1.02
+    },
+    "hip_roll": {
+     "RS02": 1.54,
+     "RS03": 0.51,
+     "RS04": 0.25,
+     "RS06": 0.84
+    },
+    "hip_yaw": {
+     "RS02": 1.01,
+     "RS03": 0.56,
+     "RS04": 0.27,
+     "RS06": 0.48
+    }
+   }
+  },
+  "design loads, verified modules, dc x1": {
+   "mass_kg": 13.33,
+   "actuator_kg": 8.8,
+   "actuator_fraction": 0.66,
+   "feasible": true,
+   "picks": {
+    "hip_pitch": {
+     "module": "RS03",
+     "drive": "direct",
+     "G": 1.0,
+     "util": 0.73,
+     "rms_over_rated": 1.0,
+     "peak_module_nm": 43.9,
+     "peak_module_rad_s": 20.6
+    },
+    "knee": {
+     "module": "RS04",
+     "drive": "four-bar",
+     "geometry": {
+      "a": 0.118,
+      "b": 0.227,
+      "c": 0.106,
+      "beta_deg": 69,
+      "branch": 1.0,
+      "N_range": [
+       0.46,
+       2.05
+      ]
+     },
+     "util": 0.61,
+     "rms_over_rated": 0.58,
+     "peak_module_nm": 40.5,
+     "peak_module_rad_s": 21.4
+    },
+    "hip_roll": {
+     "module": "RS06",
+     "drive": "belt 2.5",
+     "G": 2.5,
+     "util": 0.52,
+     "rms_over_rated": 0.77
+    },
+    "hip_yaw": {
+     "module": "RS02",
+     "drive": "belt 2.5",
+     "G": 2.5,
+     "util": 0.77,
+     "rms_over_rated": 0.65
+    }
+   },
+   "tail": [
+    "RS03",
+    "RS06"
+   ]
+  },
+  "design loads, verified modules, dc x1.2": {
+   "mass_kg": 15.1,
+   "actuator_kg": 10.56,
+   "actuator_fraction": 0.7,
+   "feasible": true,
+   "picks": {
+    "hip_pitch": {
+     "module": "RS04",
+     "drive": "belt 1.15",
+     "G": 1.15,
+     "util": 0.47,
+     "rms_over_rated": 0.58,
+     "peak_module_nm": 55.9,
+     "peak_module_rad_s": 23.6
+    },
+    "knee": {
+     "module": "RS04",
+     "drive": "four-bar",
+     "geometry": {
+      "a": 0.118,
+      "b": 0.227,
+      "c": 0.106,
+      "beta_deg": 69,
+      "branch": 1.0,
+      "N_range": [
+       0.46,
+       2.05
+      ]
+     },
+     "util": 0.83,
+     "rms_over_rated": 0.78,
+     "peak_module_nm": 55.1,
+     "peak_module_rad_s": 21.4
+    },
+    "hip_roll": {
+     "module": "RS06",
+     "drive": "belt 2.5",
+     "G": 2.5,
+     "util": 0.71,
+     "rms_over_rated": 0.87
+    },
+    "hip_yaw": {
+     "module": "RS06",
+     "drive": "belt 2.5",
+     "G": 2.5,
+     "util": 0.49,
+     "rms_over_rated": 0.4
+    }
+   },
+   "tail": [
+    "RS03",
+    "RS06"
+   ]
+  },
+  "policy loads, verified modules, published x1": {
+   "mass_kg": 11.29,
+   "feasible": false,
+   "picks": {
+    "hip_pitch": null,
+    "knee": "RS04",
+    "hip_roll": "RS06",
+    "hip_yaw": "RS02"
+   },
+   "best_scores": {
+    "hip_pitch": {
+     "RS03": 2.13,
+     "RS04": 1.06
+    },
+    "knee": {
+     "RS03": 1.32,
+     "RS04": 0.66
+    },
+    "hip_roll": {
+     "RS02": 1.19,
+     "RS03": 0.36,
+     "RS04": 0.18,
+     "RS06": 0.65
+    },
+    "hip_yaw": {
+     "RS02": 0.65,
+     "RS03": 0.31,
+     "RS04": 0.15,
+     "RS06": 0.31
+    }
+   }
+  },
+  "policy loads, verified modules, published x1.2": {
+   "mass_kg": 11.29,
+   "feasible": false,
+   "picks": {
+    "hip_pitch": null,
+    "knee": "RS04",
+    "hip_roll": "RS06",
+    "hip_yaw": "RS02"
+   },
+   "best_scores": {
+    "hip_pitch": {
+     "RS03": 2.55,
+     "RS04": 1.28
+    },
+    "knee": {
+     "RS03": 1.59,
+     "RS04": 0.79
+    },
+    "hip_roll": {
+     "RS02": 1.19,
+     "RS03": 0.36,
+     "RS04": 0.18,
+     "RS06": 0.65
+    },
+    "hip_yaw": {
+     "RS02": 0.78,
+     "RS03": 0.37,
+     "RS04": 0.18,
+     "RS06": 0.37
+    }
+   }
+  },
+  "policy loads, verified modules, assumed x1": {
+   "mass_kg": 11.29,
+   "feasible": false,
+   "picks": {
+    "hip_pitch": null,
+    "knee": "RS04",
+    "hip_roll": "RS06",
+    "hip_yaw": "RS02"
+   },
+   "best_scores": {
+    "hip_pitch": {
+     "RS03": 2.32,
+     "RS04": 1.12
+    },
+    "knee": {
+     "RS03": 1.32,
+     "RS04": 0.66
+    },
+    "hip_roll": {
+     "RS02": 1.19,
+     "RS03": 0.36,
+     "RS04": 0.18,
+     "RS06": 0.65
+    },
+    "hip_yaw": {
+     "RS02": 0.65,
+     "RS03": 0.36,
+     "RS04": 0.18,
+     "RS06": 0.31
+    }
+   }
+  },
+  "policy loads, verified modules, assumed x1.2": {
+   "mass_kg": 11.29,
+   "feasible": false,
+   "picks": {
+    "hip_pitch": null,
+    "knee": "RS04",
+    "hip_roll": "RS06",
+    "hip_yaw": "RS02"
+   },
+   "best_scores": {
+    "hip_pitch": {
+     "RS03": 2.78,
+     "RS04": 1.35
+    },
+    "knee": {
+     "RS03": 1.59,
+     "RS04": 0.79
+    },
+    "hip_roll": {
+     "RS02": 1.19,
+     "RS03": 0.4,
+     "RS04": 0.19,
+     "RS06": 0.65
+    },
+    "hip_yaw": {
+     "RS02": 0.78,
+     "RS03": 0.43,
+     "RS04": 0.21,
+     "RS06": 0.37
+    }
+   }
+  },
+  "policy loads, verified modules, dc x1": {
+   "mass_kg": 14.61,
+   "feasible": false,
+   "picks": {
+    "hip_pitch": null,
+    "knee": "RS04",
+    "hip_roll": "RS06",
+    "hip_yaw": "RS02"
+   },
+   "best_scores": {
+    "hip_pitch": {
+     "RS03": 2.75,
+     "RS04": 1.17
+    },
+    "knee": {
+     "RS03": 1.71,
+     "RS04": 0.71
+    },
+    "hip_roll": {
+     "RS02": 1.54,
+     "RS03": 0.46,
+     "RS04": 0.23,
+     "RS06": 0.84
+    },
+    "hip_yaw": {
+     "RS02": 0.84,
+     "RS03": 0.3,
+     "RS04": 0.13,
+     "RS06": 0.4
+    }
+   }
+  },
+  "policy loads, verified modules, dc x1.2": {
+   "mass_kg": 11.29,
+   "feasible": false,
+   "picks": {
+    "hip_pitch": null,
+    "knee": "RS04",
+    "hip_roll": "RS06",
+    "hip_yaw": "RS02"
+   },
+   "best_scores": {
+    "hip_pitch": {
+     "RS03": 2.55,
+     "RS04": 1.09
+    },
+    "knee": {
+     "RS03": 1.59,
+     "RS04": 0.66
+    },
+    "hip_roll": {
+     "RS02": 1.19,
+     "RS03": 0.36,
+     "RS04": 0.18,
+     "RS06": 0.65
+    },
+    "hip_yaw": {
+     "RS02": 0.78,
+     "RS03": 0.28,
+     "RS04": 0.12,
+     "RS06": 0.37
+    }
+   }
+  },
+  "design loads, all modules, published x1": {
+   "mass_kg": 12.29,
+   "actuator_kg": 7.75,
+   "actuator_fraction": 0.63,
+   "feasible": true,
+   "picks": {
+    "hip_pitch": {
+     "module": "RS03",
+     "drive": "direct",
+     "G": 1.0,
+     "util": 0.88,
+     "rms_over_rated": 0.93,
+     "peak_module_nm": 40.4,
+     "peak_module_rad_s": 20.6
+    },
+    "knee": {
+     "module": "DM-J8009-2EC",
+     "drive": "four-bar",
+     "geometry": {
+      "a": 0.083,
+      "b": 0.194,
+      "c": 0.102,
+      "beta_deg": 69,
+      "branch": 1.0,
+      "N_range": [
+       1.0,
+       2.05
+      ]
+     },
+     "util": 0.85,
+     "rms_over_rated": 0.89,
+     "peak_module_nm": 29.7,
+     "peak_module_rad_s": 26.1
+    },
+    "hip_roll": {
+     "module": "RS06",
+     "drive": "belt 2.5",
+     "G": 2.5,
+     "util": 0.48,
+     "rms_over_rated": 0.71
+    },
+    "hip_yaw": {
+     "module": "RS02",
+     "drive": "belt 2.5",
+     "G": 2.5,
+     "util": 0.71,
+     "rms_over_rated": 0.6
+    }
+   },
+   "tail": [
+    "RS03",
+    "RS06"
+   ]
+  },
+  "design loads, all modules, published x1.2": {
+   "mass_kg": 13.47,
+   "actuator_kg": 8.94,
+   "actuator_fraction": 0.66,
+   "feasible": true,
+   "picks": {
+    "hip_pitch": {
+     "module": "DM-J8009-2EC",
+     "drive": "belt 1.5",
+     "G": 1.5,
+     "util": 0.96,
+     "rms_over_rated": 0.8,
+     "peak_module_nm": 38.2,
+     "peak_module_rad_s": 30.8
+    },
+    "knee": {
+     "module": "DM-J10010L-2EC",
+     "drive": "four-bar",
+     "geometry": {
+      "a": 0.115,
+      "b": 0.143,
+      "c": 0.113,
+      "beta_deg": 62,
+      "branch": 1.0,
+      "N_range": [
+       0.77,
+       1.28
+      ]
+     },
+     "util": 0.78,
+     "rms_over_rated": 0.88,
+     "peak_module_nm": 60.4,
+     "peak_module_rad_s": 17.7
+    },
+    "hip_roll": {
+     "module": "RS06",
+     "drive": "belt 2.5",
+     "G": 2.5,
+     "util": 0.63,
+     "rms_over_rated": 0.78
+    },
+    "hip_yaw": {
+     "module": "RS02",
+     "drive": "belt 2.5",
+     "G": 2.5,
+     "util": 0.93,
+     "rms_over_rated": 0.66
+    }
+   },
+   "tail": [
+    "RS03",
+    "RS06"
+   ]
+  },
+  "policy loads, all modules, published x1": {
+   "mass_kg": 11.29,
+   "feasible": false,
+   "picks": {
+    "hip_pitch": null,
+    "knee": "AK10-9 V3.0 KV60",
+    "hip_roll": "RS06",
+    "hip_yaw": "RS02"
+   },
+   "best_scores": {
+    "hip_pitch": {
+     "RS03": 2.13,
+     "RS04": 1.06,
+     "AK10-9 V3.0 KV60": 1.45,
+     "DM-J8009-2EC": 1.67,
+     "DM-J10010L-2EC": 1.06,
+     "RMD-X8-P20-120": 1.29
+    },
+    "knee": {
+     "RS03": 1.32,
+     "RS04": 0.66,
+     "AK10-9 V3.0 KV60": 0.98,
+     "DM-J8009-2EC": 1.3,
+     "DM-J10010L-2EC": 0.66,
+     "RMD-X8-P20-120": 0.91
+    },
+    "hip_roll": {
+     "RS02": 1.19,
+     "RS03": 0.36,
+     "RS04": 0.18,
+     "RS06": 0.65,
+     "AK10-9 V3.0 KV60": 0.4,
+     "DM-J8009-2EC": 0.4,
+     "DM-J10010L-2EC": 0.18,
+     "RMD-X8-P20-120": 0.19
+    },
+    "hip_yaw": {
+     "RS02": 0.65,
+     "RS03": 0.31,
+     "RS04": 0.15,
+     "RS06": 0.31,
+     "AK10-9 V3.0 KV60": 0.21,
+     "DM-J8009-2EC": 0.28,
+     "DM-J10010L-2EC": 0.15,
+     "RMD-X8-P20-120": 0.19
+    }
+   }
+  },
+  "policy loads, all modules, published x1.2": {
+   "mass_kg": 11.29,
+   "feasible": false,
+   "picks": {
+    "hip_pitch": null,
+    "knee": "DM-J10010L-2EC",
+    "hip_roll": "RS06",
+    "hip_yaw": "RS02"
+   },
+   "best_scores": {
+    "hip_pitch": {
+     "RS03": 2.55,
+     "RS04": 1.28,
+     "AK10-9 V3.0 KV60": 1.74,
+     "DM-J8009-2EC": 2.0,
+     "DM-J10010L-2EC": 1.28,
+     "RMD-X8-P20-120": 1.55
+    },
+    "knee": {
+     "RS03": 1.59,
+     "RS04": 0.79,
+     "AK10-9 V3.0 KV60": 1.17,
+     "DM-J8009-2EC": 1.56,
+     "DM-J10010L-2EC": 0.79,
+     "RMD-X8-P20-120": 1.09
+    },
+    "hip_roll": {
+     "RS02": 1.19,
+     "RS03": 0.36,
+     "RS04": 0.18,
+     "RS06": 0.65,
+     "AK10-9 V3.0 KV60": 0.4,
+     "DM-J8009-2EC": 0.48,
+     "DM-J10010L-2EC": 0.18,
+     "RMD-X8-P20-120": 0.21
+    },
+    "hip_yaw": {
+     "RS02": 0.78,
+     "RS03": 0.37,
+     "RS04": 0.18,
+     "RS06": 0.37,
+     "AK10-9 V3.0 KV60": 0.25,
+     "DM-J8009-2EC": 0.33,
+     "DM-J10010L-2EC": 0.18,
+     "RMD-X8-P20-120": 0.23
+    }
+   }
+  }
+ }
+}
