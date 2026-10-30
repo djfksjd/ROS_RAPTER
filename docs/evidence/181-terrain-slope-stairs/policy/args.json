@@ -1,0 +1,68 @@
+{
+ "name": "rev2_tr4",
+ "env": "run",
+ "steps": 10000000.0,
+ "envs": 8,
+ "mass": 5.0,
+ "springs": "c",
+ "tail": "active",
+ "level": 0.0,
+ "cmd": [
+  7.0,
+  0.3,
+  1.75
+ ],
+ "cmd_final": [
+  7.0,
+  0.3,
+  1.75
+ ],
+ "weights": "{\"track_lin\": 5, \"progress\": 3, \"track_yaw\": 4, \"yaw_err\": -1, \"stand\": -5, \"gait\": -8, \"fold\": 0.35, \"extend\": 0.3, \"ankle_static\": -0.2, \"retract\": 0.7, \"leg_sym\": -6, \"heat\": -2, \"spring_store\": 0.03, \"spring_release\": -0.06, \"joint_limit\": -30, \"self_collision\": -5}",
+ "zero_cmd": 0.15,
+ "top_cmd": 0.3,
+ "episode_s": 30.0,
+ "disturb_items": null,
+ "no_obs_vel": false,
+ "no_init_speed": false,
+ "ankle_clutch": true,
+ "kin": "{}",
+ "eval_curriculum": false,
+ "fixed_curriculum": true,
+ "track_sigma_frac": 0.3,
+ "springs_override": "{\"knee_pitch\": [500, 0.956, \"uni+\", \"ratchet\"]}",
+ "arch8_override": "{\"hip_pitch\": [\"B\", 1.5], \"tail_pitch\": [\"B\", 1.5]}",
+ "arch8": true,
+ "couple_ankle": false,
+ "arch12": false,
+ "real_mass": true,
+ "hip_back": 0.2,
+ "target_ramp": true,
+ "model_rev": 2,
+ "nominal": [
+  -0.5273,
+  1.0,
+  -0.9997
+ ],
+ "yaw_impulse": [
+  0.15,
+  0.2,
+  1.0
+ ],
+ "init_noise": 0.04,
+ "symmetric": true,
+ "roll_impulse": [
+  0.2,
+  0.1,
+  0.9
+ ],
+ "heat_limit": 0.8,
+ "scale_override": "{\"hip_roll\": 0.5}",
+ "range_override": null,
+ "gait_duty_min": null,
+ "contact_tc": 0.005,
+ "terrain": "{\"kinds\": {\"flat\": 4, \"rough\": 1, \"slope\": 2, \"side_slope\": 1, \"stairs\": 2}, \"max_level\": 1.0, \"vmax\": 3.0, \"size\": 40}",
+ "realism": "sim/rl/realism_robstride_v2.json",
+ "init": "sim/rl/runs/rev2_tr2/model.zip",
+ "resume_action_std": null,
+ "seed": 0
+}
