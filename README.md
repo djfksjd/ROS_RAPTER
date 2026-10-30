@@ -13,7 +13,7 @@
 **목표 외형 · AI 생성 콘셉트**<br>
 실제 제작품이나 Gazebo 실행 화면이 아닙니다. 이미지의 관절·부품 표현은 확정 설계가 아닙니다.
 
-[설계 변천](#설계-변천-한눈에) · [1세대 10축](#1세대--10축-legacy-2026-09-27) · [2세대 12축·강화학습](#2세대--12축-발목-roll--강화학습-보행-2026-09-29) · [3세대 R-02](#3세대--r-02-전면-재설계-2026-09-29) · [현재 T1 달리기](#현재--40-kmh-사양과-t1-달리기-2026-09-30) · [AI 명령 이해](#명령-이해--ai와-안전-게이트) · [로컬 실행](#로컬-실행) · [개발 순서](#개발-순서) · [문서와 증거](#문서와-증거)
+[설계 변천](#설계-변천-한눈에) · [1세대 10축](#1세대--10축-legacy-2026-09-27) · [2세대 12축·강화학습](#2세대--12축-발목-roll--강화학습-보행-2026-09-29) · [3세대 R-02](#3세대--r-02-전면-재설계-2026-09-29) · [현재 T1 달리기](#현재--40-kmh-사양과-t1-달리기-2026-09-30) · [지형 보행](#지형-보행--정책-전환-2026-10-30) · [AI 명령 이해](#명령-이해--ai와-안전-게이트) · [로컬 실행](#로컬-실행) · [개발 순서](#개발-순서) · [문서와 증거](#문서와-증거)
 
 </div>
 
@@ -25,12 +25,54 @@
 
 핵심은 **빠르고 정확한 명령 이해와 사람의 통제**입니다. AI가 작전을 자율 결정하거나 모터 명령을 직접 만들지 않습니다. `STOP`은 모델 추론을 거치지 않고 우선 처리합니다.
 
-> **현재 체크포인트 · 2026-10-13 / 사용자 요청으로 일시정지**<br>
-> 모델 개정 2(걸쇠가 에너지를 만들던 오류 제거)에서 무릎 스프링·클러치를 다시 학습했습니다. 현재 최선 후보 `rev2_r3_ck7M`은 **8회 점검**에서 2–7 m/s 명령 모두 전도 0, 모든 모터가 연속 정격 아래(최고 0.88), 걸음당 스프링 저장 3.3–6.0 J, 클러치 입각 연결 100 %입니다. 속도는 7 m/s 명령에서 **5.7 m/s(약 21 km/h)** 로 40 km/h의 절반 수준이며, 롤 충격 2.0 N·m·s 기준은 미달입니다(공중 구간 롤 관성 한계). 고정 시드 299회 판정과 최종 정책 선정은 아직 하지 않았고, 실물·40 km/h 달성으로 보고하지 않습니다.<br>
-> [증거 164 · 영상·그래프·원자료](docs/evidence/164-rev2-spring-clutch/README.md) · [최종 설계 검증 보고서 1.8 PDF](docs/reports/final-20261012/RAPTOR_final_design_verification_v1.8_20261012.pdf) · [작업 상태](docs/WORK_STATE.ko.md)<br>
-> 다음 단계는 발열을 지키는 최고 속도 측정(6–11.1 m/s 명령 스캔)과 299회 판정입니다. 사용자 재개 요청 전에는 새 실험을 시작하지 않습니다.
+> **현재 체크포인트 · 2026-10-30 / 시뮬레이션 전용(실물 제작·실측 없음)**<br>
+> 기본 정책은 **`rev2_tr2`**(지형 학습 2단계)입니다. 산길 목표(1–2 m/s에서 경사 20°, 계단 10 cm, 울퉁불퉁 ±8 cm) 중 오르막 20°는 8번 중 0번, 계단 10 cm와 울퉁불퉁 ±8 cm는 8번 중 0–1번 넘어집니다. **내리막 20°(2 m/s)는 3/8로 아직 미달**입니다. 평지에서 4 m/s 넘게 달릴 때는 고속 정책 `rev2_ct5`(7 m/s 명령에 5.61 m/s, 약 20 km/h)로 바꿉니다. 달리는 중에 바꿔도 넘어짐이 늘지 않았습니다. 모터는 RobStride 공개 사양·매뉴얼에 맞춘 실물화 조건(지연·센서 잡음·전류·발열)이고, 바닥은 발이 1 cm 안쪽으로만 파고드는 단단한 접촉입니다. 40 km/h는 미달이며 모두 MuJoCo 결과입니다.<br>
+> [지형 보행 · 정책 전환](#지형-보행--정책-전환-2026-10-30) · [증거 176 기본 정책](docs/evidence/176-terrain-stage2/README.md) · [작업 상태](docs/WORK_STATE.ko.md)<br>
+> 진행 중: 내리막·계단 보강 `rev2_tr4`(증거 181). 다음: 앞 지형을 보는 입력을 더해 **절벽에서 뛰어내리기·턱 위로 뛰어오르기**([점프 계획](#다음--점프-절벽-뛰어내리기와-턱-위로-뛰어오르기)).
 
-## 최신 시뮬레이션 영상·그래프 (2026-10-13 · 모델 개정 2)
+## 지형 보행 · 정책 전환 (2026-10-30)
+
+**MuJoCo 동역학 모델 렌더**이며 실물이 아닙니다. 영상은 `rev2_tr2`, 2 m/s 명령, 시드 5000 한 조건입니다. 넘어짐 비율은 아래 그래프와 각 증거의 표로 확인하세요.
+
+| 계단 10 cm / 2 m/s (실제 1.66 m/s) | 울퉁불퉁 ±8 cm / 2 m/s (실제 1.77 m/s) |
+|---|---|
+| ![rev2_tr2 계단 10 cm](docs/evidence/176-terrain-stage2/media/tr2_stairs10cm_2mps.gif) | ![rev2_tr2 울퉁불퉁 ±8 cm](docs/evidence/176-terrain-stage2/media/tr2_rough8cm_2mps.gif) |
+| [MP4](docs/evidence/176-terrain-stage2/media/tr2_stairs10cm_2mps.mp4) · [오르막 20° MP4](docs/evidence/176-terrain-stage2/media/tr2_up20_2mps.mp4) | [MP4](docs/evidence/176-terrain-stage2/media/tr2_rough8cm_2mps.mp4) · [내리막 20° MP4](docs/evidence/176-terrain-stage2/media/tr2_down20_2mps.mp4) |
+
+![지형 28종 × 1·2·4 m/s 넘어짐: ct5, tr1, tr2, tr3](docs/evidence/177-terrain-vmax5/media/terrain_falls.png)
+
+칸의 숫자는 8번 중 넘어진 횟수입니다. 평지 학습 `ct5`는 178/672번, 지형을 섞어 학습한 `tr2`는 83/672번 넘어졌습니다. 4 m/s 오르막·계단은 아직 약합니다. 지형 명령 상한을 5 m/s로 올린 `tr3`은 4 m/s 험지를 크게 줄였지만, 평지 고속이 더 느려져 기본으로 쓰지 않습니다.
+
+![평지 충격 넘어짐과 명령별 속도](docs/evidence/177-terrain-vmax5/media/flat_compare.png)
+
+![주행 중 정책 전환 tr2 ↔ ct5](docs/evidence/178-policy-switch/media/switch.png)
+
+| 단계 | 결과 | 증거 |
+|---|---|---|
+| 실물 모터 조건 | RobStride RS03·RS06 공개 사양, 매뉴얼 과부하표에 맞춘 발열 모델(v2), 지연·센서 잡음·백래시를 넣고 이어 학습. 명목 넘어짐 0, 5.7 m/s | [165](docs/evidence/165-realism-robstride-training/README.md) · [166](docs/evidence/166-realism-dr-fall-ablation/README.md) · [167](docs/evidence/167-robstride-public-data-fit/README.md) |
+| 몸통 충격 내구성 | 넘어짐 원인은 공중에 뜬 순간의 roll 충격. 고관절 roll 명령 범위 ±0.5 rad로 넘어짐 48 → 37/96 | [168](docs/evidence/168-impulse-robust-training/README.md)–[172](docs/evidence/172-gait-duty-034/README.md) |
+| 단단한 바닥 | 기본 접촉은 발이 4 cm 파고드는 무른 바닥이었음. Cassie 공개 모델 값(0.005)으로 바꾸고 `ct5` 재학습 | [174](docs/evidence/174-contact-stiffness/README.md) |
+| 지형 학습 | 울퉁불퉁·경사·옆 경사·계단을 평지와 섞어 2단계 학습. 험지 넘어짐 178 → 83/672, 평지 충격 넘어짐 125 → 95/192 | [173](docs/evidence/173-terrain-zero-shot/README.md) · [175](docs/evidence/175-terrain-training/README.md) · [176](docs/evidence/176-terrain-stage2/README.md) · [177](docs/evidence/177-terrain-vmax5/README.md) |
+| 정책 전환 | 평지에서 `tr2` ↔ `ct5`를 달리는 중에 바꿔도 명목 0/72, 무작위화 18/72(한 정책만 12–18/72) | [178](docs/evidence/178-policy-switch/README.md) |
+| 고속 손실 원인 | 지형 학습 정책은 발 딛는 빈도는 같고 보폭이 짧음(1.09 → 0.93 m). 평지 재학습으로도 돌아오지 않고 더 느려짐 → 넘어짐 벌점 대 속도 추종 보상의 균형 문제로 해석(미확인) | [179](docs/evidence/179-speed-loss-gait/README.md) · [180](docs/evidence/180-flat-finetune/README.md) |
+
+**아직 안 된 것:** 내리막 20°(2 m/s), 계단 12 cm, 4 m/s 오르막·계단, 한 정책으로 고속과 험지 함께, 언제 정책을 바꿀지 판단하는 지형 인식, 점프, 넘어진 뒤 일어나기, Gazebo 이식, 실물.
+
+### 다음 · 점프: 절벽 뛰어내리기와 턱 위로 뛰어오르기
+
+지금 정책은 앞을 보지 않습니다(관절·IMU·속도 추정만 입력). 높은 턱으로 뛰어오르려면 언제, 얼마나 세게 뛸지 알아야 하므로, R-02 앞 센서 포드의 깊이 카메라를 가정해 **로봇 앞 지형의 높이**를 입력으로 더합니다. 카메라 오차·지연·누락은 공개 사양 수준으로 넣습니다. 능동축은 늘리지 않습니다.
+
+1. 학습 없이 현재 정책이 걸어서 내려갈 수 있는 낭떠러지 높이와, 걸어서 올라갈 수 있는 턱 높이를 잽니다.
+2. 앞 지형 높이를 입력에 더하고, 처음에는 기존 정책과 똑같이 움직이도록 연결한 뒤 낭떠러지·턱 지형을 섞어 이어 학습합니다.
+3. 착지 때 관절 토크·발열이 모터 정격 안인지, 무릎 래칫 스프링이 착지 에너지를 얼마나 받는지 함께 잽니다.
+
+목표 높이는 실험으로 정합니다. 공개 연구의 이족 로봇은 Cassie(약 31 kg)가 0.44 m 단상에 뛰어올랐고([Li 외, RSS 2023](https://arxiv.org/abs/2302.09450)), Unitree H1은 깊이 카메라로 0.42 m 단상에 올랐습니다([Zhuang 외, 2024](https://arxiv.org/abs/2406.10759)). Raptor는 약 11.4 kg, 다리 약 0.83 m라 같은 값이 나온다고 가정하지 않습니다.
+
+## 이전 시뮬레이션 영상·그래프 (2026-10-13 · 모델 개정 2)
+
+> **이전 체크포인트 · 2026-10-13**<br>
+> 모델 개정 2(걸쇠가 에너지를 만들던 오류 제거)에서 무릎 스프링·클러치를 다시 학습했습니다. 당시 최선 후보 `rev2_r3_ck7M`은 **8회 점검**에서 2–7 m/s 명령 모두 전도 0, 모든 모터가 연속 정격 아래(최고 0.88), 걸음당 스프링 저장 3.3–6.0 J, 클러치 입각 연결 100 %였습니다. 속도는 7 m/s 명령에서 **5.7 m/s(약 21 km/h)** 였고, 롤 충격 2.0 N·m·s 기준은 미달이었습니다.<br>
+> [증거 164 · 영상·그래프·원자료](docs/evidence/164-rev2-spring-clutch/README.md) · [최종 설계 검증 보고서 1.8 PDF](docs/reports/final-20261012/RAPTOR_final_design_verification_v1.8_20261012.pdf)
 
 **MuJoCo 동역학 모델 렌더**이며 실물이 아닙니다. 영상은 시드 96001 한 조건의 10초 재생이고, 통과율은 아래 그래프와 [증거 164](docs/evidence/164-rev2-spring-clutch/README.md)의 표로 확인하세요.
 
@@ -418,7 +460,11 @@ ROS 실행·응답 확인·STOP 사용법은 [로컬 개발 가이드](docs/loca
   - [x] T1 가상 구동기 달리기: 6.6m/s 무전도, 꼬리 임펄스 내성, 2.5rad/s 방향전환 — [86](docs/evidence/86-t1-run/README.md)
   - [ ] **다음:** 속도·회전 양립 정책 → 일어나기 정책(학습 중) → 넘어짐→일어나기→재주행 연결 → 8kg+(c) 재평가·(b) 비교 → T2 붐 조건
   - [ ] Gazebo 보행 재검증 — 첫 이식 시도 불합격([81](docs/evidence/81-sim2sim/README.md)), Gazebo는 현재 ROS·STOP 경로 확인용
-- [ ] 단차·경사·불규칙 지형 성능 평가 — 강화학습 단계 C(지형 커리큘럼)로 진행 예정
+- [x] 실물 모터 조건: RobStride 공개 사양·매뉴얼에 맞춘 전류·발열·지연·센서 잡음 ([165](docs/evidence/165-realism-robstride-training/README.md)–[167](docs/evidence/167-robstride-public-data-fit/README.md))
+- [x] 경사·계단·울퉁불퉁 지형 학습: 1–2 m/s 오르막 25°, 계단 10 cm, 울퉁불퉁 ±8 cm 넘어짐 1/8 이하 ([176](docs/evidence/176-terrain-stage2/README.md))
+  - [ ] 내리막 20° 2 m/s(3/8), 계단 12 cm, 4 m/s 오르막·계단 — `rev2_tr4` 진행 중(증거 181)
+  - [ ] 한 정책으로 고속과 험지 함께 — 지금은 `tr2`↔`ct5` 전환([178](docs/evidence/178-policy-switch/README.md))
+- [ ] **다음:** 앞 지형 높이 입력 + 점프(절벽 뛰어내리기·턱 위로 뛰어오르기)
 - [ ] 수동 분절 꼬리의 실제 유연 동역학 — 사용자 결정으로 동결
 - [ ] MJX(GPU 병렬) 학습 — 미설치, 현재는 CPU MuJoCo
 - [ ] 탐색/복귀 mission 연결과 독립 명령 평가
@@ -467,6 +513,10 @@ ROS 실행·응답 확인·STOP 사용법은 [로컬 개발 가이드](docs/loca
 | [40 km/h 요구 사양서](docs/design/40kmh-spec.md) | SLIP·관절·스프링·구동기·꼬리 계산과 상용 구동기 대조 |
 | [동작 카탈로그](docs/design/motion-catalogue.md) | 동작별 통과 기준·현재 판정·외형 확정 전 동결 항목 (Codex 검토) |
 | [모델 개정 2 증거 164](docs/evidence/164-rev2-spring-clutch/README.md) | 무릎 스프링·클러치·발열·외란: 정책 6종 비교, 영상, 원인 조사, 미달 항목 |
+| [실물 모터 조건 165–167](docs/evidence/167-robstride-public-data-fit/README.md) | RobStride 공개 자료로 맞춘 발열·마찰, 실물화 조건 이어 학습, 무작위화 넘어짐 원인 |
+| [충격 내구성 168–172](docs/evidence/171-hr05-airborne-impulse/README.md) | 고관절 roll 범위, 공중 충격, 착지 비율 비교 |
+| [지형 보행 173–177](docs/evidence/176-terrain-stage2/README.md) | 단단한 바닥, 지형 28종 × 3속도 넘어짐, 지형 학습 단계별 비교와 영상 |
+| [정책 전환·고속 손실 178–180](docs/evidence/178-policy-switch/README.md) | 주행 중 정책 전환, 보폭 감소 측정, 평지 재학습 실패 |
 | [최종 설계 검증 보고서 1.8](docs/reports/final-20261012/README.ko.md) | 계산 문서 재작성본(104쪽 PDF)·출처·검증 기록 |
 | [T1 달리기 증거 86](docs/evidence/86-t1-run/README.md) | 가상 구동기 달리기·꼬리 활성/고정·임펄스·방향전환·일어나기 |
 | [MuJoCo/MJX 로드맵](docs/MUJOCO_MJX_ROADMAP.ko.md) | 후속 학습 계획 — 아직 미실행 |
