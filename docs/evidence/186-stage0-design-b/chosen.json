@@ -4,6 +4,50 @@
   "actuator_kg": 10.56,
   "actuator_fraction": 0.7,
   "cases": {
+   "design loads, manual x1": {
+    "hip_pitch": {
+     "util": 0.23,
+     "rms_over_rated": 0.28,
+     "peak_module_nm": 28.1,
+     "peak_module_rad_s": 9.8
+    },
+    "knee": {
+     "util": 0.49,
+     "rms_over_rated": 0.58,
+     "peak_module_nm": 58.6,
+     "peak_module_rad_s": 12.7
+    },
+    "hip_roll": {
+     "util": 0.62,
+     "rms_over_rated": 0.91
+    },
+    "hip_yaw": {
+     "util": 0.68,
+     "rms_over_rated": 0.67
+    }
+   },
+   "design loads, manual x1.2": {
+    "hip_pitch": {
+     "util": 0.28,
+     "rms_over_rated": 0.34,
+     "peak_module_nm": 33.7,
+     "peak_module_rad_s": 9.8
+    },
+    "knee": {
+     "util": 0.59,
+     "rms_over_rated": 0.7,
+     "peak_module_nm": 70.4,
+     "peak_module_rad_s": 12.7
+    },
+    "hip_roll": {
+     "util": 0.74,
+     "rms_over_rated": 0.91
+    },
+    "hip_yaw": {
+     "util": 0.82,
+     "rms_over_rated": 0.67
+    }
+   },
    "design loads, published x1": {
     "hip_pitch": {
      "util": 0.23,
@@ -125,6 +169,50 @@
      "util": 0.59,
      "rms_over_rated": 0.7,
      "peak_module_nm": 70.4,
+     "peak_module_rad_s": 12.7
+    },
+    "hip_roll": {
+     "util": 0.74,
+     "rms_over_rated": 0.91
+    },
+    "hip_yaw": {
+     "util": 0.82,
+     "rms_over_rated": 0.67
+    }
+   },
+   "policy loads, manual x1": {
+    "hip_pitch": {
+     "util": 0.58,
+     "rms_over_rated": 0.7,
+     "peak_module_nm": 70.1,
+     "peak_module_rad_s": 9.8
+    },
+    "knee": {
+     "util": 1.07,
+     "rms_over_rated": 0.69,
+     "peak_module_nm": 128.9,
+     "peak_module_rad_s": 12.7
+    },
+    "hip_roll": {
+     "util": 0.62,
+     "rms_over_rated": 0.91
+    },
+    "hip_yaw": {
+     "util": 0.68,
+     "rms_over_rated": 0.67
+    }
+   },
+   "policy loads, manual x1.2": {
+    "hip_pitch": {
+     "util": 0.7,
+     "rms_over_rated": 0.84,
+     "peak_module_nm": 84.2,
+     "peak_module_rad_s": 9.8
+    },
+    "knee": {
+     "util": 1.29,
+     "rms_over_rated": 0.83,
+     "peak_module_nm": 154.6,
      "peak_module_rad_s": 12.7
     },
     "hip_roll": {
@@ -275,6 +363,50 @@
   "actuator_kg": 10.56,
   "actuator_fraction": 0.7,
   "cases": {
+   "design loads, manual x1": {
+    "hip_pitch": {
+     "util": 0.23,
+     "rms_over_rated": 0.28,
+     "peak_module_nm": 28.1,
+     "peak_module_rad_s": 9.8
+    },
+    "knee": {
+     "util": 0.49,
+     "rms_over_rated": 0.58,
+     "peak_module_nm": 58.6,
+     "peak_module_rad_s": 12.7
+    },
+    "hip_roll": {
+     "util": 0.62,
+     "rms_over_rated": 0.91
+    },
+    "hip_yaw": {
+     "util": 0.68,
+     "rms_over_rated": 0.67
+    }
+   },
+   "design loads, manual x1.2": {
+    "hip_pitch": {
+     "util": 0.28,
+     "rms_over_rated": 0.34,
+     "peak_module_nm": 33.7,
+     "peak_module_rad_s": 9.8
+    },
+    "knee": {
+     "util": 0.59,
+     "rms_over_rated": 0.7,
+     "peak_module_nm": 70.4,
+     "peak_module_rad_s": 12.7
+    },
+    "hip_roll": {
+     "util": 0.74,
+     "rms_over_rated": 0.91
+    },
+    "hip_yaw": {
+     "util": 0.82,
+     "rms_over_rated": 0.67
+    }
+   },
    "design loads, published x1": {
     "hip_pitch": {
      "util": 0.23,
@@ -396,6 +528,50 @@
      "util": 0.59,
      "rms_over_rated": 0.7,
      "peak_module_nm": 70.4,
+     "peak_module_rad_s": 12.7
+    },
+    "hip_roll": {
+     "util": 0.74,
+     "rms_over_rated": 0.91
+    },
+    "hip_yaw": {
+     "util": 0.82,
+     "rms_over_rated": 0.67
+    }
+   },
+   "policy loads, manual x1": {
+    "hip_pitch": {
+     "util": 0.58,
+     "rms_over_rated": 0.7,
+     "peak_module_nm": 70.1,
+     "peak_module_rad_s": 9.8
+    },
+    "knee": {
+     "util": 1.07,
+     "rms_over_rated": 0.69,
+     "peak_module_nm": 128.9,
+     "peak_module_rad_s": 12.7
+    },
+    "hip_roll": {
+     "util": 0.62,
+     "rms_over_rated": 0.91
+    },
+    "hip_yaw": {
+     "util": 0.68,
+     "rms_over_rated": 0.67
+    }
+   },
+   "policy loads, manual x1.2": {
+    "hip_pitch": {
+     "util": 0.7,
+     "rms_over_rated": 0.84,
+     "peak_module_nm": 84.2,
+     "peak_module_rad_s": 9.8
+    },
+    "knee": {
+     "util": 1.29,
+     "rms_over_rated": 0.83,
+     "peak_module_nm": 154.6,
      "peak_module_rad_s": 12.7
     },
     "hip_roll": {
@@ -546,6 +722,50 @@
   "actuator_kg": 10.56,
   "actuator_fraction": 0.7,
   "cases": {
+   "design loads, manual x1": {
+    "hip_pitch": {
+     "util": 0.6,
+     "rms_over_rated": 0.62,
+     "peak_module_nm": 71.9,
+     "peak_module_rad_s": 12.9
+    },
+    "knee": {
+     "util": 0.39,
+     "rms_over_rated": 0.7,
+     "peak_module_nm": 47.0,
+     "peak_module_rad_s": 15.2
+    },
+    "hip_roll": {
+     "util": 0.59,
+     "rms_over_rated": 0.87
+    },
+    "hip_yaw": {
+     "util": 0.68,
+     "rms_over_rated": 0.67
+    }
+   },
+   "design loads, manual x1.2": {
+    "hip_pitch": {
+     "util": 0.72,
+     "rms_over_rated": 0.74,
+     "peak_module_nm": 86.3,
+     "peak_module_rad_s": 12.9
+    },
+    "knee": {
+     "util": 0.47,
+     "rms_over_rated": 0.84,
+     "peak_module_nm": 56.4,
+     "peak_module_rad_s": 15.2
+    },
+    "hip_roll": {
+     "util": 0.71,
+     "rms_over_rated": 0.87
+    },
+    "hip_yaw": {
+     "util": 0.82,
+     "rms_over_rated": 0.67
+    }
+   },
    "design loads, published x1": {
     "hip_pitch": {
      "util": 0.6,
@@ -667,6 +887,50 @@
      "util": 0.47,
      "rms_over_rated": 0.84,
      "peak_module_nm": 56.4,
+     "peak_module_rad_s": 15.2
+    },
+    "hip_roll": {
+     "util": 0.71,
+     "rms_over_rated": 0.87
+    },
+    "hip_yaw": {
+     "util": 0.82,
+     "rms_over_rated": 0.67
+    }
+   },
+   "policy loads, manual x1": {
+    "hip_pitch": {
+     "util": 1.5,
+     "rms_over_rated": 1.55,
+     "peak_module_nm": 179.8,
+     "peak_module_rad_s": 12.9
+    },
+    "knee": {
+     "util": 0.86,
+     "rms_over_rated": 0.65,
+     "peak_module_nm": 103.3,
+     "peak_module_rad_s": 15.2
+    },
+    "hip_roll": {
+     "util": 0.59,
+     "rms_over_rated": 0.87
+    },
+    "hip_yaw": {
+     "util": 0.68,
+     "rms_over_rated": 0.67
+    }
+   },
+   "policy loads, manual x1.2": {
+    "hip_pitch": {
+     "util": 1.8,
+     "rms_over_rated": 1.86,
+     "peak_module_nm": 215.8,
+     "peak_module_rad_s": 12.9
+    },
+    "knee": {
+     "util": 1.03,
+     "rms_over_rated": 0.78,
+     "peak_module_nm": 124.0,
      "peak_module_rad_s": 15.2
     },
     "hip_roll": {
@@ -817,6 +1081,50 @@
   "actuator_kg": 10.56,
   "actuator_fraction": 0.7,
   "cases": {
+   "design loads, manual x1": {
+    "hip_pitch": {
+     "util": 0.6,
+     "rms_over_rated": 0.62,
+     "peak_module_nm": 71.9,
+     "peak_module_rad_s": 12.9
+    },
+    "knee": {
+     "util": 0.4,
+     "rms_over_rated": 0.7,
+     "peak_module_nm": 47.0,
+     "peak_module_rad_s": 15.2
+    },
+    "hip_roll": {
+     "util": 0.59,
+     "rms_over_rated": 0.87
+    },
+    "hip_yaw": {
+     "util": 0.68,
+     "rms_over_rated": 0.67
+    }
+   },
+   "design loads, manual x1.2": {
+    "hip_pitch": {
+     "util": 0.72,
+     "rms_over_rated": 0.74,
+     "peak_module_nm": 86.3,
+     "peak_module_rad_s": 12.9
+    },
+    "knee": {
+     "util": 0.49,
+     "rms_over_rated": 0.84,
+     "peak_module_nm": 56.4,
+     "peak_module_rad_s": 15.2
+    },
+    "hip_roll": {
+     "util": 0.71,
+     "rms_over_rated": 0.87
+    },
+    "hip_yaw": {
+     "util": 0.82,
+     "rms_over_rated": 0.67
+    }
+   },
    "design loads, published x1": {
     "hip_pitch": {
      "util": 0.6,
@@ -938,6 +1246,50 @@
      "util": 0.47,
      "rms_over_rated": 0.84,
      "peak_module_nm": 56.4,
+     "peak_module_rad_s": 15.2
+    },
+    "hip_roll": {
+     "util": 0.71,
+     "rms_over_rated": 0.87
+    },
+    "hip_yaw": {
+     "util": 0.82,
+     "rms_over_rated": 0.67
+    }
+   },
+   "policy loads, manual x1": {
+    "hip_pitch": {
+     "util": 1.5,
+     "rms_over_rated": 1.55,
+     "peak_module_nm": 179.8,
+     "peak_module_rad_s": 12.9
+    },
+    "knee": {
+     "util": 0.86,
+     "rms_over_rated": 0.65,
+     "peak_module_nm": 103.3,
+     "peak_module_rad_s": 15.2
+    },
+    "hip_roll": {
+     "util": 0.59,
+     "rms_over_rated": 0.87
+    },
+    "hip_yaw": {
+     "util": 0.68,
+     "rms_over_rated": 0.67
+    }
+   },
+   "policy loads, manual x1.2": {
+    "hip_pitch": {
+     "util": 1.8,
+     "rms_over_rated": 1.86,
+     "peak_module_nm": 215.8,
+     "peak_module_rad_s": 12.9
+    },
+    "knee": {
+     "util": 1.03,
+     "rms_over_rated": 0.78,
+     "peak_module_nm": 124.0,
      "peak_module_rad_s": 15.2
     },
     "hip_roll": {
@@ -1088,6 +1440,50 @@
   "actuator_kg": 10.56,
   "actuator_fraction": 0.7,
   "cases": {
+   "design loads, manual x1": {
+    "hip_pitch": {
+     "util": 0.53,
+     "rms_over_rated": 0.66,
+     "peak_module_nm": 63.0,
+     "peak_module_rad_s": 17.5
+    },
+    "knee": {
+     "util": 0.64,
+     "rms_over_rated": 0.82,
+     "peak_module_nm": 56.4,
+     "peak_module_rad_s": 17.7
+    },
+    "hip_roll": {
+     "util": 0.59,
+     "rms_over_rated": 0.87
+    },
+    "hip_yaw": {
+     "util": 0.68,
+     "rms_over_rated": 0.67
+    }
+   },
+   "design loads, manual x1.2": {
+    "hip_pitch": {
+     "util": 0.63,
+     "rms_over_rated": 0.79,
+     "peak_module_nm": 75.6,
+     "peak_module_rad_s": 17.5
+    },
+    "knee": {
+     "util": 0.77,
+     "rms_over_rated": 0.99,
+     "peak_module_nm": 67.7,
+     "peak_module_rad_s": 17.7
+    },
+    "hip_roll": {
+     "util": 0.71,
+     "rms_over_rated": 0.87
+    },
+    "hip_yaw": {
+     "util": 0.82,
+     "rms_over_rated": 0.67
+    }
+   },
    "design loads, published x1": {
     "hip_pitch": {
      "util": 0.53,
@@ -1209,6 +1605,50 @@
      "util": 0.56,
      "rms_over_rated": 0.99,
      "peak_module_nm": 67.7,
+     "peak_module_rad_s": 17.7
+    },
+    "hip_roll": {
+     "util": 0.71,
+     "rms_over_rated": 0.87
+    },
+    "hip_yaw": {
+     "util": 0.82,
+     "rms_over_rated": 0.67
+    }
+   },
+   "policy loads, manual x1": {
+    "hip_pitch": {
+     "util": 1.31,
+     "rms_over_rated": 1.64,
+     "peak_module_nm": 157.5,
+     "peak_module_rad_s": 17.5
+    },
+    "knee": {
+     "util": 1.03,
+     "rms_over_rated": 0.78,
+     "peak_module_nm": 124.1,
+     "peak_module_rad_s": 17.7
+    },
+    "hip_roll": {
+     "util": 0.59,
+     "rms_over_rated": 0.87
+    },
+    "hip_yaw": {
+     "util": 0.68,
+     "rms_over_rated": 0.67
+    }
+   },
+   "policy loads, manual x1.2": {
+    "hip_pitch": {
+     "util": 1.58,
+     "rms_over_rated": 1.97,
+     "peak_module_nm": 189.1,
+     "peak_module_rad_s": 17.5
+    },
+    "knee": {
+     "util": 1.24,
+     "rms_over_rated": 0.93,
+     "peak_module_nm": 148.9,
      "peak_module_rad_s": 17.7
     },
     "hip_roll": {
@@ -1359,6 +1799,50 @@
   "actuator_kg": 10.56,
   "actuator_fraction": 0.7,
   "cases": {
+   "design loads, manual x1": {
+    "hip_pitch": {
+     "util": 0.53,
+     "rms_over_rated": 0.66,
+     "peak_module_nm": 63.0,
+     "peak_module_rad_s": 17.5
+    },
+    "knee": {
+     "util": 1.21,
+     "rms_over_rated": 0.82,
+     "peak_module_nm": 56.4,
+     "peak_module_rad_s": 17.7
+    },
+    "hip_roll": {
+     "util": 0.59,
+     "rms_over_rated": 0.87
+    },
+    "hip_yaw": {
+     "util": 0.68,
+     "rms_over_rated": 0.67
+    }
+   },
+   "design loads, manual x1.2": {
+    "hip_pitch": {
+     "util": 0.63,
+     "rms_over_rated": 0.79,
+     "peak_module_nm": 75.6,
+     "peak_module_rad_s": 17.5
+    },
+    "knee": {
+     "util": 1.46,
+     "rms_over_rated": 0.99,
+     "peak_module_nm": 67.7,
+     "peak_module_rad_s": 17.7
+    },
+    "hip_roll": {
+     "util": 0.71,
+     "rms_over_rated": 0.87
+    },
+    "hip_yaw": {
+     "util": 0.82,
+     "rms_over_rated": 0.67
+    }
+   },
    "design loads, published x1": {
     "hip_pitch": {
      "util": 0.53,
@@ -1480,6 +1964,50 @@
      "util": 0.56,
      "rms_over_rated": 0.99,
      "peak_module_nm": 67.7,
+     "peak_module_rad_s": 17.7
+    },
+    "hip_roll": {
+     "util": 0.71,
+     "rms_over_rated": 0.87
+    },
+    "hip_yaw": {
+     "util": 0.82,
+     "rms_over_rated": 0.67
+    }
+   },
+   "policy loads, manual x1": {
+    "hip_pitch": {
+     "util": 1.31,
+     "rms_over_rated": 1.64,
+     "peak_module_nm": 157.5,
+     "peak_module_rad_s": 17.5
+    },
+    "knee": {
+     "util": 1.03,
+     "rms_over_rated": 0.78,
+     "peak_module_nm": 124.1,
+     "peak_module_rad_s": 17.7
+    },
+    "hip_roll": {
+     "util": 0.59,
+     "rms_over_rated": 0.87
+    },
+    "hip_yaw": {
+     "util": 0.68,
+     "rms_over_rated": 0.67
+    }
+   },
+   "policy loads, manual x1.2": {
+    "hip_pitch": {
+     "util": 1.58,
+     "rms_over_rated": 1.97,
+     "peak_module_nm": 189.1,
+     "peak_module_rad_s": 17.5
+    },
+    "knee": {
+     "util": 1.24,
+     "rms_over_rated": 0.93,
+     "peak_module_nm": 148.9,
      "peak_module_rad_s": 17.7
     },
     "hip_roll": {

@@ -60,7 +60,36 @@
    "enc": "14 bit",
    "verified": true,
    "url": "https://github.com/RobStride/Product_Information (commit 384cc56, 2026-10-16) RS03User Manual261013.pdf; RS brochure 2026.010.09",
-   "note": "rated 20 N·m at 100 rpm with a 215x220 mm heat sink; no-load 195 (brochure) / 200 (manual) rpm, 195 used; mass 880-928 g; winding protection 145 C (manual: actual limit 180 C)"
+   "note": "rated 20 N·m at 100 rpm with a 215x220 mm heat sink; no-load 195 (brochure) / 200 (manual) rpm, 195 used; mass 880-928 g; winding protection 145 C (manual: actual limit 180 C)",
+   "tn_curve": {
+    "rpm": [
+     0,
+     120,
+     135,
+     143,
+     150,
+     165,
+     178,
+     183,
+     186,
+     187.5,
+     188.5
+    ],
+    "nm": [
+     60,
+     60,
+     54.5,
+     51,
+     47.5,
+     39,
+     30,
+     25,
+     20,
+     10,
+     0
+    ],
+    "source": "RobStride/Product_Information@384cc56 RS03User Manual261013.pdf p.10 section 1.3 item 12 \"T-N curve\" (48 V), digitised by eye from the figure (about +-3 % of peak torque, 2026-10-31); below the first plotted speed the peak torque is assumed, past the last point zero"
+   }
   },
   "RS04": {
    "vendor": "RobStride",
@@ -82,7 +111,70 @@
    "enc": "14 bit",
    "verified": true,
    "url": "https://github.com/RobStride/Product_Information (commit 384cc56, 2026-10-16) RS04User Manual260713.pdf; RS brochure 2026.010.09",
-   "note": "rated 40 N·m with a 345x345 mm heat sink (35 N·m with 220x200 mm); mass 1420-1510 g"
+   "note": "rated 40 N·m with a 345x345 mm heat sink (35 N·m with 220x200 mm); mass 1420-1510 g",
+   "tn_curve": {
+    "rpm": [
+     0,
+     95,
+     110,
+     130,
+     140,
+     150,
+     155,
+     160,
+     170,
+     180,
+     185,
+     188,
+     190,
+     191
+    ],
+    "nm": [
+     120,
+     120,
+     110,
+     95,
+     87,
+     79,
+     68,
+     60,
+     52,
+     45,
+     38,
+     27,
+     10,
+     0
+    ],
+    "source": "RobStride/Product_Information@384cc56 RS04User Manual260713.pdf p.10 section 1.3 item 12 \"T-N curve\" (48 V), digitised by eye from the figure (about +-3 % of peak torque, 2026-10-31); below the first plotted speed the peak torque is assumed, past the last point zero"
+   },
+   "overload_table": {
+    "rotate_50rpm": {
+     "120": 3,
+     "115": 9,
+     "110": 10,
+     "105": 13,
+     "100": 15,
+     "90": 24,
+     "80": 38,
+     "70": 61,
+     "60": 108,
+     "50": 324,
+     "40": null
+    },
+    "stall": {
+     "120": 1,
+     "110": 1,
+     "100": 1.5,
+     "90": 3,
+     "80": 6,
+     "70": 10,
+     "60": 33,
+     "50": 74,
+     "40": 130,
+     "28.5": null
+    },
+    "source": "RobStride/Product_Information@384cc56 RS04User Manual260713.pdf p.11 items 13-14: seconds from 25 C to the 145 C winding limit, 345x345 mm aluminium heat sink, rotating at 50 rpm; stall heat x1.414; None = rated"
+   }
   },
   "RS06": {
    "vendor": "RobStride",
@@ -104,7 +196,36 @@
    "enc": "14 bit",
    "verified": true,
    "url": "https://github.com/RobStride/Product_Information (commit 384cc56, 2026-10-16) RS06User Manual260713.pdf; RS brochure 2026.010.09",
-   "note": "rated 11 N·m at 100 rpm with a 130x160 mm heat sink; kt 1.09 (manual) / 1.1 (brochure)"
+   "note": "rated 11 N·m at 100 rpm with a 130x160 mm heat sink; kt 1.09 (manual) / 1.1 (brochure)",
+   "tn_curve": {
+    "rpm": [
+     0,
+     280,
+     300,
+     325,
+     350,
+     375,
+     400,
+     420,
+     428,
+     430,
+     431
+    ],
+    "nm": [
+     36,
+     36,
+     33,
+     29.5,
+     26,
+     22.5,
+     18,
+     13,
+     10,
+     5,
+     0
+    ],
+    "source": "RobStride/Product_Information@384cc56 RS06User Manual260713.pdf p.9 section 1.3 item 12 \"T-N curve\" (48 V), digitised by eye from the figure (about +-3 % of peak torque, 2026-10-31); below the first plotted speed the peak torque is assumed, past the last point zero"
+   }
   },
   "AK10-9 V3.0 KV60": {
    "vendor": "CubeMars",

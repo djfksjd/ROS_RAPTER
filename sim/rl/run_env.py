@@ -34,6 +34,10 @@ from realism import Realism, load_config  # noqa: E402
 
 ROOT = SIM.parent
 R02_MODEL = SIM/'raptor_r02.xml'
+# model rev 3 (stage 0, user decision 2026-10-31, evidence 186-187): R-02 + an active hip yaw axis per leg
+# (sim/build_r03.py) and the vendor modules / transmissions / drive masses of one axis config (rev3_b.json)
+R03_MODEL = SIM/'raptor_r03.xml'
+REV3_CONFIG = HERE/'rev3_b.json'
 R02_YAML = ROOT/'src/raptor_description/config/r02_design.yaml'
 DESIGN_MASS = 11.36
 PHYSICS_DT = .001
@@ -43,7 +47,7 @@ PHYSICS_DT = .001
 # angle; deeper rest angles lose the running benefit: q0 -1.3 rad -> 11.5 N·m/159 W at 5 kg), a load case the spec
 # did not check (measured 2026-09-29, pose scan). Power and speed limits stay at §9; running needs 5.8 N·m there.
 ACTUATOR_T1 = {'hip_pitch': (35., 27., 350.), 'knee_pitch': (28., 27., 225.), 'ankle_pitch': (22., 27., 90.),
-               'hip_roll': (35., 27., 350.), 'ankle_roll': (8., 27., 90.),
+               'hip_roll': (35., 27., 350.), 'ankle_roll': (8., 27., 90.), 'hip_yaw': (35., 27., 350.),
                'tail_pitch': (36., 12., 400.), 'tail_yaw': (36., 12., 400.)}
 # T1 nominal pose (hip, knee, ankle), toes flat: hip + knee + ankle = -0.5271 (foot mount). Taller than the R-02
 # crouch (torso 0.71 m vs 0.58 m) because the springs rest at the running touchdown angles (the crouch would preload
@@ -58,7 +62,7 @@ SPRINGS = {'none': {},
            'c': {'hip_pitch': (295., .041, 'uni+'), 'knee_pitch': (90., 1.395, 'bi'), 'ankle_pitch': (130., -1.215, 'uni-')}}
 KP_ERR = .1       # rad of position error that saturates the torque limit (kp = tau_max / KP_ERR)
 KD_POLE = 45.     # 1/s, kd = kp / KD_POLE
-SCALE_RUN = {'hip_roll': .3, 'hip_pitch': 1., 'knee_pitch': 1., 'ankle_pitch': 1., 'ankle_roll': .3,
+SCALE_RUN = {'hip_roll': .3, 'hip_yaw': .3, 'hip_pitch': 1., 'knee_pitch': 1., 'ankle_pitch': 1., 'ankle_roll': .3,
              'tail_yaw': .8, 'tail_pitch': .8}
 RUN_SPEED = 3.    # m/s command above which flight is rewarded
 DISTURB_ITEMS = ('pitch', 'yaw', 'trip', 'touchdown', 'push')
@@ -86,6 +90,9 @@ SYM_TAU = .6
 # yaw/pitch class B. Motor envelope per class: full torque to half the no-load speed, linear drop to zero at the
 # no-load speed, |tau w| <= P (assumed shape); braking torque up to the class peak. Linkage/gear efficiency 0.9.
 MOTOR_CLASSES = {'A': (22., 40., 500.), 'B': (48., 33., 900.), 'C': (120., 21., 1400.)}
+# vendor modules registered by use_modules() (model rev 3): T-N curve (rad/s, N·m at the module output), rated torque,
+# output-side rotor inertia
+MODULE_CURVES, MOTOR_CONT, MODULE_J = {}, {}, {}
 ARCH8 = {'hip_pitch': ('B', 1.), 'knee_pitch': ('B', 'fourbar'), 'hip_roll': ('A', 1.7), 'tail_yaw': ('B', 1.), 'tail_pitch': ('B', 1.)}
 ARCH8_FOURBAR = dict(a=.083, b=.194, c=.102, beta_deg=69., branch=1.)
 LINK_ETA = .9
@@ -137,8 +144,56 @@ PAYLOAD_KG = 2.55
 MOTOR_KG = {'A': .5, 'B': .96, 'C': 1.42}
 
 
-def real_masses(m, arch12):
-    """Set the explicit part masses (see PAYLOAD_KG) on an R-02 MjModel at the design scale; returns the total."""
+def use_modules(path=REV3_CONFIG):
+    """Model rev 3: read the axis config and register its vendor modules (docs/design/motor_candidates.json) as
+    MOTOR_CLASSES entries (peak torque, end of the vendor 48 V T-N curve, peak mechanical power on that curve) with their
+    curves, rated torques and output-side rotor inertias. Returns the config."""
+    path = Path(path)
+    cfg = json.loads(path.read_text())
+    mods = json.loads((path.parent/cfg['spec_file']).resolve().read_text())['modules']
+    for ax in cfg['axes'].values():
+        m = mods[ax['module']]
+        w, t = np.asarray(m['tn_curve']['rpm'], float)*np.pi/30, np.asarray(m['tn_curve']['nm'], float)
+        MODULE_CURVES[ax['module']] = (w, t)
+        MOTOR_CLASSES[ax['module']] = (float(m['tau_peak']), float(w[-1]), float(np.max(w*t)))
+        MOTOR_CONT[ax['module']], MODULE_J[ax['module']] = float(m['tau_cont']), float(m['j_out'])
+    cfg['module_kg'] = {ax['module']: float(mods[ax['module']]['mass']) for ax in cfg['axes'].values()}
+    return cfg
+
+
+def rev3_motor_masses(cfg):
+    """Masses (kg) the rev 3 axis config puts on the hip-roll link (pelvis-mounted modules move with the hip mount),
+    the upper femur (knee module) and the tail-yaw link: module + drive hardware (drive_kg, ASSUMED)."""
+    out = {'hip_roll_link': 0., 'thigh_link': 0., 'tail_yaw_link': 0.}
+    for ax in cfg['axes'].values():
+        out[ax['mount']] += cfg['module_kg'][ax['module']] + float(ax.get('drive_kg', 0.))
+    return out
+
+
+def fourbar_band(fb, lo=.1, hi=2.7, min_deg=30.):
+    """Knee range of a four-bar where the loop closes and both the output (coupler-lever) and input (crank-coupler)
+    transmission angles are >= min_deg (the rev 2 KNEE_BAND rule, final report 1.8 section F1)."""
+    sys.path.insert(0, str(ROOT/'modeling'))
+    from knee_linkage_study import fourbar_N, FEMUR
+    q = np.linspace(lo, hi, 2601)
+    beta = np.radians(fb['beta_deg'])
+    phi, _N, mu_out, ok = fourbar_N(q, fb['a'], fb['b'], fb['c'], beta, fb['branch'])
+    P = np.stack([fb['a']*np.cos(phi), fb['a']*np.sin(phi)], 1)
+    Q = np.stack([fb['c']*np.cos(q+beta), -FEMUR+fb['c']*np.sin(q+beta)], 1)
+    u = (Q-P)/fb['b']
+    mu_in = np.degrees(np.arccos(np.clip(np.abs(np.sum(u*P, 1))/fb['a'], 0, 1)))
+    good = ok & (mu_out >= min_deg) & (mu_in >= min_deg)
+    if not good.any():
+        raise ValueError('four-bar: no knee range with both transmission angles >= %g deg' % min_deg)
+    i = np.flatnonzero(good)
+    runs = np.split(i, np.flatnonzero(np.diff(i) > 1)+1)
+    r = max(runs, key=len)
+    return float(q[r[0]]), float(q[r[-1]])
+
+
+def real_masses(m, arch12, motors=None):
+    """Set the explicit part masses (see PAYLOAD_KG) on an R-02 MjModel at the design scale; returns the total.
+    motors: {'hip_roll_link', 'thigh_link', 'tail_yaw_link': kg} replacing the class motors (model rev 3)."""
     def set_mass(b, new):
         f = new/m.body_mass[b]
         m.body_mass[b] = new; m.body_inertia[b] *= f
@@ -160,19 +215,24 @@ def real_masses(m, arch12):
         if f is not None:
             m.body_mass[b] *= f; m.body_inertia[b] *= f
     pelvis = MOTOR_KG['A'] + MOTOR_KG['B'] + ((MOTOR_KG['B'] + MOTOR_KG['A']) if arch12 else 0.)
+    knee, tail = MOTOR_KG['B'], 2*MOTOR_KG['B']
+    if motors is not None:
+        pelvis, knee, tail = motors['hip_roll_link'], motors['thigh_link'], motors['tail_yaw_link']
     for side in ('left', 'right'):
         set_mass(m.body(f'{side}_hip_roll_link').id, pelvis)
-        add_mass(m.body(f'{side}_thigh_link').id, MOTOR_KG['B'], (0., 0., -.03))
+        add_mass(m.body(f'{side}_thigh_link').id, knee, (0., 0., -.03))
         if arch12:
             add_mass(m.body(f'{side}_thigh_link').id, .1, (0., 0., -.11))
             add_mass(m.body(f'{side}_shin_link').id, .1, (0., 0., -.19))
         else:
             add_mass(m.body(f'{side}_shin_link').id, .08, (0., 0., -.19))
-    set_mass(m.body('tail_yaw_link').id, 2*MOTOR_KG['B'])
+    set_mass(m.body('tail_yaw_link').id, tail)
     return float(m.body_mass.sum())
 
 
 def motor_available(cls, w):
+    if cls in MODULE_CURVES:  # vendor module: its 48 V T-N curve
+        return np.interp(np.abs(w), *MODULE_CURVES[cls], right=0.)
     tau, w0, P = MOTOR_CLASSES[cls]
     a = np.abs(w)
     env = np.where(a <= .5*w0, tau, tau*np.clip((w0-a)/(.5*w0), 0., None))
@@ -205,9 +265,13 @@ class RunEnv(RaptorEnv):
                  target_ramp=False, obs_contact=False, model_rev=1, latch_fallback=None, friction_dr=None,
                  self_collision=None, knee_band=None, start_contact=None, armature=None, heat_limit=1., roll_impulse=None, init_noise=.02,
                  realism=None, scale_override=None, range_override=None, gait_duty_min=None,
-                 contact_tc=None, terrain=None, obs_scan=None):
+                 contact_tc=None, terrain=None, obs_scan=None, rev3_config=None):
         self.mass, self.spring_set, self.tail = float(mass), springs, tail
         rev2 = int(model_rev) >= 2
+        # model rev 3: R-03 MJCF (hip yaw) + rev3_b.json (modules, transmissions, four-bar, drive masses); implies arch8
+        self.rev3 = use_modules(rev3_config or REV3_CONFIG) if int(model_rev) >= 3 else None
+        if self.rev3 is not None:
+            arch8 = True
         pick = lambda v, new, old: (new if rev2 else old) if v is None else v
         self.model_rev = int(model_rev)
         self.roll_impulse = roll_impulse  # (rate 1/s, lo, hi): training roll impulses about the trunk's own x axis, like yaw_impulse
@@ -216,6 +280,8 @@ class RunEnv(RaptorEnv):
         self.latch_fallback, self.friction_dr = bool(pick(latch_fallback, False, True)), pick(friction_dr, 'foot', 'floor')
         self.self_collision, self.start_contact = bool(pick(self_collision, True, False)), bool(pick(start_contact, True, False))
         self.knee_band, self.armature = pick(knee_band, KNEE_BAND, None), bool(pick(armature, True, False))
+        if self.rev3 is not None and knee_band is None:
+            self.knee_band = fourbar_band(self.rev3['fourbar'])
         # hip_back (m): R-03, the hip mount (pelvis, hip motors, legs) moved rearward along the torso; the torso payload
         # and the tail root stay where they are (raptor layout: pelvis at the rear of the trunk, tail root behind it).
         # nominal: (hip, knee, ankle) action-offset pose replacing NOMINAL_T1 (nominal_scan.py, same rule per variant).
@@ -245,13 +311,13 @@ class RunEnv(RaptorEnv):
         # The level-scaled yaw impulses stayed below 0.12 N·m·s (level stuck near 0.3) while evaluation uses 1.0-1.5.
         self.yaw_impulse = yaw_impulse
         self.episode_steps, self.randomize, self.render_mode = int(episode_s/CONTROL_DT), randomize, render_mode
-        self.model_path = str(model_path or R02_MODEL)
+        self.model_path = str(model_path or (R03_MODEL if self.rev3 is not None else R02_MODEL))
         self.kinds, self.kind, self.dr_items, self.slew, self.jtc_horizon = ['flat'], 'flat', set(), None, 0.
         probe = mujoco.MjModel.from_xml_path(self.model_path)
         self.active = [probe.actuator(i).name for i in range(probe.nu)]
         pose = nominal_pose(tuple(nominal) if nominal is not None else NOMINAL_T1)
         if real_mass:
-            self.mass = real_masses(probe, arch12)
+            self.mass = real_masses(probe, arch12, rev3_motor_masses(self.rev3) if self.rev3 is not None else None)
         self.q0 = np.array([pose.get(n, 0.) for n in self.active])
         # scale_override {joint type: rad}: action half-range around q0 replacing SCALE_RUN (e.g. a wider hip roll band)
         self.scale = np.array([{**SCALE_RUN, **(scale_override or {})}[joint_type(n)] for n in self.active])
@@ -285,7 +351,10 @@ class RunEnv(RaptorEnv):
         # (spec full_budget: coupled requirement 21.7 N·m / 237 W at 5 kg, x1.3 margin as in §9).
         self.arch8 = arch8
         # arch8_override: {joint type: [class, gear]} replacing ARCH8 entries (e.g. hip_pitch B with a 1.5:1 belt)
-        self.arch8_map = {**ARCH8, **(ARCH12_EXTRA if arch12 else {}), **{k: tuple(v) for k, v in (arch8_override or {}).items()}}
+        base = {jt: (ax['module'], ax['ratio']) for jt, ax in self.rev3['axes'].items()} if self.rev3 is not None else ARCH8
+        self.arch8_map = {**base, **(ARCH12_EXTRA if arch12 else {}), **{k: tuple(v) for k, v in (arch8_override or {}).items()}}
+        # link efficiency per joint type: LINK_ETA for every arch8 axis (rev <= 2); rev 3 from the config (1 = direct drive)
+        self.link_eta = {jt: float(ax.get('link_efficiency', LINK_ETA)) for jt, ax in self.rev3['axes'].items()} if self.rev3 is not None else {}
         # springs_override: {joint type: [k (N·m/rad at the 11.36 kg design mass), q0, mode, engaged]}, engaged 'always',
         # 'stance' (clutch: only while that foot is loaded) or 'swing'. Replaces SPRINGS[springs] (spring_refit.py).
         self.springs_override = springs_override
@@ -317,8 +386,8 @@ class RunEnv(RaptorEnv):
                     spec[i] = (0., 99., 0.)
                 else:
                     cls, g = self.arch8_map[jt]
-                    gear = 1.5 if g == 'fourbar' else g
-                    spec[i] = (MOTOR_CLASSES[cls][0]*gear*LINK_ETA, MOTOR_CLASSES[cls][1]/gear, MOTOR_CLASSES[cls][2])
+                    gear = (self.fourbar_nominal() if self.rev3 is not None else 1.5) if g == 'fourbar' else g
+                    spec[i] = (MOTOR_CLASSES[cls][0]*gear*self.link_eta.get(jt, LINK_ETA), MOTOR_CLASSES[cls][1]/gear, MOTOR_CLASSES[cls][2])
         self.tau_nom, self.v_max, self.p_max = spec[:, 0].copy(), spec[:, 1].copy(), spec[:, 2].copy()
         self.tau_max = self.tau_nom.copy()
         self.kp = self.tau_nom/KP_ERR
@@ -398,7 +467,7 @@ class RunEnv(RaptorEnv):
         # with mass they fall below the W*h (5 kg x 0.71 m = 34 N·m/rad) a passive stand on the toes needs, and the
         # robot topples forward in ~3 s (measured 2026-09-29).
         if self.real_mass:
-            real_masses(m, self.arch12)
+            real_masses(m, self.arch12, rev3_motor_masses(self.rev3) if self.rev3 is not None else None)
         else:
             m.body_mass[1:] *= ratio
             m.body_inertia[1:] *= ratio
@@ -422,7 +491,7 @@ class RunEnv(RaptorEnv):
             sys.path.insert(0, str(ROOT/'modeling'))
             from knee_linkage_study import fourbar_N
             qq = np.linspace(.1, 2.7, 300)
-            fb = ARCH8_FOURBAR
+            fb = self.rev3['fourbar'] if self.rev3 is not None else ARCH8_FOURBAR
             _, N, _trans, ok = fourbar_N(qq, fb['a'], fb['b'], fb['c'], np.radians(fb['beta_deg']), fb['branch'])
             N = np.where(ok, np.abs(N), 1.)
             self.knee_ratio = (qq, np.clip(N, .5, 5.))
@@ -433,7 +502,7 @@ class RunEnv(RaptorEnv):
                 jt = joint_type(n)
                 if jt in self.arch8_map:
                     cls, g = self.arch8_map[jt]
-                    gear.append(1. if g == 'fourbar' else g); cont.append(.4*MOTOR_CLASSES[cls][0])
+                    gear.append(1. if g == 'fourbar' else g); cont.append(MOTOR_CONT.get(cls, .4*MOTOR_CLASSES[cls][0]))
                 else:
                     gear.append(1.); cont.append(1e9)
             self.gear_const, self.motor_cont = np.array(gear), np.array(cont)
@@ -453,8 +522,8 @@ class RunEnv(RaptorEnv):
             for i, n in enumerate(self.active):
                 jt = joint_type(n)
                 if jt in self.arch8_map:
-                    g = self.arch8_map[jt][1]
-                    m.dof_armature[m.jnt_dofadr[m.joint(n).id]] = ROTOR_J_OUT*(n2_knee if g == 'fourbar' else g*g)
+                    cls, g = self.arch8_map[jt]
+                    m.dof_armature[m.jnt_dofadr[m.joint(n).id]] = MODULE_J.get(cls, ROTOR_J_OUT)*(n2_knee if g == 'fourbar' else g*g)
         # PD position servo as an affine actuator: force = kp (ctrl - q) - kd qd, clamped by forcerange each step
         m.actuator_gainprm[self.act, 0] = self.kp
         m.actuator_biasprm[self.act, :3] = np.c_[np.zeros(len(self.act)), -self.kp, -self.kd]
@@ -702,6 +771,15 @@ class RunEnv(RaptorEnv):
         self.model.actuator_forcerange[self.act, 1] = hi
         return lo, hi
 
+    def fourbar_nominal(self):
+        """Mean |N| of the rev 3 four-bar over its knee band (nominal knee gear for tau_nom and the PD gains)."""
+        sys.path.insert(0, str(ROOT/'modeling'))
+        from knee_linkage_study import fourbar_N
+        fb = self.rev3['fourbar']
+        q = np.linspace(*self.knee_band, 200)
+        _, N, _, _ = fourbar_N(q, fb['a'], fb['b'], fb['c'], np.radians(fb['beta_deg']), fb['branch'])
+        return float(np.mean(np.abs(N)))
+
     def _clamp_arch8(self):
         """Motor-envelope limits through each joint's transmission (ARCH8): drive torque from the motor curve at the
         motor speed, braking up to the class peak; the random +-10 % actuator factor scales both."""
@@ -714,8 +792,9 @@ class RunEnv(RaptorEnv):
                 continue
             cls, g = self.arch8_map[jt]
             gear = float(np.interp(q[i], *self.knee_ratio)) if g == 'fourbar' else g
-            drive = gear*LINK_ETA*float(motor_available(cls, gear*qd[i]))*scale[i]
-            brake = gear*LINK_ETA*MOTOR_CLASSES[cls][0]*scale[i]
+            eta = self.link_eta.get(jt, LINK_ETA)
+            drive = gear*eta*float(motor_available(cls, gear*qd[i]))*scale[i]
+            brake = gear*eta*MOTOR_CLASSES[cls][0]*scale[i]
             if qd[i] >= 0:
                 hi[i], lo[i] = drive, -brake
             else:
