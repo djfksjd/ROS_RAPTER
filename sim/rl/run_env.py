@@ -205,7 +205,7 @@ class RunEnv(RaptorEnv):
                  target_ramp=False, obs_contact=False, model_rev=1, latch_fallback=None, friction_dr=None,
                  self_collision=None, knee_band=None, start_contact=None, armature=None, heat_limit=1., roll_impulse=None, init_noise=.02,
                  realism=None, scale_override=None, range_override=None, gait_duty_min=None,
-                 contact_tc=None, terrain=None):
+                 contact_tc=None, terrain=None, obs_scan=None):
         self.mass, self.spring_set, self.tail = float(mass), springs, tail
         rev2 = int(model_rev) >= 2
         pick = lambda v, new, old: (new if rev2 else old) if v is None else v
@@ -268,6 +268,15 @@ class RunEnv(RaptorEnv):
         # (fall check, sag) are taken above the local ground. None keeps flat ground and the earlier random stream.
         self.terrain = terrain
         self.kind, self.t_level = 'flat', 0.
+        # obs_scan: {"dx": [m ahead along the heading], "noise": m, "bias": m, "delay": control steps}. Appends the ground
+        # height at those points relative to the ground under the body (base height - spawn base height), clipped to +-1 m: an
+        # elevation profile from a front depth camera (R-02 sensor pod). Gaussian noise per reading, a per-episode bias,
+        # and `delay` steps on top of the realism sensor delay. A separate random stream keeps the other draws unchanged.
+        # None keeps the earlier observation.
+        self.obs_scan = obs_scan
+        self.scan_dx = np.asarray(obs_scan['dx'], float) if obs_scan else np.zeros(0)
+        self.scan_rng = np.random.default_rng(None if seed is None else seed+7919)
+        self.scan_buf, self.scan_key, self.scan_bias = [], None, 0.
         if terrain:
             tr.SIZE = float(terrain.get('size', 40.))
         # couple_ankle: horse-style reciprocal apparatus. Each ankle pitch joint follows its knee 1:1 through a joint
@@ -316,7 +325,8 @@ class RunEnv(RaptorEnv):
         self.kd = self.kp/KD_POLE
         n, na = len(self.active), len(self.policy_idx)
         self.rng = np.random.default_rng(seed)
-        self.observation_space = gym.spaces.Box(-np.inf, np.inf, (11+3*(self.obs_vel)+2*n+na+2*self.obs_contact,), np.float32)
+        self.observation_space = gym.spaces.Box(-np.inf, np.inf, (11+3*(self.obs_vel)+2*n+na+2*self.obs_contact+len(self.scan_dx),),
+                                                np.float32)
         self.action_space = gym.spaces.Box(-1., 1., (na,), np.float32)
         # realism (opt-in, 2026-10-29): motor current/voltage/thermal limits, friction, backlash, delays, sensor noise,
         # battery sag (realism.py, docs/SIM_REALISM.ko.md). None keeps the earlier code path unchanged.
@@ -534,6 +544,8 @@ class RunEnv(RaptorEnv):
                 if engaged == 'latch':
                     m.tendon_stiffness[m.tendon(f'spring_{s_}_{joint}').id] = 0.
         self.h_nom = d.xpos[self.base][2]-.03
+        self.scan_buf, self.scan_key = [], None
+        self.scan_bias = self.scan_rng.normal(0, self.obs_scan.get('bias', 0.)) if self.obs_scan else 0.
         d.ctrl[self.act] = d.qpos[self.q_adr]
         self.ctrl_prev = d.qpos[self.q_adr].copy()
         self.steps, self.last_action, self.prev_qd = 0, np.zeros(len(self.policy_idx)), d.qvel[self.v_adr].copy()
@@ -613,7 +625,37 @@ class RunEnv(RaptorEnv):
         if self.obs_vel:
             s['vel'] = self.body_velocity(self.base)[1]
         s['q'], s['qd'] = d.qpos[self.q_adr].copy(), d.qvel[self.v_adr].copy()
+        if self.obs_scan:
+            s['scan'] = self._scan()
         return s
+
+    def _scan(self):
+        """Delayed, noisy ground-height profile ahead of the body (obs_scan). One reading per control step: the realism
+        layer samples the sensors every physics step, and later calls in the same control step return the same reading
+        (with realism delays on, the reading is therefore up to one control step older than the other sensors)."""
+        if self.scan_key == self.steps:
+            return self.scan_val
+        d, cfg = self.data, self.obs_scan
+        x, y, z = d.xpos[self.base]
+        R = d.xmat[self.base].reshape(3, 3)
+        yaw = np.arctan2(R[1, 0], R[0, 0])
+        g = np.array([tr.height_at(self.heights, x+dx*np.cos(yaw), y+dx*np.sin(yaw)) for dx in self.scan_dx])
+        v = np.clip(g-(z-self.h_nom-.03)+self.scan_bias+self.scan_rng.normal(0, cfg.get('noise', 0.), len(g)), -1., 1.)
+        self.scan_buf.append(v)
+        self.scan_key = self.steps
+        self.scan_val = self.scan_buf.pop(0) if len(self.scan_buf) > int(cfg.get('delay', 0)) else self.scan_buf[0]
+        return self.scan_val
+
+    def ground_z(self):
+        """Ground height for the fall check and sag: under the base, except on boxes, where the hip passes over a ledge
+        before the feet climb it: there the ground under the mean foot x."""
+        d = self.data
+        if self.kind == 'flat':
+            return 0.
+        x, y = d.xpos[self.base][:2]
+        if self.kind == 'boxes':
+            x = float(np.mean([d.geom_xpos[g][0] for s in self.foot_geoms for g in self.foot_geoms[s]]))
+        return tr.height_at(self.heights, x, y)
 
     def _compose(self, s):
         parts = [s['gyro']*.25, s['grav'], self.command*np.array([.1, 2., .5])]
@@ -623,6 +665,8 @@ class RunEnv(RaptorEnv):
                   [np.sin(2*np.pi*self.phase), np.cos(2*np.pi*self.phase)]]
         if self.obs_contact:
             parts.append([float(self.loaded['left']),float(self.loaded['right'])])
+        if self.obs_scan:
+            parts.append(s['scan'])
         return np.concatenate(parts).astype(np.float32)
 
     # --- virtual actuator ----------------------------------------------------------------------
@@ -934,9 +978,7 @@ class RunEnv(RaptorEnv):
         terms['lin_vel_z'] = v_body[2]**2
         terms['ang_vel_xy'] = np.sum(w[:2]**2)
         terms['orientation'] = np.sum(grav[:2]**2)
-        bz = d.xpos[self.base][2]
-        if self.kind != 'flat':
-            bz -= tr.height_at(self.heights, *d.xpos[self.base][:2])
+        bz = d.xpos[self.base][2]-self.ground_z()
         sag = self.h_nom-bz-.1  # 0.1 m free band: SLIP stance compression (spec §2: 0.15 m at the CoM)
         terms['height'] = sag**2 if sag > 0 else 0.
         terms['torque'] = torque_sq

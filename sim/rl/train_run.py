@@ -8,6 +8,7 @@ Every result is a T1 (virtual actuator) result: report it with the actuator spec
 """
 import argparse
 import json
+import pickle
 from pathlib import Path
 import sys
 
@@ -91,6 +92,36 @@ def make(kw, seed, cls=RunEnv):
     return thunk
 
 
+def expand_inputs(path, venv, std):
+    """Continue a policy on an environment with observations appended at the end (obs_scan). Returns the VecNormalize
+    wrapper and the model. The first layer of the actor and critic gets zero weights for the new inputs, so the policy acts
+    exactly as the old one until training uses them; their normalisation is mean 0, std `std` (the symmetric policy
+    freezes it, so it has to be set here)."""
+    from stable_baselines3.common.running_mean_std import RunningMeanStd
+    with open(Path(path).with_name('vecnorm.pkl'), 'rb') as f:
+        env = pickle.load(f)
+    rms, n_new = env.obs_rms, venv.observation_space.shape[0]-env.obs_rms.mean.shape[0]
+    new = RunningMeanStd(shape=(rms.mean.shape[0]+n_new,))
+    new.mean = np.r_[rms.mean, np.zeros(n_new)]
+    new.var = np.r_[rms.var, np.full(n_new, std**2)]
+    new.count = rms.count
+    env.obs_rms, env.observation_space = new, venv.observation_space
+    env.set_venv(venv)
+    old = PPO.load(path, device='cpu')
+    # a symmetric policy's reflection constants have the old size: rebuild as a plain policy, main() wraps it again
+    model = PPO('MlpPolicy', env, n_steps=old.n_steps, batch_size=old.batch_size, n_epochs=old.n_epochs,
+                learning_rate=old.learning_rate, gamma=old.gamma, gae_lambda=old.gae_lambda, clip_range=old.clip_range,
+                ent_coef=old.ent_coef, max_grad_norm=old.max_grad_norm, device='cpu',
+                policy_kwargs={k: v for k, v in old.policy_kwargs.items() if k != 'sym'}, seed=0, verbose=0)
+    sd = old.policy.state_dict()
+    for k, w in sd.items():
+        if w.ndim == 2 and k.endswith('.0.weight') and w.shape[1] == rms.mean.shape[0]:
+            sd[k] = torch.cat([w, torch.zeros(w.shape[0], n_new)], 1)
+    model.policy.load_state_dict(sd, strict=False)
+    model.num_timesteps = old.num_timesteps
+    return env, model
+
+
 def env_kwargs(a):
     """RunEnv keyword arguments from a train_run argument dict (also args.json of a finished run; keys added later default)."""
     g = a.get
@@ -106,7 +137,8 @@ def env_kwargs(a):
                 realism=g('realism'), scale_override=json.loads(a['scale_override']) if g('scale_override') else None,
                 range_override=json.loads(a['range_override']) if g('range_override') else None,
                 gait_duty_min=g('gait_duty_min'), contact_tc=g('contact_tc'),
-                terrain=json.loads(a['terrain']) if g('terrain') else None)
+                terrain=json.loads(a['terrain']) if g('terrain') else None,
+                obs_scan=json.loads(a['obs_scan']) if g('obs_scan') else None)
 
 
 def main():
@@ -152,6 +184,10 @@ def main():
     p.add_argument('--range-override', help='JSON {joint type: rad} symmetric joint stop replacing the MJCF range, e.g. {"hip_roll": 0.65}')
     p.add_argument('--gait-duty-min', type=float, help='floor of the scheduled stance duty at running speed (default GAIT_DUTY 0.28)')
     p.add_argument('--contact-tc', type=float, help='solref time constant of every contact (default: MJCF, MuJoCo 0.02)')
+    p.add_argument('--obs-scan', help='JSON {"dx": [m ahead], "noise": m, "bias": m, "delay": steps}: ground-height profile '
+                   'ahead appended to the observation (run_env.py). With --init from a policy without it, the new inputs start '
+                   'with zero weights (the policy acts as before) and normalisation mean 0, std --scan-std')
+    p.add_argument('--scan-std', type=float, default=.15, help='frozen normalisation std (m) of the new scan inputs')
     p.add_argument('--terrain', help='JSON {"kinds": {kind: weight}, "max_level": L, "vmax": m/s, "size": m}: terrain drawn per episode (run_env.py)')
     p.add_argument('--realism', help='realism config JSON path for RunEnv(realism=...) (realism.py, docs/SIM_REALISM.ko.md); omitted = off')
     p.add_argument('--init', help='model.zip to continue from (its vecnorm.pkl is loaded too)')
@@ -169,14 +205,21 @@ def main():
     torch.set_num_threads(1)
     env = VecMonitor(SubprocVecEnv([make(kw, a.seed*100+i, RecoverEnv if a.env == 'recover' else RunEnv) for i in range(a.envs)]))
     if a.init:
-        env = VecNormalize.load(str(Path(a.init).with_name('vecnorm.pkl')), env)
-        model = PPO.load(a.init, env=env, device='cpu')
+        vn_path = str(Path(a.init).with_name('vecnorm.pkl'))
+        with open(vn_path, 'rb') as f:
+            saved_shape = pickle.load(f).observation_space.shape
+        if env.observation_space.shape != saved_shape:
+            env, model = expand_inputs(a.init, env, a.scan_std)
+        else:
+            env = VecNormalize.load(vn_path, env)
+            model = PPO.load(a.init, env=env, device='cpu')
         if a.symmetric:
             from mirror_probe import ObservationReflection
             from sym_policy import SymPolicy, freeze_obs, reflection_constants
             probe = RunEnv(seed=0, **kw)
             freeze_obs(env)
-            sym = reflection_constants(ObservationReflection(probe.active, probe.policy_idx, probe.q0, probe.obs_vel, probe.obs_contact), env)
+            sym = reflection_constants(ObservationReflection(probe.active, probe.policy_idx, probe.q0, probe.obs_vel, probe.obs_contact,
+                                                             len(probe.scan_dx)), env)
             if not isinstance(model.policy, SymPolicy):
                 old = model
                 model = PPO(SymPolicy, env, n_steps=old.n_steps, batch_size=old.batch_size, n_epochs=old.n_epochs, learning_rate=old.learning_rate,
