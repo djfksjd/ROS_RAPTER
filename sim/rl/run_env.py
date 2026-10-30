@@ -263,7 +263,7 @@ class RunEnv(RaptorEnv):
         # sink 1-4 cm into flat ground (evidence 174); 0.005 is mujoco_menagerie Cassie's value (>= 2 physics steps)
         self.contact_tc = contact_tc
         # terrain: {"kinds": {kind: weight}, "max_level": L, "vmax": m/s, "size": m}. Each reset draws a kind (terrain.py)
-        # and a level U(0, L) (U(lo, L) with "level_min": {kind: lo}) and rebuilds the model when the ground changes. Off flat ground the command is straight
+        # and a level U(0, L) (U(lo, L) with "level_min": {kind: lo}; "gait_free": [ahead, height] drops the gait term near edges, see near_edge) and rebuilds the model when the ground changes. Off flat ground the command is straight
         # (no lateral/yaw) at U(0, vmax), the episode is truncated before the robot leaves the terrain, and heights
         # (fall check, sag) are taken above the local ground. None keeps flat ground and the earlier random stream.
         self.terrain = terrain
@@ -647,6 +647,19 @@ class RunEnv(RaptorEnv):
         self.scan_val = self.scan_buf.pop(0) if len(self.scan_buf) > int(cfg.get('delay', 0)) else self.scan_buf[0]
         return self.scan_val
 
+    def near_edge(self):
+        """terrain "gait_free": [ahead m, height m]: True when the true ground from 0.3 m behind the base to `ahead` m in
+        front of it spans more than `height` (a ledge or drop near); the gait schedule term is then not applied."""
+        free = self.terrain.get('gait_free') if self.terrain else None
+        if not free or self.kind == 'flat':
+            return False
+        d = self.data
+        x, y = d.xpos[self.base][:2]
+        R = d.xmat[self.base].reshape(3, 3)
+        yaw = np.arctan2(R[1, 0], R[0, 0])
+        g = [tr.height_at(self.heights, x+dx*np.cos(yaw), y+dx*np.sin(yaw)) for dx in np.linspace(-.3, free[0], 9)]
+        return np.ptp(g) > free[1]
+
     def ground_z(self):
         """Ground height for the fall check and sag: under the base, except on boxes, where the hip passes over a ledge
         before the feet climb it: there the ground under the mean foot x."""
@@ -1015,7 +1028,7 @@ class RunEnv(RaptorEnv):
         flight = not any(loaded_now.values())
         terms['flight'] = float(flight and cx >= RUN_SPEED and v_body[0] > .5*cx)
         sched = self.gait_schedule()
-        terms['gait'] = sum((min(feet[s_]/(.2*W), 1.)-sched[s_])**2 for s_ in feet) if sched else 0.
+        terms['gait'] = sum((min(feet[s_]/(.2*W), 1.)-sched[s_])**2 for s_ in feet) if sched and not self.near_edge() else 0.
         terms.update(self.kinematics_terms(loaded_now, w[1]))
         terms['leg_sym'] = self.leg_symmetry() if self.command[0] >= .5 else 0.
         terms['heat'] = float(np.sum(np.clip(self.heat-self.heat_limit, 0., None))) if self.arch8 else 0.
