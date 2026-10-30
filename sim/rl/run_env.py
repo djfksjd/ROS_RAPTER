@@ -263,7 +263,7 @@ class RunEnv(RaptorEnv):
         # sink 1-4 cm into flat ground (evidence 174); 0.005 is mujoco_menagerie Cassie's value (>= 2 physics steps)
         self.contact_tc = contact_tc
         # terrain: {"kinds": {kind: weight}, "max_level": L, "vmax": m/s, "size": m}. Each reset draws a kind (terrain.py)
-        # and a level U(0, L) and rebuilds the model when the ground changes. Off flat ground the command is straight
+        # and a level U(0, L) (U(lo, L) with "level_min": {kind: lo}) and rebuilds the model when the ground changes. Off flat ground the command is straight
         # (no lateral/yaw) at U(0, vmax), the episode is truncated before the robot leaves the terrain, and heights
         # (fall check, sag) are taken above the local ground. None keeps flat ground and the earlier random stream.
         self.terrain = terrain
@@ -518,7 +518,8 @@ class RunEnv(RaptorEnv):
             k = list(kinds)[self.rng.choice(len(kinds), p=np.array(list(kinds.values()), float)/sum(kinds.values()))]
             if k != 'flat' or self.kind != 'flat':
                 self.model = None
-            self.kind, self.t_level = k, (self.rng.uniform(0., self.terrain.get('max_level', 1.)) if k != 'flat' else 0.)
+            lo = self.terrain.get('level_min', {}).get(k, 0.)
+            self.kind, self.t_level = k, (self.rng.uniform(lo, self.terrain.get('max_level', 1.)) if k != 'flat' else 0.)
         if self.model is None:
             self._build()
         self._randomize()
