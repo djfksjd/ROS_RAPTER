@@ -536,6 +536,7 @@ ROS 실행·응답 확인·STOP 사용법은 [로컬 개발 가이드](docs/loca
 | [앞 지형 높이 입력 183](docs/evidence/183-jump-scan/README.md) | 깊이 카메라 가정 입력으로 낭떠러지·험지 개선, 뛰어오르기 실패, 무릎 발열 증가 |
 | [높은 턱 학습 184](docs/evidence/184-jump-tall-ledges/README.md) | 2 m/s 이하 지형 모드 `jp2`: 험지 25/672, 턱 0.35 m 일부 통과, 속도별 발열 |
 | [턱 근처 벌점 해제 185](docs/evidence/185-jump-gait-free/README.md) | `jp3`: 턱 0.35 m까지 거의 넘어지지 않지만 공중 시간은 달리기와 같아 점프가 아님 |
+| [0단계 구동기 B안 186](docs/evidence/186-stage0-design-b/README.md) | RS04 고관절·무릎, 고관절 yaw 축: 이상적 보폭이면 11.1 m/s 계산상 가능, 정책 수준 하중이면 고관절 초과(조건부 통과), 총질량 15.1 kg |
 | [순차 학습 계획](docs/STAGED_PLAN.ko.md) | 2026-10-31 사용자 결정: 서기→걷기→달리기→방향 전환→점프→험지→상황 판단, 구동기 B안, 고관절 yaw 축 |
 | [최종 설계 검증 보고서 1.8](docs/reports/final-20261012/README.ko.md) | 계산 문서 재작성본(104쪽 PDF)·출처·검증 기록 |
 | [T1 달리기 증거 86](docs/evidence/86-t1-run/README.md) | 가상 구동기 달리기·꼬리 활성/고정·임펄스·방향전환·일어나기 |
