@@ -35,14 +35,15 @@ def joint_reflection(names):
 
 
 class ObservationReflection:
-    def __init__(self, active, policy_idx, q0, obs_vel, obs_contact=False):
+    def __init__(self, active, policy_idx, q0, obs_vel, obs_contact=False, n_scan=0):
         self.joint_index, self.joint_sign = joint_reflection(active)
         self.action_index, self.action_sign = joint_reflection([active[i] for i in policy_idx])
         self.q0 = np.asarray(q0)
         self.obs_vel = obs_vel
         self.obs_contact = obs_contact
         self.n, self.na = len(active), len(policy_idx)
-        self.size = 9 + 3*int(obs_vel) + 2*self.n + self.na + 2 + 2*int(obs_contact)
+        self.n_scan = int(n_scan)  # ground heights on the sagittal line ahead (obs_scan): unchanged by the reflection
+        self.size = 9 + 3*int(obs_vel) + 2*self.n + self.na + 2 + 2*int(obs_contact) + self.n_scan
 
     def action(self, action):
         a = np.asarray(action)

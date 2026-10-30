@@ -1,7 +1,8 @@
 """Height-field terrains for Raptor RL (MuJoCo). Heights in metres, grid 0.05 m.
 
 Kinds: flat, rough (random bumps), slope (fore-aft ramp), side_slope (cross slope everywhere, walking
-along it), stairs (up), platform (drop-off edge), rough_hfield (the old height-field rough, kept to reproduce old runs).
+along it), stairs (up), platform (drop-off edge), boxes (flat runs of 2-4 m joined by random ledges up or drops down,
+for jumping), rough_hfield (the old height-field rough, kept to reproduce old runs).
 rough is built from 0.2 m boxes in a strip |y| < ROUGH_HALF_WIDTH: with the height field the foot boxes sank 2-5 cm
 and a policy fell even on a 0.5 cm field (evidence 173).
 `level` in [0, 1] scales difficulty for a curriculum. The robot spawns at the grid centre (x = 0),
@@ -12,7 +13,8 @@ import numpy as np
 
 SIZE = 8.  # m, square
 RES = .05  # m per cell
-KINDS = ('flat', 'rough', 'slope', 'side_slope', 'stairs', 'platform', 'rough_hfield')
+KINDS = ('flat', 'rough', 'slope', 'side_slope', 'stairs', 'platform', 'boxes', 'rough_hfield')
+BOX_UP, BOX_DOWN = .45, .8  # m, largest ledge up / drop down at level 1
 ROUGH_HALF_WIDTH = 2.  # m
 
 
@@ -40,6 +42,14 @@ def heights(kind, level, rng):
     elif kind == 'platform':  # spawn on a raised block, walk off the edge
         drop = .05+.35*level
         h = np.where(X < 1., drop, 0.)
+    elif kind == 'boxes':  # from x = 1.5 m: a ledge up or a drop down (each 50 %) of 3-100 % of the level's size every 2-4 m
+        row, x0, z = np.zeros(n), 1.5, 0.
+        while x0 < SIZE/2:
+            up = rng.random() < .5
+            z += (1. if up else -1.)*rng.uniform(.03, 1.)*level*(BOX_UP if up else BOX_DOWN)
+            row[x >= x0] = z
+            x0 += rng.uniform(2., 4.)
+        h = np.tile(row, (n, 1))
     return h - h[:, n//2].mean() if kind == 'slope' else h
 
 
@@ -96,18 +106,20 @@ def add_terrain(spec, kind, level, rng):
         world.add_geom(name='cross', type=mujoco.mjtGeom.mjGEOM_BOX, size=[SIZE/2, SIZE/2/np.cos(ang), .05],
                        pos=[0, .05*np.sin(ang), -.05*np.cos(ang)], quat=[np.cos(ang/2), np.sin(ang/2), 0, 0])
         spec.geom('floor').pos = [0, 0, h.min()-.05]
-    elif kind in ('stairs', 'platform'):
+    elif kind in ('stairs', 'platform', 'boxes'):  # blocks standing on the plane, lowered below the lowest top
         x = np.linspace(-SIZE/2, SIZE/2, n)
         row = h[0]
+        lo = min(row.min(), 0.)
         edges = np.flatnonzero(np.diff(row) != 0)+1
         bounds = [0, *edges, n]
         for i in range(len(bounds)-1):
             top = row[bounds[i]]
-            if top <= 0:
+            if top <= lo:
                 continue
             x0, x1 = x[bounds[i]]-RES/2, x[bounds[i+1]-1]+RES/2
             world.add_geom(name=f'block{i}', type=mujoco.mjtGeom.mjGEOM_BOX,
-                           size=[(x1-x0)/2, SIZE/2, top/2], pos=[(x0+x1)/2, 0, top/2])
+                           size=[(x1-x0)/2, SIZE/2, (top-lo)/2], pos=[(x0+x1)/2, 0, (top+lo)/2])
+        spec.geom('floor').pos = [0, 0, lo]
     return h
 
 
