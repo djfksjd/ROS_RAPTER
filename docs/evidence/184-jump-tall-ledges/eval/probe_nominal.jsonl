@@ -1,0 +1,4 @@
+{"run": "rev2_jp2_st_r01", "cmd": 2.0, "dr": false, "falls": 0, "n": 8, "vx": 1.92, "t_winding_max_c": 33.2, "min_derate": 1.0, "cutoff_steps": 0}
+{"run": "rev2_jp2_st_r01", "cmd": 4.0, "dr": false, "falls": 0, "n": 8, "vx": 2.66, "t_winding_max_c": 38.5, "min_derate": 1.0, "cutoff_steps": 0}
+{"run": "rev2_jp2_st_r01", "cmd": 5.5, "dr": false, "falls": 0, "n": 8, "vx": 1.94, "t_winding_max_c": 37.9, "min_derate": 1.0, "cutoff_steps": 0}
+{"run": "rev2_jp2_st_r01", "cmd": 7.0, "dr": false, "falls": 0, "n": 8, "vx": 1.27, "t_winding_max_c": 39.5, "min_derate": 1.0, "cutoff_steps": 0}
