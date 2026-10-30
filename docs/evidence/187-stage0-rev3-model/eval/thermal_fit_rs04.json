@@ -1,0 +1,164 @@
+{
+ "fitted": {
+  "r_th_wh": 0.0935,
+  "r_th_ha": 0.8423,
+  "c_th_w": 3.91,
+  "c_th_h": 244.02
+ },
+ "start": {
+  "r_th_wh": 0.2509,
+  "r_th_ha": 0.6855,
+  "c_th_w": 99.0876,
+  "c_th_h": 1449.5481
+ },
+ "loss": 0.3967784500743872,
+ "rows": [
+  {
+   "kind": "rotate",
+   "load": 120.0,
+   "manual_s": 3,
+   "model_s": 3.8,
+   "steady_c": Infinity
+  },
+  {
+   "kind": "rotate",
+   "load": 115.0,
+   "manual_s": 9,
+   "model_s": 6.2,
+   "steady_c": Infinity
+  },
+  {
+   "kind": "rotate",
+   "load": 110.0,
+   "manual_s": 10,
+   "model_s": 9.2,
+   "steady_c": Infinity
+  },
+  {
+   "kind": "rotate",
+   "load": 105.0,
+   "manual_s": 13,
+   "model_s": 12.6,
+   "steady_c": Infinity
+  },
+  {
+   "kind": "rotate",
+   "load": 100.0,
+   "manual_s": 15,
+   "model_s": 16.7,
+   "steady_c": Infinity
+  },
+  {
+   "kind": "rotate",
+   "load": 90.0,
+   "manual_s": 24,
+   "model_s": 27.7,
+   "steady_c": Infinity
+  },
+  {
+   "kind": "rotate",
+   "load": 80.0,
+   "manual_s": 38,
+   "model_s": 44.3,
+   "steady_c": Infinity
+  },
+  {
+   "kind": "rotate",
+   "load": 70.0,
+   "manual_s": 61,
+   "model_s": 71.2,
+   "steady_c": 12939.0
+  },
+  {
+   "kind": "rotate",
+   "load": 60.0,
+   "manual_s": 108,
+   "model_s": 120.0,
+   "steady_c": 680.9
+  },
+  {
+   "kind": "rotate",
+   "load": 50.0,
+   "manual_s": 324,
+   "model_s": 232.5,
+   "steady_c": 279.8
+  },
+  {
+   "kind": "rotate",
+   "load": 40.0,
+   "manual_s": null,
+   "model_s": null,
+   "steady_c": 144.9
+  },
+  {
+   "kind": "stall",
+   "load": 120.0,
+   "manual_s": 1,
+   "model_s": 0.7,
+   "steady_c": Infinity
+  },
+  {
+   "kind": "stall",
+   "load": 110.0,
+   "manual_s": 1,
+   "model_s": 1.2,
+   "steady_c": Infinity
+  },
+  {
+   "kind": "stall",
+   "load": 100.0,
+   "manual_s": 1.5,
+   "model_s": 4.3,
+   "steady_c": Infinity
+  },
+  {
+   "kind": "stall",
+   "load": 90.0,
+   "manual_s": 3,
+   "model_s": 11.1,
+   "steady_c": Infinity
+  },
+  {
+   "kind": "stall",
+   "load": 80.0,
+   "manual_s": 6,
+   "model_s": 21.6,
+   "steady_c": Infinity
+  },
+  {
+   "kind": "stall",
+   "load": 70.0,
+   "manual_s": 10,
+   "model_s": 38.1,
+   "steady_c": Infinity
+  },
+  {
+   "kind": "stall",
+   "load": 60.0,
+   "manual_s": 33,
+   "model_s": 66.7,
+   "steady_c": Infinity
+  },
+  {
+   "kind": "stall",
+   "load": 50.0,
+   "manual_s": 74,
+   "model_s": 123.8,
+   "steady_c": 640.4
+  },
+  {
+   "kind": "stall",
+   "load": 40.0,
+   "manual_s": 130,
+   "model_s": 287.2,
+   "steady_c": 235.5
+  },
+  {
+   "kind": "stall",
+   "load": 28.5,
+   "manual_s": null,
+   "model_s": null,
+   "steady_c": 100.9
+  }
+ ]
+}

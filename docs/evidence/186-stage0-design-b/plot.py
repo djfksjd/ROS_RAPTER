@@ -1,6 +1,6 @@
 """Evidence 186 figure. b_utilisation.png: option-B actuator set (modeling/stage0_b_study.py CHOSEN) under the design stride
 and under policy-calibrated loads at 6 / 8 / 11.1 m/s: the larger of peak utilisation (torque / available torque at that
-speed, published envelope) and RMS / rated torque, with the 1.2 load margin and the -10 % no-load speed tolerance as
+speed, vendor 48 V T-N curve) and RMS / rated torque, with the 1.2 load margin and the -10 % no-load speed tolerance as
 hatched bars. Run from repo root."""
 import json
 import matplotlib; matplotlib.use('Agg')
@@ -14,7 +14,7 @@ for a, ld in zip(ax, ('design', 'policy')):
     for i, v in enumerate(('6', '8', '11.1')):
         for j, axn in enumerate(AX):
             x = i*5+j
-            s = lambda w0, m: max(R[f'v{v}_w0x{w0}']['cases'][f'{ld} loads, published x{m}'][axn][k] for k in ('util', 'rms_over_rated'))
+            s = lambda w0, m: max(R[f'v{v}_w0x{w0}']['cases'][f'{ld} loads, manual x{m}'][axn][k] for k in ('util', 'rms_over_rated'))
             a.bar(x, s('1', '1'), .8, color=f'C{j}', label=axn if i == 0 else None)
             a.bar(x, s('1', '1.2')-s('1', '1'), .8, bottom=s('1', '1'), color=f'C{j}', alpha=.45, hatch='//')
             a.plot([x-.4, x+.4], [s('0.9', '1.2')]*2, 'k-', lw=1.5)

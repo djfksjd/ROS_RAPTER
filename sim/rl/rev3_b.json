@@ -1,0 +1,18 @@
+{
+ "_comment": "Model rev 3 axis config (stage 0, option B, user decision 2026-10-31; docs/evidence/186-stage0-design-b, 187-stage0-rev3-model). ONE source for RunEnv(model_rev=3) (actuator limits, PD gains, armature, four-bar, masses) and checked against realism_robstride_rev3.json by tests/test_rev3_model.py. ratio = external stage, motor rad per joint rad (< 1 = speed-up belt); link_efficiency 0.9 for a belt or linkage, 1 for direct drive. mount = MJCF body that carries module + drive_kg (pelvis modules ride on the hip-roll link). drive_kg = belts / four-bar / yaw bracket, ASSUMED (no design). The ankle pitch follows the knee 1:1 (no motor), the ankle roll is locked (arch8).",
+ "spec_file": "../../docs/design/motor_candidates.json",
+ "axes": {
+  "hip_yaw": {"module": "RS06", "ratio": 1.5, "link_efficiency": 0.9, "mount": "hip_roll_link", "drive_kg": 0.15,
+              "why": "estimated turning load 25 N·m at 8 rad/s (evidence 186); belt 0.10 kg + bracket 0.05 kg"},
+  "hip_roll": {"module": "RS06", "ratio": 2.5, "link_efficiency": 0.9, "mount": "hip_roll_link", "drive_kg": 0.10,
+               "why": "peak GRF x 0.10 m; with the 1.5 belt the RMS exceeds the rated torque (x1.43)"},
+  "hip_pitch": {"module": "RS04", "ratio": 0.85, "link_efficiency": 0.9, "mount": "hip_roll_link", "drive_kg": 0.10,
+                "why": "speed-up belt: the 11.1 m/s design hip speed 20.6 rad/s fits even at -10 % no-load speed"},
+  "knee_pitch": {"module": "RS04", "ratio": "fourbar", "link_efficiency": 0.9, "mount": "thigh_link", "drive_kg": 0.10,
+                 "why": "module on the upper femur, four-bar below (N 0.62-2.15 over the knee band)"},
+  "tail_pitch": {"module": "RS03", "ratio": 1.0, "link_efficiency": 1.0, "mount": "tail_yaw_link"},
+  "tail_yaw": {"module": "RS06", "ratio": 1.0, "link_efficiency": 1.0, "mount": "tail_yaw_link"}
+ },
+ "fourbar": {"a": 0.127, "b": 0.176, "c": 0.139, "beta_deg": 67.664, "branch": 1.0,
+             "why": "RS04 four-bar search under the 11.1 m/s design stride x1.2 (vendor T-N curve) restricted to geometries whose knee band (both transmission angles >= 30 deg) covers the rev 2 band 0.7159-2.2454 rad: band 0.64-2.265, N 0.62-2.15, utilisation 0.75 / RMS 0.91 (evidence 187; the evidence-186 pick a .115 b .143 c .113 beta 62 stops at 2.08 rad)"}
+}

@@ -22,6 +22,9 @@ constant = kt). Total ratio N = gear_ratio x external_ratio, eta = gear_efficien
   rotor inertia   j_rotor N^2 -> MuJoCo dof_armature (replaces the model_rev 2 AK10-9 value on those joints)
   motor speed     with backlash: the joint speed while engaged (motor and joint move together), the hidden motor-side
                   speed while free
+  vendor curve    opt-in (motor.tn_curve true, model rev 3): the drive torque is also capped by the vendor 48 V T-N curve
+                  at the module output speed (motor_candidates.json tn_curve, digitised from the manuals); the DC model
+                  alone lets RS04 hold 120 N·m to ~20 rad/s, the manual curve drops from 95 rpm on
 The PD gains of RunEnv are unchanged; only the force range of each physics step comes from this model.
 Thermal: per motor C_w dT_w = (P - (T_w - T_h)/R_wh) dt, C_h dT_h = ((T_w - T_h)/R_wh - (T_h - T_a)/R_ha) dt with
 P = loss_factor i^2 R0 (1 + alpha_cu (T_w - t_ref)); torque derated linearly from T_max - derate_margin to 0 at T_max,
@@ -106,7 +109,7 @@ def survey_module_spec(mod):
             'i_peak': g('tau_peak')/kt_out if ok and g('tau_peak') else None,
             'i_cont': g('tau_cont')/kt_out if ok and g('tau_cont') else None,
             't_winding_max': g('t_wind'), 'r_th_wh': None, 'r_th_ha': None, 'c_th_w': None, 'c_th_h': None,
-            'source': g('url'), 'verified': bool(g('verified'))}
+            'source': g('url'), 'verified': bool(g('verified')), 'tn_curve': g('tn_curve')}
     return spec
 
 
@@ -163,6 +166,7 @@ def load_motor_specs(src, overrides=None, names=None):
             spec['t_winding_max'] -= 273.15
         spec['placeholder'] = file_placeholder or bool(raw.get('placeholder'))
         spec['source'] = raw.get('source')
+        spec['tn_curve'] = raw.get('tn_curve')
         out[name] = spec
     return out
 
@@ -286,6 +290,12 @@ class Realism:
             self.knee_ratio = getattr(env, 'knee_ratio', None)
             self.q_adr_m, self.v_adr_m, self.act_m = env.q_adr[self.idx], env.v_adr[self.idx], env.act[self.idx]
             self.has_fourbar = bool(self.fourbar.any())
+            self.tn = None
+            if self.cfg['motor'].get('tn_curve'):
+                miss = [n for n, s_ in zip(self.motor_name, sp) if not s_.get('tn_curve')]
+                if miss:
+                    raise ValueError(f'realism motor.tn_curve: no vendor curve for {sorted(set(miss))}')
+                self.tn = [(np.asarray(s_['tn_curve']['rpm'], float)*np.pi/30, np.asarray(s_['tn_curve']['nm'], float)) for s_ in sp]
             self.n_const = self.nom['gear_ratio']*self.ext
             self.armature_dofs = env.v_adr[self.idx]
             self.armature_base = m.dof_armature[self.armature_dofs].copy()
@@ -421,6 +431,11 @@ class Realism:
         i_lo, i_hi, self.overcurrent = current_window(emf, v, R, i_lim)
         hi_m = i_hi*kn*np.where(i_hi*qd >= 0, self.eta, 1/self.eta_b)
         lo_m = i_lo*kn*np.where(i_lo*qd >= 0, self.eta, 1/self.eta_b)
+        if self.tn is not None:  # vendor T-N curve on the drive side (module output speed = joint speed x external ratio)
+            ext = N/self.nom['gear_ratio']
+            cap = np.array([np.interp(w, *c, right=0.) for w, c in zip(np.abs(qd)*ext, self.tn)])*ext*self.eta
+            hi_m = np.where(qd >= 0, np.minimum(hi_m, cap), hi_m)
+            lo_m = np.where(qd < 0, np.maximum(lo_m, -cap), lo_m)
         lo, hi = np.array(lo, float), np.array(hi, float)
         lo[self.idx], hi[self.idx] = lo_m, hi_m
         env.model.actuator_forcerange[self.act_m] = np.stack([lo_m, hi_m], 1)

@@ -45,7 +45,9 @@ REAL_MASS_TOTAL = 11.2912                      # RunEnv(arch8, real_mass, model_
 CLASS_MOTORS_KG = 2*(.5 + .96 + .96) + 2*.96   # run_env real_masses: hip roll A, hip pitch B, knee B per side, tail 2 x B
 NON_ACTUATOR_KG = REAL_MASS_TOTAL - CLASS_MOTORS_KG   # torso payload, legs, ankle rods, tail structure (kept)
 BELT_KG, FOURBAR_KG, YAW_BRACKET_KG = .10, .10, .05   # ASSUMED drive hardware per stage
-ENVELOPES = ('published', 'assumed', 'dc')
+ENVELOPES = ('manual', 'published', 'assumed', 'dc')
+for _m in MODS.values():
+    _m['w0_nominal'] = _m['w0']
 USABLE = [m for m in MODS if MODS[m]['w0'] and MODS[m].get('tau_cont')]
 VERIFIED = [m for m in USABLE if MODS[m].get('verified')]
 # policy-calibrated loads: learned-policy / design-stride ratios at 5.72-6 m/s (docs/design/MOTOR_SELECTION.ko.md section 1,
@@ -58,6 +60,12 @@ POLICY = dict(hip_peak=2.5, hip_rms=2.5, knee_peak=2.2, knee_rms=1.0)
 def envelope(mod, w, kind):
     m = MODS[mod]
     tau, w0, a = m['tau_peak'], m['w0'], np.abs(w)
+    if kind == 'manual':  # vendor 48 V T-N curve (motor_candidates.json tn_curve); its speed axis follows w0 (tolerance runs)
+        c = m.get('tn_curve')
+        if c is None:
+            return None
+        f = w0/m.get('w0_nominal', w0)
+        return np.interp(a, np.asarray(c['rpm'])*np.pi/30*f, c['nm'], right=0.)
     if kind == 'dc':
         if None in (m.get('kt_out'), m.get('r_line'), m.get('i_peak')):
             return None
@@ -245,8 +253,9 @@ if __name__ == '__main__':
 # ------------------------------------------------------------------ the chosen option-B configuration
 # hip pitch: 0.85 speed-up belt instead of direct drive, so the 11.1 m/s hip speed (20.6 rad/s) still fits when the module
 # no-load speed is at the -10 % end of its tolerance (200 rpm +-10 %); hip roll 2.5 belt (1.5 exceeds the rated torque);
-# hip yaw 1.5 belt (the yaw load is an estimate; margin kept for the turning stage)
-CHOSEN = dict(hip_pitch=('RS04', .85), knee=('RS04', dict(a=.115, b=.143, c=.113, beta_deg=62., branch=1.)),
+# hip yaw 1.5 belt (the yaw load is an estimate; margin kept for the turning stage). Knee four-bar: evidence 187 pick that
+# keeps the rev 2 knee band (evidence 186 used a .115 b .143 c .113 beta 62, band ending at 2.08 rad)
+CHOSEN = dict(hip_pitch=('RS04', .85), knee=('RS04', dict(a=.127, b=.176, c=.139, beta_deg=67.664, branch=1.)),
               hip_roll=('RS06', 2.5), hip_yaw=('RS06', 1.5))
 CHOSEN_TAIL = ('RS03', 'RS06')
 
