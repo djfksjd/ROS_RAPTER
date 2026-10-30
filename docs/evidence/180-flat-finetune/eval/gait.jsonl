@@ -1,0 +1,4 @@
+{"run": "rev2_tr2f_st_r01", "cmd": 2.0, "n": 8, "falls": 0, "vx": 1.784, "flight": 0.243, "step_hz": 3.75, "stride": 0.476, "clear": 0.259, "hip": 0.852, "power": 108.135, "act": 0.203}
+{"run": "rev2_tr2f_st_r01", "cmd": 4.0, "n": 8, "falls": 0, "vx": 3.637, "flight": 0.484, "step_hz": 4.312, "stride": 0.843, "clear": 0.285, "hip": 0.867, "power": 147.289, "act": 0.238}
+{"run": "rev2_tr2f_st_r01", "cmd": 5.5, "n": 8, "falls": 0, "vx": 2.981, "flight": 0.432, "step_hz": 4.742, "stride": 0.629, "clear": 0.262, "hip": 0.871, "power": 146.638, "act": 0.238}
+{"run": "rev2_tr2f_st_r01", "cmd": 7.0, "n": 8, "falls": 0, "vx": 1.652, "flight": 0.379, "step_hz": 5.164, "stride": 0.32, "clear": 0.284, "hip": 0.877, "power": 139.958, "act": 0.246}
