@@ -136,9 +136,10 @@ def env_kwargs(a):
                 target_ramp=g('target_ramp', False),obs_contact=g('obs_contact',False), model_rev=g('model_rev', 1), heat_limit=g('heat_limit', 1.), roll_impulse=g('roll_impulse'), init_noise=g('init_noise', .02),
                 realism=g('realism'), scale_override=json.loads(a['scale_override']) if g('scale_override') else None,
                 range_override=json.loads(a['range_override']) if g('range_override') else None,
-                gait_duty_min=g('gait_duty_min'), contact_tc=g('contact_tc'),
+                gait_duty_min=g('gait_duty_min'), contact_tc=g('contact_tc'), kp_err=g('kp_err'), action_lpf=g('action_lpf'),
                 terrain=json.loads(a['terrain']) if g('terrain') else None,
-                obs_scan=json.loads(a['obs_scan']) if g('obs_scan') else None)
+                obs_scan=json.loads(a['obs_scan']) if g('obs_scan') else None,
+                obs_hold=json.loads(a['obs_hold']) if g('obs_hold') else None)
 
 
 def main():
@@ -183,11 +184,15 @@ def main():
     p.add_argument('--scale-override', help='JSON {joint type: rad} action half-range replacing SCALE_RUN, e.g. {"hip_roll": 0.5}')
     p.add_argument('--range-override', help='JSON {joint type: rad} symmetric joint stop replacing the MJCF range, e.g. {"hip_roll": 0.65}')
     p.add_argument('--gait-duty-min', type=float, help='floor of the scheduled stance duty at running speed (default GAIT_DUTY 0.28)')
+    p.add_argument('--action-lpf', type=float, help='cutoff Hz of a first-order low-pass on the policy action (default off)')
+    p.add_argument('--kp-err', type=float, help='rad of PD position error at the torque limit (kp = tau_max / kp_err; default 0.1)')
     p.add_argument('--contact-tc', type=float, help='solref time constant of every contact (default: MJCF, MuJoCo 0.02)')
     p.add_argument('--obs-scan', help='JSON {"dx": [m ahead], "noise": m, "bias": m, "delay": steps}: ground-height profile '
                    'ahead appended to the observation (run_env.py). With --init from a policy without it, the new inputs start '
                    'with zero weights (the policy acts as before) and normalisation mean 0, std --scan-std')
-    p.add_argument('--scan-std', type=float, default=.15, help='frozen normalisation std (m) of the new scan inputs')
+    p.add_argument('--obs-hold', help='JSON {"noise": m, "walk": m/sqrt(s)}: odometry offset from the zero-command hold anchor '
+                   '(x, y, heading) appended after the scan (run_env.py); with --init from a policy without it, as --obs-scan')
+    p.add_argument('--scan-std', type=float, default=.15, help='frozen normalisation std (m) of the new scan / hold inputs')
     p.add_argument('--terrain', help='JSON {"kinds": {kind: weight}, "max_level": L, "vmax": m/s, "size": m}: terrain drawn per episode (run_env.py)')
     p.add_argument('--realism', help='realism config JSON path for RunEnv(realism=...) (realism.py, docs/SIM_REALISM.ko.md); omitted = off')
     p.add_argument('--init', help='model.zip to continue from (its vecnorm.pkl is loaded too)')
@@ -219,7 +224,7 @@ def main():
             probe = RunEnv(seed=0, **kw)
             freeze_obs(env)
             sym = reflection_constants(ObservationReflection(probe.active, probe.policy_idx, probe.q0, probe.obs_vel, probe.obs_contact,
-                                                             len(probe.scan_dx)), env)
+                                                             len(probe.scan_dx), bool(probe.obs_hold)), env)
             if not isinstance(model.policy, SymPolicy):
                 old = model
                 model = PPO(SymPolicy, env, n_steps=old.n_steps, batch_size=old.batch_size, n_epochs=old.n_epochs, learning_rate=old.learning_rate,

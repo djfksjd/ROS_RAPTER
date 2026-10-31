@@ -76,6 +76,8 @@
 
 2026-10-31 0단계 ② R-03 모델(`model_rev=3`, 학습 없음): R-02 + 고관절 yaw(roll→yaw→pitch, ±0.5 rad), 정책 10축, 15.1 kg. 모터·감속·질량을 `sim/rl/rev3_b.json` 하나로 통일하고 `realism_robstride_rev3.json`을 그로부터 생성. RobStride 매뉴얼 48 V T-N 곡선(RS03·RS04·RS06)을 구동 토크 상한으로 반영(`motor.tn_curve`), RS04 발열을 매뉴얼 과부하 표에 맞춤. 무릎 4절 링크를 rev 2 굽힘 범위를 지키는 것으로 다시 고름(전달비 0.62–2.15). rev 2 경로 비트 단위 동일. ROS URDF는 아직 미반영. 다음: 1단계 서기. [증거 187](evidence/187-stage0-rev3-model/README.md).
 
+2026-10-31 1단계 1a 서기 합격(`sim/rl/stage_gates.py stand`): `r3_s1`(30초 3.77 m) → 보상 `hold`·`stand_support`·`slip_lin`·`action_rate`, `--kp-err 0.2`, `--action-lpf 6`(13 Hz 폐루프 흔들림·지지발 미끄럼 해소) → `r3_s1lp2` 0.99 m → `--obs-hold`(주행 거리계 가정 위치 오차 입력) `r3_s1ho` 0.33 m, 무작위화 0/24, 밀기 0.3–0.8 m/s 0/96. 입력 0이면 1.44 m라 실물은 위치 추정기 필요. 다음: 1b 일어나기. [증거 188](evidence/188-stage1a-stand/README.md).
+
 이 파일을 먼저 읽고, git status와 해당 단계의 증거만 확인한다. 비밀값 기록 금지.
 
 
