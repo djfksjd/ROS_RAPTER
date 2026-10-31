@@ -538,6 +538,7 @@ ROS 실행·응답 확인·STOP 사용법은 [로컬 개발 가이드](docs/loca
 | [턱 근처 벌점 해제 185](docs/evidence/185-jump-gait-free/README.md) | `jp3`: 턱 0.35 m까지 거의 넘어지지 않지만 공중 시간은 달리기와 같아 점프가 아님 |
 | [0단계 구동기 B안 186](docs/evidence/186-stage0-design-b/README.md) | RS04 고관절·무릎, 고관절 yaw 축: 이상적 보폭이면 11.1 m/s 계산상 가능, 정책 수준 하중이면 고관절 초과(조건부 통과), 총질량 15.1 kg |
 | [0단계 R-03 모델 187](docs/evidence/187-stage0-rev3-model/README.md) | 고관절 yaw 축(능동 10축), 모터·감속·질량 설정 통일(`rev3_b.json`), RobStride 공식 T-N 곡선·RS04 발열 반영 |
+| [1단계 1a 서기 188](docs/evidence/188-stage1a-stand/README.md) | R-03 `r3_s1ho` 합격: 30초 이동 0.33 m, 넘어짐 0, 0.8 m/s 밀기 0/32. 위치 추정 입력과 동작 저역 필터가 필요했다 |
 | [순차 학습 계획](docs/STAGED_PLAN.ko.md) | 2026-10-31 사용자 결정: 서기→걷기→달리기→방향 전환→점프→험지→상황 판단, 구동기 B안, 고관절 yaw 축 |
 | [최종 설계 검증 보고서 1.8](docs/reports/final-20261012/README.ko.md) | 계산 문서 재작성본(104쪽 PDF)·출처·검증 기록 |
 | [T1 달리기 증거 86](docs/evidence/86-t1-run/README.md) | 가상 구동기 달리기·꼬리 활성/고정·임펄스·방향전환·일어나기 |

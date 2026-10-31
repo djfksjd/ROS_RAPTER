@@ -265,7 +265,7 @@ class RunEnv(RaptorEnv):
                  target_ramp=False, obs_contact=False, model_rev=1, latch_fallback=None, friction_dr=None,
                  self_collision=None, knee_band=None, start_contact=None, armature=None, heat_limit=1., roll_impulse=None, init_noise=.02,
                  realism=None, scale_override=None, range_override=None, gait_duty_min=None,
-                 contact_tc=None, terrain=None, obs_scan=None, rev3_config=None):
+                 contact_tc=None, terrain=None, obs_scan=None, rev3_config=None, kp_err=None, action_lpf=None, obs_hold=None):
         self.mass, self.spring_set, self.tail = float(mass), springs, tail
         rev2 = int(model_rev) >= 2
         # model rev 3: R-03 MJCF (hip yaw) + rev3_b.json (modules, transmissions, four-bar, drive masses); implies arch8
@@ -328,6 +328,14 @@ class RunEnv(RaptorEnv):
         # contact_tc: solref time constant of every contact replacing the MJCF/MuJoCo default 0.02 s, which lets the feet
         # sink 1-4 cm into flat ground (evidence 174); 0.005 is mujoco_menagerie Cassie's value (>= 2 physics steps)
         self.contact_tc = contact_tc
+        # kp_err: rad of position error that saturates the torque limit, replacing KP_ERR (0.1). kp = tau_max / kp_err, so
+        # the larger rev 3 modules give 1.7-2.4x the rev 2 servo stiffness at the same 0.1; 0.2 brings rev 3 near rev 2
+        # (stage 1a, a 13 Hz policy-body rocking at zero command). The servo gains are a controller setting, not hardware.
+        self.kp_err = KP_ERR if kp_err is None else float(kp_err)
+        # action_lpf: cutoff (Hz) of a first-order low-pass on the policy action before the PD target, inside the training
+        # loop; the observed last action and the action_rate term see the filtered action. None = off (unchanged). Stage 1a:
+        # the zero-command policies sustain a 13 Hz policy-body rocking that stops when the action is frozen.
+        self.action_alpha = None if action_lpf is None else 1.-np.exp(-2*np.pi*float(action_lpf)*CONTROL_DT)
         # terrain: {"kinds": {kind: weight}, "max_level": L, "vmax": m/s, "size": m}. Each reset draws a kind (terrain.py)
         # and a level U(0, L) (U(lo, L) with "level_min": {kind: lo}; "gait_free": [ahead, height] drops the gait term near edges, see near_edge) and rebuilds the model when the ground changes. Off flat ground the command is straight
         # (no lateral/yaw) at U(0, vmax), the episode is truncated before the robot leaves the terrain, and heights
@@ -343,6 +351,13 @@ class RunEnv(RaptorEnv):
         self.scan_dx = np.asarray(obs_scan['dx'], float) if obs_scan else np.zeros(0)
         self.scan_rng = np.random.default_rng(None if seed is None else seed+7919)
         self.scan_buf, self.scan_key, self.scan_bias = [], None, 0.
+        # obs_hold: {"noise": m, "walk": m/sqrt(s)} (stage 1a position hold). Appends the base offset from the hold anchor
+        # (where a fully zero command began) in the current heading frame, clipped to +-1 m, and the heading change (rad,
+        # clipped to +-1): a leg / visual odometry estimate with Gaussian noise per reading and a random-walk drift per
+        # episode (ASSUMED values, no measured estimator). Zero while the command is nonzero. None keeps the observation.
+        self.obs_hold = obs_hold
+        self.hold_rng = np.random.default_rng(None if seed is None else seed+104729)
+        self.hold_walk, self.hold_key, self.hold_val = np.zeros(3), None, np.zeros(3)
         if terrain:
             tr.SIZE = float(terrain.get('size', 40.))
         # couple_ankle: horse-style reciprocal apparatus. Each ankle pitch joint follows its knee 1:1 through a joint
@@ -390,11 +405,11 @@ class RunEnv(RaptorEnv):
                     spec[i] = (MOTOR_CLASSES[cls][0]*gear*self.link_eta.get(jt, LINK_ETA), MOTOR_CLASSES[cls][1]/gear, MOTOR_CLASSES[cls][2])
         self.tau_nom, self.v_max, self.p_max = spec[:, 0].copy(), spec[:, 1].copy(), spec[:, 2].copy()
         self.tau_max = self.tau_nom.copy()
-        self.kp = self.tau_nom/KP_ERR
+        self.kp = self.tau_nom/self.kp_err
         self.kd = self.kp/KD_POLE
         n, na = len(self.active), len(self.policy_idx)
         self.rng = np.random.default_rng(seed)
-        self.observation_space = gym.spaces.Box(-np.inf, np.inf, (11+3*(self.obs_vel)+2*n+na+2*self.obs_contact+len(self.scan_dx),),
+        self.observation_space = gym.spaces.Box(-np.inf, np.inf, (11+3*(self.obs_vel)+2*n+na+2*self.obs_contact+len(self.scan_dx)+3*bool(obs_hold),),
                                                 np.float32)
         self.action_space = gym.spaces.Box(-1., 1., (na,), np.float32)
         # realism (opt-in, 2026-10-29): motor current/voltage/thermal limits, friction, backlash, delays, sensor noise,
@@ -634,6 +649,8 @@ class RunEnv(RaptorEnv):
         self.sym_ema = None
         self.leg_scores = {side: dict(fold=0., extend=0., retract=0.) for side in ('left', 'right')}
         self.command = self._sample_command()
+        self.hold_anchor = None  # (xy, yaw) of the base when a fully zero command began (optional `hold` term, obs_hold)
+        self.hold_walk, self.hold_key = np.zeros(3), None
         self.phase = float(self.rng.random()) if self.randomize else float(init_rng.random()) if init_rng is not None else 0.
         self.push_at = self.rng.uniform(3., 8.)
         self.events = []
@@ -750,7 +767,39 @@ class RunEnv(RaptorEnv):
             parts.append([float(self.loaded['left']),float(self.loaded['right'])])
         if self.obs_scan:
             parts.append(s['scan'])
+        if self.obs_hold:
+            parts.append(self._hold_obs())
         return np.concatenate(parts).astype(np.float32)
+
+    def _anchor(self):
+        """Hold anchor (xy, yaw) and the current base (xy, yaw); the anchor is set when a fully zero command begins and
+        cleared while it is nonzero (returns None then)."""
+        d = self.data
+        R = d.xmat[self.base].reshape(3, 3)
+        yaw = np.arctan2(R[1, 0], R[0, 0])
+        if not np.all(self.command == 0.):
+            self.hold_anchor = None
+            return None
+        if self.hold_anchor is None:
+            self.hold_anchor = (d.xpos[self.base][:2].copy(), yaw)
+        return self.hold_anchor, (d.xpos[self.base][:2].copy(), yaw)
+
+    def _hold_obs(self):
+        """obs_hold reading, one per control step (later calls in the same step return the same reading)."""
+        if self.hold_key == self.steps:
+            return self.hold_val
+        cfg, a = self.obs_hold, self._anchor()
+        self.hold_walk += self.hold_rng.normal(0, cfg.get('walk', 0.)*np.sqrt(CONTROL_DT), 3)
+        if a is None:
+            v = np.zeros(3)
+        else:
+            (xy0, yaw0), (xy, yaw) = a
+            c, s_ = np.cos(yaw), np.sin(yaw)
+            dx, dy = xy-xy0
+            v = np.array([c*dx+s_*dy, -s_*dx+c*dy, (yaw-yaw0+np.pi) % (2*np.pi)-np.pi])
+            v = np.clip(v+self.hold_walk+self.hold_rng.normal(0, cfg.get('noise', 0.), 3), -1., 1.)
+        self.hold_key, self.hold_val = self.steps, v
+        return v
 
     # --- virtual actuator ----------------------------------------------------------------------
     def _clamp(self):
@@ -934,6 +983,8 @@ class RunEnv(RaptorEnv):
     def step(self, action):
         m, d = self.model, self.data
         action = np.clip(np.asarray(action, float), -1, 1)
+        if self.action_alpha is not None:
+            action = self.last_action+self.action_alpha*(action-self.last_action)
         target = self.q0.copy()
         target[self.policy_idx] = np.clip(self.q0[self.policy_idx]+self.scale[self.policy_idx]*action,
                                           self.lo[self.policy_idx], self.hi[self.policy_idx])
@@ -1079,7 +1130,7 @@ class RunEnv(RaptorEnv):
         terms['joint_acc'] = np.sum(((qd-self.prev_qd)/CONTROL_DT)**2)
         terms['cot'] = power/(W*max(abs(cx), 1.))
         terms['ang_mom'] = L[1]**2+L[2]**2
-        air_reward, slip, grf = 0., 0., 0.
+        air_reward, slip, grf, slip_lin = 0., 0., 0., 0.
         moving = cx > .05
         loaded_now = {}
         for s in feet:
@@ -1097,7 +1148,9 @@ class RunEnv(RaptorEnv):
                     if self.air[s] > 0 and moving:
                         air_reward += min(self.air[s], .35)-.12  # reward swings of 0.12..0.35 s
                 self.air[s] = 0.
-                slip += np.sum(self.body_velocity(self.foot_body[s], local=False)[1][:2]**2)
+                v_foot = self.body_velocity(self.foot_body[s], local=False)[1][:2]
+                slip += np.sum(v_foot**2)
+                slip_lin += float(np.linalg.norm(v_foot))
             else:
                 if self.loaded[s] and self.stance_peak[s] > 0:  # lift-off
                     self.peaks.append(self.stance_peak[s])
@@ -1117,9 +1170,24 @@ class RunEnv(RaptorEnv):
             # In-place turning and lateral motion retain their original rewards.
             terms['stand_support'] = (sum(not v for v in loaded_now.values())/len(loaded_now)
                                       if np.all(self.command == 0.) else 0.)
+        if 'hold' in self.weights:
+            # Optional stand-in-place objective (stage 1a, docs/STAGED_PLAN.ko.md): at a fully zero command, distance of
+            # the base from where it stood when the zero command began (m, capped at 1) plus heading change (rad, capped
+            # at 1). The exp tracking terms tolerate about 0.1 m/s and 0.1 rad/s, i.e. 3 m and 3 rad in 30 s (r3_s1).
+            a = self._anchor()
+            if a is not None:
+                (xy0, yaw0), (xy, yaw) = a
+                terms['hold'] = (min(float(np.linalg.norm(xy-xy0)), 1.)
+                                 + min(abs(float((yaw-yaw0+np.pi) % (2*np.pi)-np.pi)), 1.))
+            else:
+                terms['hold'] = 0.
         terms['air_time'] = air_reward/CONTROL_DT if moving else 0.
         terms['grf'] = grf
         terms['slip'] = slip
+        if 'slip_lin' in self.weights:
+            # Optional linear stance-foot slip (m/s): the squared `slip` is ~1e-3 at the 0.03 m/s creep of the stage-1a
+            # stand policies (r3_s1hs5: 40 % of floor contacts at the friction limit, feet sliding about 1 m in 30 s).
+            terms['slip_lin'] = slip_lin
         terms['collision'] = float(body_hit)
         if 'self_collision' in self.weights:
             terms['self_collision'] = float(self.self_contacts() > 0)
