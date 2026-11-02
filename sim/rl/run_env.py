@@ -679,6 +679,8 @@ class RunEnv(RaptorEnv):
     def _drop(self):
         """getup: place the robot in a fallen pose (mode drawn from getup["modes"]) and settle 1 s, joints held."""
         m, d, rng = self.model, self.data, self.rng
+        if self.getup.get('start_seed') is not None:  # one fixed fallen start (feasibility probe, not the gate)
+            rng = np.random.default_rng(self.getup['start_seed'])
         modes = self.getup['modes']
         self.getup_mode = mode = rng.choice(list(modes), p=np.array(list(modes.values()))/sum(modes.values()))
         if mode == 'fall':

@@ -31,12 +31,13 @@ from train_run import env_kwargs  # noqa: E402
 K, DT, TAIL_S = 4, .6, 1.5
 ORIENT = {'sit': (0., 0.), 'side': (np.pi/2, 0.), 'back': (np.pi, 0.)}
 _env = None
+OVERRIDE = {}  # --override: RunEnv keyword overrides for a mechanism variant (e.g. a wider hip roll band)
 
 
 def make():
     a = json.loads((ROOT/'sim/rl/runs/r3_s1ho/args.json').read_text())
     kw = {**env_kwargs(a), 'disturb_items': [], 'roll_impulse': None, 'yaw_impulse': None, 'cmd_max': [0., 0., 0.],
-          'init_speed': False, 'action_lpf': None}
+          'init_speed': False, 'action_lpf': None, **OVERRIDE}
     return RunEnv(**kw, randomize=False, seed=1)
 
 
@@ -90,8 +91,9 @@ def rollout(e, mode, seed, x, trace=False):
     return best, reached, log
 
 
-def _init():
-    global _env
+def _init(override=None):
+    global _env, OVERRIDE
+    OVERRIDE = override or {}
     _env = make()
 
 
@@ -107,13 +109,16 @@ def main():
     ap.add_argument('--iters', type=int, default=20)
     ap.add_argument('--pop', type=int, default=64)
     ap.add_argument('--procs', type=int, default=3)
+    ap.add_argument('--override', help='JSON RunEnv overrides, e.g. {"scale_override": {"hip_roll": 1.0}, "range_override": {"hip_roll": 1.0}}')
+    ap.add_argument('--tag', default='', help='suffix of the output file')
     a = ap.parse_args()
+    override = json.loads(a.override) if a.override else {}
     rng = np.random.default_rng(0)
     n = K*10
     mu, sd = np.zeros(n), np.full(n, .7)
     seeds = [11, 12, 13]  # three fallen starts per candidate (robust, not one lucky start)
     hist = []
-    with Pool(a.procs, initializer=_init) as pool:
+    with Pool(a.procs, initializer=_init, initargs=(override,)) as pool:
         for it in range(a.iters):
             X = np.clip(mu+sd*rng.standard_normal((a.pop, n)), -1, 1)
             res = pool.map(_eval, [(a.mode, seeds, x) for x in X])
@@ -125,8 +130,8 @@ def main():
         best = X[int(np.argmax(sc))]
         # held-out starts
         test = pool.map(_eval, [(a.mode, [s], mu) for s in range(100, 120)])
-    out = dict(mode=a.mode, hist=hist, mu=mu.round(4).tolist(), heldout_handoff=sum(t for _, t in test), heldout_n=len(test))
-    (OUT/f'eval/search_{a.mode}.json').write_text(json.dumps(out))
+    out = dict(mode=a.mode, override=override, hist=hist, mu=mu.round(4).tolist(), heldout_handoff=sum(t for _, t in test), heldout_n=len(test))
+    (OUT/f'eval/search_{a.mode}{a.tag}.json').write_text(json.dumps(out))
     print(json.dumps({k: out[k] for k in ('mode', 'heldout_handoff', 'heldout_n')}))
 
 
