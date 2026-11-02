@@ -139,7 +139,8 @@ def env_kwargs(a):
                 gait_duty_min=g('gait_duty_min'), contact_tc=g('contact_tc'), kp_err=g('kp_err'), action_lpf=g('action_lpf'),
                 terrain=json.loads(a['terrain']) if g('terrain') else None,
                 obs_scan=json.loads(a['obs_scan']) if g('obs_scan') else None,
-                obs_hold=json.loads(a['obs_hold']) if g('obs_hold') else None)
+                obs_hold=json.loads(a['obs_hold']) if g('obs_hold') else None,
+                getup=json.loads(a['getup']) if g('getup') else None)
 
 
 def main():
@@ -192,6 +193,8 @@ def main():
                    'with zero weights (the policy acts as before) and normalisation mean 0, std --scan-std')
     p.add_argument('--obs-hold', help='JSON {"noise": m, "walk": m/sqrt(s)}: odometry offset from the zero-command hold anchor '
                    '(x, y, heading) appended after the scan (run_env.py); with --init from a policy without it, as --obs-scan')
+    p.add_argument('--getup', help='JSON {"modes": {"sit"|"side"|"back"|"easy": weight}, "hold_s": s, "weights": {}}: stage 1b '
+                   'episodes start fallen, get-up reward (run_env.py _drop, _getup_reward)')
     p.add_argument('--scan-std', type=float, default=.15, help='frozen normalisation std (m) of the new scan / hold inputs')
     p.add_argument('--terrain', help='JSON {"kinds": {kind: weight}, "max_level": L, "vmax": m/s, "size": m}: terrain drawn per episode (run_env.py)')
     p.add_argument('--realism', help='realism config JSON path for RunEnv(realism=...) (realism.py, docs/SIM_REALISM.ko.md); omitted = off')

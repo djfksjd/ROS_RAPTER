@@ -78,6 +78,8 @@
 
 2026-10-31 1단계 1a 서기 합격(`sim/rl/stage_gates.py stand`): `r3_s1`(30초 3.77 m) → 보상 `hold`·`stand_support`·`slip_lin`·`action_rate`, `--kp-err 0.2`, `--action-lpf 6`(13 Hz 폐루프 흔들림·지지발 미끄럼 해소) → `r3_s1lp2` 0.99 m → `--obs-hold`(주행 거리계 가정 위치 오차 입력) `r3_s1ho` 0.33 m, 무작위화 0/24, 밀기 0.3–0.8 m/s 0/96. 입력 0이면 1.44 m라 실물은 위치 추정기 필요. 다음: 1b 일어나기. [증거 188](evidence/188-stage1a-stand/README.md).
 
+2026-11-02 1단계 1b 일어서기 진행 중·불합격(`stage_gates.py getup`): 시작 자세 버그(무릎 래칫 스프링이 접힌 다리를 펴며 로봇을 던짐, 발가락 0 초기화, 공중에서 속도 0) 때문에 `r3_g1`·`g2` 무효. 수정 뒤 `r3_g3`·`g4` 0/60. 넘어짐 역방향 커리큘럼(`getup.modes.fall`, `fall_t` 0.6→2.5 s, 학습 전용 `leak`, `obs_hold` 기준점 추적) `r3_gfa`→`gfd`: 넘어지는 중(0.3–0.8 rad) 회복은 늘었으나 바닥(0.8 rad 이상) 0/80, 1b 시험 앉은 1/20·옆 0/20·뒤 0/20. R-03 모델 점검 그림(다리 92 cm, 꼬리 98 cm, 고관절 roll 링크 6.0 kg). 다음: 바닥 자세 전용 학습(탐색이 찾은 뒤집기 시연), 안 되면 기구·범위 결정을 사용자에게 보고. [증거 189](evidence/189-stage1b-getup-feasibility/README.md).
+
 이 파일을 먼저 읽고, git status와 해당 단계의 증거만 확인한다. 비밀값 기록 금지.
 
 

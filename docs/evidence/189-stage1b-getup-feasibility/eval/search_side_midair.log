@@ -1,0 +1,26 @@
+{"iter": 0, "best": 0.85, "mean": 0.694, "handoff_max": 0}
+{"iter": 1, "best": 0.882, "mean": 0.683, "handoff_max": 0}
+{"iter": 2, "best": 0.841, "mean": 0.692, "handoff_max": 0}
+{"iter": 3, "best": 0.901, "mean": 0.699, "handoff_max": 0}
+{"iter": 4, "best": 0.897, "mean": 0.737, "handoff_max": 0}
+{"iter": 5, "best": 0.859, "mean": 0.771, "handoff_max": 0}
+{"iter": 6, "best": 0.878, "mean": 0.808, "handoff_max": 0}
+{"iter": 7, "best": 0.928, "mean": 0.844, "handoff_max": 0}
+{"iter": 8, "best": 0.925, "mean": 0.868, "handoff_max": 0}
+{"iter": 9, "best": 0.94, "mean": 0.889, "handoff_max": 0}
+{"iter": 10, "best": 0.953, "mean": 0.904, "handoff_max": 0}
+{"iter": 11, "best": 0.942, "mean": 0.903, "handoff_max": 0}
+{"iter": 12, "best": 0.953, "mean": 0.904, "handoff_max": 0}
+{"iter": 13, "best": 0.954, "mean": 0.904, "handoff_max": 0}
+{"iter": 14, "best": 0.958, "mean": 0.916, "handoff_max": 0}
+{"iter": 15, "best": 0.953, "mean": 0.913, "handoff_max": 0}
+{"iter": 16, "best": 0.96, "mean": 0.914, "handoff_max": 0}
+{"iter": 17, "best": 0.965, "mean": 0.923, "handoff_max": 0}
+{"iter": 18, "best": 0.962, "mean": 0.929, "handoff_max": 0}
+{"iter": 19, "best": 0.97, "mean": 0.931, "handoff_max": 0}
+{"iter": 20, "best": 0.968, "mean": 0.923, "handoff_max": 0}
+{"iter": 21, "best": 0.97, "mean": 0.922, "handoff_max": 0}
+{"iter": 22, "best": 0.977, "mean": 0.924, "handoff_max": 0}
+{"iter": 23, "best": 0.971, "mean": 0.92, "handoff_max": 0}
+{"iter": 24, "best": 0.973, "mean": 0.921, "handoff_max": 0}
+{"mode": "side", "heldout_handoff": 0, "heldout_n": 20}
