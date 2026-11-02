@@ -63,6 +63,16 @@ class GetupTest(unittest.TestCase):
         self.assertIsNone(e.hold_anchor)  # not standing: the hold place follows the robot
         self.assertFalse(info['getup']['standing'])
 
+    def test_fixed_start_seed(self):
+        from run_env import RunEnv
+        e = RunEnv(**KW, getup={'modes': {'side': 1.}, 'start_seed': 7000})
+        poses = []
+        for seed in range(3):
+            e.reset(seed=seed)
+            poses.append(e.data.qpos[:7].copy())
+        for p in poses[1:]:  # the same fallen start whatever the episode seed
+            np.testing.assert_allclose(p, poses[0], atol=1e-9)
+
 
 if __name__ == '__main__':
     unittest.main()
