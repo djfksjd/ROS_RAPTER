@@ -60,6 +60,8 @@ NOMINAL_T1 = (-.375, 1.50, -1.652)
 SPRINGS = {'none': {},
            'b': {'ankle_pitch': (130., -1.215, 'uni-')},
            'c': {'hip_pitch': (295., .041, 'uni+'), 'knee_pitch': (90., 1.395, 'bi'), 'ankle_pitch': (130., -1.215, 'uni-')}}
+# stage 1b getup reward (RecoverEnv v3 values: level terms, height only on a loaded foot, airborne penalised)
+GETUP_WEIGHTS = dict(height=2., upright=2., standing=5., airborne=-3., torque=-1e-5, action_rate=-.05, joint_limit=-2., ang_vel=-.1)
 KP_ERR = .1       # rad of position error that saturates the torque limit (kp = tau_max / KP_ERR)
 KD_POLE = 45.     # 1/s, kd = kp / KD_POLE
 SCALE_RUN = {'hip_roll': .3, 'hip_yaw': .3, 'hip_pitch': 1., 'knee_pitch': 1., 'ankle_pitch': 1., 'ankle_roll': .3,
@@ -265,7 +267,7 @@ class RunEnv(RaptorEnv):
                  target_ramp=False, obs_contact=False, model_rev=1, latch_fallback=None, friction_dr=None,
                  self_collision=None, knee_band=None, start_contact=None, armature=None, heat_limit=1., roll_impulse=None, init_noise=.02,
                  realism=None, scale_override=None, range_override=None, gait_duty_min=None,
-                 contact_tc=None, terrain=None, obs_scan=None, rev3_config=None, kp_err=None, action_lpf=None, obs_hold=None):
+                 contact_tc=None, terrain=None, obs_scan=None, rev3_config=None, kp_err=None, action_lpf=None, obs_hold=None, getup=None):
         self.mass, self.spring_set, self.tail = float(mass), springs, tail
         rev2 = int(model_rev) >= 2
         # model rev 3: R-03 MJCF (hip yaw) + rev3_b.json (modules, transmissions, four-bar, drive masses); implies arch8
@@ -358,6 +360,13 @@ class RunEnv(RaptorEnv):
         self.obs_hold = obs_hold
         self.hold_rng = np.random.default_rng(None if seed is None else seed+104729)
         self.hold_walk, self.hold_key, self.hold_val = np.zeros(3), None, np.zeros(3)
+        # getup (stage 1b): {"modes": {"sit"|"side"|"back"|"easy": weight}, "hold_s": s, "weights": {...}}. Each episode
+        # starts fallen (see _drop): the robot is placed in the mode's orientation with random joints and settles 1 s with
+        # the joints held; "easy" is a crouch at 0.3-0.9 rad tilt. The usual physics step (realism, action filter) runs,
+        # but the reward is GETUP_WEIGHTS (RecoverEnv v3 terms), torso/body contact does not end the episode, and the
+        # episode ends with +10 once the stand state (tilt < 0.3 rad, base above 0.8 of the nominal height, both feet
+        # loaded > 15 % of the weight, base speed < 0.5 m/s) has held `hold_s`. None keeps the earlier behaviour.
+        self.getup = getup
         if terrain:
             tr.SIZE = float(terrain.get('size', 40.))
         # couple_ankle: horse-style reciprocal apparatus. Each ankle pitch joint follows its knee 1:1 through a joint
@@ -661,7 +670,118 @@ class RunEnv(RaptorEnv):
             d.qvel[0] += init_rng.uniform(0., .5)
         if self.rz is not None:
             self.rz.reset(self)
+        if self.getup:
+            self._drop()
+            if self.rz is not None:
+                self.rz.reset(self)  # sensor buffers and motor states from the fallen pose
         return self._observe(), {}
+
+    def _drop(self):
+        """getup: place the robot in a fallen pose (mode drawn from getup["modes"]) and settle 1 s, joints held."""
+        m, d, rng = self.model, self.data, self.rng
+        modes = self.getup['modes']
+        self.getup_mode = mode = rng.choice(list(modes), p=np.array(list(modes.values()))/sum(modes.values()))
+        if mode == 'fall':
+            return self._fall()
+        if mode == 'easy':
+            a = rng.uniform(.3, .9)*rng.choice([-1, 1])
+            roll, pitch = (a, 0.) if rng.random() < .5 else (0., a)
+        else:
+            roll, pitch = {'sit': (0., 0.), 'side': (rng.choice([-1, 1])*np.pi/2, 0.), 'back': (np.pi, 0.)}[mode]
+            roll, pitch = roll+rng.normal(0, .1), pitch+rng.normal(0, .1)
+        q = np.zeros(4)
+        mujoco.mju_euler2Quat(q, np.array([roll, pitch, rng.uniform(-np.pi, np.pi)]), 'xyz')
+        nominal = d.qpos.copy()  # passive toe and tail joints at their reset pose (zeroed toes snapped and kicked the floor)
+        mujoco.mj_resetData(m, d)
+        d.qpos[:] = nominal
+        d.qpos[3:7] = q
+        joints = self.q0+rng.uniform(-.3, .3, len(self.q0))*np.array([1. if 'pitch' in n else .3 for n in self.active])
+        for s_ in ('left', 'right'):
+            ik, ia = self.active.index(f'{s_}_knee_pitch_joint'), self.active.index(f'{s_}_ankle_pitch_joint')
+            if mode in ('sit', 'easy'):  # legs folded under the body
+                joints[ik] = rng.uniform(1.6, 2.2) if mode == 'sit' else rng.uniform(1.1, 1.8)
+                joints[self.active.index(f'{s_}_hip_pitch_joint')] = rng.uniform(-1.4, -.8)
+            if self.couple_ankle:  # on the knee coupling (ankle = c - knee, c from the reset pose); independent noise
+                joints[ia] = nominal[self.q_adr[ia]]+nominal[self.q_adr[ik]]-joints[ik]  # violated it and snapped
+        d.qpos[self.q_adr] = np.clip(joints, self.lo, self.hi)
+        d.qpos[2] = .05
+        mujoco.mj_forward(m, d)
+        ground = lambda: any(m.geom_bodyid[c.geom1] == 0 or m.geom_bodyid[c.geom2] == 0 for c in d.contact[:d.ncon])
+        while ground() and d.qpos[2] < 2.:  # raise until nothing touches the ground (self-contacts ignored), drop 1 cm
+            d.qpos[2] += .005
+            mujoco.mj_forward(m, d)
+        d.qpos[2] += .01
+        d.ctrl[self.act] = d.qpos[self.q_adr]
+        for (s_, joint), (engaged, _) in self.spring_engage.items():  # pawl lifted while settling: the last episode's
+            if engaged == 'ratchet':  # rest angle on a folded knee (500 N·m/rad) threw the robot up; step() re-arms it
+                m.tendon_stiffness[m.tendon(f'spring_{s_}_{joint}').id] = 0.  # at zero deflection
+        mujoco.mj_forward(m, d)
+        # settle with the targets held until at rest on the ground (at least 0.3 s, at most 3 s); a fixed 0.3-1 s settle
+        # zeroed the velocity in mid-air when the robot had been thrown up (bz up to 1.2 m)
+        for k in range(int(3./PHYSICS_DT)):
+            self._clamp(); mujoco.mj_step(m, d)
+            if k*PHYSICS_DT >= .3 and ground() and (mode == 'easy' or np.abs(d.qvel).max() < .05):
+                break  # easy: hand over after 0.3 s on the ground (a held tilted crouch topples if left to rest)
+        pi = self.policy_idx  # the action filter and target ramp start from the settled pose
+        self.last_action = np.clip((d.qpos[self.q_adr][pi]-self.q0[pi])/self.scale[pi], -1, 1)
+        self.ctrl_prev = d.qpos[self.q_adr].copy()
+        self.prev_qd = d.qvel[self.v_adr].copy()
+        self.ratchet, self.spring_was_on, self.stance_seen = {}, {}, {}
+        self.getup_count, self.getup_pot = 0, None
+
+    def _fall(self):
+        """getup mode 'fall' (reverse curriculum over a fall): from the standing reset pose, the base is kicked
+        horizontally (getup["fall_v"] m/s, random direction) and falls with the joints held; the policy takes over
+        after a time drawn from U(0, getup["fall_t"]) s, velocities kept. Small fall_t: still on the feet; large: lying."""
+        m, d, rng = self.model, self.data, self.rng
+        for (s_, joint), (engaged, _) in self.spring_engage.items():  # pawl lifted while falling (step re-arms it)
+            if engaged == 'ratchet':
+                m.tendon_stiffness[m.tendon(f'spring_{s_}_{joint}').id] = 0.
+        lo, hi = self.getup.get('fall_v', [1., 2.5])
+        a = rng.uniform(-np.pi, np.pi)
+        d.qvel[:2] += rng.uniform(lo, hi)*np.array([np.cos(a), np.sin(a)])
+        d.ctrl[self.act] = d.qpos[self.q_adr]
+        for _ in range(int(rng.uniform(0., self.getup.get('fall_t', 1.))/PHYSICS_DT)):
+            self._clamp(); mujoco.mj_step(m, d)
+        pi = self.policy_idx
+        self.last_action = np.clip((d.qpos[self.q_adr][pi]-self.q0[pi])/self.scale[pi], -1, 1)
+        self.ctrl_prev = d.qpos[self.q_adr].copy()
+        self.prev_qd = d.qvel[self.v_adr].copy()
+        self.ratchet, self.spring_was_on, self.stance_seen = {}, {}, {}
+        self.getup_count, self.getup_pot = 0, None
+
+    def _getup_reward(self, action, tilt, bz, feet, qd, torque_sq):
+        """getup reward (RecoverEnv v3 terms, height paid only while a foot is loaded), done flag and stand state."""
+        d = self.data
+        h_stand = self.h_nom+.03
+        W = self.weight
+        speed = float(np.linalg.norm(d.qvel[:3]))
+        loaded = [feet[s_] > .15*W for s_ in feet]
+        standing = tilt < .3 and bz > .8*h_stand and all(loaded) and speed < .5
+        # getup["leak"] (training only): a step out of the stand state takes `leak` steps off the hold count instead of
+        # resetting it. Under exploration noise a foot's load dipping below 15 % for one step reset the strict count, and
+        # no episode reached 1 s (r3_gfa: 0 successes while standing 60 % of the steps). The gate keeps the strict count.
+        leak = self.getup.get('leak')
+        self.getup_count = self.getup_count+1 if standing else (max(0, self.getup_count-leak) if leak else 0)
+        if not standing:  # obs_hold: the hold place is where it stands up; an anchor left at the fall start made the
+            self.hold_anchor = None  # stand-policy init walk back to it (1.4-1.8 m/s) and never hold still for 1 s
+        q = d.qpos[self.q_adr]
+        margin, mid = .9*(self.hi-self.lo)/2, (self.hi+self.lo)/2
+        # potential: the level terms as a state function; its change pays progress but nothing for resting (r3_g1 learned
+        # to rest at 1.2 rad tilt on the level terms)
+        pot = (1+np.cos(tilt))+2*float(np.clip(bz/h_stand, 0, 1))*float(any(loaded))
+        d_pot = 0. if self.getup_pot is None else (pot-self.getup_pot)/CONTROL_DT
+        self.getup_pot = pot
+        terms = {'potential': d_pot, 'height': float(np.clip(bz/h_stand, 0, 1))*float(any(loaded)), 'upright': (1+np.cos(tilt))/2,
+                 'standing': float(standing), 'airborne': float(d.ncon == 0), 'torque': torque_sq,
+                 'action_rate': float(np.sum((action-self.last_action)**2)), 'ang_vel': float(np.sum(d.qvel[3:6]**2)),
+                 'joint_limit': float(np.sum(np.clip(np.abs(q-mid)-margin, 0, None)))}
+        w = {**GETUP_WEIGHTS, **self.getup.get('weights', {})}
+        reward = CONTROL_DT*sum(w[k]*v for k, v in terms.items() if k in w)
+        success = self.getup_count >= int(self.getup.get('hold_s', 1.)/CONTROL_DT)
+        bad = not np.isfinite(d.qpos).all()
+        reward += 10.*success-10.*bad
+        return reward, success or bad, dict(terms=terms, standing=standing, success=success, mode=self.getup_mode)
 
     def _ratchet_arm(self, st, q):
         """Drop the pawl at joint angle q: rest angle = next tooth at or above q (zero deflection, no stored energy)."""
@@ -1214,6 +1334,14 @@ class RunEnv(RaptorEnv):
         reward = CONTROL_DT*sum(self.weights[k]*v for k, v in terms.items())
 
         tilt = np.arccos(np.clip(-grav[2], -1, 1))
+        if self.getup:
+            reward, done, gu = self._getup_reward(action, tilt, bz, feet, qd, torque_sq)
+            self.last_action, self.prev_qd = action, qd.copy()
+            info = {'terms': gu['terms'], 'tilt': tilt, 'v_body': v_body, 'command': self.command.copy(), 'kind': self.kind,
+                    'x': d.xpos[self.base][0], 'getup': gu}
+            if self.rz is not None:
+                info['realism'] = self.rz.info()
+            return self._observe(), float(reward), bool(done), bool(self.steps >= self.episode_steps), info
         fallen = (body_hit or tilt > .8 or bz < .5*self.h_nom or not np.isfinite(d.qpos).all()
                   or np.abs(v_body).max() > 30.)
         if fallen:

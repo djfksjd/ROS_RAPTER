@@ -1,0 +1,1 @@
+{"segments_m": {"thigh (hip-knee)": 0.22, "shin (knee-ankle)": 0.38, "metatarsus (ankle-foot)": 0.32}, "torso_m": 0.54, "tail_m": 0.98, "mass_kg": 15.1, "parts_kg": {"torso (base)": 2.55, "hip roll links (2, incl. motors)": 6.02, "thighs (2)": 3.6, "shins + feet + toes (2)": 0.77, "tail (yaw link + tail)": 2.15}, "base_h": 0.855, "hip_h": 0.825}

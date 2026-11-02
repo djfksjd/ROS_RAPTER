@@ -8,8 +8,14 @@ stand (stage 1): zero command, the run's realism and model options, no training 
   hold_dr  30 s, randomize on (domain randomisation of the run, realism draws) but no pushes or impulses, 24 seeds
   push     base velocity kick dv (m/s) at t = 5 s toward front / back / left / right (body frame), 10 s total, randomize
            off, 8 seeds per direction and size
+getup (stage 1b): the run is a get-up policy (train_run.py --getup). Per start mode (sit, side, back) 20 fallen starts
+           (randomize off): the get-up policy runs until the stand state has held 1 s without a break (success; a training
+           `leak` is switched off) or 10 s pass, then the
+           stand policy (--stand RUN_DIR, stage 1a) takes over for 10 s at a zero command: time to stand, falls after
+           the handoff, hottest winding
 Fall = the env's termination (tilt, body contact, low hip). Pass rules are in the plan; this script only measures.
 Usage: .venv-sim/bin/python sim/rl/stage_gates.py RUN_DIR stand [--quick]
+       .venv-sim/bin/python sim/rl/stage_gates.py RUN_DIR getup --stand sim/rl/runs/r3_s1ho [--quick]
 """
 import argparse
 import json
@@ -71,7 +77,54 @@ def stand(d, quick=False):
             yield summary('push', [rollout(d, 6200+i, 10., False, kick=v) for i in range(n3)], dir=name, dv=dv)
 
 
-GATES = {'stand': stand}
+def getup_rollout(d, stand_dir, mode, seed, t_get=10., t_stand=10.):
+    a = json.loads((d/'args.json').read_text())
+    g = json.loads(a['getup'])
+    kw = {**env_kwargs(a), 'level': 0., 'episode_s': t_get+t_stand+5., 'disturb_items': [], 'roll_impulse': None,
+          'yaw_impulse': None, 'cmd_max': [0., 0., 0.], 'init_speed': False, 'getup': {**g, 'modes': {mode: 1.}, 'leak': None}}
+    env = RunEnv(**kw, randomize=False, seed=seed)
+    env.init_seed = seed
+    model, venv = load(str(d/'model.zip'), env)
+    stand, svenv = load(str(stand_dir/'model.zip'), env)
+    venv.reset()
+    obs = venv.normalize_obs(env._obs()[None])
+    t_up, fell, t_hot, k = None, None, 0., 0
+    for k in range(int(t_get/.02)):
+        raw, _, term, _, info = env.step(model.predict(obs, deterministic=True)[0][0])
+        obs = venv.normalize_obs(raw[None])
+        if env.rz is not None and env.rz.on.get('thermal'):
+            t_hot = max(t_hot, float(np.max(env.rz.thermal.t_w)))
+        if info['getup']['success']:
+            t_up = round((k+1)*.02, 2)
+            break
+        if term:
+            break
+    if t_up is not None:
+        env.getup, env.hold_anchor = None, None  # handoff: stage 1a stand policy, zero command
+        env.command = np.zeros(3); env.resample_steps = 10**9
+        obs = svenv.normalize_obs(env._obs()[None])
+        for j in range(int(t_stand/.02)):
+            raw, _, term, _, _ = env.step(stand.predict(obs, deterministic=True)[0][0])
+            obs = svenv.normalize_obs(raw[None])
+            if env.rz is not None and env.rz.on.get('thermal'):
+                t_hot = max(t_hot, float(np.max(env.rz.thermal.t_w)))
+            if term:
+                fell = round((j+1)*.02, 2)
+                break
+    return dict(seed=seed, t_up=t_up, fell_after=fell, t_winding_max_c=round(t_hot, 1))
+
+
+def getup(d, quick=False, stand_dir=None):
+    n = 3 if quick else 20
+    for mode in ('sit', 'side', 'back'):
+        rows = [getup_rollout(d, stand_dir, mode, 7000+i) for i in range(n)]
+        ok = [r for r in rows if r['t_up'] is not None]
+        yield dict(cond='getup', mode=mode, n=n, success=len(ok), falls_after=sum(r['fell_after'] is not None for r in ok),
+                   t_up_max_s=max((r['t_up'] for r in ok), default=None),
+                   t_winding_max_c=max(r['t_winding_max_c'] for r in rows), episodes=rows)
+
+
+GATES = {'stand': stand, 'getup': getup}
 
 
 def main():
@@ -79,9 +132,10 @@ def main():
     ap.add_argument('run')
     ap.add_argument('gate', choices=list(GATES))
     ap.add_argument('--quick', action='store_true')
+    ap.add_argument('--stand', help='stage 1a stand policy run directory (getup gate handoff)')
     a = ap.parse_args()
     d = Path(a.run)
-    for row in GATES[a.gate](d, a.quick):
+    for row in (GATES[a.gate](d, a.quick, Path(a.stand)) if a.gate == 'getup' else GATES[a.gate](d, a.quick)):
         print(json.dumps({'run': d.name, 'gate': a.gate, **row}), flush=True)
 
 
