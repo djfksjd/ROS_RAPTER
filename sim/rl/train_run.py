@@ -93,23 +93,29 @@ def make(kw, seed, cls=RunEnv):
 
 
 def widen_command_inputs(env, model, cmd_max):
-    """A policy trained at a zero command only (stage 1a) has a zero-variance normalisation of the command inputs
-    (obs 6-8, RunEnv._compose scales the command by 0.1, 2, 0.5). Continued with commands and a frozen normalisation
-    (--symmetric) every non-zero command became +-10 after clipping and the walking run l80_w1 collapsed in its first
-    updates (evidence 196). Inputs with variance < 1e-6 get std = half the scaled command range and zero first-layer
-    weights (the policy acts exactly as before until training uses them, as expand_inputs). Returns True if changed."""
+    """Command inputs (obs 6-8, RunEnv._compose scales the command by 0.1, 2, 0.5) whose frozen normalisation cannot
+    hold the new command range. (1) A policy trained at a zero command only (stage 1a) has zero variance there: continued
+    with commands, every non-zero command became +-10 after clipping and the walking run l80_w1 collapsed (evidence 196).
+    (2) A walking policy normalised for 1.5 m/s sees an 11.1 m/s command at 15 sigma, again clipped. Each command input
+    whose std is below half its scaled command range gets that std; the first-layer weights of the input are scaled by
+    new/old std (zero when the old variance was ~0), so the policy acts exactly as before for every command it could
+    already read. The normalisation mean of the input is kept. Returns True if anything changed."""
     rms = env.obs_rms
-    std = np.maximum(np.abs(np.asarray(cmd_max, float))*np.array([.1, 2., .5])/2, 1e-3)
-    idx = [6+i for i in range(3) if rms.var[6+i] < 1e-6]
+    want = np.maximum(np.abs(np.asarray(cmd_max, float))*np.array([.1, 2., .5])/2, 1e-3)
+    old = np.sqrt(rms.var[6:9]+env.epsilon)
+    idx = [6+i for i in range(3) if old[i] < want[i]*(1-1e-9)]
     if not idx:
         return False
-    for i in idx:
-        rms.mean[i], rms.var[i] = 0., std[i-6]**2
     with torch.no_grad():
         for k, w in model.policy.state_dict(keep_vars=True).items():
             if w.ndim == 2 and k.endswith('.0.weight') and w.shape[1] == rms.mean.shape[0]:
-                w[:, idx] = 0.
-    print('widened command inputs', idx, 'std', [round(float(std[i-6]), 3) for i in idx], flush=True)
+                for i in idx:
+                    w[:, i] *= 0. if rms.var[i] < 1e-6 else float(want[i-6]/old[i-6])
+    for i in idx:
+        if rms.var[i] < 1e-6:
+            rms.mean[i] = 0.
+        rms.var[i] = want[i-6]**2-env.epsilon
+    print('widened command inputs', idx, 'std', [round(float(want[i-6]), 3) for i in idx], flush=True)
     return True
 
 

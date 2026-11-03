@@ -555,3 +555,5 @@ free-base초기속도0/관절초기perturbation유지대조8회계측일치.원�
 2026-11-03 0.80 m 다리 1a 통과([증거 195](evidence/195-l80-stand/README.md)): `l80_s1p`(`r3_s1ho`에서 105만 스텝) 명목 8판·무작위화 24판·밀기 96판 넘어짐 0, 명목 이동 0.33 m. 2단계 걷기 `l80_w1` 학습 중(800만 스텝 예산, `stage_gates.py walk` 기준 학습 전 확정, [증거 196](evidence/196-l80-walk/README.md)).
 
 2026-11-03 2단계 걷기 통과([증거 196](evidence/196-l80-walk/README.md)): `l80_w1`은 대칭 정책 고정 정규화에서 명령 입력 분산 0(1a는 0 명령만 학습) 버그로 무효. `train_run.widen_command_inputs` 수정 후 `l80_w2`(`l80_s1p`에서 800만 스텝)가 추종 0.3–1.5 m/s, 제자리 회전 ±0.5, 정지·출발, 무작위화 0/24, 1a 회귀 모두 통과(`gate_judge.py`). 선택 옵션 `cmd_turn`, `hold_settle` 추가(미사용). 다음: 3단계 달리기 기준·B/A 규칙 선언 후 학습.
+
+2026-11-03 3단계 달리기 준비와 일시정지: `stage_gates.py run`(속도 2–11.1 m/s, 10분 발열, 옆 밀기)과 `gate_judge.py` 달리기 판정·유지 속도, B/A 규칙(학습 3회×800만 스텝 뒤 8 m/s 미만이면 사용자 결정)을 학습 전에 정함([증거 197](evidence/197-l80-run/README.md)). `widen_command_inputs`를 좁은 정규화의 재척도까지 확장. `l80_r1`은 사용자 요청으로 74.5만 스텝에서 중지(저장 전, 재개 시 `l80_w2`에서 다시 시작). 중간 보고 PDF `docs/reports/interim-20261103/`.

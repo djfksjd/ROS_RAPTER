@@ -19,10 +19,17 @@ walk (stage 2, defined 2026-11-03 before any walking run): randomize off unless 
   stopstart 0 (3 s) -> 1.0 (5 s) -> 0 (5 s) -> 1.0 (5 s) -> 0 (5 s): time to reach 0.8 m/s after each start, speed 2 s
             after each stop
   track_dr  1.0 m/s 15 s, randomize on, 24 seeds
+run (stage 3, defined 2026-11-03 before any running run): randomize off unless noted
+  speed     forward command 2 / 4 / 6 / 8 / 10 / 11.1 m/s held 20 s from standing, 4 seeds: falls, mean forward body speed
+            over 10-20 s, lowest motor derate factor (realism; 1 = no derating)
+  heat      600 s at the command given by --heat-cmd (default 6 m/s), vendor heat-sink mount and the worst mount of
+            thermal.dr (r_th_ha x2, c_th_h x0.2): falls, lowest derate, hottest winding, mean speed
+  lateral   4 m/s, lateral base kick 0.5 m/s left / right at 8 s, 8 seeds each: falls
 Fall = the env's termination (tilt, body contact, low hip). Pass rules are in the plan; this script only measures.
 Usage: .venv-sim/bin/python sim/rl/stage_gates.py RUN_DIR stand [--quick]
        .venv-sim/bin/python sim/rl/stage_gates.py RUN_DIR getup --stand sim/rl/runs/r3_s1ho [--quick]
        .venv-sim/bin/python sim/rl/stage_gates.py RUN_DIR walk [--quick]
+       .venv-sim/bin/python sim/rl/stage_gates.py RUN_DIR run [--quick] [--heat-cmd 6]
 """
 import argparse
 import json
@@ -193,7 +200,60 @@ def walk(d, quick=False):
     yield dict(cond='track_dr', cmd=1., n=ndr, falls=sum(r['t_fall'] is not None for r in rows), episodes=rows)
 
 
-GATES = {'stand': stand, 'getup': getup, 'walk': walk}
+def run_rollout(d, seed, cmd, seconds, randomize=False, kick=None, kick_t=8., mount='plate'):
+    """Constant forward command from standing; returns fall time, per-step forward speed, lowest derate, hottest winding."""
+    a = json.loads((d/'args.json').read_text())
+    kw = {**env_kwargs(a), 'level': 0., 'episode_s': seconds+5., 'disturb_items': [], 'roll_impulse': None, 'yaw_impulse': None,
+          'cmd_max': [0., 0., 0.], 'init_speed': False}
+    env = RunEnv(**kw, randomize=randomize, seed=seed)
+    env.init_seed = seed
+    model, venv = load(str(d/'model.zip'), env)
+    venv.reset()
+    if mount == 'worst' and env.rz is not None and env.rz.on.get('thermal'):
+        th = env.rz.thermal; th.r_ha = th.r_ha*2.0; th.c_h = th.c_h*0.2
+    env.resample_steps = 10**9; env.command = np.array([cmd, 0., 0.])
+    obs = venv.normalize_obs(env._obs()[None])
+    dd, b = env.data, env.base
+    v, fell, der, hot = [], None, 1., 0.
+    for k in range(int(seconds/.02)):
+        if kick is not None and k == int(kick_t/.02):
+            R = dd.xmat[b].reshape(3, 3)
+            dd.qvel[:2] += (R[:2, :2] @ np.asarray(kick, float))
+        raw, _, term, _, info = env.step(model.predict(obs, deterministic=True)[0][0])
+        obs = venv.normalize_obs(raw[None])
+        R = dd.xmat[b].reshape(3, 3)
+        v.append(float((R.T @ dd.qvel[:3])[0]))
+        if 'realism' in info and 'derate' in info['realism']:
+            der = min(der, float(np.min(info['realism']['derate']))); hot = max(hot, float(np.nanmax(info['realism']['t_winding'])))
+        if term:
+            fell = round((k+1)*.02, 2)
+            break
+    return fell, np.array(v), round(der, 3), round(hot, 1)
+
+
+def run(d, quick=False, heat_cmd=6.):
+    n, nk = (2, 2) if quick else (4, 8)
+    for cmd in (2., 4., 6., 8., 10., 11.1):
+        rows = []
+        for i in range(n):
+            fell, v, der, hot = run_rollout(d, 6700+i, cmd, 20.)
+            rows.append(dict(seed=6700+i, t_fall=fell, v_mean=round(float(v[500:].mean()), 3) if fell is None else None,
+                             min_derate=der, t_winding_max_c=hot))
+        yield dict(cond='speed', cmd=cmd, n=n, falls=sum(r['t_fall'] is not None for r in rows), episodes=rows)
+    if not quick:
+        for mount in ('plate', 'worst'):
+            fell, v, der, hot = run_rollout(d, 6800, heat_cmd, 600., mount=mount)
+            yield dict(cond='heat', cmd=heat_cmd, mount=mount, n=1, falls=int(fell is not None), t_fall=fell, min_derate=der,
+                       t_winding_max_c=hot, v_mean=round(float(v[500:].mean()), 3))
+    for name, kick in (('left', (0., .5)), ('right', (0., -.5))):
+        rows = []
+        for i in range(nk):
+            fell, v, der, hot = run_rollout(d, 6900+i, 4., 15., kick=kick)
+            rows.append(dict(seed=6900+i, t_fall=fell))
+        yield dict(cond='lateral', dir=name, cmd=4., n=nk, falls=sum(r['t_fall'] is not None for r in rows), episodes=rows)
+
+
+GATES = {'stand': stand, 'getup': getup, 'walk': walk, 'run': run}
 
 
 def main():
@@ -202,9 +262,12 @@ def main():
     ap.add_argument('gate', choices=list(GATES))
     ap.add_argument('--quick', action='store_true')
     ap.add_argument('--stand', help='stage 1a stand policy run directory (getup gate handoff)')
+    ap.add_argument('--heat-cmd', type=float, default=6., help='run gate: forward command of the 10 min heat run')
     a = ap.parse_args()
     d = Path(a.run)
-    for row in (GATES[a.gate](d, a.quick, Path(a.stand)) if a.gate == 'getup' else GATES[a.gate](d, a.quick)):
+    rows = GATES[a.gate](d, a.quick, Path(a.stand)) if a.gate == 'getup' else run(d, a.quick, a.heat_cmd) if a.gate == 'run' \
+        else GATES[a.gate](d, a.quick)
+    for row in rows:
         print(json.dumps({'run': d.name, 'gate': a.gate, **row}), flush=True)
 
 
