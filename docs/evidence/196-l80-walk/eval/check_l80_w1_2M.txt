@@ -1,0 +1,25 @@
+steps since start 2031616
+track 0.3 falls 2 [{'t_fall': 0.3, 'v_mean': None}, {'t_fall': 0.36, 'v_mean': None}]
+track 0.6 falls 2 [{'t_fall': 0.3, 'v_mean': None}, {'t_fall': 0.36, 'v_mean': None}]
+track 1.0 falls 2 [{'t_fall': 0.3, 'v_mean': None}, {'t_fall': 0.36, 'v_mean': None}]
+track 1.5 falls 2 [{'t_fall': 0.3, 'v_mean': None}, {'t_fall': 0.36, 'v_mean': None}]
+turn 0.5 falls 2 [{'t_fall': 3.4, 'yaw_rate_mean': None, 'drift_m': 0.52}, {'t_fall': 0.88, 'yaw_rate_mean': None, 'drift_m': 0.16}]
+turn -0.5 falls 2 [{'t_fall': 2.86, 'yaw_rate_mean': None, 'drift_m': 0.17}, {'t_fall': 1.9, 'yaw_rate_mean': None, 'drift_m': 0.32}]
+stopstart  falls 2 [{'t_fall': 2.2, 't_reach_0p8': [None, None], 'speed_2s_after_stop': [None, None]}, {'t_fall': 3.1, 't_reach_0p8': [None, None], 'speed_2s_after_stop': [None, None]}]
+track_dr 1.0 falls 4 [{'t_fall': 0.26, 'v_mean': None}, {'t_fall': 0.32, 'v_mean': None}, {'t_fall': 0.32, 'v_mean': None}, {'t_fall': 0.28, 'v_mean': None}]
+stand hold   falls 2 drift 0.103
+stand hold_dr   falls 4 drift 0.318
+stand push front 0.3 falls 2 drift 0.105
+stand push back 0.3 falls 2 drift 0.105
+stand push left 0.3 falls 2 drift 0.105
+stand push right 0.3 falls 2 drift 0.105
+stand push front 0.5 falls 2 drift 0.105
+stand push back 0.5 falls 2 drift 0.105
+stand push left 0.5 falls 2 drift 0.105
+stand push right 0.5 falls 2 drift 0.105
+stand push front 0.8 falls 2 drift 0.105
+stand push back 0.8 falls 2 drift 0.105
+stand push left 0.8 falls 2 drift 0.105
+stand push right 0.8 falls 2 drift 0.105
+
+[exited with code 0]

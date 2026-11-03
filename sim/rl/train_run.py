@@ -92,6 +92,27 @@ def make(kw, seed, cls=RunEnv):
     return thunk
 
 
+def widen_command_inputs(env, model, cmd_max):
+    """A policy trained at a zero command only (stage 1a) has a zero-variance normalisation of the command inputs
+    (obs 6-8, RunEnv._compose scales the command by 0.1, 2, 0.5). Continued with commands and a frozen normalisation
+    (--symmetric) every non-zero command became +-10 after clipping and the walking run l80_w1 collapsed in its first
+    updates (evidence 196). Inputs with variance < 1e-6 get std = half the scaled command range and zero first-layer
+    weights (the policy acts exactly as before until training uses them, as expand_inputs). Returns True if changed."""
+    rms = env.obs_rms
+    std = np.maximum(np.abs(np.asarray(cmd_max, float))*np.array([.1, 2., .5])/2, 1e-3)
+    idx = [6+i for i in range(3) if rms.var[6+i] < 1e-6]
+    if not idx:
+        return False
+    for i in idx:
+        rms.mean[i], rms.var[i] = 0., std[i-6]**2
+    with torch.no_grad():
+        for k, w in model.policy.state_dict(keep_vars=True).items():
+            if w.ndim == 2 and k.endswith('.0.weight') and w.shape[1] == rms.mean.shape[0]:
+                w[:, idx] = 0.
+    print('widened command inputs', idx, 'std', [round(float(std[i-6]), 3) for i in idx], flush=True)
+    return True
+
+
 def expand_inputs(path, venv, std):
     """Continue a policy on an environment with observations appended at the end (obs_scan). Returns the VecNormalize
     wrapper and the model. The first layer of the actor and critic gets zero weights for the new inputs, so the policy acts
@@ -140,7 +161,7 @@ def env_kwargs(a):
                 terrain=json.loads(a['terrain']) if g('terrain') else None,
                 obs_scan=json.loads(a['obs_scan']) if g('obs_scan') else None,
                 obs_hold=json.loads(a['obs_hold']) if g('obs_hold') else None,
-                getup=json.loads(a['getup']) if g('getup') else None)
+                getup=json.loads(a['getup']) if g('getup') else None, cmd_turn=g('cmd_turn') or 0., hold_settle=g('hold_settle'))
 
 
 def main():
@@ -192,6 +213,8 @@ def main():
     p.add_argument('--obs-scan', help='JSON {"dx": [m ahead], "noise": m, "bias": m, "delay": steps}: ground-height profile '
                    'ahead appended to the observation (run_env.py). With --init from a policy without it, the new inputs start '
                    'with zero weights (the policy acts as before) and normalisation mean 0, std --scan-std')
+    p.add_argument('--cmd-turn', type=float, default=0., help='fraction of commands that turn in place (0, 0, yaw)')
+    p.add_argument('--hold-settle', type=float, help='m/s: set the zero-command hold anchor once the base is slower than this')
     p.add_argument('--obs-hold', help='JSON {"noise": m, "walk": m/sqrt(s)}: odometry offset from the zero-command hold anchor '
                    '(x, y, heading) appended after the scan (run_env.py); with --init from a policy without it, as --obs-scan')
     p.add_argument('--getup', help='JSON {"modes": {"sit"|"side"|"back"|"easy": weight}, "hold_s": s, "weights": {}}: stage 1b '
@@ -222,6 +245,7 @@ def main():
         else:
             env = VecNormalize.load(vn_path, env)
             model = PPO.load(a.init, env=env, device='cpu')
+        widened = a.env == 'run' and widen_command_inputs(env, model, a.cmd_final)
         if a.symmetric:
             from mirror_probe import ObservationReflection
             from sym_policy import SymPolicy, freeze_obs, reflection_constants
@@ -229,7 +253,7 @@ def main():
             freeze_obs(env)
             sym = reflection_constants(ObservationReflection(probe.active, probe.policy_idx, probe.q0, probe.obs_vel, probe.obs_contact,
                                                              len(probe.scan_dx), bool(probe.obs_hold)), env)
-            if not isinstance(model.policy, SymPolicy):
+            if not isinstance(model.policy, SymPolicy) or widened:  # rebuild: the reflection stores the normalisation
                 old = model
                 model = PPO(SymPolicy, env, n_steps=old.n_steps, batch_size=old.batch_size, n_epochs=old.n_epochs, learning_rate=old.learning_rate,
                             gamma=old.gamma, gae_lambda=old.gae_lambda, clip_range=old.clip_range, ent_coef=old.ent_coef, max_grad_norm=old.max_grad_norm,
