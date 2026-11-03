@@ -193,9 +193,10 @@ def fourbar_band(fb, lo=.1, hi=2.7, min_deg=30.):
     return float(q[r[0]]), float(q[r[-1]])
 
 
-def real_masses(m, arch12, motors=None):
+def real_masses(m, arch12, motors=None, tibia=.38):
     """Set the explicit part masses (see PAYLOAD_KG) on an R-02 MjModel at the design scale; returns the total.
-    motors: {'hip_roll_link', 'thigh_link', 'tail_yaw_link': kg} replacing the class motors (model rev 3)."""
+    motors: {'hip_roll_link', 'thigh_link', 'tail_yaw_link': kg} replacing the class motors (model rev 3).
+    tibia: shin length (the ankle drive parts sit at its middle)."""
     def set_mass(b, new):
         f = new/m.body_mass[b]
         m.body_mass[b] = new; m.body_inertia[b] *= f
@@ -225,11 +226,33 @@ def real_masses(m, arch12, motors=None):
         add_mass(m.body(f'{side}_thigh_link').id, knee, (0., 0., -.03))
         if arch12:
             add_mass(m.body(f'{side}_thigh_link').id, .1, (0., 0., -.11))
-            add_mass(m.body(f'{side}_shin_link').id, .1, (0., 0., -.19))
+            add_mass(m.body(f'{side}_shin_link').id, .1, (0., 0., -tibia/2))
         else:
-            add_mass(m.body(f'{side}_shin_link').id, .08, (0., 0., -.19))
+            add_mass(m.body(f'{side}_shin_link').id, .08, (0., 0., -tibia/2))
     set_mass(m.body('tail_yaw_link').id, tail)
     return float(m.body_mass.sum())
+
+
+LEG_SEGMENTS = (('thigh_link', 'shin_link'), ('shin_link', 'metatarsus_link'), ('metatarsus_link', 'foot_link'))
+R02_LEG = dict(femur=.22, tibia=.38, meta=.32)  # R-02 / R-03 segment lengths (sim/raptor_r02.xml)
+
+
+def set_leg(spec, leg):
+    """rev 3 config "leg" {femur, tibia, meta} (m): rescale the three leg segments of the R-02 MJCF in an MjSpec (design
+    freeze F4, docs/DESIGN_FREEZE.ko.md). Child body offsets, the segment box geoms (half length, centre) and the link
+    centres of mass follow the length; mass scales with the length and the inertia with length^3 (a uniform tube)."""
+    for side in ('left', 'right'):
+        for (name, child), key in zip(LEG_SEGMENTS, ('femur', 'tibia', 'meta')):
+            f = float(leg[key])/R02_LEG[key]
+            b = spec.body(f'{side}_{name}')
+            for g in b.geoms:
+                g.size = [g.size[0], g.size[1], g.size[2]*f]
+                g.pos = [g.pos[0], g.pos[1], g.pos[2]*f]
+            b.ipos = [b.ipos[0], b.ipos[1], b.ipos[2]*f]
+            b.mass *= f
+            b.inertia = [x*f**3 for x in b.inertia]
+            c = spec.body(f'{side}_{child}')
+            c.pos = [c.pos[0], c.pos[1], c.pos[2]*f]
 
 
 def motor_available(cls, w):
@@ -274,6 +297,11 @@ class RunEnv(RaptorEnv):
         self.rev3 = use_modules(rev3_config or REV3_CONFIG) if int(model_rev) >= 3 else None
         if self.rev3 is not None:
             arch8 = True
+        # the knee four-bar spans the femur (knee_linkage_study.FEMUR is read by fourbar_N / fourbar_band)
+        sys.path.insert(0, str(ROOT/'modeling'))
+        import knee_linkage_study
+        self.leg = (self.rev3 or {}).get('leg')
+        knee_linkage_study.FEMUR = float(self.leg['femur']) if self.leg else R02_LEG['femur']
         pick = lambda v, new, old: (new if rev2 else old) if v is None else v
         self.model_rev = int(model_rev)
         self.roll_impulse = roll_impulse  # (rate 1/s, lo, hi): training roll impulses about the trunk's own x axis, like yaw_impulse
@@ -316,11 +344,11 @@ class RunEnv(RaptorEnv):
         self.episode_steps, self.randomize, self.render_mode = int(episode_s/CONTROL_DT), randomize, render_mode
         self.model_path = str(model_path or (R03_MODEL if self.rev3 is not None else R02_MODEL))
         self.kinds, self.kind, self.dr_items, self.slew, self.jtc_horizon = ['flat'], 'flat', set(), None, 0.
-        probe = mujoco.MjModel.from_xml_path(self.model_path)
+        probe = self._spec().compile() if self.leg else mujoco.MjModel.from_xml_path(self.model_path)
         self.active = [probe.actuator(i).name for i in range(probe.nu)]
         pose = nominal_pose(tuple(nominal) if nominal is not None else NOMINAL_T1)
         if real_mass:
-            self.mass = real_masses(probe, arch12, rev3_motor_masses(self.rev3) if self.rev3 is not None else None)
+            self.mass = real_masses(probe, arch12, rev3_motor_masses(self.rev3) if self.rev3 is not None else None, self._tibia())
         self.q0 = np.array([pose.get(n, 0.) for n in self.active])
         # scale_override {joint type: rad}: action half-range around q0 replacing SCALE_RUN (e.g. a wider hip roll band)
         self.scale = np.array([{**SCALE_RUN, **(scale_override or {})}[joint_type(n)] for n in self.active])
@@ -432,8 +460,17 @@ class RunEnv(RaptorEnv):
         self.model = self.renderer = None
 
     # --- model -------------------------------------------------------------------------------
-    def _build(self):
+    def _tibia(self):
+        return float(self.leg['tibia']) if self.leg else R02_LEG['tibia']
+
+    def _spec(self):
         spec = mujoco.MjSpec.from_file(self.model_path)
+        if self.leg:
+            set_leg(spec, self.leg)
+        return spec
+
+    def _build(self):
+        spec = self._spec()
         self.heights = tr.add_terrain(spec, self.kind, self.t_level, self.rng)
         ratio = self.mass/DESIGN_MASS
         for side in ('left', 'right') if self.hip_back else ():
@@ -495,7 +532,7 @@ class RunEnv(RaptorEnv):
         # with mass they fall below the W*h (5 kg x 0.71 m = 34 N·m/rad) a passive stand on the toes needs, and the
         # robot topples forward in ~3 s (measured 2026-09-29).
         if self.real_mass:
-            real_masses(m, self.arch12, rev3_motor_masses(self.rev3) if self.rev3 is not None else None)
+            real_masses(m, self.arch12, rev3_motor_masses(self.rev3) if self.rev3 is not None else None, self._tibia())
         else:
             m.body_mass[1:] *= ratio
             m.body_inertia[1:] *= ratio

@@ -1,6 +1,6 @@
 """Design-freeze plan F0 (docs/DESIGN_FREEZE_PLAN.ko.md): the experiment contract. Hashes of the model, the R-03 config,
-the realism layer and the training/eval code; per policy axis the joint stop range and the range a policy can actually
-command (q0 +- scale, clipped) with the stand policy r3_s1ho settings; the R-03 policies and whether they are still
+the realism layer and the training/eval code; per policy axis of the frozen shape (F4, rev3_l80.json) the joint stop range
+and the range a policy can actually command (q0 +- scale, clipped) with the stand policy r3_s1ho settings; the R-03 policies and whether they are still
 valid on this model. Regenerate after any change; a hash change means earlier results are not directly comparable.
 Usage: .venv-sim/bin/python modeling/freeze_contract.py [--out docs/design/freeze_contract.json]"""
 import argparse
@@ -14,8 +14,10 @@ sys.path.insert(0, str(ROOT/'sim'/'rl'))
 import stage_gates as sg  # noqa: E402
 from run_env import joint_type  # noqa: E402
 
-FILES = ['sim/raptor_r03.xml', 'sim/rl/rev3_b.json', 'sim/rl/realism_robstride_rev3.json', 'sim/rl/run_env.py',
-         'sim/rl/realism.py', 'sim/rl/train_run.py', 'sim/rl/stage_gates.py']
+FILES = ['sim/raptor_r03.xml', 'sim/rl/rev3_b.json', 'sim/rl/realism_robstride_rev3.json', 'sim/rl/rev3_l80.json',
+         'sim/rl/realism_robstride_l80.json', 'sim/rl/run_env.py', 'sim/rl/realism.py', 'sim/rl/train_run.py',
+         'sim/rl/stage_gates.py']
+FROZEN = dict(rev3_config='sim/rl/rev3_l80.json', realism='sim/rl/realism_robstride_l80.json')  # F4 (docs/DESIGN_FREEZE.ko.md)
 REF = 'r3_s1ho'  # stage 1a pass (evidence 188)
 
 
@@ -28,7 +30,7 @@ def main():
     ap.add_argument('--out', default=str(ROOT/'docs/design/freeze_contract.json'))
     o = ap.parse_args()
     a = json.loads((ROOT/f'sim/rl/runs/{REF}/args.json').read_text())
-    e = sg.RunEnv(**sg.env_kwargs(a), randomize=False, seed=0)
+    e = sg.RunEnv(**{**sg.env_kwargs(a), **{k: str(ROOT/v) for k, v in FROZEN.items()}}, randomize=False, seed=0)
     e.reset(seed=0)
     axes = {}
     for i in e.policy_idx:
@@ -40,7 +42,7 @@ def main():
                                              commandable=[round(max(lo, q0-s), 3), round(min(hi, q0+s), 3)])
     runs = sorted(p.name for p in (ROOT/'sim/rl/runs').glob('r3_*'))
     out = dict(
-        date='2026-11-03', model_rev=3, mass_kg=round(float(e.model.body_subtreemass[0]), 2),
+        date='2026-11-03', model_rev=3, frozen=FROZEN, leg=e.leg, mass_kg=round(float(e.model.body_subtreemass[0]), 2),
         hashes={f: sha(f) for f in FILES}, reference_policy=REF, scale_override=a.get('scale_override'),
         nominal=a.get('nominal'), policy_axes_left_and_tail=axes,
         note=('commandable < stop means a policy with these settings can never reach the joint stop '
