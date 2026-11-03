@@ -133,7 +133,7 @@ def env_kwargs(a):
                 springs_override=json.loads(a['springs_override']) if g('springs_override') else None,
                 arch8_override=json.loads(a['arch8_override']) if g('arch8_override') else None,
                 arch12=g('arch12', False), real_mass=g('real_mass', False), hip_back=g('hip_back', 0.), nominal=g('nominal'),
-                target_ramp=g('target_ramp', False),obs_contact=g('obs_contact',False), model_rev=g('model_rev', 1), heat_limit=g('heat_limit', 1.), roll_impulse=g('roll_impulse'), init_noise=g('init_noise', .02),
+                target_ramp=g('target_ramp', False),obs_contact=g('obs_contact',False), model_rev=g('model_rev', 1), rev3_config=g('rev3_config'), heat_limit=g('heat_limit', 1.), roll_impulse=g('roll_impulse'), init_noise=g('init_noise', .02),
                 realism=g('realism'), scale_override=json.loads(a['scale_override']) if g('scale_override') else None,
                 range_override=json.loads(a['range_override']) if g('range_override') else None,
                 gait_duty_min=g('gait_duty_min'), contact_tc=g('contact_tc'), kp_err=g('kp_err'), action_lpf=g('action_lpf'),
@@ -175,6 +175,7 @@ def main():
     p.add_argument('--real-mass', action='store_true', help='explicit part masses (run_env.real_masses); --mass is ignored')
     p.add_argument('--hip-back', type=float, default=0., help='R-03: hip mount moved rearward along the torso (m)')
     p.add_argument('--target-ramp', action='store_true', help='interpolate each PD target over the 20 ms control step')
+    p.add_argument('--rev3-config', help='model rev 3 axis config replacing sim/rl/rev3_b.json (e.g. sim/rl/rev3_fold.json)')
     p.add_argument('--model-rev', type=int, default=1, help='2 = physically consistent model options of run_env (latch without fallback, foot friction draw, self-collision, knee band, ground start, rotor inertia)')
     p.add_argument('--nominal', type=float, nargs=3, metavar=('HIP', 'KNEE', 'ANKLE'), help='nominal pose (nominal_scan.py)')
     p.add_argument('--yaw-impulse', type=float, nargs=3, metavar=('RATE', 'LO', 'HI'), help='training yaw impulses independent of the level')

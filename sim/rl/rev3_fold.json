@@ -1,0 +1,69 @@
+{
+ "_comment": "Model rev 3 deep-fold knee variant (user decision 2026-11-03, evidence 191/192): rev3_b.json with the knee four-bar replaced by a knee_fold_study.py pick whose band reaches 2.96 rad, so the legs can tuck under the prone body. Everything else equals rev3_b.json. joint_range widens the MJCF knee stop and the coupled ankle stop to the band (ASSUMED: no shin-thigh or ankle-rod clash checked). Not adopted until the get-up and running checks of evidence 192.",
+ "spec_file": "../../docs/design/motor_candidates.json",
+ "axes": {
+  "hip_yaw": {
+   "module": "RS06",
+   "ratio": 1.5,
+   "link_efficiency": 0.9,
+   "mount": "hip_roll_link",
+   "drive_kg": 0.15,
+   "why": "estimated turning load 25 N·m at 8 rad/s (evidence 186); belt 0.10 kg + bracket 0.05 kg"
+  },
+  "hip_roll": {
+   "module": "RS06",
+   "ratio": 2.5,
+   "link_efficiency": 0.9,
+   "mount": "hip_roll_link",
+   "drive_kg": 0.1,
+   "why": "peak GRF x 0.10 m; with the 1.5 belt the RMS exceeds the rated torque (x1.43)"
+  },
+  "hip_pitch": {
+   "module": "RS04",
+   "ratio": 0.85,
+   "link_efficiency": 0.9,
+   "mount": "hip_roll_link",
+   "drive_kg": 0.1,
+   "why": "speed-up belt: the 11.1 m/s design hip speed 20.6 rad/s fits even at -10 % no-load speed"
+  },
+  "knee_pitch": {
+   "module": "RS04",
+   "ratio": "fourbar",
+   "link_efficiency": 0.9,
+   "mount": "thigh_link",
+   "drive_kg": 0.1,
+   "why": "module on the upper femur, four-bar below (N 0.62-2.15 over the knee band)"
+  },
+  "tail_pitch": {
+   "module": "RS03",
+   "ratio": 1.0,
+   "link_efficiency": 1.0,
+   "mount": "tail_yaw_link"
+  },
+  "tail_yaw": {
+   "module": "RS06",
+   "ratio": 1.0,
+   "link_efficiency": 1.0,
+   "mount": "tail_yaw_link"
+  }
+ },
+ "fourbar": {
+  "a": 0.193,
+  "b": 0.321,
+  "c": 0.129,
+  "beta_deg": 105.2,
+  "branch": -1.0,
+  "why": "knee_fold_study.py (200000 random four-bars): band 0.706-2.964 rad, worst score 1.21 against 1.05 of the rev3_b pick (policy-load peak utilisation 1.21 vs 0.84, design x1.2 RMS 1.11 vs 0.91); N 0.34 at the deepest fold; coupler 0.321 m is longer than the 0.22 m femur (packaging unchecked)"
+ },
+ "band_search_hi": 3.2,
+ "joint_range": {
+  "knee_pitch": [
+   0.2,
+   3.0
+  ],
+  "ankle_pitch": [
+   -3.1,
+   0.2
+  ]
+ }
+}

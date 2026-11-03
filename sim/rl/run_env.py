@@ -283,7 +283,8 @@ class RunEnv(RaptorEnv):
         self.self_collision, self.start_contact = bool(pick(self_collision, True, False)), bool(pick(start_contact, True, False))
         self.knee_band, self.armature = pick(knee_band, KNEE_BAND, None), bool(pick(armature, True, False))
         if self.rev3 is not None and knee_band is None:
-            self.knee_band = fourbar_band(self.rev3['fourbar'])
+            # band_search_hi: upper end of the knee range searched for the band (2.7 by default; a deep-fold four-bar needs more)
+            self.knee_band = fourbar_band(self.rev3['fourbar'], hi=float(self.rev3.get('band_search_hi', 2.7)))
         # hip_back (m): R-03, the hip mount (pelvis, hip motors, legs) moved rearward along the torso; the torso payload
         # and the tail root stay where they are (raptor layout: pelvis at the rear of the trunk, tail root behind it).
         # nominal: (hip, knee, ankle) action-offset pose replacing NOMINAL_T1 (nominal_scan.py, same rule per variant).
@@ -484,6 +485,9 @@ class RunEnv(RaptorEnv):
                     g.contype, g.conaffinity = 1 | side, (6-side) | 8 | 16
         m = spec.compile()
         m.opt.timestep = PHYSICS_DT
+        for n in self.active:  # rev 3 config joint_range {joint type: [lo, hi]}: MJCF joint stops of the axis design
+            if self.rev3 is not None and joint_type(n) in self.rev3.get('joint_range', {}):
+                m.jnt_range[m.joint(n).id] = self.rev3['joint_range'][joint_type(n)]
         for n in self.active:
             if joint_type(n) in self.range_override:
                 m.jnt_range[m.joint(n).id] = [-self.range_override[joint_type(n)], self.range_override[joint_type(n)]]
@@ -514,11 +518,12 @@ class RunEnv(RaptorEnv):
         if self.arch8:
             sys.path.insert(0, str(ROOT/'modeling'))
             from knee_linkage_study import fourbar_N
-            qq = np.linspace(.1, 2.7, 300)
+            qq = np.linspace(.1, max(2.7, self.knee_band[1]+.05) if self.rev3 is not None else 2.7, 300)
             fb = self.rev3['fourbar'] if self.rev3 is not None else ARCH8_FOURBAR
             _, N, _trans, ok = fourbar_N(qq, fb['a'], fb['b'], fb['c'], np.radians(fb['beta_deg']), fb['branch'])
             N = np.where(ok, np.abs(N), 1.)
-            self.knee_ratio = (qq, np.clip(N, .5, 5.))
+            # lower clip .2, not .5: the deep-fold four-bar reaches N 0.34 at full fold (current band min 0.625, unchanged)
+            self.knee_ratio = (qq, np.clip(N, .2, 5.))
             # joint torque -> motor torque / continuous torque: gear x link efficiency x 0.4 peak. The four-bar knee uses its
             # ratio at the current knee angle each physics step (until 2026-10-01 a mean ratio 1.4 was used; Codex review).
             gear, cont = [], []
