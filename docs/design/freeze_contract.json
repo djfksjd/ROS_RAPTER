@@ -1,12 +1,24 @@
 {
  "date": "2026-11-03",
  "model_rev": 3,
- "mass_kg": 15.1,
+ "frozen": {
+  "rev3_config": "sim/rl/rev3_l80.json",
+  "realism": "sim/rl/realism_robstride_l80.json"
+ },
+ "leg": {
+  "femur": 0.17,
+  "tibia": 0.321,
+  "meta": 0.309,
+  "why": "F1 (evidence 193): sum 0.80 m, ostrich ratio 1 : 1.89 : 1.82; hip 11.1 m/s 0.84, knee (fold 2.6) 1.00, prone belly clearance 8 cm (calculation)"
+ },
+ "mass_kg": 14.92,
  "hashes": {
   "sim/raptor_r03.xml": "de2399f155c1d6f1",
   "sim/rl/rev3_b.json": "973ee3026645a10e",
   "sim/rl/realism_robstride_rev3.json": "dfe0836bb0f9aa74",
-  "sim/rl/run_env.py": "20f8fb518d73186a",
+  "sim/rl/rev3_l80.json": "ed62e1701462a0d1",
+  "sim/rl/realism_robstride_l80.json": "fe910eeccc71985d",
+  "sim/rl/run_env.py": "b6383249adba3c69",
   "sim/rl/realism.py": "cf25d32c96189ea7",
   "sim/rl/train_run.py": "6c47a42298efbed4",
   "sim/rl/stage_gates.py": "31fc9b64da96885e"
@@ -57,13 +69,13 @@
   },
   "left_knee_pitch": {
    "stop": [
-    0.636,
-    2.261
+    0.616,
+    2.807
    ],
    "q0": 1.0,
    "scale": 1.0,
    "commandable": [
-    0.636,
+    0.616,
     2.0
    ]
   },

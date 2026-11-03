@@ -76,6 +76,10 @@
 
 ![F1 형상 선별표](docs/evidence/193-shape-scan/media/shape_table.png)
 
+**형상 동결 (F4, 사용자 결정):** 다리 0.80 m 타조 비율, 무릎 접힘 2.6 rad, 고관절 벨트 0.70으로 정했습니다([결정 기록](docs/DESIGN_FREEZE.ko.md)). 1b 바닥 일어서기는 달리기 뒤로 미뤘습니다. 이 형상으로 1a 서기를 다시 학습하고 있습니다(증거 195).
+
+![R-03 다리와 동결한 0.80 m 다리](docs/design/media/freeze_side.png)
+
 ![일어서기: 시작 기울기별 성공과 1b 합격 시험](docs/evidence/189-stage1b-getup-feasibility/media/getup_progress.png)
 
 | 성공 1판: 다리 접고 앉은 자세 → 4.1초에 일어서서 서기 정책으로 10초 | 실패: 옆으로 누운 자세에서 다리를 몸 아래로 못 가져옴 |

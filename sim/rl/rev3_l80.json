@@ -1,0 +1,75 @@
+{
+ "_comment": "Design freeze F4 (user decision 2026-11-03, docs/DESIGN_FREEZE.ko.md): leg 0.80 m, ostrich ratio, knee fold 2.6. Same modules as rev3_b.json; leg segments, knee four-bar and hip pitch belt from the F1 shape screen (evidence 193, modeling/shape_scan_r03.py). Model rev 3 axis config (stage 0, option B, user decision 2026-10-31; docs/evidence/186-stage0-design-b, 187-stage0-rev3-model). ONE source for RunEnv(model_rev=3) (actuator limits, PD gains, armature, four-bar, masses) and checked against realism_robstride_rev3.json by tests/test_rev3_model.py. ratio = external stage, motor rad per joint rad (< 1 = speed-up belt); link_efficiency 0.9 for a belt or linkage, 1 for direct drive. mount = MJCF body that carries module + drive_kg (pelvis modules ride on the hip-roll link). drive_kg = belts / four-bar / yaw bracket, ASSUMED (no design). The ankle pitch follows the knee 1:1 (no motor), the ankle roll is locked (arch8).",
+ "spec_file": "../../docs/design/motor_candidates.json",
+ "axes": {
+  "hip_yaw": {
+   "module": "RS06",
+   "ratio": 1.5,
+   "link_efficiency": 0.9,
+   "mount": "hip_roll_link",
+   "drive_kg": 0.15,
+   "why": "estimated turning load 25 N\u00b7m at 8 rad/s (evidence 186); belt 0.10 kg + bracket 0.05 kg"
+  },
+  "hip_roll": {
+   "module": "RS06",
+   "ratio": 2.5,
+   "link_efficiency": 0.9,
+   "mount": "hip_roll_link",
+   "drive_kg": 0.1,
+   "why": "peak GRF x 0.10 m; with the 1.5 belt the RMS exceeds the rated torque (x1.43)"
+  },
+  "hip_pitch": {
+   "module": "RS04",
+   "ratio": 0.7,
+   "link_efficiency": 0.9,
+   "mount": "hip_roll_link",
+   "drive_kg": 0.1,
+   "why": "speed-up belt 0.70: best belt of the F1 screen for the 0.80 m leg (design stride with the stance hip term, x1.2, module speed x1 and x0.9)"
+  },
+  "knee_pitch": {
+   "module": "RS04",
+   "ratio": "fourbar",
+   "link_efficiency": 0.9,
+   "mount": "thigh_link",
+   "drive_kg": 0.1,
+   "why": "module on the upper femur, four-bar below (N 0.62-2.15 over the knee band)"
+  },
+  "tail_pitch": {
+   "module": "RS03",
+   "ratio": 1.0,
+   "link_efficiency": 1.0,
+   "mount": "tail_yaw_link"
+  },
+  "tail_yaw": {
+   "module": "RS06",
+   "ratio": 1.0,
+   "link_efficiency": 1.0,
+   "mount": "tail_yaw_link"
+  }
+ },
+ "fourbar": {
+  "a": 0.154,
+  "b": 0.261,
+  "c": 0.093,
+  "beta_deg": 115.7,
+  "branch": -1.0,
+  "why": "F1 (evidence 193): best of 20,000 random four-bars on the 0.17 m femur whose band (both transmission angles >= 30 deg) covers the running knee range and the fold 2.6: band 0.616-2.807, score 1.00 (design x1.2, module speed x1/x0.9)"
+ },
+ "leg": {
+  "femur": 0.17,
+  "tibia": 0.321,
+  "meta": 0.309,
+  "why": "F1 (evidence 193): sum 0.80 m, ostrich ratio 1 : 1.89 : 1.82; hip 11.1 m/s 0.84, knee (fold 2.6) 1.00, prone belly clearance 8 cm (calculation)"
+ },
+ "band_search_hi": 3.2,
+ "joint_range": {
+  "knee_pitch": [
+   0.2,
+   2.85
+  ],
+  "ankle_pitch": [
+   -2.95,
+   0.2
+  ]
+ }
+}

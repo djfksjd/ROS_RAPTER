@@ -45,6 +45,28 @@ class Rev3ModelTest(unittest.TestCase):
         for jt, a in ax.items():
             self.assertEqual(rz['assign'][jt], {'motor': a['module'], 'external_ratio': a['ratio'], 'link_efficiency': a['link_efficiency']})
 
+    def test_frozen_l80_leg(self):
+        """Design freeze F4 (docs/DESIGN_FREEZE.ko.md): 0.80 m leg config, segment lengths in the compiled model, knee
+        band from the four-bar on the 0.17 m femur, realism file equal to the axis config, default config unchanged."""
+        from run_env import RunEnv, R02_LEG
+        import knee_linkage_study
+        cfg = json.loads((ROOT/'sim/rl/rev3_l80.json').read_text())
+        e = RunEnv(**KW, model_rev=3, rev3_config=str(ROOT/'sim/rl/rev3_l80.json'), realism=str(ROOT/'sim/rl/realism_robstride_l80.json'))
+        e.reset(seed=1)
+        m = e.model
+        for name, key in (('shin_link', 'femur'), ('metatarsus_link', 'tibia'), ('foot_link', 'meta')):
+            self.assertAlmostEqual(-m.body_pos[m.body(f'left_{name}').id][2], cfg['leg'][key], places=6)
+        self.assertLess(e.knee_band[0], .62)
+        self.assertGreater(e.knee_band[1], 2.8)
+        self.assertAlmostEqual(e.mass, 14.92, delta=.05)
+        rz = json.loads((ROOT/'sim/rl/realism_robstride_l80.json').read_text())['motor']
+        for jt, a in cfg['axes'].items():
+            self.assertEqual(rz['assign'][jt], {'motor': a['module'], 'external_ratio': a['ratio'], 'link_efficiency': a['link_efficiency']})
+        d = RunEnv(**KW, model_rev=3)  # the default config resets the shared four-bar femur
+        d.reset(seed=1)
+        self.assertEqual(knee_linkage_study.FEMUR, R02_LEG['femur'])
+        self.assertAlmostEqual(-d.model.body_pos[d.model.body('left_shin_link').id][2], .22, places=6)
+
     def test_tn_curve_caps_drive_torque(self):
         from run_env import RunEnv
         e = RunEnv(**KW, model_rev=3, realism=REALISM)
