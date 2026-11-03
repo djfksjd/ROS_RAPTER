@@ -290,7 +290,7 @@ class RunEnv(RaptorEnv):
                  target_ramp=False, obs_contact=False, model_rev=1, latch_fallback=None, friction_dr=None,
                  self_collision=None, knee_band=None, start_contact=None, armature=None, heat_limit=1., roll_impulse=None, init_noise=.02,
                  realism=None, scale_override=None, range_override=None, gait_duty_min=None,
-                 contact_tc=None, terrain=None, obs_scan=None, rev3_config=None, kp_err=None, action_lpf=None, obs_hold=None, getup=None):
+                 contact_tc=None, terrain=None, obs_scan=None, rev3_config=None, kp_err=None, action_lpf=None, obs_hold=None, getup=None, cmd_turn=0., hold_settle=None):
         self.mass, self.spring_set, self.tail = float(mass), springs, tail
         rev2 = int(model_rev) >= 2
         # model rev 3: R-03 MJCF (hip yaw) + rev3_b.json (modules, transmissions, four-bar, drive masses); implies arch8
@@ -396,6 +396,11 @@ class RunEnv(RaptorEnv):
         # episode ends with +10 once the stand state (tilt < 0.3 rad, base above 0.8 of the nominal height, both feet
         # loaded > 15 % of the weight, base speed < 0.5 m/s) has held `hold_s`. None keeps the earlier behaviour.
         self.getup = getup
+        # cmd_turn: fraction of sampled commands that turn in place (0, 0, +-yaw_max U(0.3, 1)); the sampler zeroes the
+        # yaw with a zero forward command, so stage 2 l80_w2 never saw an in-place turn (evidence 196). 0 keeps the sampler.
+        # hold_settle (m/s): the hold anchor is set once the base speed has dropped below it after a zero command began,
+        # not at its first step (l80_w2 overshot a stop from 1 m/s and walked back to the anchor at 0.2 m/s). None keeps it.
+        self.cmd_turn, self.hold_settle = float(cmd_turn), hold_settle
         if terrain:
             tr.SIZE = float(terrain.get('size', 40.))
         # couple_ankle: horse-style reciprocal apparatus. Each ankle pitch joint follows its knee 1:1 through a joint
@@ -853,6 +858,9 @@ class RunEnv(RaptorEnv):
             else self.rng.uniform(0., self.cmd_max[0])
         if c[0] == 0.:
             c[1:] = 0.
+        if self.cmd_turn and self.rng.random() < self.cmd_turn:
+            c[:] = 0.
+            c[2] = self.rng.choice([-1., 1.])*self.rng.uniform(.3, 1.)*self.cmd_max[2]
         if self.kind != 'flat':
             c[:] = 0.
             if u >= self.zero_cmd:
@@ -936,8 +944,8 @@ class RunEnv(RaptorEnv):
         return np.concatenate(parts).astype(np.float32)
 
     def _anchor(self):
-        """Hold anchor (xy, yaw) and the current base (xy, yaw); the anchor is set when a fully zero command begins and
-        cleared while it is nonzero (returns None then)."""
+        """Hold anchor (xy, yaw) and the current base (xy, yaw); the anchor is set when a fully zero command begins (with
+        hold_settle: once the base has slowed below it) and cleared while it is nonzero (returns None then)."""
         d = self.data
         R = d.xmat[self.base].reshape(3, 3)
         yaw = np.arctan2(R[1, 0], R[0, 0])
@@ -945,6 +953,8 @@ class RunEnv(RaptorEnv):
             self.hold_anchor = None
             return None
         if self.hold_anchor is None:
+            if self.hold_settle is not None and np.linalg.norm(d.qvel[:2]) >= self.hold_settle:
+                return None
             self.hold_anchor = (d.xpos[self.base][:2].copy(), yaw)
         return self.hold_anchor, (d.xpos[self.base][:2].copy(), yaw)
 

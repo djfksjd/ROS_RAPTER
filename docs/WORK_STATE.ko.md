@@ -553,3 +553,5 @@ free-base초기속도0/관절초기perturbation유지대조8회계측일치.원�
 2026-11-03 F4 형상 동결(사용자 결정): 다리 0.80 m 타조 비율(0.17 : 0.321 : 0.309), 무릎 4절 링크 범위 0.616–2.807, 고관절 벨트 0.70, 14.92 kg. 1b는 달리기 뒤로 미루고 축소. [DESIGN_FREEZE](DESIGN_FREEZE.ko.md). `run_env.set_leg`와 `rev3_l80.json`(기존 설정 rollout 동일, 시험 200개 통과). `r3_s1ho`를 그대로 넣으면 30초에 3.7 m 이동해 1a 재학습 `l80_s1` 시작(600만 스텝 예산, [증거 195](evidence/195-l80-stand/README.md)).
 
 2026-11-03 0.80 m 다리 1a 통과([증거 195](evidence/195-l80-stand/README.md)): `l80_s1p`(`r3_s1ho`에서 105만 스텝) 명목 8판·무작위화 24판·밀기 96판 넘어짐 0, 명목 이동 0.33 m. 2단계 걷기 `l80_w1` 학습 중(800만 스텝 예산, `stage_gates.py walk` 기준 학습 전 확정, [증거 196](evidence/196-l80-walk/README.md)).
+
+2026-11-03 2단계 걷기 통과([증거 196](evidence/196-l80-walk/README.md)): `l80_w1`은 대칭 정책 고정 정규화에서 명령 입력 분산 0(1a는 0 명령만 학습) 버그로 무효. `train_run.widen_command_inputs` 수정 후 `l80_w2`(`l80_s1p`에서 800만 스텝)가 추종 0.3–1.5 m/s, 제자리 회전 ±0.5, 정지·출발, 무작위화 0/24, 1a 회귀 모두 통과(`gate_judge.py`). 선택 옵션 `cmd_turn`, `hold_settle` 추가(미사용). 다음: 3단계 달리기 기준·B/A 규칙 선언 후 학습.
