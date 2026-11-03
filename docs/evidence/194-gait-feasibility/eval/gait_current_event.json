@@ -1,0 +1,363 @@
+{
+ "tag": "current",
+ "ctrl": "event",
+ "override": {},
+ "params": {
+  "Ts": [
+   0.06,
+   0.4
+  ],
+  "Tsw": [
+   0.1,
+   0.5
+  ],
+  "x0": [
+   -1.2,
+   0.2
+  ],
+  "k_v": [
+   -0.2,
+   0.2
+  ],
+  "L": [
+   0.4,
+   1.2
+  ],
+  "k_st": [
+   0.7,
+   1.9
+  ],
+  "push": [
+   0.0,
+   0.6
+  ],
+  "fold": [
+   0.0,
+   1.2
+  ],
+  "kp_pitch": [
+   -2.0,
+   2.0
+  ],
+  "kd_pitch": [
+   -0.4,
+   0.4
+  ],
+  "k_roll": [
+   -1.0,
+   1.0
+  ],
+  "kd_roll": [
+   -0.3,
+   0.3
+  ],
+  "r0": [
+   -0.2,
+   0.2
+  ],
+  "tail_kp": [
+   -2.0,
+   2.0
+  ]
+ },
+ "speeds": {
+  "2.0": {
+   "hist": [
+    {
+     "it": 0,
+     "best": 1.7,
+     "mean": 0.42,
+     "alive_max": 1.26
+    },
+    {
+     "it": 1,
+     "best": 2.05,
+     "mean": 0.56,
+     "alive_max": 1.4
+    },
+    {
+     "it": 2,
+     "best": 1.37,
+     "mean": 0.65,
+     "alive_max": 0.94
+    },
+    {
+     "it": 3,
+     "best": 1.63,
+     "mean": 0.71,
+     "alive_max": 1.08
+    },
+    {
+     "it": 4,
+     "best": 2.27,
+     "mean": 0.77,
+     "alive_max": 1.58
+    },
+    {
+     "it": 5,
+     "best": 1.65,
+     "mean": 0.93,
+     "alive_max": 1.24
+    },
+    {
+     "it": 6,
+     "best": 2.12,
+     "mean": 0.95,
+     "alive_max": 1.54
+    },
+    {
+     "it": 7,
+     "best": 2.48,
+     "mean": 1.33,
+     "alive_max": 1.62
+    },
+    {
+     "it": 8,
+     "best": 2.76,
+     "mean": 1.46,
+     "alive_max": 1.94
+    },
+    {
+     "it": 9,
+     "best": 2.44,
+     "mean": 1.58,
+     "alive_max": 1.76
+    },
+    {
+     "it": 10,
+     "best": 2.95,
+     "mean": 1.65,
+     "alive_max": 2.12
+    },
+    {
+     "it": 11,
+     "best": 2.4,
+     "mean": 1.71,
+     "alive_max": 1.76
+    },
+    {
+     "it": 12,
+     "best": 2.54,
+     "mean": 1.7,
+     "alive_max": 2.06
+    },
+    {
+     "it": 13,
+     "best": 3.46,
+     "mean": 1.71,
+     "alive_max": 2.2
+    },
+    {
+     "it": 14,
+     "best": 2.74,
+     "mean": 1.79,
+     "alive_max": 1.98
+    },
+    {
+     "it": 15,
+     "best": 2.91,
+     "mean": 1.82,
+     "alive_max": 2.04
+    },
+    {
+     "it": 16,
+     "best": 2.72,
+     "mean": 1.69,
+     "alive_max": 1.9
+    },
+    {
+     "it": 17,
+     "best": 2.65,
+     "mean": 1.79,
+     "alive_max": 1.8
+    },
+    {
+     "it": 18,
+     "best": 3.29,
+     "mean": 1.82,
+     "alive_max": 2.06
+    },
+    {
+     "it": 19,
+     "best": 3.25,
+     "mean": 1.74,
+     "alive_max": 2.08
+    },
+    {
+     "it": 20,
+     "best": 2.67,
+     "mean": 1.88,
+     "alive_max": 1.76
+    },
+    {
+     "it": 21,
+     "best": 3.05,
+     "mean": 1.89,
+     "alive_max": 2.02
+    },
+    {
+     "it": 22,
+     "best": 2.96,
+     "mean": 1.95,
+     "alive_max": 2.22
+    },
+    {
+     "it": 23,
+     "best": 3.2,
+     "mean": 1.87,
+     "alive_max": 2.2
+    },
+    {
+     "it": 24,
+     "best": 2.98,
+     "mean": 1.83,
+     "alive_max": 1.9
+    },
+    {
+     "it": 25,
+     "best": 2.94,
+     "mean": 1.83,
+     "alive_max": 2.22
+    },
+    {
+     "it": 26,
+     "best": 3.09,
+     "mean": 1.84,
+     "alive_max": 2.12
+    },
+    {
+     "it": 27,
+     "best": 3.18,
+     "mean": 1.81,
+     "alive_max": 2.06
+    },
+    {
+     "it": 28,
+     "best": 3.07,
+     "mean": 1.79,
+     "alive_max": 2.06
+    },
+    {
+     "it": 29,
+     "best": 3.23,
+     "mean": 1.77,
+     "alive_max": 2.36
+    },
+    {
+     "it": 30,
+     "best": 3.27,
+     "mean": 1.87,
+     "alive_max": 2.26
+    },
+    {
+     "it": 31,
+     "best": 3.02,
+     "mean": 1.83,
+     "alive_max": 2.14
+    },
+    {
+     "it": 32,
+     "best": 3.09,
+     "mean": 1.83,
+     "alive_max": 2.16
+    },
+    {
+     "it": 33,
+     "best": 3.06,
+     "mean": 1.74,
+     "alive_max": 2.22
+    },
+    {
+     "it": 34,
+     "best": 2.64,
+     "mean": 1.75,
+     "alive_max": 1.94
+    },
+    {
+     "it": 35,
+     "best": 3.27,
+     "mean": 1.89,
+     "alive_max": 2.46
+    },
+    {
+     "it": 36,
+     "best": 2.99,
+     "mean": 1.86,
+     "alive_max": 2.04
+    },
+    {
+     "it": 37,
+     "best": 3.16,
+     "mean": 1.78,
+     "alive_max": 2.0
+    },
+    {
+     "it": 38,
+     "best": 4.28,
+     "mean": 1.92,
+     "alive_max": 3.0
+    },
+    {
+     "it": 39,
+     "best": 2.72,
+     "mean": 1.73,
+     "alive_max": 1.88
+    }
+   ],
+   "mu": [
+    -0.9322,
+    0.3257,
+    -0.1226,
+    -0.0606,
+    0.1144,
+    -0.3757,
+    -0.1741,
+    0.0973,
+    0.6959,
+    0.2119,
+    0.103,
+    0.2741,
+    0.1538,
+    -0.1282
+   ],
+   "params": {
+    "Ts": 0.072,
+    "Tsw": 0.365,
+    "x0": -0.586,
+    "k_v": -0.012,
+    "L": 0.846,
+    "k_st": 1.075,
+    "push": 0.248,
+    "fold": 0.658,
+    "kp_pitch": 1.392,
+    "kd_pitch": 0.085,
+    "k_roll": 0.103,
+    "kd_roll": 0.082,
+    "r0": 0.031,
+    "tail_kp": -0.256
+   },
+   "replay": {
+    "v_cmd": 2.0,
+    "alive_s": 0.44,
+    "mean_speed": 1.04,
+    "winding_max_c": null,
+    "saturated_frac": {
+     "left_hip_roll": 0.0,
+     "left_hip_yaw": 0.0,
+     "left_hip_pitch": 0.0,
+     "left_knee_pitch": 0.0,
+     "tail_yaw": 0.41,
+     "tail_pitch": 0.18
+    },
+    "rms_nm": {
+     "left_hip_roll": 18.1,
+     "left_hip_yaw": 1.9,
+     "left_hip_pitch": 45.9,
+     "left_knee_pitch": 40.8,
+     "tail_yaw": 26.3,
+     "tail_pitch": 29.0
+    }
+   }
+  }
+ }
+}
