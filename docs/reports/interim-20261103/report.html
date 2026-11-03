@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>Raptor 중간 보고 2026-11-03</title>
+<style>
+  @page { size: A4; margin: 18mm 17mm 16mm 17mm; }
+  body { font-family: "Apple SD Gothic Neo", sans-serif; font-size: 9.8pt; line-height: 1.55; color: #111; margin: 0; }
+  h1 { font-size: 15pt; font-weight: 700; margin: 0 0 2pt; }
+  .meta { font-size: 9pt; color: #444; margin-bottom: 14pt; }
+  h2 { font-size: 11.5pt; font-weight: 700; margin: 14pt 0 5pt; }
+  h3 { font-size: 10pt; font-weight: 700; margin: 9pt 0 3pt; }
+  p { margin: 0 0 6pt; }
+  table { border-collapse: collapse; width: 100%; margin: 3pt 0 9pt; font-size: 9pt; }
+  th, td { border-top: 1px solid #999; border-bottom: 1px solid #999; padding: 3pt 5pt; vertical-align: top; text-align: left; }
+  th { font-weight: 700; }
+  img { width: 100%; display: block; margin: 4pt 0 2pt; }
+  .cap { font-size: 8.4pt; color: #444; margin-bottom: 9pt; }
+  .page { page-break-after: always; }
+  ul { margin: 2pt 0 7pt 15pt; padding: 0; }
+  li { margin: 1.5pt 0; }
+  code { font-family: Menlo, monospace; font-size: 8.4pt; }
+</style>
+</head>
+<body>
+
+<div class="page">
+<h1>Raptor 중간 보고</h1>
+<div class="meta">2026-11-03 · 시뮬레이션(MuJoCo, RobStride 모터 조건) 결과이며 실물 제작·측정은 하지 않았다.</div>
+
+<h2>요약</h2>
+<p>강화학습을 여러 차례 돌렸지만 모델을 바꿀 때마다 처음부터 다시 하는 일이 반복됐다. 원인은 다리 길이와 무릎 범위 같은 형상을 정하기 전에 학습부터 시작한 데 있었다. Codex와 Claude Fable에게 따로 검토를 받아 합의한 계획에 따라, 형상을 계산으로 먼저 골라 다리를 0.80 m 타조 비율로 정했다(사용자 결정). 이 형상으로 1a 서기와 2단계 걷기를 통과했고, 현재 3단계 달리기를 학습하고 있다.</p>
+
+<table>
+<tr><th style="width:22%">단계</th><th>결과</th><th style="width:12%">상태</th></tr>
+<tr><td>계획</td><td>원인 진단과 진행 방식 정리(<code>docs/DESIGN_FREEZE_PLAN.ko.md</code>)</td><td>완료</td></tr>
+<tr><td>형상 계산</td><td>다리 길이 3 × 비율 3 × 무릎 접힘 3, 27개 후보. 지금 다리(0.92 m)는 여유 1.2배에서 무릎 모터 한계를 넘는다(1.05–1.45). 0.80 m 타조 비율은 모두 1 이하</td><td>완료</td></tr>
+<tr><td>비RL 달리기 검사</td><td>직접 만든 제어기 2종으로는 2–4 m/s를 3초 넘게 유지하지 못했다. 제어기의 문제이고 형상 판정은 아니다</td><td>미해결</td></tr>
+<tr><td>형상 결정</td><td>다리 0.17 : 0.321 : 0.309 m, 무릎 접힘 2.6 rad, 고관절 벨트 0.70, 14.92 kg. 바닥 일어서기(1b)는 달리기 뒤로 미룸</td><td>결정됨</td></tr>
+<tr><td>1a 서기</td><td>105만 스텝(약 30분). 넘어짐 0/128, 30초 이동 0.33 m</td><td>통과</td></tr>
+<tr><td>2단계 걷기</td><td>800만 스텝(약 3.5시간). 0.3–1.5 m/s, 제자리 회전, 정지·출발, 무작위 조건, 1a 회귀</td><td>통과</td></tr>
+<tr><td>3단계 달리기</td><td>시험과 합격 기준, B/A 판정 규칙을 정하고 학습 시작</td><td>진행 중</td></tr>
+</table>
+
+<h2>진행 방식</h2>
+<ul>
+<li>학습 전에 계산과 탐색으로 가능성을 먼저 확인한다. 강화학습은 형상을 정한 뒤에만 한다.</li>
+<li>형상은 한 번 정하면 유지한다. 다시 여는 경우는 모델 오류가 재현되거나 필요한 운동이 구체적으로 불가능할 때로 한정한다.</li>
+<li>학습마다 시작 전에 예산, 점검 시점, 중단·채택 기준을 문서에 적는다. 합격 여부는 스크립트(<code>gate_judge.py</code>)로 판정한다.</li>
+<li>순서: 1a 서기 → 2 걷기 → 3 달리기 → 1b 축소판 → 4 회전 → 5 점프 → 6 험지 → 1b 전체 → 7 상황 판단.</li>
+</ul>
+
+<h2>결정이 필요한 다음 지점</h2>
+<table>
+<tr><th style="width:24%">시점</th><th>내용</th></tr>
+<tr><td>달리기 예산을 다 쓴 뒤</td><td>학습 3회(각 800만 스텝) 뒤 유지 속도가 8 m/s 미만이면 A안(약 6–7 m/s) 또는 목표 하향을 결정한다.</td></tr>
+<tr><td>바닥 일어서기</td><td>달리기 판정 뒤, 학습 없이 경로가 있는지부터 확인한다. 없으면 범위나 기구 변경 선택지를 정리해 묻는다.</td></tr>
+</table>
+</div>
+
+<div class="page">
+<h2>1. 반복이 생긴 원인</h2>
+<table>
+<tr><th style="width:26%">원인</th><th>내용</th></tr>
+<tr><td>형상을 정하기 전에 학습</td><td>0단계에서는 모터, 감속비, 질량만 맞췄다. 다리 비율은 이전 모델(R-02, 10.5 kg)에서 27개 조합 중 고른 값이었고, 두 구간은 탐색 범위의 끝값이었다. 15.1 kg인 R-03에서는 다시 계산하지 않았다. 형상 문제가 뒤늦게 드러나면 모델을 바꾸고 학습한 정책을 버리는 일이 반복됐다.</td></tr>
+<tr><td>학습 결과로 가능성을 판단</td><td>성공이 0이면 학습이 부족한지 기구가 안 되는지 알 수 없다. 무릎이 2.0 rad까지만 명령되던 문제와 엎드렸을 때 배 간격 24.5 cm는 계산으로 바로 알 수 있었지만, 학습을 수십 시간 한 뒤에 알았다.</td></tr>
+<tr><td>일어서기를 달리기보다 먼저 둠</td><td>팔 없는 2족이 바닥에서 일어서는 것은 어려운 문제다. 해결책인 깊게 접히는 무릎은 달리기 모터 여유를 줄인다(점수 1.05 → 1.21). 그래서 핵심 목표인 달리기는 R-03에서 시도하지 못했다.</td></tr>
+<tr><td>설계 계산의 빈틈</td><td>설계용 보폭 계산은 지지 중 고관절 토크를 0으로 본다. 학습 정책이 고관절을 설계값의 2.5배 쓴 것과 관련이 있을 수 있다.</td></tr>
+<tr><td>중단 기준 없음</td><td>일어서기 실험들에는 언제 멈출지 정한 기준이 없었다. 기준이 있던 1a는 통과했다.</td></tr>
+</table>
+<p>학습·시험 코드, 모터 조건, 계산 도구는 모두 그대로 썼다. 형상을 바꾸면서 잃은 것은 학습된 정책뿐이었고, 1a를 다시 통과하는 데 30분이 걸렸다.</p>
+
+<h2>2. 형상 계산 (증거 193)</h2>
+<img src="../../evidence/193-shape-scan/media/shape_table.png" alt="형상 선별표">
+<div class="cap">모터 점수는 순간 토크/가능 토크와 RMS/정격 중 큰 값이다. 1 이하이면 하중 1.2배, 모터 속도 0.9배 조건에서도 들어간다. 배 간격은 엎드렸을 때 다리를 몸 아래로 넣은 가장 낮은 자세 기준이다. 계산 결과이며 주행 결과가 아니다.</div>
+<ul>
+<li>다리가 짧을수록 무릎 부담이 줄었다. 0.70 m 타조 비율은 모든 항목이 1 이하이고 배 간격이 −3 cm였지만, 11.1 m/s에서 보폭 빈도가 4.1 Hz로 높고 고관절 여유가 적다.</li>
+<li>0.80 m 타조 비율을 골랐다. 고관절 0.84, 무릎 1.00, 배 간격 8 cm로 처음 요구한 다리 0.7–0.8 m와 맞고 균형이 가장 낫다.</li>
+<li>지지 중 고관절 토크를 넣어도 고관절 점수는 0.1–0.3 오르는 데 그쳤다. 2.5배를 이것만으로는 설명할 수 없다.</li>
+</ul>
+</div>
+
+<div class="page">
+<h2>3. 정한 형상</h2>
+<img src="../../design/media/freeze_side.png" alt="기존 다리와 0.80 m 다리" style="width:86%">
+<div class="cap">왼쪽 R-03(다리 0.92 m, 엉덩이 높이 0.83 m, 15.10 kg), 오른쪽 결정 형상(0.80 m, 0.72 m, 14.92 kg). 무릎 범위 0.64–2.26 → 0.62–2.81 rad.</div>
+<table>
+<tr><th style="width:22%">항목</th><th>값</th><th style="width:30%">근거</th></tr>
+<tr><td>다리</td><td>허벅지 0.17, 정강이 0.321, 발등뼈 0.309 m</td><td>형상 계산(증거 193)</td></tr>
+<tr><td>무릎</td><td>RS04, 허벅지 위 4절 링크, 범위 0.616–2.807 rad</td><td>무작위 20,000개 중 최선</td></tr>
+<tr><td>고관절 pitch</td><td>RS04, 벨트 0.70</td><td>0.80 m 다리 기준 최선</td></tr>
+<tr><td>나머지 축</td><td>R-03 B안 그대로</td><td>증거 186–187</td></tr>
+<tr><td>꼬리</td><td>R-03 그대로(엉덩이 뒤 20 cm, 길이 98 cm)</td><td>계산으로 비교하지 못함</td></tr>
+<tr><td>설정 파일</td><td><code>sim/rl/rev3_l80.json</code>, <code>realism_robstride_l80.json</code></td><td>시험 200개 통과</td></tr>
+</table>
+
+<h2>4. 1a 서기 (증거 195)</h2>
+<img src="../../evidence/195-l80-stand/media/gate_compare.png" alt="1a 시험 비교">
+<div class="cap">기존 서기 정책에서 이어 학습해 105만 스텝(예산 600만)에서 기준을 만족해 멈췄다. 명목 8판, 무작위 24판, 밀기 96판 모두 넘어지지 않았다. 무작위 조건과 0.8 m/s 밀기에서는 기존 다리보다 덜 밀렸다(0.66 → 0.53 m, 0.70 → 0.50 m).</div>
+</div>
+
+<div class="page">
+<h2>5. 2단계 걷기 (증거 196)</h2>
+<img src="../../evidence/196-l80-walk/media/walk_gate.png" alt="걷기 시험">
+<div class="cap">명목 조건은 모두 넘어짐 0, 무작위 1.0 m/s 24판도 넘어짐 0, 1a 회귀도 통과했다. 빨간 선은 학습 전에 정한 합격 범위다.</div>
+<img src="../../evidence/196-l80-walk/media/walk_frames.png" alt="걷기 장면">
+<div class="cap">1.0 m/s 걷기, 0.1초 간격.</div>
+<table>
+<tr><th style="width:26%">시험</th><th>결과</th><th style="width:28%">기준</th></tr>
+<tr><td>속도 추종 0.3/0.6/1.0/1.5 m/s</td><td>0.21–0.22 / 0.60–0.62 / 1.03–1.04 / 1.46–1.47</td><td>오차 max(0.1, 15 %)</td></tr>
+<tr><td>제자리 회전 ±0.5 rad/s</td><td>0.40–0.43 / −0.38 – −0.43, 이동 0.45 m 이하</td><td>오차 25 %, 이동 0.5 m</td></tr>
+<tr><td>정지·출발</td><td>출발 0.58초 안에 0.8 m/s, 정지 2초 뒤 0.14 m/s 이하</td><td>2초, 0.15 m/s</td></tr>
+</table>
+<p>0.3 m/s 추종, 회전 −0.38, 정지 뒤 0.14는 기준 안이지만 경계에 가깝다.</p>
+
+<h3>고친 문제</h3>
+<p>첫 걷기 학습(<code>l80_w1</code>)은 무효로 처리했다. 서기 정책은 정지 명령만 보고 학습해서, 명령 입력의 정규화 분산이 0이었다. 좌우 대칭 정책은 정규화를 고정하기 때문에 걷기 명령이 모두 최댓값(±10)으로 잘려 들어갔고, 학습 초반에 정책이 무너졌다. 명령 입력의 정규화 폭을 넓히고 해당 가중치를 같은 비율로 조정해 기존 동작은 그대로 두었다. 달리기로 넘어갈 때도 같은 문제(1.5 m/s 기준 정규화)가 있어 같은 방법으로 고쳤다. 그 밖에 학습 명령에 제자리 회전이 없던 점과, 멈추기 전에 위치 기준점이 잡히던 점을 찾아 옵션으로 고쳤다.</p>
+</div>
+
+<div>
+<h2>6. 3단계 달리기 (증거 197, 진행 중)</h2>
+<table>
+<tr><th style="width:22%">항목</th><th>학습 전에 정한 내용</th></tr>
+<tr><td>합격 기준</td><td>2/4/6/8/10/11.1 m/s 각 4판에서 넘어짐 0, 평균 속도 ±10 %. 11.1 m/s로 10분 달려도 모터 감액 없음. 4 m/s에서 옆으로 0.5 m/s 밀기, 좌우 각 8판 중 넘어짐 1 이하. 1a·2단계 회귀.</td></tr>
+<tr><td>B/A 판정</td><td>유지 속도는 해당 명령과 그 아래 명령을 모두 통과한 가장 높은 속도. 학습 3회(각 800만 스텝) 뒤 8 m/s 미만이면 A안 또는 목표 하향을 결정한다. 관절별 토크·속도 한계 도달 비율과 감액 기록을 함께 제출한다.</td></tr>
+<tr><td>1회차</td><td>걷기 정책에서 이어 학습한다. 평가를 통과할 때마다 목표 속도를 1.15배 올린다(3 → 11.1 m/s). 800만 스텝 예산이고 200만 스텝마다 점검한다. 400만 스텝까지 4 m/s에 못 미치면 중단한다.</td></tr>
+<tr><td>현재</td><td>약 60만 스텝. 3 m/s 단계 평가 속도 2.41 m/s로 아직 통과하지 못했다.</td></tr>
+</table>
+
+<h2>7. 정리</h2>
+<table>
+<tr><th style="width:15%">구분</th><th>내용</th></tr>
+<tr><td>확인</td><td>0.80 m 다리로 1a 서기와 2단계 걷기가 사전 기준을 통과했다. 계산상 무릎과 고관절 모두 모터 범위 안이다. 정규화와 명령 샘플링 문제는 시험 코드로 고정했다.</td></tr>
+<tr><td>미해결</td><td>직접 만든 제어기로 하는 달리기 검사. 바닥 일어서기(1b)는 불합격이며 달리기 뒤로 미뤘다.</td></tr>
+<tr><td>미검증</td><td>새 다리의 실제 최고 속도, 고관절 부하, 10분 발열. 짧은 다리의 이점은 아직 계산 결과뿐이다. 꼬리 형상의 영향. 모든 결과는 시뮬레이션이며 실물 성능이 아니다.</td></tr>
+<tr><td>다음</td><td>달리기 200만 스텝 점검, 유지 속도 확인, B/A 판정 자료 준비.</td></tr>
+</table>
+<p style="font-size:8.6pt;color:#444">문서: 계획·진행 기록 <code>docs/DESIGN_FREEZE_PLAN.ko.md</code>, 형상 결정 <code>docs/DESIGN_FREEZE.ko.md</code>, 현재 상태 <code>docs/PAUSE_CHECKPOINT.ko.md</code>, 증거 <code>docs/evidence/193–197</code>, PR #37–#40.</p>
+</div>
+</body>
+</html>
