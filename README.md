@@ -90,6 +90,10 @@
 
 ![1.0 m/s 걷기 장면](docs/evidence/196-l80-walk/media/walk_frames.png)
 
+**3단계 달리기 정책 채택·전체 FAIL (증거 197):** `l80_r1_6M`은 2/4/6 m/s 추종과 방열판 10분 지속 명령 6 m/s(실제 평균 5.835 m/s, 권선 118.2 °C, 감액 없음)를 통과했습니다. `l80_w2`와 전환은 넘어짐 0/4·무작위화 0/8입니다. 8 m/s 명령에서는 6.46–6.51 m/s로 4판 중 2판이 기준보다 0.03–0.04 m/s 부족합니다. 사용자 결정 대기이며 11.1 m/s는 보류입니다. MuJoCo 시뮬레이션 결과입니다.
+
+![3단계 달리기 후보 비교](docs/evidence/197-l80-run/media/run_candidates.png)
+
 ![일어서기: 시작 기울기별 성공과 1b 합격 시험](docs/evidence/189-stage1b-getup-feasibility/media/getup_progress.png)
 
 | 성공 1판: 다리 접고 앉은 자세 → 4.1초에 일어서서 서기 정책으로 10초 | 실패: 옆으로 누운 자세에서 다리를 몸 아래로 못 가져옴 |
@@ -620,6 +624,7 @@ ROS 실행·응답 확인·STOP 사용법은 [로컬 개발 가이드](docs/loca
 | [달리기 비RL 검사 194](docs/evidence/194-gait-feasibility/README.md) | 직접 짠 제어기 2종 CEM, 2–4 m/s 3초 미만으로 미해결(제어기 실패, 형상 판정 아님) |
 | [0.80 m 다리 1a 서기 195](docs/evidence/195-l80-stand/README.md) | 형상 동결 뒤 `l80_s1p`, 105만 스텝에 1a 통과(넘어짐 0/128, 이동 0.33 m) |
 | [0.80 m 다리 2단계 걷기 196](docs/evidence/196-l80-walk/README.md) | `l80_w2` 800만 스텝, 걷기 전 항목·1a 회귀 통과. 대칭 정책 정규화 버그(명령 입력 분산 0) 수정 |
+| [0.80 m 다리 3단계 달리기 197](docs/evidence/197-l80-run/README.md) | `l80_r1_6M` 채택, 2/4/6 m/s·10분 지속 명령 6 m/s·걷기 전환 통과. 8 m/s 기준 최대 0.04 m/s 미달로 전체 FAIL·사용자 결정 대기, 11.1 m/s 보류 |
 | [순차 학습 계획](docs/STAGED_PLAN.ko.md) | 2026-10-31 사용자 결정: 서기→걷기→달리기→방향 전환→점프→험지→상황 판단, 구동기 B안, 고관절 yaw 축 |
 | [최종 설계 검증 보고서 1.8](docs/reports/final-20261012/README.ko.md) | 계산 문서 재작성본(104쪽 PDF)·출처·검증 기록 |
 | [T1 달리기 증거 86](docs/evidence/86-t1-run/README.md) | 가상 구동기 달리기·꼬리 활성/고정·임펄스·방향전환·일어나기 |

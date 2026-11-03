@@ -22,14 +22,21 @@ walk (stage 2, defined 2026-11-03 before any walking run): randomize off unless 
 run (stage 3, defined 2026-11-03 before any running run): randomize off unless noted
   speed     forward command 2 / 4 / 6 / 8 / 10 / 11.1 m/s held 20 s from standing, 4 seeds: falls, mean forward body speed
             over 10-20 s, lowest motor derate factor (realism; 1 = no derating)
-  heat      600 s at the command given by --heat-cmd (default 6 m/s), vendor heat-sink mount and the worst mount of
+  heat      600 s at each command of --heat-cmd (default 4, 5, 6 m/s), vendor heat-sink mount and the worst mount of
             thermal.dr (r_th_ha x2, c_th_h x0.2): falls, lowest derate, hottest winding, mean speed
   lateral   4 m/s, lateral base kick 0.5 m/s left / right at 8 s, 8 seeds each: falls
+switch (stage 3 policy set, defined 2026-11-04): the walk policy (RUN_DIR) and a run policy (--run) share one robot;
+            walk -> run when the command reaches 1.75 m/s, run -> walk once the command is below 1.75 m/s and the body
+            is slower than 1.5 m/s (hysteresis); each keeps its own observation normalisation. Commands 0 (3 s) -> 1.0 (5 s) -> 4.0 (6 s) -> 6.0
+            (6 s) -> 1.0 (6 s) -> 0 (5 s) as steps (switch, 4 seeds) and rate-limited to 2 m/s^2 as a high-level layer
+            would send them (switch_ramp 4 seeds, switch_ramp_dr 8 randomized): falls, speed at the end of each segment,
+            number of switches
 Fall = the env's termination (tilt, body contact, low hip). Pass rules are in the plan; this script only measures.
 Usage: .venv-sim/bin/python sim/rl/stage_gates.py RUN_DIR stand [--quick]
        .venv-sim/bin/python sim/rl/stage_gates.py RUN_DIR getup --stand sim/rl/runs/r3_s1ho [--quick]
        .venv-sim/bin/python sim/rl/stage_gates.py RUN_DIR walk [--quick]
-       .venv-sim/bin/python sim/rl/stage_gates.py RUN_DIR run [--quick] [--heat-cmd 6]
+       .venv-sim/bin/python sim/rl/stage_gates.py RUN_DIR run [--quick] [--heat-cmd 4 5 6]
+       .venv-sim/bin/python sim/rl/stage_gates.py WALK_DIR switch --run RUN_DIR [--quick]
 """
 import argparse
 import json
@@ -231,7 +238,7 @@ def run_rollout(d, seed, cmd, seconds, randomize=False, kick=None, kick_t=8., mo
     return fell, np.array(v), round(der, 3), round(hot, 1)
 
 
-def run(d, quick=False, heat_cmd=6.):
+def run(d, quick=False, heat_cmd=(4., 5., 6.)):
     n, nk = (2, 2) if quick else (4, 8)
     for cmd in (2., 4., 6., 8., 10., 11.1):
         rows = []
@@ -240,10 +247,10 @@ def run(d, quick=False, heat_cmd=6.):
             rows.append(dict(seed=6700+i, t_fall=fell, v_mean=round(float(v[500:].mean()), 3) if fell is None else None,
                              min_derate=der, t_winding_max_c=hot))
         yield dict(cond='speed', cmd=cmd, n=n, falls=sum(r['t_fall'] is not None for r in rows), episodes=rows)
-    if not quick:
+    for hc in (() if quick else heat_cmd):
         for mount in ('plate', 'worst'):
-            fell, v, der, hot = run_rollout(d, 6800, heat_cmd, 600., mount=mount)
-            yield dict(cond='heat', cmd=heat_cmd, mount=mount, n=1, falls=int(fell is not None), t_fall=fell, min_derate=der,
+            fell, v, der, hot = run_rollout(d, 6800, hc, 600., mount=mount)
+            yield dict(cond='heat', cmd=hc, mount=mount, n=1, falls=int(fell is not None), t_fall=fell, min_derate=der,
                        t_winding_max_c=hot, v_mean=round(float(v[500:].mean()), 3))
     for name, kick in (('left', (0., .5)), ('right', (0., -.5))):
         rows = []
@@ -253,7 +260,53 @@ def run(d, quick=False, heat_cmd=6.):
         yield dict(cond='lateral', dir=name, cmd=4., n=nk, falls=sum(r['t_fall'] is not None for r in rows), episodes=rows)
 
 
-GATES = {'stand': stand, 'getup': getup, 'walk': walk, 'run': run}
+SWITCH_CMD, SWITCH_V = 1.75, 1.5
+SWITCH_SCHED = [(0., 0.), (3., 1.), (8., 4.), (14., 6.), (20., 1.), (26., 0.)]
+
+
+def switch_rollout(walk_dir, run_dir, seed, randomize, seconds=31., accel=None):
+    a = json.loads((walk_dir/'args.json').read_text())
+    kw = {**env_kwargs(a), 'level': 0., 'episode_s': seconds+5., 'disturb_items': [], 'roll_impulse': None, 'yaw_impulse': None,
+          'cmd_max': [0., 0., 0.], 'init_speed': False}
+    env = RunEnv(**kw, randomize=randomize, seed=seed)
+    env.init_seed = seed
+    walk, vw = load(str(walk_dir/'model.zip'), env)
+    run_, vr = load(str(run_dir/'model.zip'), env)
+    vw.reset()
+    env.resample_steps = 10**9
+    dd, b = env.data, env.base
+    fell, using, switches, ends, cmd = None, 'walk', 0, {}, 0.
+    for k in range(int(seconds/.02)):
+        t = k*.02
+        goal = max(c for c in SWITCH_SCHED if c[0] <= t)[1]
+        cmd = goal if accel is None else cmd+float(np.clip(goal-cmd, -accel*.02, accel*.02))
+        env.command = np.array([cmd, 0., 0.])
+        R = dd.xmat[b].reshape(3, 3)
+        v = float((R.T @ dd.qvel[:3])[0])
+        want = 'run' if cmd >= SWITCH_CMD or (using == 'run' and v > SWITCH_V) else 'walk'
+        switches += want != using
+        using = want
+        raw = env._observe() if k == 0 else raw
+        model, vn = (run_, vr) if using == 'run' else (walk, vw)
+        raw, _, term, _, _ = env.step(model.predict(vn.normalize_obs(raw[None]), deterministic=True)[0][0])
+        for i, (t0, _c) in enumerate(SWITCH_SCHED):
+            end = SWITCH_SCHED[i+1][0] if i+1 < len(SWITCH_SCHED) else seconds
+            if abs(t+.02-end) < 1e-6:
+                ends[i] = round(v, 2)
+        if term:
+            fell = round(t+.02, 2)
+            break
+    return dict(seed=seed, t_fall=fell, switches=switches, end_speed=[(c, ends.get(i)) for i, (_t0, c) in enumerate(SWITCH_SCHED)])
+
+
+def switch(d, quick=False, run_dir=None):
+    n, ndr = (2, 2) if quick else (4, 8)
+    for name, rnd, m, acc in (('switch', False, n, None), ('switch_ramp', False, n, 2.), ('switch_ramp_dr', True, ndr, 2.)):
+        rows = [switch_rollout(d, run_dir, 7100+i, rnd, accel=acc) for i in range(m)]
+        yield dict(cond=name, n=m, accel=acc, falls=sum(r['t_fall'] is not None for r in rows), episodes=rows)
+
+
+GATES = {'stand': stand, 'getup': getup, 'walk': walk, 'run': run, 'switch': switch}
 
 
 def main():
@@ -262,11 +315,12 @@ def main():
     ap.add_argument('gate', choices=list(GATES))
     ap.add_argument('--quick', action='store_true')
     ap.add_argument('--stand', help='stage 1a stand policy run directory (getup gate handoff)')
-    ap.add_argument('--heat-cmd', type=float, default=6., help='run gate: forward command of the 10 min heat run')
+    ap.add_argument('--run', dest='run_policy', help='switch gate: run policy run directory')
+    ap.add_argument('--heat-cmd', type=float, nargs='+', default=[4., 5., 6.], help='run gate: forward commands of the 10 min heat runs')
     a = ap.parse_args()
     d = Path(a.run)
     rows = GATES[a.gate](d, a.quick, Path(a.stand)) if a.gate == 'getup' else run(d, a.quick, a.heat_cmd) if a.gate == 'run' \
-        else GATES[a.gate](d, a.quick)
+        else switch(d, a.quick, Path(a.run_policy)) if a.gate == 'switch' else GATES[a.gate](d, a.quick)
     for row in rows:
         print(json.dumps({'run': d.name, 'gate': a.gate, **row}), flush=True)
 

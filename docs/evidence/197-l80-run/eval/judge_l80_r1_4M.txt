@@ -1,0 +1,38 @@
+PASS run   speed       2.0       v [1.93, 1.96, 1.96, 1.98], derate min 1.0
+PASS run   speed       4.0       v [4.32, 4.24, 4.29, 4.25], derate min 1.0
+PASS run   speed       6.0       v [6.15, 6.12, 6.17, 6.15], derate min 1.0
+FAIL run   speed       8.0       v [None, None, None, None], derate min 1.0 (top speed: >= 6.5)
+---- run   speed      10.0       v [None, None, None, None], derate min 1.0 (recorded)
+---- run   speed      11.1       v [None, None, None, None], derate min 1.0 (recorded)
+---- run   heat        4.0       plate: falls 0, derate min 1.0, winding max 94.7 C, v 4.347 (sustained speed below)
+---- run   heat        4.0       worst: falls 0, derate min 0.364, winding max 137.7 C, v 4.09 (sustained speed below)
+---- run   heat        5.0       plate: falls 0, derate min 1.0, winding max 116.5 C, v 5.207 (sustained speed below)
+---- run   heat        5.0       worst: falls 0, derate min 0.336, winding max 138.3 C, v 4.738 (sustained speed below)
+---- run   heat        6.0       plate: falls 0, derate min 0.546, winding max 134.1 C, v 6.115 (sustained speed below)
+---- run   heat        6.0       worst: falls 1, derate min 0.327, winding max 138.5 C, v 5.806 (sustained speed below)
+PASS run   lateral     4.0       falls 0/8
+PASS run   lateral     4.0       falls 0/8
+FAIL walk  track       0.3       v [-0.16, -0.15, -0.13, -0.18], tol 0.10
+FAIL walk  track       0.6       v [0.74, 0.49, 0.72, 0.41], tol 0.10
+FAIL walk  track       1.0       v [1.14, 1.15, 1.14, 1.16], tol 0.15
+PASS walk  track       1.5       v [1.48, 1.51, 1.5, 1.5], tol 0.22
+FAIL walk  turn        0.5       yaw [0.4, 0.39, 0.38, 0.39], drift max 1.399
+FAIL walk  turn       -0.5       yaw [-0.42, -0.4, -0.4, -0.4], drift max 1.49
+FAIL walk  stopstart             reach max 1.26, stop speeds [0.02, -0.21, -0.25, -0.11, -0.25, -0.23, -0.04, -0.17]
+PASS walk  track_dr    1.0       falls 0/24
+FAIL stand hold                  falls 0, drift 1.074
+PASS stand hold_dr               falls 0/24
+PASS stand push      front  0.3  falls 0
+PASS stand push       back  0.3  falls 0
+PASS stand push       left  0.3  falls 0
+PASS stand push      right  0.3  falls 0
+---- stand push      front  0.5  falls 0 (recorded)
+---- stand push       back  0.5  falls 0 (recorded)
+---- stand push       left  0.5  falls 0 (recorded)
+---- stand push      right  0.5  falls 0 (recorded)
+---- stand push      front  0.8  falls 0 (recorded)
+---- stand push       back  0.8  falls 0 (recorded)
+---- stand push       left  0.8  falls 1 (recorded)
+---- stand push      right  0.8  falls 1 (recorded)
+PASS run   heat      sustained 10 min speed without derating 5.0 m/s (needs >= 4)
+NOT PASSED
