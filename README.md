@@ -68,6 +68,10 @@
 
 ![무릎 접힘 한계별 가장 낮은 균형 웅크림](docs/evidence/191-getup-ground-mechanism/media/fold_clearance.png)
 
+**무릎 깊은 접힘 A/B (증거 192, 일시정지):** 2.96 rad까지 접히는 4절 링크를 찾았지만 달리기 모터 여유가 줄어듭니다(점수 1.05→1.21). 현재 무릎에 행동 범위만 넓힌 A와 깊은 접힘 B 모두 엄격 평가 0/21이었습니다. 강화학습 비교로는 원인을 가를 수 없어, 다음은 강화학습 없는 경로 탐색입니다.
+
+![깊은 접힘 4절 링크의 달리기 비용과 A/B 엄격 평가](docs/evidence/192-knee-fold-fourbar/media/fold_ab.png)
+
 ![일어서기: 시작 기울기별 성공과 1b 합격 시험](docs/evidence/189-stage1b-getup-feasibility/media/getup_progress.png)
 
 | 성공 1판: 다리 접고 앉은 자세 → 4.1초에 일어서서 서기 정책으로 10초 | 실패: 옆으로 누운 자세에서 다리를 몸 아래로 못 가져옴 |
@@ -593,6 +597,7 @@ ROS 실행·응답 확인·STOP 사용법은 [로컬 개발 가이드](docs/loca
 | [1단계 1b 일어서기 189](docs/evidence/189-stage1b-getup-feasibility/README.md) | 진행 중·불합격: 시작 자세 버그 수정, 넘어짐 역방향 커리큘럼. 앉은 자세 1/20, 옆·뒤 0/20, 바닥에서 일어서기 0/80. R-03 모델 점검 그림 |
 | [R-03 기본 서기 자세 재계산 190](docs/evidence/190-r03-nominal-refit/README.md) | 미채택: 무게중심 규칙으로 맞춘 자세(고관절 −0.13)는 같은 조건에서 서기 이동 0.85 m(기준 0.5 m), 기존 자세 0.31 m. 정지 출력은 25 → 17 W로 줄었음 |
 | [1b 바닥 일어서기 기구 한계 191](docs/evidence/191-getup-ground-mechanism/README.md) | 고정 시작에서도 옆·뒤 0/11. 무게중심이 발 위에 오는 가장 낮은 웅크림의 배 높이 24.5 cm(무릎 2.26 rad 한계)라 엎드린 몸 아래로 다리를 넣지 못함. 기구 결정 대기 |
+| [1b 무릎 깊은 접힘 A/B 192](docs/evidence/192-knee-fold-fourbar/README.md) | 2.96 rad 접힘 4절 링크(달리기 점수 1.21, 미채택). 현재 무릎 전체 범위 A·깊은 접힘 B 엄격 평가 0/21·0/21. 감속비 하한 버그 수정. 일시정지, 다음은 비RL 경로 탐색 |
 | [순차 학습 계획](docs/STAGED_PLAN.ko.md) | 2026-10-31 사용자 결정: 서기→걷기→달리기→방향 전환→점프→험지→상황 판단, 구동기 B안, 고관절 yaw 축 |
 | [최종 설계 검증 보고서 1.8](docs/reports/final-20261012/README.ko.md) | 계산 문서 재작성본(104쪽 PDF)·출처·검증 기록 |
 | [T1 달리기 증거 86](docs/evidence/86-t1-run/README.md) | 가상 구동기 달리기·꼬리 활성/고정·임펄스·방향전환·일어나기 |

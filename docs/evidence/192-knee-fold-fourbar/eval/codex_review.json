@@ -1,0 +1,59 @@
+{
+  "findings": [
+    {
+      "title": "[P3] 깊은 접힘 구간의 전달비 하한 클리핑을 수정하세요",
+      "body": "새 fold 기구는 기존 `np.clip(N, .5, 5.)`의 가정을 깨뜨립니다. 직접 계산하면 무릎 2.93 rad에서 실제 전달비는 0.3504인데 환경은 0.5를 사용합니다. 이 표를 `_clamp_arch8`과 `Realism.ratio()`가 함께 사용하므로 저속 가용 토크가 약 43% 과대평가되고, 동일 관절 토크의 모터 전류는 과소평가됩니다. 최대 접힘에서는 토크 오차가 약 48%입니다. 유효한 전달비를 그대로 사용하도록 수정하고 깊은 접힘 각도에서 회귀 검증한 뒤 B안을 다시 평가해야 합니다.",
+      "confidence_score": 1.0,
+      "priority": 3,
+      "code_location": {
+        "file_path": "/Users/danny/개발 모음 폴더/raptor/sim/rl/run_env.py",
+        "line_range": {
+          "start": 521,
+          "end": 525
+        }
+      }
+    },
+    {
+      "title": "[P3] 추가 PPO보다 실제 바닥 상태의 비RL 경로 검증을 먼저 하세요",
+      "body": "이 변경의 근거인 낮은 균형 웅크림은 도달 가능한 기상 경로를 증명하지 않습니다. 학습 40% 시점의 A/B 모두 0회 성공은 탐색·보상·기구 원인을 분리하지 못합니다. 특히 B는 무릎을 충분히 접었지만 hip_pitch가 이상적 웅크림의 +0.35가 아닌 +0.9에 붙어 있어 탐색 정체가 유력하며, 확정된 원인은 아닙니다. 다음은 실제 엎드린 상태에서 전체 명령 범위를 사용해 ‘발 넣기→하중 받기→몸통 들기’를 키프레임/CEM 또는 궤적 최적화로 찾고, 연동 발목·충돌·마찰·구동 한계를 유지한 MuJoCo에서 연속 재생하는 것입니다. 기존 충돌 필터가 제외하는 같은 다리의 링크와 미모델링된 링크 간섭도 확인해야 합니다. A 성공은 해당 시작의 가능성을 입증하지만 B만 성공해도 A의 불가능을 증명하지는 않습니다. 둘 다 실패하면 원인 미분리로 보고해야 하며, 준정적 검색 실패 역시 동적 경로의 불가능 증거는 아닙니다.",
+      "confidence_score": 0.98,
+      "priority": 3,
+      "code_location": {
+        "file_path": "/Users/danny/개발 모음 폴더/raptor/modeling/knee_fold_study.py",
+        "line_range": {
+          "start": 1,
+          "end": 3
+        }
+      }
+    },
+    {
+      "title": "[P2] 후속 학습 비교에서 목표각과 탐색 폭을 통제하세요",
+      "body": "새 설정을 기존 정책에서 이어 학습하는 현재 A/B는 같은 정책·std를 사용해도 같은 제어 초기조건이 아닙니다. 무릎 scale 1.3과 2.0은 동일 출력의 목표각을 바꾸고, std 0.3의 클리핑 전 탐색 폭도 각각 0.39와 0.60 rad가 됩니다. 따라서 보상 상승이나 B의 정체를 기구 효과로 분리할 수 없습니다. 비RL 성공 경로를 확보한 뒤 그 경로의 단계별 시작 상태·시연으로 학습하고, 공통 가동 구간에서는 목표각과 탐색 폭을 rad 기준으로 맞추세요. 기존 서기 정책으로 인계할 때도 그 정책의 목표각 매핑을 보존하고, B 기구에서 1a를 재검증해야 합니다. 최종 판정은 고정 시작과 학습용 leak을 제거한 기존 1b 기준으로 유지해야 합니다.",
+      "confidence_score": 0.96,
+      "priority": 2,
+      "code_location": {
+        "file_path": "/Users/danny/개발 모음 폴더/raptor/sim/rl/train_run.py",
+        "line_range": {
+          "start": 136,
+          "end": 138
+        }
+      }
+    },
+    {
+      "title": "[P2] 1b의 옆·뒤 기상을 미검증 연구 목표로 다루세요",
+      "body": "팔 없음, hip roll ±0.5, 발목 연동·roll 잠금인 R-03에서 각 18/20은 가능성이 입증된 기본 기능이 아니라 도전적인 연구 목표입니다. 확인한 [Cassie 연구](https://arxiv.org/abs/2207.07835), [KAIST Raptor 발표](https://www.youtube.com/watch?v=lPEg83vF_Tw), [Disney BDX 논문](https://la.disneyresearch.com/publication/design-and-control-of-a-bipedal-robotic-character/)에서는 동등한 바닥 기상 근거를 확인하지 못했습니다. [Digit은 팔을 기상 수단으로 명시](https://www.agilityrobotics.com/content/meet-digit-the-newest-robot-from-agility-robotics)하므로 팔 없는 비교 사례가 아닙니다. 반면 [Microduck 제조사는 등에서 기립하는 기능을 공개](https://pollen-robotics.com/microduck/)하므로 팔 부재만으로 불가능하다고 단정할 수도 없습니다. 우선 엎드림→기립 경로 하나를 검증한 다음 옆·뒤에서 그 경로로 연결하는 순서가 적절합니다. 제한된 검색 예산에서도 경로가 없으면 실패한 제약과 함께 범위 보류·축소 또는 기구 변경 선택지를 사용자에게 제시하세요. 현재 합격 기준을 임의로 낮추거나 fold안을 채택할 근거는 부족합니다.",
+      "confidence_score": 0.9,
+      "priority": 2,
+      "code_location": {
+        "file_path": "/Users/danny/개발 모음 폴더/raptor/docs/STAGED_PLAN.ko.md",
+        "line_range": {
+          "start": 32,
+          "end": 32
+        }
+      }
+    }
+  ],
+  "overall_correctness": "patch is incorrect",
+  "overall_explanation": "fold안의 전달비가 잘못 제한되어 물리 모델을 과대평가합니다. band_search_hi, joint_range, --rev3-config 전달은 확인한 경로에서 정상이며 기존 단위 테스트 10개도 통과했습니다. 현재 A/B는 기구 가능성 판별에 불충분합니다. 전달비 수정 후 비RL 경로 검증을 우선하고, 성공 경로를 확보한 뒤 학습을 진행하는 방향을 권합니다. 전체 학습·최종 1b 평가는 이번 검토에서 실행하지 않았습니다.",
+  "overall_confidence_score": 0.98
+}
