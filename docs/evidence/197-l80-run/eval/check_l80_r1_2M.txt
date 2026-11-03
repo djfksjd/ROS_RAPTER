@@ -1,0 +1,16 @@
+steps since start 2015232
+{"steps": 51580808, "eval_pass": false, "eval_falls": 1, "eval_speed": 2.68, "eval_lr_phase": 0.5, "level": 0.5, "cmd_max": [3.45, 0.3, 1.0]}
+{"steps": 51880808, "eval_pass": false, "eval_falls": 1, "eval_speed": 2.66, "eval_lr_phase": 0.5, "level": 0.5, "cmd_max": [3.45, 0.3, 1.0]}
+{"steps": 52180808, "eval_pass": true, "eval_falls": 0, "eval_speed": 3.61, "eval_lr_phase": 0.5, "level": 0.5, "cmd_max": [3.967, 0.3, 1.0]}
+PASS run   speed       2.0       v [2.16, 2.18], derate min 1.0
+PASS run   speed       4.0       v [4.17, 4.13], derate min 1.0
+FAIL run   speed       6.0       v [None, None], derate min 1.0
+FAIL run   speed       8.0       v [None, None], derate min 1.0
+FAIL run   speed      10.0       v [None, None], derate min 1.0
+FAIL run   speed      11.1       v [None, None], derate min 1.0
+PASS run   lateral     4.0       falls 0/2
+PASS run   lateral     4.0       falls 0/2
+held speed v_s = 4.0 m/s
+NOT PASSED
+
+[exited with code 0]

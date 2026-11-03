@@ -4,10 +4,11 @@ stand (1a): hold 8 nominal: 0 falls, drift <= 0.5 m; hold_dr 24: falls <= 1; pus
 walk (2, fixed 2026-11-03 before any walking run): every nominal condition 0 falls; track: mean speed error <= max(0.1,
             0.15 cmd) per episode; turn: |mean yaw rate - cmd| <= 0.25 |cmd| and drift <= 0.5 m; stopstart: 0.8 m/s
             within 2 s of each start, |speed| < 0.15 m/s 2 s after each stop; track_dr: falls <= 1.
-run (3, fixed 2026-11-03 before any running run): speed: 0 falls and mean speed within +-10 % of each command; heat at
-            11.1 m/s on the vendor heat-sink mount: no derating (lowest factor 1.0) and 0 falls (other commands and the
-            worst mount recorded); lateral: falls <= 1 per side. Also printed: the held speed v_s (highest command that
-            passes with every lower command passing), the B/A quantity of evidence 197.
+run (3, adjusted by the user 2026-11-04, 11.1 m/s deferred): speed 2/4/6 m/s: 0 falls and mean within +-10 %; 8 m/s:
+            0 falls and mean >= 6.5 m/s; 10 / 11.1 m/s recorded; heat: the sustained speed (highest heat command on the
+            vendor heat-sink mount with no derating and 0 falls) must be >= 4 m/s; lateral: falls <= 1 per side.
+switch (3, policy set walk + run, 2026-11-04): commands rate-limited to 2 m/s^2: 0 falls nominal, <= 1 of 8 randomized;
+            step commands recorded.
 Usage: .venv-sim/bin/python sim/rl/gate_judge.py GATE.jsonl [GATE2.jsonl ...]"""
 import json
 import sys
@@ -42,19 +43,34 @@ def judge(row):
             return ok, f"reach max {max((t for t in reach if t is not None), default=None)}, stop speeds {[None if v is None else round(v, 2) for v in stop]}"
         if c == 'track_dr':
             return row['falls'] <= 1, f"falls {row['falls']}/{row['n']}"
-    if row['gate'] == 'run':
+    if row['gate'] == 'run':  # stage 3 as adjusted by the user on 2026-11-04 (11.1 m/s deferred, evidence 197)
         if c == 'speed':
             v = [x['v_mean'] for x in e]
-            ok = row['falls'] == 0 and all(x is not None and abs(x-row['cmd']) <= .1*row['cmd'] for x in v)
-            return ok, f"v {[None if x is None else round(x, 2) for x in v]}, derate min {min(x['min_derate'] for x in e)}"
+            vs = f"v {[None if x is None else round(x, 2) for x in v]}, derate min {min(x['min_derate'] for x in e)}"
+            if row['cmd'] <= 6.:
+                return row['falls'] == 0 and all(x is not None and abs(x-row['cmd']) <= .1*row['cmd'] for x in v), vs
+            if row['cmd'] == 8.:
+                return row['falls'] == 0 and all(x is not None and x >= 6.5 for x in v), vs+' (top speed: >= 6.5)'
+            return None, vs+' (recorded)'
         if c == 'heat':
             why = f"{row['mount']}: falls {row['falls']}, derate min {row['min_derate']}, winding max {row['t_winding_max_c']} C, v {row['v_mean']}"
-            if row['mount'] != 'plate' or row['cmd'] < 11.1:
-                return None, why+' (recorded)'
-            return row['falls'] == 0 and row['min_derate'] >= 1., why
+            return None, why+' (sustained speed below)'
         if c == 'lateral':
             return row['falls'] <= 1, f"falls {row['falls']}/{row['n']}"
+    if row['gate'] == 'switch':  # stage 3 policy set (walk + run policy), 2026-11-04
+        why = f"falls {row['falls']}/{row['n']}, switches {[x['switches'] for x in e]}"
+        if row['cond'] == 'switch_ramp':
+            return row['falls'] == 0, why
+        if row['cond'] == 'switch_ramp_dr':
+            return row['falls'] <= 1, why
+        return None, why+' (step commands, recorded)'
     return None, 'not judged'
+
+
+def sustained_speed(rows):
+    ok = [r['cmd'] for r in rows if r['gate'] == 'run' and r['cond'] == 'heat' and r['mount'] == 'plate'
+          and r['falls'] == 0 and r['min_derate'] >= 1.]
+    return max(ok, default=0.)
 
 
 def held_speed(rows):
@@ -77,7 +93,9 @@ def main():
             allok &= ok is not False
             print(f"{tag} {row['gate']:5} {row['cond']:9} {str(row.get('cmd', row.get('dir', ''))):>5} {row.get('dv', ''):>4}  {why}")
     if any(r['gate'] == 'run' for r in rows):
-        print(f'held speed v_s = {held_speed(rows)} m/s')
+        vh = sustained_speed(rows)
+        allok &= vh >= 4.
+        print(f'{"PASS" if vh >= 4. else "FAIL"} run   heat      sustained 10 min speed without derating {vh} m/s (needs >= 4)')
     print('ALL PASS' if allok else 'NOT PASSED')
 
 

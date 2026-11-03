@@ -1,0 +1,12 @@
+FAIL run   speed       2.0       v [2.72, 2.78, 2.74, 2.78], derate min 1.0
+FAIL run   speed       4.0       v [5.68, 5.62, 5.62, 5.52], derate min 1.0
+PASS run   speed       6.0       v [6.51, 6.55, 6.55, 6.48], derate min 1.0
+FAIL run   speed       8.0       v [6.84, 6.85, 6.86, 6.87], derate min 1.0
+FAIL run   speed      10.0       v [7.01, 7.04, 7.13, 7.09], derate min 1.0
+FAIL run   speed      11.1       v [7.35, 7.35, 7.33, 7.41], derate min 1.0
+---- run   heat        6.0       plate: falls 0, derate min 0.81, winding max 128.8 C, v 6.53 (recorded)
+---- run   heat        6.0       worst: falls 1, derate min 0.32, winding max 138.6 C, v 6.308 (recorded)
+PASS run   lateral     4.0       falls 0/8
+PASS run   lateral     4.0       falls 0/8
+held speed v_s = 0.0 m/s
+NOT PASSED

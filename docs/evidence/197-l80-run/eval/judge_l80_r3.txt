@@ -1,0 +1,19 @@
+FAIL run   speed       2.0       v [2.24, 2.25, 2.26, 2.27], derate min 1.0
+FAIL run   speed       4.0       v [4.87, 4.88, 4.82, 4.84], derate min 1.0
+PASS run   speed       6.0       v [6.1, 6.21, 6.17, 6.13], derate min 1.0
+FAIL run   speed       8.0       v [6.17, 6.13, 6.21, 6.17], derate min 1.0 (top speed: >= 6.5)
+---- run   speed      10.0       v [6.38, 6.46, 6.43, 6.4], derate min 1.0 (recorded)
+---- run   speed      11.1       v [None, None, None, None], derate min 1.0 (recorded)
+---- run   heat        4.0       plate: falls 0, derate min 1.0, winding max 84.5 C, v 4.889 (sustained speed below)
+---- run   heat        4.0       worst: falls 0, derate min 0.425, winding max 136.5 C, v 4.577 (sustained speed below)
+---- run   heat        5.0       plate: falls 0, derate min 0.994, winding max 125.1 C, v 5.812 (sustained speed below)
+---- run   heat        5.0       worst: falls 0, derate min 0.345, winding max 138.1 C, v 4.729 (sustained speed below)
+---- run   heat        6.0       plate: falls 0, derate min 0.682, winding max 131.4 C, v 6.141 (sustained speed below)
+---- run   heat        6.0       worst: falls 1, derate min 0.332, winding max 138.4 C, v 5.605 (sustained speed below)
+PASS run   lateral     4.0       falls 0/8
+PASS run   lateral     4.0       falls 0/8
+---- switch switch                falls 1/4, switches [2, 2, 2, 2] (step commands, recorded)
+PASS switch switch_ramp             falls 0/4, switches [2, 2, 2, 2]
+PASS switch switch_ramp_dr             falls 0/8, switches [2, 2, 2, 2, 2, 2, 2, 2]
+PASS run   heat      sustained 10 min speed without derating 4.0 m/s (needs >= 4)
+NOT PASSED

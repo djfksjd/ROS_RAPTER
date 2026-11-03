@@ -1,0 +1,4 @@
+---- switch switch                falls 0/4, switches [2, 2, 2, 2] (step commands, recorded)
+PASS switch switch_ramp             falls 0/4, switches [2, 2, 2, 2]
+PASS switch switch_ramp_dr             falls 0/8, switches [2, 2, 2, 2, 2, 2, 2, 2]
+ALL PASS
