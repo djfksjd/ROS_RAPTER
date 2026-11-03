@@ -1,0 +1,302 @@
+{
+ "tag": "current",
+ "override": {},
+ "params": {
+  "f": [
+   1.5,
+   4.5
+  ],
+  "duty": [
+   0.2,
+   0.5
+  ],
+  "hp_td": [
+   -1.5,
+   -0.2
+  ],
+  "hp_lo": [
+   -0.7,
+   0.7
+  ],
+  "k_st": [
+   0.7,
+   1.9
+  ],
+  "push": [
+   0.0,
+   0.6
+  ],
+  "fold": [
+   0.0,
+   1.2
+  ],
+  "k_v": [
+   -0.3,
+   0.3
+  ],
+  "kp_pitch": [
+   -2.0,
+   2.0
+  ],
+  "kd_pitch": [
+   -0.4,
+   0.4
+  ],
+  "k_roll": [
+   -1.0,
+   1.0
+  ],
+  "kd_roll": [
+   -0.3,
+   0.3
+  ],
+  "r0": [
+   -0.2,
+   0.2
+  ],
+  "tail_kp": [
+   -2.0,
+   2.0
+  ]
+ },
+ "speeds": {
+  "4.0": {
+   "hist": [
+    {
+     "it": 0,
+     "best": 1.16,
+     "mean": 0.47,
+     "alive_max": 0.76
+    },
+    {
+     "it": 1,
+     "best": 1.79,
+     "mean": 0.76,
+     "alive_max": 1.14
+    },
+    {
+     "it": 2,
+     "best": 2.42,
+     "mean": 0.97,
+     "alive_max": 1.56
+    },
+    {
+     "it": 3,
+     "best": 1.87,
+     "mean": 0.98,
+     "alive_max": 1.32
+    },
+    {
+     "it": 4,
+     "best": 2.09,
+     "mean": 1.19,
+     "alive_max": 1.38
+    },
+    {
+     "it": 5,
+     "best": 2.01,
+     "mean": 1.34,
+     "alive_max": 1.38
+    },
+    {
+     "it": 6,
+     "best": 2.53,
+     "mean": 1.6,
+     "alive_max": 1.82
+    },
+    {
+     "it": 7,
+     "best": 2.3,
+     "mean": 1.52,
+     "alive_max": 1.68
+    },
+    {
+     "it": 8,
+     "best": 2.67,
+     "mean": 1.53,
+     "alive_max": 1.8
+    },
+    {
+     "it": 9,
+     "best": 2.22,
+     "mean": 1.58,
+     "alive_max": 1.44
+    },
+    {
+     "it": 10,
+     "best": 2.54,
+     "mean": 1.63,
+     "alive_max": 1.84
+    },
+    {
+     "it": 11,
+     "best": 2.27,
+     "mean": 1.75,
+     "alive_max": 1.56
+    },
+    {
+     "it": 12,
+     "best": 2.49,
+     "mean": 1.79,
+     "alive_max": 1.6
+    },
+    {
+     "it": 13,
+     "best": 3.46,
+     "mean": 1.92,
+     "alive_max": 2.42
+    },
+    {
+     "it": 14,
+     "best": 3.68,
+     "mean": 1.85,
+     "alive_max": 2.62
+    },
+    {
+     "it": 15,
+     "best": 2.46,
+     "mean": 1.92,
+     "alive_max": 1.58
+    },
+    {
+     "it": 16,
+     "best": 2.88,
+     "mean": 1.99,
+     "alive_max": 1.86
+    },
+    {
+     "it": 17,
+     "best": 3.1,
+     "mean": 2.03,
+     "alive_max": 2.16
+    },
+    {
+     "it": 18,
+     "best": 2.46,
+     "mean": 2.01,
+     "alive_max": 1.62
+    },
+    {
+     "it": 19,
+     "best": 2.68,
+     "mean": 2.0,
+     "alive_max": 1.66
+    },
+    {
+     "it": 20,
+     "best": 2.69,
+     "mean": 1.99,
+     "alive_max": 1.82
+    },
+    {
+     "it": 21,
+     "best": 3.14,
+     "mean": 2.04,
+     "alive_max": 2.1
+    },
+    {
+     "it": 22,
+     "best": 3.32,
+     "mean": 2.05,
+     "alive_max": 2.38
+    },
+    {
+     "it": 23,
+     "best": 2.54,
+     "mean": 2.04,
+     "alive_max": 1.58
+    },
+    {
+     "it": 24,
+     "best": 2.8,
+     "mean": 1.79,
+     "alive_max": 1.82
+    },
+    {
+     "it": 25,
+     "best": 2.63,
+     "mean": 1.99,
+     "alive_max": 1.84
+    },
+    {
+     "it": 26,
+     "best": 2.62,
+     "mean": 2.0,
+     "alive_max": 1.66
+    },
+    {
+     "it": 27,
+     "best": 2.79,
+     "mean": 1.96,
+     "alive_max": 1.88
+    },
+    {
+     "it": 28,
+     "best": 2.87,
+     "mean": 2.0,
+     "alive_max": 1.9
+    },
+    {
+     "it": 29,
+     "best": 3.26,
+     "mean": 1.97,
+     "alive_max": 2.26
+    }
+   ],
+   "mu": [
+    -0.429,
+    -0.3053,
+    0.0343,
+    -0.187,
+    -0.8678,
+    0.6365,
+    0.6853,
+    -0.1528,
+    0.748,
+    0.1633,
+    0.4482,
+    0.1271,
+    0.581,
+    0.0487
+   ],
+   "params": {
+    "f": 2.357,
+    "duty": 0.304,
+    "hp_td": -0.828,
+    "hp_lo": -0.131,
+    "k_st": 0.779,
+    "push": 0.491,
+    "fold": 1.011,
+    "k_v": -0.046,
+    "kp_pitch": 1.496,
+    "kd_pitch": 0.065,
+    "k_roll": 0.448,
+    "kd_roll": 0.038,
+    "r0": 0.116,
+    "tail_kp": 0.097
+   },
+   "replay": {
+    "v_cmd": 4.0,
+    "alive_s": 1.02,
+    "mean_speed": 3.92,
+    "winding_max_c": null,
+    "saturated_frac": {
+     "left_hip_roll": 0.0,
+     "left_hip_yaw": 0.0,
+     "left_hip_pitch": 0.02,
+     "left_knee_pitch": 0.04,
+     "tail_yaw": 0.65,
+     "tail_pitch": 0.0
+    },
+    "rms_nm": {
+     "left_hip_roll": 23.1,
+     "left_hip_yaw": 7.4,
+     "left_hip_pitch": 35.6,
+     "left_knee_pitch": 45.8,
+     "tail_yaw": 31.7,
+     "tail_pitch": 16.2
+    }
+   }
+  }
+ }
+}

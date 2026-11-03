@@ -1,0 +1,995 @@
+{
+ "belly_below_hip_fitted_m": 0.164,
+ "evidence_191_check": {
+  "2.26": 0.245,
+  "2.6": 0.117,
+  "2.9": 0.029
+ },
+ "hip_to_com": [
+  -0.057,
+  -0.05
+ ],
+ "rows": [
+  {
+   "sum_m": 0.7,
+   "ratio": "current 1:1.73:1.45",
+   "femur": 0.167,
+   "tibia": 0.29,
+   "meta": 0.243,
+   "mass_kg": 14.94,
+   "speeds": {
+    "8.0": {
+     "stride_hz": 2.96,
+     "contact_s": 0.0844,
+     "peak_grf_bw": 3.23,
+     "hip_height_td_m": 0.475,
+     "reach_frac": 0.95,
+     "hip": {
+      "design": {
+       "score": 0.33,
+       "belt": 0.9
+      },
+      "design+stance": {
+       "score": 0.59,
+       "belt": 0.75
+      }
+     },
+     "knee_run_range": [
+      0.94,
+      1.73
+     ]
+    },
+    "11.1": {
+     "stride_hz": 4.1,
+     "contact_s": 0.061,
+     "peak_grf_bw": 3.24,
+     "hip_height_td_m": 0.48,
+     "reach_frac": 0.96,
+     "hip": {
+      "design": {
+       "score": 0.75,
+       "belt": 0.75
+      },
+      "design+stance": {
+       "score": 1.04,
+       "belt": 0.65
+      }
+     },
+     "knee_run_range": [
+      0.92,
+      1.69
+     ]
+    }
+   },
+   "hip_height_fold": {
+    "2.26": 0.306,
+    "2.6": 0.202,
+    "2.9": 0.117
+   },
+   "knee": {
+    "2.26": {
+     "score": 0.7,
+     "geometry": {
+      "a": 0.159,
+      "b": 0.166,
+      "c": 0.103,
+      "beta_deg": -133.5,
+      "branch": 1.0
+     },
+     "band": [
+      0.673,
+      2.948
+     ],
+     "n": 748
+    },
+    "2.6": {
+     "score": 0.7,
+     "geometry": {
+      "a": 0.159,
+      "b": 0.166,
+      "c": 0.103,
+      "beta_deg": -133.5,
+      "branch": 1.0
+     },
+     "band": [
+      0.673,
+      2.948
+     ],
+     "n": 350
+    },
+    "2.9": {
+     "score": 0.7,
+     "geometry": {
+      "a": 0.159,
+      "b": 0.166,
+      "c": 0.103,
+      "beta_deg": -133.5,
+      "branch": 1.0
+     },
+     "band": [
+      0.673,
+      2.948
+     ],
+     "n": 115
+    }
+   },
+   "belly_clear_m": {
+    "2.26": 0.142,
+    "2.6": 0.038,
+    "2.9": -0.047
+   }
+  },
+  {
+   "sum_m": 0.7,
+   "ratio": "ostrich 1:1.89:1.82",
+   "femur": 0.149,
+   "tibia": 0.281,
+   "meta": 0.27,
+   "mass_kg": 14.94,
+   "speeds": {
+    "8.0": {
+     "stride_hz": 2.97,
+     "contact_s": 0.0843,
+     "peak_grf_bw": 3.23,
+     "hip_height_td_m": 0.475,
+     "reach_frac": 0.95,
+     "hip": {
+      "design": {
+       "score": 0.31,
+       "belt": 0.95
+      },
+      "design+stance": {
+       "score": 0.58,
+       "belt": 0.8
+      }
+     },
+     "knee_run_range": [
+      0.95,
+      1.75
+     ]
+    },
+    "11.1": {
+     "stride_hz": 4.1,
+     "contact_s": 0.061,
+     "peak_grf_bw": 3.24,
+     "hip_height_td_m": 0.48,
+     "reach_frac": 0.96,
+     "hip": {
+      "design": {
+       "score": 0.65,
+       "belt": 0.7
+      },
+      "design+stance": {
+       "score": 0.94,
+       "belt": 0.6
+      }
+     },
+     "knee_run_range": [
+      0.92,
+      1.7
+     ]
+    }
+   },
+   "hip_height_fold": {
+    "2.26": 0.312,
+    "2.6": 0.213,
+    "2.9": 0.135
+   },
+   "knee": {
+    "2.26": {
+     "score": 0.93,
+     "geometry": {
+      "a": 0.174,
+      "b": 0.287,
+      "c": 0.081,
+      "beta_deg": 133.7,
+      "branch": -1.0
+     },
+     "band": [
+      0.7,
+      2.575
+     ],
+     "n": 795
+    },
+    "2.6": {
+     "score": 0.96,
+     "geometry": {
+      "a": 0.154,
+      "b": 0.248,
+      "c": 0.076,
+      "beta_deg": 119.4,
+      "branch": -1.0
+     },
+     "band": [
+      0.654,
+      2.829
+     ],
+     "n": 383
+    },
+    "2.9": {
+     "score": 1.0,
+     "geometry": {
+      "a": 0.18,
+      "b": 0.209,
+      "c": 0.105,
+      "beta_deg": 117.1,
+      "branch": -1.0
+     },
+     "band": [
+      0.307,
+      3.127
+     ],
+     "n": 164
+    }
+   },
+   "belly_clear_m": {
+    "2.26": 0.148,
+    "2.6": 0.049,
+    "2.9": -0.029
+   }
+  },
+  {
+   "sum_m": 0.7,
+   "ratio": "short-meta 1:1.5:1.0",
+   "femur": 0.2,
+   "tibia": 0.3,
+   "meta": 0.2,
+   "mass_kg": 14.94,
+   "speeds": {
+    "8.0": {
+     "stride_hz": 2.96,
+     "contact_s": 0.0844,
+     "peak_grf_bw": 3.23,
+     "hip_height_td_m": 0.475,
+     "reach_frac": 0.95,
+     "hip": {
+      "design": {
+       "score": 0.31,
+       "belt": 0.85
+      },
+      "design+stance": {
+       "score": 0.57,
+       "belt": 0.75
+      }
+     },
+     "knee_run_range": [
+      0.94,
+      1.72
+     ]
+    },
+    "11.1": {
+     "stride_hz": 4.1,
+     "contact_s": 0.061,
+     "peak_grf_bw": 3.24,
+     "hip_height_td_m": 0.48,
+     "reach_frac": 0.96,
+     "hip": {
+      "design": {
+       "score": 0.83,
+       "belt": 0.7
+      },
+      "design+stance": {
+       "score": 1.06,
+       "belt": 0.65
+      }
+     },
+     "knee_run_range": [
+      0.91,
+      1.68
+     ]
+    }
+   },
+   "hip_height_fold": {
+    "2.26": 0.3,
+    "2.6": 0.192,
+    "2.9": 0.097
+   },
+   "knee": {
+    "2.26": {
+     "score": 0.66,
+     "geometry": {
+      "a": 0.176,
+      "b": 0.298,
+      "c": 0.075,
+      "beta_deg": 134.7,
+      "branch": -1.0
+     },
+     "band": [
+      0.201,
+      2.493
+     ],
+     "n": 758
+    },
+    "2.6": {
+     "score": 0.66,
+     "geometry": {
+      "a": 0.123,
+      "b": 0.253,
+      "c": 0.053,
+      "beta_deg": 107.4,
+      "branch": -1.0
+     },
+     "band": [
+      0.425,
+      2.796
+     ],
+     "n": 281
+    },
+    "2.9": {
+     "score": 0.66,
+     "geometry": {
+      "a": 0.158,
+      "b": 0.238,
+      "c": 0.077,
+      "beta_deg": 101.1,
+      "branch": -1.0
+     },
+     "band": [
+      0.678,
+      3.062
+     ],
+     "n": 62
+    }
+   },
+   "belly_clear_m": {
+    "2.26": 0.136,
+    "2.6": 0.028,
+    "2.9": -0.067
+   }
+  },
+  {
+   "sum_m": 0.8,
+   "ratio": "current 1:1.73:1.45",
+   "femur": 0.191,
+   "tibia": 0.331,
+   "meta": 0.278,
+   "mass_kg": 15.01,
+   "speeds": {
+    "8.0": {
+     "stride_hz": 2.58,
+     "contact_s": 0.097,
+     "peak_grf_bw": 3.24,
+     "hip_height_td_m": 0.545,
+     "reach_frac": 0.95,
+     "hip": {
+      "design": {
+       "score": 0.44,
+       "belt": 1.1
+      },
+      "design+stance": {
+       "score": 0.57,
+       "belt": 1.0
+      }
+     },
+     "knee_run_range": [
+      0.94,
+      1.74
+     ]
+    },
+    "11.1": {
+     "stride_hz": 3.61,
+     "contact_s": 0.0693,
+     "peak_grf_bw": 3.24,
+     "hip_height_td_m": 0.545,
+     "reach_frac": 0.95,
+     "hip": {
+      "design": {
+       "score": 0.85,
+       "belt": 0.8
+      },
+      "design+stance": {
+       "score": 1.0,
+       "belt": 0.75
+      }
+     },
+     "knee_run_range": [
+      0.96,
+      1.71
+     ]
+    }
+   },
+   "hip_height_fold": {
+    "2.26": 0.353,
+    "2.6": 0.236,
+    "2.9": 0.143
+   },
+   "knee": {
+    "2.26": {
+     "score": 1.03,
+     "geometry": {
+      "a": 0.175,
+      "b": 0.348,
+      "c": 0.102,
+      "beta_deg": 138.9,
+      "branch": -1.0
+     },
+     "band": [
+      0.702,
+      2.291
+     ],
+     "n": 767
+    },
+    "2.6": {
+     "score": 1.04,
+     "geometry": {
+      "a": 0.079,
+      "b": 0.231,
+      "c": 0.05,
+      "beta_deg": 105.0,
+      "branch": -1.0
+     },
+     "band": [
+      0.696,
+      2.642
+     ],
+     "n": 291
+    },
+    "2.9": {
+     "score": 1.06,
+     "geometry": {
+      "a": 0.192,
+      "b": 0.291,
+      "c": 0.12,
+      "beta_deg": 113.8,
+      "branch": -1.0
+     },
+     "band": [
+      0.549,
+      2.928
+     ],
+     "n": 77
+    }
+   },
+   "belly_clear_m": {
+    "2.26": 0.189,
+    "2.6": 0.072,
+    "2.9": -0.021
+   }
+  },
+  {
+   "sum_m": 0.8,
+   "ratio": "ostrich 1:1.89:1.82",
+   "femur": 0.17,
+   "tibia": 0.321,
+   "meta": 0.309,
+   "mass_kg": 15.01,
+   "speeds": {
+    "8.0": {
+     "stride_hz": 2.58,
+     "contact_s": 0.097,
+     "peak_grf_bw": 3.24,
+     "hip_height_td_m": 0.545,
+     "reach_frac": 0.95,
+     "hip": {
+      "design": {
+       "score": 0.41,
+       "belt": 1.1
+      },
+      "design+stance": {
+       "score": 0.57,
+       "belt": 1.0
+      }
+     },
+     "knee_run_range": [
+      0.94,
+      1.75
+     ]
+    },
+    "11.1": {
+     "stride_hz": 3.61,
+     "contact_s": 0.0693,
+     "peak_grf_bw": 3.24,
+     "hip_height_td_m": 0.545,
+     "reach_frac": 0.95,
+     "hip": {
+      "design": {
+       "score": 0.65,
+       "belt": 0.75
+      },
+      "design+stance": {
+       "score": 0.84,
+       "belt": 0.7
+      }
+     },
+     "knee_run_range": [
+      0.96,
+      1.72
+     ]
+    }
+   },
+   "hip_height_fold": {
+    "2.26": 0.36,
+    "2.6": 0.248,
+    "2.9": 0.162
+   },
+   "knee": {
+    "2.26": {
+     "score": 0.96,
+     "geometry": {
+      "a": 0.176,
+      "b": 0.323,
+      "c": 0.105,
+      "beta_deg": 138.5,
+      "branch": -1.0
+     },
+     "band": [
+      0.639,
+      2.38
+     ],
+     "n": 735
+    },
+    "2.6": {
+     "score": 1.0,
+     "geometry": {
+      "a": 0.154,
+      "b": 0.261,
+      "c": 0.093,
+      "beta_deg": 115.7,
+      "branch": -1.0
+     },
+     "band": [
+      0.616,
+      2.807
+     ],
+     "n": 333
+    },
+    "2.9": {
+     "score": 1.03,
+     "geometry": {
+      "a": 0.166,
+      "b": 0.269,
+      "c": 0.086,
+      "beta_deg": 111.7,
+      "branch": -1.0
+     },
+     "band": [
+      0.705,
+      2.941
+     ],
+     "n": 115
+    }
+   },
+   "belly_clear_m": {
+    "2.26": 0.196,
+    "2.6": 0.084,
+    "2.9": -0.002
+   }
+  },
+  {
+   "sum_m": 0.8,
+   "ratio": "short-meta 1:1.5:1.0",
+   "femur": 0.229,
+   "tibia": 0.343,
+   "meta": 0.229,
+   "mass_kg": 15.01,
+   "speeds": {
+    "8.0": {
+     "stride_hz": 2.57,
+     "contact_s": 0.0971,
+     "peak_grf_bw": 3.23,
+     "hip_height_td_m": 0.546,
+     "reach_frac": 0.95,
+     "hip": {
+      "design": {
+       "score": 0.39,
+       "belt": 1.0
+      },
+      "design+stance": {
+       "score": 0.56,
+       "belt": 0.9
+      }
+     },
+     "knee_run_range": [
+      0.93,
+      1.73
+     ]
+    },
+    "11.1": {
+     "stride_hz": 3.6,
+     "contact_s": 0.0695,
+     "peak_grf_bw": 3.23,
+     "hip_height_td_m": 0.546,
+     "reach_frac": 0.95,
+     "hip": {
+      "design": {
+       "score": 0.88,
+       "belt": 0.8
+      },
+      "design+stance": {
+       "score": 1.11,
+       "belt": 0.7
+      }
+     },
+     "knee_run_range": [
+      0.95,
+      1.69
+     ]
+    }
+   },
+   "hip_height_fold": {
+    "2.26": 0.346,
+    "2.6": 0.225,
+    "2.9": 0.122
+   },
+   "knee": {
+    "2.26": {
+     "score": 0.99,
+     "geometry": {
+      "a": 0.141,
+      "b": 0.334,
+      "c": 0.089,
+      "beta_deg": 127.6,
+      "branch": -1.0
+     },
+     "band": [
+      0.654,
+      2.359
+     ],
+     "n": 781
+    },
+    "2.6": {
+     "score": 1.03,
+     "geometry": {
+      "a": 0.161,
+      "b": 0.31,
+      "c": 0.098,
+      "beta_deg": 108.4,
+      "branch": -1.0
+     },
+     "band": [
+      0.62,
+      2.798
+     ],
+     "n": 269
+    },
+    "2.9": {
+     "score": 1.17,
+     "geometry": {
+      "a": 0.171,
+      "b": 0.305,
+      "c": 0.093,
+      "beta_deg": 97.3,
+      "branch": -1.0
+     },
+     "band": [
+      0.69,
+      3.051
+     ],
+     "n": 41
+    }
+   },
+   "belly_clear_m": {
+    "2.26": 0.182,
+    "2.6": 0.061,
+    "2.9": -0.042
+   }
+  },
+  {
+   "sum_m": 0.92,
+   "ratio": "current 1:1.73:1.45",
+   "femur": 0.22,
+   "tibia": 0.381,
+   "meta": 0.319,
+   "mass_kg": 15.1,
+   "speeds": {
+    "8.0": {
+     "stride_hz": 2.23,
+     "contact_s": 0.1122,
+     "peak_grf_bw": 3.24,
+     "hip_height_td_m": 0.629,
+     "reach_frac": 0.95,
+     "hip": {
+      "design": {
+       "score": 0.53,
+       "belt": 1.2
+      },
+      "design+stance": {
+       "score": 0.62,
+       "belt": 1.15
+      }
+     },
+     "knee_run_range": [
+      0.93,
+      1.74
+     ]
+    },
+    "11.1": {
+     "stride_hz": 3.12,
+     "contact_s": 0.0801,
+     "peak_grf_bw": 3.23,
+     "hip_height_td_m": 0.629,
+     "reach_frac": 0.95,
+     "hip": {
+      "design": {
+       "score": 0.74,
+       "belt": 0.9
+      },
+      "design+stance": {
+       "score": 0.88,
+       "belt": 0.85
+      }
+     },
+     "knee_run_range": [
+      0.95,
+      1.7
+     ]
+    }
+   },
+   "hip_height_fold": {
+    "2.26": 0.409,
+    "2.6": 0.276,
+    "2.9": 0.171
+   },
+   "knee": {
+    "2.26": {
+     "score": 1.05,
+     "geometry": {
+      "a": 0.127,
+      "b": 0.176,
+      "c": 0.139,
+      "beta_deg": 67.664,
+      "branch": 1.0
+     },
+     "band": [
+      0.635,
+      2.26
+     ],
+     "n": 778
+    },
+    "2.6": {
+     "score": 1.12,
+     "geometry": {
+      "a": 0.191,
+      "b": 0.319,
+      "c": 0.137,
+      "beta_deg": 114.2,
+      "branch": -1.0
+     },
+     "band": [
+      0.54,
+      2.782
+     ],
+     "n": 279
+    },
+    "2.9": {
+     "score": 1.45,
+     "geometry": {
+      "a": 0.198,
+      "b": 0.269,
+      "c": 0.185,
+      "beta_deg": -120.3,
+      "branch": 1.0
+     },
+     "band": [
+      0.677,
+      2.99
+     ],
+     "n": 47
+    }
+   },
+   "belly_clear_m": {
+    "2.26": 0.245,
+    "2.6": 0.112,
+    "2.9": 0.007
+   }
+  },
+  {
+   "sum_m": 0.92,
+   "ratio": "ostrich 1:1.89:1.82",
+   "femur": 0.195,
+   "tibia": 0.369,
+   "meta": 0.355,
+   "mass_kg": 15.1,
+   "speeds": {
+    "8.0": {
+     "stride_hz": 2.23,
+     "contact_s": 0.1121,
+     "peak_grf_bw": 3.23,
+     "hip_height_td_m": 0.629,
+     "reach_frac": 0.95,
+     "hip": {
+      "design": {
+       "score": 0.48,
+       "belt": 1.25
+      },
+      "design+stance": {
+       "score": 0.58,
+       "belt": 1.2
+      }
+     },
+     "knee_run_range": [
+      0.93,
+      1.75
+     ]
+    },
+    "11.1": {
+     "stride_hz": 3.12,
+     "contact_s": 0.08,
+     "peak_grf_bw": 3.23,
+     "hip_height_td_m": 0.629,
+     "reach_frac": 0.95,
+     "hip": {
+      "design": {
+       "score": 0.69,
+       "belt": 0.85
+      },
+      "design+stance": {
+       "score": 0.79,
+       "belt": 0.85
+      }
+     },
+     "knee_run_range": [
+      0.96,
+      1.71
+     ]
+    }
+   },
+   "hip_height_fold": {
+    "2.26": 0.416,
+    "2.6": 0.289,
+    "2.9": 0.192
+   },
+   "knee": {
+    "2.26": {
+     "score": 1.02,
+     "geometry": {
+      "a": 0.117,
+      "b": 0.288,
+      "c": 0.086,
+      "beta_deg": 130.9,
+      "branch": -1.0
+     },
+     "band": [
+      0.642,
+      2.269
+     ],
+     "n": 774
+    },
+    "2.6": {
+     "score": 1.07,
+     "geometry": {
+      "a": 0.091,
+      "b": 0.239,
+      "c": 0.061,
+      "beta_deg": 102.9,
+      "branch": -1.0
+     },
+     "band": [
+      0.716,
+      2.708
+     ],
+     "n": 287
+    },
+    "2.9": {
+     "score": 1.13,
+     "geometry": {
+      "a": 0.166,
+      "b": 0.254,
+      "c": 0.122,
+      "beta_deg": 102.9,
+      "branch": -1.0
+     },
+     "band": [
+      0.554,
+      2.956
+     ],
+     "n": 68
+    }
+   },
+   "belly_clear_m": {
+    "2.26": 0.252,
+    "2.6": 0.125,
+    "2.9": 0.028
+   }
+  },
+  {
+   "sum_m": 0.92,
+   "ratio": "short-meta 1:1.5:1.0",
+   "femur": 0.263,
+   "tibia": 0.394,
+   "meta": 0.263,
+   "mass_kg": 15.1,
+   "speeds": {
+    "8.0": {
+     "stride_hz": 2.23,
+     "contact_s": 0.1122,
+     "peak_grf_bw": 3.24,
+     "hip_height_td_m": 0.629,
+     "reach_frac": 0.95,
+     "hip": {
+      "design": {
+       "score": 0.44,
+       "belt": 1.15
+      },
+      "design+stance": {
+       "score": 0.55,
+       "belt": 1.1
+      }
+     },
+     "knee_run_range": [
+      0.92,
+      1.73
+     ]
+    },
+    "11.1": {
+     "stride_hz": 3.12,
+     "contact_s": 0.0802,
+     "peak_grf_bw": 3.23,
+     "hip_height_td_m": 0.629,
+     "reach_frac": 0.95,
+     "hip": {
+      "design": {
+       "score": 0.99,
+       "belt": 0.9
+      },
+      "design+stance": {
+       "score": 1.11,
+       "belt": 0.85
+      }
+     },
+     "knee_run_range": [
+      0.94,
+      1.69
+     ]
+    }
+   },
+   "hip_height_fold": {
+    "2.26": 0.401,
+    "2.6": 0.263,
+    "2.9": 0.148
+   },
+   "knee": {
+    "2.26": {
+     "score": 1.16,
+     "geometry": {
+      "a": 0.173,
+      "b": 0.179,
+      "c": 0.139,
+      "beta_deg": 51.2,
+      "branch": 1.0
+     },
+     "band": [
+      0.377,
+      2.309
+     ],
+     "n": 824
+    },
+    "2.6": {
+     "score": 1.28,
+     "geometry": {
+      "a": 0.183,
+      "b": 0.333,
+      "c": 0.13,
+      "beta_deg": 95.6,
+      "branch": -1.0
+     },
+     "band": [
+      0.71,
+      2.982
+     ],
+     "n": 274
+    },
+    "2.9": {
+     "score": 1.28,
+     "geometry": {
+      "a": 0.183,
+      "b": 0.333,
+      "c": 0.13,
+      "beta_deg": 95.6,
+      "branch": -1.0
+     },
+     "band": [
+      0.71,
+      2.982
+     ],
+     "n": 36
+    }
+   },
+   "belly_clear_m": {
+    "2.26": 0.237,
+    "2.6": 0.099,
+    "2.9": -0.016
+   }
+  }
+ ]
+}

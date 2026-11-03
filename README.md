@@ -72,6 +72,10 @@
 
 ![깊은 접힘 4절 링크의 달리기 비용과 A/B 엄격 평가](docs/evidence/192-knee-fold-fourbar/media/fold_ab.png)
 
+**형상 동결 계획 (2026-11-03, [계획](docs/DESIGN_FREEZE_PLAN.ko.md)):** 반복 학습 루프를 끊기 위해 강화학습 전에 형상을 계산으로 고르고 한 번에 정하기로 했습니다(Codex·Fable 합의). 계산 결과, 지금 다리(0.92 m)는 무릎 모터 여유가 부족하고, 0.70–0.80 m 타조 비율 다리는 깊게 접히는 무릎과 11.1 m/s 모터 여유를 함께 얻습니다(증거 193). 다리 형상은 사용자 결정 대기입니다.
+
+![F1 형상 선별표](docs/evidence/193-shape-scan/media/shape_table.png)
+
 ![일어서기: 시작 기울기별 성공과 1b 합격 시험](docs/evidence/189-stage1b-getup-feasibility/media/getup_progress.png)
 
 | 성공 1판: 다리 접고 앉은 자세 → 4.1초에 일어서서 서기 정책으로 10초 | 실패: 옆으로 누운 자세에서 다리를 몸 아래로 못 가져옴 |
@@ -598,6 +602,8 @@ ROS 실행·응답 확인·STOP 사용법은 [로컬 개발 가이드](docs/loca
 | [R-03 기본 서기 자세 재계산 190](docs/evidence/190-r03-nominal-refit/README.md) | 미채택: 무게중심 규칙으로 맞춘 자세(고관절 −0.13)는 같은 조건에서 서기 이동 0.85 m(기준 0.5 m), 기존 자세 0.31 m. 정지 출력은 25 → 17 W로 줄었음 |
 | [1b 바닥 일어서기 기구 한계 191](docs/evidence/191-getup-ground-mechanism/README.md) | 고정 시작에서도 옆·뒤 0/11. 무게중심이 발 위에 오는 가장 낮은 웅크림의 배 높이 24.5 cm(무릎 2.26 rad 한계)라 엎드린 몸 아래로 다리를 넣지 못함. 기구 결정 대기 |
 | [1b 무릎 깊은 접힘 A/B 192](docs/evidence/192-knee-fold-fourbar/README.md) | 2.96 rad 접힘 4절 링크(달리기 점수 1.21, 미채택). 현재 무릎 전체 범위 A·깊은 접힘 B 엄격 평가 0/21·0/21. 감속비 하한 버그 수정. 일시정지, 다음은 비RL 경로 탐색 |
+| [형상 해석 선별 193](docs/evidence/193-shape-scan/README.md) | 다리 합 0.70/0.80/0.92 m × 비율 3 × 무릎 접힘 3. 지금 다리는 무릎 1.05–1.45(여유 1.2배). 0.70 m 타조 비율은 모든 항목 1 이하·배 간격 −3 cm(계산) |
+| [달리기 비RL 검사 194](docs/evidence/194-gait-feasibility/README.md) | 직접 짠 제어기 2종 CEM, 2–4 m/s 3초 미만으로 미해결(제어기 실패, 형상 판정 아님) |
 | [순차 학습 계획](docs/STAGED_PLAN.ko.md) | 2026-10-31 사용자 결정: 서기→걷기→달리기→방향 전환→점프→험지→상황 판단, 구동기 B안, 고관절 yaw 축 |
 | [최종 설계 검증 보고서 1.8](docs/reports/final-20261012/README.ko.md) | 계산 문서 재작성본(104쪽 PDF)·출처·검증 기록 |
 | [T1 달리기 증거 86](docs/evidence/86-t1-run/README.md) | 가상 구동기 달리기·꼬리 활성/고정·임펄스·방향전환·일어나기 |

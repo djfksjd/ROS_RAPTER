@@ -1,0 +1,126 @@
+{
+ "date": "2026-11-03",
+ "model_rev": 3,
+ "mass_kg": 15.1,
+ "hashes": {
+  "sim/raptor_r03.xml": "de2399f155c1d6f1",
+  "sim/rl/rev3_b.json": "973ee3026645a10e",
+  "sim/rl/realism_robstride_rev3.json": "dfe0836bb0f9aa74",
+  "sim/rl/run_env.py": "20f8fb518d73186a",
+  "sim/rl/realism.py": "cf25d32c96189ea7",
+  "sim/rl/train_run.py": "6c47a42298efbed4",
+  "sim/rl/stage_gates.py": "31fc9b64da96885e"
+ },
+ "reference_policy": "r3_s1ho",
+ "scale_override": "{\"hip_roll\": 0.5}",
+ "nominal": [
+  -0.5273,
+  1.0,
+  -0.9997
+ ],
+ "policy_axes_left_and_tail": {
+  "left_hip_roll": {
+   "stop": [
+    -0.5,
+    0.5
+   ],
+   "q0": 0.0,
+   "scale": 0.5,
+   "commandable": [
+    -0.5,
+    0.5
+   ]
+  },
+  "left_hip_yaw": {
+   "stop": [
+    -0.5,
+    0.5
+   ],
+   "q0": 0.0,
+   "scale": 0.3,
+   "commandable": [
+    -0.3,
+    0.3
+   ]
+  },
+  "left_hip_pitch": {
+   "stop": [
+    -1.6,
+    0.9
+   ],
+   "q0": -0.527,
+   "scale": 1.0,
+   "commandable": [
+    -1.527,
+    0.473
+   ]
+  },
+  "left_knee_pitch": {
+   "stop": [
+    0.636,
+    2.261
+   ],
+   "q0": 1.0,
+   "scale": 1.0,
+   "commandable": [
+    0.636,
+    2.0
+   ]
+  },
+  "tail_yaw": {
+   "stop": [
+    -0.8,
+    0.8
+   ],
+   "q0": 0.0,
+   "scale": 0.8,
+   "commandable": [
+    -0.8,
+    0.8
+   ]
+  },
+  "tail_pitch": {
+   "stop": [
+    -0.8,
+    0.8
+   ],
+   "q0": 0.0,
+   "scale": 0.8,
+   "commandable": [
+    -0.8,
+    0.8
+   ]
+  }
+ },
+ "note": "commandable < stop means a policy with these settings can never reach the joint stop (evidence 192: the knee was capped at 2.0 of 2.26 in every get-up test before r3_gxa/gxb)",
+ "r3_policies": [
+  "r3_g1",
+  "r3_g2",
+  "r3_g3",
+  "r3_g4",
+  "r3_gfa",
+  "r3_gfb",
+  "r3_gfc",
+  "r3_gfd",
+  "r3_gx_back",
+  "r3_gx_side",
+  "r3_gxa_back",
+  "r3_gxb_back",
+  "r3_s1",
+  "r3_s1ar",
+  "r3_s1ar6",
+  "r3_s1c",
+  "r3_s1h",
+  "r3_s1ho",
+  "r3_s1hs",
+  "r3_s1hs5",
+  "r3_s1kp",
+  "r3_s1le",
+  "r3_s1lp",
+  "r3_s1lp2",
+  "r3_s1n",
+  "r3_s1sl",
+  "r3_s1sym"
+ ],
+ "valid_on_this_contract": "all r3_* runs, until a hash above changes; rev2_* runs are records (model_rev 2, invalid on R-03)"
+}
