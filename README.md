@@ -80,6 +80,10 @@
 
 ![R-03 다리와 동결한 0.80 m 다리](docs/design/media/freeze_side.png)
 
+**1a 서기 재통과 (증거 195):** 0.80 m 다리 정책 `l80_s1p`가 이어 학습 105만 스텝(약 30분)에 1a 기준을 통과했습니다. 넘어짐 0/128, 명목 30초 이동 0.33 m입니다. 지금 2단계 걷기를 학습하고 있습니다.
+
+![1a 시험 비교](docs/evidence/195-l80-stand/media/gate_compare.png)
+
 ![일어서기: 시작 기울기별 성공과 1b 합격 시험](docs/evidence/189-stage1b-getup-feasibility/media/getup_progress.png)
 
 | 성공 1판: 다리 접고 앉은 자세 → 4.1초에 일어서서 서기 정책으로 10초 | 실패: 옆으로 누운 자세에서 다리를 몸 아래로 못 가져옴 |
@@ -608,6 +612,7 @@ ROS 실행·응답 확인·STOP 사용법은 [로컬 개발 가이드](docs/loca
 | [1b 무릎 깊은 접힘 A/B 192](docs/evidence/192-knee-fold-fourbar/README.md) | 2.96 rad 접힘 4절 링크(달리기 점수 1.21, 미채택). 현재 무릎 전체 범위 A·깊은 접힘 B 엄격 평가 0/21·0/21. 감속비 하한 버그 수정. 일시정지, 다음은 비RL 경로 탐색 |
 | [형상 해석 선별 193](docs/evidence/193-shape-scan/README.md) | 다리 합 0.70/0.80/0.92 m × 비율 3 × 무릎 접힘 3. 지금 다리는 무릎 1.05–1.45(여유 1.2배). 0.70 m 타조 비율은 모든 항목 1 이하·배 간격 −3 cm(계산) |
 | [달리기 비RL 검사 194](docs/evidence/194-gait-feasibility/README.md) | 직접 짠 제어기 2종 CEM, 2–4 m/s 3초 미만으로 미해결(제어기 실패, 형상 판정 아님) |
+| [0.80 m 다리 1a 서기 195](docs/evidence/195-l80-stand/README.md) | 형상 동결 뒤 `l80_s1p`, 105만 스텝에 1a 통과(넘어짐 0/128, 이동 0.33 m) |
 | [순차 학습 계획](docs/STAGED_PLAN.ko.md) | 2026-10-31 사용자 결정: 서기→걷기→달리기→방향 전환→점프→험지→상황 판단, 구동기 B안, 고관절 yaw 축 |
 | [최종 설계 검증 보고서 1.8](docs/reports/final-20261012/README.ko.md) | 계산 문서 재작성본(104쪽 PDF)·출처·검증 기록 |
 | [T1 달리기 증거 86](docs/evidence/86-t1-run/README.md) | 가상 구동기 달리기·꼬리 활성/고정·임펄스·방향전환·일어나기 |
