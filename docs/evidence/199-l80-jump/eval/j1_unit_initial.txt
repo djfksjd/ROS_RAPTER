@@ -1,0 +1,17 @@
+test_external_request_and_unstable_start (tests.test_jump_task.JumpTaskTest.test_external_request_and_unstable_start) ... ok
+test_fall_blocks_success_and_negative_bonus_rejected (tests.test_jump_task.JumpTaskTest.test_fall_blocks_success_and_negative_bonus_rejected) ... ok
+test_height_is_from_standing_not_crouch (tests.test_jump_task.JumpTaskTest.test_height_is_from_standing_not_crouch) ... ok
+test_landing_error_and_one_foot_contact (tests.test_jump_task.JumpTaskTest.test_landing_error_and_one_foot_contact) ... ok
+test_no_height_duration_from_different_flights (tests.test_jump_task.JumpTaskTest.test_no_height_duration_from_different_flights) ... ok
+test_optional_input_is_appended_reflected_and_physics_passive (tests.test_jump_task.JumpTaskTest.test_optional_input_is_appended_reflected_and_physics_passive) ... ok
+test_short_intervals_do_not_add_to_flight (tests.test_jump_task.JumpTaskTest.test_short_intervals_do_not_add_to_flight) ... ok
+test_success_needs_same_flight_and_contiguous_hold (tests.test_jump_task.JumpTaskTest.test_success_needs_same_flight_and_contiguous_hold) ... ok
+test_boundaries_and_impact_current_record_only (tests.test_jump_gate.JumpGateTest.test_boundaries_and_impact_current_record_only) ... ok
+test_checkpoint_rules_and_plan (tests.test_jump_gate.JumpGateTest.test_checkpoint_rules_and_plan) ... ok
+test_dr_allows_two_failures_but_not_idle_survival (tests.test_jump_gate.JumpGateTest.test_dr_allows_two_failures_but_not_idle_survival) ... ok
+test_full_suite_missing_quick_duplicate_and_raw (tests.test_jump_gate.JumpGateTest.test_full_suite_missing_quick_duplicate_and_raw) ... ok
+
+----------------------------------------------------------------------
+Ran 12 tests in 1.965s
+
+OK

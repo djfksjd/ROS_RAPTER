@@ -166,6 +166,8 @@ def expand_inputs(path, venv, std):
     with open(Path(path).with_name('vecnorm.pkl'), 'rb') as f:
         env = pickle.load(f)
     rms, n_new = env.obs_rms, venv.observation_space.shape[0]-env.obs_rms.mean.shape[0]
+    if n_new <= 0:
+        raise ValueError('expand_inputs requires appended observation coordinates')
     new = RunningMeanStd(shape=(rms.mean.shape[0]+n_new,))
     new.mean = np.r_[rms.mean, np.zeros(n_new)]
     new.var = np.r_[rms.var, np.full(n_new, std**2)]
@@ -187,6 +189,17 @@ def expand_inputs(path, venv, std):
     return env, model
 
 
+def validate_jump_resume(old, new):
+    """A jump-only extension must keep the old input layout and symmetric inference."""
+    if not new.get('jump'):
+        return
+    if old.get('symmetric') and not new.get('symmetric'):
+        raise ValueError('jump resume from a symmetric policy requires --symmetric')
+    for key, default in [('obs_scan', None), ('obs_hold', None), ('no_obs_vel', False), ('obs_contact', False)]:
+        if old.get(key, default) != new.get(key, default):
+            raise ValueError('jump resume must preserve existing observation layout: '+key)
+
+
 def env_kwargs(a):
     """RunEnv keyword arguments from a train_run argument dict (also args.json of a finished run; keys added later default)."""
     g = a.get
@@ -206,7 +219,8 @@ def env_kwargs(a):
                 obs_scan=json.loads(a['obs_scan']) if g('obs_scan') else None,
                 obs_hold=json.loads(a['obs_hold']) if g('obs_hold') else None,
                 getup=json.loads(a['getup']) if g('getup') else None, cmd_turn=g('cmd_turn') or 0., hold_settle=g('hold_settle'),
-                cmd_mix=json.loads(a['cmd_mix']) if g('cmd_mix') else None)
+                cmd_mix=json.loads(a['cmd_mix']) if g('cmd_mix') else None,
+                jump=json.loads(a['jump']) if g('jump') else None)
 
 
 def budget_chunk(remaining, rollout):
@@ -272,6 +286,7 @@ def main():
                    '(x, y, heading) appended after the scan (run_env.py); with --init from a policy without it, as --obs-scan')
     p.add_argument('--getup', help='JSON {"modes": {"sit"|"side"|"back"|"easy": weight}, "hold_s": s, "weights": {}}: stage 1b '
                    'episodes start fallen, get-up reward (run_env.py _drop, _getup_reward)')
+    p.add_argument('--jump', help='JSON opt-in jump task: auto_request_s (2 or null), flight_bonus (10), success_bonus (30); one appended request input')
     p.add_argument('--scan-std', type=float, default=.15, help='frozen normalisation std (m) of the new scan / hold inputs')
     p.add_argument('--terrain', help='JSON {"kinds": {kind: weight}, "max_level": L, "vmax": m/s, "size": m}: terrain drawn per episode (run_env.py)')
     p.add_argument('--realism', help='realism config JSON path for RunEnv(realism=...) (realism.py, docs/SIM_REALISM.ko.md); omitted = off')
@@ -283,6 +298,11 @@ def main():
         p.error('cmd-mix requires --fixed-curriculum')
     if a.resume_action_std is not None and (not a.init or not np.isfinite(a.resume_action_std) or a.resume_action_std <= 0):
         p.error('resume-action-std requires --init and a finite positive value')
+    if a.jump and a.init:
+        try:
+            validate_jump_resume(json.loads(Path(a.init).with_name('args.json').read_text()), vars(a))
+        except ValueError as error:
+            p.error(str(error))
     out = HERE/'runs'/a.name
     out.mkdir(parents=True, exist_ok=True)
     (out/'args.json').write_text(json.dumps(vars(a), indent=1))
@@ -296,7 +316,7 @@ def main():
         with open(vn_path, 'rb') as f:
             saved_shape = pickle.load(f).observation_space.shape
         if env.observation_space.shape != saved_shape:
-            env, model = expand_inputs(a.init, env, a.scan_std)
+            env, model = expand_inputs(a.init, env, 1. if a.jump else a.scan_std)
         else:
             env = VecNormalize.load(vn_path, env)
             model = PPO.load(a.init, env=env, device='cpu')
@@ -311,7 +331,7 @@ def main():
             probe = RunEnv(seed=0, **kw)
             freeze_obs(env)
             sym = reflection_constants(ObservationReflection(probe.active, probe.policy_idx, probe.q0, probe.obs_vel, probe.obs_contact,
-                                                             len(probe.scan_dx), bool(probe.obs_hold)), env)
+                                                             len(probe.scan_dx), bool(probe.obs_hold), probe.jump_task is not None), env)
             if not isinstance(model.policy, SymPolicy) or widened:  # rebuild: the reflection stores the normalisation
                 old = model
                 model = PPO(SymPolicy, env, n_steps=old.n_steps, batch_size=old.batch_size, n_epochs=old.n_epochs, learning_rate=old.learning_rate,

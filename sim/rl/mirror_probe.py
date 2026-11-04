@@ -35,7 +35,7 @@ def joint_reflection(names):
 
 
 class ObservationReflection:
-    def __init__(self, active, policy_idx, q0, obs_vel, obs_contact=False, n_scan=0, obs_hold=False):
+    def __init__(self, active, policy_idx, q0, obs_vel, obs_contact=False, n_scan=0, obs_hold=False, obs_jump=False):
         self.joint_index, self.joint_sign = joint_reflection(active)
         self.action_index, self.action_sign = joint_reflection([active[i] for i in policy_idx])
         self.q0 = np.asarray(q0)
@@ -43,8 +43,9 @@ class ObservationReflection:
         self.obs_contact = obs_contact
         self.n, self.na = len(active), len(policy_idx)
         self.n_scan = int(n_scan)  # ground heights on the sagittal line ahead (obs_scan): unchanged by the reflection
+        self.obs_jump = bool(obs_jump)
         self.obs_hold = bool(obs_hold)  # odometry offset x, y, heading after the scan: y and heading change sign
-        self.size = 9 + 3*int(obs_vel) + 2*self.n + self.na + 2 + 2*int(obs_contact) + self.n_scan + 3*self.obs_hold
+        self.size = 9 + 3*int(obs_vel) + 2*self.n + self.na + 2 + 2*int(obs_contact) + self.n_scan + 3*self.obs_hold + self.obs_jump
 
     def action(self, action):
         a = np.asarray(action)
@@ -76,7 +77,8 @@ class ObservationReflection:
         if self.obs_contact:
             y[..., start+2:start+4] = x[..., start+2:start+4][..., [1,0]]
         if self.obs_hold:
-            y[..., -2:] *= -1
+            start = self.size-int(self.obs_jump)-3
+            y[..., start+1:start+3] *= -1
         return y
 
 

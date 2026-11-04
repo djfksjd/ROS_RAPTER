@@ -28,3 +28,6 @@ vendor/
 .playwright-cli/
 *.blend1
 docs/evidence/199-l80-jump/eval/*.npz
+
+# Stage 5 checkpoint subfolders: summaries tracked, 1 ms arrays local only.
+docs/evidence/199-l80-jump/eval/**/*.npz
