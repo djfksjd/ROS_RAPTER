@@ -1,0 +1,5 @@
+{
+  "eligible_5a": false,
+  "reason": "failed condition: {'gate': 'jump', 'cond': 'in_place'}",
+  "stage5_passed": false
+}

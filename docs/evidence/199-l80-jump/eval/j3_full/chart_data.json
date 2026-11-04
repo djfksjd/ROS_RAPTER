@@ -1,0 +1,15 @@
+{
+  "quick_successes": [
+    0,
+    3,
+    4
+  ],
+  "quick_n": 6,
+  "full_successes": [
+    null,
+    17,
+    21
+  ],
+  "full_n": 32,
+  "j1_full": "not evaluated; never zero-filled"
+}

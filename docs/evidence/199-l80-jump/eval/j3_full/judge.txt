@@ -1,0 +1,31 @@
+FAIL jump  in_place              jump success 6/8, falls 0; impact/current recorded only
+FAIL jump  in_place_dr             jump success 15/24, falls 0; impact/current recorded only
+PASS stand hold                  falls 0, drift 0.397
+PASS stand hold_dr               falls 0/24
+PASS stand push      front  0.3  falls 0
+PASS stand push       back  0.3  falls 0
+PASS stand push       left  0.3  falls 0
+PASS stand push      right  0.3  falls 0
+---- stand push      front  0.5  falls 0 (recorded)
+---- stand push       back  0.5  falls 0 (recorded)
+---- stand push       left  0.5  falls 0 (recorded)
+---- stand push      right  0.5  falls 0 (recorded)
+---- stand push      front  0.8  falls 0 (recorded)
+---- stand push       back  0.8  falls 0 (recorded)
+---- stand push       left  0.8  falls 0 (recorded)
+---- stand push      right  0.8  falls 0 (recorded)
+PASS walk  track       0.3       v [0.21, 0.22, 0.22, 0.22], tol 0.10
+PASS walk  track       0.6       v [0.62, 0.62, 0.61, 0.6], tol 0.10
+PASS walk  track       1.0       v [1.03, 1.04, 1.04, 1.03], tol 0.15
+PASS walk  track       1.5       v [1.46, 1.47, 1.46, 1.46], tol 0.22
+PASS walk  turn        0.5       yaw [0.43, 0.4, 0.41, 0.42], drift max 0.452
+PASS walk  turn       -0.5       yaw [-0.41, -0.42, -0.38, -0.43], drift max 0.454
+PASS walk  stopstart             reach max 0.58, stop speeds [-0.11, -0.13, -0.13, -0.09, -0.14, -0.13, -0.11, -0.12]
+PASS walk  track_dr    1.0       falls 0/24
+---- switch switch                falls 0/4, switches [2, 2, 2, 2] (step commands, recorded)
+PASS switch switch_ramp             falls 0/4, switches [2, 2, 2, 2]
+PASS switch switch_ramp_dr             falls 0/8, switches [2, 2, 2, 2, 2, 2, 2, 2]
+PASS jump  run_regression   2.0       falls 0/4, v [1.918043950561087, 1.944630695868931, 1.9367607979480397, 1.9675090948816174]
+PASS jump  run_regression   4.0       falls 0/4, v [4.202228579647781, 4.19709973602469, 4.225250508625001, 4.192528752764309]
+PASS jump  run_regression   6.0       falls 0/4, v [5.942140220803061, 5.958991175702678, 5.968459185992671, 5.91850119174208]
+FAIL jump 5a suite: failed condition: {'gate': 'jump', 'cond': 'in_place'}

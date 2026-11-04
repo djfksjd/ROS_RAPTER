@@ -18,8 +18,9 @@ from check_training_j1 import metrics
 from launch_j2 import plan
 
 
-def initial_height(seed,dr):
-    args=json.loads((ROOT/'sim/rl/runs/l80_j2/args.json').read_text())
+def initial_height(seed,dr,run=None):
+    run=Path(run) if run is not None else ROOT/'sim/rl/runs/l80_j2'
+    args=json.loads((run/'args.json').read_text())
     kw={**env_kwargs(args),'episode_s':14.,'level':0.,'disturb_items':[],'roll_impulse':None,
         'yaw_impulse':None,'init_speed':False,'cmd_max':[0.,0.,0.],'cmd_mix':None,
         'jump':{'auto_request_s':2.,'flight_bonus':0.,'success_bonus':0.}}
@@ -27,7 +28,7 @@ def initial_height(seed,dr):
     height=env.h_nom+.03;env.close();return height
 
 
-def episode(row,e):
+def episode(row,e,run=None):
     with np.load(e['raw_trace']) as raw:a=dict(raw)
     t=a['t'];requested=t>=e['request_time_s'];off=(a['feet_n']==0).all(axis=1)&requested
     events=[]
@@ -57,7 +58,7 @@ def episode(row,e):
     if qualified:
         end=e['success_time_s'] if e['success_time_s'] is not None else e['elapsed_s']
         mask=(t>=qualified[0]['touchdown_s'])&(t<=end+1e-9)
-        h=initial_height(e['seed'],row['cond']=='in_place_dr');weight=float(a['weight_n'])
+        h=initial_height(e['seed'],row['cond']=='in_place_dr',run);weight=float(a['weight_n'])
         tests=dict(foot_load=(a['feet_force_n']>.15*weight).all(axis=1),
             speed=np.linalg.norm(a['velocity'],axis=1)<.5,tilt=a['tilt']<.3,
             height=a['xyz'][:,2]-a['ground_z']>.8*h,body=~a['body_hit'])
