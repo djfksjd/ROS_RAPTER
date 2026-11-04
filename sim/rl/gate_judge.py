@@ -9,13 +9,41 @@ run (3, adjusted by the user 2026-11-04, 11.1 m/s deferred): speed 2/4/6 m/s: 0 
             vendor heat-sink mount with no derating and 0 falls) must be >= 4 m/s; lateral: falls <= 1 per side.
 switch (3, policy set walk + run, 2026-11-04): commands rate-limited to 2 m/s^2: 0 falls nominal, <= 1 of 8 randomized;
             step commands recorded.
+turn (4, fixed 2026-11-04 before training): turn_rules.py; every episode must satisfy speed, yaw, radius, signed
+            heading and 90-degree deadline. Full adoption also requires complete held-out turns and earlier regressions.
 Usage: .venv-sim/bin/python sim/rl/gate_judge.py GATE.jsonl [GATE2.jsonl ...]"""
 import json
+import math
 import sys
+from turn_rules import TURN_CRITERIA
+
+
+def turn_episode_ok(row, episode):
+    rule = TURN_CRITERIA.get(row['cmd'])
+    if rule is None or abs(row['yaw_cmd']) != rule['yaw']:
+        return False
+    v, w, radius, t90, angle = (episode.get(k) for k in
+                              ('v_mean', 'yaw_rate_mean', 'radius_m', 't_90_s', 'heading_change_rad'))
+    values = (v, w, radius, t90, angle)
+    if any(x is None or not math.isfinite(x) for x in values):
+        return False
+    return (episode['t_fall'] is None and abs(v-row['cmd']) <= rule['v_tol']*row['cmd']
+            and abs(w-row['yaw_cmd']) <= rule['yaw_tol']*rule['yaw']
+            and 0 <= radius <= rule['radius'] and 0 < t90 <= rule['t90']
+            and math.copysign(1., row['yaw_cmd'])*angle >= math.pi/2)
 
 
 def judge(row):
     c, e = row['cond'], row.get('episodes', [])
+    if row['gate'] == 'turn':
+        if c == 'moving_turn':
+            ok = bool(e) and len(e) == row['n'] and row['falls'] == 0 and all(turn_episode_ok(row, x) for x in e)
+            return ok, f"falls {row['falls']}/{row['n']}, passing episodes {sum(turn_episode_ok(row, x) for x in e)}/{len(e)}"
+        if c == 'run_regression':
+            ok = bool(e) and len(e) == row['n'] and row['falls'] == 0 and all(
+                x['t_fall'] is None and x['v_mean'] is not None and math.isfinite(x['v_mean'])
+                and abs(x['v_mean']-row['cmd']) <= .1*row['cmd'] for x in e)
+            return ok, f"falls {row['falls']}/{row['n']}, v {[x['v_mean'] for x in e]}"
     if row['gate'] == 'stand':
         if c == 'hold':
             return row['falls'] == 0 and row['drift_max_m'] <= .5, f"falls {row['falls']}, drift {row['drift_max_m']}"
@@ -67,6 +95,44 @@ def judge(row):
     return None, 'not judged'
 
 
+def turn_suite_status(rows):
+    """Adoption requires a complete full suite, never an empty/partial/quick file."""
+    required = []
+    for speed, rule in TURN_CRITERIA.items():
+        for sign in (1., -1.):
+            required.append((dict(gate='turn', cond='moving_turn', cmd=speed, yaw_cmd=sign*rule['yaw']), 4))
+    required += [(dict(gate='turn', cond='run_regression', cmd=v), 4) for v in (2., 4., 6.)]
+    required += [(dict(gate='stand', cond='hold'), 8), (dict(gate='stand', cond='hold_dr'), 24)]
+    required += [(dict(gate='stand', cond='push', dv=.3, dir=d), 8) for d in ('front', 'back', 'left', 'right')]
+    required += [(dict(gate='walk', cond='track', cmd=v), 4) for v in (.3, .6, 1., 1.5)]
+    required += [(dict(gate='walk', cond='turn', cmd=w), 4) for w in (.5, -.5)]
+    required += [(dict(gate='walk', cond='stopstart'), 4), (dict(gate='walk', cond='track_dr'), 24),
+                 (dict(gate='switch', cond='switch_ramp'), 4), (dict(gate='switch', cond='switch_ramp_dr'), 8)]
+    for selector, n in required:
+        matches = [r for r in rows if all(r.get(k) == v for k, v in selector.items())]
+        if len(matches) != 1:
+            return False, f'missing or duplicate condition: {selector}'
+        r = matches[0]
+        if r.get('quick') or r.get('n') != n or len(r.get('episodes', [])) != n:
+            return False, f'incomplete or quick condition: {selector}'
+        if r['falls'] != sum(e['t_fall'] is not None for e in r['episodes']):
+            return False, f'inconsistent fall count: {selector}'
+        if selector['gate'] == 'turn' and selector['cond'] == 'moving_turn':
+            if {e['seed'] for e in r['episodes']} != set(range(7300, 7304)):
+                return False, f'held-out seeds required: {selector}'
+            for e in r['episodes']:
+                joints = e.get('joints', {})
+                if e.get('load_samples') != 10000 or set(joints) != {'left_hip_yaw_joint', 'right_hip_yaw_joint'}:
+                    return False, f'incomplete hip yaw load measurement: {selector}'
+                for j in joints.values():
+                    if any(not isinstance(j.get(k), (int, float)) or not math.isfinite(j[k]) or j[k] < 0
+                           for k in ('rms_nm', 'peak_nm', 'peak_rad_s', 'at_limit')) or j['at_limit'] > 1:
+                        return False, f'invalid hip yaw load measurement: {selector}'
+        if judge(r)[0] is not True:
+            return False, f'failed condition: {selector}'
+    return True, 'full turn + stand/walk/run 2/4/6/switch regression passed'
+
+
 def sustained_speed(rows):
     ok = [r['cmd'] for r in rows if r['gate'] == 'run' and r['cond'] == 'heat' and r['mount'] == 'plate'
           and r['falls'] == 0 and r['min_derate'] >= 1.]
@@ -96,8 +162,18 @@ def main():
         vh = sustained_speed(rows)
         allok &= vh >= 4.
         print(f'{"PASS" if vh >= 4. else "FAIL"} run   heat      sustained 10 min speed without derating {vh} m/s (needs >= 4)')
+    if any(r['gate'] == 'turn' for r in rows):
+        if any(r.get('quick') for r in rows):
+            print('QUICK PASS (development only; not adoption)' if allok else 'QUICK NOT PASSED')
+        else:
+            ok, why = turn_suite_status(rows)
+            allok &= ok
+            print(f'{"PASS" if ok else "FAIL"} turn suite: {why}')
+            print('ALL PASS' if allok else 'NOT PASSED')
+        return 0 if allok else 1
     print('ALL PASS' if allok else 'NOT PASSED')
+    return 0
 
 
 if __name__ == '__main__':
-    main()
+    sys.exit(main())

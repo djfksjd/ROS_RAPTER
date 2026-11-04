@@ -31,12 +31,17 @@ switch (stage 3 policy set, defined 2026-11-04): the walk policy (RUN_DIR) and a
             (6 s) -> 1.0 (6 s) -> 0 (5 s) as steps (switch, 4 seeds) and rate-limited to 2 m/s^2 as a high-level layer
             would send them (switch_ramp 4 seeds, switch_ramp_dr 8 randomized): falls, speed at the end of each segment,
             number of switches
+turn (stage 4, fixed 2026-11-04 before training, evidence 198): 5 s straight + 10 s moving turn; criteria in
+            turn_rules.py. --walk supplies the retained walking policy for 1 m/s; RUN_DIR supplies the 2/4/6 m/s policy.
+            Quick uses 2 development seeds and turns only. Full uses 4 held-out seeds plus stand/walk/run-speed/switch
+            regression. Hip yaw loads are sampled at 1 ms; full-suite completeness is checked by gate_judge.py.
 Fall = the env's termination (tilt, body contact, low hip). Pass rules are in the plan; this script only measures.
 Usage: .venv-sim/bin/python sim/rl/stage_gates.py RUN_DIR stand [--quick]
        .venv-sim/bin/python sim/rl/stage_gates.py RUN_DIR getup --stand sim/rl/runs/r3_s1ho [--quick]
        .venv-sim/bin/python sim/rl/stage_gates.py RUN_DIR walk [--quick]
        .venv-sim/bin/python sim/rl/stage_gates.py RUN_DIR run [--quick] [--heat-cmd 4 5 6]
        .venv-sim/bin/python sim/rl/stage_gates.py WALK_DIR switch --run RUN_DIR [--quick]
+       .venv-sim/bin/python sim/rl/stage_gates.py RUN_DIR turn --walk WALK_DIR [--quick]
 """
 import argparse
 import json
@@ -50,12 +55,14 @@ sys.path.insert(0, str(HERE))
 from evaluate import load  # noqa: E402
 from run_env import RunEnv  # noqa: E402
 from train_run import env_kwargs  # noqa: E402
+from turn_eval import turn_condition  # noqa: E402
+from turn_rules import TURN_CRITERIA  # noqa: E402
 
 
 def rollout(d, seed, seconds, randomize, kick=None, kick_t=5.):
     a = json.loads((d/'args.json').read_text())
     kw = {**env_kwargs(a), 'level': 0., 'episode_s': seconds+5., 'disturb_items': [], 'roll_impulse': None, 'yaw_impulse': None,
-          'cmd_max': [0., 0., 0.], 'init_speed': False}
+          'cmd_max': [0., 0., 0.], 'cmd_mix': None, 'init_speed': False}
     env = RunEnv(**kw, randomize=randomize, seed=seed)
     env.init_seed = seed
     model, venv = load(str(d/'model.zip'), env)
@@ -102,7 +109,7 @@ def getup_rollout(d, stand_dir, mode, seed, t_get=10., t_stand=10.):
     a = json.loads((d/'args.json').read_text())
     g = json.loads(a['getup'])
     kw = {**env_kwargs(a), 'level': 0., 'episode_s': t_get+t_stand+5., 'disturb_items': [], 'roll_impulse': None,
-          'yaw_impulse': None, 'cmd_max': [0., 0., 0.], 'init_speed': False, 'getup': {**g, 'modes': {mode: 1.}, 'leak': None}}
+          'yaw_impulse': None, 'cmd_max': [0., 0., 0.], 'cmd_mix': None, 'init_speed': False, 'getup': {**g, 'modes': {mode: 1.}, 'leak': None}}
     env = RunEnv(**kw, randomize=False, seed=seed)
     env.init_seed = seed
     model, venv = load(str(d/'model.zip'), env)
@@ -149,7 +156,7 @@ def walk_rollout(d, seed, schedule, seconds, randomize):
     """Command schedule [(t_start, (vx, vy, yaw))]; returns per-step time, body-frame forward speed, yaw rate, xy."""
     a = json.loads((d/'args.json').read_text())
     kw = {**env_kwargs(a), 'level': 0., 'episode_s': seconds+5., 'disturb_items': [], 'roll_impulse': None, 'yaw_impulse': None,
-          'cmd_max': [0., 0., 0.], 'init_speed': False}
+          'cmd_max': [0., 0., 0.], 'cmd_mix': None, 'init_speed': False}
     env = RunEnv(**kw, randomize=randomize, seed=seed)
     env.init_seed = seed
     model, venv = load(str(d/'model.zip'), env)
@@ -211,7 +218,7 @@ def run_rollout(d, seed, cmd, seconds, randomize=False, kick=None, kick_t=8., mo
     """Constant forward command from standing; returns fall time, per-step forward speed, lowest derate, hottest winding."""
     a = json.loads((d/'args.json').read_text())
     kw = {**env_kwargs(a), 'level': 0., 'episode_s': seconds+5., 'disturb_items': [], 'roll_impulse': None, 'yaw_impulse': None,
-          'cmd_max': [0., 0., 0.], 'init_speed': False}
+          'cmd_max': [0., 0., 0.], 'cmd_mix': None, 'init_speed': False}
     env = RunEnv(**kw, randomize=randomize, seed=seed)
     env.init_seed = seed
     model, venv = load(str(d/'model.zip'), env)
@@ -267,7 +274,7 @@ SWITCH_SCHED = [(0., 0.), (3., 1.), (8., 4.), (14., 6.), (20., 1.), (26., 0.)]
 def switch_rollout(walk_dir, run_dir, seed, randomize, seconds=31., accel=None):
     a = json.loads((walk_dir/'args.json').read_text())
     kw = {**env_kwargs(a), 'level': 0., 'episode_s': seconds+5., 'disturb_items': [], 'roll_impulse': None, 'yaw_impulse': None,
-          'cmd_max': [0., 0., 0.], 'init_speed': False}
+          'cmd_max': [0., 0., 0.], 'cmd_mix': None, 'init_speed': False}
     env = RunEnv(**kw, randomize=randomize, seed=seed)
     env.init_seed = seed
     walk, vw = load(str(walk_dir/'model.zip'), env)
@@ -306,7 +313,34 @@ def switch(d, quick=False, run_dir=None):
         yield dict(cond=name, n=m, accel=acc, falls=sum(r['t_fall'] is not None for r in rows), episodes=rows)
 
 
-GATES = {'stand': stand, 'getup': getup, 'walk': walk, 'run': run, 'switch': switch}
+def turn(d, quick=False, walk_dir=None):
+    """Stage 4: 5 s straight + 10 s turning. Quick: development seeds, turns only.
+    Full: held-out turn seeds and stand/walk/run-speed/switch regression of the policy set.
+    """
+    if walk_dir is None:
+        raise ValueError('turn requires --walk (retained walking policy)')
+    seeds = range(7200, 7202) if quick else range(7300, 7304)
+    for speed, rule in TURN_CRITERIA.items():
+        policy = walk_dir if speed == 1. else d
+        for sign in (1., -1.):
+            yield dict(quick=quick, **turn_condition(policy, speed, sign*rule['yaw'], seeds))
+    if quick:
+        return
+    for gate, generator in (('stand', stand(walk_dir)), ('walk', walk(walk_dir)),
+                            ('switch', switch(walk_dir, run_dir=d))):
+        for row in generator:
+            yield dict(gate=gate, run=walk_dir.name, **row)
+    for cmd in (2., 4., 6.):
+        rows = []
+        for seed in range(6700, 6704):
+            fell, v, der, hot = run_rollout(d, seed, cmd, 20.)
+            rows.append(dict(seed=seed, t_fall=fell, v_mean=float(v[500:].mean()) if fell is None else None,
+                             min_derate=der, t_winding_max_c=hot))
+        yield dict(cond='run_regression', cmd=cmd, n=4,
+                   falls=sum(r['t_fall'] is not None for r in rows), episodes=rows)
+
+
+GATES = {'stand': stand, 'getup': getup, 'walk': walk, 'run': run, 'switch': switch, 'turn': turn}
 
 
 def main():
@@ -316,11 +350,15 @@ def main():
     ap.add_argument('--quick', action='store_true')
     ap.add_argument('--stand', help='stage 1a stand policy run directory (getup gate handoff)')
     ap.add_argument('--run', dest='run_policy', help='switch gate: run policy run directory')
+    ap.add_argument('--walk', help='turn gate: retained walking policy; full gate includes all required regressions')
     ap.add_argument('--heat-cmd', type=float, nargs='+', default=[4., 5., 6.], help='run gate: forward commands of the 10 min heat runs')
     a = ap.parse_args()
+    if a.gate == 'turn' and not a.walk:
+        ap.error('turn requires --walk')
     d = Path(a.run)
     rows = GATES[a.gate](d, a.quick, Path(a.stand)) if a.gate == 'getup' else run(d, a.quick, a.heat_cmd) if a.gate == 'run' \
-        else switch(d, a.quick, Path(a.run_policy)) if a.gate == 'switch' else GATES[a.gate](d, a.quick)
+        else switch(d, a.quick, Path(a.run_policy)) if a.gate == 'switch' \
+        else turn(d, a.quick, Path(a.walk)) if a.gate == 'turn' else GATES[a.gate](d, a.quick)
     for row in rows:
         print(json.dumps({'run': d.name, 'gate': a.gate, **row}), flush=True)
 

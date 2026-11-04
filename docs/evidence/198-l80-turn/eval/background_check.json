@@ -1,0 +1,10 @@
+{
+  "date": "2026-11-04",
+  "method": "nohup .venv-sim/bin/python -u: print started, sleep 120; bash waits 1s before return",
+  "pid": 67138,
+  "started_unix": 1793753048.711369,
+  "startup_seen": true,
+  "alive_after_tool_return": false,
+  "training_started": false,
+  "reason": "detached child gone after exec command returned; no training attempted"
+}

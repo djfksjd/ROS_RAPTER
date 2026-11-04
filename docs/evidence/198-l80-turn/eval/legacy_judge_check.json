@@ -1,0 +1,25 @@
+{
+  "inputs": {
+    "judge_l80_r1_4M.txt": [
+      "gate_run_l80_r1_4M.jsonl",
+      "gate_walk_l80_r1_4M.jsonl",
+      "gate_stand_l80_r1_4M.jsonl"
+    ],
+    "judge_l80_r1_6M.txt": [
+      "gate_run_l80_r1_6M.jsonl"
+    ],
+    "judge_l80_r3.txt": [
+      "gate_run_l80_r3.jsonl",
+      "gate_switch_l80_w2_r3.jsonl"
+    ],
+    "judge_switch_l80_r1_6M.txt": [
+      "gate_switch_l80_w2_r1_6M.jsonl"
+    ]
+  },
+  "identical_outputs": {
+    "judge_l80_r1_4M.txt": true,
+    "judge_l80_r1_6M.txt": true,
+    "judge_l80_r3.txt": true,
+    "judge_switch_l80_r1_6M.txt": true
+  }
+}
