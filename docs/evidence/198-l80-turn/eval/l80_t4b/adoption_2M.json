@@ -1,0 +1,4 @@
+{
+  "eligible": false,
+  "reason": "failed condition: {'gate': 'turn', 'cond': 'moving_turn', 'cmd': 4.0, 'yaw_cmd': 0.5}"
+}

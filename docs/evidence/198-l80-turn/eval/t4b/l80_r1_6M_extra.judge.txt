@@ -1,0 +1,11 @@
+---- run   heat        4.0       plate: falls 0, derate min 1.0, winding max 82.0 C, v 4.106 (sustained speed below)
+---- run   heat        4.0       worst: falls 0, derate min 0.363, winding max 137.7 C, v 3.875 (sustained speed below)
+---- run   heat        5.0       worst: falls 1, derate min 0.318, winding max 138.6 C, v 4.158 (sustained speed below)
+---- run   heat        6.0       worst: falls 1, derate min 0.312, winding max 138.8 C, v 5.328 (sustained speed below)
+---- run   heat        5.0       plate: falls 0, derate min 1.0, winding max 103.2 C, v 5.234 (sustained speed below)
+FAIL run   speed       8.0       v [6.46, 6.51, 6.51, 6.47], derate min 1.0 (top speed: >= 6.5)
+---- run   heat        6.0       plate: falls 0, derate min 1.0, winding max 118.2 C, v 5.835 (sustained speed below)
+PASS run   lateral     4.0       falls 0/8
+PASS run   lateral     4.0       falls 0/8
+PASS run   heat      sustained 10 min speed without derating 6.0 m/s (needs >= 4)
+NOT PASSED

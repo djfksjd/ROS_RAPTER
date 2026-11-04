@@ -1,0 +1,23 @@
+{"task": ["l80_t4b", "turn", [2.0, 1.0]], "rows": 1, "falls": 0}
+{"task": ["l80_t4b", "turn", [1.0, -1.0]], "rows": 1, "falls": 0}
+{"task": ["l80_t4b", "turn", [1.0, 1.0]], "rows": 1, "falls": 0}
+{"task": ["l80_t4b", "turn", [4.0, 1.0]], "rows": 1, "falls": 0}
+{"task": ["l80_t4b", "turn", [2.0, -1.0]], "rows": 1, "falls": 0}
+{"task": ["l80_t4b", "turn", [4.0, -1.0]], "rows": 1, "falls": 0}
+{"task": ["l80_t4b", "turn", [6.0, -1.0]], "rows": 1, "falls": 0}
+{"task": ["l80_t4b", "turn", [6.0, 1.0]], "rows": 1, "falls": 0}
+{"task": ["l80_t4b", "run_regression", 4.0], "rows": 1, "falls": 0}
+{"task": ["l80_t4b", "run_regression", 2.0], "rows": 1, "falls": 0}
+{"task": ["l80_t4b", "run_regression", 6.0], "rows": 1, "falls": 0}
+{"task": ["l80_t4b", "switch", null], "rows": 3, "falls": 0}
+{"task": ["l80_w2", "walk", null], "rows": 8, "falls": 0}
+{"task": ["l80_t4b", "heat", [4.0, "plate"]], "rows": 1, "falls": 0}
+{"task": ["l80_t4b", "heat", [4.0, "worst"]], "rows": 1, "falls": 0}
+{"task": ["l80_t4b", "heat", [5.0, "plate"]], "rows": 1, "falls": 0}
+{"task": ["l80_t4b", "heat", [5.0, "worst"]], "rows": 1, "falls": 1}
+{"task": ["l80_t4b", "heat", [6.0, "worst"]], "rows": 1, "falls": 1}
+{"task": ["l80_t4b", "speed", 8.0], "rows": 1, "falls": 0}
+{"task": ["l80_t4b", "lateral", "left"], "rows": 1, "falls": 0}
+{"task": ["l80_t4b", "lateral", "right"], "rows": 1, "falls": 0}
+{"task": ["l80_w2", "stand", null], "rows": 14, "falls": 0}
+{"task": ["l80_t4b", "heat", [6.0, "plate"]], "rows": 1, "falls": 0}

@@ -1,0 +1,15 @@
+{
+  "evaluation_exit": 0,
+  "evaluation_tasks": 23,
+  "rollouts": 266,
+  "full_gate_pass": false,
+  "extra_gate_pass": true,
+  "automatic_full_reproduction_episodes": 240,
+  "tests": 226,
+  "test_exit": 0,
+  "input_hashes_unchanged": 16,
+  "runtime_and_criteria_unchanged": true,
+  "chart_inspected": true,
+  "training_started": false,
+  "extension_proposed": false
+}

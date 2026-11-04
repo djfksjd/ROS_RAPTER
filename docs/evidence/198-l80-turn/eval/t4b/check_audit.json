@@ -1,0 +1,52 @@
+{
+  "blocks": [
+    {
+      "block": 1,
+      "added_steps": 999424,
+      "decision": "continue",
+      "turn_passed": 4,
+      "turn_total": 8,
+      "straight_passed": 4,
+      "straight_total": 6,
+      "first10_length": 691.097,
+      "last10_length": 716.504,
+      "updates": 122
+    },
+    {
+      "block": 2,
+      "added_steps": 1998848,
+      "decision": "stop: 2M budget exhausted; no extension",
+      "turn_passed": 4,
+      "turn_total": 8,
+      "straight_passed": 4,
+      "straight_total": 6,
+      "first10_length": 691.097,
+      "last10_length": 781.0029999999999,
+      "updates": 244
+    }
+  ],
+  "same_development_conditions": true,
+  "initial_steps": 66420736,
+  "final_steps": 68419584,
+  "declared_budget": 2000000,
+  "consumed": 1998848,
+  "unused_usable_budget": 0,
+  "rollout_steps": 8192,
+  "current_equals_2M": {
+    "model.zip": true,
+    "vecnorm.pkl": true
+  },
+  "log_and_progress_match": true,
+  "only_reward_change": {
+    "track_lin": [
+      5,
+      8
+    ]
+  },
+  "stored_adoption": {
+    "eligible": false,
+    "reason": "failed condition: {'gate': 'turn', 'cond': 'moving_turn', 'cmd': 4.0, 'yaw_cmd': 0.5}"
+  },
+  "termination_valid": true,
+  "extension_allowed": false
+}
