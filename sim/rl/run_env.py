@@ -290,7 +290,13 @@ class RunEnv(RaptorEnv):
                  target_ramp=False, obs_contact=False, model_rev=1, latch_fallback=None, friction_dr=None,
                  self_collision=None, knee_band=None, start_contact=None, armature=None, heat_limit=1., roll_impulse=None, init_noise=.02,
                  realism=None, scale_override=None, range_override=None, gait_duty_min=None,
-                 contact_tc=None, terrain=None, obs_scan=None, rev3_config=None, kp_err=None, action_lpf=None, obs_hold=None, getup=None, cmd_turn=0., hold_settle=None, cmd_mix=None):
+                 contact_tc=None, terrain=None, obs_scan=None, rev3_config=None, kp_err=None, action_lpf=None, obs_hold=None, getup=None, cmd_turn=0., hold_settle=None, cmd_mix=None, jump=None):
+        self.jump_task = None
+        if jump is not None:
+            if getup is not None:
+                raise ValueError('jump and getup are separate tasks')
+            from jump_task import JumpTask
+            self.jump_task = JumpTask(jump)
         self.mass, self.spring_set, self.tail = float(mass), springs, tail
         rev2 = int(model_rev) >= 2
         # model rev 3: R-03 MJCF (hip yaw) + rev3_b.json (modules, transmissions, four-bar, drive masses); implies arch8
@@ -473,6 +479,10 @@ class RunEnv(RaptorEnv):
         self.rz = Realism(cfg, seed, CONTROL_DT) if cfg else None
         if self.rz is not None and self.rz.obs_temp:
             self.observation_space = gym.spaces.Box(-np.inf, np.inf, (self.observation_space.shape[0]+n,), np.float32)
+        if self.jump_task is not None:
+            if self.rz is not None and self.rz.obs_temp:
+                raise ValueError('jump input extension currently excludes obs_temp')
+            self.observation_space = gym.spaces.Box(-np.inf, np.inf, (self.observation_space.shape[0]+1,), np.float32)
         self.resample_steps = 250
         self.model = self.renderer = None
 
@@ -661,6 +671,8 @@ class RunEnv(RaptorEnv):
 
     # --- gym API -----------------------------------------------------------------------------
     def reset(self, *, seed=None, options=None):
+        if self.jump_task is not None:
+            self.jump_task.reset()
         if seed is not None:
             self.rng = np.random.default_rng(seed)
             if self.rz is not None:
@@ -956,6 +968,8 @@ class RunEnv(RaptorEnv):
             parts.append(s['scan'])
         if self.obs_hold:
             parts.append(self._hold_obs())
+        if self.jump_task is not None:
+            parts.append([self.jump_task.command])
         return np.concatenate(parts).astype(np.float32)
 
     def _anchor(self):
@@ -1261,6 +1275,9 @@ class RunEnv(RaptorEnv):
             mujoco.mj_step(m, d)
             if self.rz is not None:
                 self.rz.after_substep(self, PHYSICS_DT)
+            if self.jump_task is not None:
+                from jump_task import physics_sample
+                self.jump_task.sample(physics_sample(self), self.h_nom+.03, self.weight)
             for st in self.ratchet.values():  # the rest angle follows the most extended angle, one tooth at a time
                 if st['armed'] and d.qpos[st['adr']] < st['qmin']:
                     st['qmin'] = d.qpos[st['adr']]
@@ -1413,6 +1430,9 @@ class RunEnv(RaptorEnv):
             return self._observe(), float(reward), bool(done), bool(self.steps >= self.episode_steps), info
         fallen = (body_hit or tilt > .8 or bz < .5*self.h_nom or not np.isfinite(d.qpos).all()
                   or np.abs(v_body).max() > 30.)
+        if self.jump_task is not None:
+            fallen = fallen or self.jump_task.fall_time is not None
+            reward += self.jump_task.consume_bonus()
         if fallen:
             reward -= 10.
         self.last_action, self.prev_qd = action, qd.copy()
@@ -1428,4 +1448,6 @@ class RunEnv(RaptorEnv):
                 'latched': {s_: bool(on_) for (s_, _j), on_ in self.spring_was_on.items()}}
         if self.rz is not None:
             info['realism'] = self.rz.info()
+        if self.jump_task is not None:
+            info['jump'] = self.jump_task.result()
         return self._observe(), float(reward), bool(fallen), bool(truncated), info

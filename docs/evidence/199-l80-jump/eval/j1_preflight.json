@@ -1,0 +1,39 @@
+{
+  "training_started": false,
+  "run_directory_absent": true,
+  "init_and_policy_set_hashes_verified": true,
+  "gate_judge_quick_exit": 1,
+  "raw_traces_1ms_ignored": [
+    {
+      "seed": 9300,
+      "samples": 12000,
+      "sha256": "f82cb0c589206e9be15befdd54b2c9a6cec87875d4a939b7a542954bf18d7910"
+    },
+    {
+      "seed": 9301,
+      "samples": 12000,
+      "sha256": "7a649a298dcb5be219e3ce97dd67fa3fcce97ed1ae0992f0959a5c41594b74e2"
+    },
+    {
+      "seed": 9310,
+      "samples": 12000,
+      "sha256": "71d0da27930d272d9f44c4aa81fede5cb28081d579b575ce87ffee33775ec159"
+    },
+    {
+      "seed": 9311,
+      "samples": 12000,
+      "sha256": "b60d7a6c4af4f60b1de89372c609982d63f95e631b2fb3c3037087903993a807"
+    },
+    {
+      "seed": 9312,
+      "samples": 12000,
+      "sha256": "45c1be4bbbd02aedea50d15fc5d0732ef549c03b1d0cbaa06e8b996b9ba35dcd"
+    },
+    {
+      "seed": 9313,
+      "samples": 12000,
+      "sha256": "ca5b6b7b8ff64ab15e4f7f2a2b345fdd0e34d8b56b152ab60f719167c63c640d"
+    }
+  ],
+  "untracked_npz": 0
+}

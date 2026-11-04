@@ -1,0 +1,18 @@
+{
+  "observations": 8192,
+  "actor_mean_max_abs_error": 0.0,
+  "critic_max_abs_error": 0.0,
+  "input_shape": [
+    55,
+    56
+  ],
+  "new_input_mean": 0,
+  "new_input_std": 1,
+  "action_std_preserved": true,
+  "norm_reward": true,
+  "return_std": 5.3367551734031915,
+  "training_steps": 0,
+  "quick_episodes": 6,
+  "quick_requested": 2,
+  "quick_successes": 0
+}

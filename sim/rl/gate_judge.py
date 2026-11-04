@@ -13,6 +13,10 @@ turn (4, fixed 2026-11-04 before training): turn_rules.py; every episode must sa
             heading and 90-degree deadline. Full adoption also requires complete held-out turns and earlier regressions.
             User decision B, 2026-11-04 AFTER seeing the t3 full gate: judge 1/2/4 m/s turns only;
             6 m/s turns are recorded, not judged. Earlier regressions, including straight 6 m/s, are unchanged.
+jump (5a, fixed by supervisor 2026-11-04 BEFORE jump training): 0.10 s both-feet flight, +0.05 m over
+            standing height, landing <=0.30 m from takeoff, then continuous 1 s standing. Nominal 8/8;
+            DR >=22/24 successful and <=2 falls. Impact/current recorded only. Full retained-policy regressions.
+            This judges 5a, not all stage 5; step/drop 0.15 m (5b) and forward jump are separate.
 Usage: .venv-sim/bin/python sim/rl/gate_judge.py GATE.jsonl [GATE2.jsonl ...]"""
 import json
 import math
@@ -35,8 +39,35 @@ def turn_episode_ok(row, episode):
             and math.copysign(1., row['yaw_cmd'])*angle >= math.pi/2)
 
 
+def jump_episode_ok(e):
+    fields = ('request_time_s', 'standing_height_m', 'flight_s', 'apex_rise_m', 'landing_error_m',
+              'touchdown_s', 'standing_hold_s', 'success_time_s', 'elapsed_s', 'landing_impact_peak_n',
+              'current_peak_a', 'current_over_limit_peak', 'torque_peak_nm', 'return_observed_s')
+    if any(not isinstance(e.get(k), (int, float)) or not math.isfinite(e[k]) for k in fields):
+        return False
+    return (e.get('t_fall') is None and e['request_time_s'] >= 2. and e['standing_height_m'] > 0
+            and e['flight_s'] >= .10 and e['apex_rise_m'] >= .05 and 0 <= e['landing_error_m'] <= .30
+            and e['standing_hold_s'] >= 1. and e['request_time_s'] < e['touchdown_s'] < e['success_time_s'] <= e['elapsed_s']
+            and e['success_time_s'] <= 12.+1e-9 and e['elapsed_s'] <= 13.+1e-9
+            and e['return_observed_s'] >= 1.-1e-9 and e.get('return_to') == e.get('handoff_from')
+            and bool(e.get('return_to')) and e.get('sample_dt_s') == .001
+            and e.get('load_samples') == round(e['elapsed_s']/.001) and bool(e.get('raw_trace'))
+            and all(e[k] >= 0 for k in ('landing_impact_peak_n', 'current_peak_a', 'current_over_limit_peak', 'torque_peak_nm')))
+
+
 def judge(row):
     c, e = row['cond'], row.get('episodes', [])
+    if row['gate'] == 'jump':
+        if c in ('in_place', 'in_place_dr'):
+            passed = sum(jump_episode_ok(x) for x in e)
+            allowed = 0 if c == 'in_place' else 2
+            valid = bool(e) and len(e) == row['n'] and row['falls'] == sum(x.get('t_fall') is not None for x in e)
+            return valid and row['falls'] <= allowed and passed >= max(1, row['n']-allowed), f"jump success {passed}/{row['n']}, falls {row['falls']}; impact/current recorded only"
+        if c == 'run_regression':
+            ok = bool(e) and len(e) == row['n'] and row['falls'] == 0 and all(
+                x['t_fall'] is None and x['v_mean'] is not None and math.isfinite(x['v_mean'])
+                and abs(x['v_mean']-row['cmd']) <= .1*row['cmd'] for x in e)
+            return ok, f"falls {row['falls']}/{row['n']}, v {[x['v_mean'] for x in e]}"
     if row['gate'] == 'turn':
         if c == 'moving_turn':
             if row['cmd'] == 6.:
@@ -139,6 +170,47 @@ def turn_suite_status(rows):
     return True, 'full turn + stand/walk/run 2/4/6/switch regression passed'
 
 
+def jump_suite_status(rows):
+    """Complete 5a + retained policy regressions only. No 5b/stage-5 adoption claim."""
+    if any(r.get('quick') for r in rows):
+        return False, 'quick rows are development only'
+    required = [(dict(gate='jump', cond='in_place'), 8), (dict(gate='jump', cond='in_place_dr'), 24)]
+    required += [(dict(gate='jump', cond='run_regression', cmd=v), 4) for v in (2., 4., 6.)]
+    required += [(dict(gate='stand', cond='hold'), 8), (dict(gate='stand', cond='hold_dr'), 24)]
+    required += [(dict(gate='stand', cond='push', dv=.3, dir=d), 8) for d in ('front', 'back', 'left', 'right')]
+    required += [(dict(gate='walk', cond='track', cmd=v), 4) for v in (.3, .6, 1., 1.5)]
+    required += [(dict(gate='walk', cond='turn', cmd=v), 4) for v in (.5, -.5)]
+    required += [(dict(gate='walk', cond='stopstart'), 4), (dict(gate='walk', cond='track_dr'), 24),
+                 (dict(gate='switch', cond='switch_ramp'), 4), (dict(gate='switch', cond='switch_ramp_dr'), 8)]
+    for selector, n in required:
+        matches = [r for r in rows if all(r.get(k) == v for k, v in selector.items())]
+        if len(matches) != 1:
+            return False, f'missing or duplicate condition: {selector}'
+        r = matches[0]; episodes = r.get('episodes', [])
+        if r.get('quick') or r.get('n') != n or len(episodes) != n:
+            return False, f'incomplete or quick condition: {selector}'
+        if r.get('falls') != sum(e.get('t_fall') is not None for e in episodes):
+            return False, f'inconsistent falls: {selector}'
+        if selector['gate'] == 'jump' and selector['cond'] in ('in_place', 'in_place_dr'):
+            first = 9400 if selector['cond'] == 'in_place' else 9500
+            if {e.get('seed') for e in episodes} != set(range(first, first+n)):
+                return False, f'held-out seeds required: {selector}'
+            if not r.get('walk') or any(e.get('handoff_from') != r['walk'] for e in episodes):
+                return False, 'missing retained-walk handoff'
+            # Failed DR episodes still need complete finite load/contact evidence.
+            for e in episodes:
+                if any(not isinstance(e.get(k), (int, float)) or not math.isfinite(e[k]) or e[k] < 0
+                       for k in ('landing_impact_peak_n', 'current_peak_a', 'current_over_limit_peak', 'torque_peak_nm')):
+                    return False, 'invalid load summary'
+                if (not isinstance(e.get('elapsed_s'), (int, float)) or not math.isfinite(e['elapsed_s'])
+                        or e.get('sample_dt_s') != .001 or e.get('load_samples') != round(e['elapsed_s']/.001)
+                        or e.get('load_samples', 0) <= 0 or not e.get('raw_trace')):
+                    return False, 'missing 1 ms measurement'
+        if judge(r)[0] is not True:
+            return False, f'failed condition: {selector}'
+    return True, '5a + stand/walk/run 2/4/6/switch passed; 5b not evaluated, stage 5 not passed'
+
+
 def sustained_speed(rows):
     ok = [r['cmd'] for r in rows if r['gate'] == 'run' and r['cond'] == 'heat' and r['mount'] == 'plate'
           and r['falls'] == 0 and r['min_derate'] >= 1.]
@@ -168,6 +240,13 @@ def main():
         vh = sustained_speed(rows)
         allok &= vh >= 4.
         print(f'{"PASS" if vh >= 4. else "FAIL"} run   heat      sustained 10 min speed without derating {vh} m/s (needs >= 4)')
+    if any(r['gate'] == 'jump' for r in rows):
+        if any(r.get('quick') for r in rows):
+            print('QUICK PASS (development only; not adoption)' if allok else 'QUICK NOT PASSED')
+        else:
+            ok, why = jump_suite_status(rows); allok &= ok
+            print(f'{"PASS" if ok else "FAIL"} jump 5a suite: {why}')
+        return 0 if allok else 1
     if any(r['gate'] == 'turn' for r in rows):
         if any(r.get('quick') for r in rows):
             print('QUICK PASS (development only; not adoption)' if allok else 'QUICK NOT PASSED')

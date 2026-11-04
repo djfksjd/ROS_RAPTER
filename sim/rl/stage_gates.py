@@ -35,6 +35,10 @@ turn (stage 4, fixed 2026-11-04 before training, evidence 198): 5 s straight + 1
             turn_rules.py. --walk supplies the retained walking policy for 1 m/s; RUN_DIR supplies the 2/4/6 m/s policy.
             Quick uses 2 development seeds and turns only. Full uses 4 held-out seeds plus stand/walk/run-speed/switch
             regression. Hip yaw loads are sampled at 1 ms; full-suite completeness is checked by gate_judge.py.
+jump (stage 5a, fixed by supervisor 2026-11-04): --walk establishes standing for >=0.10 s; request after >=2 s.
+            One appended request input selects the jump policy. 12 s to finish + 1 s return-to-walk regression; 1 ms logging.
+            Full 8 nominal/24 DR plus retained --walk/--run regressions. Quick 2/4 distinct development seeds.
+            The gate covers 5a only; 15 cm step/drop (5b) is not a claimed pass.
 Fall = the env's termination (tilt, body contact, low hip). Pass rules are in the plan; this script only measures.
 Usage: .venv-sim/bin/python sim/rl/stage_gates.py RUN_DIR stand [--quick]
        .venv-sim/bin/python sim/rl/stage_gates.py RUN_DIR getup --stand sim/rl/runs/r3_s1ho [--quick]
@@ -377,7 +381,29 @@ def turn(d, quick=False, walk_dir=None):
                    falls=sum(r['t_fall'] is not None for r in rows), episodes=rows)
 
 
-GATES = {'stand': stand, 'getup': getup, 'walk': walk, 'run': run, 'switch': switch, 'turn': turn}
+def jump(d, quick=False, walk_dir=None, run_dir=None, trace_dir=None):
+    """5a only. Full: 8 nominal + 24 DR and retained policy-set regressions. 5b remains separate."""
+    from jump_eval import jump_conditions
+    if walk_dir is None or (not quick and run_dir is None):
+        raise ValueError('jump requires --walk; full also requires --run for policy-set regressions')
+    yield from jump_conditions(d, walk_dir, quick, trace_dir)
+    if quick:
+        return
+    for gate, generator in (('stand', stand(walk_dir)), ('walk', walk(walk_dir)),
+                            ('switch', switch(walk_dir, run_dir=run_dir))):
+        for row in generator:
+            yield dict(gate=gate, run=walk_dir.name, **row)
+    for cmd in (2., 4., 6.):
+        episodes = []
+        for seed in range(6700, 6704):
+            fell, v, der, hot = run_rollout(run_dir, seed, cmd, 20.)
+            episodes.append(dict(seed=seed, t_fall=fell, v_mean=float(v[500:].mean()) if fell is None else None,
+                                 min_derate=der, t_winding_max_c=hot))
+        yield dict(gate='jump', run=run_dir.name, cond='run_regression', cmd=cmd, n=4,
+                   falls=sum(e['t_fall'] is not None for e in episodes), episodes=episodes)
+
+
+GATES = {'stand': stand, 'getup': getup, 'walk': walk, 'run': run, 'switch': switch, 'turn': turn, 'jump': jump}
 
 
 def main():
@@ -388,14 +414,18 @@ def main():
     ap.add_argument('--stand', help='stage 1a stand policy run directory (getup gate handoff)')
     ap.add_argument('--run', dest='run_policy', help='switch gate: run policy run directory')
     ap.add_argument('--walk', help='turn gate: retained walking policy; full gate includes all required regressions')
+    ap.add_argument('--jump-traces', help='local-only directory for 1 ms jump npz traces (never tracked)')
     ap.add_argument('--heat-cmd', type=float, nargs='+', default=[4., 5., 6.], help='run gate: forward commands of the 10 min heat runs')
     a = ap.parse_args()
     if a.gate == 'turn' and not a.walk:
         ap.error('turn requires --walk')
+    if a.gate == 'jump' and (not a.walk or (not a.quick and not a.run_policy)):
+        ap.error('jump requires --walk; full also requires --run')
     d = Path(a.run)
     rows = GATES[a.gate](d, a.quick, Path(a.stand)) if a.gate == 'getup' else run(d, a.quick, a.heat_cmd) if a.gate == 'run' \
         else switch(d, a.quick, Path(a.run_policy)) if a.gate == 'switch' \
-        else turn(d, a.quick, Path(a.walk)) if a.gate == 'turn' else GATES[a.gate](d, a.quick)
+        else turn(d, a.quick, Path(a.walk)) if a.gate == 'turn' \
+        else jump(d, a.quick, Path(a.walk), Path(a.run_policy) if a.run_policy else None, a.jump_traces) if a.gate == 'jump' else GATES[a.gate](d, a.quick)
     for row in rows:
         print(json.dumps({'run': d.name, 'gate': a.gate, **row}), flush=True)
 
