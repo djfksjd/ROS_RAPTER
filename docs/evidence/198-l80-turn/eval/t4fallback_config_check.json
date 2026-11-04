@@ -1,0 +1,62 @@
+{
+  "script_changes_only": [
+    "name",
+    "command mixture",
+    "step budget"
+  ],
+  "source": "sim/rl/runs/l80_r1_6M/model.zip",
+  "all_reward_weights": {
+    "track_lin": 5,
+    "progress": 3,
+    "track_yaw": 4,
+    "yaw_err": -1,
+    "flight": 0.0,
+    "air_time": 0.0,
+    "gait": -8,
+    "stand": -5,
+    "grf": -1.0,
+    "cot": -0.05,
+    "ang_mom": -0.5,
+    "fold": 0.35,
+    "extend": 0.3,
+    "ankle_static": -0.2,
+    "retract": 0.7,
+    "leg_sym": -6,
+    "heat": -2,
+    "spring_store": 0.03,
+    "spring_release": -0.06,
+    "lin_vel_z": -0.5,
+    "ang_vel_xy": -0.05,
+    "orientation": -5.0,
+    "height": -20.0,
+    "torque": -1e-05,
+    "action_rate": -2,
+    "joint_acc": -2e-08,
+    "slip": -0.2,
+    "collision": -5.0,
+    "joint_limit": -30,
+    "alive": 0.5,
+    "self_collision": -5,
+    "hold": -3,
+    "stand_support": -5,
+    "slip_lin": -5
+  },
+  "weights_equal_t1": true,
+  "policy_dof": 10,
+  "std8_after_widen": 0.375,
+  "command_shares": {
+    "gate": 0.6,
+    "gentle": 0.2,
+    "straight": 0.15,
+    "stop": 0.025,
+    "in_place": 0.025
+  },
+  "blocks": [
+    999424,
+    999424,
+    999424,
+    999424
+  ],
+  "actual_budget": 3997696,
+  "training_started": false
+}

@@ -3,7 +3,7 @@
 2026-11-04. MuJoCo만 사용한다. 형상·능동축 10개·모터 조건은 동결 그대로다.
 사용자 결정으로 3단계는 8 m/s 미달 1건을 기록하고 종료했다(통과 아님).
 
-최신: t2도 추가 2,998,272 steps 정체 중단·미채택. 아래 「t2 결과와 판단」의 24판 진단과 사용자 결정안을 따른다.
+최신: 감독자가 A를 승인해 `l80_t3`(t2 시작, 양의 track_yaw 4→8)를 준비했다. 아래 「t3 학습 전 선언」을 따른다. 학습은 미시작이며 t1/t2는 미채택이다. 기존 명령 분포 예비안은 `t4fallback`으로 옮겼다.
 
 ## 기준선 측정 전 선언
 
@@ -257,7 +257,7 @@ pitch=0인 일정 bank에서 `w_body=w_heading*cos(lean)`이므로 `lean=asin(v*
 감독자는 명령 분포 전용 t2 제안을 아래 실행으로 교체했다. t1에서 선회 명령 분포는 이미 시험했고,
 yaw 행동 반범위는 0.3 rad인데 출력 클리핑은 42.0–57.7%였다. **한 가지 실험 변수는 yaw 행동
 반범위 0.3→0.5 rad**다. 기계 stop ±0.5, 능동축 10개, 보상·명령 분포는 그대로다.
-이전 명령 분포 전용 계획은 아래 t3 fallback으로 이름을 바꿔 보존했다.
+이전 명령 분포 전용 계획은 아래 t4fallback 예비안으로 이름을 바꿔 보존했다.
 
 **시작 동작 보존 검증은 실패했다.** 아래 스크립트는 요청한 선형 변환을 구현한 검토용이며,
 동작 보존을 충족한 실행 준비 완료로 선언하지 않는다. 학습 전 감독자가 이 불일치를 해결해야 한다.
@@ -273,7 +273,7 @@ yaw 행동 반범위는 0.3 rad인데 출력 클리핑은 42.0–57.7%였다. **
 | 초기 중단 | 감독자가 첫 약 50 updates 확인. 최근 10행 ep_len 평균이 첫 10행의 절반 미만이면 즉시 중단. 자동 체크도 약 1M마다 같은 규칙 |
 | 정체·예산 중단 | 동일 구성 2블록 전 대비 성공 판 수 증가도 없고 yaw MAE 0.02 rad/s 감소도 없으면 중단. 4M 뒤 달리기 통과 0이면 중단. 체크 오류는 fail closed. 예산 종료 시 추가 실행 없음 |
 | 채택 | 기존 수치 기준 유지. quick 전체 통과 때만 최종 seeds 7300–7303·yaw 1 ms 하중·stand/walk/run/switch 전체 회귀. `turn_suite_status` 통과 저장본만 후보, 자동 기존 정책 교체 없음 |
-| 실패 뒤 | 기존 `l80_r1_6M`+`l80_w2` 유지. t3는 not started, fallback이며 자동 실행하지 않음 |
+| 실패 뒤 | 기존 `l80_r1_6M`+`l80_w2` 유지. t4fallback은 not started, fallback이며 자동 실행하지 않음 |
 
 ### 시작 동작 비교 — 선형 보정의 한계 확인
 
@@ -312,7 +312,7 @@ t1 model/vecnorm/args SHA-256 전후 동일. 보정하지 않은 두 t1 rollout�
 /bin/bash docs/evidence/198-l80-turn/train_l80_t2.sh > sim/rl/runs_l80_t2.log 2>&1
 ```
 
-## 예비안 `l80_t3` — not started, fallback (미시작·예비안)
+## 예비안 `l80_t4fallback` — not started, fallback (미시작·예비안)
 
 **이전 명령 분포 전용 제안을 보존한 fallback이며 시작하지 않았다.** 감독자가 선택할 때만 게이트에 집중한 명령 분포를 한 번 시험한다. t1은 4 m/s 과속도 생겼으므로
 검증된 `l80_r1_6M`에서 다시 시작해 t1과 명령 분포 차이를 비교한다.
@@ -322,7 +322,7 @@ t1 model/vecnorm/args SHA-256 전후 동일. 보정하지 않은 두 t1 rollout�
 | 항목 | 시작 전 확정 내용 |
 |---|---|
 | 시작점 | `l80_r1_6M/model.zip`·동일 정규화, seed 0, 걷기 `l80_w2` 고정. t1 파일 보존 |
-| 명령 분포 | `commands_t3.json`: 게이트 60%(2·±1, 4·±0.5, 6·±0.5 각 10%), 완만한 고속 선회 20%(4/6·±0.25 각 5%), 직진 15%(2/4/6 각 5%), 정지 2.5%, 제자리 ±0.5 각 1.25%. 5초 재추출 유지 |
+| 명령 분포 | `commands_t4fallback.json`: 게이트 60%(2·±1, 4·±0.5, 6·±0.5 각 10%), 완만한 고속 선회 20%(4/6·±0.25 각 5%), 직진 15%(2/4/6 각 5%), 정지 2.5%, 제자리 ±0.5 각 1.25%. 5초 재추출 유지 |
 | 명령 범위·정규화 | `--cmd/--cmd-final 6 0 1.5`를 유지해 t1과 동일한 std8=0.375 widening. 혼합의 실제 최대 yaw는 1.0. 입력 증폭 없음 |
 | 나머지 설정 | t1과 동일: 보상 전체·20초 episode·8환경·level 0.5·외란·모터·10 active DOF·탐색 std 0.15. 변경은 혼합과 예산/이름뿐 |
 | 예산 | 새 학습 최대 4,000,000 steps, rollout 상한 적용 실제 **3,997,696**. 단 한 번, 자동 재시도·연장 없음 |
@@ -332,10 +332,10 @@ t1 model/vecnorm/args SHA-256 전후 동일. 보정하지 않은 두 t1 rollout�
 | 채택 | 기존 수치 기준 불변. quick 16/16 때만 최종 seeds 7300–7303, yaw 1 ms 하중, stand/walk/run/switch 회귀 전체. `turn_suite_status` 통과 저장본만 채택 후보로 보고하고 조기 종료. 자동 정책 교체 없음 |
 | 실패 뒤 | r1_6M 유지. 후속 실행 자동 시작 금지. 고속 개선이 없으면 동일 상태·동일 시드에서 yaw 행동 범위/접촉력 방향의 제한된 비RL 개입을 먼저 설계·검증. ±0.5 기계 범위 변경은 별도 근거와 사용자 결정 필요 |
 
-예비 스크립트는 `train_l80_t3.sh`다. **이번 세션에서 실행하지 않았다.**
+예비 스크립트는 `train_l80_t4fallback.sh`다. **이번 세션에서 실행하지 않았다.**
 이 실행 환경에서는 배경 프로세스가 세션 이후 유지되지 않으므로 감독자가 커밋·실행을 담당한다.
-로컬 터미널에서 저장소 루트를 열고 `/bin/bash docs/evidence/198-l80-turn/train_l80_t3.sh`로 실행한다.
-학습 로그는 `sim/rl/runs_l80_t3.log`로 수집한다. 이미 있는 run 디렉터리는 스크립트가 거부한다.
+로컬 터미널에서 저장소 루트를 열고 `/bin/bash docs/evidence/198-l80-turn/train_l80_t4fallback.sh`로 실행한다.
+학습 로그는 `sim/rl/runs_l80_t4fallback.log`로 수집한다. 이미 있는 run 디렉터리는 스크립트가 거부한다.
 이 제안은 채택이나 4단계 통과 선언이 아니다.
 
 ## 재현·검증·남은 일
@@ -343,7 +343,7 @@ t1 model/vecnorm/args SHA-256 전후 동일. 보정하지 않은 두 t1 rollout�
 ```bash
 .venv-sim/bin/python docs/evidence/198-l80-turn/audit_check.py
 .venv-sim/bin/python docs/evidence/198-l80-turn/check_t2_config.py
-.venv-sim/bin/python docs/evidence/198-l80-turn/check_t3_config.py
+.venv-sim/bin/python docs/evidence/198-l80-turn/check_t4fallback_config.py
 # diagnose_turn.py는 기존 결과를 덮어쓰지 않는다. 재측정은 새 --out 경로 지정.
 .venv-sim/bin/python docs/evidence/198-l80-turn/diagnose_turn.py --out /tmp/raptor-turn-repeat.jsonl
 MPLCONFIGDIR=/tmp/raptor-mpl .venv-sim/bin/python docs/evidence/198-l80-turn/summarize_diagnosis.py
@@ -353,10 +353,10 @@ MPLCONFIGDIR=/tmp/raptor-mpl .venv-sim/bin/python docs/evidence/198-l80-turn/sum
 
 - 최신 전체 단위시험 **217개 통과, 0 실패·생략**(`eval/unittest_scale_resume.txt`). t1 무작위 관측 8192개 중 모든 |action|<1인 관측의 목표각, 대칭 재구성, 좌우 동일 비율, std/override·미변경 행·no-op·포화 반례를 검사했다. 이전 215개 기록은 `eval/unittest_diagnosis.txt`에 보존했다.
 - 저장된 3블록 판정 재현·28판 계측 비간섭·정책/설정 해시 보존 확인.
-- t2 설정 검사: t1 대비 이름·시작점·yaw 배율·예산만 변경, 명령·보상 동일·10 active DOF·좌우 ×0.6·std 0.15·3,997,696 예산 확인(`eval/t2_config_check.json`). t3 설정 검사도 통과했으며 이전 명령 계획 증거는 `eval/t3_config_check.json`에 보존했다.
+- t2 설정 검사: t1 대비 이름·시작점·yaw 배율·예산만 변경, 명령·보상 동일·10 active DOF·좌우 ×0.6·std 0.15·3,997,696 예산 확인(`eval/t2_config_check.json`). t4fallback 설정 검사도 통과했으며 이전 명령 계획 증거는 `eval/t4fallback_config_check.json`에 보존했다.
 - 실제 환경 시작 동작 비교 **실패 2/2**(`eval/t2_start_behavior.json`, exit 1). 단위시험 통과와 구분한다. RunEnv 기본값·코드는 수정하지 않았으며 학습은 하지 않았다.
 - `bash -n`, 스크립트 `--help`, `git diff --check` 확인. 차트를 열어 축·점·범례를 확인했다.
-- 미검증: 전체 행동 보존 변환(현재 선형식으로 불가능), t2/t3 학습 효과, 고속 성공 선회의 기계적 실현·부하, t1/t2 최종 시드 전체 회귀·10분 지속 성능.
+- 미검증: 전체 행동 보존 변환(현재 선형식으로 불가능), t2/t4fallback 학습 효과, 고속 성공 선회의 기계적 실현·부하, t1/t2 최종 시드 전체 회귀·10분 지속 성능.
   짧은 프로브의 생존을 선회 성공·장시간 성능·실물 성능으로 보고하지 않는다.
 - 처음의 준비 검증(214 tests·기준선 quick 4/16·구형 판정 출력 일치)은 이전 기록이다.
   당시 배경 유지 실패와 미실행 상태는 `eval/background_check.json`에 남아 있고, 위 t1 실행 결과가 최신 상태다.
@@ -382,7 +382,7 @@ randomize/외란 off, 저장 실물화 설정·필터 on, 결정적 정책이며
 ## t2 결과와 판단 — 2026-11-04 종료 후
 
 **t2는 2,998,272 steps에서 정체 규칙으로 정상 중단, 미채택이다.** 감독자가 시작했고
-이번 작업에서는 학습·모델 교체·실험 기준 변경을 하지 않았다. t3도 시작하지 않았다.
+이번 작업에서는 학습·모델 교체·실험 기준 변경을 하지 않았다. t4fallback도 시작하지 않았다.
 기존 `l80_r1_6M` + `l80_w2`를 유지한다. 앞의 t2 미실행·보류 문장은 시작 전 기록이며,
 그 뒤 감독자 결정과 이번 종료 결과가 최신 상태다.
 
@@ -523,7 +523,7 @@ progress는 명령 이상에서 3으로 포화하므로 추가 과속에 더 큰
 
 | 선택 | 근거·비용 | 다음 한 단계 |
 |---|---|---|
-| **A. 기존 목표·기구 유지, 양의 yaw 보상 재조정 검토(권고)** | 현재 yaw/roll stop 0%, 고속 출력 clip 거의 해소. 보상 균형은 수정 가능한 가설이나 효과 미검증 | 위 4→8 한 변수 실험의 시작점·최대 예산·점검·중단·채택 계약을 별도 확정하고 감독자에게 스크립트 제공. 현재 t2 연장·t3 자동 실행 없음 |
+| **A. 기존 목표·기구 유지, 양의 yaw 보상 재조정 검토(권고)** | 현재 yaw/roll stop 0%, 고속 출력 clip 거의 해소. 보상 균형은 수정 가능한 가설이나 효과 미검증 | 위 4→8 한 변수 실험의 시작점·최대 예산·점검·중단·채택 계약을 별도 확정하고 감독자에게 스크립트 제공. 현재 t2 연장·t4fallback 자동 실행 없음 |
 | B. 고속 선회 목표를 보류하고 저속 기능부터 검증 | t2 2 m/s·±1 평균 yaw 0.701/−0.713, 반경 2.89/2.95 m지만 90°·전체 회귀 미검증 | 기존 4단계는 미통과로 남기고 별도 범위의 기준을 새 데이터 전에 선언. 현재 결과를 보고 기존 합격선을 낮추지 않음 |
 | C. yaw 기계 범위 확대 검토 | 현재 최대 0.4644<0.5, 고속 최대 0.4427; stop에 막혔다는 증거 없음. 형상 동결을 다시 열 근거 부족 | 즉시 확대는 권하지 않음. 먼저 목표 운동에서 실제 제약 위반을 보이는 비RL 접지·횡력 진단 설계. 기구 변경은 사용자 결정 |
 
@@ -554,3 +554,94 @@ MPLCONFIGDIR=/tmp/raptor-mpl .venv-sim/bin/python docs/evidence/198-l80-turn/com
 
 `probe`는 결과가 이미 있으면 거부한다. 재측정은 새 예산·출력 경로를 선언한 뒤 별도 작업으로 한다.
 변경은 미커밋이며 runs와 기존 미추적 `eval/l80_t2/` 원자료를 보존했다.
+
+
+## t3 준비 검증 — 실행 전 범위 (2026-11-04)
+
+감독자가 A를 승인했다. 아래 새 t3는 양의 yaw 보상 재조정이며 기존 명령 분포 예비안은
+파일·문서에서 `t4fallback`으로 이름을 옮겼다. 예비안은 자동 실행하지 않는다.
+학습 전에 저장 정규화·PPO 설정을 읽고, 같은 t2 정책으로 기존 보상/새 보상의 짧은
+결정적 비교만 한다. 예산은 seed 7200, 4 m/s·yaw ±0.5, 각각 5초 직진+1초 선회,
+두 보상 설정 **총 4 rollout(24초 시뮬레이션)**이다. randomize·외란 off, 저장 물리·필터 on.
+상태·관측·정책 출력이 같고 보상 차이가 `0.02*4*track_yaw`인지를 확인한다.
+성능 판정·학습·critic 업데이트는 하지 않는다. runs 및 원본 모델/정규화에 쓰지 않는다.
+
+첫 비교는 하네스의 reset 시드 불일치로 관측 동일성 검사에서 실패해 무효다.
+`PPO.load(env=첫 wrapper)`가 저장 seed 0을 다음 reset에 예약했지만 두 번째는 7200을 유지했다.
+양쪽 wrapper를 reset 전에 7200으로 명시하고 반환된 지연·잡음 관측을 그대로 잇도록 수정했다.
+물리·보상·판정 허용 오차는 바꾸지 않는다. 동일 4 rollout 예산으로 수정 후 1회 재검사한다.
+실패 기록은 `eval/t3_probe_first_attempt.json`이며 학습은 없었다.
+
+## t3 학습 전 선언 — 감독자 A 승인 (2026-11-04)
+
+`t2`는 yaw 출력 clip을 대부분 해소하고도 고속 yaw 0.154–0.213 rad/s로 하한 0.325에 못 미쳤다.
+4 m/s 명령에서 4.970–5.057 m/s로 달려, 선회 정확도보다 전진 동작을 유지한 결과다.
+이는 정책의 관측된 행동이며 보상 원인의 증명은 아니다. 6 m/s의 전진 보상 합은 7.610–7.735,
+yaw 보상은 1.982–2.041이다. 양의 yaw 보상 비중만 늘려 이 가설을 시험한다.
+4 m/s에서도 과속하므로 track_lin은 줄이지 않는다. 목표·기구 변경이 아닌 학습 방법 변경이다.
+
+| 항목 | 시작 전 확정 내용 |
+|---|---|
+| 실행·시작점 | `l80_t3`, `sim/rl/runs/l80_t2/model.zip`·같은 폴더의 `vecnorm.pkl`(t2 3M 상태, 누적 62,423,040 steps). seed 0, 고정 걷기 `l80_w2` |
+| 유일한 실험 변경 | 양의 `track_yaw` 가중치 **4→8**. track_lin=5, progress=3, yaw_err=−1 등 다른 모든 가중치 동일. 새 벌점·벌점 증가 없음 |
+| 명령·행동·기타 | t2와 같은 `commands.json` 24행, 범위 6/0/1.5, `--scale-override '{"hip_roll": 0.5, "hip_yaw": 0.5}'`. 10 active DOF, 기계 stop ±0.5, std reset 0.15, 20초 episode, 8환경, level 0.5, 외란·물리·모터·6 Hz 필터·학습 옵션 모두 t2와 동일 |
+| 재개·정규화 | 저장 관측·return 통계·actor·critic·optimizer를 그대로 로드. widening·action rescale은 no-op, 대칭 정책 재생성 없음. 기존 옵션대로 탐색 std만 0.15로 재설정. critic-only warm-up·통계 reset 없음 |
+| 예산 | 추가 최대 **4,000,000 steps**, 8×1024 rollout 상한으로 **3,997,696 = 999,424×4**. 1회만, 자동 재시도·연장 없음 |
+| 점검 | 동일 `check_training.py`로 약 1M마다 저장·동기 평가. 홀수 블록 4/6 m/s·±0.5·seed 7200의 4판, 짝수 quick 16판(달리기 12). 비교는 동일 구성 2블록 전. 저장본 `l80_t3_1M`…`_4M` |
+| 초기 중단 | 감독자가 첫 약 50 updates의 progress.csv를 확인. 최근 10행 ep_len 평균이 첫 10행의 절반 미만이면 즉시 중단. 자동 체크도 약 1M마다 같은 조건 적용 |
+| 정체·오류·예산 중단 | 동일 구성 2블록 전보다 성공 수 증가도 없고 yaw MAE 0.02 rad/s 감소도 없으면 중단. 4M 이후 달리기 통과 0이면 중단. 평가/체크 오류는 fail closed. 4번째 블록 후 체크가 continue여도 train_run의 예산 상한으로 종료 |
+| 채택 | 기존 게이트 수치 불변. quick **16/16** 때만 최종 seeds 7300–7303, 양쪽 yaw 1 ms 하중, stand/walk/run/switch 전체 회귀 수행. `gate_judge.turn_suite_status` 통과 저장본만 채택 후보로 보고하고 조기 종료. 자동 기존 정책 교체 없음 |
+| 실패 뒤 | **t3가 실패하면 B(고속 목표 보류/저속 범위)·C(기구 범위 검토)를 사용자에게 근거와 함께 보고한다.** r1_6M+w2 유지. t4fallback 자동 실행·추가 학습 없음. 목표·기구 변경은 사용자 결정 |
+
+3단계 8 m/s 알려진 미달은 유지하며 t3로 소급 합격 처리하지 않는다.
+10분 지속 성능은 이번 채택 조건에 추가하지 않으며, 재측정 전 기존 정책의 기록을 승계하지 않는다.
+첫 50 updates에서 value_loss·explained_variance·approx_kl도 기록해 critic 적응을 살핀다.
+이 값들에 새 중단/합격선을 사후 적용하지 않고 기존 선언 규칙을 그대로 쓴다.
+
+### 보상 정규화와 critic 재개 점검
+
+**별도 critic warm-up은 넣지 않는다. 저장 return 스케일을 유지한 보상 증분이 유계이고,
+critic clipping 없이 새 rollout의 return target으로 PPO가 가치함수를 함께 갱신하기 때문이다.**
+
+- 실제 t2 `vecnorm.pkl`: `training=True`, `norm_reward=True`, `gamma=0.99`, `clip_reward=10`.
+  할인 return 통계 mean **7.388461**, variance **36.357479**, count **62,423,040.0001**,
+  표준편차 **6.029716**. `normalize_reward`는 평균을 빼지 않고 이 표준편차로 나눈다.
+- `train_run.py`는 저장 VecNormalize를 그대로 로드한다. `freeze_obs`는 관측 RMS만 고정하고
+  return RMS는 계속 갱신한다. 평가용 `evaluate.load`의 `training=False/norm_reward=False`를
+  학습 경로와 혼동하지 않았다. 이번 검사도 학습처럼 `VecNormalize.load`를 사용했다.
+- 누적 표본이 많아 정규화가 곧바로 새 보상에 맞춰지는 것은 아니다. 최대 예산을 다 써도
+  새 표본 비중은 약 **6.02%**다. 이번 변경을 정규화가 없애거나 즉시 상쇄한다고 가정하지 않는다.
+- 추가 원보상은 매 20 ms에 `4*track_yaw*0.02`, 범위 **0…0.08**.
+  시작 스케일에서 정규화 증분 상한 **0.013268/step**, 같은 스케일·무한 할인합 상한 **1.326762**다.
+  마지막 값은 스케일 고정 계산이며 실제 GAE 오차·업데이트 안정성의 보장은 아니다.
+- 로드된 PPO는 `clip_range_vf=None`, `normalize_advantage=True`, `vf_coef=0.5`, 5 epochs.
+  기존 critic은 새 return에 편향될 수 있다. 매번 새 rollout으로 가치 손실을 학습하며 actor도 동시에
+  갱신되므로 초기 과도응답은 남는다. 짧은 무학습 검사가 critic 수렴을 검증한 것은 아니다.
+  warm-up 옵션 추가·가치함수 초기화·보상 통계 reset은 하지 않아 실험 변수를 늘리지 않았다.
+
+### 준비 검증 결과
+
+`check_t3_config.py`는 shell을 실행하지 않고 t2 스크립트와 비교한다. 이름·init·track_yaw 외
+문자열 차이 없음, 저장된 t2의 나머지 보상·명령·배율 일치, 예산 **3,997,696**을 확인했다.
+재개 시 관측 확대 없음·모든 action rescale factor=1, actor/critic 파라미터 동일,
+기존 std override만 0.15로 적용되는 것을 확인했다.
+
+수정한 비교 하네스의 4 rollout에서는 기존/새 보상의 상태(qpos/qvel)·관측·결정적 행동이
+**정확히 동일**, 전도 **0/4**다. 보상 차이 공식 최대 오차 **2.10e-8**은 VecEnv float32 반올림 범위다.
+정규화 보상 절댓값 최대 **0.062301 < clip 10**, return 통계는 각 300 표본 증가,
+관측 통계는 그대로였다. 기본 런타임 파일을 변경하지 않았으며 새 가중치는 새 스크립트에서만 지정한다.
+짧은 비교는 보상 변경이 시작 동작을 바꾸지 않는다는 확인이며 선회 합격 증거가 아니다.
+원본 모델·정규화·args·점검한 런타임 파일의 해시 전후 동일이다.
+
+- 결과: `eval/t3_config_check.json`; 무효 첫 시도: `eval/t3_probe_first_attempt.json`.
+- 전체 단위시험 **217개 통과**, 실패·생략 0: `eval/unittest_t3_prepare.txt`.
+- 두 학습 스크립트 `bash -n`, `git diff --check`, 예비안 `check_t4fallback_config.py` 검사 통과.
+- 예비안은 `train_l80_t4fallback.sh`, `check_t4fallback_config.py`, `commands_t4fallback.json`으로
+  옮겼고, 이전 검사 JSON은 `eval/t4fallback_config_check.json`으로 내용 그대로 보존했다.
+- 학습 미시작·runs 쓰기 없음·미커밋. critic 실제 적응·t3 성능·전체 회귀·10분 발열은 미검증이다.
+
+감독자 실행 명령(저장소 루트, 기존 run이 있으면 거부):
+
+```bash
+/bin/bash docs/evidence/198-l80-turn/train_l80_t3.sh > sim/rl/runs_l80_t3.log 2>&1
+```
