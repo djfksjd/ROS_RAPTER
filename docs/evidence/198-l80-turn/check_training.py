@@ -8,7 +8,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT/'sim/rl'))
 import stage_gates as sg
-from gate_judge import judge, turn_suite_status
+from gate_judge import turn_suite_status, turn_episode_ok
 from turn_eval import turn_condition
 
 EVIDENCE = Path(__file__).resolve().parent
@@ -26,7 +26,8 @@ def write_rows(path, rows):
 def metrics(rows):
     episodes = [(r, e) for r in rows if r['gate'] == 'turn' and r['cond'] == 'moving_turn' and r['cmd'] >= 2
                 for e in r['episodes']]
-    passed = sum(judge({**r, 'n': 1, 'falls': int(e['t_fall'] is not None), 'episodes': [e]})[0] for r, e in episodes)
+    # Preserve the original t1/t2/t3 training contract, including 6 m/s, after decision B.
+    passed = sum(turn_episode_ok(r, e) for r, e in episodes)
     error = sum(abs(e['yaw_rate_mean']-r['yaw_cmd']) if e['yaw_rate_mean'] is not None else 10.
                 for r, e in episodes)/len(episodes)
     return dict(passed=passed, total=len(episodes), yaw_mae=error)
@@ -70,10 +71,15 @@ def main():
     with (run/'progress.csv').open() as f:
         lengths = [float(r['rollout/ep_len_mean']) for r in csv.DictReader(f) if r.get('rollout/ep_len_mean')]
     entry['decision'] = stop_reason(entry, history, lengths)
-    if block % 2 == 0 and all(judge(r)[0] is True for r in measured):
+    if block % 2 == 0 and all(r['falls'] == 0 and all(turn_episode_ok(r, e) for e in r['episodes']) for r in measured):
         full = write_rows(eval_dir/f'full_{block}M.jsonl',
                           ({'gate': 'turn', 'run': snap.name, **r} for r in sg.turn(snap, walk_dir=walk)))
         ok, why = turn_suite_status(full)
+        # This legacy checker still requires the original 6 m/s held-out turns.
+        original_turns_ok = all(turn_episode_ok(r, e) for r in full if r['cond'] == 'moving_turn'
+                                for e in r['episodes'])
+        if ok and not original_turns_ok:
+            ok, why = False, 'original t1/t2/t3 turn criteria (including 6 m/s) failed'
         (eval_dir/f'adoption_{block}M.json').write_text(json.dumps(dict(eligible=ok, reason=why), indent=2)+'\n')
         if ok:
             entry['decision'] = 'stop: full turn + regression passed; eligible snapshot, retained policies unchanged'

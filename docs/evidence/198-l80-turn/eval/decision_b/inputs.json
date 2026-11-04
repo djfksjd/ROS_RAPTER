@@ -1,0 +1,43 @@
+{
+  "before": {
+    "sim/rl/runs/l80_t3/args.json": "5d909bb3e3f3abcdce721edaa0fcb0160de37c3a218148fc07fd3f16a738235e",
+    "sim/rl/runs/l80_t3/model.zip": "b183ae787b56dd9aff2aa54c574a2eb269ddc7c9c1395429d3e638bd069ccb27",
+    "sim/rl/runs/l80_t3/vecnorm.pkl": "81fccde49bd64e5552ed9499e1b74f9c3f62b4186c40841e37fe7b7bc343f958",
+    "sim/rl/runs/l80_r1_6M/args.json": "49ef1d89ea4f09bb88dee894b86348d18e72181b91d42817786da9eaeae658a4",
+    "sim/rl/runs/l80_r1_6M/model.zip": "e0cb2903d217fa613406e6186e629682906de9a28580fff26056af8e6b5a8438",
+    "sim/rl/runs/l80_r1_6M/vecnorm.pkl": "221c0307938c5ba29a63dc1221e18a1ed3a69c8cbf4286268c66c9106969972d",
+    "sim/rl/runs/l80_w2/args.json": "41bcb3329fb5d685af2126f8f8f1d04fbeb7dec5d2c07b53b64751335d06e9e9",
+    "sim/rl/runs/l80_w2/model.zip": "45e46653d0e1a483f778562b264fb0c401218a84139ad9dc21f77bf80495728e",
+    "sim/rl/runs/l80_w2/vecnorm.pkl": "49cac562845fdbf832bf0630de187ce3d936c602200e01a3f81a29cb645689ea",
+    "sim/rl/stage_gates.py": "d65fd0cde4b42b624050eb6927b9685e4273e5d3f0965aae223a2306599aeee8",
+    "sim/rl/gate_judge.py": "7e624e4f46779ed26c702e9ea7ca8718b0635e53124150ae4963723278874599",
+    "sim/rl/turn_eval.py": "0b247f70a6a2eb98b1f66d5ef8c1f52a9857537ae1c3cf9bf207ec7e37ee93b1",
+    "sim/rl/turn_rules.py": "f906269e4e8b5e0fb80bbff03e3f2fb04732f79e2c25a6aa7177453caaf06b44",
+    "sim/rl/run_env.py": "68bac4a6d8beb0ce5e7f003a5fe680e94211dad0fab0028322fd9be6e798ea08",
+    "sim/rl/train_run.py": "77b0b569cb8d07d2618997e708ae0aa843d5f8a74470e50e5c8b9941e21d2fba",
+    "sim/rl/rev3_l80.json": "ed62e1701462a0d16f8cda105d26b791da6725d26e5157edf788314878bb899a",
+    "sim/rl/realism_robstride_l80.json": "fe910eeccc71985dfe569ae79030d9497c61f726dbfbd240b340268f8c0b0282",
+    "docs/evidence/198-l80-turn/evaluate_decision_b.py": "84b9d58bee097e12bfff559f709bdb7499a11944ba19887d21e03622984f2db2"
+  },
+  "after": {
+    "sim/rl/runs/l80_t3/args.json": "5d909bb3e3f3abcdce721edaa0fcb0160de37c3a218148fc07fd3f16a738235e",
+    "sim/rl/runs/l80_t3/model.zip": "b183ae787b56dd9aff2aa54c574a2eb269ddc7c9c1395429d3e638bd069ccb27",
+    "sim/rl/runs/l80_t3/vecnorm.pkl": "81fccde49bd64e5552ed9499e1b74f9c3f62b4186c40841e37fe7b7bc343f958",
+    "sim/rl/runs/l80_r1_6M/args.json": "49ef1d89ea4f09bb88dee894b86348d18e72181b91d42817786da9eaeae658a4",
+    "sim/rl/runs/l80_r1_6M/model.zip": "e0cb2903d217fa613406e6186e629682906de9a28580fff26056af8e6b5a8438",
+    "sim/rl/runs/l80_r1_6M/vecnorm.pkl": "221c0307938c5ba29a63dc1221e18a1ed3a69c8cbf4286268c66c9106969972d",
+    "sim/rl/runs/l80_w2/args.json": "41bcb3329fb5d685af2126f8f8f1d04fbeb7dec5d2c07b53b64751335d06e9e9",
+    "sim/rl/runs/l80_w2/model.zip": "45e46653d0e1a483f778562b264fb0c401218a84139ad9dc21f77bf80495728e",
+    "sim/rl/runs/l80_w2/vecnorm.pkl": "49cac562845fdbf832bf0630de187ce3d936c602200e01a3f81a29cb645689ea",
+    "sim/rl/stage_gates.py": "d65fd0cde4b42b624050eb6927b9685e4273e5d3f0965aae223a2306599aeee8",
+    "sim/rl/gate_judge.py": "7e624e4f46779ed26c702e9ea7ca8718b0635e53124150ae4963723278874599",
+    "sim/rl/turn_eval.py": "0b247f70a6a2eb98b1f66d5ef8c1f52a9857537ae1c3cf9bf207ec7e37ee93b1",
+    "sim/rl/turn_rules.py": "f906269e4e8b5e0fb80bbff03e3f2fb04732f79e2c25a6aa7177453caaf06b44",
+    "sim/rl/run_env.py": "68bac4a6d8beb0ce5e7f003a5fe680e94211dad0fab0028322fd9be6e798ea08",
+    "sim/rl/train_run.py": "77b0b569cb8d07d2618997e708ae0aa843d5f8a74470e50e5c8b9941e21d2fba",
+    "sim/rl/rev3_l80.json": "ed62e1701462a0d16f8cda105d26b791da6725d26e5157edf788314878bb899a",
+    "sim/rl/realism_robstride_l80.json": "fe910eeccc71985dfe569ae79030d9497c61f726dbfbd240b340268f8c0b0282",
+    "docs/evidence/198-l80-turn/evaluate_decision_b.py": "84b9d58bee097e12bfff559f709bdb7499a11944ba19887d21e03622984f2db2"
+  },
+  "unchanged": true
+}

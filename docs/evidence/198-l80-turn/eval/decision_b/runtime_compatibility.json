@@ -1,0 +1,638 @@
+[
+  {
+    "kind": "equal_scale_switch",
+    "seed": 7100,
+    "randomize": false,
+    "accel": null,
+    "exact": true,
+    "result": {
+      "seed": 7100,
+      "t_fall": null,
+      "switches": 2,
+      "end_speed": [
+        [
+          0.0,
+          -0.06
+        ],
+        [
+          1.0,
+          1.21
+        ],
+        [
+          4.0,
+          3.8
+        ],
+        [
+          6.0,
+          5.51
+        ],
+        [
+          1.0,
+          1.68
+        ],
+        [
+          0.0,
+          -0.03
+        ]
+      ]
+    }
+  },
+  {
+    "kind": "equal_scale_switch",
+    "seed": 7101,
+    "randomize": false,
+    "accel": null,
+    "exact": true,
+    "result": {
+      "seed": 7101,
+      "t_fall": null,
+      "switches": 2,
+      "end_speed": [
+        [
+          0.0,
+          -0.19
+        ],
+        [
+          1.0,
+          1.1
+        ],
+        [
+          4.0,
+          3.97
+        ],
+        [
+          6.0,
+          4.96
+        ],
+        [
+          1.0,
+          0.81
+        ],
+        [
+          0.0,
+          -0.03
+        ]
+      ]
+    }
+  },
+  {
+    "kind": "equal_scale_switch",
+    "seed": 7102,
+    "randomize": false,
+    "accel": null,
+    "exact": true,
+    "result": {
+      "seed": 7102,
+      "t_fall": null,
+      "switches": 2,
+      "end_speed": [
+        [
+          0.0,
+          -0.05
+        ],
+        [
+          1.0,
+          1.42
+        ],
+        [
+          4.0,
+          4.21
+        ],
+        [
+          6.0,
+          5.7
+        ],
+        [
+          1.0,
+          1.61
+        ],
+        [
+          0.0,
+          0.23
+        ]
+      ]
+    }
+  },
+  {
+    "kind": "equal_scale_switch",
+    "seed": 7103,
+    "randomize": false,
+    "accel": null,
+    "exact": true,
+    "result": {
+      "seed": 7103,
+      "t_fall": null,
+      "switches": 2,
+      "end_speed": [
+        [
+          0.0,
+          -0.02
+        ],
+        [
+          1.0,
+          0.91
+        ],
+        [
+          4.0,
+          3.64
+        ],
+        [
+          6.0,
+          5.87
+        ],
+        [
+          1.0,
+          0.89
+        ],
+        [
+          0.0,
+          -0.03
+        ]
+      ]
+    }
+  },
+  {
+    "kind": "equal_scale_switch",
+    "seed": 7100,
+    "randomize": false,
+    "accel": 2.0,
+    "exact": true,
+    "result": {
+      "seed": 7100,
+      "t_fall": null,
+      "switches": 2,
+      "end_speed": [
+        [
+          0.0,
+          -0.06
+        ],
+        [
+          1.0,
+          1.07
+        ],
+        [
+          4.0,
+          3.78
+        ],
+        [
+          6.0,
+          5.4
+        ],
+        [
+          1.0,
+          0.92
+        ],
+        [
+          0.0,
+          -0.14
+        ]
+      ]
+    }
+  },
+  {
+    "kind": "equal_scale_switch",
+    "seed": 7101,
+    "randomize": false,
+    "accel": 2.0,
+    "exact": true,
+    "result": {
+      "seed": 7101,
+      "t_fall": null,
+      "switches": 2,
+      "end_speed": [
+        [
+          0.0,
+          -0.19
+        ],
+        [
+          1.0,
+          0.67
+        ],
+        [
+          4.0,
+          3.56
+        ],
+        [
+          6.0,
+          4.78
+        ],
+        [
+          1.0,
+          0.81
+        ],
+        [
+          0.0,
+          -0.01
+        ]
+      ]
+    }
+  },
+  {
+    "kind": "equal_scale_switch",
+    "seed": 7102,
+    "randomize": false,
+    "accel": 2.0,
+    "exact": true,
+    "result": {
+      "seed": 7102,
+      "t_fall": null,
+      "switches": 2,
+      "end_speed": [
+        [
+          0.0,
+          -0.05
+        ],
+        [
+          1.0,
+          1.27
+        ],
+        [
+          4.0,
+          3.63
+        ],
+        [
+          6.0,
+          5.56
+        ],
+        [
+          1.0,
+          0.95
+        ],
+        [
+          0.0,
+          0.03
+        ]
+      ]
+    }
+  },
+  {
+    "kind": "equal_scale_switch",
+    "seed": 7103,
+    "randomize": false,
+    "accel": 2.0,
+    "exact": true,
+    "result": {
+      "seed": 7103,
+      "t_fall": null,
+      "switches": 2,
+      "end_speed": [
+        [
+          0.0,
+          -0.02
+        ],
+        [
+          1.0,
+          1.03
+        ],
+        [
+          4.0,
+          3.89
+        ],
+        [
+          6.0,
+          6.07
+        ],
+        [
+          1.0,
+          0.81
+        ],
+        [
+          0.0,
+          -0.09
+        ]
+      ]
+    }
+  },
+  {
+    "kind": "equal_scale_switch",
+    "seed": 7100,
+    "randomize": true,
+    "accel": 2.0,
+    "exact": true,
+    "result": {
+      "seed": 7100,
+      "t_fall": null,
+      "switches": 2,
+      "end_speed": [
+        [
+          0.0,
+          0.18
+        ],
+        [
+          1.0,
+          0.86
+        ],
+        [
+          4.0,
+          3.36
+        ],
+        [
+          6.0,
+          4.59
+        ],
+        [
+          1.0,
+          0.86
+        ],
+        [
+          0.0,
+          -0.07
+        ]
+      ]
+    }
+  },
+  {
+    "kind": "equal_scale_switch",
+    "seed": 7101,
+    "randomize": true,
+    "accel": 2.0,
+    "exact": true,
+    "result": {
+      "seed": 7101,
+      "t_fall": null,
+      "switches": 2,
+      "end_speed": [
+        [
+          0.0,
+          0.05
+        ],
+        [
+          1.0,
+          1.01
+        ],
+        [
+          4.0,
+          3.18
+        ],
+        [
+          6.0,
+          5.36
+        ],
+        [
+          1.0,
+          0.96
+        ],
+        [
+          0.0,
+          -0.04
+        ]
+      ]
+    }
+  },
+  {
+    "kind": "equal_scale_switch",
+    "seed": 7102,
+    "randomize": true,
+    "accel": 2.0,
+    "exact": true,
+    "result": {
+      "seed": 7102,
+      "t_fall": null,
+      "switches": 2,
+      "end_speed": [
+        [
+          0.0,
+          0.07
+        ],
+        [
+          1.0,
+          0.91
+        ],
+        [
+          4.0,
+          3.83
+        ],
+        [
+          6.0,
+          6.22
+        ],
+        [
+          1.0,
+          1.03
+        ],
+        [
+          0.0,
+          -0.03
+        ]
+      ]
+    }
+  },
+  {
+    "kind": "equal_scale_switch",
+    "seed": 7103,
+    "randomize": true,
+    "accel": 2.0,
+    "exact": true,
+    "result": {
+      "seed": 7103,
+      "t_fall": null,
+      "switches": 2,
+      "end_speed": [
+        [
+          0.0,
+          -0.01
+        ],
+        [
+          1.0,
+          0.68
+        ],
+        [
+          4.0,
+          3.7
+        ],
+        [
+          6.0,
+          5.13
+        ],
+        [
+          1.0,
+          0.9
+        ],
+        [
+          0.0,
+          -0.13
+        ]
+      ]
+    }
+  },
+  {
+    "kind": "equal_scale_switch",
+    "seed": 7104,
+    "randomize": true,
+    "accel": 2.0,
+    "exact": true,
+    "result": {
+      "seed": 7104,
+      "t_fall": null,
+      "switches": 2,
+      "end_speed": [
+        [
+          0.0,
+          0.04
+        ],
+        [
+          1.0,
+          1.58
+        ],
+        [
+          4.0,
+          3.54
+        ],
+        [
+          6.0,
+          5.12
+        ],
+        [
+          1.0,
+          1.26
+        ],
+        [
+          0.0,
+          -0.12
+        ]
+      ]
+    }
+  },
+  {
+    "kind": "equal_scale_switch",
+    "seed": 7105,
+    "randomize": true,
+    "accel": 2.0,
+    "exact": true,
+    "result": {
+      "seed": 7105,
+      "t_fall": null,
+      "switches": 2,
+      "end_speed": [
+        [
+          0.0,
+          0.01
+        ],
+        [
+          1.0,
+          1.01
+        ],
+        [
+          4.0,
+          4.19
+        ],
+        [
+          6.0,
+          6.87
+        ],
+        [
+          1.0,
+          0.94
+        ],
+        [
+          0.0,
+          0.01
+        ]
+      ]
+    }
+  },
+  {
+    "kind": "equal_scale_switch",
+    "seed": 7106,
+    "randomize": true,
+    "accel": 2.0,
+    "exact": true,
+    "result": {
+      "seed": 7106,
+      "t_fall": null,
+      "switches": 2,
+      "end_speed": [
+        [
+          0.0,
+          -0.16
+        ],
+        [
+          1.0,
+          1.66
+        ],
+        [
+          4.0,
+          3.81
+        ],
+        [
+          6.0,
+          5.09
+        ],
+        [
+          1.0,
+          1.05
+        ],
+        [
+          0.0,
+          -0.03
+        ]
+      ]
+    }
+  },
+  {
+    "kind": "equal_scale_switch",
+    "seed": 7107,
+    "randomize": true,
+    "accel": 2.0,
+    "exact": true,
+    "result": {
+      "seed": 7107,
+      "t_fall": null,
+      "switches": 2,
+      "end_speed": [
+        [
+          0.0,
+          -0.27
+        ],
+        [
+          1.0,
+          1.2
+        ],
+        [
+          4.0,
+          3.91
+        ],
+        [
+          6.0,
+          5.48
+        ],
+        [
+          1.0,
+          0.78
+        ],
+        [
+          0.0,
+          -0.36
+        ]
+      ]
+    }
+  },
+  {
+    "kind": "default_run",
+    "run": "l80_r1_6M",
+    "seed": 6700,
+    "cmd": 2.0,
+    "exact": true
+  },
+  {
+    "kind": "default_run",
+    "run": "l80_r1_6M",
+    "seed": 6701,
+    "cmd": 4.0,
+    "exact": true
+  },
+  {
+    "kind": "default_run",
+    "run": "l80_t3",
+    "seed": 6700,
+    "cmd": 2.0,
+    "exact": true
+  },
+  {
+    "kind": "default_run",
+    "run": "l80_t3",
+    "seed": 6701,
+    "cmd": 4.0,
+    "exact": true
+  }
+]

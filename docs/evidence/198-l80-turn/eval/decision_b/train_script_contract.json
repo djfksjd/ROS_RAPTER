@@ -1,0 +1,35 @@
+{
+  "shell_options_changed": {
+    "--steps": [
+      [
+        "4000000"
+      ],
+      [
+        "2000000"
+      ]
+    ],
+    "--checkpoint-check": [
+      [
+        "docs/evidence/198-l80-turn/check_training.py"
+      ],
+      [
+        "docs/evidence/198-l80-turn/check_training_b.py"
+      ]
+    ],
+    "--init": [
+      [
+        "sim/rl/runs/l80_t2/model.zip"
+      ],
+      [
+        "sim/rl/runs/l80_t3/model.zip"
+      ]
+    ]
+  },
+  "weight_change": {
+    "track_lin": [
+      5,
+      8
+    ]
+  },
+  "launch_executed": false
+}

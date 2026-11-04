@@ -1,0 +1,6 @@
+FAIL turn  moving_turn   2.0       falls 1/4, passing episodes 3/4
+PASS turn  moving_turn   2.0       falls 0/4, passing episodes 4/4
+FAIL turn  moving_turn   4.0       falls 0/4, passing episodes 3/4
+PASS turn  moving_turn   4.0       falls 0/4, passing episodes 4/4
+FAIL turn suite: missing or duplicate condition: {'gate': 'turn', 'cond': 'moving_turn', 'cmd': 1.0, 'yaw_cmd': 0.5}
+NOT PASSED

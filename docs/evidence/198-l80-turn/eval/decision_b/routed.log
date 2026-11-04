@@ -1,0 +1,4 @@
+{"cmd": 2.0, "sign": 1.0, "verdict": [false, "falls 1/4, passing episodes 3/4"]}
+{"cmd": 2.0, "sign": -1.0, "verdict": [true, "falls 0/4, passing episodes 4/4"]}
+{"cmd": 4.0, "sign": 1.0, "verdict": [false, "falls 0/4, passing episodes 3/4"]}
+{"cmd": 4.0, "sign": -1.0, "verdict": [true, "falls 0/4, passing episodes 4/4"]}

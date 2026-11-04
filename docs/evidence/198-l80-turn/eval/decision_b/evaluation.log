@@ -1,0 +1,44 @@
+{"task": ["l80_t3", "turn", [2.0, 1.0]], "rows": 1, "falls": 0}
+{"task": ["l80_t3", "turn", [1.0, 1.0]], "rows": 1, "falls": 0}
+{"task": ["l80_t3", "turn", [1.0, -1.0]], "rows": 1, "falls": 0}
+{"task": ["l80_t3", "turn", [4.0, 1.0]], "rows": 1, "falls": 0}
+{"task": ["l80_t3", "turn", [4.0, -1.0]], "rows": 1, "falls": 0}
+{"task": ["l80_t3", "turn", [2.0, -1.0]], "rows": 1, "falls": 0}
+{"task": ["l80_t3", "turn", [6.0, 1.0]], "rows": 1, "falls": 0}
+{"task": ["l80_t3", "turn", [6.0, -1.0]], "rows": 1, "falls": 0}
+{"task": ["l80_r1_6M", "turn", [1.0, 1.0]], "rows": 1, "falls": 0}
+{"task": ["l80_r1_6M", "turn", [2.0, 1.0]], "rows": 1, "falls": 0}
+{"task": ["l80_r1_6M", "turn", [1.0, -1.0]], "rows": 1, "falls": 0}
+{"task": ["l80_r1_6M", "turn", [2.0, -1.0]], "rows": 1, "falls": 0}
+{"task": ["l80_r1_6M", "turn", [4.0, 1.0]], "rows": 1, "falls": 0}
+{"task": ["l80_r1_6M", "turn", [4.0, -1.0]], "rows": 1, "falls": 0}
+{"task": ["l80_r1_6M", "turn", [6.0, 1.0]], "rows": 1, "falls": 0}
+{"task": ["l80_r1_6M", "turn", [6.0, -1.0]], "rows": 1, "falls": 0}
+{"task": ["l80_t3", "run_regression", 2.0], "rows": 1, "falls": 0}
+{"task": ["l80_t3", "run_regression", 4.0], "rows": 1, "falls": 0}
+{"task": ["l80_t3", "run_regression", 6.0], "rows": 1, "falls": 0}
+{"task": ["l80_r1_6M", "run_regression", 2.0], "rows": 1, "falls": 0}
+{"task": ["l80_r1_6M", "run_regression", 4.0], "rows": 1, "falls": 0}
+{"task": ["l80_t3", "switch", null], "rows": 3, "falls": 0}
+{"task": ["l80_r1_6M", "switch", null], "rows": 3, "falls": 0}
+{"task": ["l80_r1_6M", "run_regression", 6.0], "rows": 1, "falls": 0}
+{"task": ["l80_t3", "heat", [4.0, "plate"]], "rows": 1, "falls": 0}
+{"task": ["l80_t3", "heat", [4.0, "worst"]], "rows": 1, "falls": 1}
+{"task": ["l80_w2", "walk", null], "rows": 8, "falls": 0}
+{"task": ["l80_t3", "heat", [5.0, "worst"]], "rows": 1, "falls": 1}
+{"task": ["l80_t3", "heat", [5.0, "plate"]], "rows": 1, "falls": 0}
+{"task": ["l80_t3", "heat", [6.0, "worst"]], "rows": 1, "falls": 1}
+{"task": ["l80_t3", "heat", [6.0, "plate"]], "rows": 1, "falls": 0}
+{"task": ["l80_w2", "stand", null], "rows": 14, "falls": 0}
+{"task": ["l80_r1_6M", "heat", [4.0, "plate"]], "rows": 1, "falls": 0}
+{"task": ["l80_r1_6M", "heat", [4.0, "worst"]], "rows": 1, "falls": 0}
+{"task": ["l80_r1_6M", "heat", [5.0, "worst"]], "rows": 1, "falls": 1}
+{"task": ["l80_r1_6M", "heat", [6.0, "worst"]], "rows": 1, "falls": 1}
+{"task": ["l80_t3", "speed", 8.0], "rows": 1, "falls": 2}
+{"task": ["l80_r1_6M", "heat", [5.0, "plate"]], "rows": 1, "falls": 0}
+{"task": ["l80_r1_6M", "speed", 8.0], "rows": 1, "falls": 0}
+{"task": ["l80_t3", "lateral", "left"], "rows": 1, "falls": 0}
+{"task": ["l80_t3", "lateral", "right"], "rows": 1, "falls": 0}
+{"task": ["l80_r1_6M", "heat", [6.0, "plate"]], "rows": 1, "falls": 0}
+{"task": ["l80_r1_6M", "lateral", "left"], "rows": 1, "falls": 0}
+{"task": ["l80_r1_6M", "lateral", "right"], "rows": 1, "falls": 0}
