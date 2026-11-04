@@ -1,0 +1,822 @@
+{
+  "full_rows": 36,
+  "extra_rows": 9,
+  "episodes": 266,
+  "turns": [
+    {
+      "cmd": 1.0,
+      "yaw_cmd": 0.5,
+      "policy": "l80_w2",
+      "passed": 4,
+      "n": 4,
+      "falls": 0,
+      "speed": [
+        1.027924431612659,
+        1.0440622235279333
+      ],
+      "yaw": [
+        0.4105085479457876,
+        0.42803088461933986
+      ],
+      "radius": [
+        2.432131135083896,
+        2.5302430073072566
+      ],
+      "t90": [
+        4.0600000000000005,
+        4.200000000000001
+      ],
+      "failures": []
+    },
+    {
+      "cmd": 1.0,
+      "yaw_cmd": -0.5,
+      "policy": "l80_w2",
+      "passed": 4,
+      "n": 4,
+      "falls": 0,
+      "speed": [
+        1.0231924407305917,
+        1.0436300460395325
+      ],
+      "yaw": [
+        -0.42311764494762377,
+        -0.41860537865510844
+      ],
+      "radius": [
+        2.4429521181479212,
+        2.4782425209925285
+      ],
+      "t90": [
+        4.120000000000001,
+        4.24
+      ],
+      "failures": []
+    },
+    {
+      "cmd": 2.0,
+      "yaw_cmd": 1.0,
+      "policy": "l80_t3",
+      "passed": 4,
+      "n": 4,
+      "falls": 0,
+      "speed": [
+        1.9635192326928042,
+        1.9757702111342534
+      ],
+      "yaw": [
+        0.9209118299238462,
+        0.9339670248181371
+      ],
+      "radius": [
+        2.109169291292593,
+        2.1422112722306803
+      ],
+      "t90": [
+        1.7999999999999998,
+        1.92
+      ],
+      "failures": []
+    },
+    {
+      "cmd": 2.0,
+      "yaw_cmd": -1.0,
+      "policy": "l80_t3",
+      "passed": 4,
+      "n": 4,
+      "falls": 0,
+      "speed": [
+        1.9946113697884387,
+        2.024875728754957
+      ],
+      "yaw": [
+        -0.923800467416054,
+        -0.9084888113520768
+      ],
+      "radius": [
+        2.1591365669769913,
+        2.2288394787618735
+      ],
+      "t90": [
+        1.7999999999999998,
+        1.9400000000000004
+      ],
+      "failures": []
+    },
+    {
+      "cmd": 4.0,
+      "yaw_cmd": 0.5,
+      "policy": "l80_t3",
+      "passed": 3,
+      "n": 4,
+      "falls": 0,
+      "speed": [
+        4.482363036913671,
+        4.529398840444193
+      ],
+      "yaw": [
+        0.3225521279727607,
+        0.3305860208352122
+      ],
+      "radius": [
+        13.558840224366298,
+        14.042377797695686
+      ],
+      "t90": [
+        5.16,
+        5.4399999999999995
+      ],
+      "failures": [
+        {
+          "seed": 7303,
+          "reasons": [
+            "yaw",
+            "radius"
+          ]
+        }
+      ]
+    },
+    {
+      "cmd": 4.0,
+      "yaw_cmd": -0.5,
+      "policy": "l80_t3",
+      "passed": 4,
+      "n": 4,
+      "falls": 0,
+      "speed": [
+        4.488406677795282,
+        4.540926278147461
+      ],
+      "yaw": [
+        -0.3453095908361555,
+        -0.33664417180590706
+      ],
+      "radius": [
+        13.045313780734299,
+        13.33279187255047
+      ],
+      "t90": [
+        4.9399999999999995,
+        5.120000000000001
+      ],
+      "failures": []
+    },
+    {
+      "cmd": 6.0,
+      "yaw_cmd": 0.5,
+      "policy": "l80_t3",
+      "passed": 0,
+      "n": 4,
+      "falls": 0,
+      "speed": [
+        5.3232818271471976,
+        5.349318181155304
+      ],
+      "yaw": [
+        0.29805792529999997,
+        0.30912296105313847
+      ],
+      "radius": [
+        17.220596648697736,
+        17.89872453293318
+      ],
+      "t90": [
+        5.880000000000001,
+        6.220000000000001
+      ],
+      "failures": [
+        {
+          "seed": 7300,
+          "reasons": [
+            "yaw",
+            "t90"
+          ]
+        },
+        {
+          "seed": 7301,
+          "reasons": [
+            "yaw"
+          ]
+        },
+        {
+          "seed": 7302,
+          "reasons": [
+            "yaw",
+            "t90"
+          ]
+        },
+        {
+          "seed": 7303,
+          "reasons": [
+            "yaw",
+            "t90"
+          ]
+        }
+      ]
+    },
+    {
+      "cmd": 6.0,
+      "yaw_cmd": -0.5,
+      "policy": "l80_t3",
+      "passed": 0,
+      "n": 4,
+      "falls": 0,
+      "speed": [
+        5.322925800018349,
+        5.362037981454775
+      ],
+      "yaw": [
+        -0.322056404898197,
+        -0.30935371445379106
+      ],
+      "radius": [
+        16.543612855274635,
+        17.243057748791134
+      ],
+      "t90": [
+        5.5600000000000005,
+        5.640000000000001
+      ],
+      "failures": [
+        {
+          "seed": 7300,
+          "reasons": [
+            "yaw"
+          ]
+        },
+        {
+          "seed": 7301,
+          "reasons": [
+            "yaw"
+          ]
+        },
+        {
+          "seed": 7302,
+          "reasons": [
+            "yaw"
+          ]
+        },
+        {
+          "seed": 7303,
+          "reasons": [
+            "yaw"
+          ]
+        }
+      ]
+    }
+  ],
+  "turn_passing_episodes": 23,
+  "turn_falls": 0,
+  "full_suite": {
+    "passed": false,
+    "reason": "failed condition: {'gate': 'turn', 'cond': 'moving_turn', 'cmd': 4.0, 'yaw_cmd': 0.5}"
+  },
+  "regressions": {
+    "stand": {
+      "conditions": 14,
+      "episodes": 128,
+      "passing_conditions": 6,
+      "judged_conditions": 6,
+      "falls": 0,
+      "judged_falls": 0
+    },
+    "walk": {
+      "conditions": 8,
+      "episodes": 52,
+      "passing_conditions": 8,
+      "judged_conditions": 8,
+      "falls": 0,
+      "judged_falls": 0
+    },
+    "switch": {
+      "conditions": 3,
+      "episodes": 16,
+      "passing_conditions": 2,
+      "judged_conditions": 2,
+      "falls": 1,
+      "judged_falls": 1
+    }
+  },
+  "extra_sustained_command": 5.0,
+  "judgments": [
+    {
+      "gate": "turn",
+      "cond": "moving_turn",
+      "cmd": 1.0,
+      "yaw_cmd": 0.5,
+      "direction": null,
+      "dv": null,
+      "mount": null,
+      "passed": true,
+      "reason": "falls 0/4, passing episodes 4/4"
+    },
+    {
+      "gate": "turn",
+      "cond": "moving_turn",
+      "cmd": 1.0,
+      "yaw_cmd": -0.5,
+      "direction": null,
+      "dv": null,
+      "mount": null,
+      "passed": true,
+      "reason": "falls 0/4, passing episodes 4/4"
+    },
+    {
+      "gate": "turn",
+      "cond": "moving_turn",
+      "cmd": 2.0,
+      "yaw_cmd": 1.0,
+      "direction": null,
+      "dv": null,
+      "mount": null,
+      "passed": true,
+      "reason": "falls 0/4, passing episodes 4/4"
+    },
+    {
+      "gate": "turn",
+      "cond": "moving_turn",
+      "cmd": 2.0,
+      "yaw_cmd": -1.0,
+      "direction": null,
+      "dv": null,
+      "mount": null,
+      "passed": true,
+      "reason": "falls 0/4, passing episodes 4/4"
+    },
+    {
+      "gate": "turn",
+      "cond": "moving_turn",
+      "cmd": 4.0,
+      "yaw_cmd": 0.5,
+      "direction": null,
+      "dv": null,
+      "mount": null,
+      "passed": false,
+      "reason": "falls 0/4, passing episodes 3/4"
+    },
+    {
+      "gate": "turn",
+      "cond": "moving_turn",
+      "cmd": 4.0,
+      "yaw_cmd": -0.5,
+      "direction": null,
+      "dv": null,
+      "mount": null,
+      "passed": true,
+      "reason": "falls 0/4, passing episodes 4/4"
+    },
+    {
+      "gate": "turn",
+      "cond": "moving_turn",
+      "cmd": 6.0,
+      "yaw_cmd": 0.5,
+      "direction": null,
+      "dv": null,
+      "mount": null,
+      "passed": false,
+      "reason": "falls 0/4, passing episodes 0/4"
+    },
+    {
+      "gate": "turn",
+      "cond": "moving_turn",
+      "cmd": 6.0,
+      "yaw_cmd": -0.5,
+      "direction": null,
+      "dv": null,
+      "mount": null,
+      "passed": false,
+      "reason": "falls 0/4, passing episodes 0/4"
+    },
+    {
+      "gate": "stand",
+      "cond": "hold",
+      "cmd": null,
+      "yaw_cmd": null,
+      "direction": null,
+      "dv": null,
+      "mount": null,
+      "passed": true,
+      "reason": "falls 0, drift 0.397"
+    },
+    {
+      "gate": "stand",
+      "cond": "hold_dr",
+      "cmd": null,
+      "yaw_cmd": null,
+      "direction": null,
+      "dv": null,
+      "mount": null,
+      "passed": true,
+      "reason": "falls 0/24"
+    },
+    {
+      "gate": "stand",
+      "cond": "push",
+      "cmd": null,
+      "yaw_cmd": null,
+      "direction": "front",
+      "dv": 0.3,
+      "mount": null,
+      "passed": true,
+      "reason": "falls 0"
+    },
+    {
+      "gate": "stand",
+      "cond": "push",
+      "cmd": null,
+      "yaw_cmd": null,
+      "direction": "back",
+      "dv": 0.3,
+      "mount": null,
+      "passed": true,
+      "reason": "falls 0"
+    },
+    {
+      "gate": "stand",
+      "cond": "push",
+      "cmd": null,
+      "yaw_cmd": null,
+      "direction": "left",
+      "dv": 0.3,
+      "mount": null,
+      "passed": true,
+      "reason": "falls 0"
+    },
+    {
+      "gate": "stand",
+      "cond": "push",
+      "cmd": null,
+      "yaw_cmd": null,
+      "direction": "right",
+      "dv": 0.3,
+      "mount": null,
+      "passed": true,
+      "reason": "falls 0"
+    },
+    {
+      "gate": "stand",
+      "cond": "push",
+      "cmd": null,
+      "yaw_cmd": null,
+      "direction": "front",
+      "dv": 0.5,
+      "mount": null,
+      "passed": null,
+      "reason": "falls 0 (recorded)"
+    },
+    {
+      "gate": "stand",
+      "cond": "push",
+      "cmd": null,
+      "yaw_cmd": null,
+      "direction": "back",
+      "dv": 0.5,
+      "mount": null,
+      "passed": null,
+      "reason": "falls 0 (recorded)"
+    },
+    {
+      "gate": "stand",
+      "cond": "push",
+      "cmd": null,
+      "yaw_cmd": null,
+      "direction": "left",
+      "dv": 0.5,
+      "mount": null,
+      "passed": null,
+      "reason": "falls 0 (recorded)"
+    },
+    {
+      "gate": "stand",
+      "cond": "push",
+      "cmd": null,
+      "yaw_cmd": null,
+      "direction": "right",
+      "dv": 0.5,
+      "mount": null,
+      "passed": null,
+      "reason": "falls 0 (recorded)"
+    },
+    {
+      "gate": "stand",
+      "cond": "push",
+      "cmd": null,
+      "yaw_cmd": null,
+      "direction": "front",
+      "dv": 0.8,
+      "mount": null,
+      "passed": null,
+      "reason": "falls 0 (recorded)"
+    },
+    {
+      "gate": "stand",
+      "cond": "push",
+      "cmd": null,
+      "yaw_cmd": null,
+      "direction": "back",
+      "dv": 0.8,
+      "mount": null,
+      "passed": null,
+      "reason": "falls 0 (recorded)"
+    },
+    {
+      "gate": "stand",
+      "cond": "push",
+      "cmd": null,
+      "yaw_cmd": null,
+      "direction": "left",
+      "dv": 0.8,
+      "mount": null,
+      "passed": null,
+      "reason": "falls 0 (recorded)"
+    },
+    {
+      "gate": "stand",
+      "cond": "push",
+      "cmd": null,
+      "yaw_cmd": null,
+      "direction": "right",
+      "dv": 0.8,
+      "mount": null,
+      "passed": null,
+      "reason": "falls 0 (recorded)"
+    },
+    {
+      "gate": "walk",
+      "cond": "track",
+      "cmd": 0.3,
+      "yaw_cmd": null,
+      "direction": null,
+      "dv": null,
+      "mount": null,
+      "passed": true,
+      "reason": "v [0.21, 0.22, 0.22, 0.22], tol 0.10"
+    },
+    {
+      "gate": "walk",
+      "cond": "track",
+      "cmd": 0.6,
+      "yaw_cmd": null,
+      "direction": null,
+      "dv": null,
+      "mount": null,
+      "passed": true,
+      "reason": "v [0.62, 0.62, 0.61, 0.6], tol 0.10"
+    },
+    {
+      "gate": "walk",
+      "cond": "track",
+      "cmd": 1.0,
+      "yaw_cmd": null,
+      "direction": null,
+      "dv": null,
+      "mount": null,
+      "passed": true,
+      "reason": "v [1.03, 1.04, 1.04, 1.03], tol 0.15"
+    },
+    {
+      "gate": "walk",
+      "cond": "track",
+      "cmd": 1.5,
+      "yaw_cmd": null,
+      "direction": null,
+      "dv": null,
+      "mount": null,
+      "passed": true,
+      "reason": "v [1.46, 1.47, 1.46, 1.46], tol 0.22"
+    },
+    {
+      "gate": "walk",
+      "cond": "turn",
+      "cmd": 0.5,
+      "yaw_cmd": null,
+      "direction": null,
+      "dv": null,
+      "mount": null,
+      "passed": true,
+      "reason": "yaw [0.43, 0.4, 0.41, 0.42], drift max 0.452"
+    },
+    {
+      "gate": "walk",
+      "cond": "turn",
+      "cmd": -0.5,
+      "yaw_cmd": null,
+      "direction": null,
+      "dv": null,
+      "mount": null,
+      "passed": true,
+      "reason": "yaw [-0.41, -0.42, -0.38, -0.43], drift max 0.454"
+    },
+    {
+      "gate": "walk",
+      "cond": "stopstart",
+      "cmd": null,
+      "yaw_cmd": null,
+      "direction": null,
+      "dv": null,
+      "mount": null,
+      "passed": true,
+      "reason": "reach max 0.58, stop speeds [-0.11, -0.13, -0.13, -0.09, -0.14, -0.13, -0.11, -0.12]"
+    },
+    {
+      "gate": "walk",
+      "cond": "track_dr",
+      "cmd": 1.0,
+      "yaw_cmd": null,
+      "direction": null,
+      "dv": null,
+      "mount": null,
+      "passed": true,
+      "reason": "falls 0/24"
+    },
+    {
+      "gate": "switch",
+      "cond": "switch",
+      "cmd": null,
+      "yaw_cmd": null,
+      "direction": null,
+      "dv": null,
+      "mount": null,
+      "passed": null,
+      "reason": "falls 0/4, switches [2, 2, 2, 2] (step commands, recorded)"
+    },
+    {
+      "gate": "switch",
+      "cond": "switch_ramp",
+      "cmd": null,
+      "yaw_cmd": null,
+      "direction": null,
+      "dv": null,
+      "mount": null,
+      "passed": true,
+      "reason": "falls 0/4, switches [2, 2, 2, 2]"
+    },
+    {
+      "gate": "switch",
+      "cond": "switch_ramp_dr",
+      "cmd": null,
+      "yaw_cmd": null,
+      "direction": null,
+      "dv": null,
+      "mount": null,
+      "passed": true,
+      "reason": "falls 1/8, switches [2, 2, 2, 2, 2, 2, 2, 1]"
+    },
+    {
+      "gate": "turn",
+      "cond": "run_regression",
+      "cmd": 2.0,
+      "yaw_cmd": null,
+      "direction": null,
+      "dv": null,
+      "mount": null,
+      "passed": true,
+      "reason": "falls 0/4, v [1.9511349700202372, 1.9964743275780539, 1.9774957683202221, 2.0145256428528775]"
+    },
+    {
+      "gate": "turn",
+      "cond": "run_regression",
+      "cmd": 4.0,
+      "yaw_cmd": null,
+      "direction": null,
+      "dv": null,
+      "mount": null,
+      "passed": false,
+      "reason": "falls 0/4, v [4.820776581743301, 4.83969715000314, 4.794933626431194, 4.761634311022165]"
+    },
+    {
+      "gate": "turn",
+      "cond": "run_regression",
+      "cmd": 6.0,
+      "yaw_cmd": null,
+      "direction": null,
+      "dv": null,
+      "mount": null,
+      "passed": true,
+      "reason": "falls 0/4, v [5.634582268193184, 5.641527921889945, 5.614866225980804, 5.606731686523301]"
+    },
+    {
+      "gate": "run",
+      "cond": "heat",
+      "cmd": 4.0,
+      "yaw_cmd": null,
+      "direction": null,
+      "dv": null,
+      "mount": "worst",
+      "passed": null,
+      "reason": "worst: falls 1, derate min 0.354, winding max 137.9 C, v 4.527 (sustained speed below)"
+    },
+    {
+      "gate": "run",
+      "cond": "heat",
+      "cmd": 5.0,
+      "yaw_cmd": null,
+      "direction": null,
+      "dv": null,
+      "mount": "worst",
+      "passed": null,
+      "reason": "worst: falls 1, derate min 0.34, winding max 138.2 C, v 4.839 (sustained speed below)"
+    },
+    {
+      "gate": "run",
+      "cond": "heat",
+      "cmd": 4.0,
+      "yaw_cmd": null,
+      "direction": null,
+      "dv": null,
+      "mount": "plate",
+      "passed": null,
+      "reason": "plate: falls 0, derate min 1.0, winding max 94.4 C, v 4.793 (sustained speed below)"
+    },
+    {
+      "gate": "run",
+      "cond": "heat",
+      "cmd": 5.0,
+      "yaw_cmd": null,
+      "direction": null,
+      "dv": null,
+      "mount": "plate",
+      "passed": null,
+      "reason": "plate: falls 0, derate min 1.0, winding max 121.4 C, v 5.372 (sustained speed below)"
+    },
+    {
+      "gate": "run",
+      "cond": "speed",
+      "cmd": 8.0,
+      "yaw_cmd": null,
+      "direction": null,
+      "dv": null,
+      "mount": null,
+      "passed": false,
+      "reason": "v [None, None, 5.8, 5.77], derate min 1.0 (top speed: >= 6.5)"
+    },
+    {
+      "gate": "run",
+      "cond": "heat",
+      "cmd": 6.0,
+      "yaw_cmd": null,
+      "direction": null,
+      "dv": null,
+      "mount": "worst",
+      "passed": null,
+      "reason": "worst: falls 1, derate min 0.37, winding max 137.6 C, v 5.401 (sustained speed below)"
+    },
+    {
+      "gate": "run",
+      "cond": "lateral",
+      "cmd": 4.0,
+      "yaw_cmd": null,
+      "direction": "left",
+      "dv": null,
+      "mount": null,
+      "passed": true,
+      "reason": "falls 0/8"
+    },
+    {
+      "gate": "run",
+      "cond": "lateral",
+      "cmd": 4.0,
+      "yaw_cmd": null,
+      "direction": "right",
+      "dv": null,
+      "mount": null,
+      "passed": true,
+      "reason": "falls 0/8"
+    },
+    {
+      "gate": "run",
+      "cond": "heat",
+      "cmd": 6.0,
+      "yaw_cmd": null,
+      "direction": null,
+      "dv": null,
+      "mount": "plate",
+      "passed": null,
+      "reason": "plate: falls 0, derate min 0.598, winding max 133.0 C, v 5.595 (sustained speed below)"
+    }
+  ],
+  "inputs_unchanged": true,
+  "after": {
+    "sim/rl/runs/l80_t3/model.zip": "b183ae787b56dd9aff2aa54c574a2eb269ddc7c9c1395429d3e638bd069ccb27",
+    "sim/rl/runs/l80_t3/vecnorm.pkl": "81fccde49bd64e5552ed9499e1b74f9c3f62b4186c40841e37fe7b7bc343f958",
+    "sim/rl/runs/l80_t3/args.json": "5d909bb3e3f3abcdce721edaa0fcb0160de37c3a218148fc07fd3f16a738235e",
+    "sim/rl/runs/l80_w2/model.zip": "45e46653d0e1a483f778562b264fb0c401218a84139ad9dc21f77bf80495728e",
+    "sim/rl/runs/l80_w2/vecnorm.pkl": "49cac562845fdbf832bf0630de187ce3d936c602200e01a3f81a29cb645689ea",
+    "sim/rl/runs/l80_w2/args.json": "41bcb3329fb5d685af2126f8f8f1d04fbeb7dec5d2c07b53b64751335d06e9e9",
+    "sim/rl/stage_gates.py": "f00678661a88c3d33288b5eedd883b7fa8df3532bbdcb560eb501e46cc06ffd6",
+    "sim/rl/gate_judge.py": "1f5db39b8af1f21dd62a53c02ad2f0fcc4e9cfdebdce3c6b55716f2aeac4b6ff",
+    "sim/rl/turn_eval.py": "0b247f70a6a2eb98b1f66d5ef8c1f52a9857537ae1c3cf9bf207ec7e37ee93b1",
+    "sim/rl/turn_rules.py": "f906269e4e8b5e0fb80bbff03e3f2fb04732f79e2c25a6aa7177453caaf06b44",
+    "sim/rl/run_env.py": "68bac4a6d8beb0ce5e7f003a5fe680e94211dad0fab0028322fd9be6e798ea08",
+    "sim/rl/train_run.py": "77b0b569cb8d07d2618997e708ae0aa843d5f8a74470e50e5c8b9941e21d2fba",
+    "sim/rl/rev3_l80.json": "ed62e1701462a0d16f8cda105d26b791da6725d26e5157edf788314878bb899a",
+    "sim/rl/realism_robstride_l80.json": "fe910eeccc71985dfe569ae79030d9497c61f726dbfbd240b340268f8c0b0282"
+  },
+  "decision": "report B/C; no extension in t3 pre-declaration",
+  "switch_limitation": {
+    "harness_uses_walk_environment": true,
+    "walk_hip_yaw_scale": 0.3,
+    "standalone_t3_hip_yaw_scale": 0.5,
+    "scale_preserving_policy_switch_verified": false
+  }
+}

@@ -47,18 +47,25 @@ def audit(name='l80_t1'):
     rollout = saved['n_steps']*saved['n_envs']
     usable_budget = int(args['steps'])//rollout*rollout
     assert all(r['added_steps'] % rollout == 0 for r in recorded)
+    final_block = results[-1]['block']
+    exhausted = results[-1]['added_steps'] == usable_budget
+    stopped = results[-1]['decision'].startswith('stop:')
     return dict(run=name, blocks=results, initial_steps=initial, final_steps=logged_steps[-1],
                 declared_budget=args['steps'], consumed=results[-1]['added_steps'],
                 rollout_steps=rollout, usable_budget=usable_budget,
                 unused_usable_budget=usable_budget-results[-1]['added_steps'],
                 budget_ok=True, log_matches=True, model_progress_steps_match=True,
+                budget_exhausted=exhausted, termination_valid=exhausted or stopped,
+                termination_reason='budget exhausted' if exhausted else results[-1]['decision'],
                 stop_valid=results[-1]['same_conditions'] and results[-1]['decision'].startswith('stop:'),
                 improvement_1M_to_3M=results[0]['yaw_mae']-results[2]['yaw_mae'],
+                current_equals_final={n: digest(run/n) == digest(run.with_name(f'{name}_{final_block}M')/n)
+                                      for n in ('model.zip', 'vecnorm.pkl')},
                 current_equals_3M={n: digest(run/n) == digest(run.with_name(f'{name}_3M')/n)
                                    for n in ('model.zip', 'vecnorm.pkl')})
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--run', choices=['l80_t1', 'l80_t2'], default='l80_t1')
+    parser.add_argument('--run', choices=['l80_t1', 'l80_t2', 'l80_t3'], default='l80_t1')
     print(json.dumps(audit(parser.parse_args().run), indent=2, allow_nan=False))
