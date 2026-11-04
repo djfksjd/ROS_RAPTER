@@ -1417,6 +1417,8 @@ class RunEnv(RaptorEnv):
         if self.weights.get('spring_release'):  # rate (W) at which the ratchet throws stored energy away at lift-off
             terms['spring_release'] = (self.spring_release_J-getattr(self, '_release_seen', 0.))/CONTROL_DT
             self._release_seen = self.spring_release_J
+        if self.jump_task is not None:
+            self.jump_task.adjust_stand_terms(terms, self.weights)
         reward = CONTROL_DT*sum(self.weights[k]*v for k, v in terms.items())
 
         tilt = np.arccos(np.clip(-grav[2], -1, 1))

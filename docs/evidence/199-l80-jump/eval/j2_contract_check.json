@@ -1,0 +1,27 @@
+{
+  "changed_args": {
+    "name": {
+      "from": "l80_j1",
+      "to": "l80_j2"
+    },
+    "steps": {
+      "from": 8000000.0,
+      "to": 4000000
+    },
+    "checkpoint_check": {
+      "from": "docs/evidence/199-l80-jump/check_training_j1.py",
+      "to": "docs/evidence/199-l80-jump/check_training_j2.py"
+    },
+    "jump": {
+      "from": "{\"auto_request_s\": 2.0, \"flight_bonus\": 10.0, \"success_bonus\": 30.0}",
+      "to": "{\"auto_request_s\": 2.0, \"flight_bonus\": 10.0, \"success_bonus\": 30.0, \"suspend_stand_penalties\": true}"
+    },
+    "init": {
+      "from": "sim/rl/runs/l80_s1p/model.zip",
+      "to": "sim/rl/runs/l80_j1/model.zip"
+    }
+  },
+  "hashes_verified": 25,
+  "training_started": false,
+  "existing_j1_unchanged": true
+}
