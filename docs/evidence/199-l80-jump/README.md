@@ -216,3 +216,5 @@ OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 .venv-sim/bin/python 
 실행 도구: `search_jump.py`(선언한 CEM), `replay_jump.py`(선별 후보 재생), `terrain_probe.py`(정지 출발 단차),
 `audit_current.py`(스텝 전후 전류 환산 진단), 공통 `jump_probe.py`.
 산출물을 덮어쓰지 않도록 탐색·재생·단차 도구는 기존 결과가 있으면 종료한다. 학습 스크립트는 만들지 않았다.
+
+> 1 ms 원시 궤적(`eval/*.npz`, 약 20 MB)은 저장소에 넣지 않았다. 같은 스크립트(`search_jump.py`, `replay_jump.py`, `terrain_probe.py`, `audit_current.py`)로 다시 만들 수 있고, 요약 수치는 `eval/*.json·jsonl`에 있다(감독자, 2026-11-04).
