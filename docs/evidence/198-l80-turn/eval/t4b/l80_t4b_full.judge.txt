@@ -1,0 +1,38 @@
+PASS turn  moving_turn   2.0       falls 0/4, passing episodes 4/4
+PASS turn  moving_turn   1.0       falls 0/4, passing episodes 4/4
+PASS turn  moving_turn   1.0       falls 0/4, passing episodes 4/4
+FAIL turn  moving_turn   4.0       falls 0/4, passing episodes 0/4
+PASS turn  moving_turn   2.0       falls 0/4, passing episodes 4/4
+FAIL turn  moving_turn   4.0       falls 0/4, passing episodes 0/4
+---- turn  moving_turn   6.0       falls 0/4 (6 m/s turn deferred by user 2026-11-04; recorded)
+---- turn  moving_turn   6.0       falls 0/4 (6 m/s turn deferred by user 2026-11-04; recorded)
+FAIL turn  run_regression   4.0       falls 0/4, v [4.6245100163062896, 4.636419980271565, 4.633657448747205, 4.582222751862587]
+PASS turn  run_regression   2.0       falls 0/4, v [2.1443906385856235, 2.1280616413645217, 2.1382467606532023, 2.164761339847359]
+PASS turn  run_regression   6.0       falls 0/4, v [6.482871139699397, 6.465054710423849, 6.47924584354758, 6.46011989869656]
+---- switch switch                falls 0/4, switches [2, 2, 2, 2] (step commands, recorded)
+PASS switch switch_ramp             falls 0/4, switches [2, 2, 2, 2]
+PASS switch switch_ramp_dr             falls 0/8, switches [2, 2, 2, 2, 2, 2, 2, 2]
+PASS walk  track       0.3       v [0.21, 0.22, 0.22, 0.22], tol 0.10
+PASS walk  track       0.6       v [0.62, 0.62, 0.61, 0.6], tol 0.10
+PASS walk  track       1.0       v [1.03, 1.04, 1.04, 1.03], tol 0.15
+PASS walk  track       1.5       v [1.46, 1.47, 1.46, 1.46], tol 0.22
+PASS walk  turn        0.5       yaw [0.43, 0.4, 0.41, 0.42], drift max 0.452
+PASS walk  turn       -0.5       yaw [-0.41, -0.42, -0.38, -0.43], drift max 0.454
+PASS walk  stopstart             reach max 0.58, stop speeds [-0.11, -0.13, -0.13, -0.09, -0.14, -0.13, -0.11, -0.12]
+PASS walk  track_dr    1.0       falls 0/24
+PASS stand hold                  falls 0, drift 0.397
+PASS stand hold_dr               falls 0/24
+PASS stand push      front  0.3  falls 0
+PASS stand push       back  0.3  falls 0
+PASS stand push       left  0.3  falls 0
+PASS stand push      right  0.3  falls 0
+---- stand push      front  0.5  falls 0 (recorded)
+---- stand push       back  0.5  falls 0 (recorded)
+---- stand push       left  0.5  falls 0 (recorded)
+---- stand push      right  0.5  falls 0 (recorded)
+---- stand push      front  0.8  falls 0 (recorded)
+---- stand push       back  0.8  falls 0 (recorded)
+---- stand push       left  0.8  falls 0 (recorded)
+---- stand push      right  0.8  falls 0 (recorded)
+FAIL turn suite: failed condition: {'gate': 'turn', 'cond': 'moving_turn', 'cmd': 4.0, 'yaw_cmd': 0.5}
+NOT PASSED

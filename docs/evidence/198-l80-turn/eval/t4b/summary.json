@@ -1,0 +1,3143 @@
+{
+  "l80_r1_6M": {
+    "full_suite": {
+      "passed": false,
+      "reason": "failed condition: {'gate': 'turn', 'cond': 'moving_turn', 'cmd': 2.0, 'yaw_cmd': 1.0}"
+    },
+    "turns": [
+      {
+        "cmd": 1.0,
+        "yaw_cmd": 0.5,
+        "passed": 4,
+        "n": 4,
+        "falls": 0,
+        "judged": true,
+        "v_mean": [
+          1.027924431612659,
+          1.0440622235279333
+        ],
+        "yaw_rate_mean": [
+          0.4105085479457876,
+          0.42803088461933986
+        ],
+        "radius_m": [
+          2.432131135083896,
+          2.5302430073072566
+        ],
+        "t_90_s": [
+          4.0600000000000005,
+          4.200000000000001
+        ]
+      },
+      {
+        "cmd": 2.0,
+        "yaw_cmd": 1.0,
+        "passed": 0,
+        "n": 4,
+        "falls": 0,
+        "judged": true,
+        "v_mean": [
+          1.7805902413391117,
+          1.8005434479977507
+        ],
+        "yaw_rate_mean": [
+          0.542260521608158,
+          0.5532757609359917
+        ],
+        "radius_m": [
+          3.234327475766433,
+          3.3204398554738206
+        ],
+        "t_90_s": [
+          3.2799999999999994,
+          3.3599999999999994
+        ]
+      },
+      {
+        "cmd": 1.0,
+        "yaw_cmd": -0.5,
+        "passed": 4,
+        "n": 4,
+        "falls": 0,
+        "judged": true,
+        "v_mean": [
+          1.0231924407305917,
+          1.0436300460395325
+        ],
+        "yaw_rate_mean": [
+          -0.42311764494762377,
+          -0.41860537865510844
+        ],
+        "radius_m": [
+          2.4429521181479212,
+          2.4782425209925285
+        ],
+        "t_90_s": [
+          4.120000000000001,
+          4.24
+        ]
+      },
+      {
+        "cmd": 2.0,
+        "yaw_cmd": -1.0,
+        "passed": 0,
+        "n": 4,
+        "falls": 0,
+        "judged": true,
+        "v_mean": [
+          1.8385733494629952,
+          1.8700181895687475
+        ],
+        "yaw_rate_mean": [
+          -0.4658749750870896,
+          -0.4532612995295295
+        ],
+        "radius_m": [
+          3.9926575248249527,
+          4.125695689240987
+        ],
+        "t_90_s": [
+          3.5600000000000005,
+          3.92
+        ]
+      },
+      {
+        "cmd": 4.0,
+        "yaw_cmd": 0.5,
+        "passed": 0,
+        "n": 4,
+        "falls": 0,
+        "judged": true,
+        "v_mean": [
+          4.124071773652951,
+          4.213887700763058
+        ],
+        "yaw_rate_mean": [
+          0.11248766594124245,
+          0.12626494483450343
+        ],
+        "radius_m": [
+          33.1619307239716,
+          37.20352398829937
+        ],
+        "t_90_s": null
+      },
+      {
+        "cmd": 4.0,
+        "yaw_cmd": -0.5,
+        "passed": 0,
+        "n": 4,
+        "falls": 0,
+        "judged": true,
+        "v_mean": [
+          4.0358352788071175,
+          4.128252535713349
+        ],
+        "yaw_rate_mean": [
+          -0.12621438232581153,
+          -0.11197910195640953
+        ],
+        "radius_m": [
+          31.976033193974338,
+          36.6301424527989
+        ],
+        "t_90_s": null
+      },
+      {
+        "cmd": 6.0,
+        "yaw_cmd": 0.5,
+        "passed": 0,
+        "n": 4,
+        "falls": 0,
+        "judged": false,
+        "v_mean": [
+          5.845877067870587,
+          5.9341316175987515
+        ],
+        "yaw_rate_mean": [
+          0.055231353153621966,
+          0.061188648646443605
+        ],
+        "radius_m": [
+          96.9809229141009,
+          106.39832323649034
+        ],
+        "t_90_s": null
+      },
+      {
+        "cmd": 6.0,
+        "yaw_cmd": -0.5,
+        "passed": 0,
+        "n": 4,
+        "falls": 0,
+        "judged": false,
+        "v_mean": [
+          5.862907598196483,
+          5.935645201113092
+        ],
+        "yaw_rate_mean": [
+          -0.10328930177451812,
+          -0.09144694128900568
+        ],
+        "radius_m": [
+          56.84750662570722,
+          64.90807803351551
+        ],
+        "t_90_s": null
+      }
+    ],
+    "judged_turn_passed": 8,
+    "judged_turn_total": 24,
+    "straight": [
+      {
+        "cmd": 2.0,
+        "passed": true,
+        "falls": 0,
+        "n": 4,
+        "v_min": 1.918043950561087,
+        "v_max": 1.9675090948816174,
+        "v_mean": 1.9417361348149187
+      },
+      {
+        "cmd": 4.0,
+        "passed": true,
+        "falls": 0,
+        "n": 4,
+        "v_min": 4.192528752764309,
+        "v_max": 4.225250508625001,
+        "v_mean": 4.204276894265445
+      },
+      {
+        "cmd": 6.0,
+        "passed": true,
+        "falls": 0,
+        "n": 4,
+        "v_min": 5.91850119174208,
+        "v_max": 5.968459185992671,
+        "v_mean": 5.947022943560123
+      }
+    ],
+    "regressions": {
+      "stand": {
+        "passing_conditions": 6,
+        "judged_conditions": 6,
+        "falls": 0,
+        "episodes": 128
+      },
+      "walk": {
+        "passing_conditions": 8,
+        "judged_conditions": 8,
+        "falls": 0,
+        "episodes": 52
+      },
+      "switch": {
+        "passing_conditions": 2,
+        "judged_conditions": 2,
+        "falls": 0,
+        "episodes": 16
+      }
+    },
+    "heat": [
+      {
+        "gate": "run",
+        "run": "l80_r1_6M",
+        "cond": "heat",
+        "cmd": 4.0,
+        "mount": "plate",
+        "n": 1,
+        "falls": 0,
+        "t_fall": null,
+        "min_derate": 1.0,
+        "t_winding_max_c": 82.0,
+        "v_mean": 4.106
+      },
+      {
+        "gate": "run",
+        "run": "l80_r1_6M",
+        "cond": "heat",
+        "cmd": 4.0,
+        "mount": "worst",
+        "n": 1,
+        "falls": 0,
+        "t_fall": null,
+        "min_derate": 0.363,
+        "t_winding_max_c": 137.7,
+        "v_mean": 3.875
+      },
+      {
+        "gate": "run",
+        "run": "l80_r1_6M",
+        "cond": "heat",
+        "cmd": 5.0,
+        "mount": "worst",
+        "n": 1,
+        "falls": 1,
+        "t_fall": 300.88,
+        "min_derate": 0.318,
+        "t_winding_max_c": 138.6,
+        "v_mean": 4.158
+      },
+      {
+        "gate": "run",
+        "run": "l80_r1_6M",
+        "cond": "heat",
+        "cmd": 6.0,
+        "mount": "worst",
+        "n": 1,
+        "falls": 1,
+        "t_fall": 118.68,
+        "min_derate": 0.312,
+        "t_winding_max_c": 138.8,
+        "v_mean": 5.328
+      },
+      {
+        "gate": "run",
+        "run": "l80_r1_6M",
+        "cond": "heat",
+        "cmd": 5.0,
+        "mount": "plate",
+        "n": 1,
+        "falls": 0,
+        "t_fall": null,
+        "min_derate": 1.0,
+        "t_winding_max_c": 103.2,
+        "v_mean": 5.234
+      },
+      {
+        "gate": "run",
+        "run": "l80_r1_6M",
+        "cond": "heat",
+        "cmd": 6.0,
+        "mount": "plate",
+        "n": 1,
+        "falls": 0,
+        "t_fall": null,
+        "min_derate": 1.0,
+        "t_winding_max_c": 118.2,
+        "v_mean": 5.835
+      }
+    ],
+    "sustained_command": 6.0,
+    "speed8": {
+      "gate": "run",
+      "run": "l80_r1_6M",
+      "cond": "speed",
+      "cmd": 8.0,
+      "n": 4,
+      "falls": 0,
+      "episodes": [
+        {
+          "seed": 6700,
+          "t_fall": null,
+          "v_mean": 6.461671751864328,
+          "min_derate": 1.0,
+          "t_winding_max_c": 47.4
+        },
+        {
+          "seed": 6701,
+          "t_fall": null,
+          "v_mean": 6.506135998301214,
+          "min_derate": 1.0,
+          "t_winding_max_c": 48.7
+        },
+        {
+          "seed": 6702,
+          "t_fall": null,
+          "v_mean": 6.505499217231578,
+          "min_derate": 1.0,
+          "t_winding_max_c": 48.3
+        },
+        {
+          "seed": 6703,
+          "t_fall": null,
+          "v_mean": 6.472262842008764,
+          "min_derate": 1.0,
+          "t_winding_max_c": 48.9
+        }
+      ]
+    },
+    "lateral": [
+      {
+        "gate": "run",
+        "run": "l80_r1_6M",
+        "cond": "lateral",
+        "dir": "left",
+        "cmd": 4.0,
+        "n": 8,
+        "falls": 0,
+        "episodes": [
+          {
+            "seed": 6900,
+            "t_fall": null
+          },
+          {
+            "seed": 6901,
+            "t_fall": null
+          },
+          {
+            "seed": 6902,
+            "t_fall": null
+          },
+          {
+            "seed": 6903,
+            "t_fall": null
+          },
+          {
+            "seed": 6904,
+            "t_fall": null
+          },
+          {
+            "seed": 6905,
+            "t_fall": null
+          },
+          {
+            "seed": 6906,
+            "t_fall": null
+          },
+          {
+            "seed": 6907,
+            "t_fall": null
+          }
+        ]
+      },
+      {
+        "gate": "run",
+        "run": "l80_r1_6M",
+        "cond": "lateral",
+        "dir": "right",
+        "cmd": 4.0,
+        "n": 8,
+        "falls": 0,
+        "episodes": [
+          {
+            "seed": 6900,
+            "t_fall": null
+          },
+          {
+            "seed": 6901,
+            "t_fall": null
+          },
+          {
+            "seed": 6902,
+            "t_fall": null
+          },
+          {
+            "seed": 6903,
+            "t_fall": null
+          },
+          {
+            "seed": 6904,
+            "t_fall": null
+          },
+          {
+            "seed": 6905,
+            "t_fall": null
+          },
+          {
+            "seed": 6906,
+            "t_fall": null
+          },
+          {
+            "seed": 6907,
+            "t_fall": null
+          }
+        ]
+      }
+    ],
+    "verdicts": [
+      {
+        "selector": [
+          "turn",
+          "moving_turn",
+          1.0,
+          0.5,
+          null,
+          null,
+          null
+        ],
+        "passed": true,
+        "reason": "falls 0/4, passing episodes 4/4"
+      },
+      {
+        "selector": [
+          "turn",
+          "moving_turn",
+          2.0,
+          1.0,
+          null,
+          null,
+          null
+        ],
+        "passed": false,
+        "reason": "falls 0/4, passing episodes 0/4"
+      },
+      {
+        "selector": [
+          "turn",
+          "moving_turn",
+          1.0,
+          -0.5,
+          null,
+          null,
+          null
+        ],
+        "passed": true,
+        "reason": "falls 0/4, passing episodes 4/4"
+      },
+      {
+        "selector": [
+          "turn",
+          "moving_turn",
+          2.0,
+          -1.0,
+          null,
+          null,
+          null
+        ],
+        "passed": false,
+        "reason": "falls 0/4, passing episodes 0/4"
+      },
+      {
+        "selector": [
+          "turn",
+          "moving_turn",
+          4.0,
+          0.5,
+          null,
+          null,
+          null
+        ],
+        "passed": false,
+        "reason": "falls 0/4, passing episodes 0/4"
+      },
+      {
+        "selector": [
+          "turn",
+          "moving_turn",
+          4.0,
+          -0.5,
+          null,
+          null,
+          null
+        ],
+        "passed": false,
+        "reason": "falls 0/4, passing episodes 0/4"
+      },
+      {
+        "selector": [
+          "turn",
+          "moving_turn",
+          6.0,
+          0.5,
+          null,
+          null,
+          null
+        ],
+        "passed": null,
+        "reason": "falls 0/4 (6 m/s turn deferred by user 2026-11-04; recorded)"
+      },
+      {
+        "selector": [
+          "turn",
+          "moving_turn",
+          6.0,
+          -0.5,
+          null,
+          null,
+          null
+        ],
+        "passed": null,
+        "reason": "falls 0/4 (6 m/s turn deferred by user 2026-11-04; recorded)"
+      },
+      {
+        "selector": [
+          "turn",
+          "run_regression",
+          2.0,
+          null,
+          null,
+          null,
+          null
+        ],
+        "passed": true,
+        "reason": "falls 0/4, v [1.918043950561087, 1.944630695868931, 1.9367607979480397, 1.9675090948816174]"
+      },
+      {
+        "selector": [
+          "turn",
+          "run_regression",
+          4.0,
+          null,
+          null,
+          null,
+          null
+        ],
+        "passed": true,
+        "reason": "falls 0/4, v [4.202228579647781, 4.19709973602469, 4.225250508625001, 4.192528752764309]"
+      },
+      {
+        "selector": [
+          "switch",
+          "switch",
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "passed": null,
+        "reason": "falls 0/4, switches [2, 2, 2, 2] (step commands, recorded)"
+      },
+      {
+        "selector": [
+          "switch",
+          "switch_ramp",
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "passed": true,
+        "reason": "falls 0/4, switches [2, 2, 2, 2]"
+      },
+      {
+        "selector": [
+          "switch",
+          "switch_ramp_dr",
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "passed": true,
+        "reason": "falls 0/8, switches [2, 2, 2, 2, 2, 2, 2, 2]"
+      },
+      {
+        "selector": [
+          "turn",
+          "run_regression",
+          6.0,
+          null,
+          null,
+          null,
+          null
+        ],
+        "passed": true,
+        "reason": "falls 0/4, v [5.942140220803061, 5.958991175702678, 5.968459185992671, 5.91850119174208]"
+      },
+      {
+        "selector": [
+          "walk",
+          "track",
+          0.3,
+          null,
+          null,
+          null,
+          null
+        ],
+        "passed": true,
+        "reason": "v [0.21, 0.22, 0.22, 0.22], tol 0.10"
+      },
+      {
+        "selector": [
+          "walk",
+          "track",
+          0.6,
+          null,
+          null,
+          null,
+          null
+        ],
+        "passed": true,
+        "reason": "v [0.62, 0.62, 0.61, 0.6], tol 0.10"
+      },
+      {
+        "selector": [
+          "walk",
+          "track",
+          1.0,
+          null,
+          null,
+          null,
+          null
+        ],
+        "passed": true,
+        "reason": "v [1.03, 1.04, 1.04, 1.03], tol 0.15"
+      },
+      {
+        "selector": [
+          "walk",
+          "track",
+          1.5,
+          null,
+          null,
+          null,
+          null
+        ],
+        "passed": true,
+        "reason": "v [1.46, 1.47, 1.46, 1.46], tol 0.22"
+      },
+      {
+        "selector": [
+          "walk",
+          "turn",
+          0.5,
+          null,
+          null,
+          null,
+          null
+        ],
+        "passed": true,
+        "reason": "yaw [0.43, 0.4, 0.41, 0.42], drift max 0.452"
+      },
+      {
+        "selector": [
+          "walk",
+          "turn",
+          -0.5,
+          null,
+          null,
+          null,
+          null
+        ],
+        "passed": true,
+        "reason": "yaw [-0.41, -0.42, -0.38, -0.43], drift max 0.454"
+      },
+      {
+        "selector": [
+          "walk",
+          "stopstart",
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "passed": true,
+        "reason": "reach max 0.58, stop speeds [-0.11, -0.13, -0.13, -0.09, -0.14, -0.13, -0.11, -0.12]"
+      },
+      {
+        "selector": [
+          "walk",
+          "track_dr",
+          1.0,
+          null,
+          null,
+          null,
+          null
+        ],
+        "passed": true,
+        "reason": "falls 0/24"
+      },
+      {
+        "selector": [
+          "stand",
+          "hold",
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "passed": true,
+        "reason": "falls 0, drift 0.397"
+      },
+      {
+        "selector": [
+          "stand",
+          "hold_dr",
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "passed": true,
+        "reason": "falls 0/24"
+      },
+      {
+        "selector": [
+          "stand",
+          "push",
+          null,
+          null,
+          "front",
+          0.3,
+          null
+        ],
+        "passed": true,
+        "reason": "falls 0"
+      },
+      {
+        "selector": [
+          "stand",
+          "push",
+          null,
+          null,
+          "back",
+          0.3,
+          null
+        ],
+        "passed": true,
+        "reason": "falls 0"
+      },
+      {
+        "selector": [
+          "stand",
+          "push",
+          null,
+          null,
+          "left",
+          0.3,
+          null
+        ],
+        "passed": true,
+        "reason": "falls 0"
+      },
+      {
+        "selector": [
+          "stand",
+          "push",
+          null,
+          null,
+          "right",
+          0.3,
+          null
+        ],
+        "passed": true,
+        "reason": "falls 0"
+      },
+      {
+        "selector": [
+          "stand",
+          "push",
+          null,
+          null,
+          "front",
+          0.5,
+          null
+        ],
+        "passed": null,
+        "reason": "falls 0 (recorded)"
+      },
+      {
+        "selector": [
+          "stand",
+          "push",
+          null,
+          null,
+          "back",
+          0.5,
+          null
+        ],
+        "passed": null,
+        "reason": "falls 0 (recorded)"
+      },
+      {
+        "selector": [
+          "stand",
+          "push",
+          null,
+          null,
+          "left",
+          0.5,
+          null
+        ],
+        "passed": null,
+        "reason": "falls 0 (recorded)"
+      },
+      {
+        "selector": [
+          "stand",
+          "push",
+          null,
+          null,
+          "right",
+          0.5,
+          null
+        ],
+        "passed": null,
+        "reason": "falls 0 (recorded)"
+      },
+      {
+        "selector": [
+          "stand",
+          "push",
+          null,
+          null,
+          "front",
+          0.8,
+          null
+        ],
+        "passed": null,
+        "reason": "falls 0 (recorded)"
+      },
+      {
+        "selector": [
+          "stand",
+          "push",
+          null,
+          null,
+          "back",
+          0.8,
+          null
+        ],
+        "passed": null,
+        "reason": "falls 0 (recorded)"
+      },
+      {
+        "selector": [
+          "stand",
+          "push",
+          null,
+          null,
+          "left",
+          0.8,
+          null
+        ],
+        "passed": null,
+        "reason": "falls 0 (recorded)"
+      },
+      {
+        "selector": [
+          "stand",
+          "push",
+          null,
+          null,
+          "right",
+          0.8,
+          null
+        ],
+        "passed": null,
+        "reason": "falls 0 (recorded)"
+      },
+      {
+        "selector": [
+          "run",
+          "heat",
+          4.0,
+          null,
+          null,
+          null,
+          "plate"
+        ],
+        "passed": null,
+        "reason": "plate: falls 0, derate min 1.0, winding max 82.0 C, v 4.106 (sustained speed below)"
+      },
+      {
+        "selector": [
+          "run",
+          "heat",
+          4.0,
+          null,
+          null,
+          null,
+          "worst"
+        ],
+        "passed": null,
+        "reason": "worst: falls 0, derate min 0.363, winding max 137.7 C, v 3.875 (sustained speed below)"
+      },
+      {
+        "selector": [
+          "run",
+          "heat",
+          5.0,
+          null,
+          null,
+          null,
+          "worst"
+        ],
+        "passed": null,
+        "reason": "worst: falls 1, derate min 0.318, winding max 138.6 C, v 4.158 (sustained speed below)"
+      },
+      {
+        "selector": [
+          "run",
+          "heat",
+          6.0,
+          null,
+          null,
+          null,
+          "worst"
+        ],
+        "passed": null,
+        "reason": "worst: falls 1, derate min 0.312, winding max 138.8 C, v 5.328 (sustained speed below)"
+      },
+      {
+        "selector": [
+          "run",
+          "heat",
+          5.0,
+          null,
+          null,
+          null,
+          "plate"
+        ],
+        "passed": null,
+        "reason": "plate: falls 0, derate min 1.0, winding max 103.2 C, v 5.234 (sustained speed below)"
+      },
+      {
+        "selector": [
+          "run",
+          "speed",
+          8.0,
+          null,
+          null,
+          null,
+          null
+        ],
+        "passed": false,
+        "reason": "v [6.46, 6.51, 6.51, 6.47], derate min 1.0 (top speed: >= 6.5)"
+      },
+      {
+        "selector": [
+          "run",
+          "heat",
+          6.0,
+          null,
+          null,
+          null,
+          "plate"
+        ],
+        "passed": null,
+        "reason": "plate: falls 0, derate min 1.0, winding max 118.2 C, v 5.835 (sustained speed below)"
+      },
+      {
+        "selector": [
+          "run",
+          "lateral",
+          4.0,
+          null,
+          "left",
+          null,
+          null
+        ],
+        "passed": true,
+        "reason": "falls 0/8"
+      },
+      {
+        "selector": [
+          "run",
+          "lateral",
+          4.0,
+          null,
+          "right",
+          null,
+          null
+        ],
+        "passed": true,
+        "reason": "falls 0/8"
+      }
+    ],
+    "judge_exit_codes": {
+      "full": 1,
+      "extra": 0
+    }
+  },
+  "l80_t3": {
+    "full_suite": {
+      "passed": false,
+      "reason": "failed condition: {'gate': 'turn', 'cond': 'moving_turn', 'cmd': 4.0, 'yaw_cmd': 0.5}"
+    },
+    "turns": [
+      {
+        "cmd": 2.0,
+        "yaw_cmd": 1.0,
+        "passed": 4,
+        "n": 4,
+        "falls": 0,
+        "judged": true,
+        "v_mean": [
+          1.9635192326928042,
+          1.9757702111342534
+        ],
+        "yaw_rate_mean": [
+          0.9209118299238462,
+          0.9339670248181371
+        ],
+        "radius_m": [
+          2.109169291292593,
+          2.1422112722306803
+        ],
+        "t_90_s": [
+          1.7999999999999998,
+          1.92
+        ]
+      },
+      {
+        "cmd": 1.0,
+        "yaw_cmd": 0.5,
+        "passed": 4,
+        "n": 4,
+        "falls": 0,
+        "judged": true,
+        "v_mean": [
+          1.027924431612659,
+          1.0440622235279333
+        ],
+        "yaw_rate_mean": [
+          0.4105085479457876,
+          0.42803088461933986
+        ],
+        "radius_m": [
+          2.432131135083896,
+          2.5302430073072566
+        ],
+        "t_90_s": [
+          4.0600000000000005,
+          4.200000000000001
+        ]
+      },
+      {
+        "cmd": 1.0,
+        "yaw_cmd": -0.5,
+        "passed": 4,
+        "n": 4,
+        "falls": 0,
+        "judged": true,
+        "v_mean": [
+          1.0231924407305917,
+          1.0436300460395325
+        ],
+        "yaw_rate_mean": [
+          -0.42311764494762377,
+          -0.41860537865510844
+        ],
+        "radius_m": [
+          2.4429521181479212,
+          2.4782425209925285
+        ],
+        "t_90_s": [
+          4.120000000000001,
+          4.24
+        ]
+      },
+      {
+        "cmd": 4.0,
+        "yaw_cmd": 0.5,
+        "passed": 3,
+        "n": 4,
+        "falls": 0,
+        "judged": true,
+        "v_mean": [
+          4.482363036913671,
+          4.529398840444193
+        ],
+        "yaw_rate_mean": [
+          0.3225521279727607,
+          0.3305860208352122
+        ],
+        "radius_m": [
+          13.558840224366298,
+          14.042377797695686
+        ],
+        "t_90_s": [
+          5.16,
+          5.4399999999999995
+        ]
+      },
+      {
+        "cmd": 4.0,
+        "yaw_cmd": -0.5,
+        "passed": 4,
+        "n": 4,
+        "falls": 0,
+        "judged": true,
+        "v_mean": [
+          4.488406677795282,
+          4.540926278147461
+        ],
+        "yaw_rate_mean": [
+          -0.3453095908361555,
+          -0.33664417180590706
+        ],
+        "radius_m": [
+          13.045313780734299,
+          13.33279187255047
+        ],
+        "t_90_s": [
+          4.9399999999999995,
+          5.120000000000001
+        ]
+      },
+      {
+        "cmd": 2.0,
+        "yaw_cmd": -1.0,
+        "passed": 4,
+        "n": 4,
+        "falls": 0,
+        "judged": true,
+        "v_mean": [
+          1.9946113697884387,
+          2.024875728754957
+        ],
+        "yaw_rate_mean": [
+          -0.923800467416054,
+          -0.9084888113520768
+        ],
+        "radius_m": [
+          2.1591365669769913,
+          2.2288394787618735
+        ],
+        "t_90_s": [
+          1.7999999999999998,
+          1.9400000000000004
+        ]
+      },
+      {
+        "cmd": 6.0,
+        "yaw_cmd": 0.5,
+        "passed": 0,
+        "n": 4,
+        "falls": 0,
+        "judged": false,
+        "v_mean": [
+          5.3232818271471976,
+          5.349318181155304
+        ],
+        "yaw_rate_mean": [
+          0.29805792529999997,
+          0.30912296105313847
+        ],
+        "radius_m": [
+          17.220596648697736,
+          17.89872453293318
+        ],
+        "t_90_s": [
+          5.880000000000001,
+          6.220000000000001
+        ]
+      },
+      {
+        "cmd": 6.0,
+        "yaw_cmd": -0.5,
+        "passed": 0,
+        "n": 4,
+        "falls": 0,
+        "judged": false,
+        "v_mean": [
+          5.322925800018349,
+          5.362037981454775
+        ],
+        "yaw_rate_mean": [
+          -0.322056404898197,
+          -0.30935371445379106
+        ],
+        "radius_m": [
+          16.543612855274635,
+          17.243057748791134
+        ],
+        "t_90_s": [
+          5.5600000000000005,
+          5.640000000000001
+        ]
+      }
+    ],
+    "judged_turn_passed": 23,
+    "judged_turn_total": 24,
+    "straight": [
+      {
+        "cmd": 2.0,
+        "passed": true,
+        "falls": 0,
+        "n": 4,
+        "v_min": 1.9511349700202372,
+        "v_max": 2.0145256428528775,
+        "v_mean": 1.9849076771928478
+      },
+      {
+        "cmd": 4.0,
+        "passed": false,
+        "falls": 0,
+        "n": 4,
+        "v_min": 4.761634311022165,
+        "v_max": 4.83969715000314,
+        "v_mean": 4.80426041729995
+      },
+      {
+        "cmd": 6.0,
+        "passed": true,
+        "falls": 0,
+        "n": 4,
+        "v_min": 5.606731686523301,
+        "v_max": 5.641527921889945,
+        "v_mean": 5.624427025646808
+      }
+    ],
+    "regressions": {
+      "stand": {
+        "passing_conditions": 6,
+        "judged_conditions": 6,
+        "falls": 0,
+        "episodes": 128
+      },
+      "walk": {
+        "passing_conditions": 8,
+        "judged_conditions": 8,
+        "falls": 0,
+        "episodes": 52
+      },
+      "switch": {
+        "passing_conditions": 2,
+        "judged_conditions": 2,
+        "falls": 0,
+        "episodes": 16
+      }
+    },
+    "heat": [
+      {
+        "gate": "run",
+        "run": "l80_t3",
+        "cond": "heat",
+        "cmd": 4.0,
+        "mount": "plate",
+        "n": 1,
+        "falls": 0,
+        "t_fall": null,
+        "min_derate": 1.0,
+        "t_winding_max_c": 94.4,
+        "v_mean": 4.793
+      },
+      {
+        "gate": "run",
+        "run": "l80_t3",
+        "cond": "heat",
+        "cmd": 4.0,
+        "mount": "worst",
+        "n": 1,
+        "falls": 1,
+        "t_fall": 170.64,
+        "min_derate": 0.354,
+        "t_winding_max_c": 137.9,
+        "v_mean": 4.527
+      },
+      {
+        "gate": "run",
+        "run": "l80_t3",
+        "cond": "heat",
+        "cmd": 5.0,
+        "mount": "worst",
+        "n": 1,
+        "falls": 1,
+        "t_fall": 124.3,
+        "min_derate": 0.34,
+        "t_winding_max_c": 138.2,
+        "v_mean": 4.839
+      },
+      {
+        "gate": "run",
+        "run": "l80_t3",
+        "cond": "heat",
+        "cmd": 5.0,
+        "mount": "plate",
+        "n": 1,
+        "falls": 0,
+        "t_fall": null,
+        "min_derate": 1.0,
+        "t_winding_max_c": 121.4,
+        "v_mean": 5.372
+      },
+      {
+        "gate": "run",
+        "run": "l80_t3",
+        "cond": "heat",
+        "cmd": 6.0,
+        "mount": "worst",
+        "n": 1,
+        "falls": 1,
+        "t_fall": 83.38,
+        "min_derate": 0.37,
+        "t_winding_max_c": 137.6,
+        "v_mean": 5.401
+      },
+      {
+        "gate": "run",
+        "run": "l80_t3",
+        "cond": "heat",
+        "cmd": 6.0,
+        "mount": "plate",
+        "n": 1,
+        "falls": 0,
+        "t_fall": null,
+        "min_derate": 0.598,
+        "t_winding_max_c": 133.0,
+        "v_mean": 5.595
+      }
+    ],
+    "sustained_command": 5.0,
+    "speed8": {
+      "gate": "run",
+      "run": "l80_t3",
+      "cond": "speed",
+      "cmd": 8.0,
+      "n": 4,
+      "falls": 2,
+      "episodes": [
+        {
+          "seed": 6700,
+          "t_fall": 0.9,
+          "v_mean": null,
+          "min_derate": 1.0,
+          "t_winding_max_c": 38.4
+        },
+        {
+          "seed": 6701,
+          "t_fall": 1.24,
+          "v_mean": null,
+          "min_derate": 1.0,
+          "t_winding_max_c": 38.4
+        },
+        {
+          "seed": 6702,
+          "t_fall": null,
+          "v_mean": 5.800506717365617,
+          "min_derate": 1.0,
+          "t_winding_max_c": 48.9
+        },
+        {
+          "seed": 6703,
+          "t_fall": null,
+          "v_mean": 5.7722864118800805,
+          "min_derate": 1.0,
+          "t_winding_max_c": 49.3
+        }
+      ]
+    },
+    "lateral": [
+      {
+        "gate": "run",
+        "run": "l80_t3",
+        "cond": "lateral",
+        "dir": "left",
+        "cmd": 4.0,
+        "n": 8,
+        "falls": 0,
+        "episodes": [
+          {
+            "seed": 6900,
+            "t_fall": null
+          },
+          {
+            "seed": 6901,
+            "t_fall": null
+          },
+          {
+            "seed": 6902,
+            "t_fall": null
+          },
+          {
+            "seed": 6903,
+            "t_fall": null
+          },
+          {
+            "seed": 6904,
+            "t_fall": null
+          },
+          {
+            "seed": 6905,
+            "t_fall": null
+          },
+          {
+            "seed": 6906,
+            "t_fall": null
+          },
+          {
+            "seed": 6907,
+            "t_fall": null
+          }
+        ]
+      },
+      {
+        "gate": "run",
+        "run": "l80_t3",
+        "cond": "lateral",
+        "dir": "right",
+        "cmd": 4.0,
+        "n": 8,
+        "falls": 0,
+        "episodes": [
+          {
+            "seed": 6900,
+            "t_fall": null
+          },
+          {
+            "seed": 6901,
+            "t_fall": null
+          },
+          {
+            "seed": 6902,
+            "t_fall": null
+          },
+          {
+            "seed": 6903,
+            "t_fall": null
+          },
+          {
+            "seed": 6904,
+            "t_fall": null
+          },
+          {
+            "seed": 6905,
+            "t_fall": null
+          },
+          {
+            "seed": 6906,
+            "t_fall": null
+          },
+          {
+            "seed": 6907,
+            "t_fall": null
+          }
+        ]
+      }
+    ],
+    "verdicts": [
+      {
+        "selector": [
+          "turn",
+          "moving_turn",
+          2.0,
+          1.0,
+          null,
+          null,
+          null
+        ],
+        "passed": true,
+        "reason": "falls 0/4, passing episodes 4/4"
+      },
+      {
+        "selector": [
+          "turn",
+          "moving_turn",
+          1.0,
+          0.5,
+          null,
+          null,
+          null
+        ],
+        "passed": true,
+        "reason": "falls 0/4, passing episodes 4/4"
+      },
+      {
+        "selector": [
+          "turn",
+          "moving_turn",
+          1.0,
+          -0.5,
+          null,
+          null,
+          null
+        ],
+        "passed": true,
+        "reason": "falls 0/4, passing episodes 4/4"
+      },
+      {
+        "selector": [
+          "turn",
+          "moving_turn",
+          4.0,
+          0.5,
+          null,
+          null,
+          null
+        ],
+        "passed": false,
+        "reason": "falls 0/4, passing episodes 3/4"
+      },
+      {
+        "selector": [
+          "turn",
+          "moving_turn",
+          4.0,
+          -0.5,
+          null,
+          null,
+          null
+        ],
+        "passed": true,
+        "reason": "falls 0/4, passing episodes 4/4"
+      },
+      {
+        "selector": [
+          "turn",
+          "moving_turn",
+          2.0,
+          -1.0,
+          null,
+          null,
+          null
+        ],
+        "passed": true,
+        "reason": "falls 0/4, passing episodes 4/4"
+      },
+      {
+        "selector": [
+          "turn",
+          "moving_turn",
+          6.0,
+          0.5,
+          null,
+          null,
+          null
+        ],
+        "passed": null,
+        "reason": "falls 0/4 (6 m/s turn deferred by user 2026-11-04; recorded)"
+      },
+      {
+        "selector": [
+          "turn",
+          "moving_turn",
+          6.0,
+          -0.5,
+          null,
+          null,
+          null
+        ],
+        "passed": null,
+        "reason": "falls 0/4 (6 m/s turn deferred by user 2026-11-04; recorded)"
+      },
+      {
+        "selector": [
+          "turn",
+          "run_regression",
+          2.0,
+          null,
+          null,
+          null,
+          null
+        ],
+        "passed": true,
+        "reason": "falls 0/4, v [1.9511349700202372, 1.9964743275780539, 1.9774957683202221, 2.0145256428528775]"
+      },
+      {
+        "selector": [
+          "turn",
+          "run_regression",
+          4.0,
+          null,
+          null,
+          null,
+          null
+        ],
+        "passed": false,
+        "reason": "falls 0/4, v [4.820776581743301, 4.83969715000314, 4.794933626431194, 4.761634311022165]"
+      },
+      {
+        "selector": [
+          "turn",
+          "run_regression",
+          6.0,
+          null,
+          null,
+          null,
+          null
+        ],
+        "passed": true,
+        "reason": "falls 0/4, v [5.634582268193184, 5.641527921889945, 5.614866225980804, 5.606731686523301]"
+      },
+      {
+        "selector": [
+          "switch",
+          "switch",
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "passed": null,
+        "reason": "falls 0/4, switches [2, 2, 2, 2] (step commands, recorded)"
+      },
+      {
+        "selector": [
+          "switch",
+          "switch_ramp",
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "passed": true,
+        "reason": "falls 0/4, switches [2, 2, 2, 2]"
+      },
+      {
+        "selector": [
+          "switch",
+          "switch_ramp_dr",
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "passed": true,
+        "reason": "falls 0/8, switches [2, 2, 2, 2, 2, 2, 2, 2]"
+      },
+      {
+        "selector": [
+          "walk",
+          "track",
+          0.3,
+          null,
+          null,
+          null,
+          null
+        ],
+        "passed": true,
+        "reason": "v [0.21, 0.22, 0.22, 0.22], tol 0.10"
+      },
+      {
+        "selector": [
+          "walk",
+          "track",
+          0.6,
+          null,
+          null,
+          null,
+          null
+        ],
+        "passed": true,
+        "reason": "v [0.62, 0.62, 0.61, 0.6], tol 0.10"
+      },
+      {
+        "selector": [
+          "walk",
+          "track",
+          1.0,
+          null,
+          null,
+          null,
+          null
+        ],
+        "passed": true,
+        "reason": "v [1.03, 1.04, 1.04, 1.03], tol 0.15"
+      },
+      {
+        "selector": [
+          "walk",
+          "track",
+          1.5,
+          null,
+          null,
+          null,
+          null
+        ],
+        "passed": true,
+        "reason": "v [1.46, 1.47, 1.46, 1.46], tol 0.22"
+      },
+      {
+        "selector": [
+          "walk",
+          "turn",
+          0.5,
+          null,
+          null,
+          null,
+          null
+        ],
+        "passed": true,
+        "reason": "yaw [0.43, 0.4, 0.41, 0.42], drift max 0.452"
+      },
+      {
+        "selector": [
+          "walk",
+          "turn",
+          -0.5,
+          null,
+          null,
+          null,
+          null
+        ],
+        "passed": true,
+        "reason": "yaw [-0.41, -0.42, -0.38, -0.43], drift max 0.454"
+      },
+      {
+        "selector": [
+          "walk",
+          "stopstart",
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "passed": true,
+        "reason": "reach max 0.58, stop speeds [-0.11, -0.13, -0.13, -0.09, -0.14, -0.13, -0.11, -0.12]"
+      },
+      {
+        "selector": [
+          "walk",
+          "track_dr",
+          1.0,
+          null,
+          null,
+          null,
+          null
+        ],
+        "passed": true,
+        "reason": "falls 0/24"
+      },
+      {
+        "selector": [
+          "stand",
+          "hold",
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "passed": true,
+        "reason": "falls 0, drift 0.397"
+      },
+      {
+        "selector": [
+          "stand",
+          "hold_dr",
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "passed": true,
+        "reason": "falls 0/24"
+      },
+      {
+        "selector": [
+          "stand",
+          "push",
+          null,
+          null,
+          "front",
+          0.3,
+          null
+        ],
+        "passed": true,
+        "reason": "falls 0"
+      },
+      {
+        "selector": [
+          "stand",
+          "push",
+          null,
+          null,
+          "back",
+          0.3,
+          null
+        ],
+        "passed": true,
+        "reason": "falls 0"
+      },
+      {
+        "selector": [
+          "stand",
+          "push",
+          null,
+          null,
+          "left",
+          0.3,
+          null
+        ],
+        "passed": true,
+        "reason": "falls 0"
+      },
+      {
+        "selector": [
+          "stand",
+          "push",
+          null,
+          null,
+          "right",
+          0.3,
+          null
+        ],
+        "passed": true,
+        "reason": "falls 0"
+      },
+      {
+        "selector": [
+          "stand",
+          "push",
+          null,
+          null,
+          "front",
+          0.5,
+          null
+        ],
+        "passed": null,
+        "reason": "falls 0 (recorded)"
+      },
+      {
+        "selector": [
+          "stand",
+          "push",
+          null,
+          null,
+          "back",
+          0.5,
+          null
+        ],
+        "passed": null,
+        "reason": "falls 0 (recorded)"
+      },
+      {
+        "selector": [
+          "stand",
+          "push",
+          null,
+          null,
+          "left",
+          0.5,
+          null
+        ],
+        "passed": null,
+        "reason": "falls 0 (recorded)"
+      },
+      {
+        "selector": [
+          "stand",
+          "push",
+          null,
+          null,
+          "right",
+          0.5,
+          null
+        ],
+        "passed": null,
+        "reason": "falls 0 (recorded)"
+      },
+      {
+        "selector": [
+          "stand",
+          "push",
+          null,
+          null,
+          "front",
+          0.8,
+          null
+        ],
+        "passed": null,
+        "reason": "falls 0 (recorded)"
+      },
+      {
+        "selector": [
+          "stand",
+          "push",
+          null,
+          null,
+          "back",
+          0.8,
+          null
+        ],
+        "passed": null,
+        "reason": "falls 0 (recorded)"
+      },
+      {
+        "selector": [
+          "stand",
+          "push",
+          null,
+          null,
+          "left",
+          0.8,
+          null
+        ],
+        "passed": null,
+        "reason": "falls 0 (recorded)"
+      },
+      {
+        "selector": [
+          "stand",
+          "push",
+          null,
+          null,
+          "right",
+          0.8,
+          null
+        ],
+        "passed": null,
+        "reason": "falls 0 (recorded)"
+      },
+      {
+        "selector": [
+          "run",
+          "heat",
+          4.0,
+          null,
+          null,
+          null,
+          "plate"
+        ],
+        "passed": null,
+        "reason": "plate: falls 0, derate min 1.0, winding max 94.4 C, v 4.793 (sustained speed below)"
+      },
+      {
+        "selector": [
+          "run",
+          "heat",
+          4.0,
+          null,
+          null,
+          null,
+          "worst"
+        ],
+        "passed": null,
+        "reason": "worst: falls 1, derate min 0.354, winding max 137.9 C, v 4.527 (sustained speed below)"
+      },
+      {
+        "selector": [
+          "run",
+          "heat",
+          5.0,
+          null,
+          null,
+          null,
+          "worst"
+        ],
+        "passed": null,
+        "reason": "worst: falls 1, derate min 0.34, winding max 138.2 C, v 4.839 (sustained speed below)"
+      },
+      {
+        "selector": [
+          "run",
+          "heat",
+          5.0,
+          null,
+          null,
+          null,
+          "plate"
+        ],
+        "passed": null,
+        "reason": "plate: falls 0, derate min 1.0, winding max 121.4 C, v 5.372 (sustained speed below)"
+      },
+      {
+        "selector": [
+          "run",
+          "heat",
+          6.0,
+          null,
+          null,
+          null,
+          "worst"
+        ],
+        "passed": null,
+        "reason": "worst: falls 1, derate min 0.37, winding max 137.6 C, v 5.401 (sustained speed below)"
+      },
+      {
+        "selector": [
+          "run",
+          "heat",
+          6.0,
+          null,
+          null,
+          null,
+          "plate"
+        ],
+        "passed": null,
+        "reason": "plate: falls 0, derate min 0.598, winding max 133.0 C, v 5.595 (sustained speed below)"
+      },
+      {
+        "selector": [
+          "run",
+          "speed",
+          8.0,
+          null,
+          null,
+          null,
+          null
+        ],
+        "passed": false,
+        "reason": "v [None, None, 5.8, 5.77], derate min 1.0 (top speed: >= 6.5)"
+      },
+      {
+        "selector": [
+          "run",
+          "lateral",
+          4.0,
+          null,
+          "left",
+          null,
+          null
+        ],
+        "passed": true,
+        "reason": "falls 0/8"
+      },
+      {
+        "selector": [
+          "run",
+          "lateral",
+          4.0,
+          null,
+          "right",
+          null,
+          null
+        ],
+        "passed": true,
+        "reason": "falls 0/8"
+      }
+    ],
+    "judge_exit_codes": {
+      "full": 1,
+      "extra": 0
+    }
+  },
+  "l80_t4b": {
+    "full_suite": {
+      "passed": false,
+      "reason": "failed condition: {'gate': 'turn', 'cond': 'moving_turn', 'cmd': 4.0, 'yaw_cmd': 0.5}"
+    },
+    "turns": [
+      {
+        "cmd": 2.0,
+        "yaw_cmd": 1.0,
+        "passed": 4,
+        "n": 4,
+        "falls": 0,
+        "judged": true,
+        "v_mean": [
+          2.0200325256790284,
+          2.048250964548102
+        ],
+        "yaw_rate_mean": [
+          0.8490381278826593,
+          0.8569769000055343
+        ],
+        "radius_m": [
+          2.3571609989323905,
+          2.40394807898577
+        ],
+        "t_90_s": [
+          2.1000000000000005,
+          2.2
+        ]
+      },
+      {
+        "cmd": 1.0,
+        "yaw_cmd": -0.5,
+        "passed": 4,
+        "n": 4,
+        "falls": 0,
+        "judged": true,
+        "v_mean": [
+          1.0231924407305917,
+          1.0436300460395325
+        ],
+        "yaw_rate_mean": [
+          -0.42311764494762377,
+          -0.41860537865510844
+        ],
+        "radius_m": [
+          2.4429521181479212,
+          2.4782425209925285
+        ],
+        "t_90_s": [
+          4.120000000000001,
+          4.24
+        ]
+      },
+      {
+        "cmd": 1.0,
+        "yaw_cmd": 0.5,
+        "passed": 4,
+        "n": 4,
+        "falls": 0,
+        "judged": true,
+        "v_mean": [
+          1.027924431612659,
+          1.0440622235279333
+        ],
+        "yaw_rate_mean": [
+          0.4105085479457876,
+          0.42803088461933986
+        ],
+        "radius_m": [
+          2.432131135083896,
+          2.5302430073072566
+        ],
+        "t_90_s": [
+          4.0600000000000005,
+          4.200000000000001
+        ]
+      },
+      {
+        "cmd": 4.0,
+        "yaw_cmd": 0.5,
+        "passed": 0,
+        "n": 4,
+        "falls": 0,
+        "judged": true,
+        "v_mean": [
+          4.527693007539674,
+          4.584085295873286
+        ],
+        "yaw_rate_mean": [
+          0.2810577275637008,
+          0.28405645039980415
+        ],
+        "radius_m": [
+          16.03363666559942,
+          16.31012011521483
+        ],
+        "t_90_s": [
+          6.24,
+          6.380000000000001
+        ]
+      },
+      {
+        "cmd": 2.0,
+        "yaw_cmd": -1.0,
+        "passed": 4,
+        "n": 4,
+        "falls": 0,
+        "judged": true,
+        "v_mean": [
+          2.113461684472946,
+          2.142381238164185
+        ],
+        "yaw_rate_mean": [
+          -0.8862744652959,
+          -0.8773341058837805
+        ],
+        "radius_m": [
+          2.386426924231622,
+          2.4401018925674443
+        ],
+        "t_90_s": [
+          1.9800000000000004,
+          2.0600000000000005
+        ]
+      },
+      {
+        "cmd": 4.0,
+        "yaw_cmd": -0.5,
+        "passed": 0,
+        "n": 4,
+        "falls": 0,
+        "judged": true,
+        "v_mean": [
+          4.528292714237492,
+          4.571967482019923
+        ],
+        "yaw_rate_mean": [
+          -0.31483493928961453,
+          -0.30969384003762807
+        ],
+        "radius_m": [
+          14.392346289702386,
+          14.735523419001296
+        ],
+        "t_90_s": [
+          5.74,
+          5.92
+        ]
+      },
+      {
+        "cmd": 6.0,
+        "yaw_cmd": -0.5,
+        "passed": 0,
+        "n": 4,
+        "falls": 0,
+        "judged": false,
+        "v_mean": [
+          6.451527572350121,
+          6.495586818316022
+        ],
+        "yaw_rate_mean": [
+          -0.19847233314404256,
+          -0.18988902753829812
+        ],
+        "radius_m": [
+          32.657408852358806,
+          34.207278337901585
+        ],
+        "t_90_s": [
+          8.72,
+          9.3
+        ]
+      },
+      {
+        "cmd": 6.0,
+        "yaw_cmd": 0.5,
+        "passed": 0,
+        "n": 4,
+        "falls": 0,
+        "judged": false,
+        "v_mean": [
+          6.4518209582297565,
+          6.508548312971574
+        ],
+        "yaw_rate_mean": [
+          0.170361851693912,
+          0.18065073312332236
+        ],
+        "radius_m": [
+          35.71433587167,
+          38.204259041897714
+        ],
+        "t_90_s": [
+          9.06,
+          9.68
+        ]
+      }
+    ],
+    "judged_turn_passed": 16,
+    "judged_turn_total": 24,
+    "straight": [
+      {
+        "cmd": 4.0,
+        "passed": false,
+        "falls": 0,
+        "n": 4,
+        "v_min": 4.582222751862587,
+        "v_max": 4.636419980271565,
+        "v_mean": 4.6192025492969115
+      },
+      {
+        "cmd": 2.0,
+        "passed": true,
+        "falls": 0,
+        "n": 4,
+        "v_min": 2.1280616413645217,
+        "v_max": 2.164761339847359,
+        "v_mean": 2.1438650951126768
+      },
+      {
+        "cmd": 6.0,
+        "passed": true,
+        "falls": 0,
+        "n": 4,
+        "v_min": 6.46011989869656,
+        "v_max": 6.482871139699397,
+        "v_mean": 6.471822898091847
+      }
+    ],
+    "regressions": {
+      "stand": {
+        "passing_conditions": 6,
+        "judged_conditions": 6,
+        "falls": 0,
+        "episodes": 128
+      },
+      "walk": {
+        "passing_conditions": 8,
+        "judged_conditions": 8,
+        "falls": 0,
+        "episodes": 52
+      },
+      "switch": {
+        "passing_conditions": 2,
+        "judged_conditions": 2,
+        "falls": 0,
+        "episodes": 16
+      }
+    },
+    "heat": [
+      {
+        "gate": "run",
+        "run": "l80_t4b",
+        "cond": "heat",
+        "cmd": 4.0,
+        "mount": "plate",
+        "n": 1,
+        "falls": 0,
+        "t_fall": null,
+        "min_derate": 1.0,
+        "t_winding_max_c": 94.6,
+        "v_mean": 4.606
+      },
+      {
+        "gate": "run",
+        "run": "l80_t4b",
+        "cond": "heat",
+        "cmd": 4.0,
+        "mount": "worst",
+        "n": 1,
+        "falls": 0,
+        "t_fall": null,
+        "min_derate": 0.371,
+        "t_winding_max_c": 137.6,
+        "v_mean": 3.905
+      },
+      {
+        "gate": "run",
+        "run": "l80_t4b",
+        "cond": "heat",
+        "cmd": 5.0,
+        "mount": "plate",
+        "n": 1,
+        "falls": 0,
+        "t_fall": null,
+        "min_derate": 0.534,
+        "t_winding_max_c": 134.3,
+        "v_mean": 5.49
+      },
+      {
+        "gate": "run",
+        "run": "l80_t4b",
+        "cond": "heat",
+        "cmd": 5.0,
+        "mount": "worst",
+        "n": 1,
+        "falls": 1,
+        "t_fall": 118.26,
+        "min_derate": 0.331,
+        "t_winding_max_c": 138.4,
+        "v_mean": 4.784
+      },
+      {
+        "gate": "run",
+        "run": "l80_t4b",
+        "cond": "heat",
+        "cmd": 6.0,
+        "mount": "worst",
+        "n": 1,
+        "falls": 1,
+        "t_fall": 49.78,
+        "min_derate": 0.394,
+        "t_winding_max_c": 137.1,
+        "v_mean": 5.941
+      },
+      {
+        "gate": "run",
+        "run": "l80_t4b",
+        "cond": "heat",
+        "cmd": 6.0,
+        "mount": "plate",
+        "n": 1,
+        "falls": 0,
+        "t_fall": null,
+        "min_derate": 0.466,
+        "t_winding_max_c": 135.7,
+        "v_mean": 5.428
+      }
+    ],
+    "sustained_command": 4.0,
+    "speed8": {
+      "gate": "run",
+      "run": "l80_t4b",
+      "cond": "speed",
+      "cmd": 8.0,
+      "n": 4,
+      "falls": 0,
+      "episodes": [
+        {
+          "seed": 6700,
+          "t_fall": null,
+          "v_mean": 7.21180874368324,
+          "min_derate": 1.0,
+          "t_winding_max_c": 57.3
+        },
+        {
+          "seed": 6701,
+          "t_fall": null,
+          "v_mean": 7.2347366074428345,
+          "min_derate": 1.0,
+          "t_winding_max_c": 56.8
+        },
+        {
+          "seed": 6702,
+          "t_fall": null,
+          "v_mean": 7.200199782571026,
+          "min_derate": 1.0,
+          "t_winding_max_c": 56.7
+        },
+        {
+          "seed": 6703,
+          "t_fall": null,
+          "v_mean": 7.199811899691486,
+          "min_derate": 1.0,
+          "t_winding_max_c": 56.7
+        }
+      ]
+    },
+    "lateral": [
+      {
+        "gate": "run",
+        "run": "l80_t4b",
+        "cond": "lateral",
+        "dir": "left",
+        "cmd": 4.0,
+        "n": 8,
+        "falls": 0,
+        "episodes": [
+          {
+            "seed": 6900,
+            "t_fall": null
+          },
+          {
+            "seed": 6901,
+            "t_fall": null
+          },
+          {
+            "seed": 6902,
+            "t_fall": null
+          },
+          {
+            "seed": 6903,
+            "t_fall": null
+          },
+          {
+            "seed": 6904,
+            "t_fall": null
+          },
+          {
+            "seed": 6905,
+            "t_fall": null
+          },
+          {
+            "seed": 6906,
+            "t_fall": null
+          },
+          {
+            "seed": 6907,
+            "t_fall": null
+          }
+        ]
+      },
+      {
+        "gate": "run",
+        "run": "l80_t4b",
+        "cond": "lateral",
+        "dir": "right",
+        "cmd": 4.0,
+        "n": 8,
+        "falls": 0,
+        "episodes": [
+          {
+            "seed": 6900,
+            "t_fall": null
+          },
+          {
+            "seed": 6901,
+            "t_fall": null
+          },
+          {
+            "seed": 6902,
+            "t_fall": null
+          },
+          {
+            "seed": 6903,
+            "t_fall": null
+          },
+          {
+            "seed": 6904,
+            "t_fall": null
+          },
+          {
+            "seed": 6905,
+            "t_fall": null
+          },
+          {
+            "seed": 6906,
+            "t_fall": null
+          },
+          {
+            "seed": 6907,
+            "t_fall": null
+          }
+        ]
+      }
+    ],
+    "verdicts": [
+      {
+        "selector": [
+          "turn",
+          "moving_turn",
+          2.0,
+          1.0,
+          null,
+          null,
+          null
+        ],
+        "passed": true,
+        "reason": "falls 0/4, passing episodes 4/4"
+      },
+      {
+        "selector": [
+          "turn",
+          "moving_turn",
+          1.0,
+          -0.5,
+          null,
+          null,
+          null
+        ],
+        "passed": true,
+        "reason": "falls 0/4, passing episodes 4/4"
+      },
+      {
+        "selector": [
+          "turn",
+          "moving_turn",
+          1.0,
+          0.5,
+          null,
+          null,
+          null
+        ],
+        "passed": true,
+        "reason": "falls 0/4, passing episodes 4/4"
+      },
+      {
+        "selector": [
+          "turn",
+          "moving_turn",
+          4.0,
+          0.5,
+          null,
+          null,
+          null
+        ],
+        "passed": false,
+        "reason": "falls 0/4, passing episodes 0/4"
+      },
+      {
+        "selector": [
+          "turn",
+          "moving_turn",
+          2.0,
+          -1.0,
+          null,
+          null,
+          null
+        ],
+        "passed": true,
+        "reason": "falls 0/4, passing episodes 4/4"
+      },
+      {
+        "selector": [
+          "turn",
+          "moving_turn",
+          4.0,
+          -0.5,
+          null,
+          null,
+          null
+        ],
+        "passed": false,
+        "reason": "falls 0/4, passing episodes 0/4"
+      },
+      {
+        "selector": [
+          "turn",
+          "moving_turn",
+          6.0,
+          -0.5,
+          null,
+          null,
+          null
+        ],
+        "passed": null,
+        "reason": "falls 0/4 (6 m/s turn deferred by user 2026-11-04; recorded)"
+      },
+      {
+        "selector": [
+          "turn",
+          "moving_turn",
+          6.0,
+          0.5,
+          null,
+          null,
+          null
+        ],
+        "passed": null,
+        "reason": "falls 0/4 (6 m/s turn deferred by user 2026-11-04; recorded)"
+      },
+      {
+        "selector": [
+          "turn",
+          "run_regression",
+          4.0,
+          null,
+          null,
+          null,
+          null
+        ],
+        "passed": false,
+        "reason": "falls 0/4, v [4.6245100163062896, 4.636419980271565, 4.633657448747205, 4.582222751862587]"
+      },
+      {
+        "selector": [
+          "turn",
+          "run_regression",
+          2.0,
+          null,
+          null,
+          null,
+          null
+        ],
+        "passed": true,
+        "reason": "falls 0/4, v [2.1443906385856235, 2.1280616413645217, 2.1382467606532023, 2.164761339847359]"
+      },
+      {
+        "selector": [
+          "turn",
+          "run_regression",
+          6.0,
+          null,
+          null,
+          null,
+          null
+        ],
+        "passed": true,
+        "reason": "falls 0/4, v [6.482871139699397, 6.465054710423849, 6.47924584354758, 6.46011989869656]"
+      },
+      {
+        "selector": [
+          "switch",
+          "switch",
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "passed": null,
+        "reason": "falls 0/4, switches [2, 2, 2, 2] (step commands, recorded)"
+      },
+      {
+        "selector": [
+          "switch",
+          "switch_ramp",
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "passed": true,
+        "reason": "falls 0/4, switches [2, 2, 2, 2]"
+      },
+      {
+        "selector": [
+          "switch",
+          "switch_ramp_dr",
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "passed": true,
+        "reason": "falls 0/8, switches [2, 2, 2, 2, 2, 2, 2, 2]"
+      },
+      {
+        "selector": [
+          "walk",
+          "track",
+          0.3,
+          null,
+          null,
+          null,
+          null
+        ],
+        "passed": true,
+        "reason": "v [0.21, 0.22, 0.22, 0.22], tol 0.10"
+      },
+      {
+        "selector": [
+          "walk",
+          "track",
+          0.6,
+          null,
+          null,
+          null,
+          null
+        ],
+        "passed": true,
+        "reason": "v [0.62, 0.62, 0.61, 0.6], tol 0.10"
+      },
+      {
+        "selector": [
+          "walk",
+          "track",
+          1.0,
+          null,
+          null,
+          null,
+          null
+        ],
+        "passed": true,
+        "reason": "v [1.03, 1.04, 1.04, 1.03], tol 0.15"
+      },
+      {
+        "selector": [
+          "walk",
+          "track",
+          1.5,
+          null,
+          null,
+          null,
+          null
+        ],
+        "passed": true,
+        "reason": "v [1.46, 1.47, 1.46, 1.46], tol 0.22"
+      },
+      {
+        "selector": [
+          "walk",
+          "turn",
+          0.5,
+          null,
+          null,
+          null,
+          null
+        ],
+        "passed": true,
+        "reason": "yaw [0.43, 0.4, 0.41, 0.42], drift max 0.452"
+      },
+      {
+        "selector": [
+          "walk",
+          "turn",
+          -0.5,
+          null,
+          null,
+          null,
+          null
+        ],
+        "passed": true,
+        "reason": "yaw [-0.41, -0.42, -0.38, -0.43], drift max 0.454"
+      },
+      {
+        "selector": [
+          "walk",
+          "stopstart",
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "passed": true,
+        "reason": "reach max 0.58, stop speeds [-0.11, -0.13, -0.13, -0.09, -0.14, -0.13, -0.11, -0.12]"
+      },
+      {
+        "selector": [
+          "walk",
+          "track_dr",
+          1.0,
+          null,
+          null,
+          null,
+          null
+        ],
+        "passed": true,
+        "reason": "falls 0/24"
+      },
+      {
+        "selector": [
+          "stand",
+          "hold",
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "passed": true,
+        "reason": "falls 0, drift 0.397"
+      },
+      {
+        "selector": [
+          "stand",
+          "hold_dr",
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "passed": true,
+        "reason": "falls 0/24"
+      },
+      {
+        "selector": [
+          "stand",
+          "push",
+          null,
+          null,
+          "front",
+          0.3,
+          null
+        ],
+        "passed": true,
+        "reason": "falls 0"
+      },
+      {
+        "selector": [
+          "stand",
+          "push",
+          null,
+          null,
+          "back",
+          0.3,
+          null
+        ],
+        "passed": true,
+        "reason": "falls 0"
+      },
+      {
+        "selector": [
+          "stand",
+          "push",
+          null,
+          null,
+          "left",
+          0.3,
+          null
+        ],
+        "passed": true,
+        "reason": "falls 0"
+      },
+      {
+        "selector": [
+          "stand",
+          "push",
+          null,
+          null,
+          "right",
+          0.3,
+          null
+        ],
+        "passed": true,
+        "reason": "falls 0"
+      },
+      {
+        "selector": [
+          "stand",
+          "push",
+          null,
+          null,
+          "front",
+          0.5,
+          null
+        ],
+        "passed": null,
+        "reason": "falls 0 (recorded)"
+      },
+      {
+        "selector": [
+          "stand",
+          "push",
+          null,
+          null,
+          "back",
+          0.5,
+          null
+        ],
+        "passed": null,
+        "reason": "falls 0 (recorded)"
+      },
+      {
+        "selector": [
+          "stand",
+          "push",
+          null,
+          null,
+          "left",
+          0.5,
+          null
+        ],
+        "passed": null,
+        "reason": "falls 0 (recorded)"
+      },
+      {
+        "selector": [
+          "stand",
+          "push",
+          null,
+          null,
+          "right",
+          0.5,
+          null
+        ],
+        "passed": null,
+        "reason": "falls 0 (recorded)"
+      },
+      {
+        "selector": [
+          "stand",
+          "push",
+          null,
+          null,
+          "front",
+          0.8,
+          null
+        ],
+        "passed": null,
+        "reason": "falls 0 (recorded)"
+      },
+      {
+        "selector": [
+          "stand",
+          "push",
+          null,
+          null,
+          "back",
+          0.8,
+          null
+        ],
+        "passed": null,
+        "reason": "falls 0 (recorded)"
+      },
+      {
+        "selector": [
+          "stand",
+          "push",
+          null,
+          null,
+          "left",
+          0.8,
+          null
+        ],
+        "passed": null,
+        "reason": "falls 0 (recorded)"
+      },
+      {
+        "selector": [
+          "stand",
+          "push",
+          null,
+          null,
+          "right",
+          0.8,
+          null
+        ],
+        "passed": null,
+        "reason": "falls 0 (recorded)"
+      },
+      {
+        "selector": [
+          "run",
+          "heat",
+          4.0,
+          null,
+          null,
+          null,
+          "plate"
+        ],
+        "passed": null,
+        "reason": "plate: falls 0, derate min 1.0, winding max 94.6 C, v 4.606 (sustained speed below)"
+      },
+      {
+        "selector": [
+          "run",
+          "heat",
+          4.0,
+          null,
+          null,
+          null,
+          "worst"
+        ],
+        "passed": null,
+        "reason": "worst: falls 0, derate min 0.371, winding max 137.6 C, v 3.905 (sustained speed below)"
+      },
+      {
+        "selector": [
+          "run",
+          "heat",
+          5.0,
+          null,
+          null,
+          null,
+          "plate"
+        ],
+        "passed": null,
+        "reason": "plate: falls 0, derate min 0.534, winding max 134.3 C, v 5.49 (sustained speed below)"
+      },
+      {
+        "selector": [
+          "run",
+          "heat",
+          5.0,
+          null,
+          null,
+          null,
+          "worst"
+        ],
+        "passed": null,
+        "reason": "worst: falls 1, derate min 0.331, winding max 138.4 C, v 4.784 (sustained speed below)"
+      },
+      {
+        "selector": [
+          "run",
+          "heat",
+          6.0,
+          null,
+          null,
+          null,
+          "worst"
+        ],
+        "passed": null,
+        "reason": "worst: falls 1, derate min 0.394, winding max 137.1 C, v 5.941 (sustained speed below)"
+      },
+      {
+        "selector": [
+          "run",
+          "speed",
+          8.0,
+          null,
+          null,
+          null,
+          null
+        ],
+        "passed": true,
+        "reason": "v [7.21, 7.23, 7.2, 7.2], derate min 1.0 (top speed: >= 6.5)"
+      },
+      {
+        "selector": [
+          "run",
+          "lateral",
+          4.0,
+          null,
+          "left",
+          null,
+          null
+        ],
+        "passed": true,
+        "reason": "falls 0/8"
+      },
+      {
+        "selector": [
+          "run",
+          "lateral",
+          4.0,
+          null,
+          "right",
+          null,
+          null
+        ],
+        "passed": true,
+        "reason": "falls 0/8"
+      },
+      {
+        "selector": [
+          "run",
+          "heat",
+          6.0,
+          null,
+          null,
+          null,
+          "plate"
+        ],
+        "passed": null,
+        "reason": "plate: falls 0, derate min 0.466, winding max 135.7 C, v 5.428 (sustained speed below)"
+      }
+    ],
+    "judge_exit_codes": {
+      "full": 1,
+      "extra": 0
+    }
+  },
+  "verification": {
+    "new_rollouts": 266,
+    "input_hashes_unchanged": 16,
+    "previous_comparison_inputs_unchanged": true,
+    "automatic_full_240_episodes_identical": true
+  }
+}
