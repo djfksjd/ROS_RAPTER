@@ -1,0 +1,31 @@
+False jump in_place: jump success 6/8, falls 0; impact/current recorded only
+False jump in_place_dr: jump success 15/24, falls 0; impact/current recorded only
+True stand hold: falls 0, drift 0.397
+True stand hold_dr: falls 0/24
+True stand push: falls 0
+True stand push: falls 0
+True stand push: falls 0
+True stand push: falls 0
+None stand push: falls 0 (recorded)
+None stand push: falls 0 (recorded)
+None stand push: falls 0 (recorded)
+None stand push: falls 0 (recorded)
+None stand push: falls 0 (recorded)
+None stand push: falls 0 (recorded)
+None stand push: falls 0 (recorded)
+None stand push: falls 0 (recorded)
+True walk track: v [0.21, 0.22, 0.22, 0.22], tol 0.10
+True walk track: v [0.62, 0.62, 0.61, 0.6], tol 0.10
+True walk track: v [1.03, 1.04, 1.04, 1.03], tol 0.15
+True walk track: v [1.46, 1.47, 1.46, 1.46], tol 0.22
+True walk turn: yaw [0.43, 0.4, 0.41, 0.42], drift max 0.452
+True walk turn: yaw [-0.41, -0.42, -0.38, -0.43], drift max 0.454
+True walk stopstart: reach max 0.58, stop speeds [-0.11, -0.13, -0.13, -0.09, -0.14, -0.13, -0.11, -0.12]
+True walk track_dr: falls 0/24
+None switch switch: falls 0/4, switches [2, 2, 2, 2] (step commands, recorded)
+True switch switch_ramp: falls 0/4, switches [2, 2, 2, 2]
+True switch switch_ramp_dr: falls 0/8, switches [2, 2, 2, 2, 2, 2, 2, 2]
+True jump run_regression: falls 0/4, v [1.918043950561087, 1.944630695868931, 1.9367607979480397, 1.9675090948816174]
+True jump run_regression: falls 0/4, v [4.202228579647781, 4.19709973602469, 4.225250508625001, 4.192528752764309]
+True jump run_regression: falls 0/4, v [5.942140220803061, 5.958991175702678, 5.968459185992671, 5.91850119174208]
+5a suite False: failed condition: {'gate': 'jump', 'cond': 'in_place'}

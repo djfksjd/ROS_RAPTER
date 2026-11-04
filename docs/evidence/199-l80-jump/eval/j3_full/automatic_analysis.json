@@ -1,0 +1,5105 @@
+{
+  "audit": {
+    "checks": [
+      {
+        "block": 1,
+        "added_steps": 999424,
+        "passed": 4,
+        "total": 6,
+        "progress": 1.0,
+        "falls": 0,
+        "decision": "continue"
+      },
+      {
+        "block": 2,
+        "added_steps": 1998848,
+        "passed": 4,
+        "total": 6,
+        "progress": 0.9971161035649608,
+        "falls": 0,
+        "decision": "stop: 2M budget exhausted; no extension"
+      }
+    ],
+    "baseline": {
+      "passed": 3,
+      "total": 6,
+      "progress": 0.9629303400700909,
+      "falls": 0
+    },
+    "initial_steps": 49315840,
+    "final_steps": 51314688,
+    "added_steps": 1998848,
+    "budget": 1998848,
+    "unused_steps": 1152,
+    "input_hashes_verified": 26,
+    "final_hashes": {
+      "model.zip": "9846ed7b82a6f513da342bf8681c6c8f0dd76adcdc7a1b5d1a3c34dc7421d17b",
+      "vecnorm.pkl": "3317e19ba80a785b643ee4f8e22ba67c56e25c1324b875834d2df6b98cc6c2f6",
+      "args.json": "7b4fa9b00863ca6b43d8a05d43685fc59fd0d6bdf0d05499d4118f35f5eb7fcb"
+    },
+    "matches_2M_snapshot": true,
+    "training_statistics_finite": true,
+    "episode_length_range": [
+      593.54,
+      600.0
+    ]
+  },
+  "episodes": [
+    {
+      "cond": "in_place",
+      "seed": 9400,
+      "passed": true,
+      "primary_failure": "pass",
+      "gate_episode": {
+        "request_time_s": 2.0289999999998876,
+        "standing_height_m": 0.6868062481614605,
+        "flight_s": 0.183,
+        "apex_rise_m": 0.07742878302478517,
+        "landing_error_m": 0.037415258743502315,
+        "touchdown_s": 4.834999999999949,
+        "standing_hold_s": 1.0,
+        "success_time_s": 7.603000000000874,
+        "t_fall": null,
+        "progress": 1.0,
+        "load_samples": 8620,
+        "landing_impact_peak_n": 649.5473093267325,
+        "current_peak_a": 57.60950759793546,
+        "current_over_limit_peak": 1.0081663829638707,
+        "torque_peak_nm": 101.14427773573217,
+        "seed": 9400,
+        "elapsed_s": 8.620000000000662,
+        "handoff_from": "l80_w2",
+        "sample_dt_s": 0.001,
+        "return_to": "l80_w2",
+        "return_observed_s": 0.9999999999997824,
+        "raw_trace": "/Users/danny/\u1100\u1162\u1107\u1161\u11af \u1106\u1169\u110b\u1173\u11b7 \u1111\u1169\u11af\u1103\u1165/raptor/docs/evidence/199-l80-jump/eval/l80_j3/traces_2M/full/l80_j3_2M_jump_nominal_9400.npz"
+      },
+      "representative_flight": {
+        "takeoff_s": 4.651999999999888,
+        "touchdown_s": 4.834999999999949,
+        "flight_s": 0.183,
+        "apex_rise_m": 0.07742878302478517,
+        "landing_error_m": 0.037415258743502315,
+        "dx_m": 0.0373426151925781,
+        "dy_m": 0.002330381389871898,
+        "takeoff_vxy_mps": 0.33532141252360215,
+        "touchdown_vxy_mps": 0.3173589327655528,
+        "q": 1.0
+      },
+      "flights": [
+        {
+          "takeoff_s": 4.651999999999888,
+          "touchdown_s": 4.834999999999949,
+          "flight_s": 0.183,
+          "apex_rise_m": 0.07742878302478517,
+          "landing_error_m": 0.037415258743502315,
+          "dx_m": 0.0373426151925781,
+          "dy_m": 0.002330381389871898,
+          "takeoff_vxy_mps": 0.33532141252360215,
+          "touchdown_vxy_mps": 0.3173589327655528,
+          "q": 1.0
+        }
+      ],
+      "hold": {
+        "observed_s": 2.769,
+        "longest_s": 1.0,
+        "failure_samples": {
+          "foot_load": 376,
+          "speed": 349,
+          "tilt": 0,
+          "height": 0,
+          "body": 0
+        },
+        "unstable_samples": 543,
+        "stable_share": 0.8039003250270856,
+        "both_feet_off_s": 0.0,
+        "max_horizontal_speed": 0.9460781611360166,
+        "max_vertical_speed": 0.9773210652638311,
+        "max_tilt_rad": 0.21492537452494961,
+        "horizontal_displacement_m": 0.05181262398779318
+      },
+      "criterion_failures": {
+        "flight": false,
+        "apex": false,
+        "landing_distance": false,
+        "hold": false,
+        "fall": false
+      },
+      "hold_entered": true
+    },
+    {
+      "cond": "in_place",
+      "seed": 9401,
+      "passed": true,
+      "primary_failure": "pass",
+      "gate_episode": {
+        "request_time_s": 2.27999999999986,
+        "standing_height_m": 0.697896737758827,
+        "flight_s": 0.181,
+        "apex_rise_m": 0.0716589121269412,
+        "landing_error_m": 0.03650957943602506,
+        "touchdown_s": 6.732000000000583,
+        "standing_hold_s": 1.0,
+        "success_time_s": 10.164999999999806,
+        "t_fall": null,
+        "progress": 1.0,
+        "load_samples": 11180,
+        "landing_impact_peak_n": 679.5718102897383,
+        "current_peak_a": 57.216692049054366,
+        "current_over_limit_peak": 1.0012921108584514,
+        "torque_peak_nm": 105.00603583688934,
+        "seed": 9401,
+        "elapsed_s": 11.179999999999243,
+        "handoff_from": "l80_w2",
+        "sample_dt_s": 0.001,
+        "return_to": "l80_w2",
+        "return_observed_s": 0.9999999999994458,
+        "raw_trace": "/Users/danny/\u1100\u1162\u1107\u1161\u11af \u1106\u1169\u110b\u1173\u11b7 \u1111\u1169\u11af\u1103\u1165/raptor/docs/evidence/199-l80-jump/eval/l80_j3/traces_2M/full/l80_j3_2M_jump_nominal_9401.npz"
+      },
+      "representative_flight": {
+        "takeoff_s": 6.551000000000522,
+        "touchdown_s": 6.732000000000583,
+        "flight_s": 0.181,
+        "apex_rise_m": 0.0716589121269412,
+        "landing_error_m": 0.03650957943602506,
+        "dx_m": 0.03643516610624324,
+        "dy_m": 0.002329820037231922,
+        "takeoff_vxy_mps": 0.2782546072522697,
+        "touchdown_vxy_mps": 0.4258525894840911,
+        "q": 1.0
+      },
+      "flights": [
+        {
+          "takeoff_s": 4.295999999999769,
+          "touchdown_s": 4.433999999999815,
+          "flight_s": 0.138,
+          "apex_rise_m": 0.04989955856462591,
+          "landing_error_m": 0.019263154581730273,
+          "dx_m": 0.017752982141651094,
+          "dy_m": -0.007476680380881163,
+          "takeoff_vxy_mps": 0.48181190054072165,
+          "touchdown_vxy_mps": 0.49843478078810166,
+          "q": 0.9979911712925182
+        },
+        {
+          "takeoff_s": 4.435999999999816,
+          "touchdown_s": 4.436999999999816,
+          "flight_s": 0.001,
+          "apex_rise_m": 0.019801677422103037,
+          "landing_error_m": 0.0001322048277701017,
+          "dx_m": 0.00012203932273818774,
+          "dy_m": -5.083817651457129e-05,
+          "takeoff_vxy_mps": 0.48989718915370245,
+          "touchdown_vxy_mps": 0.4822843715985822,
+          "q": 0.0039603354844206075
+        },
+        {
+          "takeoff_s": 6.551000000000522,
+          "touchdown_s": 6.732000000000583,
+          "flight_s": 0.181,
+          "apex_rise_m": 0.0716589121269412,
+          "landing_error_m": 0.03650957943602506,
+          "dx_m": 0.03643516610624324,
+          "dy_m": 0.002329820037231922,
+          "takeoff_vxy_mps": 0.2782546072522697,
+          "touchdown_vxy_mps": 0.4258525894840911,
+          "q": 1.0
+        },
+        {
+          "takeoff_s": 8.475000000000742,
+          "touchdown_s": 8.630000000000656,
+          "flight_s": 0.155,
+          "apex_rise_m": 0.05663287130148276,
+          "landing_error_m": 0.020847094238016547,
+          "dx_m": 0.020686629032836835,
+          "dy_m": 0.0025816114011475103,
+          "takeoff_vxy_mps": 0.4591214217011747,
+          "touchdown_vxy_mps": 0.1883084929969468,
+          "q": 1.0
+        }
+      ],
+      "hold": {
+        "observed_s": 3.434,
+        "longest_s": 1.0,
+        "failure_samples": {
+          "foot_load": 512,
+          "speed": 707,
+          "tilt": 0,
+          "height": 0,
+          "body": 0
+        },
+        "unstable_samples": 873,
+        "stable_share": 0.7457775189283634,
+        "both_feet_off_s": 0.155,
+        "max_horizontal_speed": 1.7620121633477523,
+        "max_vertical_speed": 0.910708808911942,
+        "max_tilt_rad": 0.18851663238041977,
+        "horizontal_displacement_m": 0.01395508702364953
+      },
+      "criterion_failures": {
+        "flight": false,
+        "apex": false,
+        "landing_distance": false,
+        "hold": false,
+        "fall": false
+      },
+      "hold_entered": true
+    },
+    {
+      "cond": "in_place",
+      "seed": 9402,
+      "passed": true,
+      "primary_failure": "pass",
+      "gate_episode": {
+        "request_time_s": 2.0009999999998906,
+        "standing_height_m": 0.6925633204898795,
+        "flight_s": 0.157,
+        "apex_rise_m": 0.06438864999388028,
+        "landing_error_m": 0.028360614419851396,
+        "touchdown_s": 3.8829999999996834,
+        "standing_hold_s": 1.0,
+        "success_time_s": 8.31700000000083,
+        "t_fall": null,
+        "progress": 1.0,
+        "load_samples": 9320,
+        "landing_impact_peak_n": 514.9951552102833,
+        "current_peak_a": 57.14149398524618,
+        "current_over_limit_peak": 0.9999761447418082,
+        "torque_peak_nm": 102.68960228497963,
+        "seed": 9402,
+        "elapsed_s": 9.320000000000274,
+        "handoff_from": "l80_w2",
+        "sample_dt_s": 0.001,
+        "return_to": "l80_w2",
+        "return_observed_s": 0.9999999999994458,
+        "raw_trace": "/Users/danny/\u1100\u1162\u1107\u1161\u11af \u1106\u1169\u110b\u1173\u11b7 \u1111\u1169\u11af\u1103\u1165/raptor/docs/evidence/199-l80-jump/eval/l80_j3/traces_2M/full/l80_j3_2M_jump_nominal_9402.npz"
+      },
+      "representative_flight": {
+        "takeoff_s": 3.7259999999997007,
+        "touchdown_s": 3.8829999999996834,
+        "flight_s": 0.157,
+        "apex_rise_m": 0.06438864999388028,
+        "landing_error_m": 0.028360614419851396,
+        "dx_m": 0.026755751211812936,
+        "dy_m": 0.009405010758263577,
+        "takeoff_vxy_mps": 0.795009465504954,
+        "touchdown_vxy_mps": 0.18809025345574626,
+        "q": 1.0
+      },
+      "flights": [
+        {
+          "takeoff_s": 3.7259999999997007,
+          "touchdown_s": 3.8829999999996834,
+          "flight_s": 0.157,
+          "apex_rise_m": 0.06438864999388028,
+          "landing_error_m": 0.028360614419851396,
+          "dx_m": 0.026755751211812936,
+          "dy_m": 0.009405010758263577,
+          "takeoff_vxy_mps": 0.795009465504954,
+          "touchdown_vxy_mps": 0.18809025345574626,
+          "q": 1.0
+        },
+        {
+          "takeoff_s": 6.03600000000035,
+          "touchdown_s": 6.21400000000041,
+          "flight_s": 0.178,
+          "apex_rise_m": 0.06961302834860328,
+          "landing_error_m": 0.04101598088122279,
+          "dx_m": 0.040577239287334595,
+          "dy_m": 0.0059831713553284635,
+          "takeoff_vxy_mps": 0.6081663098452023,
+          "touchdown_vxy_mps": 0.09476101875964854,
+          "q": 1.0
+        }
+      ],
+      "hold": {
+        "observed_s": 4.4350000000000005,
+        "longest_s": 1.0,
+        "failure_samples": {
+          "foot_load": 710,
+          "speed": 734,
+          "tilt": 0,
+          "height": 0,
+          "body": 0
+        },
+        "unstable_samples": 1069,
+        "stable_share": 0.7589627959413754,
+        "both_feet_off_s": 0.178,
+        "max_horizontal_speed": 1.8684711365947502,
+        "max_vertical_speed": 0.9934022223884457,
+        "max_tilt_rad": 0.21140734497192293,
+        "horizontal_displacement_m": 0.031090812442486456
+      },
+      "criterion_failures": {
+        "flight": false,
+        "apex": false,
+        "landing_distance": false,
+        "hold": false,
+        "fall": false
+      },
+      "hold_entered": true
+    },
+    {
+      "cond": "in_place",
+      "seed": 9403,
+      "passed": false,
+      "primary_failure": "hold",
+      "gate_episode": {
+        "request_time_s": 2.079999999999882,
+        "standing_height_m": 0.6928587636280115,
+        "flight_s": 0.122,
+        "apex_rise_m": 0.055880847586682214,
+        "landing_error_m": 0.011157421699219643,
+        "touchdown_s": 3.704999999999703,
+        "standing_hold_s": 0.833,
+        "success_time_s": null,
+        "t_fall": null,
+        "progress": 1.0,
+        "load_samples": 12000,
+        "landing_impact_peak_n": 472.37700665344,
+        "current_peak_a": 57.237005935301795,
+        "current_over_limit_peak": 1.0016476038677815,
+        "torque_peak_nm": 103.18569537325875,
+        "seed": 9403,
+        "elapsed_s": 11.999999999998789,
+        "handoff_from": "l80_w2",
+        "sample_dt_s": 0.001,
+        "return_to": null,
+        "return_observed_s": 0.0,
+        "raw_trace": "/Users/danny/\u1100\u1162\u1107\u1161\u11af \u1106\u1169\u110b\u1173\u11b7 \u1111\u1169\u11af\u1103\u1165/raptor/docs/evidence/199-l80-jump/eval/l80_j3/traces_2M/full/l80_j3_2M_jump_nominal_9403.npz"
+      },
+      "representative_flight": {
+        "takeoff_s": 3.5829999999997164,
+        "touchdown_s": 3.704999999999703,
+        "flight_s": 0.122,
+        "apex_rise_m": 0.055880847586682214,
+        "landing_error_m": 0.011157421699219643,
+        "dx_m": 0.010692554421685707,
+        "dy_m": -0.003187058034223221,
+        "takeoff_vxy_mps": 0.39229590071338116,
+        "touchdown_vxy_mps": 0.0252039418313456,
+        "q": 1.0
+      },
+      "flights": [
+        {
+          "takeoff_s": 3.5829999999997164,
+          "touchdown_s": 3.704999999999703,
+          "flight_s": 0.122,
+          "apex_rise_m": 0.055880847586682214,
+          "landing_error_m": 0.011157421699219643,
+          "dx_m": 0.010692554421685707,
+          "dy_m": -0.003187058034223221,
+          "takeoff_vxy_mps": 0.39229590071338116,
+          "touchdown_vxy_mps": 0.0252039418313456,
+          "q": 1.0
+        },
+        {
+          "takeoff_s": 5.468000000000161,
+          "touchdown_s": 5.613000000000209,
+          "flight_s": 0.145,
+          "apex_rise_m": 0.06021507434425155,
+          "landing_error_m": 0.024515946364654442,
+          "dx_m": 0.02448671825167162,
+          "dy_m": 0.0011967687403443665,
+          "takeoff_vxy_mps": 0.37021216712852784,
+          "touchdown_vxy_mps": 0.45582195344587734,
+          "q": 1.0
+        },
+        {
+          "takeoff_s": 7.8570000000009586,
+          "touchdown_s": 8.006000000001002,
+          "flight_s": 0.149,
+          "apex_rise_m": 0.06303575663481586,
+          "landing_error_m": 0.01903235637566562,
+          "dx_m": 0.01900957476727136,
+          "dy_m": 0.0009309438102591498,
+          "takeoff_vxy_mps": 0.4657758498339484,
+          "touchdown_vxy_mps": 0.32104055092713124,
+          "q": 1.0
+        },
+        {
+          "takeoff_s": 10.055999999999866,
+          "touchdown_s": 10.189999999999792,
+          "flight_s": 0.134,
+          "apex_rise_m": 0.054905796278461816,
+          "landing_error_m": 0.01766381620127592,
+          "dx_m": 0.017585599219848452,
+          "dy_m": 0.001660452610381613,
+          "takeoff_vxy_mps": 0.3740859109058831,
+          "touchdown_vxy_mps": 0.20853590309330436,
+          "q": 1.0
+        }
+      ],
+      "hold": {
+        "observed_s": 8.296,
+        "longest_s": 0.833,
+        "failure_samples": {
+          "foot_load": 1221,
+          "speed": 1552,
+          "tilt": 0,
+          "height": 0,
+          "body": 0
+        },
+        "unstable_samples": 1998,
+        "stable_share": 0.7591610414657667,
+        "both_feet_off_s": 0.439,
+        "max_horizontal_speed": 1.7551859766111004,
+        "max_vertical_speed": 0.912384550749057,
+        "max_tilt_rad": 0.21812373179303937,
+        "horizontal_displacement_m": 0.052725668967133696
+      },
+      "criterion_failures": {
+        "flight": false,
+        "apex": false,
+        "landing_distance": false,
+        "hold": true,
+        "fall": false
+      },
+      "hold_entered": true
+    },
+    {
+      "cond": "in_place",
+      "seed": 9404,
+      "passed": true,
+      "primary_failure": "pass",
+      "gate_episode": {
+        "request_time_s": 2.0009999999998906,
+        "standing_height_m": 0.6954747613843512,
+        "flight_s": 0.155,
+        "apex_rise_m": 0.06676039673063194,
+        "landing_error_m": 0.018693143975904065,
+        "touchdown_s": 6.088000000000368,
+        "standing_hold_s": 1.0,
+        "success_time_s": 10.990999999999348,
+        "t_fall": null,
+        "progress": 1.0,
+        "load_samples": 12000,
+        "landing_impact_peak_n": 611.150299921383,
+        "current_peak_a": 57.230126879372705,
+        "current_over_limit_peak": 1.0015272203890224,
+        "torque_peak_nm": 103.7664109181946,
+        "seed": 9404,
+        "elapsed_s": 11.999999999998789,
+        "handoff_from": "l80_w2",
+        "sample_dt_s": 0.001,
+        "return_to": "l80_w2",
+        "return_observed_s": 0.9999999999994458,
+        "raw_trace": "/Users/danny/\u1100\u1162\u1107\u1161\u11af \u1106\u1169\u110b\u1173\u11b7 \u1111\u1169\u11af\u1103\u1165/raptor/docs/evidence/199-l80-jump/eval/l80_j3/traces_2M/full/l80_j3_2M_jump_nominal_9404.npz"
+      },
+      "representative_flight": {
+        "takeoff_s": 5.933000000000316,
+        "touchdown_s": 6.088000000000368,
+        "flight_s": 0.155,
+        "apex_rise_m": 0.06676039673063194,
+        "landing_error_m": 0.018693143975904065,
+        "dx_m": 0.017606161718472783,
+        "dy_m": -0.00628145693663993,
+        "takeoff_vxy_mps": 0.49105773073979564,
+        "touchdown_vxy_mps": 0.4094593197496301,
+        "q": 1.0
+      },
+      "flights": [
+        {
+          "takeoff_s": 3.1379999999997654,
+          "touchdown_s": 3.2479999999997533,
+          "flight_s": 0.11,
+          "apex_rise_m": 0.044787680501274685,
+          "landing_error_m": 0.018789987782319478,
+          "dx_m": 0.018319182590832497,
+          "dy_m": -0.004179855268242518,
+          "takeoff_vxy_mps": 1.0566040173947722,
+          "touchdown_vxy_mps": 0.5864722143469296,
+          "q": 0.8957536100254937
+        },
+        {
+          "takeoff_s": 5.933000000000316,
+          "touchdown_s": 6.088000000000368,
+          "flight_s": 0.155,
+          "apex_rise_m": 0.06676039673063194,
+          "landing_error_m": 0.018693143975904065,
+          "dx_m": 0.017606161718472783,
+          "dy_m": -0.00628145693663993,
+          "takeoff_vxy_mps": 0.49105773073979564,
+          "touchdown_vxy_mps": 0.4094593197496301,
+          "q": 1.0
+        },
+        {
+          "takeoff_s": 9.334000000000266,
+          "touchdown_s": 9.459000000000197,
+          "flight_s": 0.125,
+          "apex_rise_m": 0.05093528030069505,
+          "landing_error_m": 0.014315373169948699,
+          "dx_m": 0.013782321738947459,
+          "dy_m": 0.003870079647633022,
+          "takeoff_vxy_mps": 0.5925458908134545,
+          "touchdown_vxy_mps": 0.18020181379137296,
+          "q": 1.0
+        },
+        {
+          "takeoff_s": 9.461000000000196,
+          "touchdown_s": 9.462000000000195,
+          "flight_s": 0.001,
+          "apex_rise_m": 0.029920887262540163,
+          "landing_error_m": 0.00014600904434937417,
+          "dx_m": 0.00014279201515458861,
+          "dy_m": 3.048083725735312e-05,
+          "takeoff_vxy_mps": 0.18853300028315859,
+          "touchdown_vxy_mps": 0.19365825128381298,
+          "q": 0.005984177452508033
+        }
+      ],
+      "hold": {
+        "observed_s": 4.904,
+        "longest_s": 1.0,
+        "failure_samples": {
+          "foot_load": 468,
+          "speed": 620,
+          "tilt": 0,
+          "height": 0,
+          "body": 0
+        },
+        "unstable_samples": 804,
+        "stable_share": 0.8360522022838499,
+        "both_feet_off_s": 0.126,
+        "max_horizontal_speed": 1.6390352264403385,
+        "max_vertical_speed": 0.9462220778766283,
+        "max_tilt_rad": 0.20696312795904787,
+        "horizontal_displacement_m": 0.04607961398472258
+      },
+      "criterion_failures": {
+        "flight": false,
+        "apex": false,
+        "landing_distance": false,
+        "hold": false,
+        "fall": false
+      },
+      "hold_entered": true
+    },
+    {
+      "cond": "in_place",
+      "seed": 9405,
+      "passed": true,
+      "primary_failure": "pass",
+      "gate_episode": {
+        "request_time_s": 2.0029999999998904,
+        "standing_height_m": 0.6905511554841886,
+        "flight_s": 0.17200000000000001,
+        "apex_rise_m": 0.06893619892061287,
+        "landing_error_m": 0.035426873191183254,
+        "touchdown_s": 5.185000000000066,
+        "standing_hold_s": 1.0,
+        "success_time_s": 11.398999999999122,
+        "t_fall": null,
+        "progress": 1.0,
+        "load_samples": 12400,
+        "landing_impact_peak_n": 604.6702731284437,
+        "current_peak_a": 57.22809366936638,
+        "current_over_limit_peak": 1.0014916392139117,
+        "torque_peak_nm": 104.35697771023732,
+        "seed": 9405,
+        "elapsed_s": 12.399999999998567,
+        "handoff_from": "l80_w2",
+        "sample_dt_s": 0.001,
+        "return_to": "l80_w2",
+        "return_observed_s": 0.9999999999994458,
+        "raw_trace": "/Users/danny/\u1100\u1162\u1107\u1161\u11af \u1106\u1169\u110b\u1173\u11b7 \u1111\u1169\u11af\u1103\u1165/raptor/docs/evidence/199-l80-jump/eval/l80_j3/traces_2M/full/l80_j3_2M_jump_nominal_9405.npz"
+      },
+      "representative_flight": {
+        "takeoff_s": 5.013000000000009,
+        "touchdown_s": 5.185000000000066,
+        "flight_s": 0.17200000000000001,
+        "apex_rise_m": 0.06893619892061287,
+        "landing_error_m": 0.035426873191183254,
+        "dx_m": 0.0352414749340683,
+        "dy_m": 0.0036196392880527423,
+        "takeoff_vxy_mps": 0.41696931488946687,
+        "touchdown_vxy_mps": 0.2131525990108353,
+        "q": 1.0
+      },
+      "flights": [
+        {
+          "takeoff_s": 5.010000000000008,
+          "touchdown_s": 5.0120000000000084,
+          "flight_s": 0.002,
+          "apex_rise_m": 0.027342587339624358,
+          "landing_error_m": 0.0004924178166822379,
+          "dx_m": 0.0004900250168654689,
+          "dy_m": 4.848493613586469e-05,
+          "takeoff_vxy_mps": 0.41276714457998914,
+          "touchdown_vxy_mps": 0.41426983512043536,
+          "q": 0.010937034935849743
+        },
+        {
+          "takeoff_s": 5.013000000000009,
+          "touchdown_s": 5.185000000000066,
+          "flight_s": 0.17200000000000001,
+          "apex_rise_m": 0.06893619892061287,
+          "landing_error_m": 0.035426873191183254,
+          "dx_m": 0.0352414749340683,
+          "dy_m": 0.0036196392880527423,
+          "takeoff_vxy_mps": 0.41696931488946687,
+          "touchdown_vxy_mps": 0.2131525990108353,
+          "q": 1.0
+        },
+        {
+          "takeoff_s": 9.151000000000368,
+          "touchdown_s": 9.266000000000304,
+          "flight_s": 0.115,
+          "apex_rise_m": 0.05633876111153946,
+          "landing_error_m": 0.013227092902398062,
+          "dx_m": 0.013172753758441333,
+          "dy_m": 0.0011977249551290581,
+          "takeoff_vxy_mps": 0.3761199307328634,
+          "touchdown_vxy_mps": 0.20580416054224454,
+          "q": 1.0
+        }
+      ],
+      "hold": {
+        "observed_s": 6.215,
+        "longest_s": 1.0,
+        "failure_samples": {
+          "foot_load": 670,
+          "speed": 729,
+          "tilt": 0,
+          "height": 0,
+          "body": 0
+        },
+        "unstable_samples": 1157,
+        "stable_share": 0.8138374899436847,
+        "both_feet_off_s": 0.115,
+        "max_horizontal_speed": 1.6570551601249035,
+        "max_vertical_speed": 0.9454710954962084,
+        "max_tilt_rad": 0.2020195592210117,
+        "horizontal_displacement_m": 0.05516879004690568
+      },
+      "criterion_failures": {
+        "flight": false,
+        "apex": false,
+        "landing_distance": false,
+        "hold": false,
+        "fall": false
+      },
+      "hold_entered": true
+    },
+    {
+      "cond": "in_place",
+      "seed": 9406,
+      "passed": true,
+      "primary_failure": "pass",
+      "gate_episode": {
+        "request_time_s": 2.0129999999998893,
+        "standing_height_m": 0.6938699651689697,
+        "flight_s": 0.162,
+        "apex_rise_m": 0.06587017720023014,
+        "landing_error_m": 0.0244362851867027,
+        "touchdown_s": 3.0829999999997715,
+        "standing_hold_s": 1.0,
+        "success_time_s": 5.0810000000000315,
+        "t_fall": null,
+        "progress": 1.0,
+        "load_samples": 6100,
+        "landing_impact_peak_n": 405.24270803243405,
+        "current_peak_a": 56.79743862624465,
+        "current_over_limit_peak": 0.9939551759592814,
+        "torque_peak_nm": 102.06680790266091,
+        "seed": 9406,
+        "elapsed_s": 6.100000000000372,
+        "handoff_from": "l80_w2",
+        "sample_dt_s": 0.001,
+        "return_to": "l80_w2",
+        "return_observed_s": 1.000000000000334,
+        "raw_trace": "/Users/danny/\u1100\u1162\u1107\u1161\u11af \u1106\u1169\u110b\u1173\u11b7 \u1111\u1169\u11af\u1103\u1165/raptor/docs/evidence/199-l80-jump/eval/l80_j3/traces_2M/full/l80_j3_2M_jump_nominal_9406.npz"
+      },
+      "representative_flight": {
+        "takeoff_s": 2.9209999999997893,
+        "touchdown_s": 3.0829999999997715,
+        "flight_s": 0.162,
+        "apex_rise_m": 0.06587017720023014,
+        "landing_error_m": 0.0244362851867027,
+        "dx_m": 0.023548003024192854,
+        "dy_m": 0.006528674237429068,
+        "takeoff_vxy_mps": 0.5894727539824179,
+        "touchdown_vxy_mps": 0.2088832470503057,
+        "q": 1.0
+      },
+      "flights": [
+        {
+          "takeoff_s": 2.9209999999997893,
+          "touchdown_s": 3.0829999999997715,
+          "flight_s": 0.162,
+          "apex_rise_m": 0.06587017720023014,
+          "landing_error_m": 0.0244362851867027,
+          "dx_m": 0.023548003024192854,
+          "dy_m": 0.006528674237429068,
+          "takeoff_vxy_mps": 0.5894727539824179,
+          "touchdown_vxy_mps": 0.2088832470503057,
+          "q": 1.0
+        }
+      ],
+      "hold": {
+        "observed_s": 1.999,
+        "longest_s": 1.0,
+        "failure_samples": {
+          "foot_load": 132,
+          "speed": 187,
+          "tilt": 0,
+          "height": 0,
+          "body": 0
+        },
+        "unstable_samples": 255,
+        "stable_share": 0.8724362181090545,
+        "both_feet_off_s": 0.0,
+        "max_horizontal_speed": 1.1936857333387147,
+        "max_vertical_speed": 0.9100635729971264,
+        "max_tilt_rad": 0.1803495847199921,
+        "horizontal_displacement_m": 0.016854546629269117
+      },
+      "criterion_failures": {
+        "flight": false,
+        "apex": false,
+        "landing_distance": false,
+        "hold": false,
+        "fall": false
+      },
+      "hold_entered": true
+    },
+    {
+      "cond": "in_place",
+      "seed": 9407,
+      "passed": false,
+      "primary_failure": "hold",
+      "gate_episode": {
+        "request_time_s": 2.1029999999998794,
+        "standing_height_m": 0.6900440134864432,
+        "flight_s": 0.181,
+        "apex_rise_m": 0.07361294152579256,
+        "landing_error_m": 0.03796528573210175,
+        "touchdown_s": 5.055000000000023,
+        "standing_hold_s": 0.895,
+        "success_time_s": null,
+        "t_fall": null,
+        "progress": 1.0,
+        "load_samples": 12000,
+        "landing_impact_peak_n": 621.2091937396126,
+        "current_peak_a": 57.22680221452372,
+        "current_over_limit_peak": 1.0014690387541652,
+        "torque_peak_nm": 103.57350392921377,
+        "seed": 9407,
+        "elapsed_s": 11.999999999998789,
+        "handoff_from": "l80_w2",
+        "sample_dt_s": 0.001,
+        "return_to": null,
+        "return_observed_s": 0.0,
+        "raw_trace": "/Users/danny/\u1100\u1162\u1107\u1161\u11af \u1106\u1169\u110b\u1173\u11b7 \u1111\u1169\u11af\u1103\u1165/raptor/docs/evidence/199-l80-jump/eval/l80_j3/traces_2M/full/l80_j3_2M_jump_nominal_9407.npz"
+      },
+      "representative_flight": {
+        "takeoff_s": 4.873999999999962,
+        "touchdown_s": 5.055000000000023,
+        "flight_s": 0.181,
+        "apex_rise_m": 0.07361294152579256,
+        "landing_error_m": 0.03796528573210175,
+        "dx_m": 0.03779252631116066,
+        "dy_m": -0.0036177169237459547,
+        "takeoff_vxy_mps": 0.29598025034910025,
+        "touchdown_vxy_mps": 0.33569739649517394,
+        "q": 1.0
+      },
+      "flights": [
+        {
+          "takeoff_s": 4.873999999999962,
+          "touchdown_s": 5.055000000000023,
+          "flight_s": 0.181,
+          "apex_rise_m": 0.07361294152579256,
+          "landing_error_m": 0.03796528573210175,
+          "dx_m": 0.03779252631116066,
+          "dy_m": -0.0036177169237459547,
+          "takeoff_vxy_mps": 0.29598025034910025,
+          "touchdown_vxy_mps": 0.33569739649517394,
+          "q": 1.0
+        },
+        {
+          "takeoff_s": 6.622000000000546,
+          "touchdown_s": 6.7610000000005925,
+          "flight_s": 0.139,
+          "apex_rise_m": 0.06374821302178779,
+          "landing_error_m": 0.009321594850551776,
+          "dx_m": 0.009173153504847105,
+          "dy_m": 0.0016569204369385505,
+          "takeoff_vxy_mps": 0.7840706096754049,
+          "touchdown_vxy_mps": 0.00792394442280747,
+          "q": 1.0
+        },
+        {
+          "takeoff_s": 9.100000000000396,
+          "touchdown_s": 9.258000000000308,
+          "flight_s": 0.158,
+          "apex_rise_m": 0.06289602970306896,
+          "landing_error_m": 0.02159244353473525,
+          "dx_m": 0.02158444109456619,
+          "dy_m": -0.0005878098637589488,
+          "takeoff_vxy_mps": 0.5705545034708538,
+          "touchdown_vxy_mps": 0.1924111962979494,
+          "q": 1.0
+        },
+        {
+          "takeoff_s": 11.018999999999332,
+          "touchdown_s": 11.171999999999247,
+          "flight_s": 0.153,
+          "apex_rise_m": 0.057717232226307646,
+          "landing_error_m": 0.027119594155269166,
+          "dx_m": 0.026551079329945847,
+          "dy_m": -0.005523818748061151,
+          "takeoff_vxy_mps": 0.6669191437483857,
+          "touchdown_vxy_mps": 0.19572717826075695,
+          "q": 1.0
+        }
+      ],
+      "hold": {
+        "observed_s": 6.946,
+        "longest_s": 0.895,
+        "failure_samples": {
+          "foot_load": 1323,
+          "speed": 1612,
+          "tilt": 0,
+          "height": 0,
+          "body": 0
+        },
+        "unstable_samples": 2121,
+        "stable_share": 0.6946443996544774,
+        "both_feet_off_s": 0.45,
+        "max_horizontal_speed": 1.7086838506435,
+        "max_vertical_speed": 0.9535989613795407,
+        "max_tilt_rad": 0.20500261879206014,
+        "horizontal_displacement_m": 0.012946096362088086
+      },
+      "criterion_failures": {
+        "flight": false,
+        "apex": false,
+        "landing_distance": false,
+        "hold": true,
+        "fall": false
+      },
+      "hold_entered": true
+    },
+    {
+      "cond": "in_place_dr",
+      "seed": 9500,
+      "passed": true,
+      "primary_failure": "pass",
+      "gate_episode": {
+        "request_time_s": 2.0459999999998857,
+        "standing_height_m": 0.6815927366684764,
+        "flight_s": 0.159,
+        "apex_rise_m": 0.07703741893424754,
+        "landing_error_m": 0.02918759886706976,
+        "touchdown_s": 5.1200000000000445,
+        "standing_hold_s": 1.0,
+        "success_time_s": 7.644000000000887,
+        "t_fall": null,
+        "progress": 1.0,
+        "load_samples": 8660,
+        "landing_impact_peak_n": 480.04622937242243,
+        "current_peak_a": 46.055724402801744,
+        "current_over_limit_peak": 0.8425218532309001,
+        "torque_peak_nm": 79.18945451673022,
+        "seed": 9500,
+        "elapsed_s": 8.66000000000064,
+        "handoff_from": "l80_w2",
+        "sample_dt_s": 0.001,
+        "return_to": "l80_w2",
+        "return_observed_s": 0.9999999999997469,
+        "raw_trace": "/Users/danny/\u1100\u1162\u1107\u1161\u11af \u1106\u1169\u110b\u1173\u11b7 \u1111\u1169\u11af\u1103\u1165/raptor/docs/evidence/199-l80-jump/eval/l80_j3/traces_2M/full/l80_j3_2M_jump_dr_9500.npz"
+      },
+      "representative_flight": {
+        "takeoff_s": 4.960999999999991,
+        "touchdown_s": 5.1200000000000445,
+        "flight_s": 0.159,
+        "apex_rise_m": 0.07703741893424754,
+        "landing_error_m": 0.02918759886706976,
+        "dx_m": 0.028753966134587687,
+        "dy_m": 0.005012520239954778,
+        "takeoff_vxy_mps": 0.47117513507761943,
+        "touchdown_vxy_mps": 0.3619038127570914,
+        "q": 1.0
+      },
+      "flights": [
+        {
+          "takeoff_s": 4.960999999999991,
+          "touchdown_s": 5.1200000000000445,
+          "flight_s": 0.159,
+          "apex_rise_m": 0.07703741893424754,
+          "landing_error_m": 0.02918759886706976,
+          "dx_m": 0.028753966134587687,
+          "dy_m": 0.005012520239954778,
+          "takeoff_vxy_mps": 0.47117513507761943,
+          "touchdown_vxy_mps": 0.3619038127570914,
+          "q": 1.0
+        },
+        {
+          "takeoff_s": 7.8360000000009515,
+          "touchdown_s": 7.86200000000096,
+          "flight_s": 0.026000000000000002,
+          "apex_rise_m": 0.03419670894139393,
+          "landing_error_m": 0.007390294900980397,
+          "dx_m": 0.0071464759660823315,
+          "dy_m": 0.0018826417581856783,
+          "takeoff_vxy_mps": 0.32593436572602097,
+          "touchdown_vxy_mps": 0.3312288776376319,
+          "q": 0.17782288649524844
+        }
+      ],
+      "hold": {
+        "observed_s": 2.525,
+        "longest_s": 1.0,
+        "failure_samples": {
+          "foot_load": 299,
+          "speed": 339,
+          "tilt": 0,
+          "height": 0,
+          "body": 0
+        },
+        "unstable_samples": 472,
+        "stable_share": 0.813069306930693,
+        "both_feet_off_s": 0.0,
+        "max_horizontal_speed": 0.9016321554681981,
+        "max_vertical_speed": 0.8318028929407693,
+        "max_tilt_rad": 0.18916708515547961,
+        "horizontal_displacement_m": 0.023721490991978296
+      },
+      "criterion_failures": {
+        "flight": false,
+        "apex": false,
+        "landing_distance": false,
+        "hold": false,
+        "fall": false
+      },
+      "hold_entered": true
+    },
+    {
+      "cond": "in_place_dr",
+      "seed": 9501,
+      "passed": false,
+      "primary_failure": "hold",
+      "gate_episode": {
+        "request_time_s": 2.1369999999998757,
+        "standing_height_m": 0.6857299386772033,
+        "flight_s": 0.185,
+        "apex_rise_m": 0.0789484989894842,
+        "landing_error_m": 0.038462815096621805,
+        "touchdown_s": 4.05799999999969,
+        "standing_hold_s": 0.728,
+        "success_time_s": null,
+        "t_fall": null,
+        "progress": 1.0,
+        "load_samples": 12000,
+        "landing_impact_peak_n": 572.9074462539556,
+        "current_peak_a": 54.73391637164824,
+        "current_over_limit_peak": 1.0018511928352933,
+        "torque_peak_nm": 101.94422294246183,
+        "seed": 9501,
+        "elapsed_s": 11.999999999998789,
+        "handoff_from": "l80_w2",
+        "sample_dt_s": 0.001,
+        "return_to": null,
+        "return_observed_s": 0.0,
+        "raw_trace": "/Users/danny/\u1100\u1162\u1107\u1161\u11af \u1106\u1169\u110b\u1173\u11b7 \u1111\u1169\u11af\u1103\u1165/raptor/docs/evidence/199-l80-jump/eval/l80_j3/traces_2M/full/l80_j3_2M_jump_dr_9501.npz"
+      },
+      "representative_flight": {
+        "takeoff_s": 3.8729999999996845,
+        "touchdown_s": 4.05799999999969,
+        "flight_s": 0.185,
+        "apex_rise_m": 0.0789484989894842,
+        "landing_error_m": 0.038462815096621805,
+        "dx_m": 0.03841273343716087,
+        "dy_m": -0.001962155713123085,
+        "takeoff_vxy_mps": 0.2569551005512646,
+        "touchdown_vxy_mps": 0.07711774790357,
+        "q": 1.0
+      },
+      "flights": [
+        {
+          "takeoff_s": 3.8729999999996845,
+          "touchdown_s": 4.05799999999969,
+          "flight_s": 0.185,
+          "apex_rise_m": 0.0789484989894842,
+          "landing_error_m": 0.038462815096621805,
+          "dx_m": 0.03841273343716087,
+          "dy_m": -0.001962155713123085,
+          "takeoff_vxy_mps": 0.2569551005512646,
+          "touchdown_vxy_mps": 0.07711774790357,
+          "q": 1.0
+        },
+        {
+          "takeoff_s": 6.239000000000418,
+          "touchdown_s": 6.411000000000476,
+          "flight_s": 0.17200000000000001,
+          "apex_rise_m": 0.06868505062055241,
+          "landing_error_m": 0.03274050870049394,
+          "dx_m": 0.03250760125161463,
+          "dy_m": 0.0038983035840147798,
+          "takeoff_vxy_mps": 0.44782371228965695,
+          "touchdown_vxy_mps": 0.44021335200701633,
+          "q": 1.0
+        },
+        {
+          "takeoff_s": 9.695000000000066,
+          "touchdown_s": 9.864999999999972,
+          "flight_s": 0.17,
+          "apex_rise_m": 0.07853278161874222,
+          "landing_error_m": 0.026257103534044215,
+          "dx_m": 0.026255808033605207,
+          "dy_m": 0.00026082657071220365,
+          "takeoff_vxy_mps": 0.4570822516078683,
+          "touchdown_vxy_mps": 0.4577341363542784,
+          "q": 1.0
+        }
+      ],
+      "hold": {
+        "observed_s": 7.9430000000000005,
+        "longest_s": 0.728,
+        "failure_samples": {
+          "foot_load": 1067,
+          "speed": 1209,
+          "tilt": 0,
+          "height": 0,
+          "body": 0
+        },
+        "unstable_samples": 1651,
+        "stable_share": 0.7921440261865794,
+        "both_feet_off_s": 0.342,
+        "max_horizontal_speed": 1.973586103023951,
+        "max_vertical_speed": 0.9888793324038855,
+        "max_tilt_rad": 0.21680017948080207,
+        "horizontal_displacement_m": 0.04892558809391525
+      },
+      "criterion_failures": {
+        "flight": false,
+        "apex": false,
+        "landing_distance": false,
+        "hold": true,
+        "fall": false
+      },
+      "hold_entered": true
+    },
+    {
+      "cond": "in_place_dr",
+      "seed": 9502,
+      "passed": false,
+      "primary_failure": "hold",
+      "gate_episode": {
+        "request_time_s": 2.1839999999998705,
+        "standing_height_m": 0.7013955931098067,
+        "flight_s": 0.159,
+        "apex_rise_m": 0.0521935018103139,
+        "landing_error_m": 0.02467671243933655,
+        "touchdown_s": 7.161000000000726,
+        "standing_hold_s": 0.857,
+        "success_time_s": null,
+        "t_fall": null,
+        "progress": 1.0,
+        "load_samples": 12000,
+        "landing_impact_peak_n": 553.3160674932138,
+        "current_peak_a": 73.35988142541939,
+        "current_over_limit_peak": 1.2310237700286921,
+        "torque_peak_nm": 92.33655097341494,
+        "seed": 9502,
+        "elapsed_s": 11.999999999998789,
+        "handoff_from": "l80_w2",
+        "sample_dt_s": 0.001,
+        "return_to": null,
+        "return_observed_s": 0.0,
+        "raw_trace": "/Users/danny/\u1100\u1162\u1107\u1161\u11af \u1106\u1169\u110b\u1173\u11b7 \u1111\u1169\u11af\u1103\u1165/raptor/docs/evidence/199-l80-jump/eval/l80_j3/traces_2M/full/l80_j3_2M_jump_dr_9502.npz"
+      },
+      "representative_flight": {
+        "takeoff_s": 7.002000000000673,
+        "touchdown_s": 7.161000000000726,
+        "flight_s": 0.159,
+        "apex_rise_m": 0.0521935018103139,
+        "landing_error_m": 0.02467671243933655,
+        "dx_m": 0.0235887671340764,
+        "dy_m": 0.007246392337434147,
+        "takeoff_vxy_mps": 0.651219109671532,
+        "touchdown_vxy_mps": 0.18492941383260356,
+        "q": 1.0
+      },
+      "flights": [
+        {
+          "takeoff_s": 2.6089999999998237,
+          "touchdown_s": 2.6099999999998236,
+          "flight_s": 0.001,
+          "apex_rise_m": 0.0393858261621024,
+          "landing_error_m": 9.133100483830922e-05,
+          "dx_m": 8.52376696660051e-05,
+          "dy_m": 3.2800794421541934e-05,
+          "takeoff_vxy_mps": 0.5831317245287602,
+          "touchdown_vxy_mps": 0.5536324926755676,
+          "q": 0.00787716523242048
+        },
+        {
+          "takeoff_s": 2.6109999999998235,
+          "touchdown_s": 2.7109999999998124,
+          "flight_s": 0.1,
+          "apex_rise_m": 0.04532293277962196,
+          "landing_error_m": 0.00884135567669645,
+          "dx_m": 0.008271826283894168,
+          "dy_m": 0.0031219321150419213,
+          "takeoff_vxy_mps": 0.5243380040818033,
+          "touchdown_vxy_mps": 0.28211102181524644,
+          "q": 0.9064586555924392
+        },
+        {
+          "takeoff_s": 2.7129999999998122,
+          "touchdown_s": 2.713999999999812,
+          "flight_s": 0.001,
+          "apex_rise_m": 0.024357288504888275,
+          "landing_error_m": 0.00010740705553646721,
+          "dx_m": 0.00010207512882631775,
+          "dy_m": 3.342070696595728e-05,
+          "takeoff_vxy_mps": 0.30021904210217004,
+          "touchdown_vxy_mps": 0.3080273035679854,
+          "q": 0.004871457700977655
+        },
+        {
+          "takeoff_s": 7.002000000000673,
+          "touchdown_s": 7.161000000000726,
+          "flight_s": 0.159,
+          "apex_rise_m": 0.0521935018103139,
+          "landing_error_m": 0.02467671243933655,
+          "dx_m": 0.0235887671340764,
+          "dy_m": 0.007246392337434147,
+          "takeoff_vxy_mps": 0.651219109671532,
+          "touchdown_vxy_mps": 0.18492941383260356,
+          "q": 1.0
+        },
+        {
+          "takeoff_s": 11.107999999999283,
+          "touchdown_s": 11.283999999999185,
+          "flight_s": 0.176,
+          "apex_rise_m": 0.06915066598132047,
+          "landing_error_m": 0.040635189770703906,
+          "dx_m": 0.03995390569023621,
+          "dy_m": 0.007409727916518229,
+          "takeoff_vxy_mps": 0.278622239492735,
+          "touchdown_vxy_mps": 0.4109786961118946,
+          "q": 1.0
+        },
+        {
+          "takeoff_s": 11.285999999999184,
+          "touchdown_s": 11.287999999999183,
+          "flight_s": 0.002,
+          "apex_rise_m": 0.037242891440100734,
+          "landing_error_m": 0.0005568558477258118,
+          "dx_m": 0.0005511406741182112,
+          "dy_m": 7.957633114787435e-05,
+          "takeoff_vxy_mps": 0.3466732244488285,
+          "touchdown_vxy_mps": 0.2701018889439542,
+          "q": 0.014897156576040294
+        }
+      ],
+      "hold": {
+        "observed_s": 4.84,
+        "longest_s": 0.857,
+        "failure_samples": {
+          "foot_load": 624,
+          "speed": 653,
+          "tilt": 0,
+          "height": 0,
+          "body": 0
+        },
+        "unstable_samples": 928,
+        "stable_share": 0.8082644628099174,
+        "both_feet_off_s": 0.178,
+        "max_horizontal_speed": 2.319892423056114,
+        "max_vertical_speed": 1.0226979712475792,
+        "max_tilt_rad": 0.23042369241560232,
+        "horizontal_displacement_m": 0.037215812706500526
+      },
+      "criterion_failures": {
+        "flight": false,
+        "apex": false,
+        "landing_distance": false,
+        "hold": true,
+        "fall": false
+      },
+      "hold_entered": true
+    },
+    {
+      "cond": "in_place_dr",
+      "seed": 9503,
+      "passed": true,
+      "primary_failure": "pass",
+      "gate_episode": {
+        "request_time_s": 2.3119999999998564,
+        "standing_height_m": 0.6996594762844487,
+        "flight_s": 0.18,
+        "apex_rise_m": 0.07331842696144208,
+        "landing_error_m": 0.04265518221288443,
+        "touchdown_s": 4.947999999999987,
+        "standing_hold_s": 1.0,
+        "success_time_s": 7.7550000000009245,
+        "t_fall": null,
+        "progress": 1.0,
+        "load_samples": 8760,
+        "landing_impact_peak_n": 657.4986984676573,
+        "current_peak_a": 52.94961853528847,
+        "current_over_limit_peak": 1.0112801889005654,
+        "torque_peak_nm": 94.76613885650221,
+        "seed": 9503,
+        "elapsed_s": 8.760000000000584,
+        "handoff_from": "l80_w2",
+        "sample_dt_s": 0.001,
+        "return_to": "l80_w2",
+        "return_observed_s": 0.999999999999658,
+        "raw_trace": "/Users/danny/\u1100\u1162\u1107\u1161\u11af \u1106\u1169\u110b\u1173\u11b7 \u1111\u1169\u11af\u1103\u1165/raptor/docs/evidence/199-l80-jump/eval/l80_j3/traces_2M/full/l80_j3_2M_jump_dr_9503.npz"
+      },
+      "representative_flight": {
+        "takeoff_s": 4.767999999999927,
+        "touchdown_s": 4.947999999999987,
+        "flight_s": 0.18,
+        "apex_rise_m": 0.07331842696144208,
+        "landing_error_m": 0.04265518221288443,
+        "dx_m": 0.04112669573483646,
+        "dy_m": 0.011316336312983843,
+        "takeoff_vxy_mps": 0.778204140699934,
+        "touchdown_vxy_mps": 0.3293650654585305,
+        "q": 1.0
+      },
+      "flights": [
+        {
+          "takeoff_s": 4.767999999999927,
+          "touchdown_s": 4.947999999999987,
+          "flight_s": 0.18,
+          "apex_rise_m": 0.07331842696144208,
+          "landing_error_m": 0.04265518221288443,
+          "dx_m": 0.04112669573483646,
+          "dy_m": 0.011316336312983843,
+          "takeoff_vxy_mps": 0.778204140699934,
+          "touchdown_vxy_mps": 0.3293650654585305,
+          "q": 1.0
+        }
+      ],
+      "hold": {
+        "observed_s": 2.8080000000000003,
+        "longest_s": 1.0,
+        "failure_samples": {
+          "foot_load": 279,
+          "speed": 326,
+          "tilt": 0,
+          "height": 0,
+          "body": 0
+        },
+        "unstable_samples": 465,
+        "stable_share": 0.8344017094017094,
+        "both_feet_off_s": 0.0,
+        "max_horizontal_speed": 1.0499211647097713,
+        "max_vertical_speed": 1.0823363354211146,
+        "max_tilt_rad": 0.2066134464730398,
+        "horizontal_displacement_m": 0.029835174374217937
+      },
+      "criterion_failures": {
+        "flight": false,
+        "apex": false,
+        "landing_distance": false,
+        "hold": false,
+        "fall": false
+      },
+      "hold_entered": true
+    },
+    {
+      "cond": "in_place_dr",
+      "seed": 9504,
+      "passed": false,
+      "primary_failure": "hold",
+      "gate_episode": {
+        "request_time_s": 2.0009999999998906,
+        "standing_height_m": 0.6952592533054168,
+        "flight_s": 0.178,
+        "apex_rise_m": 0.06800654646542681,
+        "landing_error_m": 0.0387780653106052,
+        "touchdown_s": 5.5570000000001905,
+        "standing_hold_s": 0.6930000000000001,
+        "success_time_s": null,
+        "t_fall": null,
+        "progress": 1.0,
+        "load_samples": 12000,
+        "landing_impact_peak_n": 593.0307800442242,
+        "current_peak_a": 62.92381713860601,
+        "current_over_limit_peak": 1.075533958430357,
+        "torque_peak_nm": 92.03592276247434,
+        "seed": 9504,
+        "elapsed_s": 11.999999999998789,
+        "handoff_from": "l80_w2",
+        "sample_dt_s": 0.001,
+        "return_to": null,
+        "return_observed_s": 0.0,
+        "raw_trace": "/Users/danny/\u1100\u1162\u1107\u1161\u11af \u1106\u1169\u110b\u1173\u11b7 \u1111\u1169\u11af\u1103\u1165/raptor/docs/evidence/199-l80-jump/eval/l80_j3/traces_2M/full/l80_j3_2M_jump_dr_9504.npz"
+      },
+      "representative_flight": {
+        "takeoff_s": 5.379000000000131,
+        "touchdown_s": 5.5570000000001905,
+        "flight_s": 0.178,
+        "apex_rise_m": 0.06800654646542681,
+        "landing_error_m": 0.0387780653106052,
+        "dx_m": 0.03873806843955156,
+        "dy_m": -0.0017607960717191465,
+        "takeoff_vxy_mps": 0.6738492438186627,
+        "touchdown_vxy_mps": 0.32942748616038814,
+        "q": 1.0
+      },
+      "flights": [
+        {
+          "takeoff_s": 2.0659999999998835,
+          "touchdown_s": 2.0679999999998833,
+          "flight_s": 0.002,
+          "apex_rise_m": 0.0012566037598310542,
+          "landing_error_m": 0.00022668382923786206,
+          "dx_m": -0.00022039008281241057,
+          "dy_m": 5.304497936543112e-05,
+          "takeoff_vxy_mps": 1.0978208913499037,
+          "touchdown_vxy_mps": 1.0329598154124504,
+          "q": 0.0005026415039324217
+        },
+        {
+          "takeoff_s": 2.0749999999998825,
+          "touchdown_s": 2.0759999999998824,
+          "flight_s": 0.001,
+          "apex_rise_m": 0.0002650131270590661,
+          "landing_error_m": 9.524647251594055e-05,
+          "dx_m": -9.4014931697875e-05,
+          "dy_m": 1.526706077061707e-05,
+          "takeoff_vxy_mps": 0.6769250782952371,
+          "touchdown_vxy_mps": 0.611291829192106,
+          "q": 5.3002625411813224e-05
+        },
+        {
+          "takeoff_s": 5.379000000000131,
+          "touchdown_s": 5.5570000000001905,
+          "flight_s": 0.178,
+          "apex_rise_m": 0.06800654646542681,
+          "landing_error_m": 0.0387780653106052,
+          "dx_m": 0.03873806843955156,
+          "dy_m": -0.0017607960717191465,
+          "takeoff_vxy_mps": 0.6738492438186627,
+          "touchdown_vxy_mps": 0.32942748616038814,
+          "q": 1.0
+        },
+        {
+          "takeoff_s": 6.884000000000634,
+          "touchdown_s": 7.027000000000681,
+          "flight_s": 0.14300000000000002,
+          "apex_rise_m": 0.05927140783666429,
+          "landing_error_m": 0.01326502519997276,
+          "dx_m": 0.012831095526895316,
+          "dy_m": -0.003365097492733213,
+          "takeoff_vxy_mps": 0.5868814539201257,
+          "touchdown_vxy_mps": 0.39173307498619436,
+          "q": 1.0
+        },
+        {
+          "takeoff_s": 9.068000000000414,
+          "touchdown_s": 9.190000000000346,
+          "flight_s": 0.122,
+          "apex_rise_m": 0.056026663594748394,
+          "landing_error_m": 0.017130539565824478,
+          "dx_m": 0.017124801384380425,
+          "dy_m": 0.00044335466818357094,
+          "takeoff_vxy_mps": 0.3535682533958378,
+          "touchdown_vxy_mps": 0.09584647277430959,
+          "q": 1.0
+        }
+      ],
+      "hold": {
+        "observed_s": 6.444,
+        "longest_s": 0.6930000000000001,
+        "failure_samples": {
+          "foot_load": 1024,
+          "speed": 1277,
+          "tilt": 0,
+          "height": 0,
+          "body": 0
+        },
+        "unstable_samples": 1700,
+        "stable_share": 0.7361887026691496,
+        "both_feet_off_s": 0.265,
+        "max_horizontal_speed": 2.6424324267907746,
+        "max_vertical_speed": 0.9378192801459494,
+        "max_tilt_rad": 0.22668935030060075,
+        "horizontal_displacement_m": 0.036724511220256696
+      },
+      "criterion_failures": {
+        "flight": false,
+        "apex": false,
+        "landing_distance": false,
+        "hold": true,
+        "fall": false
+      },
+      "hold_entered": true
+    },
+    {
+      "cond": "in_place_dr",
+      "seed": 9505,
+      "passed": true,
+      "primary_failure": "pass",
+      "gate_episode": {
+        "request_time_s": 2.0009999999998906,
+        "standing_height_m": 0.6914925273758081,
+        "flight_s": 0.116,
+        "apex_rise_m": 0.05061029581723275,
+        "landing_error_m": 0.00871253696491321,
+        "touchdown_s": 3.742999999999699,
+        "standing_hold_s": 1.0,
+        "success_time_s": 5.517000000000177,
+        "t_fall": null,
+        "progress": 1.0,
+        "load_samples": 6520,
+        "landing_impact_peak_n": 516.59868001876,
+        "current_peak_a": 56.08674660143838,
+        "current_over_limit_peak": 1.0012266811788764,
+        "torque_peak_nm": 100.23657894354713,
+        "seed": 9505,
+        "elapsed_s": 6.520000000000512,
+        "handoff_from": "l80_w2",
+        "sample_dt_s": 0.001,
+        "return_to": "l80_w2",
+        "return_observed_s": 1.000000000000334,
+        "raw_trace": "/Users/danny/\u1100\u1162\u1107\u1161\u11af \u1106\u1169\u110b\u1173\u11b7 \u1111\u1169\u11af\u1103\u1165/raptor/docs/evidence/199-l80-jump/eval/l80_j3/traces_2M/full/l80_j3_2M_jump_dr_9505.npz"
+      },
+      "representative_flight": {
+        "takeoff_s": 3.6269999999997116,
+        "touchdown_s": 3.742999999999699,
+        "flight_s": 0.116,
+        "apex_rise_m": 0.05061029581723275,
+        "landing_error_m": 0.00871253696491321,
+        "dx_m": 0.00813762181449973,
+        "dy_m": 0.003112460693592325,
+        "takeoff_vxy_mps": 0.8313420040438443,
+        "touchdown_vxy_mps": 0.2722215342413565,
+        "q": 1.0
+      },
+      "flights": [
+        {
+          "takeoff_s": 3.6269999999997116,
+          "touchdown_s": 3.742999999999699,
+          "flight_s": 0.116,
+          "apex_rise_m": 0.05061029581723275,
+          "landing_error_m": 0.00871253696491321,
+          "dx_m": 0.00813762181449973,
+          "dy_m": 0.003112460693592325,
+          "takeoff_vxy_mps": 0.8313420040438443,
+          "touchdown_vxy_mps": 0.2722215342413565,
+          "q": 1.0
+        }
+      ],
+      "hold": {
+        "observed_s": 1.7750000000000001,
+        "longest_s": 1.0,
+        "failure_samples": {
+          "foot_load": 192,
+          "speed": 219,
+          "tilt": 0,
+          "height": 0,
+          "body": 0
+        },
+        "unstable_samples": 307,
+        "stable_share": 0.8270422535211268,
+        "both_feet_off_s": 0.0,
+        "max_horizontal_speed": 1.0457340200942533,
+        "max_vertical_speed": 0.9326998335678958,
+        "max_tilt_rad": 0.20328346104999923,
+        "horizontal_displacement_m": 0.03356598136783796
+      },
+      "criterion_failures": {
+        "flight": false,
+        "apex": false,
+        "landing_distance": false,
+        "hold": false,
+        "fall": false
+      },
+      "hold_entered": true
+    },
+    {
+      "cond": "in_place_dr",
+      "seed": 9506,
+      "passed": true,
+      "primary_failure": "pass",
+      "gate_episode": {
+        "request_time_s": 2.0189999999998887,
+        "standing_height_m": 0.7022214398040255,
+        "flight_s": 0.17300000000000001,
+        "apex_rise_m": 0.06162714334472741,
+        "landing_error_m": 0.031220956860070617,
+        "touchdown_s": 3.7019999999997033,
+        "standing_hold_s": 1.0,
+        "success_time_s": 5.579000000000198,
+        "t_fall": null,
+        "progress": 1.0,
+        "load_samples": 6580,
+        "landing_impact_peak_n": 646.5526826605985,
+        "current_peak_a": 57.070806485453566,
+        "current_over_limit_peak": 1.0386025890134092,
+        "torque_peak_nm": 88.27359823097504,
+        "seed": 9506,
+        "elapsed_s": 6.580000000000532,
+        "handoff_from": "l80_w2",
+        "sample_dt_s": 0.001,
+        "return_to": "l80_w2",
+        "return_observed_s": 1.000000000000334,
+        "raw_trace": "/Users/danny/\u1100\u1162\u1107\u1161\u11af \u1106\u1169\u110b\u1173\u11b7 \u1111\u1169\u11af\u1103\u1165/raptor/docs/evidence/199-l80-jump/eval/l80_j3/traces_2M/full/l80_j3_2M_jump_dr_9506.npz"
+      },
+      "representative_flight": {
+        "takeoff_s": 3.5289999999997224,
+        "touchdown_s": 3.7019999999997033,
+        "flight_s": 0.17300000000000001,
+        "apex_rise_m": 0.06162714334472741,
+        "landing_error_m": 0.031220956860070617,
+        "dx_m": 0.030157039025102826,
+        "dy_m": -0.008080912355471741,
+        "takeoff_vxy_mps": 0.4364164168554831,
+        "touchdown_vxy_mps": 0.45441585052253497,
+        "q": 1.0
+      },
+      "flights": [
+        {
+          "takeoff_s": 3.5289999999997224,
+          "touchdown_s": 3.7019999999997033,
+          "flight_s": 0.17300000000000001,
+          "apex_rise_m": 0.06162714334472741,
+          "landing_error_m": 0.031220956860070617,
+          "dx_m": 0.030157039025102826,
+          "dy_m": -0.008080912355471741,
+          "takeoff_vxy_mps": 0.4364164168554831,
+          "touchdown_vxy_mps": 0.45441585052253497,
+          "q": 1.0
+        },
+        {
+          "takeoff_s": 3.705999999999703,
+          "touchdown_s": 3.7069999999997028,
+          "flight_s": 0.001,
+          "apex_rise_m": 0.01702240668430932,
+          "landing_error_m": 0.00017773347564156714,
+          "dx_m": 0.00017123686421720297,
+          "dy_m": -4.7614332891375566e-05,
+          "takeoff_vxy_mps": 0.4655718820080138,
+          "touchdown_vxy_mps": 0.45345824687842456,
+          "q": 0.0034044813368618644
+        }
+      ],
+      "hold": {
+        "observed_s": 1.8780000000000001,
+        "longest_s": 1.0,
+        "failure_samples": {
+          "foot_load": 228,
+          "speed": 261,
+          "tilt": 0,
+          "height": 0,
+          "body": 0
+        },
+        "unstable_samples": 345,
+        "stable_share": 0.8162939297124601,
+        "both_feet_off_s": 0.001,
+        "max_horizontal_speed": 1.1756508763516718,
+        "max_vertical_speed": 0.9676619201360929,
+        "max_tilt_rad": 0.22260779387495533,
+        "horizontal_displacement_m": 0.05718389671762286
+      },
+      "criterion_failures": {
+        "flight": false,
+        "apex": false,
+        "landing_distance": false,
+        "hold": false,
+        "fall": false
+      },
+      "hold_entered": true
+    },
+    {
+      "cond": "in_place_dr",
+      "seed": 9507,
+      "passed": true,
+      "primary_failure": "pass",
+      "gate_episode": {
+        "request_time_s": 2.0009999999998906,
+        "standing_height_m": 0.6928664102488783,
+        "flight_s": 0.132,
+        "apex_rise_m": 0.05239293168344683,
+        "landing_error_m": 0.029286475037250643,
+        "touchdown_s": 2.595999999999825,
+        "standing_hold_s": 1.0,
+        "success_time_s": 11.820999999998888,
+        "t_fall": null,
+        "progress": 1.0,
+        "load_samples": 12840,
+        "landing_impact_peak_n": 616.2655593990594,
+        "current_peak_a": 56.805063338379796,
+        "current_over_limit_peak": 1.0014094512655238,
+        "torque_peak_nm": 106.10663419513108,
+        "seed": 9507,
+        "elapsed_s": 12.839999999998323,
+        "handoff_from": "l80_w2",
+        "sample_dt_s": 0.001,
+        "return_to": "l80_w2",
+        "return_observed_s": 0.9999999999994458,
+        "raw_trace": "/Users/danny/\u1100\u1162\u1107\u1161\u11af \u1106\u1169\u110b\u1173\u11b7 \u1111\u1169\u11af\u1103\u1165/raptor/docs/evidence/199-l80-jump/eval/l80_j3/traces_2M/full/l80_j3_2M_jump_dr_9507.npz"
+      },
+      "representative_flight": {
+        "takeoff_s": 2.4639999999998397,
+        "touchdown_s": 2.595999999999825,
+        "flight_s": 0.132,
+        "apex_rise_m": 0.05239293168344683,
+        "landing_error_m": 0.029286475037250643,
+        "dx_m": 0.029238225404629163,
+        "dy_m": 0.0016804152152378633,
+        "takeoff_vxy_mps": 0.7843806562197423,
+        "touchdown_vxy_mps": 0.8789886799881836,
+        "q": 1.0
+      },
+      "flights": [
+        {
+          "takeoff_s": 2.0829999999998816,
+          "touchdown_s": 2.0839999999998815,
+          "flight_s": 0.001,
+          "apex_rise_m": 0.0049921414410522,
+          "landing_error_m": 7.26472349194573e-05,
+          "dx_m": 5.694789631870839e-05,
+          "dy_m": -4.510607327529691e-05,
+          "takeoff_vxy_mps": 0.8793289176503193,
+          "touchdown_vxy_mps": 0.8713073564295811,
+          "q": 0.00099842828821044
+        },
+        {
+          "takeoff_s": 2.086999999999881,
+          "touchdown_s": 2.0919999999998806,
+          "flight_s": 0.005,
+          "apex_rise_m": 0.003945707820482203,
+          "landing_error_m": 0.00039661344361703626,
+          "dx_m": 0.0003308377111417224,
+          "dy_m": -0.00021874330285581375,
+          "takeoff_vxy_mps": 0.852084404176314,
+          "touchdown_vxy_mps": 0.8408231986810661,
+          "q": 0.003945707820482203
+        },
+        {
+          "takeoff_s": 2.45999999999984,
+          "touchdown_s": 2.46099999999984,
+          "flight_s": 0.001,
+          "apex_rise_m": 0.030253277362141784,
+          "landing_error_m": 0.0002758001550029322,
+          "dx_m": 0.0002755372894991115,
+          "dy_m": 1.2038587754559238e-05,
+          "takeoff_vxy_mps": 0.8340015197928268,
+          "touchdown_vxy_mps": 0.8428144369820786,
+          "q": 0.006050655472428357
+        },
+        {
+          "takeoff_s": 2.4639999999998397,
+          "touchdown_s": 2.595999999999825,
+          "flight_s": 0.132,
+          "apex_rise_m": 0.05239293168344683,
+          "landing_error_m": 0.029286475037250643,
+          "dx_m": 0.029238225404629163,
+          "dy_m": 0.0016804152152378633,
+          "takeoff_vxy_mps": 0.7843806562197423,
+          "touchdown_vxy_mps": 0.8789886799881836,
+          "q": 1.0
+        },
+        {
+          "takeoff_s": 2.597999999999825,
+          "touchdown_s": 2.598999999999825,
+          "flight_s": 0.001,
+          "apex_rise_m": 0.03013330646485468,
+          "landing_error_m": 0.00024650524894073765,
+          "dx_m": 0.0002461780516818529,
+          "dy_m": 1.2696638352808522e-05,
+          "takeoff_vxy_mps": 0.875581285389836,
+          "touchdown_vxy_mps": 0.8728174942582366,
+          "q": 0.006026661292970937
+        },
+        {
+          "takeoff_s": 4.474999999999829,
+          "touchdown_s": 4.632999999999882,
+          "flight_s": 0.158,
+          "apex_rise_m": 0.06184688421526818,
+          "landing_error_m": 0.02379113809586009,
+          "dx_m": 0.022274369201978728,
+          "dy_m": 0.008358871248573381,
+          "takeoff_vxy_mps": 0.5339798381529514,
+          "touchdown_vxy_mps": 0.002868339660350894,
+          "q": 1.0
+        },
+        {
+          "takeoff_s": 6.45300000000049,
+          "touchdown_s": 6.564000000000527,
+          "flight_s": 0.111,
+          "apex_rise_m": 0.05616379850604136,
+          "landing_error_m": 0.010613899166388814,
+          "dx_m": 0.009119996001759036,
+          "dy_m": -0.00542959744752485,
+          "takeoff_vxy_mps": 0.5967175429493118,
+          "touchdown_vxy_mps": 0.23308019244529482,
+          "q": 1.0
+        },
+        {
+          "takeoff_s": 8.039000000000984,
+          "touchdown_s": 8.202000000000893,
+          "flight_s": 0.163,
+          "apex_rise_m": 0.06782206644353539,
+          "landing_error_m": 0.015938665648673758,
+          "dx_m": 0.014945389577062915,
+          "dy_m": 0.005538627361542939,
+          "takeoff_vxy_mps": 0.6550316089834324,
+          "touchdown_vxy_mps": 0.4092635298506025,
+          "q": 1.0
+        },
+        {
+          "takeoff_s": 9.972999999999912,
+          "touchdown_s": 10.118999999999831,
+          "flight_s": 0.146,
+          "apex_rise_m": 0.058404259982038687,
+          "landing_error_m": 0.023283527703367914,
+          "dx_m": 0.0232796315518018,
+          "dy_m": -0.00042593089328586686,
+          "takeoff_vxy_mps": 0.42400562366840794,
+          "touchdown_vxy_mps": 0.3232851865383234,
+          "q": 1.0
+        },
+        {
+          "takeoff_s": 10.123999999999828,
+          "touchdown_s": 10.124999999999828,
+          "flight_s": 0.001,
+          "apex_rise_m": 0.029442188124015112,
+          "landing_error_m": 0.00020128711822137174,
+          "dx_m": 0.00020127329772454128,
+          "dy_m": -2.3587252813012105e-06,
+          "takeoff_vxy_mps": 0.28341225409636117,
+          "touchdown_vxy_mps": 0.28090701195853807,
+          "q": 0.0058884376248030225
+        }
+      ],
+      "hold": {
+        "observed_s": 9.226,
+        "longest_s": 1.0,
+        "failure_samples": {
+          "foot_load": 1769,
+          "speed": 2123,
+          "tilt": 0,
+          "height": 0,
+          "body": 0
+        },
+        "unstable_samples": 2812,
+        "stable_share": 0.6952091914155647,
+        "both_feet_off_s": 0.58,
+        "max_horizontal_speed": 1.8841231788547184,
+        "max_vertical_speed": 1.0226056516925919,
+        "max_tilt_rad": 0.19689167268853225,
+        "horizontal_displacement_m": 0.07771944905645617
+      },
+      "criterion_failures": {
+        "flight": false,
+        "apex": false,
+        "landing_distance": false,
+        "hold": false,
+        "fall": false
+      },
+      "hold_entered": true
+    },
+    {
+      "cond": "in_place_dr",
+      "seed": 9508,
+      "passed": true,
+      "primary_failure": "pass",
+      "gate_episode": {
+        "request_time_s": 2.0009999999998906,
+        "standing_height_m": 0.6943564345914212,
+        "flight_s": 0.109,
+        "apex_rise_m": 0.05115788922690656,
+        "landing_error_m": 0.00985201950909061,
+        "touchdown_s": 8.11900000000094,
+        "standing_hold_s": 1.0,
+        "success_time_s": 11.262999999999197,
+        "t_fall": null,
+        "progress": 1.0,
+        "load_samples": 12280,
+        "landing_impact_peak_n": 435.6794841322827,
+        "current_peak_a": 56.59395586816566,
+        "current_over_limit_peak": 1.0012271176285223,
+        "torque_peak_nm": 102.03608282226435,
+        "seed": 9508,
+        "elapsed_s": 12.279999999998633,
+        "handoff_from": "l80_w2",
+        "sample_dt_s": 0.001,
+        "return_to": "l80_w2",
+        "return_observed_s": 0.9999999999994458,
+        "raw_trace": "/Users/danny/\u1100\u1162\u1107\u1161\u11af \u1106\u1169\u110b\u1173\u11b7 \u1111\u1169\u11af\u1103\u1165/raptor/docs/evidence/199-l80-jump/eval/l80_j3/traces_2M/full/l80_j3_2M_jump_dr_9508.npz"
+      },
+      "representative_flight": {
+        "takeoff_s": 8.010000000001,
+        "touchdown_s": 8.11900000000094,
+        "flight_s": 0.109,
+        "apex_rise_m": 0.05115788922690656,
+        "landing_error_m": 0.00985201950909061,
+        "dx_m": 0.009618177391827909,
+        "dy_m": 0.0021337647637058033,
+        "takeoff_vxy_mps": 0.6648194227150844,
+        "touchdown_vxy_mps": 0.3119926715098572,
+        "q": 1.0
+      },
+      "flights": [
+        {
+          "takeoff_s": 2.2819999999998597,
+          "touchdown_s": 2.2839999999998595,
+          "flight_s": 0.002,
+          "apex_rise_m": 0.03851193561208632,
+          "landing_error_m": 0.0005005157134195214,
+          "dx_m": 0.0003349907321775758,
+          "dy_m": 0.00037188329988718793,
+          "takeoff_vxy_mps": 1.5950547059051392,
+          "touchdown_vxy_mps": 1.6649656252461376,
+          "q": 0.015404774244834529
+        },
+        {
+          "takeoff_s": 2.2849999999998594,
+          "touchdown_s": 2.358999999999851,
+          "flight_s": 0.074,
+          "apex_rise_m": 0.04281483599385838,
+          "landing_error_m": 0.018394267753906648,
+          "dx_m": 0.012075705389169633,
+          "dy_m": 0.013875389203780536,
+          "takeoff_vxy_mps": 1.6970991427237367,
+          "touchdown_vxy_mps": 0.9106311940799802,
+          "q": 0.6336595727091039
+        },
+        {
+          "takeoff_s": 2.443999999999842,
+          "touchdown_s": 2.4449999999998417,
+          "flight_s": 0.001,
+          "apex_rise_m": 0.027865389991906242,
+          "landing_error_m": 7.398250411603314e-05,
+          "dx_m": 4.635234487715412e-05,
+          "dy_m": 5.7661694734617575e-05,
+          "takeoff_vxy_mps": 1.060471665327714,
+          "touchdown_vxy_mps": 1.0546678306443111,
+          "q": 0.005573077998381248
+        },
+        {
+          "takeoff_s": 5.544000000000186,
+          "touchdown_s": 5.597000000000204,
+          "flight_s": 0.053,
+          "apex_rise_m": 0.04668266167943236,
+          "landing_error_m": 0.00285914312714816,
+          "dx_m": 0.002610078056115503,
+          "dy_m": 0.0011671297967676408,
+          "takeoff_vxy_mps": 0.47877483877162447,
+          "touchdown_vxy_mps": 0.6813406522855002,
+          "q": 0.4948362138019829
+        },
+        {
+          "takeoff_s": 6.416000000000477,
+          "touchdown_s": 6.419000000000478,
+          "flight_s": 0.003,
+          "apex_rise_m": 0.03485541298232453,
+          "landing_error_m": 0.0003377040929034321,
+          "dx_m": 0.0003365751957241647,
+          "dy_m": 2.7589707989938983e-05,
+          "takeoff_vxy_mps": 0.36978829700589155,
+          "touchdown_vxy_mps": 0.3742590338289504,
+          "q": 0.020913247789394716
+        },
+        {
+          "takeoff_s": 6.420000000000479,
+          "touchdown_s": 6.430000000000482,
+          "flight_s": 0.01,
+          "apex_rise_m": 0.033516091560144456,
+          "landing_error_m": 0.001071185458821803,
+          "dx_m": 0.0010678710912110367,
+          "dy_m": 8.419987973284915e-05,
+          "takeoff_vxy_mps": 0.3746120692059838,
+          "touchdown_vxy_mps": 0.30121863747006755,
+          "q": 0.06703218312028891
+        },
+        {
+          "takeoff_s": 6.7040000000005735,
+          "touchdown_s": 6.705000000000574,
+          "flight_s": 0.001,
+          "apex_rise_m": 0.03921951439170657,
+          "landing_error_m": 0.00018152792087622945,
+          "dx_m": 0.00016616812697059502,
+          "dy_m": -7.307899586564415e-05,
+          "takeoff_vxy_mps": 0.7203125391508749,
+          "touchdown_vxy_mps": 0.7233981031336548,
+          "q": 0.007843902878341313
+        },
+        {
+          "takeoff_s": 6.708000000000575,
+          "touchdown_s": 6.7610000000005925,
+          "flight_s": 0.053,
+          "apex_rise_m": 0.039243207427004934,
+          "landing_error_m": 0.009393215418038352,
+          "dx_m": 0.008664337336642763,
+          "dy_m": -0.0036279132302925315,
+          "takeoff_vxy_mps": 0.6982524031599702,
+          "touchdown_vxy_mps": 1.1587186123406785,
+          "q": 0.41597799872625224
+        },
+        {
+          "takeoff_s": 8.010000000001,
+          "touchdown_s": 8.11900000000094,
+          "flight_s": 0.109,
+          "apex_rise_m": 0.05115788922690656,
+          "landing_error_m": 0.00985201950909061,
+          "dx_m": 0.009618177391827909,
+          "dy_m": 0.0021337647637058033,
+          "takeoff_vxy_mps": 0.6648194227150844,
+          "touchdown_vxy_mps": 0.3119926715098572,
+          "q": 1.0
+        },
+        {
+          "takeoff_s": 8.121000000000938,
+          "touchdown_s": 8.122000000000938,
+          "flight_s": 0.001,
+          "apex_rise_m": 0.03411659362997688,
+          "landing_error_m": 0.00010817215759341177,
+          "dx_m": 0.00010470977540316673,
+          "dy_m": 2.7149191763886638e-05,
+          "takeoff_vxy_mps": 0.35075318606960304,
+          "touchdown_vxy_mps": 0.36665239329475785,
+          "q": 0.006823318725995376
+        }
+      ],
+      "hold": {
+        "observed_s": 3.145,
+        "longest_s": 1.0,
+        "failure_samples": {
+          "foot_load": 310,
+          "speed": 325,
+          "tilt": 0,
+          "height": 0,
+          "body": 0
+        },
+        "unstable_samples": 483,
+        "stable_share": 0.8464228934817171,
+        "both_feet_off_s": 0.001,
+        "max_horizontal_speed": 1.354612930387323,
+        "max_vertical_speed": 0.5829495066492538,
+        "max_tilt_rad": 0.19172975749068097,
+        "horizontal_displacement_m": 0.12885038042584174
+      },
+      "criterion_failures": {
+        "flight": false,
+        "apex": false,
+        "landing_distance": false,
+        "hold": false,
+        "fall": false
+      },
+      "hold_entered": true
+    },
+    {
+      "cond": "in_place_dr",
+      "seed": 9509,
+      "passed": true,
+      "primary_failure": "pass",
+      "gate_episode": {
+        "request_time_s": 2.0009999999998906,
+        "standing_height_m": 0.6943945498458458,
+        "flight_s": 0.192,
+        "apex_rise_m": 0.080889705242989,
+        "landing_error_m": 0.0445277275091984,
+        "touchdown_s": 4.235999999999749,
+        "standing_hold_s": 1.0,
+        "success_time_s": 5.801000000000272,
+        "t_fall": null,
+        "progress": 1.0,
+        "load_samples": 6820,
+        "landing_impact_peak_n": 680.2424090281523,
+        "current_peak_a": 76.38136275334884,
+        "current_over_limit_peak": 1.3406013145763997,
+        "torque_peak_nm": 107.37591476023202,
+        "seed": 9509,
+        "elapsed_s": 6.820000000000612,
+        "handoff_from": "l80_w2",
+        "sample_dt_s": 0.001,
+        "return_to": "l80_w2",
+        "return_observed_s": 1.000000000000334,
+        "raw_trace": "/Users/danny/\u1100\u1162\u1107\u1161\u11af \u1106\u1169\u110b\u1173\u11b7 \u1111\u1169\u11af\u1103\u1165/raptor/docs/evidence/199-l80-jump/eval/l80_j3/traces_2M/full/l80_j3_2M_jump_dr_9509.npz"
+      },
+      "representative_flight": {
+        "takeoff_s": 4.043999999999685,
+        "touchdown_s": 4.235999999999749,
+        "flight_s": 0.192,
+        "apex_rise_m": 0.080889705242989,
+        "landing_error_m": 0.0445277275091984,
+        "dx_m": 0.04376005625769606,
+        "dy_m": 0.00823261765519933,
+        "takeoff_vxy_mps": 0.5212118116130116,
+        "touchdown_vxy_mps": 0.4193421428212738,
+        "q": 1.0
+      },
+      "flights": [
+        {
+          "takeoff_s": 4.0419999999996845,
+          "touchdown_s": 4.042999999999685,
+          "flight_s": 0.001,
+          "apex_rise_m": 0.038862739829786164,
+          "landing_error_m": 0.0002787205573127927,
+          "dx_m": 0.00027493655733663164,
+          "dy_m": 4.5771590628192194e-05,
+          "takeoff_vxy_mps": 0.5357551994129972,
+          "touchdown_vxy_mps": 0.5301975535257746,
+          "q": 0.007772547965957233
+        },
+        {
+          "takeoff_s": 4.043999999999685,
+          "touchdown_s": 4.235999999999749,
+          "flight_s": 0.192,
+          "apex_rise_m": 0.080889705242989,
+          "landing_error_m": 0.0445277275091984,
+          "dx_m": 0.04376005625769606,
+          "dy_m": 0.00823261765519933,
+          "takeoff_vxy_mps": 0.5212118116130116,
+          "touchdown_vxy_mps": 0.4193421428212738,
+          "q": 1.0
+        }
+      ],
+      "hold": {
+        "observed_s": 1.566,
+        "longest_s": 1.0,
+        "failure_samples": {
+          "foot_load": 219,
+          "speed": 253,
+          "tilt": 0,
+          "height": 0,
+          "body": 0
+        },
+        "unstable_samples": 339,
+        "stable_share": 0.7835249042145593,
+        "both_feet_off_s": 0.0,
+        "max_horizontal_speed": 1.2615780983052602,
+        "max_vertical_speed": 0.9784695540667717,
+        "max_tilt_rad": 0.2119608730519497,
+        "horizontal_displacement_m": 0.03177524659188632
+      },
+      "criterion_failures": {
+        "flight": false,
+        "apex": false,
+        "landing_distance": false,
+        "hold": false,
+        "fall": false
+      },
+      "hold_entered": true
+    },
+    {
+      "cond": "in_place_dr",
+      "seed": 9510,
+      "passed": false,
+      "primary_failure": "hold",
+      "gate_episode": {
+        "request_time_s": 2.179999999999871,
+        "standing_height_m": 0.7037225490597523,
+        "flight_s": 0.137,
+        "apex_rise_m": 0.05268881389216207,
+        "landing_error_m": 0.01191116002255502,
+        "touchdown_s": 10.814999999999445,
+        "standing_hold_s": 0.554,
+        "success_time_s": null,
+        "t_fall": null,
+        "progress": 1.0,
+        "load_samples": 12000,
+        "landing_impact_peak_n": 481.3598616872057,
+        "current_peak_a": 63.964439980676346,
+        "current_over_limit_peak": 1.1570763774662518,
+        "torque_peak_nm": 106.16551870164662,
+        "seed": 9510,
+        "elapsed_s": 11.999999999998789,
+        "handoff_from": "l80_w2",
+        "sample_dt_s": 0.001,
+        "return_to": null,
+        "return_observed_s": 0.0,
+        "raw_trace": "/Users/danny/\u1100\u1162\u1107\u1161\u11af \u1106\u1169\u110b\u1173\u11b7 \u1111\u1169\u11af\u1103\u1165/raptor/docs/evidence/199-l80-jump/eval/l80_j3/traces_2M/full/l80_j3_2M_jump_dr_9510.npz"
+      },
+      "representative_flight": {
+        "takeoff_s": 10.677999999999521,
+        "touchdown_s": 10.814999999999445,
+        "flight_s": 0.137,
+        "apex_rise_m": 0.05268881389216207,
+        "landing_error_m": 0.01191116002255502,
+        "dx_m": 0.011345482206135168,
+        "dy_m": -0.0036270878943283416,
+        "takeoff_vxy_mps": 0.07316745707977122,
+        "touchdown_vxy_mps": 0.10089925912215378,
+        "q": 1.0
+      },
+      "flights": [
+        {
+          "takeoff_s": 2.5039999999998352,
+          "touchdown_s": 2.504999999999835,
+          "flight_s": 0.001,
+          "apex_rise_m": 0.040837870197268256,
+          "landing_error_m": 1.0092889034461967e-05,
+          "dx_m": 9.984853425987206e-06,
+          "dy_m": -1.4727902510249663e-06,
+          "takeoff_vxy_mps": 0.26161069728222996,
+          "touchdown_vxy_mps": 0.2597001075886312,
+          "q": 0.00816757403945365
+        },
+        {
+          "takeoff_s": 2.506999999999835,
+          "touchdown_s": 2.560999999999829,
+          "flight_s": 0.054,
+          "apex_rise_m": 0.04064195980686525,
+          "landing_error_m": 0.002011244880304889,
+          "dx_m": 0.001998014323411318,
+          "dy_m": 0.00023031441986085324,
+          "takeoff_vxy_mps": 0.2433007663836127,
+          "touchdown_vxy_mps": 0.8240699730129731,
+          "q": 0.4389331659141446
+        },
+        {
+          "takeoff_s": 4.5629999999998585,
+          "touchdown_s": 4.694999999999903,
+          "flight_s": 0.132,
+          "apex_rise_m": 0.04467008065223843,
+          "landing_error_m": 0.020549048559008895,
+          "dx_m": 0.020202966337351955,
+          "dy_m": 0.003755469058896531,
+          "takeoff_vxy_mps": 0.7652472492198422,
+          "touchdown_vxy_mps": 0.5238781024550978,
+          "q": 0.8934016130447686
+        },
+        {
+          "takeoff_s": 8.746000000000592,
+          "touchdown_s": 8.854000000000532,
+          "flight_s": 0.108,
+          "apex_rise_m": 0.040936457085330114,
+          "landing_error_m": 0.008553906333729362,
+          "dx_m": 0.008198286300549182,
+          "dy_m": 0.002440781698645523,
+          "takeoff_vxy_mps": 0.6462137103345086,
+          "touchdown_vxy_mps": 0.4527164885915273,
+          "q": 0.8187291417066023
+        },
+        {
+          "takeoff_s": 10.677999999999521,
+          "touchdown_s": 10.814999999999445,
+          "flight_s": 0.137,
+          "apex_rise_m": 0.05268881389216207,
+          "landing_error_m": 0.01191116002255502,
+          "dx_m": 0.011345482206135168,
+          "dy_m": -0.0036270878943283416,
+          "takeoff_vxy_mps": 0.07316745707977122,
+          "touchdown_vxy_mps": 0.10089925912215378,
+          "q": 1.0
+        }
+      ],
+      "hold": {
+        "observed_s": 1.186,
+        "longest_s": 0.554,
+        "failure_samples": {
+          "foot_load": 129,
+          "speed": 148,
+          "tilt": 0,
+          "height": 0,
+          "body": 0
+        },
+        "unstable_samples": 206,
+        "stable_share": 0.8263069139966274,
+        "both_feet_off_s": 0.0,
+        "max_horizontal_speed": 1.0973512093625872,
+        "max_vertical_speed": 0.9031390222397283,
+        "max_tilt_rad": 0.20441690887781228,
+        "horizontal_displacement_m": 0.030419608108755738
+      },
+      "criterion_failures": {
+        "flight": false,
+        "apex": false,
+        "landing_distance": false,
+        "hold": true,
+        "fall": false
+      },
+      "hold_entered": true
+    },
+    {
+      "cond": "in_place_dr",
+      "seed": 9511,
+      "passed": false,
+      "primary_failure": "apex",
+      "gate_episode": {
+        "request_time_s": 2.3679999999998502,
+        "standing_height_m": 0.7016341357849717,
+        "flight_s": 0.132,
+        "apex_rise_m": 0.04853618924675618,
+        "landing_error_m": null,
+        "touchdown_s": null,
+        "standing_hold_s": 0.0,
+        "success_time_s": null,
+        "t_fall": null,
+        "progress": 0.9749297522034328,
+        "load_samples": 12000,
+        "landing_impact_peak_n": 487.3558526900179,
+        "current_peak_a": 57.605781683445294,
+        "current_over_limit_peak": 1.0009858523102921,
+        "torque_peak_nm": 107.53964733380478,
+        "seed": 9511,
+        "elapsed_s": 11.999999999998789,
+        "handoff_from": "l80_w2",
+        "sample_dt_s": 0.001,
+        "return_to": null,
+        "return_observed_s": 0.0,
+        "raw_trace": "/Users/danny/\u1100\u1162\u1107\u1161\u11af \u1106\u1169\u110b\u1173\u11b7 \u1111\u1169\u11af\u1103\u1165/raptor/docs/evidence/199-l80-jump/eval/l80_j3/traces_2M/full/l80_j3_2M_jump_dr_9511.npz"
+      },
+      "representative_flight": {
+        "takeoff_s": 9.010000000000446,
+        "touchdown_s": 9.140000000000374,
+        "flight_s": 0.13,
+        "apex_rise_m": 0.04874648761017164,
+        "landing_error_m": 0.01635437806634437,
+        "dx_m": 0.016275327973726134,
+        "dy_m": -0.001606045231172963,
+        "takeoff_vxy_mps": 0.27347354942072716,
+        "touchdown_vxy_mps": 0.42441968138651404,
+        "q": 0.9749297522034328
+      },
+      "flights": [
+        {
+          "takeoff_s": 3.8819999999996835,
+          "touchdown_s": 3.8829999999996834,
+          "flight_s": 0.001,
+          "apex_rise_m": 0.031054814723232238,
+          "landing_error_m": 0.00014370979814268424,
+          "dx_m": 0.00014369790513721337,
+          "dy_m": -1.8488216213252695e-06,
+          "takeoff_vxy_mps": 0.46707346543315936,
+          "touchdown_vxy_mps": 0.48350271112759774,
+          "q": 0.006210962944646447
+        },
+        {
+          "takeoff_s": 3.885999999999683,
+          "touchdown_s": 4.0179999999996765,
+          "flight_s": 0.132,
+          "apex_rise_m": 0.04853618924675618,
+          "landing_error_m": 0.018328540221229393,
+          "dx_m": 0.018328534206168624,
+          "dy_m": -1.4849058228780243e-05,
+          "takeoff_vxy_mps": 0.5344369058880845,
+          "touchdown_vxy_mps": 0.25777043881146616,
+          "q": 0.9707237849351236
+        },
+        {
+          "takeoff_s": 6.277000000000431,
+          "touchdown_s": 6.361000000000459,
+          "flight_s": 0.084,
+          "apex_rise_m": 0.03681835384498233,
+          "landing_error_m": 0.007159891639124318,
+          "dx_m": 0.006037477456620574,
+          "dy_m": -0.003848754895391583,
+          "takeoff_vxy_mps": 0.2709349478898666,
+          "touchdown_vxy_mps": 0.6694513456906289,
+          "q": 0.6185483445957032
+        },
+        {
+          "takeoff_s": 9.010000000000446,
+          "touchdown_s": 9.140000000000374,
+          "flight_s": 0.13,
+          "apex_rise_m": 0.04874648761017164,
+          "landing_error_m": 0.01635437806634437,
+          "dx_m": 0.016275327973726134,
+          "dy_m": -0.001606045231172963,
+          "takeoff_vxy_mps": 0.27347354942072716,
+          "touchdown_vxy_mps": 0.42441968138651404,
+          "q": 0.9749297522034328
+        }
+      ],
+      "hold": null,
+      "criterion_failures": {
+        "flight": false,
+        "apex": true,
+        "landing_distance": false,
+        "hold": true,
+        "fall": false
+      },
+      "hold_entered": false
+    },
+    {
+      "cond": "in_place_dr",
+      "seed": 9512,
+      "passed": false,
+      "primary_failure": "hold",
+      "gate_episode": {
+        "request_time_s": 2.0009999999998906,
+        "standing_height_m": 0.7028455871251483,
+        "flight_s": 0.132,
+        "apex_rise_m": 0.05136073245013417,
+        "landing_error_m": 0.012225581600132596,
+        "touchdown_s": 3.1369999999997655,
+        "standing_hold_s": 0.844,
+        "success_time_s": null,
+        "t_fall": null,
+        "progress": 1.0,
+        "load_samples": 12000,
+        "landing_impact_peak_n": 520.9740069931345,
+        "current_peak_a": 59.27191059668649,
+        "current_over_limit_peak": 1.001643886052786,
+        "torque_peak_nm": 112.46544767277815,
+        "seed": 9512,
+        "elapsed_s": 11.999999999998789,
+        "handoff_from": "l80_w2",
+        "sample_dt_s": 0.001,
+        "return_to": null,
+        "return_observed_s": 0.0,
+        "raw_trace": "/Users/danny/\u1100\u1162\u1107\u1161\u11af \u1106\u1169\u110b\u1173\u11b7 \u1111\u1169\u11af\u1103\u1165/raptor/docs/evidence/199-l80-jump/eval/l80_j3/traces_2M/full/l80_j3_2M_jump_dr_9512.npz"
+      },
+      "representative_flight": {
+        "takeoff_s": 3.00499999999978,
+        "touchdown_s": 3.1369999999997655,
+        "flight_s": 0.132,
+        "apex_rise_m": 0.05136073245013417,
+        "landing_error_m": 0.012225581600132596,
+        "dx_m": 0.01104967855979884,
+        "dy_m": -0.005231581900976272,
+        "takeoff_vxy_mps": 0.5527336702523392,
+        "touchdown_vxy_mps": 0.30456104883029717,
+        "q": 1.0
+      },
+      "flights": [
+        {
+          "takeoff_s": 3.00499999999978,
+          "touchdown_s": 3.1369999999997655,
+          "flight_s": 0.132,
+          "apex_rise_m": 0.05136073245013417,
+          "landing_error_m": 0.012225581600132596,
+          "dx_m": 0.01104967855979884,
+          "dy_m": -0.005231581900976272,
+          "takeoff_vxy_mps": 0.5527336702523392,
+          "touchdown_vxy_mps": 0.30456104883029717,
+          "q": 1.0
+        },
+        {
+          "takeoff_s": 5.355000000000123,
+          "touchdown_s": 5.356000000000123,
+          "flight_s": 0.001,
+          "apex_rise_m": 0.020944742801873972,
+          "landing_error_m": 0.00019384775928349334,
+          "dx_m": 0.00019348381696056294,
+          "dy_m": -1.1872925233595913e-05,
+          "takeoff_vxy_mps": 0.6010731158436199,
+          "touchdown_vxy_mps": 0.6063477163790186,
+          "q": 0.004188948560374795
+        },
+        {
+          "takeoff_s": 5.358000000000124,
+          "touchdown_s": 5.500000000000171,
+          "flight_s": 0.14200000000000002,
+          "apex_rise_m": 0.05017121001390845,
+          "landing_error_m": 0.022828925597611495,
+          "dx_m": 0.022759022668967226,
+          "dy_m": -0.0017851417575972042,
+          "takeoff_vxy_mps": 0.609250213051782,
+          "touchdown_vxy_mps": 0.4150909122787364,
+          "q": 1.0
+        },
+        {
+          "takeoff_s": 8.231000000000877,
+          "touchdown_s": 8.358000000000807,
+          "flight_s": 0.127,
+          "apex_rise_m": 0.047572724561279256,
+          "landing_error_m": 0.014933524103286822,
+          "dx_m": 0.013692657163353286,
+          "dy_m": 0.005959973317920007,
+          "takeoff_vxy_mps": 0.4695649487162641,
+          "touchdown_vxy_mps": 0.2520389129448132,
+          "q": 0.9514544912255851
+        },
+        {
+          "takeoff_s": 9.873999999999967,
+          "touchdown_s": 10.020999999999885,
+          "flight_s": 0.147,
+          "apex_rise_m": 0.05028112526633999,
+          "landing_error_m": 0.01836871720377606,
+          "dx_m": 0.018367098438874276,
+          "dy_m": -0.00024385784588733597,
+          "takeoff_vxy_mps": 0.2814481225944585,
+          "touchdown_vxy_mps": 0.23399668407757956,
+          "q": 1.0
+        }
+      ],
+      "hold": {
+        "observed_s": 8.864,
+        "longest_s": 0.844,
+        "failure_samples": {
+          "foot_load": 1140,
+          "speed": 1478,
+          "tilt": 0,
+          "height": 0,
+          "body": 0
+        },
+        "unstable_samples": 1909,
+        "stable_share": 0.7846344765342961,
+        "both_feet_off_s": 0.417,
+        "max_horizontal_speed": 1.6484677014657887,
+        "max_vertical_speed": 0.9210869529362116,
+        "max_tilt_rad": 0.20515797063947575,
+        "horizontal_displacement_m": 0.04893728455481022
+      },
+      "criterion_failures": {
+        "flight": false,
+        "apex": false,
+        "landing_distance": false,
+        "hold": true,
+        "fall": false
+      },
+      "hold_entered": true
+    },
+    {
+      "cond": "in_place_dr",
+      "seed": 9513,
+      "passed": true,
+      "primary_failure": "pass",
+      "gate_episode": {
+        "request_time_s": 2.0119999999998894,
+        "standing_height_m": 0.6944419511004237,
+        "flight_s": 0.158,
+        "apex_rise_m": 0.06471983187229435,
+        "landing_error_m": 0.02833860786375605,
+        "touchdown_s": 5.571000000000195,
+        "standing_hold_s": 1.0,
+        "success_time_s": 8.165000000000914,
+        "t_fall": null,
+        "progress": 1.0,
+        "load_samples": 9180,
+        "landing_impact_peak_n": 585.3082454843234,
+        "current_peak_a": 51.71679145776221,
+        "current_over_limit_peak": 0.9342662348945234,
+        "torque_peak_nm": 97.98276065023356,
+        "seed": 9513,
+        "elapsed_s": 9.180000000000351,
+        "handoff_from": "l80_w2",
+        "sample_dt_s": 0.001,
+        "return_to": "l80_w2",
+        "return_observed_s": 0.9999999999994458,
+        "raw_trace": "/Users/danny/\u1100\u1162\u1107\u1161\u11af \u1106\u1169\u110b\u1173\u11b7 \u1111\u1169\u11af\u1103\u1165/raptor/docs/evidence/199-l80-jump/eval/l80_j3/traces_2M/full/l80_j3_2M_jump_dr_9513.npz"
+      },
+      "representative_flight": {
+        "takeoff_s": 5.413000000000142,
+        "touchdown_s": 5.571000000000195,
+        "flight_s": 0.158,
+        "apex_rise_m": 0.06471983187229435,
+        "landing_error_m": 0.02833860786375605,
+        "dx_m": 0.028218624480492206,
+        "dy_m": 0.0026049813981489783,
+        "takeoff_vxy_mps": 0.5144394791679379,
+        "touchdown_vxy_mps": 0.4275468868300082,
+        "q": 1.0
+      },
+      "flights": [
+        {
+          "takeoff_s": 5.413000000000142,
+          "touchdown_s": 5.571000000000195,
+          "flight_s": 0.158,
+          "apex_rise_m": 0.06471983187229435,
+          "landing_error_m": 0.02833860786375605,
+          "dx_m": 0.028218624480492206,
+          "dy_m": 0.0026049813981489783,
+          "takeoff_vxy_mps": 0.5144394791679379,
+          "touchdown_vxy_mps": 0.4275468868300082,
+          "q": 1.0
+        }
+      ],
+      "hold": {
+        "observed_s": 2.595,
+        "longest_s": 1.0,
+        "failure_samples": {
+          "foot_load": 306,
+          "speed": 340,
+          "tilt": 0,
+          "height": 0,
+          "body": 0
+        },
+        "unstable_samples": 490,
+        "stable_share": 0.8111753371868978,
+        "both_feet_off_s": 0.0,
+        "max_horizontal_speed": 1.0348077710813166,
+        "max_vertical_speed": 0.8822936843897474,
+        "max_tilt_rad": 0.17929467612672842,
+        "horizontal_displacement_m": 0.08491590423840543
+      },
+      "criterion_failures": {
+        "flight": false,
+        "apex": false,
+        "landing_distance": false,
+        "hold": false,
+        "fall": false
+      },
+      "hold_entered": true
+    },
+    {
+      "cond": "in_place_dr",
+      "seed": 9514,
+      "passed": false,
+      "primary_failure": "hold",
+      "gate_episode": {
+        "request_time_s": 2.0009999999998906,
+        "standing_height_m": 0.6930518945797424,
+        "flight_s": 0.168,
+        "apex_rise_m": 0.061020609927394553,
+        "landing_error_m": 0.02721632884830158,
+        "touchdown_s": 6.1860000000004005,
+        "standing_hold_s": 0.851,
+        "success_time_s": null,
+        "t_fall": null,
+        "progress": 1.0,
+        "load_samples": 12000,
+        "landing_impact_peak_n": 608.7864807778634,
+        "current_peak_a": 57.132437334655144,
+        "current_over_limit_peak": 1.0026343837649974,
+        "torque_peak_nm": 109.5674127769967,
+        "seed": 9514,
+        "elapsed_s": 11.999999999998789,
+        "handoff_from": "l80_w2",
+        "sample_dt_s": 0.001,
+        "return_to": null,
+        "return_observed_s": 0.0,
+        "raw_trace": "/Users/danny/\u1100\u1162\u1107\u1161\u11af \u1106\u1169\u110b\u1173\u11b7 \u1111\u1169\u11af\u1103\u1165/raptor/docs/evidence/199-l80-jump/eval/l80_j3/traces_2M/full/l80_j3_2M_jump_dr_9514.npz"
+      },
+      "representative_flight": {
+        "takeoff_s": 6.018000000000344,
+        "touchdown_s": 6.1860000000004005,
+        "flight_s": 0.168,
+        "apex_rise_m": 0.061020609927394553,
+        "landing_error_m": 0.02721632884830158,
+        "dx_m": 0.026643735471857277,
+        "dy_m": 0.0055533697954113495,
+        "takeoff_vxy_mps": 0.6832188548561559,
+        "touchdown_vxy_mps": 0.18767313973731758,
+        "q": 1.0
+      },
+      "flights": [
+        {
+          "takeoff_s": 6.018000000000344,
+          "touchdown_s": 6.1860000000004005,
+          "flight_s": 0.168,
+          "apex_rise_m": 0.061020609927394553,
+          "landing_error_m": 0.02721632884830158,
+          "dx_m": 0.026643735471857277,
+          "dy_m": 0.0055533697954113495,
+          "takeoff_vxy_mps": 0.6832188548561559,
+          "touchdown_vxy_mps": 0.18767313973731758,
+          "q": 1.0
+        },
+        {
+          "takeoff_s": 9.428000000000214,
+          "touchdown_s": 9.610000000000113,
+          "flight_s": 0.182,
+          "apex_rise_m": 0.06587729399560616,
+          "landing_error_m": 0.03926847132233625,
+          "dx_m": 0.039259622221154006,
+          "dy_m": 0.0008336084485026825,
+          "takeoff_vxy_mps": 0.2509084253317184,
+          "touchdown_vxy_mps": 0.22535657827772934,
+          "q": 1.0
+        },
+        {
+          "takeoff_s": 11.396999999999123,
+          "touchdown_s": 11.552999999999036,
+          "flight_s": 0.156,
+          "apex_rise_m": 0.060678026952265096,
+          "landing_error_m": 0.026373532970799952,
+          "dx_m": 0.026373399825658103,
+          "dy_m": -8.380332839013661e-05,
+          "takeoff_vxy_mps": 0.4258491621447011,
+          "touchdown_vxy_mps": 0.2375813711138614,
+          "q": 1.0
+        }
+      ],
+      "hold": {
+        "observed_s": 5.815,
+        "longest_s": 0.851,
+        "failure_samples": {
+          "foot_load": 1052,
+          "speed": 1176,
+          "tilt": 0,
+          "height": 0,
+          "body": 0
+        },
+        "unstable_samples": 1567,
+        "stable_share": 0.730524505588994,
+        "both_feet_off_s": 0.338,
+        "max_horizontal_speed": 1.9747825350119004,
+        "max_vertical_speed": 0.9798097719364277,
+        "max_tilt_rad": 0.2648853013601454,
+        "horizontal_displacement_m": 0.03041148440644768
+      },
+      "criterion_failures": {
+        "flight": false,
+        "apex": false,
+        "landing_distance": false,
+        "hold": true,
+        "fall": false
+      },
+      "hold_entered": true
+    },
+    {
+      "cond": "in_place_dr",
+      "seed": 9515,
+      "passed": true,
+      "primary_failure": "pass",
+      "gate_episode": {
+        "request_time_s": 2.0279999999998877,
+        "standing_height_m": 0.6919904167798603,
+        "flight_s": 0.153,
+        "apex_rise_m": 0.06359773839598637,
+        "landing_error_m": 0.02311318446715837,
+        "touchdown_s": 6.269000000000428,
+        "standing_hold_s": 1.0,
+        "success_time_s": 8.542000000000705,
+        "t_fall": null,
+        "progress": 1.0,
+        "load_samples": 9560,
+        "landing_impact_peak_n": 582.0864110065606,
+        "current_peak_a": 58.25405098249776,
+        "current_over_limit_peak": 1.00040203103991,
+        "torque_peak_nm": 108.75150672691363,
+        "seed": 9515,
+        "elapsed_s": 9.56000000000014,
+        "handoff_from": "l80_w2",
+        "sample_dt_s": 0.001,
+        "return_to": "l80_w2",
+        "return_observed_s": 0.9999999999994458,
+        "raw_trace": "/Users/danny/\u1100\u1162\u1107\u1161\u11af \u1106\u1169\u110b\u1173\u11b7 \u1111\u1169\u11af\u1103\u1165/raptor/docs/evidence/199-l80-jump/eval/l80_j3/traces_2M/full/l80_j3_2M_jump_dr_9515.npz"
+      },
+      "representative_flight": {
+        "takeoff_s": 6.116000000000377,
+        "touchdown_s": 6.269000000000428,
+        "flight_s": 0.153,
+        "apex_rise_m": 0.06359773839598637,
+        "landing_error_m": 0.02311318446715837,
+        "dx_m": 0.023061426302284735,
+        "dy_m": 0.0015459343832067568,
+        "takeoff_vxy_mps": 0.3851446991574345,
+        "touchdown_vxy_mps": 0.22848656120661606,
+        "q": 1.0
+      },
+      "flights": [
+        {
+          "takeoff_s": 2.616999999999823,
+          "touchdown_s": 2.697999999999814,
+          "flight_s": 0.081,
+          "apex_rise_m": 0.05600085233402252,
+          "landing_error_m": 0.009152420759886266,
+          "dx_m": 0.00914091413961042,
+          "dy_m": 0.00045879675049786267,
+          "takeoff_vxy_mps": 0.4926394581865305,
+          "touchdown_vxy_mps": 1.0716837890000683,
+          "q": 0.8099999999999999
+        },
+        {
+          "takeoff_s": 6.116000000000377,
+          "touchdown_s": 6.269000000000428,
+          "flight_s": 0.153,
+          "apex_rise_m": 0.06359773839598637,
+          "landing_error_m": 0.02311318446715837,
+          "dx_m": 0.023061426302284735,
+          "dy_m": 0.0015459343832067568,
+          "takeoff_vxy_mps": 0.3851446991574345,
+          "touchdown_vxy_mps": 0.22848656120661606,
+          "q": 1.0
+        }
+      ],
+      "hold": {
+        "observed_s": 2.274,
+        "longest_s": 1.0,
+        "failure_samples": {
+          "foot_load": 133,
+          "speed": 155,
+          "tilt": 0,
+          "height": 0,
+          "body": 0
+        },
+        "unstable_samples": 218,
+        "stable_share": 0.9041336851363236,
+        "both_feet_off_s": 0.0,
+        "max_horizontal_speed": 0.9098083551473636,
+        "max_vertical_speed": 1.015912547985164,
+        "max_tilt_rad": 0.17175081294670705,
+        "horizontal_displacement_m": 0.015400528674179634
+      },
+      "criterion_failures": {
+        "flight": false,
+        "apex": false,
+        "landing_distance": false,
+        "hold": false,
+        "fall": false
+      },
+      "hold_entered": true
+    },
+    {
+      "cond": "in_place_dr",
+      "seed": 9516,
+      "passed": true,
+      "primary_failure": "pass",
+      "gate_episode": {
+        "request_time_s": 2.1649999999998726,
+        "standing_height_m": 0.688788887433537,
+        "flight_s": 0.165,
+        "apex_rise_m": 0.07228778889000187,
+        "landing_error_m": 0.028129741848278562,
+        "touchdown_s": 4.4819999999998315,
+        "standing_hold_s": 1.0,
+        "success_time_s": 7.362000000000793,
+        "t_fall": null,
+        "progress": 1.0,
+        "load_samples": 8380,
+        "landing_impact_peak_n": 514.2231705147042,
+        "current_peak_a": 71.47486396228406,
+        "current_over_limit_peak": 1.2966114340234618,
+        "torque_peak_nm": 101.84275260247264,
+        "seed": 9516,
+        "elapsed_s": 8.380000000000795,
+        "handoff_from": "l80_w2",
+        "sample_dt_s": 0.001,
+        "return_to": "l80_w2",
+        "return_observed_s": 0.9999999999999956,
+        "raw_trace": "/Users/danny/\u1100\u1162\u1107\u1161\u11af \u1106\u1169\u110b\u1173\u11b7 \u1111\u1169\u11af\u1103\u1165/raptor/docs/evidence/199-l80-jump/eval/l80_j3/traces_2M/full/l80_j3_2M_jump_dr_9516.npz"
+      },
+      "representative_flight": {
+        "takeoff_s": 4.316999999999776,
+        "touchdown_s": 4.4819999999998315,
+        "flight_s": 0.165,
+        "apex_rise_m": 0.07228778889000187,
+        "landing_error_m": 0.028129741848278562,
+        "dx_m": 0.028057091487340313,
+        "dy_m": 0.002020394447084496,
+        "takeoff_vxy_mps": 0.38899526283040303,
+        "touchdown_vxy_mps": 0.12781115269148247,
+        "q": 1.0
+      },
+      "flights": [
+        {
+          "takeoff_s": 4.316999999999776,
+          "touchdown_s": 4.4819999999998315,
+          "flight_s": 0.165,
+          "apex_rise_m": 0.07228778889000187,
+          "landing_error_m": 0.028129741848278562,
+          "dx_m": 0.028057091487340313,
+          "dy_m": 0.002020394447084496,
+          "takeoff_vxy_mps": 0.38899526283040303,
+          "touchdown_vxy_mps": 0.12781115269148247,
+          "q": 1.0
+        }
+      ],
+      "hold": {
+        "observed_s": 2.8810000000000002,
+        "longest_s": 1.0,
+        "failure_samples": {
+          "foot_load": 301,
+          "speed": 260,
+          "tilt": 0,
+          "height": 0,
+          "body": 0
+        },
+        "unstable_samples": 489,
+        "stable_share": 0.8302672683096147,
+        "both_feet_off_s": 0.0,
+        "max_horizontal_speed": 1.040080688028202,
+        "max_vertical_speed": 0.9656139138827126,
+        "max_tilt_rad": 0.18568631571469432,
+        "horizontal_displacement_m": 0.06065337654522561
+      },
+      "criterion_failures": {
+        "flight": false,
+        "apex": false,
+        "landing_distance": false,
+        "hold": false,
+        "fall": false
+      },
+      "hold_entered": true
+    },
+    {
+      "cond": "in_place_dr",
+      "seed": 9517,
+      "passed": false,
+      "primary_failure": "hold",
+      "gate_episode": {
+        "request_time_s": 2.0009999999998906,
+        "standing_height_m": 0.6956067728833107,
+        "flight_s": 0.191,
+        "apex_rise_m": 0.0692408055201732,
+        "landing_error_m": 0.037251615687352455,
+        "touchdown_s": 4.258999999999757,
+        "standing_hold_s": 0.862,
+        "success_time_s": null,
+        "t_fall": null,
+        "progress": 1.0,
+        "load_samples": 12000,
+        "landing_impact_peak_n": 620.9669308654148,
+        "current_peak_a": 56.61358225151934,
+        "current_over_limit_peak": 1.0624986644216379,
+        "torque_peak_nm": 97.21648976673895,
+        "seed": 9517,
+        "elapsed_s": 11.999999999998789,
+        "handoff_from": "l80_w2",
+        "sample_dt_s": 0.001,
+        "return_to": null,
+        "return_observed_s": 0.0,
+        "raw_trace": "/Users/danny/\u1100\u1162\u1107\u1161\u11af \u1106\u1169\u110b\u1173\u11b7 \u1111\u1169\u11af\u1103\u1165/raptor/docs/evidence/199-l80-jump/eval/l80_j3/traces_2M/full/l80_j3_2M_jump_dr_9517.npz"
+      },
+      "representative_flight": {
+        "takeoff_s": 4.067999999999693,
+        "touchdown_s": 4.258999999999757,
+        "flight_s": 0.191,
+        "apex_rise_m": 0.0692408055201732,
+        "landing_error_m": 0.037251615687352455,
+        "dx_m": 0.03692987826785707,
+        "dy_m": 0.004885382527444644,
+        "takeoff_vxy_mps": 0.4643983929397797,
+        "touchdown_vxy_mps": 0.08173005667789797,
+        "q": 1.0
+      },
+      "flights": [
+        {
+          "takeoff_s": 4.067999999999693,
+          "touchdown_s": 4.258999999999757,
+          "flight_s": 0.191,
+          "apex_rise_m": 0.0692408055201732,
+          "landing_error_m": 0.037251615687352455,
+          "dx_m": 0.03692987826785707,
+          "dy_m": 0.004885382527444644,
+          "takeoff_vxy_mps": 0.4643983929397797,
+          "touchdown_vxy_mps": 0.08173005667789797,
+          "q": 1.0
+        },
+        {
+          "takeoff_s": 7.632000000000883,
+          "touchdown_s": 7.792000000000937,
+          "flight_s": 0.16,
+          "apex_rise_m": 0.06052850417590527,
+          "landing_error_m": 0.026456584963997068,
+          "dx_m": 0.026392001274215496,
+          "dy_m": 0.0018474730577205806,
+          "takeoff_vxy_mps": 0.34286383245280133,
+          "touchdown_vxy_mps": 0.4075073451778202,
+          "q": 1.0
+        },
+        {
+          "takeoff_s": 10.10299999999984,
+          "touchdown_s": 10.258999999999753,
+          "flight_s": 0.156,
+          "apex_rise_m": 0.06554886401360838,
+          "landing_error_m": 0.01944851872523291,
+          "dx_m": 0.019407342356929903,
+          "dy_m": -0.0012648886301369205,
+          "takeoff_vxy_mps": 0.7767054926597939,
+          "touchdown_vxy_mps": 0.2701954104807904,
+          "q": 1.0
+        }
+      ],
+      "hold": {
+        "observed_s": 7.742,
+        "longest_s": 0.862,
+        "failure_samples": {
+          "foot_load": 1106,
+          "speed": 1185,
+          "tilt": 0,
+          "height": 0,
+          "body": 0
+        },
+        "unstable_samples": 1655,
+        "stable_share": 0.7862309480754327,
+        "both_feet_off_s": 0.316,
+        "max_horizontal_speed": 1.9480963755223664,
+        "max_vertical_speed": 1.0552961738014937,
+        "max_tilt_rad": 0.20390950526097273,
+        "horizontal_displacement_m": 0.10498206383349283
+      },
+      "criterion_failures": {
+        "flight": false,
+        "apex": false,
+        "landing_distance": false,
+        "hold": true,
+        "fall": false
+      },
+      "hold_entered": true
+    },
+    {
+      "cond": "in_place_dr",
+      "seed": 9518,
+      "passed": true,
+      "primary_failure": "pass",
+      "gate_episode": {
+        "request_time_s": 2.09599999999988,
+        "standing_height_m": 0.6959586253426734,
+        "flight_s": 0.161,
+        "apex_rise_m": 0.06579872325265002,
+        "landing_error_m": 0.030433060232918984,
+        "touchdown_s": 4.457999999999823,
+        "standing_hold_s": 1.0,
+        "success_time_s": 11.90799999999884,
+        "t_fall": null,
+        "progress": 1.0,
+        "load_samples": 12920,
+        "landing_impact_peak_n": 517.6534435755323,
+        "current_peak_a": 56.85357973190162,
+        "current_over_limit_peak": 1.0012845694182273,
+        "torque_peak_nm": 107.9379264250109,
+        "seed": 9518,
+        "elapsed_s": 12.919999999998279,
+        "handoff_from": "l80_w2",
+        "sample_dt_s": 0.001,
+        "return_to": "l80_w2",
+        "return_observed_s": 0.9999999999994458,
+        "raw_trace": "/Users/danny/\u1100\u1162\u1107\u1161\u11af \u1106\u1169\u110b\u1173\u11b7 \u1111\u1169\u11af\u1103\u1165/raptor/docs/evidence/199-l80-jump/eval/l80_j3/traces_2M/full/l80_j3_2M_jump_dr_9518.npz"
+      },
+      "representative_flight": {
+        "takeoff_s": 4.29699999999977,
+        "touchdown_s": 4.457999999999823,
+        "flight_s": 0.161,
+        "apex_rise_m": 0.06579872325265002,
+        "landing_error_m": 0.030433060232918984,
+        "dx_m": 0.0286666405817054,
+        "dy_m": 0.010217380921733122,
+        "takeoff_vxy_mps": 0.6831898249958241,
+        "touchdown_vxy_mps": 0.3922724255501302,
+        "q": 1.0
+      },
+      "flights": [
+        {
+          "takeoff_s": 2.3189999999998556,
+          "touchdown_s": 2.3199999999998555,
+          "flight_s": 0.001,
+          "apex_rise_m": 0.04487367727825442,
+          "landing_error_m": 0.00010074573081225479,
+          "dx_m": 7.9260107060386e-05,
+          "dy_m": 6.218953051496251e-05,
+          "takeoff_vxy_mps": 0.5812566909655038,
+          "touchdown_vxy_mps": 0.6064982504029998,
+          "q": 0.008974735455650884
+        },
+        {
+          "takeoff_s": 2.3219999999998553,
+          "touchdown_s": 2.3839999999998485,
+          "flight_s": 0.062,
+          "apex_rise_m": 0.0458424824660294,
+          "landing_error_m": 0.006130075723804607,
+          "dx_m": 0.004825983871196773,
+          "dy_m": 0.003779908471712931,
+          "takeoff_vxy_mps": 0.6579232766892033,
+          "touchdown_vxy_mps": 0.6927213731281526,
+          "q": 0.5684467825787646
+        },
+        {
+          "takeoff_s": 4.29699999999977,
+          "touchdown_s": 4.457999999999823,
+          "flight_s": 0.161,
+          "apex_rise_m": 0.06579872325265002,
+          "landing_error_m": 0.030433060232918984,
+          "dx_m": 0.0286666405817054,
+          "dy_m": 0.010217380921733122,
+          "takeoff_vxy_mps": 0.6831898249958241,
+          "touchdown_vxy_mps": 0.3922724255501302,
+          "q": 1.0
+        },
+        {
+          "takeoff_s": 7.902000000000974,
+          "touchdown_s": 8.026000000000991,
+          "flight_s": 0.124,
+          "apex_rise_m": 0.051294589025252635,
+          "landing_error_m": 0.019701555874520316,
+          "dx_m": 0.0190870148778107,
+          "dy_m": 0.004882332120112173,
+          "takeoff_vxy_mps": 0.5191519053388631,
+          "touchdown_vxy_mps": 0.12299665772802863,
+          "q": 1.0
+        }
+      ],
+      "hold": {
+        "observed_s": 7.4510000000000005,
+        "longest_s": 1.0,
+        "failure_samples": {
+          "foot_load": 465,
+          "speed": 488,
+          "tilt": 0,
+          "height": 0,
+          "body": 0
+        },
+        "unstable_samples": 776,
+        "stable_share": 0.8958529056502483,
+        "both_feet_off_s": 0.124,
+        "max_horizontal_speed": 1.4625555862948088,
+        "max_vertical_speed": 0.9807846584243383,
+        "max_tilt_rad": 0.19783048953707408,
+        "horizontal_displacement_m": 0.02550039416493056
+      },
+      "criterion_failures": {
+        "flight": false,
+        "apex": false,
+        "landing_distance": false,
+        "hold": false,
+        "fall": false
+      },
+      "hold_entered": true
+    },
+    {
+      "cond": "in_place_dr",
+      "seed": 9519,
+      "passed": false,
+      "primary_failure": "hold",
+      "gate_episode": {
+        "request_time_s": 2.068999999999883,
+        "standing_height_m": 0.6932697648287726,
+        "flight_s": 0.14,
+        "apex_rise_m": 0.055655167273006234,
+        "landing_error_m": 0.022832974251665174,
+        "touchdown_s": 4.661999999999892,
+        "standing_hold_s": 0.912,
+        "success_time_s": null,
+        "t_fall": null,
+        "progress": 1.0,
+        "load_samples": 12000,
+        "landing_impact_peak_n": 513.5208065578014,
+        "current_peak_a": 56.640029991062754,
+        "current_over_limit_peak": 1.0015659818774565,
+        "torque_peak_nm": 105.86325690579994,
+        "seed": 9519,
+        "elapsed_s": 11.999999999998789,
+        "handoff_from": "l80_w2",
+        "sample_dt_s": 0.001,
+        "return_to": null,
+        "return_observed_s": 0.0,
+        "raw_trace": "/Users/danny/\u1100\u1162\u1107\u1161\u11af \u1106\u1169\u110b\u1173\u11b7 \u1111\u1169\u11af\u1103\u1165/raptor/docs/evidence/199-l80-jump/eval/l80_j3/traces_2M/full/l80_j3_2M_jump_dr_9519.npz"
+      },
+      "representative_flight": {
+        "takeoff_s": 4.521999999999845,
+        "touchdown_s": 4.661999999999892,
+        "flight_s": 0.14,
+        "apex_rise_m": 0.055655167273006234,
+        "landing_error_m": 0.022832974251665174,
+        "dx_m": 0.021343522129679715,
+        "dy_m": -0.00811164448660548,
+        "takeoff_vxy_mps": 0.9072976730537934,
+        "touchdown_vxy_mps": 0.5842013998831003,
+        "q": 1.0
+      },
+      "flights": [
+        {
+          "takeoff_s": 4.521999999999845,
+          "touchdown_s": 4.661999999999892,
+          "flight_s": 0.14,
+          "apex_rise_m": 0.055655167273006234,
+          "landing_error_m": 0.022832974251665174,
+          "dx_m": 0.021343522129679715,
+          "dy_m": -0.00811164448660548,
+          "takeoff_vxy_mps": 0.9072976730537934,
+          "touchdown_vxy_mps": 0.5842013998831003,
+          "q": 1.0
+        },
+        {
+          "takeoff_s": 7.298000000000772,
+          "touchdown_s": 7.299000000000772,
+          "flight_s": 0.001,
+          "apex_rise_m": 0.037396973496238384,
+          "landing_error_m": 0.00015211609306010435,
+          "dx_m": 0.00015126815490125456,
+          "dy_m": 1.603904862017627e-05,
+          "takeoff_vxy_mps": 0.5350464565426593,
+          "touchdown_vxy_mps": 0.5481014575895696,
+          "q": 0.007479394699247677
+        },
+        {
+          "takeoff_s": 7.301000000000773,
+          "touchdown_s": 7.421000000000813,
+          "flight_s": 0.12,
+          "apex_rise_m": 0.0589423423368457,
+          "landing_error_m": 0.015230647620660067,
+          "dx_m": 0.015115716103501528,
+          "dy_m": 0.0018675528434458702,
+          "takeoff_vxy_mps": 0.579171391967404,
+          "touchdown_vxy_mps": 0.7435624526676734,
+          "q": 1.0
+        },
+        {
+          "takeoff_s": 7.424000000000814,
+          "touchdown_s": 7.425000000000814,
+          "flight_s": 0.001,
+          "apex_rise_m": 0.04237200952041631,
+          "landing_error_m": 0.0001336676687215951,
+          "dx_m": 0.00013277771923032866,
+          "dy_m": 1.5398796623700833e-05,
+          "takeoff_vxy_mps": 0.7508236322546636,
+          "touchdown_vxy_mps": 0.7314981298168501,
+          "q": 0.008474401904083263
+        },
+        {
+          "takeoff_s": 8.601000000000672,
+          "touchdown_s": 8.71300000000061,
+          "flight_s": 0.112,
+          "apex_rise_m": 0.058191529702826594,
+          "landing_error_m": 0.006813986299319658,
+          "dx_m": 0.0067850877653939864,
+          "dy_m": -0.0006268917795097077,
+          "takeoff_vxy_mps": 0.374199150200135,
+          "touchdown_vxy_mps": 0.3387603144358516,
+          "q": 1.0
+        },
+        {
+          "takeoff_s": 10.66099999999953,
+          "touchdown_s": 10.767999999999471,
+          "flight_s": 0.107,
+          "apex_rise_m": 0.05249487549290821,
+          "landing_error_m": 0.007059418452312539,
+          "dx_m": 0.007056637001519504,
+          "dy_m": -0.00019814922063074794,
+          "takeoff_vxy_mps": 0.26684665125258217,
+          "touchdown_vxy_mps": 0.2070894857849357,
+          "q": 1.0
+        }
+      ],
+      "hold": {
+        "observed_s": 7.339,
+        "longest_s": 0.912,
+        "failure_samples": {
+          "foot_load": 1259,
+          "speed": 1533,
+          "tilt": 0,
+          "height": 0,
+          "body": 0
+        },
+        "unstable_samples": 1962,
+        "stable_share": 0.7326611254939365,
+        "both_feet_off_s": 0.341,
+        "max_horizontal_speed": 1.7625584270719088,
+        "max_vertical_speed": 0.8113469912496836,
+        "max_tilt_rad": 0.29595140689499255,
+        "horizontal_displacement_m": 0.17218309931025316
+      },
+      "criterion_failures": {
+        "flight": false,
+        "apex": false,
+        "landing_distance": false,
+        "hold": true,
+        "fall": false
+      },
+      "hold_entered": true
+    },
+    {
+      "cond": "in_place_dr",
+      "seed": 9520,
+      "passed": true,
+      "primary_failure": "pass",
+      "gate_episode": {
+        "request_time_s": 2.0009999999998906,
+        "standing_height_m": 0.6982164569098711,
+        "flight_s": 0.151,
+        "apex_rise_m": 0.05890072490866216,
+        "landing_error_m": 0.025445659030259908,
+        "touchdown_s": 6.458000000000491,
+        "standing_hold_s": 1.0,
+        "success_time_s": 8.387000000000791,
+        "t_fall": null,
+        "progress": 1.0,
+        "load_samples": 9400,
+        "landing_impact_peak_n": 507.55943081552635,
+        "current_peak_a": 58.89236552978191,
+        "current_over_limit_peak": 1.066773243050695,
+        "torque_peak_nm": 99.36117934755539,
+        "seed": 9520,
+        "elapsed_s": 9.40000000000023,
+        "handoff_from": "l80_w2",
+        "sample_dt_s": 0.001,
+        "return_to": "l80_w2",
+        "return_observed_s": 0.9999999999994458,
+        "raw_trace": "/Users/danny/\u1100\u1162\u1107\u1161\u11af \u1106\u1169\u110b\u1173\u11b7 \u1111\u1169\u11af\u1103\u1165/raptor/docs/evidence/199-l80-jump/eval/l80_j3/traces_2M/full/l80_j3_2M_jump_dr_9520.npz"
+      },
+      "representative_flight": {
+        "takeoff_s": 6.307000000000441,
+        "touchdown_s": 6.458000000000491,
+        "flight_s": 0.151,
+        "apex_rise_m": 0.05890072490866216,
+        "landing_error_m": 0.025445659030259908,
+        "dx_m": 0.02541863417262836,
+        "dy_m": -0.0011724334873831621,
+        "takeoff_vxy_mps": 0.7387988140481426,
+        "touchdown_vxy_mps": 0.3738761619274509,
+        "q": 1.0
+      },
+      "flights": [
+        {
+          "takeoff_s": 3.8829999999996834,
+          "touchdown_s": 3.8839999999996833,
+          "flight_s": 0.001,
+          "apex_rise_m": 0.03426021617586106,
+          "landing_error_m": 6.260451655010091e-05,
+          "dx_m": 3.2699417023163146e-05,
+          "dy_m": -5.338608075909981e-05,
+          "takeoff_vxy_mps": 1.1318159546510924,
+          "touchdown_vxy_mps": 1.1457118528160684,
+          "q": 0.006852043235172212
+        },
+        {
+          "takeoff_s": 3.884999999999683,
+          "touchdown_s": 3.885999999999683,
+          "flight_s": 0.001,
+          "apex_rise_m": 0.034432537278230924,
+          "landing_error_m": 6.354570763153955e-05,
+          "dx_m": 3.631798084444138e-05,
+          "dy_m": -5.2144618377891055e-05,
+          "takeoff_vxy_mps": 1.1517191029453167,
+          "touchdown_vxy_mps": 1.1595020764284707,
+          "q": 0.006886507455646185
+        },
+        {
+          "takeoff_s": 3.886999999999683,
+          "touchdown_s": 3.9459999999996764,
+          "flight_s": 0.059000000000000004,
+          "apex_rise_m": 0.03473618347965113,
+          "landing_error_m": 0.005320993255680947,
+          "dx_m": 0.0043428833288081045,
+          "dy_m": -0.003074464769575798,
+          "takeoff_vxy_mps": 1.1619473074819198,
+          "touchdown_vxy_mps": 1.1056226511286666,
+          "q": 0.4098869650598833
+        },
+        {
+          "takeoff_s": 6.307000000000441,
+          "touchdown_s": 6.458000000000491,
+          "flight_s": 0.151,
+          "apex_rise_m": 0.05890072490866216,
+          "landing_error_m": 0.025445659030259908,
+          "dx_m": 0.02541863417262836,
+          "dy_m": -0.0011724334873831621,
+          "takeoff_vxy_mps": 0.7387988140481426,
+          "touchdown_vxy_mps": 0.3738761619274509,
+          "q": 1.0
+        }
+      ],
+      "hold": {
+        "observed_s": 1.93,
+        "longest_s": 1.0,
+        "failure_samples": {
+          "foot_load": 150,
+          "speed": 224,
+          "tilt": 0,
+          "height": 0,
+          "body": 0
+        },
+        "unstable_samples": 279,
+        "stable_share": 0.855440414507772,
+        "both_feet_off_s": 0.0,
+        "max_horizontal_speed": 1.13455783538082,
+        "max_vertical_speed": 0.8231869481522529,
+        "max_tilt_rad": 0.18085294724718223,
+        "horizontal_displacement_m": 0.03448522957305746
+      },
+      "criterion_failures": {
+        "flight": false,
+        "apex": false,
+        "landing_distance": false,
+        "hold": false,
+        "fall": false
+      },
+      "hold_entered": true
+    },
+    {
+      "cond": "in_place_dr",
+      "seed": 9521,
+      "passed": true,
+      "primary_failure": "pass",
+      "gate_episode": {
+        "request_time_s": 2.00799999999989,
+        "standing_height_m": 0.702068445961926,
+        "flight_s": 0.147,
+        "apex_rise_m": 0.055012800250748506,
+        "landing_error_m": 0.02096620721030642,
+        "touchdown_s": 4.05799999999969,
+        "standing_hold_s": 1.0,
+        "success_time_s": 5.877000000000297,
+        "t_fall": null,
+        "progress": 1.0,
+        "load_samples": 6880,
+        "landing_impact_peak_n": 471.5009355867925,
+        "current_peak_a": 54.57699599244113,
+        "current_over_limit_peak": 1.0353593449685983,
+        "torque_peak_nm": 79.01030322728786,
+        "seed": 9521,
+        "elapsed_s": 6.880000000000632,
+        "handoff_from": "l80_w2",
+        "sample_dt_s": 0.001,
+        "return_to": "l80_w2",
+        "return_observed_s": 1.000000000000334,
+        "raw_trace": "/Users/danny/\u1100\u1162\u1107\u1161\u11af \u1106\u1169\u110b\u1173\u11b7 \u1111\u1169\u11af\u1103\u1165/raptor/docs/evidence/199-l80-jump/eval/l80_j3/traces_2M/full/l80_j3_2M_jump_dr_9521.npz"
+      },
+      "representative_flight": {
+        "takeoff_s": 3.9109999999996803,
+        "touchdown_s": 4.05799999999969,
+        "flight_s": 0.147,
+        "apex_rise_m": 0.055012800250748506,
+        "landing_error_m": 0.02096620721030642,
+        "dx_m": 0.020838697843055226,
+        "dy_m": 0.002308791240313933,
+        "takeoff_vxy_mps": 0.49265183885432406,
+        "touchdown_vxy_mps": 0.2887725665981991,
+        "q": 1.0
+      },
+      "flights": [
+        {
+          "takeoff_s": 3.9109999999996803,
+          "touchdown_s": 4.05799999999969,
+          "flight_s": 0.147,
+          "apex_rise_m": 0.055012800250748506,
+          "landing_error_m": 0.02096620721030642,
+          "dx_m": 0.020838697843055226,
+          "dy_m": 0.002308791240313933,
+          "takeoff_vxy_mps": 0.49265183885432406,
+          "touchdown_vxy_mps": 0.2887725665981991,
+          "q": 1.0
+        }
+      ],
+      "hold": {
+        "observed_s": 1.82,
+        "longest_s": 1.0,
+        "failure_samples": {
+          "foot_load": 228,
+          "speed": 260,
+          "tilt": 0,
+          "height": 0,
+          "body": 0
+        },
+        "unstable_samples": 381,
+        "stable_share": 0.7906593406593406,
+        "both_feet_off_s": 0.0,
+        "max_horizontal_speed": 0.8585862256535736,
+        "max_vertical_speed": 0.8825385798281916,
+        "max_tilt_rad": 0.1662663409120096,
+        "horizontal_displacement_m": 0.009460068664417265
+      },
+      "criterion_failures": {
+        "flight": false,
+        "apex": false,
+        "landing_distance": false,
+        "hold": false,
+        "fall": false
+      },
+      "hold_entered": true
+    },
+    {
+      "cond": "in_place_dr",
+      "seed": 9522,
+      "passed": true,
+      "primary_failure": "pass",
+      "gate_episode": {
+        "request_time_s": 2.122999999999877,
+        "standing_height_m": 0.6810878724850862,
+        "flight_s": 0.187,
+        "apex_rise_m": 0.08334562152068226,
+        "landing_error_m": 0.04790228994391649,
+        "touchdown_s": 4.461999999999825,
+        "standing_hold_s": 1.0,
+        "success_time_s": 9.981999999999907,
+        "t_fall": null,
+        "progress": 1.0,
+        "load_samples": 11000,
+        "landing_impact_peak_n": 684.5910055447328,
+        "current_peak_a": 60.65381451209802,
+        "current_over_limit_peak": 1.0902422628553907,
+        "torque_peak_nm": 105.15316554697915,
+        "seed": 9522,
+        "elapsed_s": 10.999999999999343,
+        "handoff_from": "l80_w2",
+        "sample_dt_s": 0.001,
+        "return_to": "l80_w2",
+        "return_observed_s": 0.9999999999994458,
+        "raw_trace": "/Users/danny/\u1100\u1162\u1107\u1161\u11af \u1106\u1169\u110b\u1173\u11b7 \u1111\u1169\u11af\u1103\u1165/raptor/docs/evidence/199-l80-jump/eval/l80_j3/traces_2M/full/l80_j3_2M_jump_dr_9522.npz"
+      },
+      "representative_flight": {
+        "takeoff_s": 4.274999999999762,
+        "touchdown_s": 4.461999999999825,
+        "flight_s": 0.187,
+        "apex_rise_m": 0.08334562152068226,
+        "landing_error_m": 0.04790228994391649,
+        "dx_m": 0.04762646437041339,
+        "dy_m": -0.005133154336739398,
+        "takeoff_vxy_mps": 0.6012537054048983,
+        "touchdown_vxy_mps": 0.5036576082264087,
+        "q": 1.0
+      },
+      "flights": [
+        {
+          "takeoff_s": 4.274999999999762,
+          "touchdown_s": 4.461999999999825,
+          "flight_s": 0.187,
+          "apex_rise_m": 0.08334562152068226,
+          "landing_error_m": 0.04790228994391649,
+          "dx_m": 0.04762646437041339,
+          "dy_m": -0.005133154336739398,
+          "takeoff_vxy_mps": 0.6012537054048983,
+          "touchdown_vxy_mps": 0.5036576082264087,
+          "q": 1.0
+        },
+        {
+          "takeoff_s": 7.7220000000009135,
+          "touchdown_s": 7.856000000000958,
+          "flight_s": 0.134,
+          "apex_rise_m": 0.0724559247202603,
+          "landing_error_m": 0.016483921197329936,
+          "dx_m": 0.016386596057505684,
+          "dy_m": -0.0017886105467435631,
+          "takeoff_vxy_mps": 0.3908335513572941,
+          "touchdown_vxy_mps": 0.4287758471729711,
+          "q": 1.0
+        }
+      ],
+      "hold": {
+        "observed_s": 5.521,
+        "longest_s": 1.0,
+        "failure_samples": {
+          "foot_load": 658,
+          "speed": 707,
+          "tilt": 0,
+          "height": 0,
+          "body": 0
+        },
+        "unstable_samples": 997,
+        "stable_share": 0.8194167723238543,
+        "both_feet_off_s": 0.134,
+        "max_horizontal_speed": 1.524566257818242,
+        "max_vertical_speed": 0.9425693888423703,
+        "max_tilt_rad": 0.21760685035131844,
+        "horizontal_displacement_m": 0.06245084058616806
+      },
+      "criterion_failures": {
+        "flight": false,
+        "apex": false,
+        "landing_distance": false,
+        "hold": false,
+        "fall": false
+      },
+      "hold_entered": true
+    },
+    {
+      "cond": "in_place_dr",
+      "seed": 9523,
+      "passed": true,
+      "primary_failure": "pass",
+      "gate_episode": {
+        "request_time_s": 2.122999999999877,
+        "standing_height_m": 0.6943096642789874,
+        "flight_s": 0.158,
+        "apex_rise_m": 0.06341081506237245,
+        "landing_error_m": 0.022338994579190776,
+        "touchdown_s": 4.024999999999679,
+        "standing_hold_s": 1.0,
+        "success_time_s": 10.559999999999587,
+        "t_fall": null,
+        "progress": 1.0,
+        "load_samples": 11560,
+        "landing_impact_peak_n": 660.2462520077579,
+        "current_peak_a": 55.50939324105058,
+        "current_over_limit_peak": 1.0096543041150443,
+        "torque_peak_nm": 88.70549382644647,
+        "seed": 9523,
+        "elapsed_s": 11.559999999999032,
+        "handoff_from": "l80_w2",
+        "sample_dt_s": 0.001,
+        "return_to": "l80_w2",
+        "return_observed_s": 0.9999999999994458,
+        "raw_trace": "/Users/danny/\u1100\u1162\u1107\u1161\u11af \u1106\u1169\u110b\u1173\u11b7 \u1111\u1169\u11af\u1103\u1165/raptor/docs/evidence/199-l80-jump/eval/l80_j3/traces_2M/full/l80_j3_2M_jump_dr_9523.npz"
+      },
+      "representative_flight": {
+        "takeoff_s": 3.866999999999685,
+        "touchdown_s": 4.024999999999679,
+        "flight_s": 0.158,
+        "apex_rise_m": 0.06341081506237245,
+        "landing_error_m": 0.022338994579190776,
+        "dx_m": 0.022045717176876825,
+        "dy_m": -0.0036079125496986317,
+        "takeoff_vxy_mps": 0.41236857856721343,
+        "touchdown_vxy_mps": 0.41864932372371816,
+        "q": 1.0
+      },
+      "flights": [
+        {
+          "takeoff_s": 3.866999999999685,
+          "touchdown_s": 4.024999999999679,
+          "flight_s": 0.158,
+          "apex_rise_m": 0.06341081506237245,
+          "landing_error_m": 0.022338994579190776,
+          "dx_m": 0.022045717176876825,
+          "dy_m": -0.0036079125496986317,
+          "takeoff_vxy_mps": 0.41236857856721343,
+          "touchdown_vxy_mps": 0.41864932372371816,
+          "q": 1.0
+        },
+        {
+          "takeoff_s": 5.793000000000269,
+          "touchdown_s": 5.910000000000308,
+          "flight_s": 0.117,
+          "apex_rise_m": 0.05286533478936717,
+          "landing_error_m": 0.008246032712899965,
+          "dx_m": 0.008216856675523687,
+          "dy_m": -0.0006930525781772903,
+          "takeoff_vxy_mps": 0.15469645865675344,
+          "touchdown_vxy_mps": 0.03748779916738709,
+          "q": 1.0
+        },
+        {
+          "takeoff_s": 7.516000000000845,
+          "touchdown_s": 7.617000000000878,
+          "flight_s": 0.101,
+          "apex_rise_m": 0.04237062663671165,
+          "landing_error_m": 0.006338321959999419,
+          "dx_m": 0.00631665577506528,
+          "dy_m": -0.0005236268594575044,
+          "takeoff_vxy_mps": 0.29718899495856166,
+          "touchdown_vxy_mps": 0.4005385167966931,
+          "q": 0.847412532734233
+        },
+        {
+          "takeoff_s": 7.624000000000881,
+          "touchdown_s": 7.625000000000881,
+          "flight_s": 0.001,
+          "apex_rise_m": 0.020898104231661607,
+          "landing_error_m": 0.00010778665980036692,
+          "dx_m": 0.00010761210048998437,
+          "dy_m": -6.131872393774773e-06,
+          "takeoff_vxy_mps": 0.5273672375593791,
+          "touchdown_vxy_mps": 0.5425818623370593,
+          "q": 0.004179620846332321
+        },
+        {
+          "takeoff_s": 7.629000000000882,
+          "touchdown_s": 7.631000000000883,
+          "flight_s": 0.002,
+          "apex_rise_m": 0.01750555174063484,
+          "landing_error_m": 0.00022624691715266825,
+          "dx_m": 0.00022582623307823568,
+          "dy_m": -1.3790575578296466e-05,
+          "takeoff_vxy_mps": 0.5840606519270134,
+          "touchdown_vxy_mps": 0.600131611124884,
+          "q": 0.0070022206962539356
+        },
+        {
+          "takeoff_s": 8.10100000000095,
+          "touchdown_s": 8.102000000000949,
+          "flight_s": 0.001,
+          "apex_rise_m": 0.03494389718699853,
+          "landing_error_m": 0.00023536127461510888,
+          "dx_m": 0.00023198629818544855,
+          "dy_m": -3.971507324254664e-05,
+          "takeoff_vxy_mps": 0.8874576258969474,
+          "touchdown_vxy_mps": 0.87126832141668,
+          "q": 0.006988779437399706
+        },
+        {
+          "takeoff_s": 8.103000000000948,
+          "touchdown_s": 8.104000000000948,
+          "flight_s": 0.001,
+          "apex_rise_m": 0.035947547456045004,
+          "landing_error_m": 0.00024268391692457727,
+          "dx_m": 0.00023933684967343202,
+          "dy_m": -4.0166602075009106e-05,
+          "takeoff_vxy_mps": 0.8482879538898178,
+          "touchdown_vxy_mps": 0.8218918043637734,
+          "q": 0.007189509491209001
+        },
+        {
+          "takeoff_s": 8.105000000000947,
+          "touchdown_s": 8.216000000000886,
+          "flight_s": 0.111,
+          "apex_rise_m": 0.046117666704792226,
+          "landing_error_m": 0.020658580908453118,
+          "dx_m": 0.02017795850920687,
+          "dy_m": -0.004430231997517707,
+          "takeoff_vxy_mps": 0.7929014646625174,
+          "touchdown_vxy_mps": 0.5409478339141026,
+          "q": 0.9223533340958445
+        },
+        {
+          "takeoff_s": 8.219000000000884,
+          "touchdown_s": 8.220000000000883,
+          "flight_s": 0.001,
+          "apex_rise_m": 0.026289741384794896,
+          "landing_error_m": 0.00022126328280545012,
+          "dx_m": 0.00021691180095610024,
+          "dy_m": -4.3665901156689224e-05,
+          "takeoff_vxy_mps": 0.6365048055550951,
+          "touchdown_vxy_mps": 0.7056591386512008,
+          "q": 0.005257948276958979
+        }
+      ],
+      "hold": {
+        "observed_s": 6.5360000000000005,
+        "longest_s": 1.0,
+        "failure_samples": {
+          "foot_load": 990,
+          "speed": 1220,
+          "tilt": 0,
+          "height": 0,
+          "body": 0
+        },
+        "unstable_samples": 1588,
+        "stable_share": 0.7570379436964504,
+        "both_feet_off_s": 0.335,
+        "max_horizontal_speed": 2.1538863626191365,
+        "max_vertical_speed": 0.9190786605891974,
+        "max_tilt_rad": 0.2266285216223172,
+        "horizontal_displacement_m": 0.04899197748882503
+      },
+      "criterion_failures": {
+        "flight": false,
+        "apex": false,
+        "landing_distance": false,
+        "hold": false,
+        "fall": false
+      },
+      "hold_entered": true
+    }
+  ],
+  "failure_distribution": {
+    "pass": 21,
+    "hold": 10,
+    "apex": 1
+  },
+  "criterion_failure_counts": {
+    "flight": 0,
+    "apex": 1,
+    "landing_distance": 0,
+    "hold": 11,
+    "fall": 0
+  },
+  "conditions": [
+    {
+      "gate": "jump",
+      "cond": "in_place",
+      "cmd": null,
+      "n": 8,
+      "judge": [
+        false,
+        "jump success 6/8, falls 0; impact/current recorded only"
+      ]
+    },
+    {
+      "gate": "jump",
+      "cond": "in_place_dr",
+      "cmd": null,
+      "n": 24,
+      "judge": [
+        false,
+        "jump success 15/24, falls 0; impact/current recorded only"
+      ]
+    },
+    {
+      "gate": "stand",
+      "cond": "hold",
+      "cmd": null,
+      "n": 8,
+      "judge": [
+        true,
+        "falls 0, drift 0.397"
+      ]
+    },
+    {
+      "gate": "stand",
+      "cond": "hold_dr",
+      "cmd": null,
+      "n": 24,
+      "judge": [
+        true,
+        "falls 0/24"
+      ]
+    },
+    {
+      "gate": "stand",
+      "cond": "push",
+      "cmd": null,
+      "n": 8,
+      "judge": [
+        true,
+        "falls 0"
+      ]
+    },
+    {
+      "gate": "stand",
+      "cond": "push",
+      "cmd": null,
+      "n": 8,
+      "judge": [
+        true,
+        "falls 0"
+      ]
+    },
+    {
+      "gate": "stand",
+      "cond": "push",
+      "cmd": null,
+      "n": 8,
+      "judge": [
+        true,
+        "falls 0"
+      ]
+    },
+    {
+      "gate": "stand",
+      "cond": "push",
+      "cmd": null,
+      "n": 8,
+      "judge": [
+        true,
+        "falls 0"
+      ]
+    },
+    {
+      "gate": "stand",
+      "cond": "push",
+      "cmd": null,
+      "n": 8,
+      "judge": [
+        null,
+        "falls 0 (recorded)"
+      ]
+    },
+    {
+      "gate": "stand",
+      "cond": "push",
+      "cmd": null,
+      "n": 8,
+      "judge": [
+        null,
+        "falls 0 (recorded)"
+      ]
+    },
+    {
+      "gate": "stand",
+      "cond": "push",
+      "cmd": null,
+      "n": 8,
+      "judge": [
+        null,
+        "falls 0 (recorded)"
+      ]
+    },
+    {
+      "gate": "stand",
+      "cond": "push",
+      "cmd": null,
+      "n": 8,
+      "judge": [
+        null,
+        "falls 0 (recorded)"
+      ]
+    },
+    {
+      "gate": "stand",
+      "cond": "push",
+      "cmd": null,
+      "n": 8,
+      "judge": [
+        null,
+        "falls 0 (recorded)"
+      ]
+    },
+    {
+      "gate": "stand",
+      "cond": "push",
+      "cmd": null,
+      "n": 8,
+      "judge": [
+        null,
+        "falls 0 (recorded)"
+      ]
+    },
+    {
+      "gate": "stand",
+      "cond": "push",
+      "cmd": null,
+      "n": 8,
+      "judge": [
+        null,
+        "falls 0 (recorded)"
+      ]
+    },
+    {
+      "gate": "stand",
+      "cond": "push",
+      "cmd": null,
+      "n": 8,
+      "judge": [
+        null,
+        "falls 0 (recorded)"
+      ]
+    },
+    {
+      "gate": "walk",
+      "cond": "track",
+      "cmd": 0.3,
+      "n": 4,
+      "judge": [
+        true,
+        "v [0.21, 0.22, 0.22, 0.22], tol 0.10"
+      ]
+    },
+    {
+      "gate": "walk",
+      "cond": "track",
+      "cmd": 0.6,
+      "n": 4,
+      "judge": [
+        true,
+        "v [0.62, 0.62, 0.61, 0.6], tol 0.10"
+      ]
+    },
+    {
+      "gate": "walk",
+      "cond": "track",
+      "cmd": 1.0,
+      "n": 4,
+      "judge": [
+        true,
+        "v [1.03, 1.04, 1.04, 1.03], tol 0.15"
+      ]
+    },
+    {
+      "gate": "walk",
+      "cond": "track",
+      "cmd": 1.5,
+      "n": 4,
+      "judge": [
+        true,
+        "v [1.46, 1.47, 1.46, 1.46], tol 0.22"
+      ]
+    },
+    {
+      "gate": "walk",
+      "cond": "turn",
+      "cmd": 0.5,
+      "n": 4,
+      "judge": [
+        true,
+        "yaw [0.43, 0.4, 0.41, 0.42], drift max 0.452"
+      ]
+    },
+    {
+      "gate": "walk",
+      "cond": "turn",
+      "cmd": -0.5,
+      "n": 4,
+      "judge": [
+        true,
+        "yaw [-0.41, -0.42, -0.38, -0.43], drift max 0.454"
+      ]
+    },
+    {
+      "gate": "walk",
+      "cond": "stopstart",
+      "cmd": null,
+      "n": 4,
+      "judge": [
+        true,
+        "reach max 0.58, stop speeds [-0.11, -0.13, -0.13, -0.09, -0.14, -0.13, -0.11, -0.12]"
+      ]
+    },
+    {
+      "gate": "walk",
+      "cond": "track_dr",
+      "cmd": 1.0,
+      "n": 24,
+      "judge": [
+        true,
+        "falls 0/24"
+      ]
+    },
+    {
+      "gate": "switch",
+      "cond": "switch",
+      "cmd": null,
+      "n": 4,
+      "judge": [
+        null,
+        "falls 0/4, switches [2, 2, 2, 2] (step commands, recorded)"
+      ]
+    },
+    {
+      "gate": "switch",
+      "cond": "switch_ramp",
+      "cmd": null,
+      "n": 4,
+      "judge": [
+        true,
+        "falls 0/4, switches [2, 2, 2, 2]"
+      ]
+    },
+    {
+      "gate": "switch",
+      "cond": "switch_ramp_dr",
+      "cmd": null,
+      "n": 8,
+      "judge": [
+        true,
+        "falls 0/8, switches [2, 2, 2, 2, 2, 2, 2, 2]"
+      ]
+    },
+    {
+      "gate": "jump",
+      "cond": "run_regression",
+      "cmd": 2.0,
+      "n": 4,
+      "judge": [
+        true,
+        "falls 0/4, v [1.918043950561087, 1.944630695868931, 1.9367607979480397, 1.9675090948816174]"
+      ]
+    },
+    {
+      "gate": "jump",
+      "cond": "run_regression",
+      "cmd": 4.0,
+      "n": 4,
+      "judge": [
+        true,
+        "falls 0/4, v [4.202228579647781, 4.19709973602469, 4.225250508625001, 4.192528752764309]"
+      ]
+    },
+    {
+      "gate": "jump",
+      "cond": "run_regression",
+      "cmd": 6.0,
+      "n": 4,
+      "judge": [
+        true,
+        "falls 0/4, v [5.942140220803061, 5.958991175702678, 5.968459185992671, 5.91850119174208]"
+      ]
+    }
+  ],
+  "suite": [
+    false,
+    "failed condition: {'gate': 'jump', 'cond': 'in_place'}"
+  ],
+  "rollouts": 240,
+  "comparison": {
+    "j2_primary": {
+      "hold": 7,
+      "pass": 17,
+      "apex": 8
+    },
+    "j3_primary": {
+      "pass": 21,
+      "hold": 10,
+      "apex": 1
+    },
+    "j2_criteria": {
+      "flight": 0,
+      "apex": 8,
+      "landing_distance": 0,
+      "hold": 15,
+      "fall": 0
+    },
+    "j3_criteria": {
+      "flight": 0,
+      "apex": 1,
+      "landing_distance": 0,
+      "hold": 11,
+      "fall": 0
+    },
+    "newly_passed": [
+      9400,
+      9402,
+      9404,
+      9503,
+      9506,
+      9507,
+      9520,
+      9521,
+      9523
+    ],
+    "newly_failed": [
+      9403,
+      9501,
+      9502,
+      9517,
+      9519
+    ],
+    "pairs": [
+      {
+        "seed": 9400,
+        "cond": "in_place",
+        "j2_pass": false,
+        "j3_pass": true,
+        "j2_primary": "hold",
+        "j3_primary": "pass",
+        "j2_flight": {
+          "takeoff_s": 3.704999999999703,
+          "touchdown_s": 3.8559999999996863,
+          "flight_s": 0.151,
+          "apex_rise_m": 0.06065694240979169,
+          "landing_error_m": 0.019243053260105326,
+          "dx_m": 0.017064653701208243,
+          "dy_m": -0.008893407267694988,
+          "takeoff_vxy_mps": 0.9532722606917506,
+          "touchdown_vxy_mps": 0.13193163233584246,
+          "q": 1.0
+        },
+        "j3_flight": {
+          "takeoff_s": 4.651999999999888,
+          "touchdown_s": 4.834999999999949,
+          "flight_s": 0.183,
+          "apex_rise_m": 0.07742878302478517,
+          "landing_error_m": 0.037415258743502315,
+          "dx_m": 0.0373426151925781,
+          "dy_m": 0.002330381389871898,
+          "takeoff_vxy_mps": 0.33532141252360215,
+          "touchdown_vxy_mps": 0.3173589327655528,
+          "q": 1.0
+        },
+        "j2_hold_s": 0.936,
+        "j3_hold_s": 1.0
+      },
+      {
+        "seed": 9401,
+        "cond": "in_place",
+        "j2_pass": true,
+        "j3_pass": true,
+        "j2_primary": "pass",
+        "j3_primary": "pass",
+        "j2_flight": {
+          "takeoff_s": 6.918000000000645,
+          "touchdown_s": 7.026000000000681,
+          "flight_s": 0.108,
+          "apex_rise_m": 0.05051708012385636,
+          "landing_error_m": 0.010288177341337442,
+          "dx_m": 0.009954854186781992,
+          "dy_m": -0.0025975894838711905,
+          "takeoff_vxy_mps": 0.9858217000619872,
+          "touchdown_vxy_mps": 0.33933924756604733,
+          "q": 1.0
+        },
+        "j3_flight": {
+          "takeoff_s": 6.551000000000522,
+          "touchdown_s": 6.732000000000583,
+          "flight_s": 0.181,
+          "apex_rise_m": 0.0716589121269412,
+          "landing_error_m": 0.03650957943602506,
+          "dx_m": 0.03643516610624324,
+          "dy_m": 0.002329820037231922,
+          "takeoff_vxy_mps": 0.2782546072522697,
+          "touchdown_vxy_mps": 0.4258525894840911,
+          "q": 1.0
+        },
+        "j2_hold_s": 1.0,
+        "j3_hold_s": 1.0
+      },
+      {
+        "seed": 9402,
+        "cond": "in_place",
+        "j2_pass": false,
+        "j3_pass": true,
+        "j2_primary": "hold",
+        "j3_primary": "pass",
+        "j2_flight": {
+          "takeoff_s": 3.694999999999704,
+          "touchdown_s": 3.869999999999685,
+          "flight_s": 0.17500000000000002,
+          "apex_rise_m": 0.062036257547636975,
+          "landing_error_m": 0.031757538235628956,
+          "dx_m": 0.031484138363606314,
+          "dy_m": 0.004158156597427331,
+          "takeoff_vxy_mps": 0.900469411963622,
+          "touchdown_vxy_mps": 0.35436259471687764,
+          "q": 1.0
+        },
+        "j3_flight": {
+          "takeoff_s": 3.7259999999997007,
+          "touchdown_s": 3.8829999999996834,
+          "flight_s": 0.157,
+          "apex_rise_m": 0.06438864999388028,
+          "landing_error_m": 0.028360614419851396,
+          "dx_m": 0.026755751211812936,
+          "dy_m": 0.009405010758263577,
+          "takeoff_vxy_mps": 0.795009465504954,
+          "touchdown_vxy_mps": 0.18809025345574626,
+          "q": 1.0
+        },
+        "j2_hold_s": 0.903,
+        "j3_hold_s": 1.0
+      },
+      {
+        "seed": 9403,
+        "cond": "in_place",
+        "j2_pass": true,
+        "j3_pass": false,
+        "j2_primary": "pass",
+        "j3_primary": "hold",
+        "j2_flight": {
+          "takeoff_s": 3.0569999999997743,
+          "touchdown_s": 3.195999999999759,
+          "flight_s": 0.139,
+          "apex_rise_m": 0.05359342218171348,
+          "landing_error_m": 0.021273614336194777,
+          "dx_m": 0.02104690236631579,
+          "dy_m": 0.0030975099205527573,
+          "takeoff_vxy_mps": 0.8199862435798432,
+          "touchdown_vxy_mps": 0.1536713678920392,
+          "q": 1.0
+        },
+        "j3_flight": {
+          "takeoff_s": 3.5829999999997164,
+          "touchdown_s": 3.704999999999703,
+          "flight_s": 0.122,
+          "apex_rise_m": 0.055880847586682214,
+          "landing_error_m": 0.011157421699219643,
+          "dx_m": 0.010692554421685707,
+          "dy_m": -0.003187058034223221,
+          "takeoff_vxy_mps": 0.39229590071338116,
+          "touchdown_vxy_mps": 0.0252039418313456,
+          "q": 1.0
+        },
+        "j2_hold_s": 1.0,
+        "j3_hold_s": 0.833
+      },
+      {
+        "seed": 9404,
+        "cond": "in_place",
+        "j2_pass": false,
+        "j3_pass": true,
+        "j2_primary": "hold",
+        "j3_primary": "pass",
+        "j2_flight": {
+          "takeoff_s": 3.751999999999698,
+          "touchdown_s": 3.9259999999996786,
+          "flight_s": 0.17400000000000002,
+          "apex_rise_m": 0.06052849793472692,
+          "landing_error_m": 0.03147501792190922,
+          "dx_m": 0.03147498765078981,
+          "dy_m": -4.365280214937116e-05,
+          "takeoff_vxy_mps": 0.8911932435068839,
+          "touchdown_vxy_mps": 0.06225056085930986,
+          "q": 1.0
+        },
+        "j3_flight": {
+          "takeoff_s": 5.933000000000316,
+          "touchdown_s": 6.088000000000368,
+          "flight_s": 0.155,
+          "apex_rise_m": 0.06676039673063194,
+          "landing_error_m": 0.018693143975904065,
+          "dx_m": 0.017606161718472783,
+          "dy_m": -0.00628145693663993,
+          "takeoff_vxy_mps": 0.49105773073979564,
+          "touchdown_vxy_mps": 0.4094593197496301,
+          "q": 1.0
+        },
+        "j2_hold_s": 0.757,
+        "j3_hold_s": 1.0
+      },
+      {
+        "seed": 9405,
+        "cond": "in_place",
+        "j2_pass": true,
+        "j3_pass": true,
+        "j2_primary": "pass",
+        "j3_primary": "pass",
+        "j2_flight": {
+          "takeoff_s": 2.441999999999842,
+          "touchdown_s": 2.5939999999998253,
+          "flight_s": 0.152,
+          "apex_rise_m": 0.058734079986056065,
+          "landing_error_m": 0.01683590973758493,
+          "dx_m": 0.01646967468169481,
+          "dy_m": -0.0034925166529664754,
+          "takeoff_vxy_mps": 1.0274970316085008,
+          "touchdown_vxy_mps": 0.12373243288095856,
+          "q": 1.0
+        },
+        "j3_flight": {
+          "takeoff_s": 5.013000000000009,
+          "touchdown_s": 5.185000000000066,
+          "flight_s": 0.17200000000000001,
+          "apex_rise_m": 0.06893619892061287,
+          "landing_error_m": 0.035426873191183254,
+          "dx_m": 0.0352414749340683,
+          "dy_m": 0.0036196392880527423,
+          "takeoff_vxy_mps": 0.41696931488946687,
+          "touchdown_vxy_mps": 0.2131525990108353,
+          "q": 1.0
+        },
+        "j2_hold_s": 1.0,
+        "j3_hold_s": 1.0
+      },
+      {
+        "seed": 9406,
+        "cond": "in_place",
+        "j2_pass": true,
+        "j3_pass": true,
+        "j2_primary": "pass",
+        "j3_primary": "pass",
+        "j2_flight": {
+          "takeoff_s": 2.524999999999833,
+          "touchdown_s": 2.649999999999819,
+          "flight_s": 0.125,
+          "apex_rise_m": 0.06335425472672718,
+          "landing_error_m": 0.018607339830207476,
+          "dx_m": 0.018458437646259318,
+          "dy_m": -0.0023492924926416317,
+          "takeoff_vxy_mps": 0.9841294428000039,
+          "touchdown_vxy_mps": 0.09256050700192074,
+          "q": 1.0
+        },
+        "j3_flight": {
+          "takeoff_s": 2.9209999999997893,
+          "touchdown_s": 3.0829999999997715,
+          "flight_s": 0.162,
+          "apex_rise_m": 0.06587017720023014,
+          "landing_error_m": 0.0244362851867027,
+          "dx_m": 0.023548003024192854,
+          "dy_m": 0.006528674237429068,
+          "takeoff_vxy_mps": 0.5894727539824179,
+          "touchdown_vxy_mps": 0.2088832470503057,
+          "q": 1.0
+        },
+        "j2_hold_s": 1.0,
+        "j3_hold_s": 1.0
+      },
+      {
+        "seed": 9407,
+        "cond": "in_place",
+        "j2_pass": false,
+        "j3_pass": false,
+        "j2_primary": "hold",
+        "j3_primary": "hold",
+        "j2_flight": {
+          "takeoff_s": 3.539999999999721,
+          "touchdown_s": 3.721999999999701,
+          "flight_s": 0.182,
+          "apex_rise_m": 0.06663702608186106,
+          "landing_error_m": 0.04452543182926308,
+          "dx_m": 0.0435568769090612,
+          "dy_m": 0.00923647949768983,
+          "takeoff_vxy_mps": 1.1609620863405796,
+          "touchdown_vxy_mps": 0.16465287476934723,
+          "q": 1.0
+        },
+        "j3_flight": {
+          "takeoff_s": 4.873999999999962,
+          "touchdown_s": 5.055000000000023,
+          "flight_s": 0.181,
+          "apex_rise_m": 0.07361294152579256,
+          "landing_error_m": 0.03796528573210175,
+          "dx_m": 0.03779252631116066,
+          "dy_m": -0.0036177169237459547,
+          "takeoff_vxy_mps": 0.29598025034910025,
+          "touchdown_vxy_mps": 0.33569739649517394,
+          "q": 1.0
+        },
+        "j2_hold_s": 0.984,
+        "j3_hold_s": 0.895
+      },
+      {
+        "seed": 9500,
+        "cond": "in_place_dr",
+        "j2_pass": true,
+        "j3_pass": true,
+        "j2_primary": "pass",
+        "j3_primary": "pass",
+        "j2_flight": {
+          "takeoff_s": 3.487999999999727,
+          "touchdown_s": 3.63999999999971,
+          "flight_s": 0.152,
+          "apex_rise_m": 0.05708732953275786,
+          "landing_error_m": 0.025039343728373794,
+          "dx_m": 0.023940913471007935,
+          "dy_m": 0.007334943525437869,
+          "takeoff_vxy_mps": 0.8960553008588843,
+          "touchdown_vxy_mps": 0.21990283723504103,
+          "q": 1.0
+        },
+        "j3_flight": {
+          "takeoff_s": 4.960999999999991,
+          "touchdown_s": 5.1200000000000445,
+          "flight_s": 0.159,
+          "apex_rise_m": 0.07703741893424754,
+          "landing_error_m": 0.02918759886706976,
+          "dx_m": 0.028753966134587687,
+          "dy_m": 0.005012520239954778,
+          "takeoff_vxy_mps": 0.47117513507761943,
+          "touchdown_vxy_mps": 0.3619038127570914,
+          "q": 1.0
+        },
+        "j2_hold_s": 1.0,
+        "j3_hold_s": 1.0
+      },
+      {
+        "seed": 9501,
+        "cond": "in_place_dr",
+        "j2_pass": true,
+        "j3_pass": false,
+        "j2_primary": "pass",
+        "j3_primary": "hold",
+        "j2_flight": {
+          "takeoff_s": 2.7479999999998084,
+          "touchdown_s": 2.931999999999788,
+          "flight_s": 0.184,
+          "apex_rise_m": 0.07436408736805411,
+          "landing_error_m": 0.04617621175639376,
+          "dx_m": 0.0459787648777983,
+          "dy_m": -0.004265643267252818,
+          "takeoff_vxy_mps": 0.9267468244895588,
+          "touchdown_vxy_mps": 0.30041900172701885,
+          "q": 1.0
+        },
+        "j3_flight": {
+          "takeoff_s": 3.8729999999996845,
+          "touchdown_s": 4.05799999999969,
+          "flight_s": 0.185,
+          "apex_rise_m": 0.0789484989894842,
+          "landing_error_m": 0.038462815096621805,
+          "dx_m": 0.03841273343716087,
+          "dy_m": -0.001962155713123085,
+          "takeoff_vxy_mps": 0.2569551005512646,
+          "touchdown_vxy_mps": 0.07711774790357,
+          "q": 1.0
+        },
+        "j2_hold_s": 1.0,
+        "j3_hold_s": 0.728
+      },
+      {
+        "seed": 9502,
+        "cond": "in_place_dr",
+        "j2_pass": true,
+        "j3_pass": false,
+        "j2_primary": "pass",
+        "j3_primary": "hold",
+        "j2_flight": {
+          "takeoff_s": 7.888000000000969,
+          "touchdown_s": 8.009000000001,
+          "flight_s": 0.121,
+          "apex_rise_m": 0.052558217033228494,
+          "landing_error_m": 0.01118590978979043,
+          "dx_m": 0.010076696963255694,
+          "dy_m": -0.0048564139172894705,
+          "takeoff_vxy_mps": 1.1062648784971345,
+          "touchdown_vxy_mps": 0.5452704437197146,
+          "q": 1.0
+        },
+        "j3_flight": {
+          "takeoff_s": 7.002000000000673,
+          "touchdown_s": 7.161000000000726,
+          "flight_s": 0.159,
+          "apex_rise_m": 0.0521935018103139,
+          "landing_error_m": 0.02467671243933655,
+          "dx_m": 0.0235887671340764,
+          "dy_m": 0.007246392337434147,
+          "takeoff_vxy_mps": 0.651219109671532,
+          "touchdown_vxy_mps": 0.18492941383260356,
+          "q": 1.0
+        },
+        "j2_hold_s": 1.0,
+        "j3_hold_s": 0.857
+      },
+      {
+        "seed": 9503,
+        "cond": "in_place_dr",
+        "j2_pass": false,
+        "j3_pass": true,
+        "j2_primary": "apex",
+        "j3_primary": "pass",
+        "j2_flight": {
+          "takeoff_s": 6.206000000000407,
+          "touchdown_s": 6.358000000000458,
+          "flight_s": 0.152,
+          "apex_rise_m": 0.04437728863911661,
+          "landing_error_m": 0.02196760215435612,
+          "dx_m": 0.021708584264251665,
+          "dy_m": -0.0033634675045192096,
+          "takeoff_vxy_mps": 1.0272670706879439,
+          "touchdown_vxy_mps": 0.3997084177270835,
+          "q": 0.8875457727823322
+        },
+        "j3_flight": {
+          "takeoff_s": 4.767999999999927,
+          "touchdown_s": 4.947999999999987,
+          "flight_s": 0.18,
+          "apex_rise_m": 0.07331842696144208,
+          "landing_error_m": 0.04265518221288443,
+          "dx_m": 0.04112669573483646,
+          "dy_m": 0.011316336312983843,
+          "takeoff_vxy_mps": 0.778204140699934,
+          "touchdown_vxy_mps": 0.3293650654585305,
+          "q": 1.0
+        },
+        "j2_hold_s": 0.0,
+        "j3_hold_s": 1.0
+      },
+      {
+        "seed": 9504,
+        "cond": "in_place_dr",
+        "j2_pass": false,
+        "j3_pass": false,
+        "j2_primary": "apex",
+        "j3_primary": "hold",
+        "j2_flight": {
+          "takeoff_s": 11.013999999999335,
+          "touchdown_s": 11.132999999999269,
+          "flight_s": 0.11900000000000001,
+          "apex_rise_m": 0.04824891182990487,
+          "landing_error_m": 0.017007993208077013,
+          "dx_m": 0.01698101349003181,
+          "dy_m": 0.0009576083841275861,
+          "takeoff_vxy_mps": 0.8315749867432675,
+          "touchdown_vxy_mps": 0.30161814034584117,
+          "q": 0.9649782365980974
+        },
+        "j3_flight": {
+          "takeoff_s": 5.379000000000131,
+          "touchdown_s": 5.5570000000001905,
+          "flight_s": 0.178,
+          "apex_rise_m": 0.06800654646542681,
+          "landing_error_m": 0.0387780653106052,
+          "dx_m": 0.03873806843955156,
+          "dy_m": -0.0017607960717191465,
+          "takeoff_vxy_mps": 0.6738492438186627,
+          "touchdown_vxy_mps": 0.32942748616038814,
+          "q": 1.0
+        },
+        "j2_hold_s": 0.0,
+        "j3_hold_s": 0.6930000000000001
+      },
+      {
+        "seed": 9505,
+        "cond": "in_place_dr",
+        "j2_pass": true,
+        "j3_pass": true,
+        "j2_primary": "pass",
+        "j3_primary": "pass",
+        "j2_flight": {
+          "takeoff_s": 3.9629999999996746,
+          "touchdown_s": 4.11799999999971,
+          "flight_s": 0.155,
+          "apex_rise_m": 0.06246860892109707,
+          "landing_error_m": 0.024490468150894035,
+          "dx_m": 0.024160410743820908,
+          "dy_m": 0.004007191402942759,
+          "takeoff_vxy_mps": 1.1201287520920808,
+          "touchdown_vxy_mps": 0.13055911305603166,
+          "q": 1.0
+        },
+        "j3_flight": {
+          "takeoff_s": 3.6269999999997116,
+          "touchdown_s": 3.742999999999699,
+          "flight_s": 0.116,
+          "apex_rise_m": 0.05061029581723275,
+          "landing_error_m": 0.00871253696491321,
+          "dx_m": 0.00813762181449973,
+          "dy_m": 0.003112460693592325,
+          "takeoff_vxy_mps": 0.8313420040438443,
+          "touchdown_vxy_mps": 0.2722215342413565,
+          "q": 1.0
+        },
+        "j2_hold_s": 1.0,
+        "j3_hold_s": 1.0
+      },
+      {
+        "seed": 9506,
+        "cond": "in_place_dr",
+        "j2_pass": false,
+        "j3_pass": true,
+        "j2_primary": "apex",
+        "j3_primary": "pass",
+        "j2_flight": {
+          "takeoff_s": 4.671999999999895,
+          "touchdown_s": 4.811999999999942,
+          "flight_s": 0.14,
+          "apex_rise_m": 0.041071364139815825,
+          "landing_error_m": 0.0218158946553298,
+          "dx_m": 0.020195031119439016,
+          "dy_m": -0.008251907518709661,
+          "takeoff_vxy_mps": 0.8236995335888471,
+          "touchdown_vxy_mps": 0.33849673545715253,
+          "q": 0.8214272827963165
+        },
+        "j3_flight": {
+          "takeoff_s": 3.5289999999997224,
+          "touchdown_s": 3.7019999999997033,
+          "flight_s": 0.17300000000000001,
+          "apex_rise_m": 0.06162714334472741,
+          "landing_error_m": 0.031220956860070617,
+          "dx_m": 0.030157039025102826,
+          "dy_m": -0.008080912355471741,
+          "takeoff_vxy_mps": 0.4364164168554831,
+          "touchdown_vxy_mps": 0.45441585052253497,
+          "q": 1.0
+        },
+        "j2_hold_s": 0.0,
+        "j3_hold_s": 1.0
+      },
+      {
+        "seed": 9507,
+        "cond": "in_place_dr",
+        "j2_pass": false,
+        "j3_pass": true,
+        "j2_primary": "hold",
+        "j3_primary": "pass",
+        "j2_flight": {
+          "takeoff_s": 4.247999999999753,
+          "touchdown_s": 4.408999999999807,
+          "flight_s": 0.161,
+          "apex_rise_m": 0.06437714952816231,
+          "landing_error_m": 0.03242128352875835,
+          "dx_m": 0.031480759811287354,
+          "dy_m": 0.007752508455730483,
+          "takeoff_vxy_mps": 1.0114803613870327,
+          "touchdown_vxy_mps": 0.6615646468081703,
+          "q": 1.0
+        },
+        "j3_flight": {
+          "takeoff_s": 2.4639999999998397,
+          "touchdown_s": 2.595999999999825,
+          "flight_s": 0.132,
+          "apex_rise_m": 0.05239293168344683,
+          "landing_error_m": 0.029286475037250643,
+          "dx_m": 0.029238225404629163,
+          "dy_m": 0.0016804152152378633,
+          "takeoff_vxy_mps": 0.7843806562197423,
+          "touchdown_vxy_mps": 0.8789886799881836,
+          "q": 1.0
+        },
+        "j2_hold_s": 0.9500000000000001,
+        "j3_hold_s": 1.0
+      },
+      {
+        "seed": 9508,
+        "cond": "in_place_dr",
+        "j2_pass": true,
+        "j3_pass": true,
+        "j2_primary": "pass",
+        "j3_primary": "pass",
+        "j2_flight": {
+          "takeoff_s": 3.631999999999711,
+          "touchdown_s": 3.7799999999996947,
+          "flight_s": 0.148,
+          "apex_rise_m": 0.05409282131785653,
+          "landing_error_m": 0.024953235207700666,
+          "dx_m": 0.024884043660067023,
+          "dy_m": -0.0018569648501547548,
+          "takeoff_vxy_mps": 0.9543305843209829,
+          "touchdown_vxy_mps": 0.12915080675230275,
+          "q": 1.0
+        },
+        "j3_flight": {
+          "takeoff_s": 8.010000000001,
+          "touchdown_s": 8.11900000000094,
+          "flight_s": 0.109,
+          "apex_rise_m": 0.05115788922690656,
+          "landing_error_m": 0.00985201950909061,
+          "dx_m": 0.009618177391827909,
+          "dy_m": 0.0021337647637058033,
+          "takeoff_vxy_mps": 0.6648194227150844,
+          "touchdown_vxy_mps": 0.3119926715098572,
+          "q": 1.0
+        },
+        "j2_hold_s": 1.0,
+        "j3_hold_s": 1.0
+      },
+      {
+        "seed": 9509,
+        "cond": "in_place_dr",
+        "j2_pass": true,
+        "j3_pass": true,
+        "j2_primary": "pass",
+        "j3_primary": "pass",
+        "j2_flight": {
+          "takeoff_s": 2.8119999999998013,
+          "touchdown_s": 2.977999999999783,
+          "flight_s": 0.166,
+          "apex_rise_m": 0.06917726798189394,
+          "landing_error_m": 0.03478415500105081,
+          "dx_m": 0.034589481412045,
+          "dy_m": 0.0036749441877288076,
+          "takeoff_vxy_mps": 1.0362398324426205,
+          "touchdown_vxy_mps": 0.258815778178224,
+          "q": 1.0
+        },
+        "j3_flight": {
+          "takeoff_s": 4.043999999999685,
+          "touchdown_s": 4.235999999999749,
+          "flight_s": 0.192,
+          "apex_rise_m": 0.080889705242989,
+          "landing_error_m": 0.0445277275091984,
+          "dx_m": 0.04376005625769606,
+          "dy_m": 0.00823261765519933,
+          "takeoff_vxy_mps": 0.5212118116130116,
+          "touchdown_vxy_mps": 0.4193421428212738,
+          "q": 1.0
+        },
+        "j2_hold_s": 1.0,
+        "j3_hold_s": 1.0
+      },
+      {
+        "seed": 9510,
+        "cond": "in_place_dr",
+        "j2_pass": false,
+        "j3_pass": false,
+        "j2_primary": "apex",
+        "j3_primary": "hold",
+        "j2_flight": {
+          "takeoff_s": 4.368999999999794,
+          "touchdown_s": 4.501999999999838,
+          "flight_s": 0.133,
+          "apex_rise_m": 0.04172279261870149,
+          "landing_error_m": 0.020623506379201316,
+          "dx_m": 0.020418508557537608,
+          "dy_m": 0.002900607463742849,
+          "takeoff_vxy_mps": 0.9504115973247514,
+          "touchdown_vxy_mps": 0.556698174483249,
+          "q": 0.8344558523740297
+        },
+        "j3_flight": {
+          "takeoff_s": 10.677999999999521,
+          "touchdown_s": 10.814999999999445,
+          "flight_s": 0.137,
+          "apex_rise_m": 0.05268881389216207,
+          "landing_error_m": 0.01191116002255502,
+          "dx_m": 0.011345482206135168,
+          "dy_m": -0.0036270878943283416,
+          "takeoff_vxy_mps": 0.07316745707977122,
+          "touchdown_vxy_mps": 0.10089925912215378,
+          "q": 1.0
+        },
+        "j2_hold_s": 0.0,
+        "j3_hold_s": 0.554
+      },
+      {
+        "seed": 9511,
+        "cond": "in_place_dr",
+        "j2_pass": false,
+        "j3_pass": false,
+        "j2_primary": "apex",
+        "j3_primary": "apex",
+        "j2_flight": {
+          "takeoff_s": 5.301000000000105,
+          "touchdown_s": 5.446000000000153,
+          "flight_s": 0.145,
+          "apex_rise_m": 0.04550811861587134,
+          "landing_error_m": 0.019076094361574373,
+          "dx_m": 0.018209376093092353,
+          "dy_m": 0.005684716210331543,
+          "takeoff_vxy_mps": 0.877312583340915,
+          "touchdown_vxy_mps": 0.6346724030762011,
+          "q": 0.9101623723174268
+        },
+        "j3_flight": {
+          "takeoff_s": 9.010000000000446,
+          "touchdown_s": 9.140000000000374,
+          "flight_s": 0.13,
+          "apex_rise_m": 0.04874648761017164,
+          "landing_error_m": 0.01635437806634437,
+          "dx_m": 0.016275327973726134,
+          "dy_m": -0.001606045231172963,
+          "takeoff_vxy_mps": 0.27347354942072716,
+          "touchdown_vxy_mps": 0.42441968138651404,
+          "q": 0.9749297522034328
+        },
+        "j2_hold_s": 0.0,
+        "j3_hold_s": 0.0
+      },
+      {
+        "seed": 9512,
+        "cond": "in_place_dr",
+        "j2_pass": false,
+        "j3_pass": false,
+        "j2_primary": "apex",
+        "j3_primary": "hold",
+        "j2_flight": {
+          "takeoff_s": 8.015000000000997,
+          "touchdown_s": 8.177000000000907,
+          "flight_s": 0.162,
+          "apex_rise_m": 0.049418423025757385,
+          "landing_error_m": 0.02715666374070433,
+          "dx_m": 0.026920590123569843,
+          "dy_m": -0.0035729837565316516,
+          "takeoff_vxy_mps": 0.9312694890162369,
+          "touchdown_vxy_mps": 0.3648781283472116,
+          "q": 0.9883684605151477
+        },
+        "j3_flight": {
+          "takeoff_s": 3.00499999999978,
+          "touchdown_s": 3.1369999999997655,
+          "flight_s": 0.132,
+          "apex_rise_m": 0.05136073245013417,
+          "landing_error_m": 0.012225581600132596,
+          "dx_m": 0.01104967855979884,
+          "dy_m": -0.005231581900976272,
+          "takeoff_vxy_mps": 0.5527336702523392,
+          "touchdown_vxy_mps": 0.30456104883029717,
+          "q": 1.0
+        },
+        "j2_hold_s": 0.0,
+        "j3_hold_s": 0.844
+      },
+      {
+        "seed": 9513,
+        "cond": "in_place_dr",
+        "j2_pass": true,
+        "j3_pass": true,
+        "j2_primary": "pass",
+        "j3_primary": "pass",
+        "j2_flight": {
+          "takeoff_s": 6.983000000000667,
+          "touchdown_s": 7.145000000000721,
+          "flight_s": 0.162,
+          "apex_rise_m": 0.050314581952767834,
+          "landing_error_m": 0.02438012997345272,
+          "dx_m": 0.023928635254949843,
+          "dy_m": -0.004670241145596148,
+          "takeoff_vxy_mps": 1.0837140833429535,
+          "touchdown_vxy_mps": 0.3827278003828713,
+          "q": 1.0
+        },
+        "j3_flight": {
+          "takeoff_s": 5.413000000000142,
+          "touchdown_s": 5.571000000000195,
+          "flight_s": 0.158,
+          "apex_rise_m": 0.06471983187229435,
+          "landing_error_m": 0.02833860786375605,
+          "dx_m": 0.028218624480492206,
+          "dy_m": 0.0026049813981489783,
+          "takeoff_vxy_mps": 0.5144394791679379,
+          "touchdown_vxy_mps": 0.4275468868300082,
+          "q": 1.0
+        },
+        "j2_hold_s": 1.0,
+        "j3_hold_s": 1.0
+      },
+      {
+        "seed": 9514,
+        "cond": "in_place_dr",
+        "j2_pass": false,
+        "j3_pass": false,
+        "j2_primary": "apex",
+        "j3_primary": "hold",
+        "j2_flight": {
+          "takeoff_s": 3.785999999999694,
+          "touchdown_s": 3.9189999999996794,
+          "flight_s": 0.133,
+          "apex_rise_m": 0.049068597599800645,
+          "landing_error_m": 0.009224453513778917,
+          "dx_m": 0.008660834444646895,
+          "dy_m": -0.003174978637768472,
+          "takeoff_vxy_mps": 0.8234061812111417,
+          "touchdown_vxy_mps": 0.2972474387443434,
+          "q": 0.9813719519960129
+        },
+        "j3_flight": {
+          "takeoff_s": 6.018000000000344,
+          "touchdown_s": 6.1860000000004005,
+          "flight_s": 0.168,
+          "apex_rise_m": 0.061020609927394553,
+          "landing_error_m": 0.02721632884830158,
+          "dx_m": 0.026643735471857277,
+          "dy_m": 0.0055533697954113495,
+          "takeoff_vxy_mps": 0.6832188548561559,
+          "touchdown_vxy_mps": 0.18767313973731758,
+          "q": 1.0
+        },
+        "j2_hold_s": 0.0,
+        "j3_hold_s": 0.851
+      },
+      {
+        "seed": 9515,
+        "cond": "in_place_dr",
+        "j2_pass": true,
+        "j3_pass": true,
+        "j2_primary": "pass",
+        "j3_primary": "pass",
+        "j2_flight": {
+          "takeoff_s": 2.4369999999998426,
+          "touchdown_s": 2.6559999999998185,
+          "flight_s": 0.219,
+          "apex_rise_m": 0.07988196707099249,
+          "landing_error_m": 0.08045406064921533,
+          "dx_m": 0.0804539197782006,
+          "dy_m": -0.00015055653582760065,
+          "takeoff_vxy_mps": 0.9655992441916575,
+          "touchdown_vxy_mps": 0.6080197649002975,
+          "q": 1.0
+        },
+        "j3_flight": {
+          "takeoff_s": 6.116000000000377,
+          "touchdown_s": 6.269000000000428,
+          "flight_s": 0.153,
+          "apex_rise_m": 0.06359773839598637,
+          "landing_error_m": 0.02311318446715837,
+          "dx_m": 0.023061426302284735,
+          "dy_m": 0.0015459343832067568,
+          "takeoff_vxy_mps": 0.3851446991574345,
+          "touchdown_vxy_mps": 0.22848656120661606,
+          "q": 1.0
+        },
+        "j2_hold_s": 1.0,
+        "j3_hold_s": 1.0
+      },
+      {
+        "seed": 9516,
+        "cond": "in_place_dr",
+        "j2_pass": true,
+        "j3_pass": true,
+        "j2_primary": "pass",
+        "j3_primary": "pass",
+        "j2_flight": {
+          "takeoff_s": 4.479999999999831,
+          "touchdown_s": 4.611999999999875,
+          "flight_s": 0.132,
+          "apex_rise_m": 0.05411803787038327,
+          "landing_error_m": 0.012433038579681102,
+          "dx_m": 0.012405971039326141,
+          "dy_m": 0.0008199578618683784,
+          "takeoff_vxy_mps": 0.6798829396935114,
+          "touchdown_vxy_mps": 0.32072504797702966,
+          "q": 1.0
+        },
+        "j3_flight": {
+          "takeoff_s": 4.316999999999776,
+          "touchdown_s": 4.4819999999998315,
+          "flight_s": 0.165,
+          "apex_rise_m": 0.07228778889000187,
+          "landing_error_m": 0.028129741848278562,
+          "dx_m": 0.028057091487340313,
+          "dy_m": 0.002020394447084496,
+          "takeoff_vxy_mps": 0.38899526283040303,
+          "touchdown_vxy_mps": 0.12781115269148247,
+          "q": 1.0
+        },
+        "j2_hold_s": 1.0,
+        "j3_hold_s": 1.0
+      },
+      {
+        "seed": 9517,
+        "cond": "in_place_dr",
+        "j2_pass": true,
+        "j3_pass": false,
+        "j2_primary": "pass",
+        "j3_primary": "hold",
+        "j2_flight": {
+          "takeoff_s": 2.813999999999801,
+          "touchdown_s": 2.9539999999997857,
+          "flight_s": 0.14,
+          "apex_rise_m": 0.055902327185093026,
+          "landing_error_m": 0.01648146357625552,
+          "dx_m": 0.014455732762472265,
+          "dy_m": -0.007916465872813666,
+          "takeoff_vxy_mps": 1.349983759731749,
+          "touchdown_vxy_mps": 0.7381674373901829,
+          "q": 1.0
+        },
+        "j3_flight": {
+          "takeoff_s": 4.067999999999693,
+          "touchdown_s": 4.258999999999757,
+          "flight_s": 0.191,
+          "apex_rise_m": 0.0692408055201732,
+          "landing_error_m": 0.037251615687352455,
+          "dx_m": 0.03692987826785707,
+          "dy_m": 0.004885382527444644,
+          "takeoff_vxy_mps": 0.4643983929397797,
+          "touchdown_vxy_mps": 0.08173005667789797,
+          "q": 1.0
+        },
+        "j2_hold_s": 1.0,
+        "j3_hold_s": 0.862
+      },
+      {
+        "seed": 9518,
+        "cond": "in_place_dr",
+        "j2_pass": true,
+        "j3_pass": true,
+        "j2_primary": "pass",
+        "j3_primary": "pass",
+        "j2_flight": {
+          "takeoff_s": 8.213000000000887,
+          "touchdown_s": 8.358000000000807,
+          "flight_s": 0.145,
+          "apex_rise_m": 0.05811110039724432,
+          "landing_error_m": 0.015629731195694583,
+          "dx_m": 0.015629191625267748,
+          "dy_m": 0.00012987066770027422,
+          "takeoff_vxy_mps": 0.7036331051616749,
+          "touchdown_vxy_mps": 0.28263983813518995,
+          "q": 1.0
+        },
+        "j3_flight": {
+          "takeoff_s": 4.29699999999977,
+          "touchdown_s": 4.457999999999823,
+          "flight_s": 0.161,
+          "apex_rise_m": 0.06579872325265002,
+          "landing_error_m": 0.030433060232918984,
+          "dx_m": 0.0286666405817054,
+          "dy_m": 0.010217380921733122,
+          "takeoff_vxy_mps": 0.6831898249958241,
+          "touchdown_vxy_mps": 0.3922724255501302,
+          "q": 1.0
+        },
+        "j2_hold_s": 1.0,
+        "j3_hold_s": 1.0
+      },
+      {
+        "seed": 9519,
+        "cond": "in_place_dr",
+        "j2_pass": true,
+        "j3_pass": false,
+        "j2_primary": "pass",
+        "j3_primary": "hold",
+        "j2_flight": {
+          "takeoff_s": 6.176000000000397,
+          "touchdown_s": 6.329000000000448,
+          "flight_s": 0.153,
+          "apex_rise_m": 0.06254957368300296,
+          "landing_error_m": 0.02211674999374905,
+          "dx_m": 0.022104201723743416,
+          "dy_m": -0.0007449137145046844,
+          "takeoff_vxy_mps": 1.0211237674902411,
+          "touchdown_vxy_mps": 0.28687163209477407,
+          "q": 1.0
+        },
+        "j3_flight": {
+          "takeoff_s": 4.521999999999845,
+          "touchdown_s": 4.661999999999892,
+          "flight_s": 0.14,
+          "apex_rise_m": 0.055655167273006234,
+          "landing_error_m": 0.022832974251665174,
+          "dx_m": 0.021343522129679715,
+          "dy_m": -0.00811164448660548,
+          "takeoff_vxy_mps": 0.9072976730537934,
+          "touchdown_vxy_mps": 0.5842013998831003,
+          "q": 1.0
+        },
+        "j2_hold_s": 1.0,
+        "j3_hold_s": 0.912
+      },
+      {
+        "seed": 9520,
+        "cond": "in_place_dr",
+        "j2_pass": false,
+        "j3_pass": true,
+        "j2_primary": "hold",
+        "j3_primary": "pass",
+        "j2_flight": {
+          "takeoff_s": 11.161999999999253,
+          "touchdown_s": 11.32899999999916,
+          "flight_s": 0.167,
+          "apex_rise_m": 0.06330403074887181,
+          "landing_error_m": 0.026892727251847735,
+          "dx_m": 0.026743558879363583,
+          "dy_m": -0.0028285751728188285,
+          "takeoff_vxy_mps": 1.1926683067214248,
+          "touchdown_vxy_mps": 0.3768038445599719,
+          "q": 1.0
+        },
+        "j3_flight": {
+          "takeoff_s": 6.307000000000441,
+          "touchdown_s": 6.458000000000491,
+          "flight_s": 0.151,
+          "apex_rise_m": 0.05890072490866216,
+          "landing_error_m": 0.025445659030259908,
+          "dx_m": 0.02541863417262836,
+          "dy_m": -0.0011724334873831621,
+          "takeoff_vxy_mps": 0.7387988140481426,
+          "touchdown_vxy_mps": 0.3738761619274509,
+          "q": 1.0
+        },
+        "j2_hold_s": 0.254,
+        "j3_hold_s": 1.0
+      },
+      {
+        "seed": 9521,
+        "cond": "in_place_dr",
+        "j2_pass": false,
+        "j3_pass": true,
+        "j2_primary": "apex",
+        "j3_primary": "pass",
+        "j2_flight": {
+          "takeoff_s": 2.4659999999998394,
+          "touchdown_s": 2.615999999999823,
+          "flight_s": 0.15,
+          "apex_rise_m": 0.04508240981514633,
+          "landing_error_m": 0.023156320997472554,
+          "dx_m": 0.02096369414169244,
+          "dy_m": -0.009835584887110595,
+          "takeoff_vxy_mps": 1.3503844013146677,
+          "touchdown_vxy_mps": 0.43311981000747646,
+          "q": 0.9016481963029266
+        },
+        "j3_flight": {
+          "takeoff_s": 3.9109999999996803,
+          "touchdown_s": 4.05799999999969,
+          "flight_s": 0.147,
+          "apex_rise_m": 0.055012800250748506,
+          "landing_error_m": 0.02096620721030642,
+          "dx_m": 0.020838697843055226,
+          "dy_m": 0.002308791240313933,
+          "takeoff_vxy_mps": 0.49265183885432406,
+          "touchdown_vxy_mps": 0.2887725665981991,
+          "q": 1.0
+        },
+        "j2_hold_s": 0.0,
+        "j3_hold_s": 1.0
+      },
+      {
+        "seed": 9522,
+        "cond": "in_place_dr",
+        "j2_pass": true,
+        "j3_pass": true,
+        "j2_primary": "pass",
+        "j3_primary": "pass",
+        "j2_flight": {
+          "takeoff_s": 2.8459999999997976,
+          "touchdown_s": 3.030999999999777,
+          "flight_s": 0.185,
+          "apex_rise_m": 0.08350089863535315,
+          "landing_error_m": 0.03744204892262087,
+          "dx_m": 0.036686030955841914,
+          "dy_m": 0.007486131192474741,
+          "takeoff_vxy_mps": 1.0498701123187641,
+          "touchdown_vxy_mps": 0.17933869681913914,
+          "q": 1.0
+        },
+        "j3_flight": {
+          "takeoff_s": 4.274999999999762,
+          "touchdown_s": 4.461999999999825,
+          "flight_s": 0.187,
+          "apex_rise_m": 0.08334562152068226,
+          "landing_error_m": 0.04790228994391649,
+          "dx_m": 0.04762646437041339,
+          "dy_m": -0.005133154336739398,
+          "takeoff_vxy_mps": 0.6012537054048983,
+          "touchdown_vxy_mps": 0.5036576082264087,
+          "q": 1.0
+        },
+        "j2_hold_s": 1.0,
+        "j3_hold_s": 1.0
+      },
+      {
+        "seed": 9523,
+        "cond": "in_place_dr",
+        "j2_pass": false,
+        "j3_pass": true,
+        "j2_primary": "hold",
+        "j3_primary": "pass",
+        "j2_flight": {
+          "takeoff_s": 3.4559999999997304,
+          "touchdown_s": 3.593999999999715,
+          "flight_s": 0.138,
+          "apex_rise_m": 0.06312070063307351,
+          "landing_error_m": 0.019193292824704056,
+          "dx_m": 0.01709494602763563,
+          "dy_m": -0.008726127993965077,
+          "takeoff_vxy_mps": 1.0634719446560303,
+          "touchdown_vxy_mps": 0.22246919433477622,
+          "q": 1.0
+        },
+        "j3_flight": {
+          "takeoff_s": 3.866999999999685,
+          "touchdown_s": 4.024999999999679,
+          "flight_s": 0.158,
+          "apex_rise_m": 0.06341081506237245,
+          "landing_error_m": 0.022338994579190776,
+          "dx_m": 0.022045717176876825,
+          "dy_m": -0.0036079125496986317,
+          "takeoff_vxy_mps": 0.41236857856721343,
+          "touchdown_vxy_mps": 0.41864932372371816,
+          "q": 1.0
+        },
+        "j2_hold_s": 0.8320000000000001,
+        "j3_hold_s": 1.0
+      }
+    ]
+  }
+}
