@@ -1,0 +1,38 @@
+{
+  "changed_args": {
+    "name": {
+      "before": "l80_j2",
+      "after": "l80_j3"
+    },
+    "steps": {
+      "before": 4000000.0,
+      "after": 2000000
+    },
+    "checkpoint_check": {
+      "before": "docs/evidence/199-l80-jump/check_training_j2.py",
+      "after": "docs/evidence/199-l80-jump/check_training_j3.py"
+    },
+    "jump": {
+      "before": "{\"auto_request_s\": 2.0, \"flight_bonus\": 10.0, \"success_bonus\": 30.0, \"suspend_stand_penalties\": true}",
+      "after": "{\"auto_request_s\": 2.0, \"flight_bonus\": 10.0, \"success_bonus\": 50.0, \"suspend_stand_penalties\": true}"
+    },
+    "init": {
+      "before": "sim/rl/runs/l80_j1/model.zip",
+      "after": "sim/rl/runs/l80_j2/model.zip"
+    }
+  },
+  "baseline": {
+    "passed": 3,
+    "total": 6,
+    "progress": 0.9629303400700909,
+    "falls": 0
+  },
+  "hashes_verified": 26,
+  "norm_reward": true,
+  "clip_reward": 10.0,
+  "return_std": 5.216207555762082,
+  "normalized_bonus_30": 5.751304885646375,
+  "normalized_bonus_50": 9.585508142743958,
+  "training_started": false,
+  "existing_j2_unchanged": true
+}
