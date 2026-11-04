@@ -1,0 +1,69 @@
+{
+  "_comment": "Evidence 200 isolated frozen; no adoption. Physical knee band retained even with belt replacement.",
+  "spec_file": "../../../../docs/design/motor_candidates.json",
+  "axes": {
+    "hip_yaw": {
+      "module": "RS06",
+      "ratio": 1.5,
+      "link_efficiency": 0.9,
+      "mount": "hip_roll_link",
+      "drive_kg": 0.15
+    },
+    "hip_roll": {
+      "module": "RS06",
+      "ratio": 2.5,
+      "link_efficiency": 0.9,
+      "mount": "hip_roll_link",
+      "drive_kg": 0.1
+    },
+    "hip_pitch": {
+      "module": "RS04",
+      "ratio": 0.7,
+      "link_efficiency": 0.9,
+      "mount": "hip_roll_link",
+      "drive_kg": 0.1
+    },
+    "knee_pitch": {
+      "module": "RS04",
+      "ratio": "fourbar",
+      "link_efficiency": 0.9,
+      "mount": "thigh_link",
+      "drive_kg": 0.1
+    },
+    "tail_pitch": {
+      "module": "RS03",
+      "ratio": 1.0,
+      "link_efficiency": 1.0,
+      "mount": "tail_yaw_link"
+    },
+    "tail_yaw": {
+      "module": "RS06",
+      "ratio": 1.0,
+      "link_efficiency": 1.0,
+      "mount": "tail_yaw_link"
+    }
+  },
+  "fourbar": {
+    "a": 0.154,
+    "b": 0.261,
+    "c": 0.093,
+    "beta_deg": 115.7,
+    "branch": -1.0
+  },
+  "leg": {
+    "femur": 0.17,
+    "tibia": 0.321,
+    "meta": 0.309
+  },
+  "band_search_hi": 3.2,
+  "joint_range": {
+    "knee_pitch": [
+      0.2,
+      2.85
+    ],
+    "ankle_pitch": [
+      -2.95,
+      0.2
+    ]
+  }
+}

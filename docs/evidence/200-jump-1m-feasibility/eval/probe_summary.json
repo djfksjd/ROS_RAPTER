@@ -1,0 +1,628 @@
+{
+  "source": {
+    "mode": "forward",
+    "candidate": 13
+  },
+  "variants": [
+    {
+      "variant": "frozen",
+      "episodes": 65,
+      "mass_kg": 14.919298181818181,
+      "valid_flights": 46,
+      "falls": 65,
+      "best": {
+        "height": 0.40676826934354626,
+        "variant": "frozen",
+        "generation": 3,
+        "candidate": 56,
+        "x": [
+          0.23956295126779262,
+          0.9788209542755688,
+          -1.0,
+          -0.20051188112574428,
+          -0.8142905913761351,
+          0.4861910705225854,
+          0.5036363213426382,
+          -0.6560885689996927,
+          -1.0,
+          -1.0,
+          -0.25814319081284254,
+          -0.08180410630842132,
+          0.4504015463384851
+        ],
+        "score": 0.8791442233985531,
+        "result": {
+          "event": {
+            "start": 568,
+            "stop": 740,
+            "takeoff_s": 0.5690000000000004,
+            "touchdown_s": null,
+            "flight_s": 0.17200000000000001,
+            "apex_rise_m": 0.40676826934354626,
+            "apex_above_takeoff_m": 0.34183525960632866,
+            "distance_m": -0.12475743242969947,
+            "landing_offset_m": -0.3175159934848769,
+            "landed": false
+          },
+          "events": [
+            {
+              "start": 568,
+              "stop": 740,
+              "takeoff_s": 0.5690000000000004,
+              "touchdown_s": null,
+              "flight_s": 0.17200000000000001,
+              "apex_rise_m": 0.40676826934354626,
+              "apex_above_takeoff_m": 0.34183525960632866,
+              "distance_m": -0.12475743242969947,
+              "landing_offset_m": -0.3175159934848769,
+              "landed": false
+            }
+          ],
+          "t_fall": 0.7400000000000005,
+          "alive_s": 0.7400000000000005,
+          "initial_base_z_m": 0.7413436180444045,
+          "stand_after_landing_s": 0.0,
+          "held_after_landing_without_fall_s": 0.0,
+          "landing_force_peak_n": null,
+          "landing_force_peak_bw": null,
+          "max_upward_velocity": 3.892399329876142,
+          "max_body_tilt": 0.8983694950781036,
+          "sample_count": 740,
+          "body_contact_samples": 0,
+          "parameters": {
+            "crouch_hip": -0.5421966719294934,
+            "crouch_knee": 1.9899399532808952,
+            "crouch_tail": -0.7,
+            "push_hip": -0.4203071286754466,
+            "push_knee": 0.6599275228541309,
+            "push_tail": 0.34033374936580985,
+            "land_hip": -0.17300002326154884,
+            "land_knee": 0.9719557155001537,
+            "land_tail": -0.7,
+            "crouch_s": 0.12,
+            "push_s": 0.11418568091871575,
+            "extend_s": 0.15936546617990524,
+            "land_s": 0.1850401546338485
+          }
+        },
+        "com_rise_m": 0.47153398606035546,
+        "takeoff_velocity_mps": [
+          -2.9538357584878385,
+          3.6855295774841575e-16,
+          3.037772562218347
+        ],
+        "loads": {
+          "left_hip_roll_joint": {
+            "peak_drive_nm": 0.5080155367660745,
+            "limit_at_peak_nm": 100.0,
+            "peak_joint_nm": 0.5080155367660745,
+            "peak_current_a": 0.1677849479227402,
+            "current_peak_limit_a": 33.027522935779814,
+            "peak_current_over_limit": 0.005080155367660746,
+            "takeoff_saturation_share": 0.0,
+            "current_over_peak": 0.005080155367660746,
+            "overcurrent_samples": 0
+          },
+          "left_hip_yaw_joint": {
+            "peak_drive_nm": 0.5638644803066843,
+            "limit_at_peak_nm": 59.99999999999999,
+            "peak_joint_nm": 0.5638644803066843,
+            "peak_current_a": 0.3103841176000098,
+            "current_peak_limit_a": 33.027522935779814,
+            "peak_current_over_limit": 0.009397741338444742,
+            "takeoff_saturation_share": 0.0,
+            "current_over_peak": 0.009397741338444742,
+            "overcurrent_samples": 0
+          },
+          "left_hip_pitch_joint": {
+            "peak_drive_nm": 48.650218226761126,
+            "limit_at_peak_nm": 93.33333333333333,
+            "peak_joint_nm": 48.650218226761126,
+            "peak_current_a": 29.785847893935383,
+            "current_peak_limit_a": 57.14285714285714,
+            "peak_current_over_limit": 0.5212523381438693,
+            "takeoff_saturation_share": 0.0,
+            "current_over_peak": 0.5212523381438693,
+            "overcurrent_samples": 0
+          },
+          "left_knee_pitch_joint": {
+            "peak_drive_nm": 87.22810497510365,
+            "limit_at_peak_nm": 87.22810497510365,
+            "peak_joint_nm": 87.22810497510365,
+            "peak_current_a": 70.5455934050604,
+            "current_peak_limit_a": 57.14285714285714,
+            "peak_current_over_limit": 1.2345478845885571,
+            "takeoff_saturation_share": 0.37669376693766937,
+            "current_over_peak": 1.2345478845885571,
+            "overcurrent_samples": 0
+          },
+          "right_hip_roll_joint": {
+            "peak_drive_nm": 0.5080155367660735,
+            "limit_at_peak_nm": 100.0,
+            "peak_joint_nm": 0.5080155367660735,
+            "peak_current_a": 0.16778494792273985,
+            "current_peak_limit_a": 33.027522935779814,
+            "peak_current_over_limit": 0.005080155367660735,
+            "takeoff_saturation_share": 0.0,
+            "current_over_peak": 0.005080155367660735,
+            "overcurrent_samples": 0
+          },
+          "right_hip_yaw_joint": {
+            "peak_drive_nm": 0.5638644803066887,
+            "limit_at_peak_nm": 59.99999999999999,
+            "peak_joint_nm": 0.5638644803066887,
+            "peak_current_a": 0.3103841176000121,
+            "current_peak_limit_a": 33.027522935779814,
+            "peak_current_over_limit": 0.009397741338444811,
+            "takeoff_saturation_share": 0.0,
+            "current_over_peak": 0.009397741338444811,
+            "overcurrent_samples": 0
+          },
+          "right_hip_pitch_joint": {
+            "peak_drive_nm": 48.65021822676218,
+            "limit_at_peak_nm": 93.33333333333333,
+            "peak_joint_nm": 48.65021822676218,
+            "peak_current_a": 29.785847893936026,
+            "current_peak_limit_a": 57.14285714285714,
+            "peak_current_over_limit": 0.5212523381438805,
+            "takeoff_saturation_share": 0.0,
+            "current_over_peak": 0.5212523381438805,
+            "overcurrent_samples": 0
+          },
+          "right_knee_pitch_joint": {
+            "peak_drive_nm": 87.22810497510365,
+            "limit_at_peak_nm": 87.22810497510365,
+            "peak_joint_nm": 87.22810497510365,
+            "peak_current_a": 70.5455934050604,
+            "current_peak_limit_a": 57.14285714285714,
+            "peak_current_over_limit": 1.2345478845885571,
+            "takeoff_saturation_share": 0.37669376693766937,
+            "current_over_peak": 1.2345478845885571,
+            "overcurrent_samples": 0
+          },
+          "tail_yaw_joint": {
+            "peak_drive_nm": 7.49399453170866e-15,
+            "limit_at_peak_nm": 36.0,
+            "peak_joint_nm": 7.49399453170866e-15,
+            "peak_current_a": 6.875224341017119e-15,
+            "current_peak_limit_a": 33.027522935779814,
+            "peak_current_over_limit": 2.08166514769685e-16,
+            "takeoff_saturation_share": 0.0,
+            "current_over_peak": 2.08166514769685e-16,
+            "overcurrent_samples": 0
+          },
+          "tail_pitch_joint": {
+            "peak_drive_nm": 57.81170796192295,
+            "limit_at_peak_nm": 59.99999999999999,
+            "peak_joint_nm": 57.81170796192295,
+            "peak_current_a": 24.496486424543626,
+            "current_peak_limit_a": 25.423728813559322,
+            "peak_current_over_limit": 0.9635284660320493,
+            "takeoff_saturation_share": 0.0,
+            "current_over_peak": 0.9635284660320493,
+            "overcurrent_samples": 0
+          }
+        },
+        "max_current_using_clamp_ratio": 1.0000000000000004
+      },
+      "best_score": 0.8791442233985531
+    },
+    {
+      "variant": "belts",
+      "episodes": 65,
+      "mass_kg": 14.919298181818181,
+      "valid_flights": 34,
+      "falls": 65,
+      "best": {
+        "height": 0.40604460708650736,
+        "variant": "belts",
+        "generation": 3,
+        "candidate": 56,
+        "x": [
+          0.2552707986297035,
+          1.0,
+          -0.8742205271572915,
+          -0.2251153966558225,
+          -0.7129779598426331,
+          0.41974381031741914,
+          0.7384430806405805,
+          -0.408915992124556,
+          -1.0,
+          -0.935267472932397,
+          -0.16085255423260053,
+          0.02676742253465985,
+          0.3105488018322321
+        ],
+        "score": 0.7620099868723091,
+        "result": {
+          "event": {
+            "start": 598,
+            "stop": 780,
+            "takeoff_s": 0.5990000000000004,
+            "touchdown_s": null,
+            "flight_s": 0.182,
+            "apex_rise_m": 0.40604460708650736,
+            "apex_above_takeoff_m": 0.3465325672625217,
+            "distance_m": -0.13169669064357456,
+            "landing_offset_m": -0.3315626549149813,
+            "landed": false
+          },
+          "events": [
+            {
+              "start": 598,
+              "stop": 780,
+              "takeoff_s": 0.5990000000000004,
+              "touchdown_s": null,
+              "flight_s": 0.182,
+              "apex_rise_m": 0.40604460708650736,
+              "apex_above_takeoff_m": 0.3465325672625217,
+              "distance_m": -0.13169669064357456,
+              "landing_offset_m": -0.3315626549149813,
+              "landed": false
+            }
+          ],
+          "t_fall": 0.7800000000000006,
+          "alive_s": 0.7800000000000006,
+          "initial_base_z_m": 0.741483664494105,
+          "stand_after_landing_s": 0.0,
+          "held_after_landing_without_fall_s": 0.0,
+          "landing_force_peak_n": null,
+          "landing_force_peak_bw": null,
+          "max_upward_velocity": 3.615318209392405,
+          "max_body_tilt": 0.8670312512869853,
+          "sample_count": 780,
+          "body_contact_samples": 0,
+          "parameters": {
+            "crouch_hip": -0.5351281406166334,
+            "crouch_knee": 2.0,
+            "crouch_tail": -0.611954369010104,
+            "push_hip": -0.4350692379934935,
+            "push_knee": 0.6817097386338339,
+            "push_tail": 0.29382066722219335,
+            "land_hip": -0.043856305647680616,
+            "land_knee": 1.0955420039377222,
+            "land_tail": -0.7,
+            "crouch_s": 0.13229918014284456,
+            "push_s": 0.12391474457673995,
+            "extend_s": 0.17347976492950581,
+            "land_s": 0.1710548801832232
+          }
+        },
+        "com_rise_m": 0.46919983763368134,
+        "takeoff_velocity_mps": [
+          -3.1988911924206476,
+          4.2788073832544184e-16,
+          2.8989936765256066
+        ],
+        "loads": {
+          "left_hip_roll_joint": {
+            "peak_drive_nm": 0.5123607755619588,
+            "limit_at_peak_nm": 100.0,
+            "peak_joint_nm": 0.5123607755619588,
+            "peak_current_a": 0.16922007266266528,
+            "current_peak_limit_a": 33.027522935779814,
+            "peak_current_over_limit": 0.005123607755619588,
+            "takeoff_saturation_share": 0.0,
+            "current_over_peak": 0.005123607755619588,
+            "overcurrent_samples": 0
+          },
+          "left_hip_yaw_joint": {
+            "peak_drive_nm": 0.18810892641079494,
+            "limit_at_peak_nm": 59.99999999999999,
+            "peak_joint_nm": 0.18810892641079494,
+            "peak_current_a": 0.1035461980242908,
+            "current_peak_limit_a": 33.027522935779814,
+            "peak_current_over_limit": 0.0031351487735132495,
+            "takeoff_saturation_share": 0.0,
+            "current_over_peak": 0.0031351487735132495,
+            "overcurrent_samples": 0
+          },
+          "left_hip_pitch_joint": {
+            "peak_drive_nm": 38.96370333611112,
+            "limit_at_peak_nm": 53.333333333333336,
+            "peak_joint_nm": 38.96370333611112,
+            "peak_current_a": 44.73897312985514,
+            "current_peak_limit_a": 57.14285714285714,
+            "peak_current_over_limit": 0.782932029772465,
+            "takeoff_saturation_share": 0.0,
+            "current_over_peak": 0.782932029772465,
+            "overcurrent_samples": 0
+          },
+          "left_knee_pitch_joint": {
+            "peak_drive_nm": 93.33333333333333,
+            "limit_at_peak_nm": 93.33333333333333,
+            "peak_joint_nm": 93.33333333333333,
+            "peak_current_a": 70.54673721340387,
+            "current_peak_limit_a": 57.14285714285714,
+            "peak_current_over_limit": 1.2345679012345678,
+            "takeoff_saturation_share": 0.40852130325814534,
+            "current_over_peak": 1.2345679012345678,
+            "overcurrent_samples": 0
+          },
+          "right_hip_roll_joint": {
+            "peak_drive_nm": 0.5123607755619625,
+            "limit_at_peak_nm": 100.0,
+            "peak_joint_nm": 0.5123607755619625,
+            "peak_current_a": 0.1692200726626665,
+            "current_peak_limit_a": 33.027522935779814,
+            "peak_current_over_limit": 0.0051236077556196255,
+            "takeoff_saturation_share": 0.0,
+            "current_over_peak": 0.0051236077556196255,
+            "overcurrent_samples": 0
+          },
+          "right_hip_yaw_joint": {
+            "peak_drive_nm": 0.1881089264107899,
+            "limit_at_peak_nm": 59.99999999999999,
+            "peak_joint_nm": 0.1881089264107899,
+            "peak_current_a": 0.10354619802428802,
+            "current_peak_limit_a": 33.027522935779814,
+            "peak_current_over_limit": 0.0031351487735131653,
+            "takeoff_saturation_share": 0.0,
+            "current_over_peak": 0.0031351487735131653,
+            "overcurrent_samples": 0
+          },
+          "right_hip_pitch_joint": {
+            "peak_drive_nm": 38.96370333611105,
+            "limit_at_peak_nm": 53.333333333333336,
+            "peak_joint_nm": 38.96370333611105,
+            "peak_current_a": 44.7389731298549,
+            "current_peak_limit_a": 57.14285714285714,
+            "peak_current_over_limit": 0.7829320297724608,
+            "takeoff_saturation_share": 0.0,
+            "current_over_peak": 0.7829320297724608,
+            "overcurrent_samples": 0
+          },
+          "right_knee_pitch_joint": {
+            "peak_drive_nm": 93.33333333333333,
+            "limit_at_peak_nm": 93.33333333333333,
+            "peak_joint_nm": 93.33333333333333,
+            "peak_current_a": 70.54673721340387,
+            "current_peak_limit_a": 57.14285714285714,
+            "peak_current_over_limit": 1.2345679012345678,
+            "takeoff_saturation_share": 0.40852130325814534,
+            "current_over_peak": 1.2345679012345678,
+            "overcurrent_samples": 0
+          },
+          "tail_yaw_joint": {
+            "peak_drive_nm": 4.693736605493633e-15,
+            "limit_at_peak_nm": 36.0,
+            "peak_joint_nm": 4.693736605493633e-15,
+            "peak_current_a": 4.306180372012507e-15,
+            "current_peak_limit_a": 33.027522935779814,
+            "peak_current_over_limit": 1.3038157237482316e-16,
+            "takeoff_saturation_share": 0.0,
+            "current_over_peak": 1.3038157237482316e-16,
+            "overcurrent_samples": 0
+          },
+          "tail_pitch_joint": {
+            "peak_drive_nm": 48.2120113733962,
+            "limit_at_peak_nm": 59.99999999999999,
+            "peak_joint_nm": 48.2120113733962,
+            "peak_current_a": 20.428818378557715,
+            "current_peak_limit_a": 25.423728813559322,
+            "peak_current_over_limit": 0.8035335228899367,
+            "takeoff_saturation_share": 0.0,
+            "current_over_peak": 0.8035335228899367,
+            "overcurrent_samples": 0
+          }
+        },
+        "max_current_using_clamp_ratio": 1.0000000000000002
+      },
+      "best_score": 0.8268012796498991
+    },
+    {
+      "variant": "long_belts",
+      "episodes": 65,
+      "mass_kg": 15.137872727272727,
+      "valid_flights": 65,
+      "falls": 65,
+      "best": {
+        "height": 0.446701232196254,
+        "variant": "long_belts",
+        "generation": 2,
+        "candidate": 42,
+        "x": [
+          0.12438003026785284,
+          0.47344571893949106,
+          -1.0,
+          0.25637907319463454,
+          -1.0,
+          0.5311851445881076,
+          0.8045388857926641,
+          -0.94766580075747,
+          -0.9806406168261627,
+          -0.8150666241308764,
+          -0.4003232606771994,
+          -0.19559994176815823,
+          0.19384194738614954
+        ],
+        "score": 0.9185452314878052,
+        "result": {
+          "event": {
+            "start": 634,
+            "stop": 900,
+            "takeoff_s": 0.6350000000000005,
+            "touchdown_s": null,
+            "flight_s": 0.266,
+            "apex_rise_m": 0.446701232196254,
+            "apex_above_takeoff_m": 0.3585944418185587,
+            "distance_m": -0.13088785887049947,
+            "landing_offset_m": -0.32540402654834255,
+            "landed": false
+          },
+          "events": [
+            {
+              "start": 634,
+              "stop": 900,
+              "takeoff_s": 0.6350000000000005,
+              "touchdown_s": null,
+              "flight_s": 0.266,
+              "apex_rise_m": 0.446701232196254,
+              "apex_above_takeoff_m": 0.3585944418185587,
+              "distance_m": -0.13088785887049947,
+              "landing_offset_m": -0.32540402654834255,
+              "landed": false
+            }
+          ],
+          "t_fall": 0.9000000000000007,
+          "alive_s": 0.9000000000000007,
+          "initial_base_z_m": 0.9153135147373979,
+          "stand_after_landing_s": 0.0,
+          "held_after_landing_without_fall_s": 0.0,
+          "landing_force_peak_n": null,
+          "landing_force_peak_bw": null,
+          "max_upward_velocity": 2.397627806275912,
+          "max_body_tilt": 0.8236132825158567,
+          "sample_count": 900,
+          "body_contact_samples": 0,
+          "parameters": {
+            "crouch_hip": -0.5940289863794662,
+            "crouch_knee": 1.7498867164962584,
+            "crouch_tail": -0.7,
+            "push_hip": -0.14617255608321933,
+            "push_knee": 0.62,
+            "push_tail": 0.3718296012116753,
+            "land_hip": -0.007503612814034666,
+            "land_knee": 0.8261670996212651,
+            "land_tail": -0.6864484317783138,
+            "crouch_s": 0.15513734141513347,
+            "push_s": 0.09996767393228007,
+            "extend_s": 0.14457200757013944,
+            "land_s": 0.15938419473861493
+          }
+        },
+        "com_rise_m": 0.5020966514155648,
+        "takeoff_velocity_mps": [
+          -2.665821093422416,
+          -2.935280877511489e-16,
+          2.2877163726066376
+        ],
+        "loads": {
+          "left_hip_roll_joint": {
+            "peak_drive_nm": 0.5017767772782905,
+            "limit_at_peak_nm": 100.0,
+            "peak_joint_nm": 0.5017767772782905,
+            "peak_current_a": 0.1657244402020042,
+            "current_peak_limit_a": 33.027522935779814,
+            "peak_current_over_limit": 0.005017767772782905,
+            "takeoff_saturation_share": 0.0,
+            "current_over_peak": 0.005017767772782905,
+            "overcurrent_samples": 0
+          },
+          "left_hip_yaw_joint": {
+            "peak_drive_nm": 0.13180399610730814,
+            "limit_at_peak_nm": 59.99999999999999,
+            "peak_joint_nm": 0.13180399610730814,
+            "peak_current_a": 0.07255265840769257,
+            "current_peak_limit_a": 33.027522935779814,
+            "peak_current_over_limit": 0.0021967332684551364,
+            "takeoff_saturation_share": 0.0,
+            "current_over_peak": 0.0021967332684551364,
+            "overcurrent_samples": 0
+          },
+          "left_hip_pitch_joint": {
+            "peak_drive_nm": 37.999575763281456,
+            "limit_at_peak_nm": 53.333333333333336,
+            "peak_joint_nm": 37.999575763281456,
+            "peak_current_a": 40.71383117494442,
+            "current_peak_limit_a": 57.14285714285714,
+            "peak_current_over_limit": 0.7124920455615273,
+            "takeoff_saturation_share": 0.0,
+            "current_over_peak": 0.7124920455615273,
+            "overcurrent_samples": 0
+          },
+          "left_knee_pitch_joint": {
+            "peak_drive_nm": 93.33333333333333,
+            "limit_at_peak_nm": 93.33333333333333,
+            "peak_joint_nm": 93.33333333333333,
+            "peak_current_a": 70.54673721340387,
+            "current_peak_limit_a": 57.14285714285714,
+            "peak_current_over_limit": 1.2345679012345678,
+            "takeoff_saturation_share": 0.4367816091954023,
+            "current_over_peak": 1.2345679012345678,
+            "overcurrent_samples": 0
+          },
+          "right_hip_roll_joint": {
+            "peak_drive_nm": 0.5017767772782897,
+            "limit_at_peak_nm": 100.0,
+            "peak_joint_nm": 0.5017767772782897,
+            "peak_current_a": 0.16572444020200397,
+            "current_peak_limit_a": 33.027522935779814,
+            "peak_current_over_limit": 0.005017767772782899,
+            "takeoff_saturation_share": 0.0,
+            "current_over_peak": 0.005017767772782899,
+            "overcurrent_samples": 0
+          },
+          "right_hip_yaw_joint": {
+            "peak_drive_nm": 0.13180399610729637,
+            "limit_at_peak_nm": 59.99999999999999,
+            "peak_joint_nm": 0.13180399610729637,
+            "peak_current_a": 0.07255265840768609,
+            "current_peak_limit_a": 33.027522935779814,
+            "peak_current_over_limit": 0.00219673326845494,
+            "takeoff_saturation_share": 0.0,
+            "current_over_peak": 0.00219673326845494,
+            "overcurrent_samples": 0
+          },
+          "right_hip_pitch_joint": {
+            "peak_drive_nm": 37.9995757632815,
+            "limit_at_peak_nm": 53.333333333333336,
+            "peak_joint_nm": 37.9995757632815,
+            "peak_current_a": 40.71383117494446,
+            "current_peak_limit_a": 57.14285714285714,
+            "peak_current_over_limit": 0.7124920455615281,
+            "takeoff_saturation_share": 0.0,
+            "current_over_peak": 0.7124920455615281,
+            "overcurrent_samples": 0
+          },
+          "right_knee_pitch_joint": {
+            "peak_drive_nm": 93.33333333333333,
+            "limit_at_peak_nm": 93.33333333333333,
+            "peak_joint_nm": 93.33333333333333,
+            "peak_current_a": 70.54673721340387,
+            "current_peak_limit_a": 57.14285714285714,
+            "peak_current_over_limit": 1.2345679012345678,
+            "takeoff_saturation_share": 0.4367816091954023,
+            "current_over_peak": 1.2345679012345678,
+            "overcurrent_samples": 0
+          },
+          "tail_yaw_joint": {
+            "peak_drive_nm": 7.263699478711524e-15,
+            "limit_at_peak_nm": 36.0,
+            "peak_joint_nm": 7.263699478711524e-15,
+            "peak_current_a": 6.663944475882132e-15,
+            "current_peak_limit_a": 33.027522935779814,
+            "peak_current_over_limit": 2.0176942996420901e-16,
+            "takeoff_saturation_share": 0.0,
+            "current_over_peak": 2.0176942996420901e-16,
+            "overcurrent_samples": 0
+          },
+          "tail_pitch_joint": {
+            "peak_drive_nm": 42.484310158601446,
+            "limit_at_peak_nm": 59.99999999999999,
+            "peak_joint_nm": 42.484310158601446,
+            "peak_current_a": 18.001826338390444,
+            "current_peak_limit_a": 25.423728813559322,
+            "peak_current_over_limit": 0.7080718359766908,
+            "takeoff_saturation_share": 0.0,
+            "current_over_peak": 0.7080718359766908,
+            "overcurrent_samples": 0
+          }
+        },
+        "max_current_using_clamp_ratio": 1.0000000000000002
+      },
+      "best_score": 10.000000692101768
+    }
+  ],
+  "cpu_s": 30.34236,
+  "input_hashes": {
+    "sim/rl/rev3_l80.json": "ed62e1701462a0d16f8cda105d26b791da6725d26e5157edf788314878bb899a",
+    "sim/rl/realism_robstride_l80.json": "fe910eeccc71985dfe569ae79030d9497c61f726dbfbd240b340268f8c0b0282",
+    "docs/design/motor_candidates.json": "be291fc1a3a2b65cbc9311d1a72ab46ce408236cf49b6c38c85b66089e92db32",
+    "sim/rl/run_env.py": "3addf26e16f9c95b17a76ccc118715827a307f5a23fe8088eaa258fdebebaff9",
+    "sim/rl/realism.py": "cf25d32c96189ea7ac98403251363d624f2ae84c6cd9a26899eeda7a3869cdf7",
+    "docs/design/freeze_contract.json": "4aec12401340d6c7d81cc5c0daea363a48d19849d6a172dbc0cef9a5c263ba64",
+    "docs/DESIGN_FREEZE.ko.md": "ac2019d373243b8cd8f07524f5ae482482dd010f845c5651e374fc298cca41dc"
+  },
+  "hashes_unchanged": true
+}

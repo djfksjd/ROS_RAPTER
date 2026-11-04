@@ -1,0 +1,22 @@
+rescaled action 1 left_hip_yaw_joint: scale 0.3 -> 0.5, mean x 0.6, log_std += -0.510825624
+rescaled action 5 right_hip_yaw_joint: scale 0.3 -> 0.5, mean x 0.6, log_std += -0.510825624
+.rescaled action 0 left_hip_yaw: scale 0.4 -> 0.5, mean x 0.8, log_std += -0.223143551
+rescaled action 2 right_hip_yaw: scale 0.4 -> 0.5, mean x 0.8, log_std += -0.223143551
+rescaled action 0 left_hip_yaw: scale 0.4 -> 0.5, mean x 0.8, std reset to 0.15 after symmetric rebuild
+rescaled action 2 right_hip_yaw: scale 0.4 -> 0.5, mean x 0.8, std reset to 0.15 after symmetric rebuild
+......................................../Users/danny/개발 모음 폴더/raptor/.venv-sim/lib/python3.14/site-packages/stable_baselines3/ppo/ppo.py:155: UserWarning: You have specified a mini-batch size of 4096, but because the `RolloutBuffer` is of size `n_steps * n_envs = 1024`, after every 0 untruncated mini-batches, there will be a truncated mini-batch of size 1024
+We recommend using a `batch_size` that is a factor of `n_steps * n_envs`.
+Info: (n_steps=1024 and n_envs=1)
+  warnings.warn(
+...........................................................................................................................................................................{"run": "run", "robust": "yaw", "rows": [{"episodes": 5, "falls": 0}, {"episodes": 5, "falls": 0, "impulse_nms": 0.5}, {"episodes": 5, "falls": 0, "impulse_nms": 1.0}, {"episodes": 5, "falls": 0, "impulse_nms": 1.5}]}
+{"run": "run", "robust": "pitch", "rows": [{"episodes": 5, "falls": 0}, {"episodes": 5, "falls": 0, "impulse_nms": 1.0}, {"episodes": 5, "falls": 0, "impulse_nms": 2.0}]}
+{"run": "run", "robust": "turn", "rows": [{"episodes": 5, "falls": 0}, {"episodes": 5, "falls": 0, "turn_cmd_rad_s": 0.5}, {"episodes": 5, "falls": 0, "turn_cmd_rad_s": 1.0}, {"episodes": 5, "falls": 0, "turn_cmd_rad_s": 1.5}]}
+.....................................{"block": 1, "added_steps": 999424, "decision": "continue", "turn_passed": 16, "turn_total": 16, "straight_passed": 12, "straight_total": 12}
+{"block": 2, "added_steps": 1998848, "decision": "stop: adjusted full turn + regressions passed; candidate only", "turn_passed": 16, "turn_total": 16, "straight_passed": 12, "straight_total": 12}
+...widened command inputs [6, 7, 8] std [0.555, 0.3, 0.25]
+.widened command inputs [6, 7, 8] std [0.075, 0.2, 0.125]
+......
+----------------------------------------------------------------------
+Ran 259 tests in 8.032s
+
+OK
