@@ -1,0 +1,46 @@
+{
+  "script_changes_only": [
+    "name",
+    "init",
+    "hip_yaw scale",
+    "step budget"
+  ],
+  "source": "sim/rl/runs/l80_t1/model.zip",
+  "scale_override": {
+    "hip_roll": 0.5,
+    "hip_yaw": 0.5
+  },
+  "commands_equal_t1": true,
+  "weights_equal_t1": true,
+  "policy_dof": 10,
+  "yaw_action_indices": [
+    1,
+    5
+  ],
+  "factors": [
+    1.0,
+    0.6,
+    1.0,
+    1.0,
+    1.0,
+    0.6,
+    1.0,
+    1.0,
+    1.0,
+    1.0
+  ],
+  "rescale_log": [
+    "rescaled action 1 left_hip_yaw_joint: scale 0.3 -> 0.5, mean x 0.6, std reset to 0.15 after symmetric rebuild",
+    "rescaled action 5 right_hip_yaw_joint: scale 0.3 -> 0.5, mean x 0.6, std reset to 0.15 after symmetric rebuild"
+  ],
+  "resume_action_std": 0.15,
+  "std8_after_widen": 0.375,
+  "blocks": [
+    999424,
+    999424,
+    999424,
+    999424
+  ],
+  "actual_budget": 3997696,
+  "training_started": false
+}

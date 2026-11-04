@@ -1,0 +1,155 @@
+{
+  "blocks": [
+    {
+      "block": 1,
+      "added_steps": 999424,
+      "passed": 0,
+      "total": 4,
+      "yaw_mae": 0.40590871824810826,
+      "decision": "continue",
+      "conditions": [
+        [
+          4.0,
+          -0.5,
+          7200
+        ],
+        [
+          4.0,
+          0.5,
+          7200
+        ],
+        [
+          6.0,
+          -0.5,
+          7200
+        ],
+        [
+          6.0,
+          0.5,
+          7200
+        ]
+      ],
+      "compare_block": null,
+      "same_conditions": null,
+      "first10_length": 727.414969816919,
+      "last10_length": 838.525,
+      "progress_rows": 122
+    },
+    {
+      "block": 2,
+      "added_steps": 1998848,
+      "passed": 4,
+      "total": 12,
+      "yaw_mae": 0.32227210912996046,
+      "decision": "continue",
+      "conditions": [
+        [
+          2.0,
+          -1.0,
+          7200
+        ],
+        [
+          2.0,
+          -1.0,
+          7201
+        ],
+        [
+          2.0,
+          1.0,
+          7200
+        ],
+        [
+          2.0,
+          1.0,
+          7201
+        ],
+        [
+          4.0,
+          -0.5,
+          7200
+        ],
+        [
+          4.0,
+          -0.5,
+          7201
+        ],
+        [
+          4.0,
+          0.5,
+          7200
+        ],
+        [
+          4.0,
+          0.5,
+          7201
+        ],
+        [
+          6.0,
+          -0.5,
+          7200
+        ],
+        [
+          6.0,
+          -0.5,
+          7201
+        ],
+        [
+          6.0,
+          0.5,
+          7200
+        ],
+        [
+          6.0,
+          0.5,
+          7201
+        ]
+      ],
+      "compare_block": null,
+      "same_conditions": null,
+      "first10_length": 727.414969816919,
+      "last10_length": 817.5649999999999,
+      "progress_rows": 244
+    },
+    {
+      "block": 3,
+      "added_steps": 2998272,
+      "passed": 0,
+      "total": 4,
+      "yaw_mae": 0.393330421171471,
+      "decision": "stop: no extra passing episode or 0.02 rad/s yaw error improvement over 2M",
+      "conditions": [
+        [
+          4.0,
+          -0.5,
+          7200
+        ],
+        [
+          4.0,
+          0.5,
+          7200
+        ],
+        [
+          6.0,
+          -0.5,
+          7200
+        ],
+        [
+          6.0,
+          0.5,
+          7200
+        ]
+      ],
+      "compare_block": 1,
+      "same_conditions": true,
+      "first10_length": 727.414969816919,
+      "last10_length": 859.6139999999999,
+      "progress_rows": 366
+    }
+  ],
+  "stop_valid": true,
+  "improvement_1M_to_3M": 0.012578297076637268,
+  "current_equals_3M": {
+    "model.zip": true,
+    "vecnorm.pkl": true
+  }
+}

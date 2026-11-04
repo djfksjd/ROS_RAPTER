@@ -1,0 +1,43 @@
+{
+  "before": {
+    "sim/rl/runs/l80_r1_6M/model.zip": "e0cb2903d217fa613406e6186e629682906de9a28580fff26056af8e6b5a8438",
+    "sim/rl/runs/l80_r1_6M/vecnorm.pkl": "221c0307938c5ba29a63dc1221e18a1ed3a69c8cbf4286268c66c9106969972d",
+    "sim/rl/runs/l80_r1_6M/args.json": "49ef1d89ea4f09bb88dee894b86348d18e72181b91d42817786da9eaeae658a4",
+    "sim/rl/runs/l80_t1/model.zip": "6f4f3886b1096e809a58458c481d231416a21670739adfec034deda3b862cd5d",
+    "sim/rl/runs/l80_t1/vecnorm.pkl": "30987316ad41af18f1c4722639184e0ef918c7dcecb3d739975256045f9b0444",
+    "sim/rl/runs/l80_t1/args.json": "3e46be63fdcbe33f81fa7301d851a18f0b76533f78cb1aab75029d51c6e1b330",
+    "sim/rl/rev3_l80.json": "ed62e1701462a0d16f8cda105d26b791da6725d26e5157edf788314878bb899a",
+    "sim/rl/realism_robstride_l80.json": "fe910eeccc71985dfe569ae79030d9497c61f726dbfbd240b340268f8c0b0282"
+  },
+  "after": {
+    "sim/rl/runs/l80_r1_6M/model.zip": "e0cb2903d217fa613406e6186e629682906de9a28580fff26056af8e6b5a8438",
+    "sim/rl/runs/l80_r1_6M/vecnorm.pkl": "221c0307938c5ba29a63dc1221e18a1ed3a69c8cbf4286268c66c9106969972d",
+    "sim/rl/runs/l80_r1_6M/args.json": "49ef1d89ea4f09bb88dee894b86348d18e72181b91d42817786da9eaeae658a4",
+    "sim/rl/runs/l80_t1/model.zip": "6f4f3886b1096e809a58458c481d231416a21670739adfec034deda3b862cd5d",
+    "sim/rl/runs/l80_t1/vecnorm.pkl": "30987316ad41af18f1c4722639184e0ef918c7dcecb3d739975256045f9b0444",
+    "sim/rl/runs/l80_t1/args.json": "3e46be63fdcbe33f81fa7301d851a18f0b76533f78cb1aab75029d51c6e1b330",
+    "sim/rl/rev3_l80.json": "ed62e1701462a0d16f8cda105d26b791da6725d26e5157edf788314878bb899a",
+    "sim/rl/realism_robstride_l80.json": "fe910eeccc71985dfe569ae79030d9497c61f726dbfbd240b340268f8c0b0282"
+  },
+  "unchanged": true,
+  "randomize": false,
+  "seeds": [
+    7200,
+    7201
+  ],
+  "speeds": [
+    2.0,
+    4.0,
+    6.0
+  ],
+  "yaws": [
+    0.5,
+    -0.5,
+    1.0,
+    1.5
+  ],
+  "runs": [
+    "l80_r1_6M",
+    "l80_t1"
+  ]
+}

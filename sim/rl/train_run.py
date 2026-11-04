@@ -22,7 +22,7 @@ from stable_baselines3.common.logger import configure  # noqa: E402
 from stable_baselines3.common.vec_env import SubprocVecEnv, VecMonitor, VecNormalize  # noqa: E402
 
 from recover_env import RecoverEnv  # noqa: E402
-from run_env import RunEnv  # noqa: E402
+from run_env import RunEnv, SCALE_RUN, joint_type  # noqa: E402
 from train import Curriculum  # noqa: E402
 from stable_baselines3.common.callbacks import BaseCallback  # noqa: E402
 import numpy as np  # noqa: E402
@@ -118,6 +118,43 @@ def widen_command_inputs(env, model, cmd_max):
         rms.var[i] = want[i-6]**2-env.epsilon
     print('widened command inputs', idx, 'std', [round(float(want[i-6]), 3) for i in idx], flush=True)
     return True
+
+
+def rescale_action_outputs(model, active, policy_idx, old_args, new_scale, resume_action_std=None):
+    """Change action coordinates on resume, before rebuilding a symmetric policy.
+
+    The mean rows and Gaussian std get old/new scale. This preserves unbounded
+    target angles (same observation and q0), and clipped targets where neither
+    action saturates. It cannot preserve old saturated targets: clip(f*a) !=
+    f*clip(a). RunEnv also observes last_action in these changed coordinates;
+    closed-loop behaviour therefore needs a separate rollout check.
+    """
+    old_scales = {**SCALE_RUN, **json.loads(old_args.get('scale_override') or '{}')}
+    names = [active[i] for i in policy_idx]
+    old = np.array([old_scales[joint_type(name)] for name in names], dtype=float)
+    new = np.asarray(new_scale, dtype=float)[policy_idx]
+    if not (np.all(np.isfinite(old)) and np.all(np.isfinite(new)) and np.all(old > 0) and np.all(new > 0)):
+        raise ValueError('action scales must be finite and positive')
+    factors = old/new
+    policy = model.policy
+    if factors.shape != tuple(policy.log_std.shape) or policy.action_net.out_features != len(names):
+        raise ValueError('resume action layout differs from the new environment')
+    if hasattr(policy, 'sym_a_idx'):
+        mirrored = policy.sym_a_idx.detach().cpu().numpy()
+        if not np.array_equal(factors, factors[mirrored]):
+            raise ValueError('action rescaling must commute with the signed symmetry permutation')
+    changed = np.flatnonzero(factors != 1.)
+    with torch.no_grad():
+        for i in changed:
+            factor = float(factors[i])
+            policy.action_net.weight[i].mul_(factor)
+            policy.action_net.bias[i].mul_(factor)
+            if resume_action_std is None:
+                policy.log_std[i].add_(float(np.log(factor)))
+            print(f'rescaled action {i} {names[i]}: scale {old[i]:g} -> {new[i]:g}, '
+                  f'mean x {factor:g}, ' + (f'log_std += {np.log(factor):.9f}' if resume_action_std is None
+                  else f'std reset to {resume_action_std:g} after symmetric rebuild'), flush=True)
+    return factors
 
 
 def expand_inputs(path, venv, std):
@@ -264,6 +301,10 @@ def main():
             env = VecNormalize.load(vn_path, env)
             model = PPO.load(a.init, env=env, device='cpu')
         widened = a.env == 'run' and widen_command_inputs(env, model, a.cmd_final)
+        if a.env == 'run':
+            old_args = json.loads(Path(a.init).with_name('args.json').read_text())
+            rescale_action_outputs(model, env.get_attr('active')[0], env.get_attr('policy_idx')[0],
+                                   old_args, env.get_attr('scale')[0], a.resume_action_std)
         if a.symmetric:
             from mirror_probe import ObservationReflection
             from sym_policy import SymPolicy, freeze_obs, reflection_constants

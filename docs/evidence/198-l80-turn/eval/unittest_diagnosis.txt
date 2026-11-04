@@ -1,0 +1,10 @@
+.................................................................................................................................................................................{"run": "run", "robust": "yaw", "rows": [{"episodes": 5, "falls": 0}, {"episodes": 5, "falls": 0, "impulse_nms": 0.5}, {"episodes": 5, "falls": 0, "impulse_nms": 1.0}, {"episodes": 5, "falls": 0, "impulse_nms": 1.5}]}
+{"run": "run", "robust": "pitch", "rows": [{"episodes": 5, "falls": 0}, {"episodes": 5, "falls": 0, "impulse_nms": 1.0}, {"episodes": 5, "falls": 0, "impulse_nms": 2.0}]}
+{"run": "run", "robust": "turn", "rows": [{"episodes": 5, "falls": 0}, {"episodes": 5, "falls": 0, "turn_cmd_rad_s": 0.5}, {"episodes": 5, "falls": 0, "turn_cmd_rad_s": 1.0}, {"episodes": 5, "falls": 0, "turn_cmd_rad_s": 1.5}]}
+...............................widened command inputs [6, 7, 8] std [0.555, 0.3, 0.25]
+.widened command inputs [6, 7, 8] std [0.075, 0.2, 0.125]
+......
+----------------------------------------------------------------------
+Ran 215 tests in 7.320s
+
+OK

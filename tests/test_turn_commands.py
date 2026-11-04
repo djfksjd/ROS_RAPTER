@@ -61,6 +61,23 @@ class TurnCommandsTest(unittest.TestCase):
 
 @unittest.skipIf(mujoco is None, 'mujoco not installed')
 class TurnTrainingChecksTest(unittest.TestCase):
+    def test_alternating_check_sets_compare_two_blocks_back(self):
+        """The 4/12/4 counts are intentional: block 3 compares block 1, not 2."""
+        import importlib.util
+        root = Path(__file__).resolve().parents[1]
+        path = root/'docs/evidence/198-l80-turn/check_training.py'
+        spec = importlib.util.spec_from_file_location('turn_training_checks', path)
+        module = importlib.util.module_from_spec(spec); spec.loader.exec_module(module)
+        first = dict(block=1, passed=0, total=4, yaw_mae=.40590871824810826)
+        second = dict(block=2, passed=4, total=12, yaw_mae=.32227210912996046)
+        third = dict(block=3, passed=0, total=4, yaw_mae=.393330421171471)
+        self.assertTrue(module.stop_reason(third, [first, second], []).startswith('stop: no extra'))
+        # Improvement against block 1 must continue even though block 2 looks better.
+        self.assertEqual(module.stop_reason({**third, 'yaw_mae': .38}, [first, second], []), 'continue')
+        # A fourth block compares the 12-episode block 2, ignoring block 3.
+        fourth = dict(block=4, passed=4, total=12, yaw_mae=.32)
+        self.assertTrue(module.stop_reason(fourth, [first, second, third], []).startswith('stop: no extra'))
+
     def test_kill_rules(self):
         import importlib.util
         path = Path(__file__).resolve().parents[1]/'docs/evidence/198-l80-turn/check_training.py'
