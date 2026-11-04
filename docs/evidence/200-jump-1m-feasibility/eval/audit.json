@@ -1,0 +1,13 @@
+{
+  "inputs_sha256": {
+    "sim/rl/rev3_l80.json": "ed62e1701462a0d16f8cda105d26b791da6725d26e5157edf788314878bb899a",
+    "sim/rl/realism_robstride_l80.json": "fe910eeccc71985dfe569ae79030d9497c61f726dbfbd240b340268f8c0b0282",
+    "docs/design/motor_candidates.json": "be291fc1a3a2b65cbc9311d1a72ab46ce408236cf49b6c38c85b66089e92db32",
+    "sim/rl/run_env.py": "3addf26e16f9c95b17a76ccc118715827a307f5a23fe8088eaa258fdebebaff9",
+    "sim/rl/realism.py": "cf25d32c96189ea7ac98403251363d624f2ae84c6cd9a26899eeda7a3869cdf7",
+    "docs/design/freeze_contract.json": "4aec12401340d6c7d81cc5c0daea363a48d19849d6a172dbc0cef9a5c263ba64",
+    "docs/DESIGN_FREEZE.ko.md": "ac2019d373243b8cd8f07524f5ae482482dd010f845c5651e374fc298cca41dc"
+  },
+  "hashes_unchanged": true,
+  "cpu_s": 18.662366000000002
+}

@@ -1,0 +1,32 @@
+{
+  "assumptions": {
+    "added_mass_kg": 2.0,
+    "stroke_m": 0.3,
+    "release_efficiency": 0.8,
+    "charge_mechanical_power_w": 200.0
+  },
+  "total_mass_kg": 16.91929818181818,
+  "stored_j": 269.7147621409091,
+  "stored_per_leg_j": 134.85738107045455,
+  "stiffness_total_n_m": 5993.661380909091,
+  "stiffness_per_leg_n_m": 2996.8306904545457,
+  "preload_force_total_n": 1798.0984142727275,
+  "preload_force_per_leg_n": 899.0492071363637,
+  "charge_time_s": 1.3485738107045455,
+  "nominal_apex_m": 1.0,
+  "warning": "energy-only sizing, needs latch/clutch and release mechanism; no full-dynamic pass",
+  "energy_check_apex_m": 1.0,
+  "release_duration_s": 0.10113414687291278,
+  "delivered_peak_force_n": 1438.478731418182,
+  "delivered_peak_bw": 8.666666666666666,
+  "release_peak_power_w": 3378.41512809403,
+  "motor_charge_dc_bus_a_assumed_80pct": 5.208333333333333,
+  "landing_3bw_absorb_j": 248.9674727454546,
+  "spring_release_j": 215.7718097127273,
+  "cam_arm_assumed_m": 0.2,
+  "knee_preload_torque_per_leg_nm": 179.80984142727277,
+  "knee_stiffness_nm_rad": 119.87322761818184,
+  "proposed_charge_ratio": 3.0,
+  "charge_module_torque_nm": 66.59623756565658,
+  "charge_dc_current_a": 31.71249407888408
+}
