@@ -11,6 +11,8 @@ switch (3, policy set walk + run, 2026-11-04): commands rate-limited to 2 m/s^2:
             step commands recorded.
 turn (4, fixed 2026-11-04 before training): turn_rules.py; every episode must satisfy speed, yaw, radius, signed
             heading and 90-degree deadline. Full adoption also requires complete held-out turns and earlier regressions.
+            User decision B, 2026-11-04 AFTER seeing the t3 full gate: judge 1/2/4 m/s turns only;
+            6 m/s turns are recorded, not judged. Earlier regressions, including straight 6 m/s, are unchanged.
 Usage: .venv-sim/bin/python sim/rl/gate_judge.py GATE.jsonl [GATE2.jsonl ...]"""
 import json
 import math
@@ -37,6 +39,8 @@ def judge(row):
     c, e = row['cond'], row.get('episodes', [])
     if row['gate'] == 'turn':
         if c == 'moving_turn':
+            if row['cmd'] == 6.:
+                return None, f"falls {row['falls']}/{row['n']} (6 m/s turn deferred by user 2026-11-04; recorded)"
             ok = bool(e) and len(e) == row['n'] and row['falls'] == 0 and all(turn_episode_ok(row, x) for x in e)
             return ok, f"falls {row['falls']}/{row['n']}, passing episodes {sum(turn_episode_ok(row, x) for x in e)}/{len(e)}"
         if c == 'run_regression':
@@ -99,6 +103,8 @@ def turn_suite_status(rows):
     """Adoption requires a complete full suite, never an empty/partial/quick file."""
     required = []
     for speed, rule in TURN_CRITERIA.items():
+        if speed == 6.:
+            continue  # User decision B after t3 data, 2026-11-04; still measured by stage_gates.
         for sign in (1., -1.):
             required.append((dict(gate='turn', cond='moving_turn', cmd=speed, yaw_cmd=sign*rule['yaw']), 4))
     required += [(dict(gate='turn', cond='run_regression', cmd=v), 4) for v in (2., 4., 6.)]

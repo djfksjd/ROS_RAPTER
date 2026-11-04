@@ -10,7 +10,7 @@ from gate_judge import judge, turn_suite_status
 from turn_rules import TURN_CRITERIA
 
 
-def turn_row(speed=6., sign=1.):
+def turn_row(speed=4., sign=1.):
     yaw = sign*TURN_CRITERIA[speed]['yaw']
     joint = dict(rms_nm=5., peak_nm=16., peak_rad_s=7., at_limit=0.)
     episodes = [dict(seed=s, t_fall=None, v_mean=speed, yaw_rate_mean=yaw,
@@ -43,11 +43,11 @@ class TurnGateTest(unittest.TestCase):
     def test_both_signs_and_all_speeds(self):
         for v in TURN_CRITERIA:
             for sign in (1., -1.):
-                self.assertTrue(judge(turn_row(v, sign))[0])
+                self.assertIs(judge(turn_row(v, sign))[0], None if v == 6. else True)
 
     def test_reject_each_bad_metric(self):
         for key, value in [('v_mean', 4.9), ('yaw_rate_mean', .32), ('yaw_rate_mean', -.5),
-                           ('radius_m', 21.01), ('t_90_s', 6.01), ('t_90_s', None),
+                           ('radius_m', 14.01), ('t_90_s', 6.01), ('t_90_s', None),
                            ('heading_change_rad', 1.), ('t_fall', 12.), ('v_mean', float('nan'))]:
             row = turn_row(); row['episodes'][0][key] = value
             with self.subTest(key=key, value=value): self.assertFalse(judge(row)[0])
@@ -59,7 +59,8 @@ class TurnGateTest(unittest.TestCase):
         self.assertTrue(turn_suite_status(rows)[0])
         self.assertFalse(turn_suite_status([])[0])
         for i in range(len(rows)):
-            self.assertFalse(turn_suite_status(rows[:i]+rows[i+1:])[0])
+            required = not (rows[i]['gate'] == 'turn' and rows[i]['cond'] == 'moving_turn' and rows[i]['cmd'] == 6.)
+            self.assertEqual(turn_suite_status(rows[:i]+rows[i+1:])[0], not required)
         self.assertFalse(turn_suite_status(rows+[copy.deepcopy(rows[0])])[0])
         for key, value in [('quick', True), ('n', 2), ('falls', 1)]:
             changed = copy.deepcopy(rows); changed[0][key] = value
@@ -71,6 +72,18 @@ class TurnGateTest(unittest.TestCase):
             self.assertFalse(turn_suite_status(rows)[0])
         rows = complete_suite(); rows[-1]['falls'] = 2
         rows[-1]['episodes'][0]['t_fall'] = 5.; rows[-1]['episodes'][1]['t_fall'] = 8.
+        self.assertFalse(turn_suite_status(rows)[0])
+
+    def test_deferred_turn_does_not_waive_straight_regression(self):
+        rows = complete_suite()
+        for r in rows:
+            if r['gate'] == 'turn' and r['cond'] == 'moving_turn' and r['cmd'] == 6.:
+                r['episodes'][0]['t_fall'] = 1.
+                r['falls'] = 1
+                self.assertIsNone(judge(r)[0])
+        self.assertTrue(turn_suite_status(rows)[0])
+        r = next(r for r in rows if r['cond'] == 'run_regression' and r['cmd'] == 6.)
+        r['episodes'][0]['v_mean'] = 5.3
         self.assertFalse(turn_suite_status(rows)[0])
 
     def test_heading_wrap(self):

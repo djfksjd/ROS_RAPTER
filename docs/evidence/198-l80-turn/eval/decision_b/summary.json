@@ -1,0 +1,1167 @@
+{
+  "l80_t3": {
+    "full_suite": {
+      "passed": false,
+      "reason": "failed condition: {'gate': 'turn', 'cond': 'moving_turn', 'cmd': 4.0, 'yaw_cmd': 0.5}"
+    },
+    "judged_turn_passed": 23,
+    "judged_turn_total": 24,
+    "judged_turn_falls": 0,
+    "sustained_command": 5.0,
+    "judgments": [
+      {
+        "gate": "turn",
+        "cond": "moving_turn",
+        "cmd": 2.0,
+        "yaw_cmd": 1.0,
+        "n": 4,
+        "falls": 0,
+        "passed": true,
+        "reason": "falls 0/4, passing episodes 4/4",
+        "passing_episodes": 4,
+        "v_mean": [
+          1.9635192326928042,
+          1.9757702111342534
+        ],
+        "yaw_rate_mean": [
+          0.9209118299238462,
+          0.9339670248181371
+        ],
+        "radius_m": [
+          2.109169291292593,
+          2.1422112722306803
+        ],
+        "t_90_s": [
+          1.7999999999999998,
+          1.92
+        ]
+      },
+      {
+        "gate": "turn",
+        "cond": "moving_turn",
+        "cmd": 1.0,
+        "yaw_cmd": 0.5,
+        "n": 4,
+        "falls": 0,
+        "passed": true,
+        "reason": "falls 0/4, passing episodes 4/4",
+        "passing_episodes": 4,
+        "v_mean": [
+          1.027924431612659,
+          1.0440622235279333
+        ],
+        "yaw_rate_mean": [
+          0.4105085479457876,
+          0.42803088461933986
+        ],
+        "radius_m": [
+          2.432131135083896,
+          2.5302430073072566
+        ],
+        "t_90_s": [
+          4.0600000000000005,
+          4.200000000000001
+        ]
+      },
+      {
+        "gate": "turn",
+        "cond": "moving_turn",
+        "cmd": 1.0,
+        "yaw_cmd": -0.5,
+        "n": 4,
+        "falls": 0,
+        "passed": true,
+        "reason": "falls 0/4, passing episodes 4/4",
+        "passing_episodes": 4,
+        "v_mean": [
+          1.0231924407305917,
+          1.0436300460395325
+        ],
+        "yaw_rate_mean": [
+          -0.42311764494762377,
+          -0.41860537865510844
+        ],
+        "radius_m": [
+          2.4429521181479212,
+          2.4782425209925285
+        ],
+        "t_90_s": [
+          4.120000000000001,
+          4.24
+        ]
+      },
+      {
+        "gate": "turn",
+        "cond": "moving_turn",
+        "cmd": 4.0,
+        "yaw_cmd": 0.5,
+        "n": 4,
+        "falls": 0,
+        "passed": false,
+        "reason": "falls 0/4, passing episodes 3/4",
+        "passing_episodes": 3,
+        "v_mean": [
+          4.482363036913671,
+          4.529398840444193
+        ],
+        "yaw_rate_mean": [
+          0.3225521279727607,
+          0.3305860208352122
+        ],
+        "radius_m": [
+          13.558840224366298,
+          14.042377797695686
+        ],
+        "t_90_s": [
+          5.16,
+          5.4399999999999995
+        ]
+      },
+      {
+        "gate": "turn",
+        "cond": "moving_turn",
+        "cmd": 4.0,
+        "yaw_cmd": -0.5,
+        "n": 4,
+        "falls": 0,
+        "passed": true,
+        "reason": "falls 0/4, passing episodes 4/4",
+        "passing_episodes": 4,
+        "v_mean": [
+          4.488406677795282,
+          4.540926278147461
+        ],
+        "yaw_rate_mean": [
+          -0.3453095908361555,
+          -0.33664417180590706
+        ],
+        "radius_m": [
+          13.045313780734299,
+          13.33279187255047
+        ],
+        "t_90_s": [
+          4.9399999999999995,
+          5.120000000000001
+        ]
+      },
+      {
+        "gate": "turn",
+        "cond": "moving_turn",
+        "cmd": 2.0,
+        "yaw_cmd": -1.0,
+        "n": 4,
+        "falls": 0,
+        "passed": true,
+        "reason": "falls 0/4, passing episodes 4/4",
+        "passing_episodes": 4,
+        "v_mean": [
+          1.9946113697884387,
+          2.024875728754957
+        ],
+        "yaw_rate_mean": [
+          -0.923800467416054,
+          -0.9084888113520768
+        ],
+        "radius_m": [
+          2.1591365669769913,
+          2.2288394787618735
+        ],
+        "t_90_s": [
+          1.7999999999999998,
+          1.9400000000000004
+        ]
+      },
+      {
+        "gate": "turn",
+        "cond": "moving_turn",
+        "cmd": 6.0,
+        "yaw_cmd": 0.5,
+        "n": 4,
+        "falls": 0,
+        "passed": null,
+        "reason": "falls 0/4 (6 m/s turn deferred by user 2026-11-04; recorded)",
+        "passing_episodes": 0,
+        "v_mean": [
+          5.3232818271471976,
+          5.349318181155304
+        ],
+        "yaw_rate_mean": [
+          0.29805792529999997,
+          0.30912296105313847
+        ],
+        "radius_m": [
+          17.220596648697736,
+          17.89872453293318
+        ],
+        "t_90_s": [
+          5.880000000000001,
+          6.220000000000001
+        ]
+      },
+      {
+        "gate": "turn",
+        "cond": "moving_turn",
+        "cmd": 6.0,
+        "yaw_cmd": -0.5,
+        "n": 4,
+        "falls": 0,
+        "passed": null,
+        "reason": "falls 0/4 (6 m/s turn deferred by user 2026-11-04; recorded)",
+        "passing_episodes": 0,
+        "v_mean": [
+          5.322925800018349,
+          5.362037981454775
+        ],
+        "yaw_rate_mean": [
+          -0.322056404898197,
+          -0.30935371445379106
+        ],
+        "radius_m": [
+          16.543612855274635,
+          17.243057748791134
+        ],
+        "t_90_s": [
+          5.5600000000000005,
+          5.640000000000001
+        ]
+      },
+      {
+        "gate": "turn",
+        "cond": "run_regression",
+        "cmd": 2.0,
+        "n": 4,
+        "falls": 0,
+        "passed": true,
+        "reason": "falls 0/4, v [1.9511349700202372, 1.9964743275780539, 1.9774957683202221, 2.0145256428528775]"
+      },
+      {
+        "gate": "turn",
+        "cond": "run_regression",
+        "cmd": 4.0,
+        "n": 4,
+        "falls": 0,
+        "passed": false,
+        "reason": "falls 0/4, v [4.820776581743301, 4.83969715000314, 4.794933626431194, 4.761634311022165]"
+      },
+      {
+        "gate": "turn",
+        "cond": "run_regression",
+        "cmd": 6.0,
+        "n": 4,
+        "falls": 0,
+        "passed": true,
+        "reason": "falls 0/4, v [5.634582268193184, 5.641527921889945, 5.614866225980804, 5.606731686523301]"
+      },
+      {
+        "gate": "switch",
+        "cond": "switch",
+        "n": 4,
+        "falls": 0,
+        "passed": null,
+        "reason": "falls 0/4, switches [2, 2, 2, 2] (step commands, recorded)"
+      },
+      {
+        "gate": "switch",
+        "cond": "switch_ramp",
+        "n": 4,
+        "falls": 0,
+        "passed": true,
+        "reason": "falls 0/4, switches [2, 2, 2, 2]"
+      },
+      {
+        "gate": "switch",
+        "cond": "switch_ramp_dr",
+        "n": 8,
+        "falls": 0,
+        "passed": true,
+        "reason": "falls 0/8, switches [2, 2, 2, 2, 2, 2, 2, 2]"
+      },
+      {
+        "gate": "walk",
+        "cond": "track",
+        "cmd": 0.3,
+        "n": 4,
+        "falls": 0,
+        "passed": true,
+        "reason": "v [0.21, 0.22, 0.22, 0.22], tol 0.10"
+      },
+      {
+        "gate": "walk",
+        "cond": "track",
+        "cmd": 0.6,
+        "n": 4,
+        "falls": 0,
+        "passed": true,
+        "reason": "v [0.62, 0.62, 0.61, 0.6], tol 0.10"
+      },
+      {
+        "gate": "walk",
+        "cond": "track",
+        "cmd": 1.0,
+        "n": 4,
+        "falls": 0,
+        "passed": true,
+        "reason": "v [1.03, 1.04, 1.04, 1.03], tol 0.15"
+      },
+      {
+        "gate": "walk",
+        "cond": "track",
+        "cmd": 1.5,
+        "n": 4,
+        "falls": 0,
+        "passed": true,
+        "reason": "v [1.46, 1.47, 1.46, 1.46], tol 0.22"
+      },
+      {
+        "gate": "walk",
+        "cond": "turn",
+        "cmd": 0.5,
+        "n": 4,
+        "falls": 0,
+        "passed": true,
+        "reason": "yaw [0.43, 0.4, 0.41, 0.42], drift max 0.452"
+      },
+      {
+        "gate": "walk",
+        "cond": "turn",
+        "cmd": -0.5,
+        "n": 4,
+        "falls": 0,
+        "passed": true,
+        "reason": "yaw [-0.41, -0.42, -0.38, -0.43], drift max 0.454"
+      },
+      {
+        "gate": "walk",
+        "cond": "stopstart",
+        "n": 4,
+        "falls": 0,
+        "passed": true,
+        "reason": "reach max 0.58, stop speeds [-0.11, -0.13, -0.13, -0.09, -0.14, -0.13, -0.11, -0.12]"
+      },
+      {
+        "gate": "walk",
+        "cond": "track_dr",
+        "cmd": 1.0,
+        "n": 24,
+        "falls": 0,
+        "passed": true,
+        "reason": "falls 0/24"
+      },
+      {
+        "gate": "stand",
+        "cond": "hold",
+        "n": 8,
+        "falls": 0,
+        "passed": true,
+        "reason": "falls 0, drift 0.397"
+      },
+      {
+        "gate": "stand",
+        "cond": "hold_dr",
+        "n": 24,
+        "falls": 0,
+        "passed": true,
+        "reason": "falls 0/24"
+      },
+      {
+        "gate": "stand",
+        "cond": "push",
+        "dir": "front",
+        "dv": 0.3,
+        "n": 8,
+        "falls": 0,
+        "passed": true,
+        "reason": "falls 0"
+      },
+      {
+        "gate": "stand",
+        "cond": "push",
+        "dir": "back",
+        "dv": 0.3,
+        "n": 8,
+        "falls": 0,
+        "passed": true,
+        "reason": "falls 0"
+      },
+      {
+        "gate": "stand",
+        "cond": "push",
+        "dir": "left",
+        "dv": 0.3,
+        "n": 8,
+        "falls": 0,
+        "passed": true,
+        "reason": "falls 0"
+      },
+      {
+        "gate": "stand",
+        "cond": "push",
+        "dir": "right",
+        "dv": 0.3,
+        "n": 8,
+        "falls": 0,
+        "passed": true,
+        "reason": "falls 0"
+      },
+      {
+        "gate": "stand",
+        "cond": "push",
+        "dir": "front",
+        "dv": 0.5,
+        "n": 8,
+        "falls": 0,
+        "passed": null,
+        "reason": "falls 0 (recorded)"
+      },
+      {
+        "gate": "stand",
+        "cond": "push",
+        "dir": "back",
+        "dv": 0.5,
+        "n": 8,
+        "falls": 0,
+        "passed": null,
+        "reason": "falls 0 (recorded)"
+      },
+      {
+        "gate": "stand",
+        "cond": "push",
+        "dir": "left",
+        "dv": 0.5,
+        "n": 8,
+        "falls": 0,
+        "passed": null,
+        "reason": "falls 0 (recorded)"
+      },
+      {
+        "gate": "stand",
+        "cond": "push",
+        "dir": "right",
+        "dv": 0.5,
+        "n": 8,
+        "falls": 0,
+        "passed": null,
+        "reason": "falls 0 (recorded)"
+      },
+      {
+        "gate": "stand",
+        "cond": "push",
+        "dir": "front",
+        "dv": 0.8,
+        "n": 8,
+        "falls": 0,
+        "passed": null,
+        "reason": "falls 0 (recorded)"
+      },
+      {
+        "gate": "stand",
+        "cond": "push",
+        "dir": "back",
+        "dv": 0.8,
+        "n": 8,
+        "falls": 0,
+        "passed": null,
+        "reason": "falls 0 (recorded)"
+      },
+      {
+        "gate": "stand",
+        "cond": "push",
+        "dir": "left",
+        "dv": 0.8,
+        "n": 8,
+        "falls": 0,
+        "passed": null,
+        "reason": "falls 0 (recorded)"
+      },
+      {
+        "gate": "stand",
+        "cond": "push",
+        "dir": "right",
+        "dv": 0.8,
+        "n": 8,
+        "falls": 0,
+        "passed": null,
+        "reason": "falls 0 (recorded)"
+      },
+      {
+        "gate": "run",
+        "cond": "heat",
+        "cmd": 4.0,
+        "mount": "plate",
+        "n": 1,
+        "falls": 0,
+        "passed": null,
+        "reason": "plate: falls 0, derate min 1.0, winding max 94.4 C, v 4.793 (sustained speed below)"
+      },
+      {
+        "gate": "run",
+        "cond": "heat",
+        "cmd": 4.0,
+        "mount": "worst",
+        "n": 1,
+        "falls": 1,
+        "passed": null,
+        "reason": "worst: falls 1, derate min 0.354, winding max 137.9 C, v 4.527 (sustained speed below)"
+      },
+      {
+        "gate": "run",
+        "cond": "heat",
+        "cmd": 5.0,
+        "mount": "worst",
+        "n": 1,
+        "falls": 1,
+        "passed": null,
+        "reason": "worst: falls 1, derate min 0.34, winding max 138.2 C, v 4.839 (sustained speed below)"
+      },
+      {
+        "gate": "run",
+        "cond": "heat",
+        "cmd": 5.0,
+        "mount": "plate",
+        "n": 1,
+        "falls": 0,
+        "passed": null,
+        "reason": "plate: falls 0, derate min 1.0, winding max 121.4 C, v 5.372 (sustained speed below)"
+      },
+      {
+        "gate": "run",
+        "cond": "heat",
+        "cmd": 6.0,
+        "mount": "worst",
+        "n": 1,
+        "falls": 1,
+        "passed": null,
+        "reason": "worst: falls 1, derate min 0.37, winding max 137.6 C, v 5.401 (sustained speed below)"
+      },
+      {
+        "gate": "run",
+        "cond": "heat",
+        "cmd": 6.0,
+        "mount": "plate",
+        "n": 1,
+        "falls": 0,
+        "passed": null,
+        "reason": "plate: falls 0, derate min 0.598, winding max 133.0 C, v 5.595 (sustained speed below)"
+      },
+      {
+        "gate": "run",
+        "cond": "speed",
+        "cmd": 8.0,
+        "n": 4,
+        "falls": 2,
+        "passed": false,
+        "reason": "v [None, None, 5.8, 5.77], derate min 1.0 (top speed: >= 6.5)"
+      },
+      {
+        "gate": "run",
+        "cond": "lateral",
+        "cmd": 4.0,
+        "dir": "left",
+        "n": 8,
+        "falls": 0,
+        "passed": true,
+        "reason": "falls 0/8"
+      },
+      {
+        "gate": "run",
+        "cond": "lateral",
+        "cmd": 4.0,
+        "dir": "right",
+        "n": 8,
+        "falls": 0,
+        "passed": true,
+        "reason": "falls 0/8"
+      }
+    ],
+    "judge_exit_codes": {
+      "full": 1,
+      "extra": 0
+    }
+  },
+  "l80_r1_6M": {
+    "full_suite": {
+      "passed": false,
+      "reason": "failed condition: {'gate': 'turn', 'cond': 'moving_turn', 'cmd': 2.0, 'yaw_cmd': 1.0}"
+    },
+    "judged_turn_passed": 8,
+    "judged_turn_total": 24,
+    "judged_turn_falls": 0,
+    "sustained_command": 6.0,
+    "judgments": [
+      {
+        "gate": "turn",
+        "cond": "moving_turn",
+        "cmd": 1.0,
+        "yaw_cmd": 0.5,
+        "n": 4,
+        "falls": 0,
+        "passed": true,
+        "reason": "falls 0/4, passing episodes 4/4",
+        "passing_episodes": 4,
+        "v_mean": [
+          1.027924431612659,
+          1.0440622235279333
+        ],
+        "yaw_rate_mean": [
+          0.4105085479457876,
+          0.42803088461933986
+        ],
+        "radius_m": [
+          2.432131135083896,
+          2.5302430073072566
+        ],
+        "t_90_s": [
+          4.0600000000000005,
+          4.200000000000001
+        ]
+      },
+      {
+        "gate": "turn",
+        "cond": "moving_turn",
+        "cmd": 2.0,
+        "yaw_cmd": 1.0,
+        "n": 4,
+        "falls": 0,
+        "passed": false,
+        "reason": "falls 0/4, passing episodes 0/4",
+        "passing_episodes": 0,
+        "v_mean": [
+          1.7805902413391117,
+          1.8005434479977507
+        ],
+        "yaw_rate_mean": [
+          0.542260521608158,
+          0.5532757609359917
+        ],
+        "radius_m": [
+          3.234327475766433,
+          3.3204398554738206
+        ],
+        "t_90_s": [
+          3.2799999999999994,
+          3.3599999999999994
+        ]
+      },
+      {
+        "gate": "turn",
+        "cond": "moving_turn",
+        "cmd": 1.0,
+        "yaw_cmd": -0.5,
+        "n": 4,
+        "falls": 0,
+        "passed": true,
+        "reason": "falls 0/4, passing episodes 4/4",
+        "passing_episodes": 4,
+        "v_mean": [
+          1.0231924407305917,
+          1.0436300460395325
+        ],
+        "yaw_rate_mean": [
+          -0.42311764494762377,
+          -0.41860537865510844
+        ],
+        "radius_m": [
+          2.4429521181479212,
+          2.4782425209925285
+        ],
+        "t_90_s": [
+          4.120000000000001,
+          4.24
+        ]
+      },
+      {
+        "gate": "turn",
+        "cond": "moving_turn",
+        "cmd": 2.0,
+        "yaw_cmd": -1.0,
+        "n": 4,
+        "falls": 0,
+        "passed": false,
+        "reason": "falls 0/4, passing episodes 0/4",
+        "passing_episodes": 0,
+        "v_mean": [
+          1.8385733494629952,
+          1.8700181895687475
+        ],
+        "yaw_rate_mean": [
+          -0.4658749750870896,
+          -0.4532612995295295
+        ],
+        "radius_m": [
+          3.9926575248249527,
+          4.125695689240987
+        ],
+        "t_90_s": [
+          3.5600000000000005,
+          3.92
+        ]
+      },
+      {
+        "gate": "turn",
+        "cond": "moving_turn",
+        "cmd": 4.0,
+        "yaw_cmd": 0.5,
+        "n": 4,
+        "falls": 0,
+        "passed": false,
+        "reason": "falls 0/4, passing episodes 0/4",
+        "passing_episodes": 0,
+        "v_mean": [
+          4.124071773652951,
+          4.213887700763058
+        ],
+        "yaw_rate_mean": [
+          0.11248766594124245,
+          0.12626494483450343
+        ],
+        "radius_m": [
+          33.1619307239716,
+          37.20352398829937
+        ],
+        "t_90_s": null
+      },
+      {
+        "gate": "turn",
+        "cond": "moving_turn",
+        "cmd": 4.0,
+        "yaw_cmd": -0.5,
+        "n": 4,
+        "falls": 0,
+        "passed": false,
+        "reason": "falls 0/4, passing episodes 0/4",
+        "passing_episodes": 0,
+        "v_mean": [
+          4.0358352788071175,
+          4.128252535713349
+        ],
+        "yaw_rate_mean": [
+          -0.12621438232581153,
+          -0.11197910195640953
+        ],
+        "radius_m": [
+          31.976033193974338,
+          36.6301424527989
+        ],
+        "t_90_s": null
+      },
+      {
+        "gate": "turn",
+        "cond": "moving_turn",
+        "cmd": 6.0,
+        "yaw_cmd": 0.5,
+        "n": 4,
+        "falls": 0,
+        "passed": null,
+        "reason": "falls 0/4 (6 m/s turn deferred by user 2026-11-04; recorded)",
+        "passing_episodes": 0,
+        "v_mean": [
+          5.845877067870587,
+          5.9341316175987515
+        ],
+        "yaw_rate_mean": [
+          0.055231353153621966,
+          0.061188648646443605
+        ],
+        "radius_m": [
+          96.9809229141009,
+          106.39832323649034
+        ],
+        "t_90_s": null
+      },
+      {
+        "gate": "turn",
+        "cond": "moving_turn",
+        "cmd": 6.0,
+        "yaw_cmd": -0.5,
+        "n": 4,
+        "falls": 0,
+        "passed": null,
+        "reason": "falls 0/4 (6 m/s turn deferred by user 2026-11-04; recorded)",
+        "passing_episodes": 0,
+        "v_mean": [
+          5.862907598196483,
+          5.935645201113092
+        ],
+        "yaw_rate_mean": [
+          -0.10328930177451812,
+          -0.09144694128900568
+        ],
+        "radius_m": [
+          56.84750662570722,
+          64.90807803351551
+        ],
+        "t_90_s": null
+      },
+      {
+        "gate": "turn",
+        "cond": "run_regression",
+        "cmd": 2.0,
+        "n": 4,
+        "falls": 0,
+        "passed": true,
+        "reason": "falls 0/4, v [1.918043950561087, 1.944630695868931, 1.9367607979480397, 1.9675090948816174]"
+      },
+      {
+        "gate": "turn",
+        "cond": "run_regression",
+        "cmd": 4.0,
+        "n": 4,
+        "falls": 0,
+        "passed": true,
+        "reason": "falls 0/4, v [4.202228579647781, 4.19709973602469, 4.225250508625001, 4.192528752764309]"
+      },
+      {
+        "gate": "switch",
+        "cond": "switch",
+        "n": 4,
+        "falls": 0,
+        "passed": null,
+        "reason": "falls 0/4, switches [2, 2, 2, 2] (step commands, recorded)"
+      },
+      {
+        "gate": "switch",
+        "cond": "switch_ramp",
+        "n": 4,
+        "falls": 0,
+        "passed": true,
+        "reason": "falls 0/4, switches [2, 2, 2, 2]"
+      },
+      {
+        "gate": "switch",
+        "cond": "switch_ramp_dr",
+        "n": 8,
+        "falls": 0,
+        "passed": true,
+        "reason": "falls 0/8, switches [2, 2, 2, 2, 2, 2, 2, 2]"
+      },
+      {
+        "gate": "turn",
+        "cond": "run_regression",
+        "cmd": 6.0,
+        "n": 4,
+        "falls": 0,
+        "passed": true,
+        "reason": "falls 0/4, v [5.942140220803061, 5.958991175702678, 5.968459185992671, 5.91850119174208]"
+      },
+      {
+        "gate": "walk",
+        "cond": "track",
+        "cmd": 0.3,
+        "n": 4,
+        "falls": 0,
+        "passed": true,
+        "reason": "v [0.21, 0.22, 0.22, 0.22], tol 0.10"
+      },
+      {
+        "gate": "walk",
+        "cond": "track",
+        "cmd": 0.6,
+        "n": 4,
+        "falls": 0,
+        "passed": true,
+        "reason": "v [0.62, 0.62, 0.61, 0.6], tol 0.10"
+      },
+      {
+        "gate": "walk",
+        "cond": "track",
+        "cmd": 1.0,
+        "n": 4,
+        "falls": 0,
+        "passed": true,
+        "reason": "v [1.03, 1.04, 1.04, 1.03], tol 0.15"
+      },
+      {
+        "gate": "walk",
+        "cond": "track",
+        "cmd": 1.5,
+        "n": 4,
+        "falls": 0,
+        "passed": true,
+        "reason": "v [1.46, 1.47, 1.46, 1.46], tol 0.22"
+      },
+      {
+        "gate": "walk",
+        "cond": "turn",
+        "cmd": 0.5,
+        "n": 4,
+        "falls": 0,
+        "passed": true,
+        "reason": "yaw [0.43, 0.4, 0.41, 0.42], drift max 0.452"
+      },
+      {
+        "gate": "walk",
+        "cond": "turn",
+        "cmd": -0.5,
+        "n": 4,
+        "falls": 0,
+        "passed": true,
+        "reason": "yaw [-0.41, -0.42, -0.38, -0.43], drift max 0.454"
+      },
+      {
+        "gate": "walk",
+        "cond": "stopstart",
+        "n": 4,
+        "falls": 0,
+        "passed": true,
+        "reason": "reach max 0.58, stop speeds [-0.11, -0.13, -0.13, -0.09, -0.14, -0.13, -0.11, -0.12]"
+      },
+      {
+        "gate": "walk",
+        "cond": "track_dr",
+        "cmd": 1.0,
+        "n": 24,
+        "falls": 0,
+        "passed": true,
+        "reason": "falls 0/24"
+      },
+      {
+        "gate": "stand",
+        "cond": "hold",
+        "n": 8,
+        "falls": 0,
+        "passed": true,
+        "reason": "falls 0, drift 0.397"
+      },
+      {
+        "gate": "stand",
+        "cond": "hold_dr",
+        "n": 24,
+        "falls": 0,
+        "passed": true,
+        "reason": "falls 0/24"
+      },
+      {
+        "gate": "stand",
+        "cond": "push",
+        "dir": "front",
+        "dv": 0.3,
+        "n": 8,
+        "falls": 0,
+        "passed": true,
+        "reason": "falls 0"
+      },
+      {
+        "gate": "stand",
+        "cond": "push",
+        "dir": "back",
+        "dv": 0.3,
+        "n": 8,
+        "falls": 0,
+        "passed": true,
+        "reason": "falls 0"
+      },
+      {
+        "gate": "stand",
+        "cond": "push",
+        "dir": "left",
+        "dv": 0.3,
+        "n": 8,
+        "falls": 0,
+        "passed": true,
+        "reason": "falls 0"
+      },
+      {
+        "gate": "stand",
+        "cond": "push",
+        "dir": "right",
+        "dv": 0.3,
+        "n": 8,
+        "falls": 0,
+        "passed": true,
+        "reason": "falls 0"
+      },
+      {
+        "gate": "stand",
+        "cond": "push",
+        "dir": "front",
+        "dv": 0.5,
+        "n": 8,
+        "falls": 0,
+        "passed": null,
+        "reason": "falls 0 (recorded)"
+      },
+      {
+        "gate": "stand",
+        "cond": "push",
+        "dir": "back",
+        "dv": 0.5,
+        "n": 8,
+        "falls": 0,
+        "passed": null,
+        "reason": "falls 0 (recorded)"
+      },
+      {
+        "gate": "stand",
+        "cond": "push",
+        "dir": "left",
+        "dv": 0.5,
+        "n": 8,
+        "falls": 0,
+        "passed": null,
+        "reason": "falls 0 (recorded)"
+      },
+      {
+        "gate": "stand",
+        "cond": "push",
+        "dir": "right",
+        "dv": 0.5,
+        "n": 8,
+        "falls": 0,
+        "passed": null,
+        "reason": "falls 0 (recorded)"
+      },
+      {
+        "gate": "stand",
+        "cond": "push",
+        "dir": "front",
+        "dv": 0.8,
+        "n": 8,
+        "falls": 0,
+        "passed": null,
+        "reason": "falls 0 (recorded)"
+      },
+      {
+        "gate": "stand",
+        "cond": "push",
+        "dir": "back",
+        "dv": 0.8,
+        "n": 8,
+        "falls": 0,
+        "passed": null,
+        "reason": "falls 0 (recorded)"
+      },
+      {
+        "gate": "stand",
+        "cond": "push",
+        "dir": "left",
+        "dv": 0.8,
+        "n": 8,
+        "falls": 0,
+        "passed": null,
+        "reason": "falls 0 (recorded)"
+      },
+      {
+        "gate": "stand",
+        "cond": "push",
+        "dir": "right",
+        "dv": 0.8,
+        "n": 8,
+        "falls": 0,
+        "passed": null,
+        "reason": "falls 0 (recorded)"
+      },
+      {
+        "gate": "run",
+        "cond": "heat",
+        "cmd": 4.0,
+        "mount": "plate",
+        "n": 1,
+        "falls": 0,
+        "passed": null,
+        "reason": "plate: falls 0, derate min 1.0, winding max 82.0 C, v 4.106 (sustained speed below)"
+      },
+      {
+        "gate": "run",
+        "cond": "heat",
+        "cmd": 4.0,
+        "mount": "worst",
+        "n": 1,
+        "falls": 0,
+        "passed": null,
+        "reason": "worst: falls 0, derate min 0.363, winding max 137.7 C, v 3.875 (sustained speed below)"
+      },
+      {
+        "gate": "run",
+        "cond": "heat",
+        "cmd": 5.0,
+        "mount": "worst",
+        "n": 1,
+        "falls": 1,
+        "passed": null,
+        "reason": "worst: falls 1, derate min 0.318, winding max 138.6 C, v 4.158 (sustained speed below)"
+      },
+      {
+        "gate": "run",
+        "cond": "heat",
+        "cmd": 6.0,
+        "mount": "worst",
+        "n": 1,
+        "falls": 1,
+        "passed": null,
+        "reason": "worst: falls 1, derate min 0.312, winding max 138.8 C, v 5.328 (sustained speed below)"
+      },
+      {
+        "gate": "run",
+        "cond": "heat",
+        "cmd": 5.0,
+        "mount": "plate",
+        "n": 1,
+        "falls": 0,
+        "passed": null,
+        "reason": "plate: falls 0, derate min 1.0, winding max 103.2 C, v 5.234 (sustained speed below)"
+      },
+      {
+        "gate": "run",
+        "cond": "speed",
+        "cmd": 8.0,
+        "n": 4,
+        "falls": 0,
+        "passed": false,
+        "reason": "v [6.46, 6.51, 6.51, 6.47], derate min 1.0 (top speed: >= 6.5)"
+      },
+      {
+        "gate": "run",
+        "cond": "heat",
+        "cmd": 6.0,
+        "mount": "plate",
+        "n": 1,
+        "falls": 0,
+        "passed": null,
+        "reason": "plate: falls 0, derate min 1.0, winding max 118.2 C, v 5.835 (sustained speed below)"
+      },
+      {
+        "gate": "run",
+        "cond": "lateral",
+        "cmd": 4.0,
+        "dir": "left",
+        "n": 8,
+        "falls": 0,
+        "passed": true,
+        "reason": "falls 0/8"
+      },
+      {
+        "gate": "run",
+        "cond": "lateral",
+        "cmd": 4.0,
+        "dir": "right",
+        "n": 8,
+        "falls": 0,
+        "passed": true,
+        "reason": "falls 0/8"
+      }
+    ],
+    "judge_exit_codes": {
+      "full": 1,
+      "extra": 0
+    }
+  },
+  "routed": {
+    "passed": 14,
+    "n": 16,
+    "falls": 1,
+    "decision": {
+      "turn_passed": false,
+      "switch_executed": false,
+      "decision": "reject; no threshold search"
+    }
+  },
+  "verification": {
+    "candidate_rollouts": 352,
+    "routed_rollouts": 16,
+    "compatibility_rollouts": 40,
+    "inputs_unchanged": true,
+    "default_t3_full_non_switch_episodes_identical": true,
+    "equal_scale_switch_episodes_identical": 16,
+    "default_run_episodes_identical": 4
+  }
+}

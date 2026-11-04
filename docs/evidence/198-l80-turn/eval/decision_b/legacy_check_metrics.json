@@ -1,0 +1,68 @@
+{
+  "l80_t1": [
+    {
+      "file": "turn_1M.jsonl",
+      "passed": 0,
+      "total": 4,
+      "yaw_mae": 0.40590871824810826
+    },
+    {
+      "file": "turn_2M.jsonl",
+      "passed": 4,
+      "total": 12,
+      "yaw_mae": 0.32227210912996046
+    },
+    {
+      "file": "turn_3M.jsonl",
+      "passed": 0,
+      "total": 4,
+      "yaw_mae": 0.393330421171471
+    }
+  ],
+  "l80_t2": [
+    {
+      "file": "turn_1M.jsonl",
+      "passed": 0,
+      "total": 4,
+      "yaw_mae": 0.3269152737693411
+    },
+    {
+      "file": "turn_2M.jsonl",
+      "passed": 0,
+      "total": 12,
+      "yaw_mae": 0.3377375653608496
+    },
+    {
+      "file": "turn_3M.jsonl",
+      "passed": 0,
+      "total": 4,
+      "yaw_mae": 0.31610489630676786
+    }
+  ],
+  "l80_t3": [
+    {
+      "file": "turn_1M.jsonl",
+      "passed": 0,
+      "total": 4,
+      "yaw_mae": 0.2543616662494384
+    },
+    {
+      "file": "turn_2M.jsonl",
+      "passed": 4,
+      "total": 12,
+      "yaw_mae": 0.16199817627370755
+    },
+    {
+      "file": "turn_3M.jsonl",
+      "passed": 2,
+      "total": 4,
+      "yaw_mae": 0.1728758211062721
+    },
+    {
+      "file": "turn_4M.jsonl",
+      "passed": 6,
+      "total": 12,
+      "yaw_mae": 0.14570558221588112
+    }
+  ]
+}

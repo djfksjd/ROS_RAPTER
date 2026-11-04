@@ -1,0 +1,13 @@
+{
+  "evaluation_process_exit": 0,
+  "evaluation_tasks": 44,
+  "candidate_rollouts": 352,
+  "routed_rollouts": 16,
+  "compatibility_rollouts": 40,
+  "unittest_count": 226,
+  "unittest_exit": 0,
+  "inputs_unchanged": 18,
+  "training_started": false,
+  "default_runtime_files_unchanged": true,
+  "old_evidence_preserved": true
+}

@@ -53,7 +53,7 @@ import numpy as np
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 from evaluate import load  # noqa: E402
-from run_env import RunEnv  # noqa: E402
+from run_env import RunEnv, SCALE_RUN, joint_type  # noqa: E402
 from train_run import env_kwargs  # noqa: E402
 from turn_eval import turn_condition  # noqa: E402
 from turn_rules import TURN_CRITERIA  # noqa: E402
@@ -271,11 +271,46 @@ SWITCH_CMD, SWITCH_V = 1.75, 1.5
 SWITCH_SCHED = [(0., 0.), (3., 1.), (8., 4.), (14., 6.), (20., 1.), (26., 0.)]
 
 
+def policy_scales(args):
+    """Action half-ranges from the policy's saved training arguments."""
+    scales = {**SCALE_RUN, **json.loads(args.get('scale_override') or '{}')}
+    if any(not np.isfinite(v) or v <= 0 for v in scales.values()):
+        raise ValueError('policy action scales must be positive and finite')
+    return scales
+
+
+def action_in_env(action, policy_scale, env_scale):
+    """Preserve pre-filter target angles; equal scales retain the old numeric path."""
+    if np.array_equal(policy_scale, env_scale):
+        return action  # RunEnv.step performs the original float conversion and clipping.
+    return np.clip(np.clip(np.asarray(action, float), -1., 1.) * (policy_scale/env_scale), -1., 1.)
+
+
+def observation_for_policy(raw, env, policy_scale):
+    """Express filtered last_action in the receiving policy's coordinates before normalization.
+
+    Sensor samples and RNG are untouched. Do not clip history at handoff: a wider
+    policy's physical target may lie outside the receiving policy's action range.
+    """
+    env_scale = env.scale[env.policy_idx]
+    if np.array_equal(policy_scale, env_scale):
+        return raw
+    out = raw.copy()
+    start = 9 + 3*int(env.obs_vel) + 2*len(env.active)
+    out[start:start+len(policy_scale)] *= env_scale/policy_scale
+    return out
+
+
 def switch_rollout(walk_dir, run_dir, seed, randomize, seconds=31., accel=None):
     a = json.loads((walk_dir/'args.json').read_text())
+    run_args = json.loads((run_dir/'args.json').read_text())
+    ws, rs = policy_scales(a), policy_scales(run_args)
+    common_scale = {k: max(ws[k], rs[k]) for k in ws}
     kw = {**env_kwargs(a), 'level': 0., 'episode_s': seconds+5., 'disturb_items': [], 'roll_impulse': None, 'yaw_impulse': None,
-          'cmd_max': [0., 0., 0.], 'cmd_mix': None, 'init_speed': False}
+          'cmd_max': [0., 0., 0.], 'cmd_mix': None, 'init_speed': False, 'scale_override': common_scale}
     env = RunEnv(**kw, randomize=randomize, seed=seed)
+    scales = {name: np.array([s[joint_type(env.active[i])] for i in env.policy_idx])
+              for name, s in (('walk', ws), ('run', rs))}
     env.init_seed = seed
     walk, vw = load(str(walk_dir/'model.zip'), env)
     run_, vr = load(str(run_dir/'model.zip'), env)
@@ -295,7 +330,9 @@ def switch_rollout(walk_dir, run_dir, seed, randomize, seconds=31., accel=None):
         using = want
         raw = env._observe() if k == 0 else raw
         model, vn = (run_, vr) if using == 'run' else (walk, vw)
-        raw, _, term, _, _ = env.step(model.predict(vn.normalize_obs(raw[None]), deterministic=True)[0][0])
+        policy_raw = observation_for_policy(raw, env, scales[using])
+        action = model.predict(vn.normalize_obs(policy_raw[None]), deterministic=True)[0][0]
+        raw, _, term, _, _ = env.step(action_in_env(action, scales[using], env.scale[env.policy_idx]))
         for i, (t0, _c) in enumerate(SWITCH_SCHED):
             end = SWITCH_SCHED[i+1][0] if i+1 < len(SWITCH_SCHED) else seconds
             if abs(t+.02-end) < 1e-6:
