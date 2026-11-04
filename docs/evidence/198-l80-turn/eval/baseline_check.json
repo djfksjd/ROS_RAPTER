@@ -1,0 +1,9 @@
+{
+  "baseline_conditions": 24,
+  "baseline_episodes": 96,
+  "falls": 0,
+  "physics_samples_per_joint": 960000,
+  "quick_matches_baseline": true,
+  "quick_pass_episodes": 4,
+  "quick_total_episodes": 16
+}

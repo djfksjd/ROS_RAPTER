@@ -1,0 +1,32 @@
+{
+  "unittest": {
+    "command": ".venv-sim/bin/python -m unittest discover -s tests",
+    "tests": 214,
+    "result": "OK",
+    "exit_code": 0
+  },
+  "bash_syntax": {
+    "command": "bash -n docs/evidence/198-l80-turn/train_l80_t1.sh",
+    "exit_code": 0
+  },
+  "git_diff_check": {
+    "command": "git diff --check",
+    "exit_code": 0
+  },
+  "source_policies_and_frozen_configs_unchanged": true,
+  "baseline_quick": {
+    "episodes": 16,
+    "passed": 4,
+    "failed": 12,
+    "falls": 0,
+    "judge_exit_code": 1
+  },
+  "training_started": false,
+  "training_steps": 0,
+  "training_pid": null,
+  "not_executed": [
+    "training and first 50 updates",
+    "new candidate full held-out gate and regressions",
+    "new candidate 10-minute heat run"
+  ]
+}

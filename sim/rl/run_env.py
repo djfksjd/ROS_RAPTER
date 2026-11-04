@@ -290,7 +290,7 @@ class RunEnv(RaptorEnv):
                  target_ramp=False, obs_contact=False, model_rev=1, latch_fallback=None, friction_dr=None,
                  self_collision=None, knee_band=None, start_contact=None, armature=None, heat_limit=1., roll_impulse=None, init_noise=.02,
                  realism=None, scale_override=None, range_override=None, gait_duty_min=None,
-                 contact_tc=None, terrain=None, obs_scan=None, rev3_config=None, kp_err=None, action_lpf=None, obs_hold=None, getup=None, cmd_turn=0., hold_settle=None):
+                 contact_tc=None, terrain=None, obs_scan=None, rev3_config=None, kp_err=None, action_lpf=None, obs_hold=None, getup=None, cmd_turn=0., hold_settle=None, cmd_mix=None):
         self.mass, self.spring_set, self.tail = float(mass), springs, tail
         rev2 = int(model_rev) >= 2
         # model rev 3: R-03 MJCF (hip yaw) + rev3_b.json (modules, transmissions, four-bar, drive masses); implies arch8
@@ -401,6 +401,18 @@ class RunEnv(RaptorEnv):
         # hold_settle (m/s): the hold anchor is set once the base speed has dropped below it after a zero command began,
         # not at its first step (l80_w2 overshot a stop from 1 m/s and walked back to the anchor at 0.2 m/s). None keeps it.
         self.cmd_turn, self.hold_settle = float(cmd_turn), hold_settle
+        # Optional flat-ground categorical commands: [vx, vy, yaw, weight].
+        # None consumes no extra RNG and preserves the original sampler.
+        self.cmd_mix = None
+        if cmd_mix is not None:
+            mix = np.asarray(cmd_mix, dtype=float)
+            if (mix.ndim != 2 or mix.shape[1] != 4 or not len(mix) or not np.isfinite(mix).all()
+                    or np.any(mix[:, 3] <= 0) or np.any(mix[:, 0] < 0)
+                    or np.any(np.abs(mix[:, :3]) > self.cmd_max)):
+                raise ValueError('cmd_mix requires [vx, vy, yaw, positive weight] rows within cmd_max')
+            if terrain or getup:
+                raise ValueError('cmd_mix supports flat locomotion only')
+            self.cmd_mix = mix
         if terrain:
             tr.SIZE = float(terrain.get('size', 40.))
         # couple_ankle: horse-style reciprocal apparatus. Each ankle pitch joint follows its knee 1:1 through a joint
@@ -852,6 +864,9 @@ class RunEnv(RaptorEnv):
         return sum(1 for i in range(d.ncon) if d.contact[i].geom1 in self.robot_geoms and d.contact[i].geom2 in self.robot_geoms)
 
     def _sample_command(self):
+        if self.cmd_mix is not None:
+            weights = self.cmd_mix[:, 3]
+            return self.cmd_mix[self.rng.choice(len(weights), p=weights/weights.sum()), :3].copy()
         c = self.rng.uniform(-1, 1, 3)*self.cmd_max
         u = self.rng.random()
         c[0] = 0. if u < self.zero_cmd else self.cmd_max[0] if u < self.zero_cmd+self.top_cmd \

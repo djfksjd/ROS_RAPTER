@@ -1,0 +1,9 @@
+PASS turn  moving_turn   1.0       falls 0/2, passing episodes 2/2
+PASS turn  moving_turn   1.0       falls 0/2, passing episodes 2/2
+FAIL turn  moving_turn   2.0       falls 0/2, passing episodes 0/2
+FAIL turn  moving_turn   2.0       falls 0/2, passing episodes 0/2
+FAIL turn  moving_turn   4.0       falls 0/2, passing episodes 0/2
+FAIL turn  moving_turn   4.0       falls 0/2, passing episodes 0/2
+FAIL turn  moving_turn   6.0       falls 0/2, passing episodes 0/2
+FAIL turn  moving_turn   6.0       falls 0/2, passing episodes 0/2
+QUICK NOT PASSED

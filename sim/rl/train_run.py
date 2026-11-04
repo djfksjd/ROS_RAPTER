@@ -9,6 +9,7 @@ Every result is a T1 (virtual actuator) result: report it with the actuator spec
 import argparse
 import json
 import pickle
+import subprocess
 from pathlib import Path
 import sys
 
@@ -167,7 +168,13 @@ def env_kwargs(a):
                 terrain=json.loads(a['terrain']) if g('terrain') else None,
                 obs_scan=json.loads(a['obs_scan']) if g('obs_scan') else None,
                 obs_hold=json.loads(a['obs_hold']) if g('obs_hold') else None,
-                getup=json.loads(a['getup']) if g('getup') else None, cmd_turn=g('cmd_turn') or 0., hold_settle=g('hold_settle'))
+                getup=json.loads(a['getup']) if g('getup') else None, cmd_turn=g('cmd_turn') or 0., hold_settle=g('hold_settle'),
+                cmd_mix=json.loads(a['cmd_mix']) if g('cmd_mix') else None)
+
+
+def budget_chunk(remaining, rollout):
+    """Whole PPO rollouts, at most 1M and never above the declared remaining budget."""
+    return (min(1_000_000, int(remaining))//rollout)*rollout
 
 
 def main():
@@ -220,6 +227,9 @@ def main():
                    'ahead appended to the observation (run_env.py). With --init from a policy without it, the new inputs start '
                    'with zero weights (the policy acts as before) and normalisation mean 0, std --scan-std')
     p.add_argument('--cmd-turn', type=float, default=0., help='fraction of commands that turn in place (0, 0, yaw)')
+    p.add_argument('--cmd-mix', help='JSON rows [vx, vy, yaw, weight]; replaces flat command sampling; requires fixed curriculum')
+    p.add_argument('--checkpoint-check', help='Python script called with RUN_DIR ADDED_STEPS after each <=1M block; '
+                   'exit 0 continues, 10 stops, other errors abort; enforces a whole-rollout step budget')
     p.add_argument('--hold-settle', type=float, help='m/s: set the zero-command hold anchor once the base is slower than this')
     p.add_argument('--obs-hold', help='JSON {"noise": m, "walk": m/sqrt(s)}: odometry offset from the zero-command hold anchor '
                    '(x, y, heading) appended after the scan (run_env.py); with --init from a policy without it, as --obs-scan')
@@ -232,6 +242,8 @@ def main():
     p.add_argument('--resume-action-std', type=float, help='optional Gaussian exploration std reset for a resumed PPO policy; actor mean is preserved')
     p.add_argument('--seed', type=int, default=0)
     a = p.parse_args()
+    if a.cmd_mix and not a.fixed_curriculum:
+        p.error('cmd-mix requires --fixed-curriculum')
     if a.resume_action_std is not None and (not a.init or not np.isfinite(a.resume_action_std) or a.resume_action_std <= 0):
         p.error('resume-action-std requires --init and a finite positive value')
     out = HERE/'runs'/a.name
@@ -288,12 +300,22 @@ def main():
         cb = Curriculum(out/'curriculum.jsonl', a.level, a.cmd, a.cmd_final) if a.env == 'run' else None
     chunk, done = 1_000_000, 0
     while done < a.steps:
-        n = int(min(chunk, a.steps-done))
+        n = budget_chunk(a.steps-done, model.n_steps*a.envs) if a.checkpoint_check else int(min(chunk, a.steps-done))
+        if n == 0:
+            break
+        before = model.num_timesteps
         model.learn(n, callback=cb, reset_num_timesteps=False, progress_bar=False)
-        done += n
+        done += model.num_timesteps-before if a.checkpoint_check else n
         model.save(out/'model.zip')
         env.save(str(out/'vecnorm.pkl'))
         print(json.dumps({'steps': model.num_timesteps, **({'level': round(cb.level, 2), 'cmd': cb.cmd.round(3).tolist()} if cb else {})}), flush=True)
+        if a.checkpoint_check:
+            rc = subprocess.run([sys.executable, a.checkpoint_check, str(out), str(done)], check=False).returncode
+            if rc == 10:
+                break
+            if rc:
+                env.close()
+                raise RuntimeError(f'checkpoint check failed ({rc}); training stopped')
     env.close()
 
 

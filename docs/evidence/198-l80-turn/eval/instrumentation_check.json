@@ -1,0 +1,16 @@
+{
+  "comparison": "instrumented baseline vs uninstrumented replay, after default-compatible command option edit",
+  "seed": 7200,
+  "cmd": 6,
+  "yaw_cmd": 0.5,
+  "identical_fields": [
+    "seed",
+    "t_fall",
+    "v_mean",
+    "yaw_rate_mean",
+    "radius_m",
+    "heading_change_rad",
+    "t_90_s"
+  ],
+  "pass": true
+}
