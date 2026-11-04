@@ -1,0 +1,10 @@
+{
+  "episodes": 24,
+  "traces": 24,
+  "joint_samples": 240000,
+  "protected_files_current_hash_match": 12,
+  "trace_vs_json": true,
+  "declared_weights_and_scales": true,
+  "highspeed_yaw_necessary_condition_failed": 8,
+  "markdown_tables": true
+}
