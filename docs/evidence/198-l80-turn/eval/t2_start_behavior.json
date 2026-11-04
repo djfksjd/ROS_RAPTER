@@ -1,0 +1,117 @@
+{
+  "training_started": false,
+  "scale_override": {
+    "hip_roll": 0.5,
+    "hip_yaw": 0.5
+  },
+  "command": [
+    4.0,
+    0.0,
+    0.5
+  ],
+  "straight_s": 5,
+  "turn_s": 10,
+  "steady_window_s": [
+    8,
+    15
+  ],
+  "randomize": false,
+  "disturbances": false,
+  "deterministic": true,
+  "resume_action_std": 0.15,
+  "tolerance": {
+    "yaw_rad_s": 0.01,
+    "vx_m_s": 0.05
+  },
+  "rows": [
+    {
+      "seed": 7200,
+      "variant": "t1",
+      "steps": 750,
+      "fell_at_s": null,
+      "vx": 4.714639674480598,
+      "yaw_rate": 0.1044378200031284
+    },
+    {
+      "seed": 7200,
+      "variant": "rescaled",
+      "steps": 750,
+      "fell_at_s": null,
+      "vx": 3.915078867685338,
+      "yaw_rate": 0.12565478470904382,
+      "factors": [
+        1.0,
+        0.6,
+        1.0,
+        1.0,
+        1.0,
+        0.6,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rescale_log": [
+        "rescaled action 1 left_hip_yaw_joint: scale 0.3 -> 0.5, mean x 0.6, std reset to 0.15 after symmetric rebuild",
+        "rescaled action 5 right_hip_yaw_joint: scale 0.3 -> 0.5, mean x 0.6, std reset to 0.15 after symmetric rebuild"
+      ],
+      "same_observation_target_max_delta_rad": 0.19999998807907104,
+      "old_yaw_saturated_share": 0.57
+    },
+    {
+      "seed": 7201,
+      "variant": "t1",
+      "steps": 750,
+      "fell_at_s": null,
+      "vx": 4.75994106199516,
+      "yaw_rate": 0.12167414802834457
+    },
+    {
+      "seed": 7201,
+      "variant": "rescaled",
+      "steps": 750,
+      "fell_at_s": null,
+      "vx": 3.933585430422055,
+      "yaw_rate": 0.1376587177828817,
+      "factors": [
+        1.0,
+        0.6,
+        1.0,
+        1.0,
+        1.0,
+        0.6,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rescale_log": [
+        "rescaled action 1 left_hip_yaw_joint: scale 0.3 -> 0.5, mean x 0.6, std reset to 0.15 after symmetric rebuild",
+        "rescaled action 5 right_hip_yaw_joint: scale 0.3 -> 0.5, mean x 0.6, std reset to 0.15 after symmetric rebuild"
+      ],
+      "same_observation_target_max_delta_rad": 0.19999998807907104,
+      "old_yaw_saturated_share": 0.57
+    }
+  ],
+  "comparisons": [
+    {
+      "seed": 7200,
+      "yaw_abs_delta": 0.021216964705915414,
+      "vx_abs_delta": 0.7995608067952595,
+      "passed": false
+    },
+    {
+      "seed": 7201,
+      "yaw_abs_delta": 0.015984569754537117,
+      "vx_abs_delta": 0.8263556315731044,
+      "passed": false
+    }
+  ],
+  "passed": false,
+  "source_sha256": {
+    "sim/rl/runs/l80_t1/model.zip": "6f4f3886b1096e809a58458c481d231416a21670739adfec034deda3b862cd5d",
+    "sim/rl/runs/l80_t1/vecnorm.pkl": "30987316ad41af18f1c4722639184e0ef918c7dcecb3d739975256045f9b0444",
+    "sim/rl/runs/l80_t1/args.json": "3e46be63fdcbe33f81fa7301d851a18f0b76533f78cb1aab75029d51c6e1b330"
+  },
+  "source_unchanged": true
+}

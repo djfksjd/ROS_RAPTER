@@ -37,6 +37,8 @@ def stop_reason(entry, history, lengths):
         return 'stop: episode length below half the initial ten-update mean'
     if entry['block'] >= 4 and entry['passed'] == 0:
         return 'stop: zero passing running-turn episodes at/after 4M'
+    # Odd checks have 4 running episodes, even checks have 12. Compare the same
+    # parity (two blocks back), never adjacent blocks or their raw pass counts.
     prior = next((r for r in history if r['block'] == entry['block']-2), None)
     if prior and entry['passed'] <= prior['passed'] and entry['yaw_mae'] > prior['yaw_mae']-.02:
         return 'stop: no extra passing episode or 0.02 rad/s yaw error improvement over 2M'
