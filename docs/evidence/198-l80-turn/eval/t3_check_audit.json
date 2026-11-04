@@ -1,0 +1,248 @@
+{
+  "run": "l80_t3",
+  "blocks": [
+    {
+      "block": 1,
+      "added_steps": 999424,
+      "passed": 0,
+      "total": 4,
+      "yaw_mae": 0.2543616662494384,
+      "decision": "continue",
+      "conditions": [
+        [
+          4.0,
+          -0.5,
+          7200
+        ],
+        [
+          4.0,
+          0.5,
+          7200
+        ],
+        [
+          6.0,
+          -0.5,
+          7200
+        ],
+        [
+          6.0,
+          0.5,
+          7200
+        ]
+      ],
+      "compare_block": null,
+      "same_conditions": null,
+      "first10_length": 835.323,
+      "last10_length": 812.258,
+      "progress_rows": 122
+    },
+    {
+      "block": 2,
+      "added_steps": 1998848,
+      "passed": 4,
+      "total": 12,
+      "yaw_mae": 0.16199817627370755,
+      "decision": "continue",
+      "conditions": [
+        [
+          2.0,
+          -1.0,
+          7200
+        ],
+        [
+          2.0,
+          -1.0,
+          7201
+        ],
+        [
+          2.0,
+          1.0,
+          7200
+        ],
+        [
+          2.0,
+          1.0,
+          7201
+        ],
+        [
+          4.0,
+          -0.5,
+          7200
+        ],
+        [
+          4.0,
+          -0.5,
+          7201
+        ],
+        [
+          4.0,
+          0.5,
+          7200
+        ],
+        [
+          4.0,
+          0.5,
+          7201
+        ],
+        [
+          6.0,
+          -0.5,
+          7200
+        ],
+        [
+          6.0,
+          -0.5,
+          7201
+        ],
+        [
+          6.0,
+          0.5,
+          7200
+        ],
+        [
+          6.0,
+          0.5,
+          7201
+        ]
+      ],
+      "compare_block": null,
+      "same_conditions": null,
+      "first10_length": 835.323,
+      "last10_length": 762.038,
+      "progress_rows": 244
+    },
+    {
+      "block": 3,
+      "added_steps": 2998272,
+      "passed": 2,
+      "total": 4,
+      "yaw_mae": 0.1728758211062721,
+      "decision": "continue",
+      "conditions": [
+        [
+          4.0,
+          -0.5,
+          7200
+        ],
+        [
+          4.0,
+          0.5,
+          7200
+        ],
+        [
+          6.0,
+          -0.5,
+          7200
+        ],
+        [
+          6.0,
+          0.5,
+          7200
+        ]
+      ],
+      "compare_block": 1,
+      "same_conditions": true,
+      "first10_length": 835.323,
+      "last10_length": 765.519,
+      "progress_rows": 366
+    },
+    {
+      "block": 4,
+      "added_steps": 3997696,
+      "passed": 6,
+      "total": 12,
+      "yaw_mae": 0.14570558221588112,
+      "decision": "continue",
+      "conditions": [
+        [
+          2.0,
+          -1.0,
+          7200
+        ],
+        [
+          2.0,
+          -1.0,
+          7201
+        ],
+        [
+          2.0,
+          1.0,
+          7200
+        ],
+        [
+          2.0,
+          1.0,
+          7201
+        ],
+        [
+          4.0,
+          -0.5,
+          7200
+        ],
+        [
+          4.0,
+          -0.5,
+          7201
+        ],
+        [
+          4.0,
+          0.5,
+          7200
+        ],
+        [
+          4.0,
+          0.5,
+          7201
+        ],
+        [
+          6.0,
+          -0.5,
+          7200
+        ],
+        [
+          6.0,
+          -0.5,
+          7201
+        ],
+        [
+          6.0,
+          0.5,
+          7200
+        ],
+        [
+          6.0,
+          0.5,
+          7201
+        ]
+      ],
+      "compare_block": 2,
+      "same_conditions": true,
+      "first10_length": 835.323,
+      "last10_length": 768.232,
+      "progress_rows": 488
+    }
+  ],
+  "initial_steps": 62423040,
+  "final_steps": 66420736,
+  "declared_budget": 4000000.0,
+  "consumed": 3997696,
+  "rollout_steps": 8192,
+  "usable_budget": 3997696,
+  "unused_usable_budget": 0,
+  "budget_ok": true,
+  "log_matches": true,
+  "model_progress_steps_match": true,
+  "budget_exhausted": true,
+  "termination_valid": true,
+  "termination_reason": "budget exhausted",
+  "stop_valid": false,
+  "improvement_1M_to_3M": 0.08148584514316631,
+  "current_equals_final": {
+    "model.zip": true,
+    "vecnorm.pkl": true
+  },
+  "current_equals_3M": {
+    "model.zip": false,
+    "vecnorm.pkl": false
+  }
+}

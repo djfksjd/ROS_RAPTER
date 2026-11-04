@@ -1,0 +1,14 @@
+{
+  "full_conditions": 36,
+  "extra_conditions": 9,
+  "episodes": 266,
+  "turn_passed": 23,
+  "all_declared_seeds_and_counts": true,
+  "yaw_load_measurements_complete": true,
+  "input_hashes_unchanged": 14,
+  "full_suite_pass": false,
+  "sustained_heat_command": 5,
+  "full_judge_exit": 1,
+  "extra_judge_exit": 0,
+  "extra_judge_text": "NOT PASSED"
+}

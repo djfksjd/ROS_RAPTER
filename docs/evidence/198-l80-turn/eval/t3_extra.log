@@ -1,0 +1,9 @@
+{"completed": ["heat", [4.0, "worst"]], "falls": 1}
+{"completed": ["heat", [5.0, "worst"]], "falls": 1}
+{"completed": ["heat", [4.0, "plate"]], "falls": 0}
+{"completed": ["heat", [5.0, "plate"]], "falls": 0}
+{"completed": ["speed", 8.0], "falls": 2}
+{"completed": ["heat", [6.0, "worst"]], "falls": 1}
+{"completed": ["lateral", "left"], "falls": 0}
+{"completed": ["lateral", "right"], "falls": 0}
+{"completed": ["heat", [6.0, "plate"]], "falls": 0}
