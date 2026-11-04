@@ -53,12 +53,15 @@ def standing(s, h_stand, weight):
 
 class JumpTask:
     def __init__(self, config):
-        unknown = set(config)-{'auto_request_s', 'flight_bonus', 'success_bonus'}
+        unknown = set(config)-{'auto_request_s', 'flight_bonus', 'success_bonus', 'suspend_stand_penalties'}
         if unknown:
             raise ValueError(f'unknown jump options: {sorted(unknown)}')
         self.auto_request_s = config.get('auto_request_s', 2.)
         self.flight_bonus = float(config.get('flight_bonus', 10.))
         self.success_bonus = float(config.get('success_bonus', 30.))
+        self.suspend_stand_penalties = config.get('suspend_stand_penalties', False)
+        if not isinstance(self.suspend_stand_penalties, bool):
+            raise ValueError('suspend_stand_penalties must be boolean')
         if any(not math.isfinite(v) or v < 0 for v in (self.flight_bonus, self.success_bonus)):
             raise ValueError('jump bonuses must be finite and nonnegative')
         if self.auto_request_s is not None and (not math.isfinite(self.auto_request_s) or self.auto_request_s < 0):
@@ -80,6 +83,17 @@ class JumpTask:
 
     def request(self):
         self.pending = True
+
+    def adjust_stand_terms(self, terms, weights):
+        """j2 opt-in: remove only anti-flight costs, from accepted request to valid landing.
+
+        Restore double-support on landing for the one-second hold. Neither the flight
+        measurements nor the gate criteria change. Positive/custom weights are preserved.
+        """
+        if self.suspend_stand_penalties and self.command and self.landed is None:
+            for key in ('stand', 'stand_support'):
+                if key in terms and weights.get(key, 0.) < 0.:
+                    terms[key] = 0.
 
     def _event(self, s, landed):
         return dict(flight_s=self.air['samples']*DT, apex_rise_m=self.air['apex']-self.standing_height,
