@@ -27,3 +27,4 @@ vendor/
 # Local browser automation state
 .playwright-cli/
 *.blend1
+docs/evidence/199-l80-jump/eval/*.npz

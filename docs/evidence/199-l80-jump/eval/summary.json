@@ -1,0 +1,76 @@
+{
+  "search": {
+    "vertical": {
+      "candidates": 640,
+      "flights": 20,
+      "touchdown": 4,
+      "positive_flight_distance": 0,
+      "survived": 0,
+      "stand_1s": 0
+    },
+    "forward": {
+      "candidates": 640,
+      "flights": 33,
+      "touchdown": 9,
+      "positive_flight_distance": 0,
+      "survived": 0,
+      "stand_1s": 0
+    }
+  },
+  "replay_n": 16,
+  "replay_falls": 16,
+  "terrain": [
+    {
+      "height_m": 0.05,
+      "n": 3,
+      "reached_6m": 3,
+      "falls": 0,
+      "impact_bw_range": [
+        2.9603780027995317,
+        4.723542248708044
+      ],
+      "max_current_over_peak": 1.1331541806195544
+    },
+    {
+      "height_m": 0.1,
+      "n": 3,
+      "reached_6m": 3,
+      "falls": 0,
+      "impact_bw_range": [
+        3.588077274802427,
+        4.4069436924265775
+      ],
+      "max_current_over_peak": 1.234542272604839
+    },
+    {
+      "height_m": -0.05,
+      "n": 3,
+      "reached_6m": 3,
+      "falls": 0,
+      "impact_bw_range": [
+        3.5089795871578184,
+        3.776915157305219
+      ],
+      "max_current_over_peak": 0.9586780059071333
+    },
+    {
+      "height_m": -0.1,
+      "n": 3,
+      "reached_6m": 0,
+      "falls": 3,
+      "impact_bw_range": [
+        3.867848855787144,
+        4.186543384088052
+      ],
+      "max_current_over_peak": 1.1432915191942423
+    }
+  ],
+  "input_hashes_verified": {
+    "sim/rl/rev3_l80.json": true,
+    "sim/rl/realism_robstride_l80.json": true,
+    "sim/rl/runs/l80_r1_6M/args.json": true,
+    "sim/rl/runs/l80_r1_6M/model.zip": true,
+    "docs/evidence/199-l80-jump/search_jump.py": true,
+    "docs/evidence/199-l80-jump/jump_probe.py": true
+  }
+}

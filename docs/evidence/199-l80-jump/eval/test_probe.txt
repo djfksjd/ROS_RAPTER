@@ -1,0 +1,12 @@
+test_contacts_with_zero_force_are_not_flight (tests.test_jump_probe.JumpProbeTest.test_contacts_with_zero_force_are_not_flight) ... ok
+test_edge_height_and_ground_query_match_frozen_model (tests.test_jump_probe.JumpProbeTest.test_edge_height_and_ground_query_match_frozen_model) ... ok
+test_initial_air_and_one_foot_air_are_not_jump (tests.test_jump_probe.JumpProbeTest.test_initial_air_and_one_foot_air_are_not_jump) ... ok
+test_one_ms_flight_and_impact (tests.test_jump_probe.JumpProbeTest.test_one_ms_flight_and_impact) ... ok
+test_recorder_does_not_change_step_or_rng (tests.test_jump_probe.JumpProbeTest.test_recorder_does_not_change_step_or_rng) ... ok
+test_recorder_restores_hooks_after_error (tests.test_jump_probe.JumpProbeTest.test_recorder_restores_hooks_after_error) ... ok
+test_standing_must_be_contiguous_and_fall_is_not_survival (tests.test_jump_probe.JumpProbeTest.test_standing_must_be_contiguous_and_fall_is_not_survival) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.233s
+
+OK

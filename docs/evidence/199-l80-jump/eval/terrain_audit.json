@@ -1,0 +1,9 @@
+{
+  "cpu_s": 8.963980000000001,
+  "input_sha256": {
+    "model.zip": "e0cb2903d217fa613406e6186e629682906de9a28580fff26056af8e6b5a8438",
+    "vecnorm.pkl": "221c0307938c5ba29a63dc1221e18a1ed3a69c8cbf4286268c66c9106969972d",
+    "args.json": "49ef1d89ea4f09bb88dee894b86348d18e72181b91d42817786da9eaeae658a4"
+  },
+  "hashes_unchanged": true
+}

@@ -1,0 +1,129 @@
+{
+  "result": {
+    "event": null,
+    "events": [],
+    "t_fall": 0.5600000000000004,
+    "alive_s": 0.5600000000000004,
+    "initial_base_z_m": 0.7413434758417818,
+    "stand_after_landing_s": 0.0,
+    "held_after_landing_without_fall_s": 0.0,
+    "landing_force_peak_n": null,
+    "landing_force_peak_bw": null,
+    "max_upward_velocity": 0.012836975737788768,
+    "max_body_tilt": 0.5230802734325731,
+    "sample_count": 560,
+    "body_contact_samples": 4
+  },
+  "loads": {
+    "left_hip_roll_joint": {
+      "peak_drive_nm": 0.036549555278130225,
+      "limit_at_peak_nm": 100.0,
+      "peak_joint_nm": 0.036549555278130225,
+      "peak_current_a": 0.01487983546233795,
+      "current_peak_limit_a": 33.027522935779814,
+      "peak_current_over_limit": 0.0004505283514985658,
+      "takeoff_saturation_share": 0.0,
+      "current_over_peak": 0.0004505283514985658,
+      "overcurrent_samples": 0
+    },
+    "left_hip_yaw_joint": {
+      "peak_drive_nm": 0.05053209592242465,
+      "limit_at_peak_nm": 59.99999999999999,
+      "peak_joint_nm": 0.05053209592242465,
+      "peak_current_a": 0.03257586126923101,
+      "current_peak_limit_a": 33.027522935779814,
+      "peak_current_over_limit": 0.0009863246884294946,
+      "takeoff_saturation_share": 0.0,
+      "current_over_peak": 0.0009863246884294946,
+      "overcurrent_samples": 0
+    },
+    "left_hip_pitch_joint": {
+      "peak_drive_nm": 14.00788140843261,
+      "limit_at_peak_nm": 93.33333333333333,
+      "peak_joint_nm": 14.00788140843261,
+      "peak_current_a": 8.57625392353017,
+      "current_peak_limit_a": 57.14285714285714,
+      "peak_current_over_limit": 0.15008444366177798,
+      "takeoff_saturation_share": 0.0,
+      "current_over_peak": 0.15008444366177798,
+      "overcurrent_samples": 0
+    },
+    "left_knee_pitch_joint": {
+      "peak_drive_nm": 7.967972328669532,
+      "limit_at_peak_nm": 113.28955753440496,
+      "peak_joint_nm": 7.967972328669532,
+      "peak_current_a": 4.01968591754511,
+      "current_peak_limit_a": 57.14285714285714,
+      "peak_current_over_limit": 0.07034450355703943,
+      "takeoff_saturation_share": 0.0,
+      "current_over_peak": 0.07034450355703943,
+      "overcurrent_samples": 0
+    },
+    "right_hip_roll_joint": {
+      "peak_drive_nm": 0.03654955527801121,
+      "limit_at_peak_nm": 100.0,
+      "peak_joint_nm": 0.03654955527801121,
+      "peak_current_a": 0.01487983546228391,
+      "current_peak_limit_a": 33.027522935779814,
+      "peak_current_over_limit": 0.00045052835149692955,
+      "takeoff_saturation_share": 0.0,
+      "current_over_peak": 0.00045052835149692955,
+      "overcurrent_samples": 0
+    },
+    "right_hip_yaw_joint": {
+      "peak_drive_nm": 0.05053209592240467,
+      "limit_at_peak_nm": 59.99999999999999,
+      "peak_joint_nm": 0.05053209592240467,
+      "peak_current_a": 0.032575861269217785,
+      "current_peak_limit_a": 33.027522935779814,
+      "peak_current_over_limit": 0.0009863246884290941,
+      "takeoff_saturation_share": 0.0,
+      "current_over_peak": 0.0009863246884290941,
+      "overcurrent_samples": 0
+    },
+    "right_hip_pitch_joint": {
+      "peak_drive_nm": 14.007881408432326,
+      "limit_at_peak_nm": 93.33333333333333,
+      "peak_joint_nm": 14.007881408432326,
+      "peak_current_a": 8.576253923529997,
+      "current_peak_limit_a": 57.14285714285714,
+      "peak_current_over_limit": 0.15008444366177495,
+      "takeoff_saturation_share": 0.0,
+      "current_over_peak": 0.15008444366177495,
+      "overcurrent_samples": 0
+    },
+    "right_knee_pitch_joint": {
+      "peak_drive_nm": 7.9679723286697595,
+      "limit_at_peak_nm": 113.28955753440495,
+      "peak_joint_nm": 7.9679723286697595,
+      "peak_current_a": 4.019685917545225,
+      "current_peak_limit_a": 57.14285714285714,
+      "peak_current_over_limit": 0.07034450355704143,
+      "takeoff_saturation_share": 0.0,
+      "current_over_peak": 0.07034450355704143,
+      "overcurrent_samples": 0
+    },
+    "tail_yaw_joint": {
+      "peak_drive_nm": 1.1850910752412198e-14,
+      "limit_at_peak_nm": 36.0,
+      "peak_joint_nm": 1.1850910752412198e-14,
+      "peak_current_a": 1.0872395185699264e-14,
+      "current_peak_limit_a": 33.027522935779814,
+      "peak_current_over_limit": 3.291919653447833e-16,
+      "takeoff_saturation_share": 0.0,
+      "current_over_peak": 3.291919653447833e-16,
+      "overcurrent_samples": 0
+    },
+    "tail_pitch_joint": {
+      "peak_drive_nm": 27.217382017661137,
+      "limit_at_peak_nm": 59.99999999999999,
+      "peak_joint_nm": 27.217382017661137,
+      "peak_current_a": 11.532788990534382,
+      "current_peak_limit_a": 25.423728813559322,
+      "peak_current_over_limit": 0.4536230336276857,
+      "takeoff_saturation_share": 0.0,
+      "current_over_peak": 0.4536230336276857,
+      "overcurrent_samples": 0
+    }
+  }
+}
