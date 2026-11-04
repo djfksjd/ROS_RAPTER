@@ -11,7 +11,7 @@ from jump_task import (SECONDS, NOMINAL_SEEDS, DR_SEEDS, QUICK_NOMINAL_SEEDS, QU
 DEFAULT_TRACES = Path(__file__).resolve().parents[2]/'docs/evidence/199-l80-jump/eval'
 
 
-def jump_rollout(run, walk_dir, seed, randomize, trace_dir=None):
+def jump_rollout(run, walk_dir, seed, randomize, trace_dir=None, *, landing_walk=False, observer=None):
     args = json.loads((run/'args.json').read_text())
     if not args.get('jump'):
         raise ValueError('jump gate requires a policy with the appended jump request input')
@@ -38,14 +38,20 @@ def jump_rollout(run, walk_dir, seed, randomize, trace_dir=None):
             env.rz.reset(env)
         env.command = np.zeros(3); env.resample_steps = 0
         task = env.jump_task; task.capture = True
-        raw = env._observe(); fell = None; returned_at = None
+        raw = env._observe(); fell = None; returned_at = None; landing_handoff = None
         for k in range(round((SECONDS+1.)/.02)):
             use_jump = task.request_time is not None and task.success_time is None
+            if landing_walk and task.landed is not None:
+                use_jump = False
+                if landing_handoff is None:
+                    landing_handoff = float(env.data.time)
             if task.success_time is not None and returned_at is None:
                 returned_at = float(env.data.time)
             policy, norm, obs = (model, vn, raw) if use_jump else (walk, wn, raw[:-1])
             action = policy.predict(norm.normalize_obs(obs[None]), deterministic=True)[0][0]
             raw, _, term, trunc, _ = env.step(action)
+            if observer is not None:
+                observer(env)
             if term:
                 fell = task.fall_time if task.fall_time is not None else float(env.data.time)
                 break
@@ -57,6 +63,8 @@ def jump_rollout(run, walk_dir, seed, randomize, trace_dir=None):
         result.update(seed=seed, t_fall=fell, elapsed_s=float(env.data.time), handoff_from=walk_dir.name,
                       sample_dt_s=.001, return_to=walk_dir.name if returned_at is not None else None,
                       return_observed_s=float(env.data.time-returned_at) if returned_at is not None else 0.)
+        if landing_walk:
+            result.update(landing_policy=walk_dir.name, landing_handoff_s=landing_handoff)
         path = Path(trace_dir) if trace_dir is not None else DEFAULT_TRACES
         path.mkdir(parents=True, exist_ok=True)
         path = path/f'{run.name}_jump_{"dr" if randomize else "nominal"}_{seed}.npz'
@@ -70,10 +78,10 @@ def jump_rollout(run, walk_dir, seed, randomize, trace_dir=None):
         vn.close(); wn.close()
 
 
-def jump_conditions(run, walk_dir, quick=False, trace_dir=None):
+def jump_conditions(run, walk_dir, quick=False, trace_dir=None, *, landing_walk=False):
     for cond, randomize, seeds in (
         ('in_place', False, QUICK_NOMINAL_SEEDS if quick else NOMINAL_SEEDS),
         ('in_place_dr', True, QUICK_DR_SEEDS if quick else DR_SEEDS)):
-        episodes = [jump_rollout(run, walk_dir, s, randomize, trace_dir) for s in seeds]
+        episodes = [jump_rollout(run, walk_dir, s, randomize, trace_dir, landing_walk=landing_walk) for s in seeds]
         yield dict(gate='jump', cond=cond, quick=quick, n=len(episodes), walk=walk_dir.name,
                    falls=sum(e['t_fall'] is not None for e in episodes), episodes=episodes)

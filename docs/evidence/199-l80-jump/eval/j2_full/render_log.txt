@@ -1,0 +1,2 @@
+OpenGL unavailable: CGLError: invalid CoreGraphics connection
+CPU projection of MuJoCo scene (evidence 197) 8 frames; exact replay; gate PASS

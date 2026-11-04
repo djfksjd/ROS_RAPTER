@@ -1,0 +1,11 @@
+test_both_policy_switches_use_their_own_normalizers (tests.test_jump_handoff.JumpHandoffTest.test_both_policy_switches_use_their_own_normalizers) ... ok
+test_optional_landing_handoff_still_requires_hold_and_return (tests.test_jump_handoff.JumpHandoffTest.test_optional_landing_handoff_still_requires_hold_and_return) ... ok
+test_completion_adds_twenty_once_without_changing_success (tests.test_jump_completion_rebalance.JumpCompletionRebalanceTest.test_completion_adds_twenty_once_without_changing_success) ... ok
+test_fixed_baseline_and_stop_rules (tests.test_jump_completion_rebalance.JumpCompletionRebalanceTest.test_fixed_baseline_and_stop_rules) ... ok
+test_only_positive_completion_bonus_changes (tests.test_jump_completion_rebalance.JumpCompletionRebalanceTest.test_only_positive_completion_bonus_changes) ... ok
+test_two_blocks_no_extension (tests.test_jump_completion_rebalance.JumpCompletionRebalanceTest.test_two_blocks_no_extension) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.163s
+
+OK

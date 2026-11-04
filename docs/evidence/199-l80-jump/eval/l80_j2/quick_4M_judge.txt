@@ -1,0 +1,3 @@
+False jump in_place: jump success 1/2, falls 0; impact/current recorded only
+True jump in_place_dr: jump success 2/4, falls 0; impact/current recorded only
+QUICK DEVELOPMENT ONLY; never adoption
