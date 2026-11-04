@@ -1,0 +1,37 @@
+{
+  "rows": [
+    {
+      "mode": "vertical",
+      "joint": "left_knee_pitch_joint",
+      "time_s": 0.4050000000000003,
+      "current_a": 70.5428416687187,
+      "current_using_clamp_state_a": 57.142857142857146,
+      "current_peak_a": 57.14285714285714,
+      "speed_before": 0.024263058059208528,
+      "speed_after": -0.1389472685553435,
+      "ratio_before": 6.016451560814621,
+      "ratio_after": 6.016783803680757,
+      "torque_nm": -89.13261571577216,
+      "limit_nm": 89.13261571577216,
+      "overcurrent_flag": false,
+      "max_current_using_clamp_state_over_peak": 1.0000000000000004
+    },
+    {
+      "mode": "forward",
+      "joint": "left_knee_pitch_joint",
+      "time_s": 0.3920000000000003,
+      "current_a": 58.38790238772821,
+      "current_using_clamp_state_a": 47.294283844103084,
+      "current_peak_a": 57.14285714285714,
+      "speed_before": 0.20175901136249913,
+      "speed_after": -0.004502378467825549,
+      "ratio_before": 6.1336006437751776,
+      "ratio_after": 6.133611396406251,
+      "torque_nm": -75.20702773450137,
+      "limit_nm": 90.86815768555819,
+      "overcurrent_flag": false,
+      "max_current_using_clamp_state_over_peak": 1.0000000000000002
+    }
+  ],
+  "cpu_s": 0.39435300000000006
+}

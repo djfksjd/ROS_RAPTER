@@ -1,0 +1,43 @@
+rescaled action 1 left_hip_yaw_joint: scale 0.3 -> 0.5, mean x 0.6, log_std += -0.510825624
+rescaled action 5 right_hip_yaw_joint: scale 0.3 -> 0.5, mean x 0.6, log_std += -0.510825624
+.rescaled action 0 left_hip_yaw: scale 0.4 -> 0.5, mean x 0.8, log_std += -0.223143551
+rescaled action 2 right_hip_yaw: scale 0.4 -> 0.5, mean x 0.8, log_std += -0.223143551
+rescaled action 0 left_hip_yaw: scale 0.4 -> 0.5, mean x 0.8, std reset to 0.15 after symmetric rebuild
+rescaled action 2 right_hip_yaw: scale 0.4 -> 0.5, mean x 0.8, std reset to 0.15 after symmetric rebuild
+...............................................................F..........................................................................................................................{"run": "run", "robust": "yaw", "rows": [{"episodes": 5, "falls": 0}, {"episodes": 5, "falls": 0, "impulse_nms": 0.5}, {"episodes": 5, "falls": 0, "impulse_nms": 1.0}, {"episodes": 5, "falls": 0, "impulse_nms": 1.5}]}
+{"run": "run", "robust": "pitch", "rows": [{"episodes": 5, "falls": 0}, {"episodes": 5, "falls": 0, "impulse_nms": 1.0}, {"episodes": 5, "falls": 0, "impulse_nms": 2.0}]}
+{"run": "run", "robust": "turn", "rows": [{"episodes": 5, "falls": 0}, {"episodes": 5, "falls": 0, "turn_cmd_rad_s": 0.5}, {"episodes": 5, "falls": 0, "turn_cmd_rad_s": 1.0}, {"episodes": 5, "falls": 0, "turn_cmd_rad_s": 1.5}]}
+.....................................{"block": 1, "added_steps": 999424, "decision": "continue", "turn_passed": 16, "turn_total": 16, "straight_passed": 12, "straight_total": 12}
+{"block": 2, "added_steps": 1998848, "decision": "stop: adjusted full turn + regressions passed; candidate only", "turn_passed": 16, "turn_total": 16, "straight_passed": 12, "straight_total": 12}
+...widened command inputs [6, 7, 8] std [0.555, 0.3, 0.25]
+.widened command inputs [6, 7, 8] std [0.075, 0.2, 0.125]
+......
+======================================================================
+FAIL: test_scan_sees_ledge_and_delay (test_obs_scan.ObsScanTest.test_scan_sees_ledge_and_delay)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/danny/개발 모음 폴더/raptor/tests/test_obs_scan.py", line 52, in test_scan_sees_ledge_and_delay
+    np.testing.assert_allclose(third[np.array(DX) >= .6], .2, atol=.02)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/danny/개발 모음 폴더/raptor/.venv-sim/lib/python3.14/site-packages/numpy/testing/_private/utils.py", line 1711, in assert_allclose
+    assert_array_compare(compare, actual, desired, err_msg=str(err_msg),
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                         verbose=verbose, header=header, equal_nan=equal_nan,
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                         strict=strict)
+                         ^^^^^^^^^^^^^^
+  File "/Users/danny/개발 모음 폴더/raptor/.venv-sim/lib/python3.14/site-packages/numpy/testing/_private/utils.py", line 919, in assert_array_compare
+    raise AssertionError(msg)
+AssertionError: 
+Not equal to tolerance rtol=1e-07, atol=0.02
+
+Mismatched elements: 3 / 3 (100%)
+Max absolute difference among violations: 0.2
+Max relative difference among violations: 1.
+ ACTUAL: array([-2.775558e-17, -2.775558e-17, -2.775558e-17])
+ DESIRED: array(0.2)
+
+----------------------------------------------------------------------
+Ran 234 tests in 5.905s
+
+FAILED (failures=1)

@@ -1,0 +1,10 @@
+{
+  "npz_count": 36,
+  "finite_and_one_ms": true,
+  "stage5_row_unchanged": true,
+  "sim_rl_runtime_unchanged": true,
+  "no_training_script": true,
+  "raw_search_rows": 1280,
+  "raw_replay_rows": 16,
+  "raw_final_terrain_rows": 12
+}
