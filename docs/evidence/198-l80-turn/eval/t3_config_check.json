@@ -1,56 +1,17 @@
 {
   "script_changes_only": [
     "name",
-    "command mixture",
-    "step budget"
+    "init",
+    "track_yaw 4 -> 8"
   ],
-  "source": "sim/rl/runs/l80_r1_6M/model.zip",
-  "all_reward_weights": {
-    "track_lin": 5,
-    "progress": 3,
-    "track_yaw": 4,
-    "yaw_err": -1,
-    "flight": 0.0,
-    "air_time": 0.0,
-    "gait": -8,
-    "stand": -5,
-    "grf": -1.0,
-    "cot": -0.05,
-    "ang_mom": -0.5,
-    "fold": 0.35,
-    "extend": 0.3,
-    "ankle_static": -0.2,
-    "retract": 0.7,
-    "leg_sym": -6,
-    "heat": -2,
-    "spring_store": 0.03,
-    "spring_release": -0.06,
-    "lin_vel_z": -0.5,
-    "ang_vel_xy": -0.05,
-    "orientation": -5.0,
-    "height": -20.0,
-    "torque": -1e-05,
-    "action_rate": -2,
-    "joint_acc": -2e-08,
-    "slip": -0.2,
-    "collision": -5.0,
-    "joint_limit": -30,
-    "alive": 0.5,
-    "self_collision": -5,
-    "hold": -3,
-    "stand_support": -5,
-    "slip_lin": -5
+  "source": "sim/rl/runs/l80_t2/model.zip",
+  "all_other_weights_equal": true,
+  "commands_equal": true,
+  "scale_override": {
+    "hip_roll": 0.5,
+    "hip_yaw": 0.5
   },
-  "weights_equal_t1": true,
-  "policy_dof": 10,
-  "std8_after_widen": 0.375,
-  "command_shares": {
-    "gate": 0.6,
-    "gentle": 0.2,
-    "straight": 0.15,
-    "stop": 0.025,
-    "in_place": 0.025
-  },
+  "resume_action_std": 0.15,
   "blocks": [
     999424,
     999424,
@@ -58,5 +19,71 @@
     999424
   ],
   "actual_budget": 3997696,
-  "training_started": false
+  "normalization": {
+    "training": true,
+    "norm_reward": true,
+    "norm_obs": true,
+    "obs_rms_class": "FrozenRMS",
+    "ret_mean": 7.388460785612819,
+    "ret_var": 36.357479479231785,
+    "ret_count": 62423040.0001,
+    "reward_std": 6.02971636888766,
+    "gamma": 0.99,
+    "clip_reward": 10.0,
+    "max_added_raw_reward": 0.08,
+    "max_added_normalized_reward_at_start": 0.013267622406384948,
+    "max_added_discounted_return_fixed_scale": 1.3267622406384936,
+    "new_sample_fraction_after_budget": 0.060187469166164936,
+    "clip_range_vf": null,
+    "normalize_advantage": true,
+    "vf_coef": 0.5,
+    "critic_warmup": false,
+    "actor_critic_parameters_preserved": true
+  },
+  "paired_rollouts": [
+    {
+      "speed": 4.0,
+      "yaw": 0.5,
+      "seed": 7200,
+      "steps_per_environment": 300,
+      "state_observation_action_exact": true,
+      "falls": 0,
+      "reward_delta_max_error": 2.0969417521832234e-08,
+      "max_added_raw_reward": 0.07999946177005768,
+      "max_abs_normalized_reward": 0.062300510704517365,
+      "ret_stats_updated": true,
+      "obs_stats_unchanged": true
+    },
+    {
+      "speed": 4.0,
+      "yaw": -0.5,
+      "seed": 7200,
+      "steps_per_environment": 300,
+      "state_observation_action_exact": true,
+      "falls": 0,
+      "reward_delta_max_error": 2.0969417521832234e-08,
+      "max_added_raw_reward": 0.07999946177005768,
+      "max_abs_normalized_reward": 0.062300510704517365,
+      "ret_stats_updated": true,
+      "obs_stats_unchanged": true
+    }
+  ],
+  "training_started": false,
+  "before": {
+    "sim/rl/runs/l80_t2/model.zip": "200cb9755cc7872cb6fd1c4cfb0f0339fceee1151f946b54ea9e093bc2d1b4c1",
+    "sim/rl/runs/l80_t2/vecnorm.pkl": "2c24832b70ade33ec692926d00b9c02a07c7392d9ba066690c7983ddf0683d8b",
+    "sim/rl/runs/l80_t2/args.json": "7c94a31bf6ab5ec1827977f21792fd447329aeff04a5601b53cd45e6018ff3fa",
+    "sim/rl/train_run.py": "77b0b569cb8d07d2618997e708ae0aa843d5f8a74470e50e5c8b9941e21d2fba",
+    "sim/rl/run_env.py": "68bac4a6d8beb0ce5e7f003a5fe680e94211dad0fab0028322fd9be6e798ea08",
+    "sim/rl/sym_policy.py": "59820235a7c91703ec517365ada1cfc064dca31253b460ed9df2780846465303"
+  },
+  "after": {
+    "sim/rl/runs/l80_t2/model.zip": "200cb9755cc7872cb6fd1c4cfb0f0339fceee1151f946b54ea9e093bc2d1b4c1",
+    "sim/rl/runs/l80_t2/vecnorm.pkl": "2c24832b70ade33ec692926d00b9c02a07c7392d9ba066690c7983ddf0683d8b",
+    "sim/rl/runs/l80_t2/args.json": "7c94a31bf6ab5ec1827977f21792fd447329aeff04a5601b53cd45e6018ff3fa",
+    "sim/rl/train_run.py": "77b0b569cb8d07d2618997e708ae0aa843d5f8a74470e50e5c8b9941e21d2fba",
+    "sim/rl/run_env.py": "68bac4a6d8beb0ce5e7f003a5fe680e94211dad0fab0028322fd9be6e798ea08",
+    "sim/rl/sym_policy.py": "59820235a7c91703ec517365ada1cfc064dca31253b460ed9df2780846465303"
+  },
+  "inputs_unchanged": true
 }

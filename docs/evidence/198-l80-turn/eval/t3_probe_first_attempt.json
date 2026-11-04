@@ -1,0 +1,9 @@
+{
+  "valid": false,
+  "training_started": false,
+  "failed_check": "paired normalized observation equality",
+  "max_abs_difference": 1.2852111,
+  "cause": "PPO.load(env=first_vecenv) schedules saved seed=0 only on the first wrapper; second wrapper retained constructor seed=7200",
+  "correction": "seed both VecNormalize wrappers with 7200 before reset; consume the returned delayed/noisy observations",
+  "retry_budget": "same four six-second rollouts, once; no gate or tolerance changes"
+}
