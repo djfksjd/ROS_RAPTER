@@ -1,5 +1,6 @@
 """Opt-in jump request and 1 ms measurements. Stage 5a fixed by supervisor 2026-11-04.
 
+2026-11-05: opt-in height target (.20/.30 ladder) and landing-phase input; legacy defaults unchanged.
 No physics writes, no negative rewards. The disabled path never samples or consumes RNG.
 Standing follows the get-up/stand state: tilt < .3, height > .8 nominal standing height,
 body speed < .5 m/s, each foot load > .15 body weight, continuously for 1 s.
@@ -53,9 +54,15 @@ def standing(s, h_stand, weight):
 
 class JumpTask:
     def __init__(self, config):
-        unknown = set(config)-{'auto_request_s', 'flight_bonus', 'success_bonus', 'suspend_stand_penalties'}
+        unknown = set(config)-{'auto_request_s', 'flight_bonus', 'success_bonus', 'suspend_stand_penalties', 'height_target_m', 'obs_phase'}
         if unknown:
             raise ValueError(f'unknown jump options: {sorted(unknown)}')
+        self.height_target_m = float(config.get('height_target_m', RISE_M))
+        if not math.isfinite(self.height_target_m) or self.height_target_m <= 0:
+            raise ValueError('height_target_m must be finite and positive')
+        self.obs_phase = config.get('obs_phase', False)
+        if not isinstance(self.obs_phase, bool):
+            raise ValueError('obs_phase must be boolean')
         self.auto_request_s = config.get('auto_request_s', 2.)
         self.flight_bonus = float(config.get('flight_bonus', 10.))
         self.success_bonus = float(config.get('success_bonus', 30.))
@@ -80,6 +87,14 @@ class JumpTask:
     @property
     def command(self):
         return float(self.request_time is not None and self.success_time is None and self.fall_time is None)
+
+    @property
+    def phase(self):
+        """Valid landing latched: 0 preparation/flight, 1 landing/hold, reset clears it.
+
+        Observation only; it never releases the passive knee ratchet or changes physics.
+        """
+        return float(self.landed is not None)
 
     def request(self):
         self.pending = True
@@ -139,7 +154,7 @@ class JumpTask:
                     self.air = dict(t=s['t'], xy=s['xyz'][:2].copy(), apex=float(s['xyz'][2]), samples=0)
                 self.air['samples'] += 1; self.air['apex'] = max(self.air['apex'], float(s['xyz'][2]))
                 event = self._event(s, False)
-                quality = min(event['flight_s']/FLIGHT_S, 1.)*np.clip(event['apex_rise_m']/RISE_M, 0., 1.)
+                quality = min(event['flight_s']/FLIGHT_S, 1.)*np.clip(event['apex_rise_m']/self.height_target_m, 0., 1.)
                 gain = max(0., float(quality)-self.progress)
                 self.bonus_due += self.flight_bonus*gain; self.progress += gain
                 if self.best is None or (event['flight_s'] >= self.best['flight_s'] and event['apex_rise_m'] >= self.best['apex_rise_m']):
@@ -148,7 +163,7 @@ class JumpTask:
                 self.impact_started = True
                 self.impact_peak_n = max(self.impact_peak_n, float(np.sum(s['feet_force_n'])))
                 event = self._event(s, True)
-                if event['flight_s'] >= FLIGHT_S and event['apex_rise_m'] >= RISE_M:
+                if event['flight_s'] >= FLIGHT_S and event['apex_rise_m'] >= self.height_target_m:
                     self.best = event
                     if event['landing_error_m'] <= LANDING_M:
                         self.landed = event

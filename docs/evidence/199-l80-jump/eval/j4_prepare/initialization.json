@@ -1,0 +1,23 @@
+{
+  "observations": 8192,
+  "input_shape": [
+    56,
+    57
+  ],
+  "actor_mean_max_abs_error": 0.0,
+  "critic_max_abs_error": 0.0,
+  "phase_mean": 0.0,
+  "phase_std": 1.0,
+  "old_normalization_exact": true,
+  "action_std_preserved": true,
+  "norm_reward": true,
+  "return_std": 5.20953428064149,
+  "training_steps": 0,
+  "optimizer_state": "fresh optimizer via existing expand_inputs, no optimization executed",
+  "baseline": {
+    "passed": 0,
+    "total": 6,
+    "progress": 0.3293830966951427,
+    "falls": 0
+  }
+}

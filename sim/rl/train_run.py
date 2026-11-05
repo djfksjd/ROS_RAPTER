@@ -195,6 +195,10 @@ def validate_jump_resume(old, new):
         return
     if old.get('symmetric') and not new.get('symmetric'):
         raise ValueError('jump resume from a symmetric policy requires --symmetric')
+    old_jump = json.loads(old['jump']) if old.get('jump') else {}
+    new_jump = json.loads(new['jump'])
+    if old_jump.get('obs_phase', False) and not new_jump.get('obs_phase', False):
+        raise ValueError('jump resume cannot remove the existing phase input')
     for key, default in [('obs_scan', None), ('obs_hold', None), ('no_obs_vel', False), ('obs_contact', False)]:
         if old.get(key, default) != new.get(key, default):
             raise ValueError('jump resume must preserve existing observation layout: '+key)
@@ -286,7 +290,7 @@ def main():
                    '(x, y, heading) appended after the scan (run_env.py); with --init from a policy without it, as --obs-scan')
     p.add_argument('--getup', help='JSON {"modes": {"sit"|"side"|"back"|"easy": weight}, "hold_s": s, "weights": {}}: stage 1b '
                    'episodes start fallen, get-up reward (run_env.py _drop, _getup_reward)')
-    p.add_argument('--jump', help='JSON opt-in jump task: auto_request_s (2 or null), flight_bonus (10), success_bonus (30), suspend_stand_penalties (false); one appended request input')
+    p.add_argument('--jump', help='JSON opt-in jump task: auto_request_s (2 or null), flight_bonus (10), success_bonus (30), suspend_stand_penalties (false); height_target_m (0.05 legacy), obs_phase (false); request then optional landing-phase input')
     p.add_argument('--scan-std', type=float, default=.15, help='frozen normalisation std (m) of the new scan / hold inputs')
     p.add_argument('--terrain', help='JSON {"kinds": {kind: weight}, "max_level": L, "vmax": m/s, "size": m}: terrain drawn per episode (run_env.py)')
     p.add_argument('--realism', help='realism config JSON path for RunEnv(realism=...) (realism.py, docs/SIM_REALISM.ko.md); omitted = off')
@@ -331,7 +335,8 @@ def main():
             probe = RunEnv(seed=0, **kw)
             freeze_obs(env)
             sym = reflection_constants(ObservationReflection(probe.active, probe.policy_idx, probe.q0, probe.obs_vel, probe.obs_contact,
-                                                             len(probe.scan_dx), bool(probe.obs_hold), probe.jump_task is not None), env)
+                                                             len(probe.scan_dx), bool(probe.obs_hold), probe.jump_task is not None,
+                                                             bool(probe.jump_task and probe.jump_task.obs_phase)), env)
             if not isinstance(model.policy, SymPolicy) or widened:  # rebuild: the reflection stores the normalisation
                 old = model
                 model = PPO(SymPolicy, env, n_steps=old.n_steps, batch_size=old.batch_size, n_epochs=old.n_epochs, learning_rate=old.learning_rate,

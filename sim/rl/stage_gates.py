@@ -36,7 +36,7 @@ turn (stage 4, fixed 2026-11-04 before training, evidence 198): 5 s straight + 1
             Quick uses 2 development seeds and turns only. Full uses 4 held-out seeds plus stand/walk/run-speed/switch
             regression. Hip yaw loads are sampled at 1 ms; full-suite completeness is checked by gate_judge.py.
 jump (stage 5a, fixed by supervisor 2026-11-04): --walk establishes standing for >=0.10 s; request after >=2 s.
-            One appended request input selects the jump policy. 12 s to finish + 1 s return-to-walk regression; 1 ms logging.
+            Request input plus optional landing phase; --jump-height or policy args defines the declared ladder level. 12 s to finish + 1 s return-to-walk regression; 1 ms logging.
             Full 8 nominal/24 DR plus retained --walk/--run regressions. Quick 2/4 distinct development seeds.
             The gate covers 5a only; 15 cm step/drop (5b) is not a claimed pass.
 Fall = the env's termination (tilt, body contact, low hip). Pass rules are in the plan; this script only measures.
@@ -381,12 +381,12 @@ def turn(d, quick=False, walk_dir=None):
                    falls=sum(r['t_fall'] is not None for r in rows), episodes=rows)
 
 
-def jump(d, quick=False, walk_dir=None, run_dir=None, trace_dir=None):
+def jump(d, quick=False, walk_dir=None, run_dir=None, trace_dir=None, height_target_m=None):
     """5a only. Full: 8 nominal + 24 DR and retained policy-set regressions. 5b remains separate."""
     from jump_eval import jump_conditions
     if walk_dir is None or (not quick and run_dir is None):
         raise ValueError('jump requires --walk; full also requires --run for policy-set regressions')
-    yield from jump_conditions(d, walk_dir, quick, trace_dir)
+    yield from jump_conditions(d, walk_dir, quick, trace_dir, height_target_m=height_target_m)
     if quick:
         return
     for gate, generator in (('stand', stand(walk_dir)), ('walk', walk(walk_dir)),
@@ -414,6 +414,7 @@ def main():
     ap.add_argument('--stand', help='stage 1a stand policy run directory (getup gate handoff)')
     ap.add_argument('--run', dest='run_policy', help='switch gate: run policy run directory')
     ap.add_argument('--walk', help='turn gate: retained walking policy; full gate includes all required regressions')
+    ap.add_argument('--jump-height', type=float, choices=[.05, .20, .30], help='declared height; default from policy args, legacy .05')
     ap.add_argument('--jump-traces', help='local-only directory for 1 ms jump npz traces (never tracked)')
     ap.add_argument('--heat-cmd', type=float, nargs='+', default=[4., 5., 6.], help='run gate: forward commands of the 10 min heat runs')
     a = ap.parse_args()
@@ -425,7 +426,7 @@ def main():
     rows = GATES[a.gate](d, a.quick, Path(a.stand)) if a.gate == 'getup' else run(d, a.quick, a.heat_cmd) if a.gate == 'run' \
         else switch(d, a.quick, Path(a.run_policy)) if a.gate == 'switch' \
         else turn(d, a.quick, Path(a.walk)) if a.gate == 'turn' \
-        else jump(d, a.quick, Path(a.walk), Path(a.run_policy) if a.run_policy else None, a.jump_traces) if a.gate == 'jump' else GATES[a.gate](d, a.quick)
+        else jump(d, a.quick, Path(a.walk), Path(a.run_policy) if a.run_policy else None, a.jump_traces, a.jump_height) if a.gate == 'jump' else GATES[a.gate](d, a.quick)
     for row in rows:
         print(json.dumps({'run': d.name, 'gate': a.gate, **row}), flush=True)
 

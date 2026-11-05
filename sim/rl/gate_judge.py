@@ -16,6 +16,8 @@ turn (4, fixed 2026-11-04 before training): turn_rules.py; every episode must sa
 jump (5a, fixed by supervisor 2026-11-04 BEFORE jump training): 0.10 s both-feet flight, +0.05 m over
             standing height, landing <=0.30 m from takeoff, then continuous 1 s standing. Nominal 8/8;
             DR >=22/24 successful and <=2 falls. Impact/current recorded only. Full retained-policy regressions.
+            User decision 2026-11-05 AFTER j3: 5a-1 .20 m, then 5a-2 .30 m. Tagged rows use that height;
+            untagged historical rows retain .05 m. Mixed levels cannot form an adoption suite.
             This judges 5a, not all stage 5; step/drop 0.15 m (5b) and forward jump are separate.
 Usage: .venv-sim/bin/python sim/rl/gate_judge.py GATE.jsonl [GATE2.jsonl ...]"""
 import json
@@ -39,14 +41,15 @@ def turn_episode_ok(row, episode):
             and math.copysign(1., row['yaw_cmd'])*angle >= math.pi/2)
 
 
-def jump_episode_ok(e):
+def jump_episode_ok(e, height_target_m=.05):
     fields = ('request_time_s', 'standing_height_m', 'flight_s', 'apex_rise_m', 'landing_error_m',
               'touchdown_s', 'standing_hold_s', 'success_time_s', 'elapsed_s', 'landing_impact_peak_n',
               'current_peak_a', 'current_over_limit_peak', 'torque_peak_nm', 'return_observed_s')
     if any(not isinstance(e.get(k), (int, float)) or not math.isfinite(e[k]) for k in fields):
         return False
-    return (e.get('t_fall') is None and e['request_time_s'] >= 2. and e['standing_height_m'] > 0
-            and e['flight_s'] >= .10 and e['apex_rise_m'] >= .05 and 0 <= e['landing_error_m'] <= .30
+    return (height_target_m in (.05, .20, .30) and e.get('height_target_m', .05) == height_target_m
+            and e.get('t_fall') is None and e['request_time_s'] >= 2. and e['standing_height_m'] > 0
+            and e['flight_s'] >= .10 and e['apex_rise_m'] >= height_target_m and 0 <= e['landing_error_m'] <= .30
             and e['standing_hold_s'] >= 1. and e['request_time_s'] < e['touchdown_s'] < e['success_time_s'] <= e['elapsed_s']
             and e['success_time_s'] <= 12.+1e-9 and e['elapsed_s'] <= 13.+1e-9
             and e['return_observed_s'] >= 1.-1e-9 and e.get('return_to') == e.get('handoff_from')
@@ -59,10 +62,13 @@ def judge(row):
     c, e = row['cond'], row.get('episodes', [])
     if row['gate'] == 'jump':
         if c in ('in_place', 'in_place_dr'):
-            passed = sum(jump_episode_ok(x) for x in e)
+            height = row.get('height_target_m', .05)
+            passed = sum(jump_episode_ok(x, height) for x in e)
             allowed = 0 if c == 'in_place' else 2
-            valid = bool(e) and len(e) == row['n'] and row['falls'] == sum(x.get('t_fall') is not None for x in e)
-            return valid and row['falls'] <= allowed and passed >= max(1, row['n']-allowed), f"jump success {passed}/{row['n']}, falls {row['falls']}; impact/current recorded only"
+            valid = (height in (.05, .20, .30) and bool(e) and len(e) == row['n']
+                     and all(x.get('height_target_m', .05) == height for x in e)
+                     and row['falls'] == sum(x.get('t_fall') is not None for x in e))
+            return valid and row['falls'] <= allowed and passed >= max(1, row['n']-allowed), f"jump height {height:g} m success {passed}/{row['n']}, falls {row['falls']}; impact/current recorded only"
         if c == 'run_regression':
             ok = bool(e) and len(e) == row['n'] and row['falls'] == 0 and all(
                 x['t_fall'] is None and x['v_mean'] is not None and math.isfinite(x['v_mean'])
@@ -170,10 +176,13 @@ def turn_suite_status(rows):
     return True, 'full turn + stand/walk/run 2/4/6/switch regression passed'
 
 
-def jump_suite_status(rows):
+def jump_suite_status(rows, height_target_m=None):
     """Complete 5a + retained policy regressions only. No 5b/stage-5 adoption claim."""
     if any(r.get('quick') for r in rows):
         return False, 'quick rows are development only'
+    heights = {r.get('height_target_m', .05) for r in rows if r.get('gate') == 'jump' and r.get('cond') in ('in_place', 'in_place_dr')}
+    if len(heights) != 1 or not heights <= {.05, .20, .30} or (height_target_m is not None and heights != {height_target_m}):
+        return False, 'missing/mixed/wrong jump height contract'
     required = [(dict(gate='jump', cond='in_place'), 8), (dict(gate='jump', cond='in_place_dr'), 24)]
     required += [(dict(gate='jump', cond='run_regression', cmd=v), 4) for v in (2., 4., 6.)]
     required += [(dict(gate='stand', cond='hold'), 8), (dict(gate='stand', cond='hold_dr'), 24)]

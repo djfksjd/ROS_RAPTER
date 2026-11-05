@@ -482,7 +482,7 @@ class RunEnv(RaptorEnv):
         if self.jump_task is not None:
             if self.rz is not None and self.rz.obs_temp:
                 raise ValueError('jump input extension currently excludes obs_temp')
-            self.observation_space = gym.spaces.Box(-np.inf, np.inf, (self.observation_space.shape[0]+1,), np.float32)
+            self.observation_space = gym.spaces.Box(-np.inf, np.inf, (self.observation_space.shape[0]+1+int(self.jump_task.obs_phase),), np.float32)
         self.resample_steps = 250
         self.model = self.renderer = None
 
@@ -970,6 +970,8 @@ class RunEnv(RaptorEnv):
             parts.append(self._hold_obs())
         if self.jump_task is not None:
             parts.append([self.jump_task.command])
+            if self.jump_task.obs_phase:
+                parts.append([self.jump_task.phase])
         return np.concatenate(parts).astype(np.float32)
 
     def _anchor(self):
